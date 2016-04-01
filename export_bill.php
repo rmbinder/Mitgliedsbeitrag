@@ -1,0 +1,101 @@
+<?php
+/******************************************************************************
+ * 
+ * export_bill.php
+ *   
+ * Rechnungs-Export fuer das Admidio-Plugin Mitgliedsbeitrag
+ * 
+ * Copyright    : (c) Günter Scheuermann
+ * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
+ * 
+ * Angepasst an Mitgliedsbeitrag ab Version 4 (rmb)
+ * 
+ ****************************************************************************/
+
+// Pfad des Plugins ermitteln
+$plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
+$plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
+$plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
+$plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
+
+require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+
+// Konfiguration einlesen
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
+    
+//alle Mitglieder einlesen
+$members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'KONTONUMMER','BANKLEITZAHL','IBAN','KONTOINHABER'), 0)  ; 
+
+//$rechnungs_file[]=array();
+$rechnungs_file=array();
+$i=0;
+
+//alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
+foreach ($members as $member => $memberdata){
+    if ( !((!empty($memberdata['KONTONUMMER']) && !empty($memberdata['BANKLEITZAHL'])) || !empty($memberdata['IBAN'])) 
+        	&&  empty($memberdata['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]) 
+        	&& !empty($memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')])
+        	&& !empty($memberdata['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')])  )
+	{
+        if (empty($memberdata['KONTOINHABER']))
+        {  
+            $members[$member]['KONTOINHABER'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
+        }
+        $rechnungs_file[$i] = array(
+                "name"           => $members[$member]['KONTOINHABER'],     // Name of account owner.
+                "adress"         => $members[$member]['ADDRESS'],
+                "postcode"       => $members[$member]['POSTCODE'],
+                "city"           => $members[$member]['CITY'],
+                "email"          => $members[$member]['EMAIL'],
+                "beitrag"        => $members[$member]['BEITRAG'.$gCurrentOrganization->getValue('org_id')],
+                "beitragstext"   => $members[$member]['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')],
+        );
+        $i+=1;
+    }
+}
+    
+// Dateityp, der immer abgespeichert wird
+header("Content-Type: application/octet-stream");
+
+// noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
+header('Cache-Control: private');
+
+// Im Grunde ueberfluessig, hat sich anscheinend bewährt
+header("Content-Transfer-Encoding: binary");
+
+// Zwischenspeichern auf Proxies verhindern
+header("Cache-Control: post-check=0, pre-check=0");
+header('Content-Disposition: attachment; filename="'.$pPreferences->config['Rechnungs-Export']['rechnung_dateiname'].'"');
+
+$nr = 1;
+$sum= 0;
+
+//echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
+echo($gL10n->get('PMB_SERIAL_NUMBER').";".$gL10n->get('SYS_NAME').";".$gL10n->get('SYS_ADDRESS').";".$gL10n->get('SYS_POSTCODE').";".$gL10n->get('SYS_LOCATION').";".$gL10n->get('SYS_EMAIL').";".$gL10n->get('PMB_FEE').";".$gL10n->get('PMB_CONTRIBUTORY_TEXT').";".$gL10n->get('PMB_SUM')."\n");
+//print_r($rechnungs_file);
+
+//for ($x = 0; $x < (count($rechnungs_file)-1); $x++){
+for ($x = 0; $x < (count($rechnungs_file)); $x++)
+{
+	$sum += $rechnungs_file[$x]['beitrag'];
+	echo
+         utf8_decode($nr).";"
+        .utf8_decode($rechnungs_file[$x]['name']).";"
+        .utf8_decode($rechnungs_file[$x]['adress']).";"
+        .utf8_decode($rechnungs_file[$x]['postcode']).";"
+        .utf8_decode($rechnungs_file[$x]['city']).";"
+        .utf8_decode($rechnungs_file[$x]['email']).";"
+        .utf8_decode($rechnungs_file[$x]['beitrag']).";"
+        .utf8_decode($rechnungs_file[$x]['beitragstext']).";"
+        .utf8_decode($sum)
+        ."\n";
+    $nr += 1;
+        
+}
+
+//########################################################
+//exit;  
+
+?>

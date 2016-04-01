@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language id="en">
+<version id="4.0.0" translator="Rainer Binder">
+    <text id="PMB_CHOICE" development="new" translation="todo">Choice</text>
+    <text id="PMB_CONTRIBUTION_DELETE_DESC" development="changed" translation="todo">With this contributions, contributions text, paid-date and duedate can be deleted.</text>
+    <text id="PMB_CONTRIBUTION_MODUS_NOTE" development="new" translation="todo">If on the role selection the calculation limited to certain roles, so also the calculation mode affects only for those roles. Existing posts which are not covered by these roles remain unchanged.</text>
+    <text id="PMB_CONTRIBUTION_ROLLQUERY_DESC" development="changed" translation="todo">By default, all contribution roles are considered at a recalculation. About this role selection a recalculation may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</text>
+    <text id="PMB_COPY" development="new" translation="todo">Copying</text>
+    <text id="PMB_COPY_DESC" development="new" translation="todo">This profile data of a member can be copied to another Member.</text>
+    <text id="PMB_COPY_HEADERINFO" development="new" translation="todo">First pick from a source and then a destination copying. Then you determine about "choice" which profile field of "source" to "target" is copied. The copying process is done automatically by setting the hook of the target range.</text>
+    <text id="PMB_DATE_PAID_CHANGE_ALL_DESC" development="new" translation="todo">Herewith all displayed users (! filter-dependent !), the paid-date is changed. -> a non-existent date is set -> an existing date is removed</text>
+    <text id="PMB_DATE_PAID_DESC" development="new" translation="todo">The paid-date is entered as a user identification for a contribution received payment.</text>
+    <text id="PMB_DELETE_ALL" development="new" translation="todo">Delete all</text>
+    <text id="PMB_DELETE_ALL_DESC" development="new" translation="todo">'Delete all' deletes all contributions (including contributions text and paid-date).</text>
+    <text id="PMB_DUEDATE_ONLY" development="new" translation="todo">Duedate only</text>
+    <text id="PMB_DUEDATE_ROLLQUERY_DESC" development="changed" translation="todo">By default, all contribution roles are considered while editing the due date. About this role selection editing the due date may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</text>
+    <text id="PMB_MANDATEDATE_CHANGE_ALL_DESC" development="new" translation="todo">Herewith all displayed users (! filter-dependent !), the mandate date is changed. -> a non-existent date is set -> an existing date is removed</text>
+    <text id="PMB_MANDATEDATE_DESC" development="new" translation="todo">The selected date is entered here mandate for a user when setting a hook.</text>
+    <text id="PMB_NO_CONTRIBUTION_ROLES_DEFINED" development="new" translation="todo">There are no contribution roles available! - Define first contribution roles in accordance with the documentation.</text>
+    <text id="PMB_PAID_ONLY" development="new" translation="todo">Paid-date only</text>
+    <text id="PMB_PAID_ONLY_DESC" development="new" translation="todo">'Paid-date only' deletes only the paid-date.</text>
+    <text id="PMB_PAYMENTS_ROLLQUERY_DESC" development="changed" translation="todo">By default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</text>
+    <text id="PMB_PRE_NOTIFICATION_FILE_NAME" development="new" translation="todo">Pre-notification export file name</text>
+    <text id="PMB_PRE_NOTIFICATION_FILE_NAME_DESC" development="new" translation="todo">File names are to be entered without suffix.\n\nExample:\Export file name: &quot;Export-file&quot; becomes &quot;Export-file.csv&quot;</text>
+    <text id="PMB_REMAPPING" development="new" translation="todo">Remapping</text>
+    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES" development="new" translation="todo">Role membership (age staggered roles)</text>
+    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC" development="new" translation="todo">Checking for multiple memberships in age staggered roles.</text>
+    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR" development="new" translation="todo">The members are listed multiple times in different echelons of the age staggered roles.</text>
+    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK" development="new" translation="todo">No member is repeatedly in different echelons of the age staggered rollers.</text>
+    <text id="PMB_SOURCE" development="new" translation="todo">Source</text>
+    <text id="PMB_SOURCE_DESC" development="new" translation="todo">This selected here Member is the source of the copy action.</text>
+    <text id="PMB_TARGET" development="new" translation="todo">Target</text>
+    <text id="PMB_TARGET_DESC" development="new" translation="todo">This selected here Member is the target of the copy action.</text>
+    <text id="PMB_UNEQUAL_DATATYPE" development="new" translation="todo">This profile fields can not be copied because they have different data types (for example, date to text).</text>
+    <text id="PMB_WITH_PAID" development="new" translation="todo">With paid-date</text>
+    <text id="PMB_WITH_PAID_DESC" development="new" translation="todo">'With paid-date' deletes only the contributions (including contributions text and paid-date) where a paid-date is available.</text>
+    <text id="PMB_WITHOUT_PAID" development="new" translation="todo">Without paid-date</text>
+    <text id="PMB_WITHOUT_PAID_DESC" development="new" translation="todo">'Without paid-date' deletes only the contributions (including contributions text and paid-date) for which no paid-date is available.</text>
+  	<text id="PMB_DUEDATE_CHANGE_ALL_DESC" development="new" translation="todo">Herewith all displayed users (! filter-dependent !), the due date is changed. -> a non-existent date is set -> an existing date is removed</text>
+  	<text id="PMB_DUEDATE_ONLY_DESC" development="new" translation="todo">'Duedate only' deletes only the duedate.</text>
+ 	<text id="PMB_DELIMITER_INFO1" development="new" translation="todo">Sample role name with separator *:</text>
+ 	<text id="PMB_MANDATE_CHANGE_DESC" development="new" translation="todo">Herewith, a change of mandate of the payee and/or Creditor Identifier can be performed.</text>
+	<text id="PMB_ADD_ANOTHER_CONFIG" development="new" translation="todo">Add further configuration</text>
+	<text id="PMB_ADDITIONAL_FIELDS" development="new" translation="todo">Additional fields</text>
+	<text id="PMB_BANK_CHANGED" development="changed" translation="todo">New account with another bank.</text>
+	<text id="PMB_CAT_SELECTION_DESC" development="changed" translation="todo">Pick the category to which a member must belong basically to be considered when examining the role membership. With no choice, this option is meaningless.</text>
+	<text id="PMB_CONFIGURATION_DATA" development="new" translation="todo">Configuration data</text>
+	<text id="PMB_CONFIGURATION_DATA_ALERT_DESC" development="new" translation="todo">They are refilled after the plugin Delete and then restart with default values.</text>
+	<text id="PMB_CONFIGURATION_DATA_DESC" development="new" translation="todo">Configuration data is the data that are set via the "Settings" menu.</text>
+	<text id="PMB_CONTROL_FILE_NAME_DESC" development="new" translation="todo">File names are to be entered without suffix.\n\nExample:\nControl file name: &quot;Kontroll-Datei&quot; becomes &quot;Kontroll-Datei-2013-04-01-RCUR.csv&quot;</text>
+	<text id="PMB_CONVERT_ACCOUNT_DATA_NOTE" development="changed" translation="todo">All converted data has to be checked.</text>
+	<text id="PMB_DEINST_ACTORGONLY" development="new" translation="todo">Delete only data of the current organization.</text>
+	<text id="PMB_DEINST_ALLORG" development="new" translation="todo">Delete data in all organizations.</text>
+	<text id="PMB_DEINST_DATA_DELETE_ERROR" development="new" translation="todo">- When you delete the data, an error has occurred..\n</text>
+	<text id="PMB_DEINST_DATA_DELETE_SUCCESS" development="new" translation="todo">- The created data has been cleared.\n</text>
+	<text id="PMB_DEINST_ENDMESSAGE" development="new" translation="todo">\nTo completely remove the plugin now the browser must be closed and the program files and the link in the menu must be removed. The "Next" button initializes the plugin again with default values.</text>
+	<text id="PMB_DEINST_NO_SELECTED_DATA" development="new" translation="todo">No data has been selected for deletion.</text>
+	<text id="PMB_DEINST_STARTMESSAGE" development="new" translation="todo">The following deletions were performed:\n\n</text>
+	<text id="PMB_DEINST_TABLE_DELETE_ERROR" development="new" translation="todo">- The table "adm_plugin_preferences" could not be deleted because it houses more data from other plugins.\n</text>
+	<text id="PMB_DEINST_TABLE_DELETE_SUCCESS" development="new" translation="todo">- The created table "adm_plugin_preferences" was deleted.\n</text>
+	<text id="PMB_DEINSTALLATION" development="new" translation="todo">Uninstall</text>
+	<text id="PMB_DEINSTALLATION_DESC" development="new" translation="todo">About the uninstall generated by the plugin entries can be deleted from the database.</text>
+	<text id="PMB_DEINSTALLATION_FORM_DESC" development="new" translation="todo">*** This routine deletes only the entries in the Admidio database. Program files and the link in the menu will not be deleted! ***</text>
+	<text id="PMB_DELETE" development="new" translation="todo">Delete</text>
+	<text id="PMB_DELETE_CONFIG" development="new" translation="todo">Delete this configuration</text>
+	<text id="PMB_DELETE_DATA_FROM" development="new" translation="todo">Delete Data from</text>
+	<text id="PMB_DELETE_IN_ALL_ORGS" development="new" translation="todo">The profile fields in this category are visible for several organizations and will be deleted regardless of the setting in "organizational choice".</text>
+	<text id="PMB_DELETE_MAIL_TEXTS" development="new" translation="todo">Delete e-mail texts </text>
+	<text id="PMB_DELETED" development="new" translation="todo">deleted</text>
+	<text id="PMB_DOCUMENTATION" development="new" translation="todo">Documentation</text>
+	<text id="PMB_DOCUMENTATION_OPEN" development="new" translation="todo">Open documentation</text>
+	<text id="PMB_DOCUMENTATION_OPEN_DESC" development="new" translation="todo">Allows the documentation of the plugin can be opened (An existing Internet connection is required because the data is located on admidio.org).</text>
+	<text id="PMB_DUEDATE_DESC" development="new" translation="todo">The chosen here due date is entered when a user is setting a hook.</text>
+	<text id="PMB_DUEDATE_SELECTION" development="new" translation="todo">Due Date/Sequence Type</text>
+	<text id="PMB_DUEDATE_SELECTION_DESC" development="changed" translation="todo">Select a combination of due date/sequence type for which the XML file or the control file is to be created.</text>
+	<text id="PMB_ERROR" development="new" translation="todo">Error</text>
+	<text id="PMB_ERROR_BANK_CHANGED" development="new" translation="todo">It was elected with another bank new bank account, but the IBAN is the same. - That can not be.</text>
+	<text id="PMB_ERROR_MIN_CONFIG" development="new" translation="todo">ERROR: At least one configuration must be present!</text>
+	<text id="PMB_ERROR_NOTHING_CHANGED" development="new" translation="todo">In the fields nothing has changed.</text>
+	<text id="PMB_ERROR_ORIGIBAN_MISSING" development="new" translation="todo">The IBAN has been changed at the same bank. The original IBAN field must therefore be filled.</text>
+	<text id="PMB_ERROR_ORIGMANDATEID_MISSING" development="new" translation="todo">The mandate reference was changed. The original mandate reference field must be filled.</text>
+	<text id="PMB_FEES" development="new" translation="todo">Fees</text>
+	<text id="PMB_FILTER_DESC" development="new" translation="todo">Filter selection for display.</text>
+	<text id="PMB_LINK_TO_DEINSTALLATION" development="new" translation="todo">Skip to uninstall</text>
+	<text id="PMB_MAIL_TEXTS" development="new" translation="todo">Email Texts</text>
+	<text id="PMB_MANDATE_MANAGEMENT_RESULT_ERROR" development="changed" translation="todo">For the listed members, the profile field for the account holder (=payer) is not empty and address details are missing for this payer.</text>
+	<text id="PMB_MANDATE_SCREEN" development="new" translation="todo">Show mandate changes</text>
+	<text id="PMB_MANDATE_SCREEN_DESC" development="new" translation="todo">When checking the box additional columns with mandate changes are displayed in full screen mode.</text>
+	<text id="PMB_MANDATES" development="new" translation="todo">Mandates</text>
+	<text id="PMB_MEMBER_DATA" development="new" translation="todo">User data</text>
+	<text id="PMB_MEMBER_DATA_ALERT_DESC" development="new" translation="todo"> *** WARNING *** This data can not be recovered after deletion !!! *** DANGER *** </text>
+	<text id="PMB_MEMBER_DATA_DESC" development="new" translation="todo">User data is the data that are set in a user's profile (e.g. IBAN or due date).</text>
+	<text id="PMB_MIN_LENGTH" development="changed" translation="todo">Minimum length</text>
+	<text id="PMB_MOVE_CI" development="new" translation="todo">"Creditor Identifier" move to "Original Creditor Identifier"</text>
+	<text id="PMB_MOVE_CREDITOR" development="new" translation="todo">"Payee" move to "Original payee"</text>
+	<text id="PMB_MOVE_IBAN" development="new" translation="todo">IBAN move to original IBAN</text>
+	<text id="PMB_MOVE_MANDATEID" development="new" translation="todo">Mandate reference move to original mandate reference</text>
+	<text id="PMB_NO_DUEDATES_EXIST" development="new" translation="todo">There are no due date.\n\nThe download of the XML file and control file is only possible if at least a due date has been set.</text>
+	<text id="PMB_NOT_CHANGE" development="new" translation="todo">not change</text>
+	<text id="PMB_NOT_SAVED_SETTINGS_LOST" development="new" translation="todo">After each addition or deletion of a configuration the Save button has to be pressed.</text>
+	<text id="PMB_ORG_CHOICE" development="new" translation="todo">Organizational choice</text>
+	<text id="PMB_ORG_CHOICE_DESC" development="new" translation="todo">Should be deleted in all the organizations selected in sections 2 and 3 data, or only in the current?</text>
+	<text id="PMB_OTHERS" development="new" translation="todo">Others</text>
+	<text id="PMB_PRODUCE_MEMBERNUMBER_DESC" development="changed" translation="todo">Creates simple, numerical and cross-organisational membership numbers for active and former members.</text>
+	<text id="PMB_PRODUCE_MEMBERNUMBER_DESC2" development="new" translation="todo">\n%VAR1_BOLD% They are created upon clicking the button.</text>
+	<text id="PMB_REMOVE_CATEGORY" development="new" translation="todo">Remove category</text>
+	<text id="PMB_REMOVE_PROFILEFIELD" development="new" translation="todo">Remove profile field</text>
+	<text id="PMB_ROLE_SELECTION_DESC" development="changed" translation="todo">Choose from the rollers, whose members may call the plugin.</text>
+	<text id="PMB_ROLE_SELECTION_DESC2" development="changed" translation="todo">Choose from the rollers, whose members may access the settings of the plugin.</text>
+	<text id="PMB_SEQUENCETYPE_SELECT_DESC" development="new" translation="todo">The value set here sequence type is set at the same time setting a due date.</text>
+	<text id="PMB_SHOW_ALL" development="new" translation="todo">show all</text>
+	<text id="PMB_VARIABLE_BIC" development="new" translation="todo">AccHolder&apos;s BIC</text>
+	<text id="PMB_WITH_ACCOUNT_DATA" development="new" translation="todo">with account data</text>
+	<text id="PMB_WITHOUT_ACCOUNT_DATA" development="new" translation="todo">without account data</text>
+	<text id="PMB_XML_FILE_NAME_DESC" development="new" translation="todo">File names are to be entered without suffix.\n\nExample:\XML file name: &quot;SEPA-Datei&quot; becomes &quot;SEPA-Datei-2013-04-01-RCUR.xml&quot;</text>
+</version>
+<version id="3.3.6" translator="Rainer Binder">
+    <text id="PMB_COR1_MARKER" development="new" translation="todo">Direct Debit Express</text>
+    <text id="PMB_COR1_MARKER_DESC" development="new" translation="todo">SEPA Direct Debit Express (COR1) create with shorter lead times.</text>
+ 	<text id="PMB_DBTOKEN_DESC" development="changed" translation="todo">With this combination of characters are configuration data that are managed at runtime as an array, combined into a string and saved in the Admidio-Database. Must be within the specified character combination (# _ #) but also, for example, are used in the description of a configuration, the plugin can not read properly stored configuration data. In this case, the default character combination is to change (eg !-!).</text>
+	<text id="PMB_EMAIL_EMPTY" development="new" translation="todo">There are no data selected for an e-mail delivery.</text>	
+	<text id="PMB_IBANCHECK" development="new" translation="todo">IBAN test</text>
+	<text id="PMB_IBANCHECK_DESC" development="new" translation="todo">Check for correct IBAN (Note: The IBAN check digit at the third and fourth digits of the IBAN is checked on the basis standard IBAN rule.).</text>
+	<text id="PMB_IBANCHECK_RESULT_ERROR" development="new" translation="todo">For the members listed, the IBAN is wrong.</text>
+	<text id="PMB_IBANCHECK_RESULT_OK" development="new" translation="todo">No IBAN indicates an error.</text>
+ 	<text id="PMB_MAILCOUNT" development="new" translation="todo">  * * * %VAR1% member(s) * * *</text>
+ 	<text id="PMB_MAILSEND_OK" development="new" translation="todo">E-mail has been sent successfully to:</text>
+ 	<text id="PMB_MAILMISSING_EMAIL" development="new" translation="todo">Missing recipient e-mail address:</text>
+ 	<text id="PMB_MAILANOTHER_ERROR" development="new" translation="todo">The following error has occurred:</text>
+    <text id="PMB_ROLE_TEST" development="changed" translation="todo">Tests</text>
+    <text id="PMB_ROLLQUERY" development="new" translation="todo">Query the contribution roles</text>
+    <text id="PMB_ROLLQUERY_ACTIV" development="new" translation="todo">* * * Role-filter active! * * *</text>
+    <text id="PMB_ROLLQUERY_NOROLL" development="new" translation="todo">No rolls were selected.</text>
+</version> 
+<version id="3.3.5" translator="Rainer Binder">
+    <text id="PMB_CONDITION" development="new" translation="todo">Condition</text>
+    <text id="PMB_CONTRIBUTION_DEFAULT" development="new" translation="todo">Standard</text>
+    <text id="PMB_CONTRIBUTION_MODUS_DESC" development="new" translation="todo">Settings for the calculation mode. The following options are available:\n- Standard: An actual contribution (except for 0 €) is not changed.\n- Overwrite: Existing entries are deleted and replaced by new entries.\n- Add up: Contributions are summed and contribute text is supplemented.</text>
+    <text id="PMB_CONTRIBUTION_OVERWRITE" development="new" translation="todo">Overwrite</text>        
+    <text id="PMB_CONTRIBUTION_ROLLQUERY_INFO" development="new" translation="todo">For this role/these roles, a new contribution calculation was performed:</text>
+    <text id="PMB_CONTRIBUTION_ROLLQUERY_NOROLL" development="new" translation="todo">No rolls were selected.</text>
+    <text id="PMB_CONTRIBUTION_SUMMATION" development="new" translation="todo">Add up</text>
+	<text id="PMB_DUEDATE_ROLLQUERY" development="new" translation="todo">Query the contribution roles</text>
+    <text id="PMB_DUEDATE_ROLLQUERY_ACTIV" development="new" translation="todo">* * * Role-filter active! * * *</text>
+    <text id="PMB_DUEDATE_ROLLQUERY_NOROLL" development="new" translation="todo">No rolls were selected.</text>
+   	<text id="PMB_DUEDATE_ROLLQUERY_SELECTION_DESC" development="new" translation="todo">Choose the roles for which the due date to be processed. Selection of more than one role is possible by pressing the Ctrl button.</text>
+ 	<text id="PMB_FAMILY_ROLES_ROLE_TEST_DESC" development="new" translation="todo">Review of family roles to the specified number of members in the setup.</text>   
+ 	<text id="PMB_FAMILY_ROLES_ROLE_TEST_DESC2" development="new" translation="todo">Here for each family role a check condition in the format from*to:number be spezified. Several conditions are to be separated by a semicolon.\nExample: 14*17:0;18*59:2 means: Examination to 0 members aged 14 to 17 years and testing for 2 members aged 18 to 59 years.</text>   
+    <text id="PMB_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR" development="new" translation="todo">In the listed families at least one member does not meet the test conditions.</text>    
+    <text id="PMB_FAMILY_ROLES_ROLE_TEST_RESULT_OK" development="new" translation="todo">All families follow the test conditions.</text>
+    <text id="PMB_INVALID" development="new" translation="todo">invalid</text>
+    <text id="PMB_NOT_SATISFIED" development="new" translation="todo">not satisfied</text>
+    <text id="PMB_RECALCULATION_DESC" development="changed" translation="todo">Via this option, the fees are recalculated and written into the database.</text>
+    <text id="PMB_REMAPPING_INFO9" development="changed" translation="todo">(May be missing a role with the appropriate age limits or the person is already a member.)</text>
+    <text id="PMB_REMAPPING_AGE_STAGGERED_ROLES_DESC" development="changed" translation="todo">Via this option, all members of age-graded roles are reassigned.</text>
+	<text id="PMB_PRE_NOTIFICATION_DESC" development="changed" translation="todo">Creates a file in the CSV format with all data necessary to create serial letters for pre-notifications and enables sending of pre-notifications by e-mail.</text>
+</version> 
+<version id="3.3.4" translator="Rainer Binder">
+    <text id="PMB_ACCOUNT_DATA_INFO" development="changed" translation="todo">The account details of the recipient are to be entered.</text>
+    <text id="PMB_CONTRIBUTION_PAYMENTS_MAIL_TEXT" development="new" translation="todo">Contribution payments e-mail message</text>
+    <text id="PMB_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC" development="new" translation="todo">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</text>
+   	<text id="PMB_FAMILY_ROLE" development="new" translation="todo">Family role</text>
+	<text id="PMB_FAMILY_ROLES_CONTRIBUTION_DESC" development="changed" translation="todo">If a new amount is entered, this applies to all family roles with the above prefix.</text>
+	<text id="PMB_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC" development="changed" translation="todo">If a new membership fee period is entered, this applies to all family roles with the above prefix.</text>
+	<text id="PMB_FAMILY_ROLES_DESCRIPTION_DESC" development="changed" translation="todo">If a new description is entered, this applies to all family roles with the above prefix.</text>
+   	<text id="PMB_FAMILY_ROLES_NUMBER" development="new" translation="todo">Number of familiy roles</text>  	  
+	<text id="PMB_FAMILY_ROLES_PREFIX_DESC" development="changed" translation="todo">Here, the prefix for family roles is to be entered. This value identifies all family roles.</text>   
+    <text id="PMB_AGE_STAGGERED_ROLES_RESULT_ERROR2" development="new" translation="todo">The reclassification is canceled because gaps in the old staggerd roles or overlaps exist.</text>   
+    <text id="PMB_REMAPPING_INFO3" development="changed" translation="todo">Deleted:</text>
+    <text id="PMB_REMAPPING_INFO4" development="changed" translation="todo">in role</text>
+    <text id="PMB_REMAPPING_INFO5" development="new" translation="todo">*** No role affiliations were deleted. ***</text>
+    <text id="PMB_REMAPPING_INFO6" development="new" translation="todo">Has been added:</text>
+    <text id="PMB_REMAPPING_INFO7" development="new" translation="todo">*** There were no new members assigned to roll. ***</text>
+    <text id="PMB_REMAPPING_INFO8" development="new" translation="todo">Could not be included:</text>
+    <text id="PMB_REMAPPING_INFO10" development="new" translation="todo">in rolls</text>
+    <text id="PMB_PMBMAIL_CONTRIBUTION_PAYMENTS" development="new" translation="todo">#subject# Payment reminder\n#content# Dear Member,\n\nwe would like to remind you that on 1 April, the membership fee was due.\n\nPlease transfer the amount within the next 14 days.\n\nSincerely yours\n%organization_long_name%</text>
+   	<text id="PMB_STAGGERING" development="new" translation="todo">Staggering</text>  
+   	<text id="PMB_STAGGERING_NUMBER" development="new" translation="todo">Number of staggering</text> 	  
+</version>
+<version id="3.3.3" translator="Rainer Binder">
+   	<text id="PMB_CAT_SELECTION" development="new" translation="todo">Category selection</text>
+    <text id="PMB_PMBMAIL_PRE_NOTIFICATION" development="new" translation="todo">#subject# Debit subscription\n#content# Dear Member,\n\non %due_day% we book a membership fee of %fee% euros \nwith the mandate reference number %mandate_id% \nand our creditors-ID %creditor_id% \nfrom your account %iban%.\n\nPlease ensure sufficient funds.\n\nSincerely yours\n%organization_long_name%</text>
+    <text id="PMB_PRE_NOTIFICATION_MAIL_TEXT" development="new" translation="todo">Pre-notification e-mail message</text>
+    <text id="PMB_PRE_NOTIFICATION_MAIL_TEXT_DESC" development="new" translation="todo">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</text>
+    <text id="PMB_VARIABLE_CREDITOR_ID" development="new" translation="todo">Creditor&apos;s identification number</text>
+    <text id="PMB_VARIABLE_DEBTOR" development="new" translation="todo">AccHolder&apos;s name</text>
+    <text id="PMB_VARIABLE_DUE_DAY" development="new" translation="todo">Due date</text>
+    <text id="PMB_VARIABLE_FEE" development="new" translation="todo">Amount of the membership fee</text>
+    <text id="PMB_VARIABLE_FIRST_NAME" development="new" translation="todo">First name of the member</text>
+    <text id="PMB_VARIABLE_IBAN" development="new" translation="todo">AccHolder&apos;s IBAN</text>
+    <text id="PMB_VARIABLE_LAST_NAME" development="new" translation="todo">Last name of the member</text>  
+    <text id="PMB_VARIABLE_MANDATE_ID" development="new" translation="todo">Mandate reference for this collection of contributions</text>
+    <text id="PMB_VARIABLE_MEMBERSHIP_FEE_TEXT" development="new" translation="todo">Intended purpose</text>                  
+</version>
+<version id="3.3.0" translator="Rainer Binder">
+	<text id="PMB_ADDRESS" development="new" translation="todo" description="deptor address">AccHolder&apos;s address</text>
+	<text id="PMB_BANK" development="new" translation="todo">Bank</text>
+	<text id="PMB_BIC" development="new" translation="todo">BIC</text>
+	<text id="PMB_BLZ_FILE_NAME" development="new" translation="todo">Bank code file</text>
+	<text id="PMB_CI" development="new" translation="todo">Creditor&apos;s identification number</text>
+	<text id="PMB_CITY" development="new" translation="todo" description="deptor city">AccHolder&apos;s location</text>
+ 	<text id="PMB_COLLECTION_ORDER" development="new" translation="todo">Bulk collection order</text>	
+    <text id="PMB_CONTRIBUTION_PAYMENTS_EDIT" development="new" translation="todo">Process membership payments</text>	
+	<text id="PMB_CONTROL_SUM" development="new" translation="todo">Control total</text>
+	<text id="PMB_CONVERT" development="new" translation="todo">Convert</text>
+	<text id="PMB_CONVERT_ACCOUNT_DATA" development="new" translation="todo">Convert account details</text>
+	<text id="PMB_CONVERT_ACCOUNT_DATA_DESC" development="new" translation="todo">Converts an account number and a bank code into a BIC and an IBAN (only possible for Germany).</text>
+	<text id="PMB_CONVERT_ACCOUNT_DATA_INFO" development="new" translation="todo">By default, only an IBAN is created from the account number and the bank code. If also a BIC is to be generated and / or a bank name is to be read,\n1. a bank code file is to be selected\n2. the corresponding checkbox has to be activated.\n\nA current version of a bank code file may be --&gt;%VAR1% (unzipped, TXT format) downloaded.</text>
+	<text id="PMB_CREDITOR" development="new" translation="todo">Payee</text>
+	<text id="PMB_DATA_FIELD_SERIAL_NUMBER" development="new" translation="todo">Data field for sequence number</text>
+	<text id="PMB_DEBTOR" development="new" translation="todo">Payer</text>
+	<text id="PMB_DELETE_DUEDATE" development="new" translation="todo">Delete due dates</text>
+	<text id="PMB_DELETE_IBAN_BIC" development="new" translation="todo">Delete IBAN, BIC and bank name</text>
+	<text id="PMB_DELETE_INFO" development="new" translation="todo">The following options are only available during the SEPA introduction phase.</text>
+	<text id="PMB_DELETE_MANDATE" development="new" translation="todo">Delete mandates</text>
+	<text id="PMB_DELETE_MANDATECHANGE" development="new" translation="todo">Delete mandate changes</text>	
+	<text id="PMB_DELETE_MEMBERNUMBER" development="new" translation="todo">Delete membership numbers</text>
+	<text id="PMB_DELETE_SEQUENCETYPE" development="new" translation="todo">Delete sequence types</text>
+	<text id="PMB_DUE" development="new" translation="todo">Due</text>
+	<text id="PMB_DUE_ON" development="new" translation="todo">Due on</text>
+	<text id="PMB_DUEDATE" development="new" translation="todo">Due date</text>	
+	<text id="PMB_DUEDATE_EDIT" development="new" translation="todo">Edit due date</text>
+	<text id="PMB_DUEDATE_EDIT_DESC" development="new" translation="todo">Via this option, a due date can be defined or deleted.</text>
+	<text id="PMB_EMAIL" development="new" translation="todo" description="deptor e-mail">AccHolder&apos;s e-mail</text>
+    <text id="PMB_ESCORT_NOTEPAPER_DESC" development="changed" translation="todo">Creates an accompanying note.</text>
+	<text id="PMB_EXPORT" development="new" translation="todo">Export</text>
+	<text id="PMB_EXPORT_EMPTY" development="new" translation="todo">There is no data to be exported.</text>	
+	<text id="PMB_FINAL_DIRECT_DEBIT" development="new" translation="todo">Final debit (FNAL)</text>
+	<text id="PMB_FIRST_DIRECT_DEBIT" development="new" translation="todo">First debit (FRST)</text>
+	<text id="PMB_FOLLOW_DIRECT_DEBIT" development="new" translation="todo">Recurring debit (RCUR)</text>
+	<text id="PMB_GENERATE_BANK" development="new" translation="todo">Generate bank name</text>
+	<text id="PMB_GENERATE_BIC" development="new" translation="todo">Generate BIC</text>
+	<text id="PMB_IBAN" development="new" translation="todo">IBAN</text>
+	<text id="PMB_MANDATE" development="new" translation="todo">Mandate</text>
+	<text id="PMB_MANDATE_CHANGE" development="new" translation="todo">Change of mandate</text>
+	<text id="PMB_MANDATE_CHANGE_CDTR_INFO" development="new" translation="todo">Entries have to be made here if mandate data has changed since the last collection. No new mandate is required. Only the original values have to be included into the XML data record. Prior to a new collection, the original data entered here has to be deleted manually.</text>
+	<text id="PMB_MANDATE_CHANGE_DBTR_INFO" development="new" translation="todo">Entries have to be made here if mandate data has changed since the last collection. No new mandate is required. Only the original values have to be included into the XML data record. The original data entered here is automatically deleted upon setting a &quot;payment received&quot; date.</text>
+	<text id="PMB_MANDATE_EDIT" development="new" translation="todo">Edit mandate</text>
+	<text id="PMB_MANDATE_EDIT_DESC" development="new" translation="todo">With this option, mandate data can be edited.</text>
+	<text id="PMB_MANDATE_GENERATE" development="new" translation="todo">Create mandate references</text>
+	<text id="PMB_MANDATE_GENERATE_DESC" development="new" translation="todo">Creates mandate references for members\n - if they still do not have such references\n - for which a membership fee has been calculated\n - for which an IBAN has been created.</text>
+	<text id="PMB_MANDATE_MANAGEMENT" development="new" translation="todo">Mandate Management</text>
+	<text id="PMB_MANDATE_MANAGEMENT_DESC" development="new" translation="todo">Via the fields described above, the parameters for compiling the mandate reference can be configured.</text>
+	<text id="PMB_MANDATE_MANAGEMENT_DESC2" development="new" translation="todo">Checking of completeness of data for mandate management purposes.</text>
+	<text id="PMB_MANDATE_MANAGEMENT_RESULT_OK" development="new" translation="todo">All data is complete.</text>
+	<text id="PMB_MANDATEDATE" development="new" translation="todo">Mandate date</text>
+	<text id="PMB_MANDATEDATE_EXIST" development="new" translation="todo">An already set mandate date can only be changed via &quot;Edit profile&quot;.</text>
+	<text id="PMB_MANDATEDATE_SET" development="new" translation="todo">Set mandate date</text>
+	<text id="PMB_MANDATEID" development="new" translation="todo">Mandate reference</text>
+	<text id="PMB_MANDATEID_RES1" development="new" translation="todo">Mandate reference %VAR3_BOLD% has been assigned to member %VAR1_BOLD% %VAR2_BOLD%.\n</text>
+	<text id="PMB_MANDATEID_RES2" development="new" translation="todo">No new mandate references have been assigned.</text>
+	<text id="PMB_MEMBERNUMBER" development="new" translation="todo">Membership number</text>
+	<text id="PMB_MEMBERNUMBER_ERROR" development="new" translation="todo">Program has been aborted due to duplicate membership number %VAR1_BOLD%.</text>
+	<text id="PMB_MEMBERNUMBER_RES1" development="new" translation="todo">Membership number %VAR3_BOLD% has been assigned to member %VAR1_BOLD% %VAR2_BOLD%.\n</text>
+	<text id="PMB_MEMBERNUMBER_RES2" development="new" translation="todo">No new membership numbers have been assigned as all members already have one.</text>
+	<text id="PMB_MESSAGE_DATE" development="new" translation="todo">Date of message</text>
+	<text id="PMB_MESSAGE_ID" development="new" translation="todo">Message ID</text>
+	<text id="PMB_MESSAGE_INITIATOR_NAME" development="new" translation="todo">Initiator</text>	
+	<text id="PMB_NO_DATA_TO_CONVERT" development="new" translation="todo">No account details could be converted\n\n as either all members already have an IBAN / BIC / bank name\n or insufficient information (bank code, account number) is available.</text>
+	<text id="PMB_NUMBER_TRANSACTIONS" development="new" translation="todo">Number of transactions</text>
+	<text id="PMB_ONETIMES_DIRECT_DEBIT" development="new" translation="todo">One-off debit (OOFF)</text>
+	<text id="PMB_ORIG_CI" development="new" translation="todo">Original identification number of creditor</text>
+	<text id="PMB_ORIG_CREDITOR" development="new" translation="todo">Original payee</text>
+	<text id="PMB_ORIG_DEBTOR_AGENT" development="new" translation="todo">Original bank</text>
+	<text id="PMB_ORIG_IBAN" development="new" translation="todo">Original IBAN</text>
+	<text id="PMB_ORIG_MANDATEID" development="new" translation="todo">Original mandate reference</text>
+	<text id="PMB_PAPERLESS_DATA_EXCHANGE" development="new" translation="todo">Voucherless data carrier exchange</text>	
+	<text id="PMB_PAYMENT_ID" development="new" translation="todo">Reference ID</text>
+	<text id="PMB_POSTCODE" development="new" translation="todo" description="debtor postcode">AccHolder&apos;s post code</text>
+	<text id="PMB_PRE_NOTIFICATION" development="new" translation="todo">Advance information</text>
+	<text id="PMB_PREFIX_FAM" development="new" translation="todo">Family prefix</text>
+	<text id="PMB_PREFIX_MEM" development="new" translation="todo">Member prefix</text>
+	<text id="PMB_PREFIX_PAY" development="new" translation="todo">Payer prefix</text>
+	<text id="PMB_PRODUCE_MEMBERNUMBER" development="new" translation="todo">Generate membership number(s)</text>
+	<text id="PMB_SELECT_ALL" development="new" translation="todo">Select all</text>
+	<text id="PMB_SEPA" development="new" translation="todo">SEPA</text>
+	<text id="PMB_SEPA_EXPORT_INFO" development="new" translation="todo">The membership fee plug-in can only create SEPA XML files which\n1. have a common sequence type\n2. have the same due date.\n\n FRST=first debit, RCUR=recurring debit, FNAL=final debit, OOFF=one-off debit</text>
+	<text id="PMB_SEQUENCETYPE" development="new" translation="todo">Sequence type</text>
+	<text id="PMB_SEQUENCETYPE_DESC" development="new" translation="todo">Sequence type: empty=first debit(FRST) R=recurring debit(RCUR) F=final debit(FNAL) O=one-off debit(OOFF)</text>
+	<text id="PMB_ULTIMATE_DEBTOR" development="new" translation="todo">Alternative payer</text>
+	<text id="PMB_UNSELECT_ALL" development="new" translation="todo">Deselect all</text>
+	<text id="PMB_WITH_DUEDATE" development="new" translation="todo">With due date</text>
+	<text id="PMB_WITH_MANDATEDATE" development="new" translation="todo">With mandate date</text>
+	<text id="PMB_WITH_PAID" development="new" translation="todo">With &quot;payment received&quot;</text>
+	<text id="PMB_WITHOUT_DUEDATE" development="new" translation="todo">Without due date</text>
+	<text id="PMB_WITHOUT_MANDATEDATE" development="new" translation="todo">Without mandate date</text>
+	<text id="PMB_XML_FILE" development="new" translation="todo">XML file</text>
+	<text id="PMB_XML_FILE_DESC" development="new" translation="todo">Creates an XML file.</text>
+ 	<text id="PMB_XML_FILE_NAME" development="new" translation="todo">XML file name</text>	
+</version>
+<version id="3.2.0" translator="Rainer Binder">
+   	<text id="PMB_CONTROL_FILE" development="new" translation="todo">Control file</text>
+   	<text id="PMB_CONTROL_FILE_DESC" development="new" translation="todo">Creates a control file in the CSV format.</text>
+	<text id="PMB_CONTROL_FILE_NAME" development="new" translation="todo">Control file name</text>
+	<text id="PMB_DATA_MEDIUM_EXCHANGE_FILE_DESC" development="changed" translation="todo">Creates a data medium exchange file.</text>
+	<text id="PMB_DBTOKEN" development="new" translation="todo">Database separator</text>
+	<text id="PMB_DBTOKEN_DESC" development="new" translation="todo">These strings are used to identify the configuration data in the Admidio database. The predefined combination should only be changed if the set values are not correctly displayed upon restart of the plug-in.</text>
+   	<text id="PMB_EXPORT" development="new" translation="todo">Export</text>
+	<text id="PMB_OPTIONS" development="new" translation="todo">Options</text>
+	<text id="PMB_ROLE_SELECTION_ACTIV" development="new" translation="todo">Currently, the following roles are authorised.</text>
+   	<text id="PMB_ROLE_SELECTION_DESC" development="changed" translation="todo">Select the roles whose members may use the plug-in. Selection of more than one role is possible by pressing the Ctrl button.</text>
+   	<text id="PMB_REMOVE_CONTRIBUTIONS" development="changed" translation="todo">Remove membership fees</text>
+    <text id="PMB_REMOVE_CONTRIBUTIONS_DESC" development="changed" translation="todo">Removes all membership fees from the database.</text>
+    <text id="PMB_REMOVE_CONTRIBUTIONSTEXT" development="changed" translation="todo">Remove membership fee texts</text>
+    <text id="PMB_REMOVE_CONTRIBUTIONSTEXT_DESC" development="changed" translation="todo">Removes all membership fee texts from the database.</text>
+    <text id="PMB_REMOVE_PAID" development="changed" translation="todo">Remove &quot;payment received&quot; marking</text>
+    <text id="PMB_REMOVE_PAID_DESC" development="changed" translation="todo">Removes all &quot;payment received&quot; markings from the database.</text>
+	<text id="PMB_SELECT_MAXLENGTH" development="new" translation="todo">Text length</text>
+	<text id="PMB_SELECT_MAXLENGTH_DESC" development="new" translation="todo">Max. length of the text displayed in the select boxes (min. 20)</text>
+	<text id="PMB_SERIAL_NUMBER" development="new" translation="todo">Seq. number</text>
+    <text id="PMB_SETUP" development="new" translation="todo">Settings</text>
+    <text id="PMB_STATEMENT_EXPORT" development="new" translation="todo">Invoice</text>
+	<text id="PMB_STATEMENT_FILE" development="new" translation="todo">Invoice file</text>
+	<text id="PMB_STATEMENT_FILE_DESC" development="new" translation="todo">Creates an invoice file in the CSV format.</text>
+	<text id="PMB_STATEMENT_FILE_NAME" development="new" translation="todo">Invoice file name</text>
+</version>
+<version id="3.1.1" translator="Rainer Binder">
+	<text id="PMB_FEE" development="new" translation="todo">Membership fee</text>
+	<text id="PMB_DTA_EXPORT_INFO" development="changed" translation="todo">DTA Export exports data currently contained in the database. If new members exist and no recalculation (reassignment) has been performed yet, the database may not be up-to-date.</text>
+</version>
+<version id="3.1.0" translator="Rainer Binder">
+	<!-- System-Phrases for use in every module -->
+ 	<text id="PMB_ACCESSION" development="new" translation="todo">Admission</text>
+    <text id="PMB_ACCOUNT_DATA" development="new" translation="todo">Account details</text>
+    <text id="PMB_ACCOUNT_HOLDER" development="new" translation="todo">Account holder</text>
+    <text id="PMB_ACCOUNT_NUMBER" development="new" translation="todo">Account number</text>
+    <text id="PMB_BANK" development="new" translation="todo">Bank</text>
+    <text id="PMB_BANK_CODE_NUMBER" development="new" translation="todo">Bank code</text>
+ 	<text id="PMB_CONTRIBUTORY_TEXT" development="new" translation="todo">Membership fee text</text>  
+ 	<text id="PMB_FAMILY_ROLES" development="new" translation="todo">Family roles</text>
+ 	<text id="PMB_MEMBERSHIP" development="new" translation="todo">Membership</text>
+    <text id="PMB_MEMBERSHIP_FEE" development="new" translation="todo">Membership fee</text>    
+    <text id="PMB_AGE_STAGGERED_ROLES" development="new" translation="todo">Roles graded by age</text>  
+    <text id="PMB_PAID" development="new" translation="todo">Paid</text>
+    <text id="PMB_PREFIX" development="new" translation="todo">Prefix</text>
+           
+	<!-- Phrases for menu tabs --> 
+    <text id="PMB_TAB_COMMON" development="new" translation="todo">General</text>
+    	   
+    <!-- Phrases for contribution calculation -->
+    <text id="PMB_CONTRIBUTION_CALCULATION" development="new" translation="todo">Determination of membership fees</text>
+    <text id="PMB_RECALCULATION" development="new" translation="todo">Recalculation</text>
+    <text id="PMB_REMAPPING_INFO1" development="new" translation="todo">For the member,</text>
+    <text id="PMB_REMAPPING_INFO2" development="new" translation="todo">no date of birth has been entered.</text>
+    <text id="PMB_REMAPPING_AGE_STAGGERED_ROLES" development="new" translation="todo">Reassignment of age-graded roles</text>
+    
+    <!-- Phrases for contribution analysis -->
+    <text id="PMB_ACCOUNT" development="new" translation="todo">Account</text>
+    <text id="PMB_ALREADY_PAID" development="new" translation="todo">Already paid</text>
+    <text id="PMB_BILL" development="new" translation="todo">Invoice</text>
+    <text id="PMB_CONTRIBUTION_ANALYSIS" development="new" translation="todo">Membership fee analysis</text>
+    <text id="PMB_DUES" development="new" translation="todo">Membership fees</text>
+    <text id="PMB_ITEM" development="new" translation="todo">Item</text>
+    <text id="PMB_MEMBERS_CONTRIBUTION" development="new" translation="todo">Members&apos; fees</text>    
+    <text id="PMB_MEMBERS_CONTRIBUTION_DESC" development="new" translation="todo">The basis of this data are the account details and the Membership Fee and Paid entries of the members liable to pay.</text>   
+ 	<text id="PMB_NUMBER" development="new" translation="todo">Number</text>
+ 	<text id="PMB_PENDING" development="new" translation="todo">Not yet received</text>
+ 	<text id="PMB_ROLE" development="new" translation="todo">Role</text>
+ 	<text id="PMB_ROLES_CONTRIBUTION" development="new" translation="todo">Fees of membership roles</text>
+    <text id="PMB_ROLES_CONTRIBUTION_DESC" development="new" translation="todo">The basis of this data are the entries in the setup, not the entries for the individual roles in the database. Manually changed membership fees for individual roles or proportional membership fees are not taken into account. For this reason, this can only be regarded as a forecast.</text>
+    <text id="PMB_SUM" development="new" translation="todo">Sum</text>   
+    <text id="PMB_TOTAL" development="new" translation="todo">Total sum</text>   
+       
+    <!-- Phrases for contribution payments -->
+    <text id="PMB_CONTRIBUTION_PAYMENTS" development="new" translation="todo">Paid membership fees</text>
+    <text id="PMB_CONTRIBUTION_PAYMENTS_DESC" development="new" translation="todo">Via this option, a &quot;payment received&quot; date can be written into the database.</text>
+    <text id="PMB_DATE_ASC" development="new" translation="todo">Date (ascending)</text>
+    <text id="PMB_DATE_DESC" development="new" translation="todo">Date (descending)</text>
+    <text id="PMB_PAID_ON" development="new" translation="todo">Payment received on</text>
+    
+    <!-- Phrases for dta export -->
+    <text id="PMB_DATA_MEDIUM_EXCHANGE_FILE" development="new" translation="todo">Data medium exchange file</text>
+    <text id="PMB_DATA_MEDIUM_EXCHANGE_FILE_NAME" development="new" translation="todo">DTA file name</text>
+    <text id="PMB_DTA_EXPORT" development="new" translation="todo">DTA</text>
+   	<text id="PMB_ESCORT_NOTEPAPER" development="new" translation="todo">Accompanying note</text>
+    <!-- Note: The data medium exchange file itself is not translated. It is used only in german domestic payment transactions!!!!!!!!!!!!! -->
+	
+    <!-- Phrases for role test -->
+    <text id="PMB_ADULT" development="new" translation="todo">Adults</text>
+    <text id="PMB_ADULT_DESC" development="new" translation="todo">Here, the minimum and maximum number of adults in a family has to be entered.\nPossible values would be 1 for Min and 2 for Max, meaning that\n1. a family must have at least one adult and must not consist of children and juveniles only and that\n2. a family may have a maximum of two adults (father and mother) and not the child who has just attained full age. </text>
+   	<text id="PMB_AGE_LIMIT" development="new" translation="todo">Age limit</text>
+   	<text id="PMB_AGE_LIMIT_DESC" development="new" translation="todo">Here, the age limits have to be entered up to which the family members will be checked. When a senior role (e.g. as from 60 years of age) exists, it may be more favourable to split up a family and to settle the membership fee for each member separately.</text>
+  	<text id="PMB_AND" development="new" translation="todo">and</text>
+  	<text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER" development="new" translation="todo">Number of adults in families</text>
+    <text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER_DESC" development="new" translation="todo">Checking of family roles against the min. or max. number of adults stated in the setup</text>
+    <text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_ERROR" development="new" translation="todo">The listed families do not have the min. or max. number of adults.</text>   
+    <text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_OK" development="new" translation="todo">All families have the min. or max. number of adults.</text>
+    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER" development="new" translation="todo">Number of seniors in families</text>
+    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER_DESC" development="new" translation="todo">Checking of family roles against the number of seniors stated in the setup</text>
+    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_ERROR" development="new" translation="todo">The listed families have at least one member who has exceeded the age limit of %VAR1% years stated in the setup.</text>   
+    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_OK" development="new" translation="todo">No family has a member older than %VAR1% years.</text>
+    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER" development="new" translation="todo">Minimum number of family members</text>
+    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER_DESC" development="new" translation="todo">Checking of family roles against the minimum number of members stated in the setup</text>
+    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_ERROR" development="new" translation="todo">The listed families do not have the minimum number of %VAR1% members.</text>    
+    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK" development="new" translation="todo">All families have the minimum number of %VAR1% members.</text>
+    <text id="PMB_MAX" development="new" translation="todo">Max</text>
+    <text id="PMB_MEMBER_MEMBERS" development="new" translation="todo">Member(s)</text>
+    <text id="PMB_MIN" development="new" translation="todo">Min</text>
+    <text id="PMB_MINIMUM_NUMBER" development="new" translation="todo">Minimum number</text>
+    <text id="PMB_MINIMUM_NUMBER_DESC" development="new" translation="todo">Here, the minimum number of family members is to be entered. A family should have at least two members as the single contribution for a member is certainly less than a family contribution.</text>
+    <text id="PMB_NO_CONTRIBUTION_ROLES" development="new" translation="todo">No membership roles exist.</text>
+    <text id="PMB_NO_COMBINATION_ROLES" development="new" translation="todo">No corresponding role combinations exist.</text>
+    <text id="PMB_AGE_STAGGERED_ROLES_DESC" development="new" translation="todo">Checking of age-graded roles for discrepancies with regard to the age stipulations</text>
+    <text id="PMB_AGE_STAGGERED_ROLES_RESULT_ERROR" development="new" translation="todo">The listed roles show some gaps and / or overlapping.</text>   
+    <text id="PMB_AGE_STAGGERED_ROLES_RESULT_OK" development="new" translation="todo">There are no loopholes or overlapping in the roles graded by age.</text>
+    <text id="PMB_ROLE_TEST" development="new" translation="todo">Role check</text>
+    <text id="PMB_ROLE_MEMBERSHIP_DUTY" development="new" translation="todo">Role membership (mandatory)</text>
+    <text id="PMB_ROLE_MEMBERSHIP_DUTY_DESC" development="new" translation="todo">Checking for mandatory role memberships</text>
+    <text id="PMB_ROLE_MEMBERSHIP_DUTY_DESC2" development="new" translation="todo">To which membership roles must a member belong at least (inclusive-OR operation)?\nAll possible roles are to be marked.</text>
+    <text id="PMB_ROLE_MEMBERSHIP_DUTY_RESULT_OK" development="new" translation="todo">All members are in at least one mandatory membership role.</text>
+    <text id="PMB_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR" development="new" translation="todo">The listed members are not in any mandatory membership role (or no mandatory membership roles have been defined).</text>      
+    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION" development="new" translation="todo">Role membership (exclusion)</text>
+    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_DESC" development="new" translation="todo">Checking for duplicate memberships in excluded roles</text>
+    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_DESC2" development="new" translation="todo">Which role memberships are to exclude each other?</text>
+    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR" development="new" translation="todo">The listed members exist twice in at least two excluded membership roles.</text>    
+    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK" development="new" translation="todo">No member exists twice in any excluded membership role.</text>
+    <text id="PMB_ROLE_TEST_SETUP_INFO" development="new" translation="todo">The parameters listed below are only used for the purpose of role checking. They do not influence the calculation of membership fees.</text>
+   	<text id="PMB_YEARS" development="new" translation="todo">Years</text>
+          
+    <!-- Phrases for role overview -->
+    <text id="PMB_MEMBER_ACCOUNT" development="new" translation="todo">Number of members</text>
+    <text id="PMB_NO_ROLES" development="new" translation="todo">No roles exist</text>    
+    <text id="PMB_OTHER_CONTRIBUTION_ROLES" development="new" translation="todo">Other membership roles</text>
+    <text id="PMB_ROLE_NAME" development="new" translation="todo">Role name</text>
+    <text id="PMB_ROLE_OVERVIEW" development="new" translation="todo">Overview of roles</text>
+    
+    <!-- Phrases for reset -->
+	 <text id="PMB_RESET" development="new" translation="todo">Reset</text>
+    
+    <!-- Phrases for contribution settings -->
+    <text id="PMB_CONTRIBUTION_BLANK" development="new" translation="todo">Space</text>
+    <text id="PMB_CONTRIBUTION_COMMA" development="new" translation="todo">Comma</text>
+    <text id="PMB_CONTRIBUTION_DOT" development="new" translation="todo">Point</text>
+    <text id="PMB_CONTRIBUTION_HYPHEN" development="new" translation="todo">Hyphen</text>
+  	<text id="PMB_CONTRIBUTION_MINCALC" development="new" translation="todo">Minimum calculated amount</text>
+    <text id="PMB_CONTRIBUTION_MINCALC_DESC" development="new" translation="todo">Here, a minimum calculated amount can be entered. Calculated membership fees that are lower than this amount are filtered out and not written into the database.</text>
+    <text id="PMB_CONTRIBUTION_PERCENT" development="new" translation="todo">Percent sign</text>
+    <text id="PMB_CONTRIBUTION_PLUS" development="new" translation="todo">Plus sign</text>
+    <text id="PMB_CONTRIBUTION_PREFIX_DESC" development="new" translation="todo">The membership fee text can be preceded by a prefix.</text>
+   	<text id="PMB_CONTRIBUTION_PRORATA" development="new" translation="todo">Calculation of proportional membership fee</text>
+    <text id="PMB_CONTRIBUTION_PRORATA_DESC" development="new" translation="todo">The respective checkbox has to be activated if the proportional membership fee is to be calculated on the basis of the beginning of the role membership (if the checkbox is deactivated, the admission date is used).</text>
+    <text id="PMB_CONTRIBUTION_ROUNDDOWN" development="new" translation="todo">Round off membership fees</text>
+    <text id="PMB_CONTRIBUTION_ROUNDDOWN_DESC" development="new" translation="todo">The respective checkbox has to be activated if all fees are to be rounded off for the benefit of the member.</text>
+  	<text id="PMB_CONTRIBUTION_SETTINGS" development="new" translation="todo">Membership fee options</text>
+    <text id="PMB_CONTRIBUTION_SLASH" development="new" translation="todo">Slash</text>
+    <text id="PMB_CONTRIBUTION_SUFFIX" development="new" translation="todo">Suffix</text>
+    <text id="PMB_CONTRIBUTION_SUFFIX_DESC" development="new" translation="todo">Proportional membership fees can be followed by a suffix.</text>
+    <text id="PMB_CONTRIBUTION_TEXT_FAMNAMES" development="new" translation="todo">Membership fee text including names (families)</text>
+    <text id="PMB_CONTRIBUTION_TEXT_FAMNAMES_DESC" development="new" translation="todo">The respective checkbox has to be activated if the names of all family members are to appear in the membership fee text.</text>
+    <text id="PMB_CONTRIBUTION_TEXT_TOKEN" development="new" translation="todo">Separator</text>
+    <text id="PMB_CONTRIBUTION_TEXT_TOKEN_DESC" development="new" translation="todo">Separator used to mark the user name / names of the family members in the membership fee text Separators marked with (*) are not permissible in EU bank transfers.</text>
+    <text id="PMB_CONTRIBUTION_TEXT_MEMNAMES" development="new" translation="todo">Membership fee text including name</text>
+    <text id="PMB_CONTRIBUTION_TEXT_MEMNAMES_DESC" development="new" translation="todo">The respective checkbox has to be activated if the user name is to appear in the membership fee text.</text>
+    <text id="PMB_CONTRIBUTION_TIMES" development="new" translation="todo">Multiplication sign</text>
+
+    <!-- Phrases for age staggered roles -->
+    <text id="PMB_DEADLINE" development="new" translation="todo">Deadline</text>
+    <text id="PMB_DEADLINE_DESC" development="new" translation="todo">The entered date serves as a deadline for determining age-graded roles.</text>
+    <text id="PMB_DELIMITER" development="new" translation="todo">Separator</text>
+    <text id="PMB_DELIMITER_DESC" development="new" translation="todo">Here, the separator used to extract the ages in the age-graded roles is to be entered.</text>
+   
+    <text id="PMB_DELIMITER_INFO2" development="new" translation="todo">Members aged between *14* and *18*</text>
+    <text id="PMB_DELIMITER_INFO3" development="new" translation="todo">\n --&gt; In this case, the membership fee of members aged between 14 and 18 is calculated.</text>
+    
+    <!-- Phrases for family roles -->    
+    <text id="PMB_FAMILY_ROLES_CONTRIBUTION_DESC" development="new" translation="todo">If a new amount is entered, this applies to all family roles, i.e. roles with prefix %VAR1_BOLD%.</text>
+    <text id="PMB_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC" development="new" translation="todo">If a new membership fee period is entered, this applies to all family roles, i.e. roles with prefix %VAR1_BOLD%.</text>
+    <text id="PMB_FAMILY_ROLES_DESCRIPTION_DESC" development="new" translation="todo">If a new description is entered, this applies to all family roles, i.e. roles with prefix %VAR1_BOLD%.</text>
+    <text id="PMB_FAMILY_ROLES_PREFIX_DESC" development="new" translation="todo">Here, the prefix for family roles is to be entered. This value identifies all family roles. (Caution: Preceding and following spaces are not taken into consideration.)</text>   
+    
+    <!-- Phrases for plugin control -->
+    <text id="PMB_PLUGIN_CONTROL" development="new" translation="todo">Plug-in release</text>
+    <text id="PMB_ROLE_SELECTION" development="new" translation="todo">Role selection</text>
+    
+    <!-- Phrases for plugin information -->
+    <text id="PMB_PLUGIN_INFORMATION" development="new" translation="todo">Plug-in information</text>
+    <text id="PMB_PLUGIN_DATE" development="new" translation="todo">Status</text>
+    <text id="PMB_PLUGIN_NAME" development="new" translation="todo">Plug-in name</text>
+    <text id="PMB_PLUGIN_VERSION" development="new" translation="todo">Version</text>
+    
+    <!-- Phrases for modul zahlungen -->
+    <text id="PMB_CHANGE_ALL" development="new" translation="todo">Change all</text>
+    <text id="PMB_DATE_PAID" development="new" translation="todo">Payment received date</text>
+    <text id="PMB_FILTER" development="new" translation="todo">Filter</text>
+    <text id="PMB_WITHOUT_PAID" development="new" translation="todo">Without &quot;paid&quot;</text>
+ 
+    <!-- Phrases for modul install -->
+    <text id="PMB_ALL_FIELDS_ARE_AVAILABLE" development="new" translation="todo">All required profile fields exist.</text>
+    <text id="PMB_AVAILABLE" development="new" translation="todo">Existing</text>
+    <text id="PMB_CATEGORIE" development="new" translation="todo">Category</text>
+	<text id="PMB_CREATE_MISSING_FIELDS" development="new" translation="todo">Creates missing profile fields.</text>
+    <text id="PMB_CHANGE_NEXT_TEST" development="new" translation="todo">Changes to the next check.</text>
+    <text id="PMB_DATA_TYPE" development="new" translation="todo">Data type</text>
+    <text id="PMB_FIELDS_SHOULD_BE_CREATED" development="new" translation="todo">Do you want to create the missing fields and categories?</text>
+    <text id="PMB_INSTALL_DESCRIPTION" development="new" translation="todo">The setup routine for the membership fee has detected that a version update has been performed and therefore checks the structure.</text>
+ 	<text id="PMB_INSTALL_END" development="new" translation="todo">Terminates this setup routine.</text>
+ 	<text id="PMB_INSTALL_FIRST_PASSAGE" development="new" translation="todo">1st run</text>  
+    <text id="PMB_INSTALL_SECOND_PASSAGE" development="new" translation="todo">2nd run</text>
+    <text id="PMB_INSTALL_TITLE" development="new" translation="todo">Setup of membership fee</text> 
+    <text id="PMB_INSTALL_VERIFICATION_COMPARISON" development="new" translation="todo">Checking of profile fields (desired / actual value comparison)</text>
+    <text id="PMB_INSTALL_VERIFICATION_MISSING_FIELDS" development="new" translation="todo">Checking for missing profile fields and categories.</text> 
+    <text id="PMB_IS" development="new" translation="todo">ACTUAL</text>
+    <text id="PMB_MISSING" development="new" translation="todo">Missing</text>
+    <text id="PMB_NO_CHANGES_1" development="new" translation="todo">Does not perform any modification to the database. But the plug-in cannot be started.</text>
+    <text id="PMB_NO_CHANGES_2" development="new" translation="todo">Does not perform any modification to the database. However, under certain circumstances, the plug-in may not be started.</text>
+    <text id="PMB_PROFILE_FIELD" development="new" translation="todo">Profile field</text>
+   	<text id="PMB_SECOND_PASSAGE_INFO" development="new" translation="todo">The displayed data is for information purposes only. No changes will be made to the database. Should there be any differences (DESIRED / ACTUAL), the plug-in may not function correctly.</text>   
+   	<text id="PMB_SHALL" development="new" translation="todo">DESIRED</text>
+   	<text id="PMB_STATUS" development="new" translation="todo">Status</text>
+</version>
+</language>
