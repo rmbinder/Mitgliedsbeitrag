@@ -1,4 +1,4 @@
-Mitgliedsbeitrag 4.1.0
+Mitgliedsbeitrag 4.1.1
 
 Dieses Plugin berechnet Mitgliedsbeiträge anhand von Rollenzugehörigkeiten.
 
@@ -77,6 +77,9 @@ Dadurch werden beim ersten Start des Plugins alle Kontonummern, alle Bankleitzah
 
 3. Versionshistorie
 
+4.1.1 (17.02.2016)
+  - Fehler beim Erzeugen von Mitgliedsnummern behoben (Version 4.1.0 erzeugte für alle Mitglieder neue Mitgliedsnummern)
+  
 4.1.0 (17.02.2016)
   - Kompatibilität mit Admidio 3.1
   - im Modul Fälligkeitsdatum wurde der Sequenztyp bei -alle ändern- nicht mitgeändert

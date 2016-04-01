@@ -36,7 +36,7 @@ while($row = $statement->fetch())
 }
 
 // die IDs der Attribute aus der Datenbank herausssuchen
-$attributes = array('SYS_LASTNAME' => 0, 'SYS_FIRSTNAME' => 0, 'PLG_MITGLIEDSBEITRAG_MEMBERNUMBER' => 0);
+$attributes = array('SYS_LASTNAME' => 0, 'SYS_FIRSTNAME' => 0, 'PMB_MEMBERNUMBER' => 0);
 foreach($attributes as $attribute => $dummy) 
 {
     $sql = ' SELECT usf_id
@@ -65,7 +65,7 @@ foreach ($members as $member => $key)
 //alle Mitglieder durchlaufen und prüfen, ob eine Mitgliedsnummer existiert       
  foreach ($members as $member => $key)
 { 
-	if (($members[$member]['PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'] == '') || ($members[$member]['PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'] < 1))
+	if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))
 	{
 		$nummer = erzeuge_mitgliedsnummer();
 		
