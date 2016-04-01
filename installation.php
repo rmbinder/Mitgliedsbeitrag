@@ -1,20 +1,19 @@
 <?php
-/******************************************************************************
- * installation.php
- *   
+/**
+ ***********************************************************************************************
  * Installationsroutine fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.result
+ *
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
  * Parameters:
  *
- * mode         - start 	: Startbildschirm anzeigen
- *                anlegen 	: Fehlende Kategorien und Profilfelder anlegen
- *                soll_ist  : Anzeige des Soll/Ist-Vergleiches
- *
- *****************************************************************************/
+ * mode         : start 	- Startbildschirm anzeigen
+ *                anlegen 	- Fehlende Kategorien und Profilfelder anlegen
+ *                soll_ist  - Anzeige des Soll/Ist-Vergleiches
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -25,6 +24,8 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
 
+$gNavigation->addUrl(CURRENT_URL);
+        
 // Initialize and check the parameters
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start','anlegen', 'soll_ist')));
 
@@ -301,43 +302,6 @@ if($getMode == 'anlegen')
     $cat_id_kontodaten = getCat_IDPMB('Kontodaten');  
     $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten) ; 
 
-    // prüfen, ob es das Profilfeld Kontonummer gibt, wenn nicht: anlegen                          
-    if (!isset($arr['IST']['TBL_USER_FIELDS']['Kontonummer']['usf_name']))
-    {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontonummer']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;                                     
-    }
-
-    // prüfen, ob es das Profilfeld Bankleitzahl gibt, wenn nicht: anlegen         
-    if (!isset($arr['IST']['TBL_USER_FIELDS']['Bankleitzahl']['usf_name']))
-    {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankleitzahl']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;                                       
-    }
    // prüfen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen         
     if (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name']))
     {
@@ -534,13 +498,13 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 	$page = new HtmlPage();
      
 	// add headline and title of module
-	$headline = $gL10n->get('PMB_INSTALL_TITLE');
+	$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
 	$page->setHeadline($headline);
 
     $form = new HtmlForm('configurations_form', null, $page); 
-	$form->addDescription($gL10n->get('PMB_INSTALL_DESCRIPTION'));
-	$form->addDescription('<strong>'.$gL10n->get('PMB_INSTALL_FIRST_PASSAGE').':  ==> '.$gL10n->get('PMB_INSTALL_VERIFICATION_MISSING_FIELDS').'</strong>');
-	$form->addDescription($gL10n->get('PMB_INSTALL_SECOND_PASSAGE').': '.$gL10n->get('PMB_INSTALL_VERIFICATION_COMPARISON'));
+	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
+	$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').':  ==> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS').'</strong>');
+	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON'));
     
 	$datatable = false;
     $hoverRows = true;
@@ -552,165 +516,153 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     
     $columnValues = array();
 	$columnValues[]=$gL10n->get('SYS_CATEGORY');
-	$columnValues[]=$gL10n->get('PMB_PROFILE_FIELD');
-	$columnValues[]=$gL10n->get('PMB_STATUS');
+	$columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_PROFILE_FIELD');
+	$columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_STATUS');
 	$table->addRowHeadingByArray($columnValues);
 	
     $columnValues = array();
 	$columnValues[]=$gL10n->get('SYS_MASTER_DATA');
-	$columnValues[]=$gL10n->get('PMB_AVAILABLE');
+	$columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues,null,null,1,2);
 	
   	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_MEMBERNUMBER');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
     $columnValues   = array();
-    $columnValues[] = $gL10n->get('PMB_MEMBERSHIP');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues,null,null,1,2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ACCESSION');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 				
 	$columnValues   = array();
-    $columnValues[] = $gL10n->get('PMB_MEMBERSHIP_FEE');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues,null,null,1,2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('SYS_CONTRIBUTION');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_PAID');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_CONTRIBUTORY_TEXT');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_SEQUENCETYPE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_DUEDATE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
-    $columnValues[] = $gL10n->get('PMB_MANDATE');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues,null,null,1,2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_MANDATEID');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_MANDATEDATE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ORIG_MANDATEID');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
-    $columnValues[] = $gL10n->get('PMB_ACCOUNT_DATA');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues,null,null,1,2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ACCOUNT_NUMBER');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Kontonummer']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_BANK_CODE_NUMBER');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bankleitzahl']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_IBAN');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_BIC');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_BANK');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ACCOUNT_HOLDER');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ADDRESS');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_POSTCODE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_CITY');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_EMAIL');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
-	$table->addRowByArray($columnValues);
-	
-	$columnValues   = array();
-	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ORIG_DEBTOR_AGENT');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
-	$table->addRowByArray($columnValues);
-	
-	$columnValues   = array();
-	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ORIG_IBAN');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PMB_MISSING').'</strong>' : $gL10n->get('PMB_AVAILABLE') ;
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
 	$form->addDescription($table->show(false));	
 		
@@ -720,8 +672,6 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) 
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) 
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name']))  
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Kontonummer']['usf_name']))  
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Bankleitzahl']['usf_name'])) 
         || (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) 
         || (!isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) 
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) 
@@ -737,24 +687,24 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name']))              
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])))
     {
-    	$form->addDescription($gL10n->get('PMB_FIELDS_SHOULD_BE_CREATED'));	
+    	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));	
     	$form->openButtonGroup();
     	$form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png', 'link' => $g_root_path.'/adm_plugins/'.$plugin_folder.'/installation.php?mode=anlegen', 'class' => 'btn-primary'));
     	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => $g_root_path.'/adm_program/system/back.php', 'class' => 'btn-primary'));    	
     	$form->closeButtonGroup();
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PMB_CREATE_MISSING_FIELDS'));	
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PMB_NO_CHANGES_1'));	
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));	
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_1'));	
     }
     else 
     {
-    	$form->addDescription($gL10n->get('PMB_ALL_FIELDS_ARE_AVAILABLE'));	
+    	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));	
     	$form->openButtonGroup();
    		$form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png','link' => $g_root_path.'/adm_plugins/'.$plugin_folder.'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
     	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => $g_root_path.'/adm_program/system/back.php', 'class' => 'btn-primary'));    	
     	$form->closeButtonGroup();
     	$form->addDescription('<BR>');
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PMB_CHANGE_NEXT_TEST'));	
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PMB_NO_CHANGES_2'));	
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));	
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_2'));	
     }
 	$page->addHtml($form->show(false));		       
     $page->show();  
@@ -763,16 +713,16 @@ elseif($getMode == 'soll_ist')
 {
 	$arr = Check_DB();
 
-    $headline = $gL10n->get('PMB_INSTALL_TITLE');
+    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
     
 	// create html page object
 	$page = new HtmlPage($headline);
 
     $form = new HtmlForm('configurations_form', null, $page); 
     
-	$form->addDescription($gL10n->get('PMB_INSTALL_DESCRIPTION'));
-	$form->addDescription($gL10n->get('PMB_INSTALL_FIRST_PASSAGE').': '.$gL10n->get('PMB_INSTALL_VERIFICATION_MISSING_FIELDS'));
-	$form->addDescription('<strong>'.$gL10n->get('PMB_INSTALL_SECOND_PASSAGE').':  ==> '.$gL10n->get('PMB_INSTALL_VERIFICATION_COMPARISON').'</strong>');
+	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
+	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS'));
+	$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE').':  ==> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON').'</strong>');
   
 	$datatable = false;
     $hoverRows = true;
@@ -785,22 +735,22 @@ elseif($getMode == 'soll_ist')
     $columnAttributes['style'] = 'text-align: center; vertical-align: middle';					
    	$columnAttributes['rowspan'] = 2;
     $table->addColumn($gL10n->get('SYS_CATEGORY'), $columnAttributes, 'th');
-    $table->addColumn($gL10n->get('PMB_PROFILE_FIELD'), $columnAttributes, 'th');
+    $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_PROFILE_FIELD'), $columnAttributes, 'th');
     
     $columnAttributes['rowspan'] = 1;
     $columnAttributes['colspan'] = 2;
     $table->addColumn($gL10n->get('SYS_INTERNAL_NAME'), $columnAttributes, 'th');
-    $table->addColumn($gL10n->get('PMB_DATA_TYPE'), $columnAttributes, 'th');
-   	$table->addColumn('<img class="iconInformation" src="'. THEME_PATH. '/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />', $columnAttributes, 'th');
-   	$table->addColumn('<img class="iconInformation" src="'. THEME_PATH. '/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />', $columnAttributes, 'th');
-   	$table->addColumn('<img class="iconInformation" src="'. THEME_PATH. '/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_MANDATORY').'" />', $columnAttributes, 'th');
-   	
+    $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_DATA_TYPE'), $columnAttributes, 'th');
+   	$table->addColumn('<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />', $columnAttributes, 'th');
+   	$table->addColumn('<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />', $columnAttributes, 'th');
+   	$table->addColumn('<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />', $columnAttributes, 'th');
+
    	$table->addRow('',null,'th');
    	$columnAttributes['colspan'] = 1;
    	for ($i=0;$i<5;$i++)
     {
-    	$table->addColumn($gL10n->get('PMB_SHALL'), $columnAttributes, 'th');
-    	$table->addColumn($gL10n->get('PMB_IS'), $columnAttributes, 'th');		 
+    	$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_SHALL'), $columnAttributes, 'th');
+    	$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_IS'), $columnAttributes, 'th');		 
     } 
 	
 	$columnValues = array();
@@ -809,23 +759,23 @@ elseif($getMode == 'soll_ist')
 	
   	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_MEMBERNUMBER');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Mitgliedsnummer'));
 	$table->addRowByArray($columnValues);
 	
     $columnValues   = array();
-	$columnValues[] = $gL10n->get('PMB_MEMBERSHIP');
+	$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
     $columnValues= array_merge($columnValues,SollIstKategorie($arr,'Mitgliedschaft'));
     $table->addRowByArray($columnValues,null,null,5,8);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ACCESSION');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Beitritt'));
 	$table->addRowByArray($columnValues);
 				
 	$columnValues   = array();
-    $columnValues[] = $gL10n->get('PMB_MEMBERSHIP_FEE');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
    	$columnValues= array_merge($columnValues,SollIstKategorie($arr,'Mitgliedsbeitrag'));
 	$table->addRowByArray($columnValues,null,null,5,8);
 	
@@ -837,140 +787,133 @@ elseif($getMode == 'soll_ist')
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_PAID');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Bezahlt'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_CONTRIBUTORY_TEXT');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Beitragstext'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_SEQUENCETYPE');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE');
    	$columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Sequenztyp'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_DUEDATE');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Faelligkeitsdatum'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
-    $columnValues[] = $gL10n->get('PMB_MANDATE');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
     $columnValues= array_merge($columnValues,SollIstKategorie($arr,'Mandat'));
 	$table->addRowByArray($columnValues,null,null,5,8);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_MANDATEID');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Mandatsreferenz'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_MANDATEDATE');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Mandatsdatum'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ORIG_MANDATEID');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Orig_Mandatsreferenz'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
-    $columnValues[] = $gL10n->get('PMB_ACCOUNT_DATA');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
     $columnValues= array_merge($columnValues,SollIstKategorie($arr,'Kontodaten'));
 	$table->addRowByArray($columnValues,null,null,5,8);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ACCOUNT_NUMBER');
-    $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Kontonummer'));
-	$table->addRowByArray($columnValues);
-	
-	$columnValues   = array();
-	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_BANK_CODE_NUMBER');
-    $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Bankleitzahl'));
-	$table->addRowByArray($columnValues);
-	
-	$columnValues   = array();
-	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_IBAN');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
    	$columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'IBAN'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_BIC');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'BIC'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_BANK');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Bankname'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ACCOUNT_HOLDER');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Kontoinhaber'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ADDRESS');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'KontoinhaberAdresse'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_POSTCODE');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'KontoinhaberPLZ'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_CITY');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'KontoinhaberOrt'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_EMAIL');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'KontoinhaberEMail'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ORIG_DEBTOR_AGENT');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Orig_Debtor_Agent'));
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
-	$columnValues[] = $strich.$gL10n->get('PMB_ORIG_IBAN');
+	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Orig_IBAN'));
 	$table->addRowByArray($columnValues);
 
 	$form->addDescription($table->show(false));	
 
-    $form->addDescription($gL10n->get('PMB_SECOND_PASSAGE_INFO'));	
+    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));	
    	$form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png','link' => $gHomepage, 'class' => 'btn-primary'));
     $form->addDescription('<BR>');
-    $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PMB_INSTALL_END'));		
+    $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));		
    
 	$page->addHtml($form->show(false));		       
     $page->show();  
 }
 
 // Funktionen, die nur in diesem Script benötigt werden
+
+/**
+ * Prüft die Datenbank auf fehlende Profilfelder und Kategorien
+ * @return array $DB_array
+ */
 function check_DB()
 {
     global $gDb,$gCurrentOrganization,$gL10n;
@@ -988,8 +931,8 @@ function check_DB()
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
             OR cat_org_id IS NULL ) ';
             
-    $result = $gDb->query($sql);
-    $row = $gDb->fetch_object($result);
+    $statement = $gDb->query($sql);
+    $row = $statement->fetchObject();
 
     // Gibt es einen zutreffenden Datensatz?  Wenn ja: UPDATE
     if( isset($row->cat_name_intern) && isset($row->cat_name) && (($row->cat_name_intern) == '') && (($row->cat_name) == 'Kontodaten') )
@@ -1008,8 +951,6 @@ function check_DB()
     $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'Mitgliedschaft',    	'cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'),   	'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
     $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']   		= array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MANDATE',		'cat_name_intern' => 'MANDATE'.$gCurrentOrganization->getValue('org_id'),   		'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
                                           
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Kontonummer']  		= array('usf_name'=>'Kontonummer',  		'usf_name_intern'=>'KONTONUMMER',          								'usf_type'=>'DECIMAL',  'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Die Kontonummer für den Bankeinzug');     
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Bankleitzahl'] 		= array('usf_name'=>'Bankleitzahl', 		'usf_name_intern'=>'BANKLEITZAHL',         								'usf_type'=>'DECIMAL',  'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Die Bankleitzahl Ihres Kreditinstituts für den Bankeinzug');  
     $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN'] 				= array('usf_name'=>'PMB_IBAN', 			'usf_name_intern'=>'IBAN',         										'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
     $DB_array['SOLL']['TBL_USER_FIELDS']['BIC'] 				= array('usf_name'=>'PMB_BIC', 				'usf_name_intern'=>'BIC',         										'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
    	$DB_array['SOLL']['TBL_USER_FIELDS']['Bankname'] 			= array('usf_name'=>'PMB_BANK', 			'usf_name_intern'=>'BANKNAME',         									'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Der Name der Bank für den Bankeinzug');
@@ -1045,8 +986,8 @@ function check_DB()
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
             OR cat_org_id IS NULL ) ';
 
-        $result = $gDb->query($sql);
-        $row = $gDb->fetch_object($result);
+        $statement = $gDb->query($sql);
+        $row = $statement->fetchObject();
 
         $DB_array['IST']['TBL_USER_FIELDS'][$field]= array(
 				'usf_name_intern'  	=>  (isset($row->usf_name_intern) ? $row->usf_name_intern : ''), 
@@ -1073,8 +1014,8 @@ function check_DB()
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                 OR cat_org_id IS NULL ) ';
                 
-        $result = $gDb->query($sql);
-        $row = $gDb->fetch_object($result);
+        $statement = $gDb->query($sql);
+        $row = $statement->fetchObject();
 
          $DB_array['IST']['TBL_CATEGORIES'][$cat]= array(
 				'cat_name_intern'  	=>  (isset($row->cat_name_intern) ? $row->cat_name_intern : ''), 
@@ -1093,6 +1034,13 @@ function check_DB()
     }        
     return $DB_array;
 }
+
+/**
+ * Erzeugt die Texte für den Soll-Ist-Vergleich der Profilfelder
+ * @param  array    $arr
+ * @param  string   $field
+ * @return array   $columnValues
+ */
 function SollIstProfilfeld($arr,$field)
 {
 	global $gL10n;
@@ -1122,62 +1070,67 @@ function SollIstProfilfeld($arr,$field)
                 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden']==1)
     {
-      	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
+      	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
     }
     else
     {
-    	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
     }
-
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_hidden']==1)
     {
-     	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
+      	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
     }
     else
     {
-        $columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
     }
     
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_disabled']==1)
     {
-        $columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
+        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
     }
     else
     {
-    	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
     }
              
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_disabled']==1)
     {
-    	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
+    	$columnValues[] =  '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
     }
     else
     {
-        $columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
+        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
     }
                                   
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_mandatory']==1)
     {
-    	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_MANDATORY').'" />';
+    	$columnValues[] =  '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
     }
     else
     {
-    	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
     }
                                       
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_mandatory']==1)
     {
-    	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_MANDATORY').'" />';
+    	$columnValues[] =  '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
     }
     else
     {
-     	$columnValues[] = '<img class="iconInformation" src="'. THEME_PATH. '/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
+     	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
     }             
 	
     return $columnValues;
 }
 
+/**
+ * Erzeugt die Texte für den Soll-Ist-Vergleich der Kategorien
+ * @param  array    $arr
+ * @param  string   $field
+ * @return array   $columnValues
+ */
 function SollIstKategorie($arr,$field)
 {
 	global $gL10n;
@@ -1200,6 +1153,11 @@ function SollIstKategorie($arr,$field)
     return $columnValues;
 }
 
+/**
+ * Erzeugt den nächsten freien Wert für cat_sequence
+ * @param  string $cat_type    Kategorietyp
+ * @return int                 Der nächste freie Wert für cat_sequence
+ */
 function getNextCatSequence($cat_type)
 {
     global $gDb,$gCurrentOrganization;
@@ -1211,15 +1169,20 @@ function getNextCatSequence($cat_type)
                     OR cat_org_id IS NULL )
                 ORDER BY cat_sequence ASC';
                     
-    $result = $gDb->query($sql);
+    $statement = $gDb->query($sql);
 
-    while($row = $gDb->fetch_array($result))
+    while($row = $statement->fetch())
     {
         $sequence = $row['cat_sequence'];
     }
     return $sequence+1 ;
 }
 
+/**
+ * Erzeugt den nächsten freien Wert für usf_sequence
+ * @param  int $usf_cat_id   Cat_Id
+ * @return int               Der nächste freie Wert für usf_sequence
+ */
 function getNextFieldSequence($usf_cat_id)
 {
     global $gDb;
@@ -1230,16 +1193,21 @@ function getNextFieldSequence($usf_cat_id)
                 WHERE usf_cat_id = \''.$usf_cat_id.'\'
                 ORDER BY usf_sequence ASC';
                     
-    $result = $gDb->query($sql);
+    $statement = $gDb->query($sql);
 
-    while($row = $gDb->fetch_array($result))
+    while($row = $statement->fetch())
     {
         $sequence = $row['usf_sequence'];
     }
     return $sequence+1 ;
 }
 
-// gibt zu einem Kategorienamen die entsprechende Cat_ID zurück
+//
+/**
+ * Gibt zu einem Kategorienamen die entsprechende Cat_ID zurück
+ * @param   string  $cat_name       Name der zu pruefenden Kategorie
+ * @return  int     cat_id          Cat_id der Kategorie
+ */
 function getCat_IDPMB($cat_name)
 {
     global $gDb,$gCurrentOrganization;
@@ -1250,10 +1218,8 @@ function getCat_IDPMB($cat_name)
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                 OR cat_org_id IS NULL ) ';
                
-    $result = $gDb->query($sql);
-    $row = $gDb->fetch_object($result);
+    $statement = $gDb->query($sql);
+    $row = $statement->fetchObject();
 
     return $row->cat_id ;
 }
-
-?>

@@ -1,20 +1,16 @@
 <?php
- /******************************************************************************
+/**
+ ***********************************************************************************************
+ * Dieses Modul erzeugt Mandatsreferenzen
  *
- * mandate_id.php
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
- * Dieses Plugin erzeugt Mandatsreferenzen
- * 
+ * Parameters:             keine
  *
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
- * 
- * Parameters:
- *
- * -keine-
- * 
- *****************************************************************************/
+ ***********************************************************************************************
+ */
  
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -83,11 +79,11 @@ foreach ($members as $member => $memberdata)
     $user = new User($gDb, $gProfileFields, $member);
     $user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $referenz);
     $user->save();
-    $message .= $gL10n->get('PMB_MANDATEID_RES1',$members[$member]['FIRST_NAME'],$members[$member]['LAST_NAME'],$referenz);
+    $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES1',$members[$member]['FIRST_NAME'],$members[$member]['LAST_NAME'],$referenz);
 }
 		
 // set headline of the script
-$headline = $gL10n->get('PMB_MANDATE_GENERATE');
+$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE');
 
 // create html page object
 $page = new HtmlPage($headline);
@@ -97,7 +93,7 @@ $form = new HtmlForm('mandateid_form', null, $page);
 // Message ausgeben (wenn keinem Mitglied eine Mitgliedsnummer zugewiesen wurde, dann ist die Variable leer)
 if ($message == '')
 {
-    $form->addDescription($gL10n->get('PMB_MANDATEID_RES2'));
+    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES2'));
 }
 else
 {
@@ -108,6 +104,3 @@ $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PAT
 
 $page->addHtml($form->show(false));
 $page->show();    
-	
-
-?>

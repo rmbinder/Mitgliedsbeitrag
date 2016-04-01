@@ -1,513 +1,453 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language id="de">
-<version id="4.0.0" translator="Rainer Binder">
-    <text id="PMB_ADDITIONAL_FIELDS" development="new" translation="todo">Zusätzliche Felder</text>
-    <text id="PMB_BANK_CHANGED" development="changed" translation="todo">Neue Kontoverbindung bei einer anderen Bank.</text>
-    <text id="PMB_CHOICE" development="new" translation="todo">Auswahl</text>
-    <text id="PMB_CONTRIBUTION_DELETE_DESC" development="changed" translation="todo">Hiermit können Beitrag, Beitragstext, Bezahlt-Datum und Fälligkeitsdatum gelöscht werden.</text>
-    <text id="PMB_CONTRIBUTION_MODUS_NOTE" development="new" translation="todo">Wird über die Rollenauswahl die Beitragsberechnung auf bestimmte Rollen beschränkt, so wirkt sich auch der Berechnungsmodus nur für diese Rollen aus. Vorhandene Beiträge, die nicht über diese Rollen abgedeckt sind, bleiben unverändert bestehen.</text>
-    <text id="PMB_CONTRIBUTION_ROLLQUERY_DESC" development="changed" translation="todo">Standardmäßig werden bei einer Neuberechnung alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Neuberechnung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</text>
-    <text id="PMB_COPY" development="new" translation="todo">Kopieren</text>
-    <text id="PMB_COPY_DESC" development="new" translation="todo">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</text>
-    <text id="PMB_COPY_HEADERINFO" development="new" translation="todo">Wähle zuerst eine Quelle und ein Ziel des Kopiervorgangs aus. Danach bestimmst Du über "Auswahl" welches Profilfeld von "Quelle" zu "Ziel" kopiert wird. Der Kopiervorgang erfolgt automatisch mit Setzen des Hakens der Ziel-Auswahl.</text>
-    <text id="PMB_DATE_PAID_CHANGE_ALL_DESC" development="new" translation="todo">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig ! ) das Bezahlt-Datum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </text>
-    <text id="PMB_DATE_PAID_DESC" development="new" translation="todo">Das Bezahlt-Datum wird bei einem Benutzer als Kennzeichnung für eine geleistete Beitragszahlung eingetragen.</text>
-    <text id="PMB_DELETE" development="new" translation="todo">Löschen</text>
-    <text id="PMB_DELETE_ALL" development="new" translation="todo">Alles löschen</text>
-    <text id="PMB_DELETE_ALL_DESC" development="new" translation="todo">'Alles löschen' löscht alle Beiträge (einschließlich Beitragstext und Bezahlt-Datum).</text>
-    <text id="PMB_DELIMITER_INFO1" development="changed" translation="todo">Beispiel für einen Rollennamen mit dem Trennzeichen *:</text>
-    <text id="PMB_DUEDATE_CHANGE_ALL_DESC" development="new" translation="todo">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig ! ) das Fälligkeitsdatum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </text>
-    <text id="PMB_DUEDATE_ONLY" development="new" translation="todo">Nur Fälligkeitsdatum</text>
-    <text id="PMB_DUEDATE_ONLY_DESC" development="new" translation="todo">'Nur Fälligkeitsdatum' löscht nur das Fälligkeitsdatum</text>
-    <text id="PMB_DUEDATE_ROLLQUERY_DESC" development="changed" translation="todo">Standardmäßig werden beim Bearbeiten des Fälligkeitsdatums alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann das Bearbeiten des Fälligkeitsdatums nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</text>
-    <text id="PMB_DUEDATE_SELECTION_DESC" development="changed" translation="todo">Wähle eine Kombination Fälligkeitsdatum/Sequenztyp aus, für den die XML- oder die Kontrolldatei erstellt werden soll.</text>
-    <text id="PMB_MANDATEDATE_CHANGE_ALL_DESC" development="new" translation="todo">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig !) das Mandatsdatum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </text>
-    <text id="PMB_MANDATEDATE_DESC" development="new" translation="todo">Das hier gewählte Mandatsdatum wird bei einem Benutzer beim Setzen eines Hakens eingetragen.</text>
-    <text id="PMB_NO_CONTRIBUTION_ROLES_DEFINED" development="new" translation="todo">Es sind keine Beitragsrollen vorhanden! - Definiere zuerst Beitragsrollen gemäß der Dokumentation.</text>
-    <text id="PMB_PAID_ONLY" development="new" translation="todo">Nur Bezahlt-Datum</text>
-    <text id="PMB_PAID_ONLY_DESC" development="new" translation="todo">'Nur Bezahlt-Datum' löscht nur das Bezahlt-Datum.</text>
-    <text id="PMB_PAYMENTS_ROLLQUERY_DESC" development="changed" translation="todo">Standardmäßig werden beim Bearbeiten der Beitragszahlungen alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Beitragszahlung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</text>
-    <text id="PMB_PRE_NOTIFICATION_FILE_NAME" development="new" translation="todo">Vorabinformation Exportdateiname</text>
-    <text id="PMB_PRE_NOTIFICATION_FILE_NAME_DESC" development="new" translation="todo">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Export-Datei" wird zu "Export-Datei.csv"</text>
-    <text id="PMB_REMAPPING" development="new" translation="todo">Neuzuordnung</text>
-    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES" development="new" translation="todo">Rollenmitgliedschaft (Altersgestaffelte Rollen)</text>
-    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC" development="new" translation="todo">Überprüfung auf mehrfache Mitgliedschaften in altersgestaffelten Rollen.</text>
-    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR" development="new" translation="todo">Die aufgeführten Mitglieder befinden sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</text>
-    <text id="PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK" development="new" translation="todo">Kein Mitglied befindet sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</text>
-    <text id="PMB_SOURCE" development="new" translation="todo">Quelle</text>
-    <text id="PMB_SOURCE_DESC" development="new" translation="todo">Dieses hier ausgewählte Mitglied ist die Quelle der Kopieraktion.</text>
-    <text id="PMB_TARGET" development="new" translation="todo">Ziel</text>
-    <text id="PMB_TARGET_DESC" development="new" translation="todo">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</text>
-    <text id="PMB_UNEQUAL_DATATYPE" development="new" translation="todo">Diese Profilfelder können nicht kopiert werden, da sie unterschiedliche Datentypen aufweisen (z.B. Datum zu Text).</text>
-    <text id="PMB_WITH_PAID" development="new" translation="todo">Mit Bezahlt-Datum</text>
-    <text id="PMB_WITH_PAID_DESC" development="new" translation="todo">'Mit Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen ein Bezahlt-Datum vorhanden ist.</text>
-    <text id="PMB_WITHOUT_PAID" development="new" translation="todo">Ohne Bezahlt-Datum</text>
-    <text id="PMB_WITHOUT_PAID_DESC" development="new" translation="todo">'Ohne Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen kein Bezahlt-Datum vorhanden ist.</text>
-    <text id="PMB_XML_FILE_NAME_DESC" development="new" translation="todo">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</text>
- 	<text id="PMB_FEES" development="new" translation="todo">Beiträge</text>
- 	<text id="PMB_MEMBER_DATA" development="new" translation="todo">Benutzerdaten</text>
-	<text id="PMB_ADD_ANOTHER_CONFIG" development="new" translation="todo">Weitere Konfiguration hinzufügen</text>
-	<text id="PMB_CAT_SELECTION_DESC" development="changed" translation="todo">Wähle die Kategorien aus, denen ein Mitglied grundsätzlich angehören muß, um bei der Prüfung der Rollenmitgliedschaften berücksichtigt zu werden. Bei keiner Auswahl ist diese Option bedeutungslos.</text>
-	<text id="PMB_CONFIGURATION_DATA" development="new" translation="todo">Konfigurationsdaten</text>
-	<text id="PMB_CONFIGURATION_DATA_ALERT_DESC" development="new" translation="todo">Sie werden nach dem Löschen und anschließendem Neustart des Plugins wieder mit Standardwerten befüllt.</text>
-	<text id="PMB_CONFIGURATION_DATA_DESC" development="new" translation="todo">Konfigurationsdaten sind die Daten, die über das Menü "Einstellungen" gesetzt werden.</text>
-	<text id="PMB_CONTROL_FILE_NAME_DESC" development="new" translation="todo">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Kontroll-Datei" wird zu "Kontroll-Datei-2013-04-01-RCUR.csv"</text>
-	<text id="PMB_CONVERT_ACCOUNT_DATA_NOTE" development="changed" translation="todo">Alle konvertierten Daten müssen überprüft werden.</text>
-	<text id="PMB_DEINST_ACTORGONLY" development="new" translation="todo">Nur Daten der aktuellen Organisation löschen.</text>
-	<text id="PMB_DEINST_ALLORG" development="new" translation="todo">Daten in allen Organisationen löschen.</text>
-	<text id="PMB_DEINST_DATA_DELETE_ERROR" development="new" translation="todo">- Beim Löschen der Daten ist ein Fehler aufgetreten.\n</text>
-	<text id="PMB_DEINST_DATA_DELETE_SUCCESS" development="new" translation="todo">- Die vom Plugin angelegten Daten wurden gelöscht.\n</text>
-	<text id="PMB_DEINST_ENDMESSAGE" development="new" translation="todo">\nUm das Plugin vollständig zu entfernen, müssen jetzt der Browser geschlossen und die Programmdateien und der Link im Menü entfernt werden.</text>
-	<text id="PMB_DEINST_NO_SELECTED_DATA" development="new" translation="todo">Es wurden keine Daten zum Löschen ausgewählt.</text>
-	<text id="PMB_DEINST_STARTMESSAGE" development="new" translation="todo">Folgende Aktionen wurden durchgeführt:\n\n</text>
-	<text id="PMB_DEINST_TABLE_DELETE_ERROR" development="new" translation="todo">- Die Tabelle "adm_plugin_preferences" konnte nicht gelöscht werden, da sich darin noch Daten eines anderen Plugins befinden.\n</text>
-	<text id="PMB_DEINST_TABLE_DELETE_SUCCESS" development="new" translation="todo">- Die vom Plugin angelegte Tabelle "adm_plugin_preferences" wurde gelöscht.\n</text>
-	<text id="PMB_DEINSTALLATION" development="new" translation="todo">Deinstallation</text>
-	<text id="PMB_DEINSTALLATION_DESC" development="new" translation="todo">Über die Deinstallation können vom Plugin erzeugte Einträge in der Datenbank gelöscht werden.</text>
-	<text id="PMB_DEINSTALLATION_FORM_DESC" development="new" translation="todo">*** Diese Routine löscht nur Einträge in der Admidio-Datenbank. Programmdateien und der Link im Menü werden nicht gelöscht! ***</text>
-	<text id="PMB_DELETE_CONFIG" development="new" translation="todo">Diese Konfiguration löschen</text>
-	<text id="PMB_DELETE_DATA_FROM" development="new" translation="todo">Lösche Daten von</text>
-	<text id="PMB_DELETE_IN_ALL_ORGS" development="new" translation="todo">Die Profilfelder in dieser Kategorie sind für mehrere Organisationen sichtbar und werden gelöscht unabhängig von der Einstellung in "Organisationswahl".</text>
-	<text id="PMB_DELETE_MAIL_TEXTS" development="new" translation="todo">Lösche E-Mail Texte in </text>
-	<text id="PMB_DELETED" development="new" translation="todo">Gelöscht</text>
-	<text id="PMB_DOCUMENTATION" development="new" translation="todo">Dokumentation</text>
-	<text id="PMB_DOCUMENTATION_OPEN" development="new" translation="todo">Dokumentation öffnen</text>
-	<text id="PMB_DOCUMENTATION_OPEN_DESC" development="new" translation="todo">Hiermit kann die Dokumentation zum Plugin geöffnet werden (Eine bestehende Internetverbindung wird vorausgesetzt, da sich die Daten auf admidio.org befinden).</text>
-	<text id="PMB_DUEDATE_DESC" development="new" translation="todo">Das hier gewählte Fälligkeitsdatum wird bei einem Benutzer beim Setzen eines Hakens eingetragen.</text>
-	<text id="PMB_DUEDATE_SELECTION" development="new" translation="todo">Fälligkeitsdatum/Sequenztyp</text>
-	<text id="PMB_ERROR" development="new" translation="todo">Fehler</text>
-	<text id="PMB_ERROR_BANK_CHANGED" development="new" translation="todo">Es wurde neue Kontoverbindung bei einer anderen Bank gewählt, aber die IBAN ist dieselbe. - Das kann nicht sein.</text>
-	<text id="PMB_ERROR_MIN_CONFIG" development="new" translation="todo">FEHLER: Mindestens eine Konfiguration muss vorhanden sein!</text>
-	<text id="PMB_ERROR_NOTHING_CHANGED" development="new" translation="todo">In den Feldern wurde nichts geändert.</text>
-	<text id="PMB_ERROR_ORIGIBAN_MISSING" development="new" translation="todo">Die IBAN wurde bei derselben Bank geändert. Das Feld Ursprüngliche IBAN muss deshalb befüllt sein.</text>
-	<text id="PMB_ERROR_ORIGMANDATEID_MISSING" development="new" translation="todo">Die Mandatsreferenz wurde geändert. Das Feld Ursprüngliche Mandatsreferenz muss befüllt sein.</text>
-	<text id="PMB_FILTER_DESC" development="new" translation="todo">Filterauswahl für die Anzeige.</text>
-	<text id="PMB_LINK_TO_DEINSTALLATION" development="new" translation="todo">Zur Deinstallation wechseln</text>
-	<text id="PMB_MAIL_TEXTS" development="new" translation="todo">E-Mail Texte</text>
-	<text id="PMB_MANDATE_CHANGE_DESC" development="new" translation="todo">Hiermit kann eine Mandatsänderung von Zahlungsempfänger und/oder Gläubiger-Identifikationsnummer durchgeführt werden.</text>
-	<text id="PMB_MANDATE_EDIT" development="changed" translation="todo">Mandate bearbeiten</text>
-	<text id="PMB_MANDATE_MANAGEMENT_RESULT_ERROR" development="changed" translation="todo">Bei den aufgeführten Mitgliedern ist das Profilfeld Kontoinhaber (=Zahlungspflichtiger) nicht leer und bei diesem Zahlungspflichtigen fehlen Adressangaben.</text>
-	<text id="PMB_MANDATE_SCREEN" development="new" translation="todo">Mandatsänderungen anzeigen</text>
-	<text id="PMB_MANDATE_SCREEN_DESC" development="new" translation="todo">Beim Setzen dieses Hakens werden im Vollbildmodus zusätzliche Spalten mit Mandatsänderungen angezeigt.</text>
-	<text id="PMB_MANDATES" development="new" translation="todo">Mandate</text>
-	<text id="PMB_MEMBER_DATA_ALERT_DESC" development="new" translation="todo"> *** ACHTUNG *** Diese Daten können nach dem Löschen nicht wiederhergestellt werden!!! *** ACHTUNG *** </text>
-	<text id="PMB_MEMBER_DATA_DESC" development="new" translation="todo">Benutzerdaten sind die Daten, die im Profil eines Benutzers gesetzt werden (z.B. IBAN oder Fälligkeitsdatum). </text>
-	<text id="PMB_MIN_LENGTH" development="changed" translation="todo">Mindestlänge</text>
-	<text id="PMB_MOVE" development="new" translation="todo">schieben</text>
-	<text id="PMB_MOVE_CI" development="new" translation="todo">Gläubiger-Identifikationsnummer verschieben nach Ursprüngliche Gläubiger-Identifikationsnummer</text>
-	<text id="PMB_MOVE_CREDITOR" development="new" translation="todo">Zahlungsempfänger verschieben nach Ursprünglicher Zahlungsempfänger</text>
-	<text id="PMB_MOVE_IBAN" development="new" translation="todo">IBAN verschieben nach Ursprüngliche IBAN</text>
-	<text id="PMB_MOVE_MANDATEID" development="new" translation="todo">Mandatsreferenz verschieben nach Ursprüngliche Mandatsreferenz</text>
-	<text id="PMB_NO_DUEDATES_EXIST" development="new" translation="todo">Es existieren keine Fälligkeitsdaten.\n\nDer Download von XML-Datei und Kontrolldatei wird erst ermöglicht, wenn mindestens ein Fälligkeitsdatum festgelegt wurde.</text>
-	<text id="PMB_NOT_CHANGE" development="new" translation="todo">nicht ändern</text>
-	<text id="PMB_NOT_SAVED_SETTINGS_LOST" development="new" translation="todo">Nach jedem Hinzufügen oder Löschen einer Konfiguration ist der Speichern-Button zu betätigen.</text>
-	<text id="PMB_ORG_CHOICE" development="new" translation="todo">Organisationswahl</text>
-	<text id="PMB_ORG_CHOICE_DESC" development="new" translation="todo">Sollen die in den Abschnitten "Konfigurationsdaten" und "Benutzerdaten" gewählten Daten in allen Organisationen gelöscht werden oder nur in der aktuellen Organisation?</text>
-	<text id="PMB_OTHERS" development="new" translation="todo">Sonstiges</text>
-	<text id="PMB_PRODUCE_MEMBERNUMBER_DESC" development="changed" translation="todo">Erzeugt einfache, numerische und organisationsübergreifende Mitgliedsnummern für aktive und ehemalige Mitglieder.</text>
-	<text id="PMB_PRODUCE_MEMBERNUMBER_DESC2" development="new" translation="todo">\n%VAR1_BOLD% Die Erzeugung erfolgt mit Betätigung des Buttons.</text>
-	<text id="PMB_REMOVE_CATEGORY" development="new" translation="todo">Entferne Kategorie</text>
-	<text id="PMB_REMOVE_PROFILEFIELD" development="new" translation="todo">Entferne Profilfeld</text>
-	<text id="PMB_ROLE_SELECTION_DESC" development="changed" translation="todo">Wähle die Rollen aus, deren Mitglieder das Plugin aufrufen dürfen.</text>
-	<text id="PMB_ROLE_SELECTION_DESC2" development="changed" translation="todo">Wähle die Rollen aus, deren Mitglieder die Einstellungen des Plugins aufrufen dürfen.</text>
-	<text id="PMB_SEQUENCETYPE_SELECT_DESC" development="new" translation="todo">Der hier eingestellte Sequenztyp wird gleichzeitig mit dem Setzen eines Fälligkeitsdatum gesetzt.</text>
-	<text id="PMB_SHOW_ALL" development="new" translation="todo">alle anzeigen</text>
-	<text id="PMB_VARIABLE_BIC" development="new" translation="todo">BIC des Zahlungspflichtigen</text>
-	<text id="PMB_WITH_ACCOUNT_DATA" development="new" translation="todo">mit Kontodaten</text>
-	<text id="PMB_WITHOUT_ACCOUNT_DATA" development="new" translation="todo">ohne Kontodaten</text>
-</version>
-<version id="3.3.6" translator="Rainer Binder">
-    <text id="PMB_COR1_MARKER" development="new" translation="todo">Eil-Lastschrift</text>
-    <text id="PMB_COR1_MARKER_DESC" development="new" translation="todo">SEPA Eil-Lastschrift (COR1) mit verkürzten Vorlauffristen erstellen.</text>
- 	<text id="PMB_DBTOKEN_DESC" development="changed" translation="todo">Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden, zu einem String zusammengefasst und in der Admidiodatenbank gespeichert. Muss die vorgegebene Zeichenkombination (#_#) jedoch ebenfalls, z.B. in einer Beschreibung verwendet werden, so kann das Plugin gespeicherte Konfigurationsdaten nicht mehr richtig einlesen. In diesem Fall ist die vorgegebene Zeichenkombination abzuändern (z.B. in !-!).</text>
-	<text id="PMB_EMAIL_EMPTY" development="new" translation="todo">Es sind keine Daten für einen E-Mail-Versand ausgewählt.</text>	
-	<text id="PMB_IBANCHECK" development="new" translation="todo">IBAN-Test</text>
-	<text id="PMB_IBANCHECK_DESC" development="new" translation="todo">Überprüfung auf korrekte IBAN (Hinweis: Geprüft wird die IBAN-Prüfziffer an der dritten und vierten Stelle der IBAN anhand der Standard IBAN-Regel.).</text>
-	<text id="PMB_IBANCHECK_RESULT_ERROR" development="new" translation="todo">Bei den aufgeführten Mitgliedern ist die IBAN fehlerhaft.</text>
-	<text id="PMB_IBANCHECK_RESULT_OK" development="new" translation="todo">Keine IBAN weist einen Fehler auf.</text>
- 	<text id="PMB_MAILCOUNT" development="new" translation="todo">  * * * %VAR1% Mitglied(er) * * *</text>
- 	<text id="PMB_MAILSEND_OK" development="new" translation="todo">E-Mail wurde erfolgreich gesendet an:</text>
- 	<text id="PMB_MAILMISSING_EMAIL" development="new" translation="todo">Fehlende Empfänger E-Mailadresse:</text>
- 	<text id="PMB_MAILANOTHER_ERROR" development="new" translation="todo">Folgender Fehler ist eingetreten:</text>
-	<text id="PMB_RESET" development="changed" translation="todo">Löschen</text>	 
-    <text id="PMB_ROLE_TEST" development="changed" translation="todo">Prüfungen</text>
-    <text id="PMB_ROLLQUERY" development="new" translation="todo">Abfrage der Beitragsrollen</text>
-    <text id="PMB_ROLLQUERY_ACTIV" development="new" translation="todo">* * * Rollenfilter aktiv! * * *</text>
-    <text id="PMB_ROLLQUERY_NOROLL" development="new" translation="todo">Es wurden keine Rollen ausgewählt.</text>
-</version>
-<version id="3.3.5" translator="Rainer Binder">
-    <text id="PMB_CONDITION" development="new" translation="todo">Prüfbedingung</text>
-    <text id="PMB_CONTRIBUTION_DEFAULT" development="new" translation="todo">Standard</text>
-    <text id="PMB_CONTRIBUTION_MODUS_DESC" development="new" translation="todo">Einstellungen für den Berechnungsmodus. Folgende Optionen sind wählbar:\n- Standard: Ein vorhandener Beitrag (außer 0 €) wird nicht verändert.\n- Überschreiben: Existierende Einträge werden gelöscht und durch neue Einträge ersetzt.\n- Aufsummieren: Beiträge werden aufsummiert und ein Beitragstext wird ergänzt.</text>
-    <text id="PMB_CONTRIBUTION_OVERWRITE" development="new" translation="todo">Überschreiben</text>        
-    <text id="PMB_CONTRIBUTION_ROLLQUERY_INFO" development="new" translation="todo">Für diese Rolle(n) wurde eine neue Beitragsberechnung durchgeführt:</text>
-    <text id="PMB_CONTRIBUTION_ROLLQUERY_NOROLL" development="new" translation="todo">Es wurden keine Rollen ausgewählt.</text>
-    <text id="PMB_CONTRIBUTION_SUMMATION" development="new" translation="todo">Aufsummieren</text>
-   	<text id="PMB_DUEDATE_ROLLQUERY" development="new" translation="todo">Abfrage der Beitragsrollen</text>
-    <text id="PMB_DUEDATE_ROLLQUERY_ACTIV" development="new" translation="todo">* * * Rollenfilter aktiv! * * *</text>
-    <text id="PMB_DUEDATE_ROLLQUERY_NOROLL" development="new" translation="todo">Es wurden keine Rollen ausgewählt.</text>
-   	<text id="PMB_DUEDATE_ROLLQUERY_SELECTION_DESC" development="new" translation="todo">Wähle die Rollen aus, für die das Fälligkeitsdatum bearbeitet werden soll. Eine Mehrfachauswahl ist über die STRG-Taste möglich.</text>
- 	<text id="PMB_FAMILY_ROLES_ROLE_TEST_DESC" development="new" translation="todo">Überprüfung der Familienrollen auf die im Setup angegebene Anzahl an Mitgliedern.</text>   
- 	<text id="PMB_FAMILY_ROLES_ROLE_TEST_DESC2" development="new" translation="todo">Hier kann für jede Familienrolle eine Prüfbedingung im Format von*bis:Anzahl angegeben werden. Mehrere Bedingungen sind dabei durch Semikolon zu trennen.\nBsp.: 14*17:0;18*59:2 bedeutet: Prüfung auf 0 Mitglieder im Alter von 14 bis 17 Jahren und Prüfung auf 2 Mitglieder im Alter von 18 bis 59 Jahren.</text>   
-    <text id="PMB_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR" development="new" translation="todo">In den aufgeführten Familien erfüllt mindestens ein Mitglied nicht die Prüfbedingungen.</text>    
-    <text id="PMB_FAMILY_ROLES_ROLE_TEST_RESULT_OK" development="new" translation="todo">Alle Familien entsprechen den Prüfbedingungen.</text>
-    <text id="PMB_INVALID" development="new" translation="todo">ungültig</text>
-    <text id="PMB_NOT_SATISFIED" development="new" translation="todo">nicht erfüllt</text>
-    <text id="PMB_RECALCULATION_DESC" development="changed" translation="todo">Hiermit werden die Beiträge neu berechnet und in die Datenbank geschrieben.</text>
-    <text id="PMB_REMAPPING_INFO9" development="changed" translation="todo">(Eventuell fehlt eine Rolle mit den entsprechenden Altersgrenzen oder das Mitglied ist bereits Angehöriger.)</text>
-    <text id="PMB_REMAPPING_AGE_STAGGERED_ROLES_DESC" development="changed" translation="todo">Hiermit werden alle Mitglieder altersgestaffelter Rollen neu zugeordnet.</text>
-	<text id="PMB_PRE_NOTIFICATION_DESC" development="changed" translation="todo">Erstellt eine Datei im CSV-Format mit allen erforderlichen Daten zum Erzeugen von Serienbriefen für Vorabinformationen und bietet die Möglichkeit Vorabinformationen per E-Mail zu versenden.</text>
-</version>
-<version id="3.3.4" translator="Rainer Binder">
-    <text id="PMB_ACCOUNT_DATA_INFO" development="changed" translation="todo">Anzugeben sind die Kontodaten des Empfängers.</text>    
-    <text id="PMB_CONTRIBUTION_PAYMENTS_MAIL_TEXT" development="new" translation="todo">Beitragszahlungen E-Mail-Text</text>
-    <text id="PMB_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC" development="new" translation="todo">Hier kann der Text für eine E-Mail zur Beitragszahlung angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</text>
-   	<text id="PMB_FAMILY_ROLE" development="new" translation="todo">Familienrolle</text>
-    <text id="PMB_FAMILY_ROLES_CONTRIBUTION_DESC" development="changed" translation="todo">Wird ein neuer Betrag eingegeben, so wird in allen Familienrollen mit dem obigen Präfix der neue Beitrag gesetzt.</text>
-    <text id="PMB_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC" development="changed" translation="todo">Wird ein neuer Betragszeitraum eingegeben, so wird in allen Familienrollen mit dem obigen Präfix der neue Beitragszeitraum gesetzt.</text>
-    <text id="PMB_FAMILY_ROLES_DESCRIPTION_DESC" development="changed" translation="todo">Wird eine neue Beschreibung eingegeben, so wird in allen Familienrollen mit dem obigen Präfix die neue Beschreibung gesetzt.</text>
-   	<text id="PMB_FAMILY_ROLES_NUMBER" development="new" translation="todo">Anzahl der Familienrollen</text> 	
- 	<text id="PMB_FAMILY_ROLES_PREFIX_DESC" development="changed" translation="todo">Hier ist das Präfix für Familienrollen einzugeben. Über diesen Wert werden alle Familienrollen identifiziert.</text>   
-    <text id="PMB_AGE_STAGGERED_ROLES_RESULT_ERROR2" development="new" translation="todo">Die Neuzuordung wird abgebrochen, da in den altersgestaffelten Rollen Lücken oder Überlappungen bestehen.</text>   
-    <text id="PMB_REMAPPING_INFO3" development="changed" translation="todo">Gelöscht wurde(n):</text>
-    <text id="PMB_REMAPPING_INFO4" development="changed" translation="todo">in Rolle</text>
-    <text id="PMB_REMAPPING_INFO5" development="new" translation="todo">*** Es wurden keine Rollenzugehörigkeiten gelöscht. ***</text>
-    <text id="PMB_REMAPPING_INFO6" development="new" translation="todo">Neu aufgenommen wurde(n):</text>
-    <text id="PMB_REMAPPING_INFO7" development="new" translation="todo">*** Es wurden keine Mitglieder neuen Rollen zugeteilt. ***</text>
-    <text id="PMB_REMAPPING_INFO8" development="new" translation="todo">Nicht aufgenommen werden konnte(n):</text>
-    <text id="PMB_REMAPPING_INFO10" development="new" translation="todo">in Rollen mit</text>
-    <text id="PMB_PMBMAIL_CONTRIBUTION_PAYMENTS" development="new" translation="todo">#subject# Zahlungserinnerung\n#content# Sehr geehrtes Mitglied,\n\nwir möchten Sie höflichst daran erinnern, dass am 1. April der jährliche Mitgliedsbeitrag in Höhe von %fee% Euro fällig war.\n\nBitte überweisen Sie innerhalb der nächsten 14 Tage den Beitrag auf unser Konto.\n\nMit freundlichen Grüßen\n%organization_long_name%</text>
-   	<text id="PMB_STAGGERING" development="new" translation="todo">Staffelung</text>  
-   	<text id="PMB_STAGGERING_NUMBER" development="new" translation="todo">Anzahl der Staffelungen</text> 	  
-</version>
-<version id="3.3.3" translator="Rainer Binder">
-   	<text id="PMB_CAT_SELECTION" development="new" translation="todo">Kategorieauswahl</text>
-    <text id="PMB_PMBMAIL_PRE_NOTIFICATION" development="new" translation="todo">#subject# Abbuchung Mitgliedsbeitrag\n#content# Sehr geehrtes Mitglied,\n\nam %due_day% buchen wir einen Mitgliedsbeitrag in Höhe von %fee% Euro\nmit der Mandatsreferenz-Nummer %mandate_id%\nund unserer Gläubiger-ID %creditor_id%\nvon Ihren Konto %iban% ab.\n\nBitte sorgen Sie für ausreichende Kontodeckung.\n\nMit freundlichen Grüßen\n%organization_long_name%</text>
-    <text id="PMB_PRE_NOTIFICATION_MAIL_TEXT" development="new" translation="todo">Vorabinformation E-Mail-Text</text>
-    <text id="PMB_PRE_NOTIFICATION_MAIL_TEXT_DESC" development="new" translation="todo">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</text>
-    <text id="PMB_VARIABLE_CREDITOR_ID" development="new" translation="todo">Creditor Identifier des Zahlungsempfängers</text>
-    <text id="PMB_VARIABLE_DEBTOR" development="new" translation="todo">Name des Zahlungspflichtigen</text>
-    <text id="PMB_VARIABLE_DUE_DAY" development="new" translation="todo">Datum des Fälligkeitstages</text>
-    <text id="PMB_VARIABLE_FEE" development="new" translation="todo">Höhe des Mitgliedsbeitrages</text>
-    <text id="PMB_VARIABLE_FIRST_NAME" development="new" translation="todo">Vorname des Mitglieds</text>
-    <text id="PMB_VARIABLE_IBAN" development="new" translation="todo">IBAN des Zahlungspflichtigen</text>
-    <text id="PMB_VARIABLE_LAST_NAME" development="new" translation="todo">Nachname des Mitglieds</text>  
-    <text id="PMB_VARIABLE_MANDATE_ID" development="new" translation="todo">Mandatsreferenz für diesen Beitragseinzug</text>
-    <text id="PMB_VARIABLE_MEMBERSHIP_FEE_TEXT" development="new" translation="todo">Verwendungszweck</text>                  
-</version>
-<version id="3.3.0" translator="Rainer Binder">
-	<text id="PMB_ADDRESS" development="new" translation="todo" description="deptor address">KtoInh-Adresse</text>
-	<text id="PMB_BANK" development="new" translation="todo">Bank</text>
-	<text id="PMB_BIC" development="new" translation="todo">BIC</text>
-	<text id="PMB_BLZ_FILE_NAME" development="new" translation="todo">Bankleitzahlendatei</text>
-	<text id="PMB_CI" development="new" translation="todo">Gläubiger-Identifikationsnummer</text>
-	<text id="PMB_CITY" development="new" translation="todo" description="deptor city">KtoInh-Ort</text>
- 	<text id="PMB_COLLECTION_ORDER" development="new" translation="todo">Sammeleinziehungsauftrag</text>	
-    <text id="PMB_CONTRIBUTION_PAYMENTS_EDIT" development="new" translation="todo">Beitragszahlungen bearbeiten</text>	
-	<text id="PMB_CONTROL_SUM" development="new" translation="todo">Kontrollsumme</text>
-	<text id="PMB_CONVERT" development="new" translation="todo">Konvertieren</text>
-	<text id="PMB_CONVERT_ACCOUNT_DATA" development="new" translation="todo">Kontodaten konvertieren</text>
-	<text id="PMB_CONVERT_ACCOUNT_DATA_DESC" development="new" translation="todo">Konvertiert Kontonummer und Bankleitzahl in BIC und IBAN (nur für Deutschland möglich!).</text>
-	<text id="PMB_CONVERT_ACCOUNT_DATA_INFO" development="new" translation="todo">Standardmäßig wird nur eine IBAN aus Kontonummer und Bankleitzahl erstellt. Falls auch ein BIC generiert und/oder der Bankname ausgelesen werden soll, so ist zusätzlich\n\n1. eine Bankleitzahlendatei auszuwählen\n2. ein entsprechender Haken zu setzen.\n\nEine aktuelle Version einer Bankleitzahlendatei kann -->%VAR1% (ungepackt, TXT-Format) heruntergeladen werden.</text>
-	<text id="PMB_CREDITOR" development="new" translation="todo">Zahlungsempfänger</text>
-	<text id="PMB_DATA_FIELD_SERIAL_NUMBER" development="new" translation="todo">Datenfeld für die laufende Nummer</text>
-	<text id="PMB_DEBTOR" development="new" translation="todo">Zahlungspflichtiger</text>
-	<text id="PMB_DELETE_DUEDATE" development="new" translation="todo">Fälligkeitsdaten löschen</text>
-	<text id="PMB_DELETE_IBAN_BIC" development="new" translation="todo">IBAN, BIC und Bankname löschen</text>
-	<text id="PMB_DELETE_INFO" development="new" translation="todo">Die folgenden Optionen sind nur während der SEPA-Einführungsphase verfügbar.</text>
-	<text id="PMB_DELETE_MANDATE" development="new" translation="todo">Mandate löschen</text>
-	<text id="PMB_DELETE_MANDATECHANGE" development="new" translation="todo">Mandatsänderungen löschen</text>	
-	<text id="PMB_DELETE_MEMBERNUMBER" development="new" translation="todo">Mitgliedsnummern löschen</text>
-	<text id="PMB_DELETE_SEQUENCETYPE" development="new" translation="todo">Sequenztypen löschen</text>
-	<text id="PMB_DUE" development="new" translation="todo">Fällig</text>
-	<text id="PMB_DUE_ON" development="new" translation="todo">Fällig am</text>
-	<text id="PMB_DUEDATE" development="new" translation="todo">Fälligkeitsdatum</text>	
-	<text id="PMB_DUEDATE_EDIT" development="new" translation="todo">Fälligkeitsdatum bearbeiten</text>
-	<text id="PMB_DUEDATE_EDIT_DESC" development="new" translation="todo">Hiermit kann ein Fälligkeitsdatum gesetzt oder gelöscht werden.</text>
-	<text id="PMB_EMAIL" development="new" translation="todo" description="deptor e-mail">KtoInh-E-Mail</text>
-    <text id="PMB_ESCORT_NOTEPAPER_DESC" development="changed" translation="todo">Erstellt einen Begleitzettel.</text>
-	<text id="PMB_EXPORT" development="new" translation="todo">Export</text>
-	<text id="PMB_EXPORT_EMPTY" development="new" translation="todo">Es sind keine Daten zum Exportieren ausgewählt.</text>	
-	<text id="PMB_FINAL_DIRECT_DEBIT" development="new" translation="todo">Letzte Lastschrift (FNAL)</text>
-	<text id="PMB_FIRST_DIRECT_DEBIT" development="new" translation="todo">Erstlastschrift (FRST)</text>
-	<text id="PMB_FOLLOW_DIRECT_DEBIT" development="new" translation="todo">Folgelastschrift (RCUR)</text>
-	<text id="PMB_GENERATE_BANK" development="new" translation="todo">Generiere einen Banknamen</text>
-	<text id="PMB_GENERATE_BIC" development="new" translation="todo">Generiere einen BIC</text>
-	<text id="PMB_IBAN" development="new" translation="todo">IBAN</text>
-	<text id="PMB_MANDATE" development="new" translation="todo">Mandat</text>
-	<text id="PMB_MANDATE_CHANGE" development="new" translation="todo">Mandatsänderung</text>
-	<text id="PMB_MANDATE_CHANGE_CDTR_INFO" development="new" translation="todo">Hier sind Eingaben erforderlich, sofern sich Mandatsdaten gegenüber dem letzten Einzug geändert haben. Ein neues Mandat ist nicht erforderlich. Dem XML-Datensatz müssen lediglich die ursprünglichen Werte mitgegeben werden. Vor einem neuen Einzug müssen die hier eingegebenen Ursprungsdaten manuell gelöscht werden.</text>
-	<text id="PMB_MANDATE_CHANGE_DBTR_INFO" development="new" translation="todo">Hier sind Eingaben erforderlich, sofern sich Mandatsdaten gegenüber dem letzten Einzug geändert haben. Ein neues Mandat ist nicht erforderlich. Dem XML-Datensatz müssen lediglich die ursprünglichen Werte mitgegeben werden. Die hier eingegebenen Ursprungsdaten werden beim Setzen eines Bezahlt-Datums automatisch wieder gelöscht.</text>
-	<text id="PMB_MANDATE_EDIT_DESC" development="new" translation="todo">Hiermit können Mandatsdaten bearbeitet werden.</text>
-	<text id="PMB_MANDATE_GENERATE" development="new" translation="todo">Mandatsreferenzen erzeugen</text>
-	<text id="PMB_MANDATE_GENERATE_DESC" development="new" translation="todo">Erzeugt Mandatsreferenzen für Mitglieder,\n  - falls sie noch keine besitzen\n  - für die ein Mitgliedsbeitrag berechnet wurde\n  - für die eine IBAN hinterlegt ist.</text>
-	<text id="PMB_MANDATE_MANAGEMENT" development="new" translation="todo">Mandatsverwaltung</text>
-	<text id="PMB_MANDATE_MANAGEMENT_DESC" development="new" translation="todo">Anhand der oben aufgeführten Felder können die Parameter für die Zusammensetzung der Mandatsreferenz eingestellt werden.</text>
-	<text id="PMB_MANDATE_MANAGEMENT_DESC2" development="new" translation="todo">Überprüfung auf Vollständigkeit der Daten in der Mandatsverwaltung.</text>
-	<text id="PMB_MANDATE_MANAGEMENT_RESULT_OK" development="new" translation="todo">Alle Daten sind vollständig.</text>
-	<text id="PMB_MANDATEDATE" development="new" translation="todo">Mandatsdatum</text>
-	<text id="PMB_MANDATEDATE_EXIST" development="new" translation="todo">Ein einmal gesetztes Mandatsdatum kann nur über "Profil bearbeiten"" wieder geändert werden.</text>
-	<text id="PMB_MANDATEDATE_SET" development="new" translation="todo">Mandatsdatum setzen</text>
-	<text id="PMB_MANDATEID" development="new" translation="todo">Mandatsreferenz</text>
-	<text id="PMB_MANDATEID_RES1" development="new" translation="todo">Dem Mitglied %VAR1_BOLD% %VAR2_BOLD% wurde die Mandatsreferenz %VAR3_BOLD% zugewiesen.\n</text>
-	<text id="PMB_MANDATEID_RES2" development="new" translation="todo">Es wurden keine neuen Mandatsreferenzen zugewiesen.</text>
-	<text id="PMB_MEMBERNUMBER" development="new" translation="todo">Mitgliedsnummer</text>
-	<text id="PMB_MEMBERNUMBER_ERROR" development="new" translation="todo">Programmabbruch - Die Mitgliedsnummer %VAR1_BOLD% ist doppelt vorhanden.</text>
-	<text id="PMB_MEMBERNUMBER_RES1" development="new" translation="todo">Dem Mitglied %VAR1_BOLD% %VAR2_BOLD% wurde die Mitgliedsnummer %VAR3_BOLD% zugewiesen.\n</text>
-	<text id="PMB_MEMBERNUMBER_RES2" development="new" translation="todo">Es wurden keine neuen Mitgliedsnummern zugewiesen, alle Mitglieder besitzen eine Mitgliedsnummer.</text>
-	<text id="PMB_MESSAGE_DATE" development="new" translation="todo">Datum der Nachricht</text>
-	<text id="PMB_MESSAGE_ID" development="new" translation="todo">Nachrichten-ID</text>
-	<text id="PMB_MESSAGE_INITIATOR_NAME" development="new" translation="todo">Auftraggeber</text>	
-	<text id="PMB_NO_DATA_TO_CONVERT" development="new" translation="todo">Es konnten keine Kontodaten konvertiert werden,\n\n - da entweder bereits alle Mitglieder IBAN/BIC/Bankname aufweisen\n - oder nicht genügend Informationen (BLZ, Kontonummer) vorliegen.</text>
-	<text id="PMB_NUMBER_TRANSACTIONS" development="new" translation="todo">Anzahl der Transaktionen</text>
-	<text id="PMB_ONETIMES_DIRECT_DEBIT" development="new" translation="todo">Einmallastschrift (OOFF)</text>
-	<text id="PMB_ORIG_CI" development="new" translation="todo">Ursprüngliche Gläubiger-Identifikationsnummer</text>
-	<text id="PMB_ORIG_CREDITOR" development="new" translation="todo">Ursprünglicher Zahlungsempfänger</text>
-	<text id="PMB_ORIG_DEBTOR_AGENT" development="new" translation="todo">Ursprüngliche Bank</text>
-	<text id="PMB_ORIG_IBAN" development="new" translation="todo">Ursprüngliche IBAN</text>
-	<text id="PMB_ORIG_MANDATEID" development="new" translation="todo">Ursprüngliche Mandatsreferenz</text>
-	<text id="PMB_PAPERLESS_DATA_EXCHANGE" development="new" translation="todo">Belegloser Datenträgeraustausch</text>	
-	<text id="PMB_PAYMENT_ID" development="new" translation="todo">Referenz-ID</text>
-	<text id="PMB_POSTCODE" development="new" translation="todo" description="debtor postcode">KtoInh-PLZ</text>
-	<text id="PMB_PRE_NOTIFICATION" development="new" translation="todo">Vorabinformation</text>
-	<text id="PMB_PREFIX_FAM" development="new" translation="todo">Präfix Familie</text>
-	<text id="PMB_PREFIX_MEM" development="new" translation="todo">Präfix Mitglied</text>
-	<text id="PMB_PREFIX_PAY" development="new" translation="todo">Präfix Zahlungspflichtiger</text>
-	<text id="PMB_PRODUCE_MEMBERNUMBER" development="new" translation="todo">Mitgliedsnummer(n) erzeugen</text>
-	<text id="PMB_SELECT_ALL" development="new" translation="todo">Alle markieren</text>
-	<text id="PMB_SEPA" development="new" translation="todo">SEPA</text>
-	<text id="PMB_SEPA_EXPORT_INFO" development="new" translation="todo">Das Plugin Mitgliedsbeitrag kann nur SEPA XML-Dateien erzeugen, die\n1. einen gemeinsamen Sequenztyp aufweisen\n2. dasselbe Fälligkeitsdatum besitzen.\n\n FRST=Erstlastschrift, RCUR=Folgelastschrift, FNAL=letzte Lastschrift, OOFF=Einmallastschrift</text>
-	<text id="PMB_SEQUENCETYPE" development="new" translation="todo">Sequenztyp</text>
-	<text id="PMB_SEQUENCETYPE_DESC" development="new" translation="todo">Sequenztyp: leer=Erstlastschrift(FRST) R=Folgelastschrift(RCUR) F=letzte Lastschrift (FNAL) O=Einmallastschrift (OOFF)</text>
-	<text id="PMB_ULTIMATE_DEBTOR" development="new" translation="todo">Alternativer Zahlungspflichtiger</text>
-	<text id="PMB_UNSELECT_ALL" development="new" translation="todo">Alle abwählen</text>
-	<text id="PMB_WITH_DUEDATE" development="new" translation="todo">Mit Fälligkeitsdatum</text>
-	<text id="PMB_WITH_MANDATEDATE" development="new" translation="todo">Mit Mandatsdatum</text>
-	<text id="PMB_WITH_PAID" development="new" translation="todo">Mit Bezahlt</text>
-	<text id="PMB_WITHOUT_DUEDATE" development="new" translation="todo">Ohne Fälligkeitsdatum</text>
-	<text id="PMB_WITHOUT_MANDATEDATE" development="new" translation="todo">Ohne Mandatsdatum</text>
-	<text id="PMB_XML_FILE" development="new" translation="todo">XML-Datei</text>
-	<text id="PMB_XML_FILE_DESC" development="new" translation="todo">Erstellt eine XML-Datei.</text>
- 	<text id="PMB_XML_FILE_NAME" development="new" translation="todo">XML-Dateiname</text>	
-</version>
-<version id="3.2.0" translator="Rainer Binder">
-   	<text id="PMB_CONTROL_FILE" development="new" translation="todo">Kontrolldatei</text>
-   	<text id="PMB_CONTROL_FILE_DESC" development="new" translation="todo">Erstellt eine Kontrolldatei im CSV-Format.</text>
-	<text id="PMB_CONTROL_FILE_NAME" development="new" translation="todo">Kontrolldateiname</text>
-	<text id="PMB_DATA_MEDIUM_EXCHANGE_FILE_DESC" development="changed" translation="todo">Erstellt eine Datenträgeraustauschdatei.</text>
-	<text id="PMB_DBTOKEN" development="new" translation="todo">Datenbank-Trennzeichen</text>
-	<text id="PMB_DBTOKEN_DESC" development="new" translation="todo">Anhand dieser Zeichenkombination werden die Konfigurationsdaten in der Admidiodatenbank identifiziert. Eine Änderung der vorgegebenen Kombination sollte nur durchgeführt werden, wenn nach einem Neustart des Plugins die eingestellten Werte nicht richtig dargestellt werden.</text>
-   	<text id="PMB_EXPORT" development="new" translation="todo">Export</text>
-	<text id="PMB_OPTIONS" development="new" translation="todo">Optionen</text>
-	<text id="PMB_ROLE_SELECTION_ACTIV" development="new" translation="todo">Folgende Rollen sind derzeit berechtigt</text>
-   	<text id="PMB_ROLE_SELECTION_DESC" development="changed" translation="todo">Wähle die Rollen aus, deren Mitglieder das Plugin aufrufen dürfen. Eine Mehrfachauswahl ist über die STRG-Taste möglich.</text>
-   	<text id="PMB_REMOVE_CONTRIBUTIONS" development="changed" translation="todo">Beiträge entfernen</text>
-    <text id="PMB_REMOVE_CONTRIBUTIONS_DESC" development="changed" translation="todo">Löscht alle Beiträge in der Datenbank.</text>
-    <text id="PMB_REMOVE_CONTRIBUTIONSTEXT" development="changed" translation="todo">Beitragstexte entfernen</text>
-    <text id="PMB_REMOVE_CONTRIBUTIONSTEXT_DESC" development="changed" translation="todo">Löscht alle Beitragstexte in der Datenbank.</text>
-    <text id="PMB_REMOVE_PAID" development="changed" translation="todo">Bezahlt entfernen</text>
-    <text id="PMB_REMOVE_PAID_DESC" development="changed" translation="todo">Löscht alle Bezahlt-Markierungen in der Datenbank.</text>
-	<text id="PMB_SELECT_MAXLENGTH" development="new" translation="todo">Textlänge</text>
-	<text id="PMB_SELECT_MAXLENGTH_DESC" development="new" translation="todo">Die maximale Länge des angezeigten Textes in den Select-Boxen (mind. 20).</text>
-	<text id="PMB_SERIAL_NUMBER" development="new" translation="todo">Lfd. Nummer</text>
-    <text id="PMB_SETUP" development="new" translation="todo">Einstellungen</text>
-    <text id="PMB_STATEMENT_EXPORT" development="new" translation="todo">Rechnung</text>
-	<text id="PMB_STATEMENT_FILE" development="new" translation="todo">Rechnungsdatei</text>
-	<text id="PMB_STATEMENT_FILE_DESC" development="new" translation="todo">Erstellt eine Rechnungsdatei im CSV-Format.</text>
-	<text id="PMB_STATEMENT_FILE_NAME" development="new" translation="todo">Rechnungsdateiname</text>
-</version>
-<version id="3.1.1" translator="Rainer Binder">
-	<text id="PMB_FEE" development="new" translation="todo">Beitrag</text>
-	<text id="PMB_DTA_EXPORT_INFO" development="changed" translation="todo">DTA Export exportiert Daten, die sich derzeit in der Datenbank befinden. Falls neue Mitglieder existieren und noch keine Neuberechnung (Neuzuordnung) durchgeführt wurde ist die Datenbank unter Umständen nicht auf aktuellem Stand.</text>
-</version>
-<version id="3.1.0" translator="Rainer Binder">
-	<!-- System-Phrases for use in every module -->
- 	<text id="PMB_ACCESSION" development="new" translation="todo">Beitritt</text>
-    <text id="PMB_ACCOUNT_DATA" development="new" translation="todo">Kontodaten</text>
-    <text id="PMB_ACCOUNT_HOLDER" development="new" translation="todo">Kontoinhaber</text>
-    <text id="PMB_ACCOUNT_NUMBER" development="new" translation="todo">Kontonummer</text>
-    <text id="PMB_BANK" development="new" translation="todo">Bank</text>
-    <text id="PMB_BANK_CODE_NUMBER" development="new" translation="todo">Bankleitzahl</text>
- 	<text id="PMB_CONTRIBUTORY_TEXT" development="new" translation="todo">Beitragstext</text>  
- 	<text id="PMB_FAMILY_ROLES" development="new" translation="todo">Familienrollen</text>
- 	<text id="PMB_MEMBERSHIP" development="new" translation="todo">Mitgliedschaft</text>
-    <text id="PMB_MEMBERSHIP_FEE" development="new" translation="todo">Mitgliedsbeitrag</text>    
-    <text id="PMB_AGE_STAGGERED_ROLES" development="new" translation="todo">Altersgestaffelte Rollen</text>  
-    <text id="PMB_PAID" development="new" translation="todo">Bezahlt</text>
-    <text id="PMB_PREFIX" development="new" translation="todo">Präfix</text>
-           
-	<!-- Phrases for menu tabs --> 
-    <text id="PMB_TAB_COMMON" development="new" translation="todo">Allgemein</text>
-    	   
-    <!-- Phrases for contribution calculation -->
-    <text id="PMB_CONTRIBUTION_CALCULATION" development="new" translation="todo">Beitragsberechnung</text>
-    <text id="PMB_RECALCULATION" development="new" translation="todo">Neuberechnung</text>
-    <text id="PMB_REMAPPING_INFO1" development="new" translation="todo">Beim Mitglied</text>
-    <text id="PMB_REMAPPING_INFO2" development="new" translation="todo">ist kein Geburtsdatum eingetragen.</text>
-    <text id="PMB_REMAPPING_AGE_STAGGERED_ROLES" development="new" translation="todo">Neuzuordnung altersgestaffelte Rollen</text>
-    
-    <!-- Phrases for contribution analysis -->
-    <text id="PMB_ACCOUNT" development="new" translation="todo">Konto</text>
-    <text id="PMB_ALREADY_PAID" development="new" translation="todo">bereits bezahlt</text>
-    <text id="PMB_BILL" development="new" translation="todo">Rechnung</text>
-    <text id="PMB_CONTRIBUTION_ANALYSIS" development="new" translation="todo">Beitragsanalyse</text>
-    <text id="PMB_DUES" development="new" translation="todo">Beiträge</text>
-    <text id="PMB_ITEM" development="new" translation="todo">Posten</text>
-    <text id="PMB_MEMBERS_CONTRIBUTION" development="new" translation="todo">Beiträge der Mitglieder</text>    
-    <text id="PMB_MEMBERS_CONTRIBUTION_DESC" development="new" translation="todo">Grundlage dieser Daten sind die Kontodaten sowie die Einträge Beitrag und Bezahlt der zahlungspflichtigen Mitglieder.</text>   
- 	<text id="PMB_NUMBER" development="new" translation="todo">Anzahl</text>
- 	<text id="PMB_PENDING" development="new" translation="todo">noch ausstehend</text>
- 	<text id="PMB_ROLE" development="new" translation="todo">Rolle</text>
- 	<text id="PMB_ROLES_CONTRIBUTION" development="new" translation="todo">Beiträge der Beitragsrollen</text>
-    <text id="PMB_ROLES_CONTRIBUTION_DESC" development="new" translation="todo">Grundlage dieser Daten sind die Einträge im Setup, nicht die Einträge der einzelnen Rollen in der Datenbank. Manuelle Änderungen von Beiträgen einzelner Rollen oder anteilige Beiträge werden nicht berücksichtigt. Dies kann daher nur als Prognose angesehen werden.</text>
-    <text id="PMB_SUM" development="new" translation="todo">Summe</text>   
-    <text id="PMB_TOTAL" development="new" translation="todo">Gesamtsumme</text>   
-       
-    <!-- Phrases for contribution payments -->
-    <text id="PMB_CONTRIBUTION_PAYMENTS" development="new" translation="todo">Beitragszahlungen</text>
-    <text id="PMB_CONTRIBUTION_PAYMENTS_DESC" development="new" translation="todo">Hierüber kann nach erfolgter Beitragszahlung ein Bezahlt-Datum in die Datenbank geschrieben werden.</text>
-    <text id="PMB_DATE_ASC" development="new" translation="todo">Datum aufsteigend</text>
-    <text id="PMB_DATE_DESC" development="new" translation="todo">Datum absteigend</text>
-    <text id="PMB_PAID_ON" development="new" translation="todo">Bezahlt am</text>
-    
-    <!-- Phrases for dta export -->
-    <text id="PMB_DATA_MEDIUM_EXCHANGE_FILE" development="new" translation="todo">Datenträgeraustauschdatei</text>
-    <text id="PMB_DATA_MEDIUM_EXCHANGE_FILE_NAME" development="new" translation="todo">DTA-Dateiname</text>
-    <text id="PMB_DTA_EXPORT" development="new" translation="todo">DTA</text>
-   	<text id="PMB_ESCORT_NOTEPAPER" development="new" translation="todo">Begleitzettel</text>
-    <!-- Note: The data medium exchange file itself is not translated. It is used only in german domestic payment transactions!!!!!!!!!!!!! -->
-	
-    <!-- Phrases for role test -->
-    <text id="PMB_ADULT" development="new" translation="todo">Erwachsene</text>
-    <text id="PMB_ADULT_DESC" development="new" translation="todo">Hier ist Min- und Max-Anzahl von Erwachsenen einer Familie einzugeben.\nMögliche Werte wären z.B. 1 für Min und 2 für Max, was bedeutet, daß\n1. eine Familie mindestens einen Erwachsenen aufweisen muß und nicht nur aus Kindern und Jugendlichen bestehen darf\n2. eine Familie maximal zwei Erwachsene aufweisen darf (Vater und Mutter) und nicht das gerade volljährig gewordene Kind.</text>
-   	<text id="PMB_AGE_LIMIT" development="new" translation="todo">Altersgrenze</text>
-   	<text id="PMB_AGE_LIMIT_DESC" development="new" translation="todo">Hier sind die Altersgrenzen einzugeben, bis zu der Familienmitglieder überprüft werden. Bei Vorhandensein einer Seniorenrolle (z.B. ab 60) ist es evtl. günstiger einer Familie aufzusplitten und die Beiträge für jedes Mitglied einzeln abzurechnen.</text>
-  	<text id="PMB_AND" development="new" translation="todo">und</text>
-  	<text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER" development="new" translation="todo">Anzahl der Erwachsenen in Familien</text>
-    <text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER_DESC" development="new" translation="todo">Überprüfung der Familienrollen auf die im Setup angegebene Min- bzw. Max-Anzahl an Erwachsenen.</text>
-    <text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_ERROR" development="new" translation="todo">Die aufgeführten Familien besitzen nicht die Min- bzw. Max-Anzahl an Erwachsenen.</text>   
-    <text id="PMB_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_OK" development="new" translation="todo">Alle Familien besitzen die Min- bzw. Max-Anzahl von Erwachsenen.</text>
-    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER" development="new" translation="todo">Anzahl der Senioren in Familien</text>
-    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER_DESC" development="new" translation="todo">Überprüfung der Familienrollen auf die im Setup angegebene Anzahl an Senioren.</text>
-    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_ERROR" development="new" translation="todo">Die aufgeführten Familien besitzen mindestens ein Mitglied, das die im Setup angegebene Altersgrenze von %VAR1% Jahren überschritten hat.</text>   
-    <text id="PMB_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_OK" development="new" translation="todo">Keine Familie besitzt ein Mitglied älter als %VAR1% Jahre.</text>
-    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER" development="new" translation="todo">Mindestanzahl von Familienmitgliedern</text>
-    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER_DESC" development="new" translation="todo">Überprüfung der Familienrollen auf die im Setup angegebene Mindestanzahl an Mitgliedern.</text>
-    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_ERROR" development="new" translation="todo">Die aufgeführten Familien besitzen nicht die Mindestanzahl von %VAR1% Mitgliedern.</text>    
-    <text id="PMB_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK" development="new" translation="todo">Alle Familien besitzen die Mindestanzahl von %VAR1% Mitgliedern.</text>
-    <text id="PMB_MAX" development="new" translation="todo">Max</text>
-    <text id="PMB_MEMBER_MEMBERS" development="new" translation="todo">Mitglied/Mitglieder</text>
-    <text id="PMB_MIN" development="new" translation="todo">Min</text>
-    <text id="PMB_MINIMUM_NUMBER" development="new" translation="todo">Mindestanzahl</text>
-    <text id="PMB_MINIMUM_NUMBER_DESC" development="new" translation="todo">Hier ist die Mindestanzahl von Familienmitgliedern einzugeben. Eine Familie sollte mindestens zwei Mitglieder aufweisen, da der Einzelbeitrag für ein Mitglied sicher günstiger als ein Familienbeitrag ist.</text>
-    <text id="PMB_NO_CONTRIBUTION_ROLES" development="new" translation="todo">keine Beitragsrollen vorhanden</text>
-    <text id="PMB_NO_COMBINATION_ROLES" development="new" translation="todo">keine entprechenden Rollenkombinationen vorhanden</text>
-    <text id="PMB_AGE_STAGGERED_ROLES_DESC" development="new" translation="todo">Überprüfung der altersgestaffelten Rollen, auf Lücken oder Überlappungen in den Altersvorgaben.</text>
-    <text id="PMB_AGE_STAGGERED_ROLES_RESULT_ERROR" development="new" translation="todo">Die aufgeführten Rollen weisen Lücken bzw. Überlappungen auf.</text>   
-    <text id="PMB_AGE_STAGGERED_ROLES_RESULT_OK" development="new" translation="todo">Es bestehen keine Lücken oder Überlappungen in den altersgestaffelten Rollen.</text>
-    <text id="PMB_ROLE_TEST" development="new" translation="todo">Rollenprüfung</text>
-    <text id="PMB_ROLE_MEMBERSHIP_DUTY" development="new" translation="todo">Rollenmitgliedschaft (Pflicht)</text>
-    <text id="PMB_ROLE_MEMBERSHIP_DUTY_DESC" development="new" translation="todo">Überprüfung auf Pflicht-Rollenmitgliedschaften.</text>
-    <text id="PMB_ROLE_MEMBERSHIP_DUTY_DESC2" development="new" translation="todo">Welchen Beitragsrollen muß ein Mitglied mindestens angehören (ODER-Verknüpfung)? Alle möglichen Rollen sind zu markieren.</text>
-    <text id="PMB_ROLE_MEMBERSHIP_DUTY_RESULT_OK" development="new" translation="todo">Alle Mitglieder sind in mindestens einer Pflicht-Beitragsrolle.</text>
-    <text id="PMB_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR" development="new" translation="todo">Die aufgeführten Mitglieder sind in keiner Pflicht-Beitragsrolle (oder es sind keine Pflichtbeitragsrollen definiert).</text>      
-    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION" development="new" translation="todo">Rollenmitgliedschaft (Ausschluss)</text>
-    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_DESC" development="new" translation="todo">Überprüfung auf doppelte Mitgliedschaften in Ausschluss-Rollen.</text>
-    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_DESC2" development="new" translation="todo">Welche Rollenmitgliedschaften sollen sich gegenseitig ausschließen?</text>
-    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR" development="new" translation="todo">Die aufgeführten Mitglieder sind in mindestens zwei Ausschluss-Beitragsrollen doppelt vorhanden.</text>    
-    <text id="PMB_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK" development="new" translation="todo">Alle Mitglieder sind in keiner Ausschluss-Beitragsrolle doppelt vorhanden.</text>
-    <text id="PMB_ROLE_TEST_SETUP_INFO" development="new" translation="todo">Die nachfolgenden Einstellungen dienen nur als Parameter für die Rollenprüfung. Sie wirken sich nicht auf die Beitragsberechnung aus.</text>
-   	<text id="PMB_YEARS" development="new" translation="todo">Jahre</text>
-          
-    <!-- Phrases for role overview -->
-    <text id="PMB_MEMBER_ACCOUNT" development="new" translation="todo">Anzahl der Mitglieder</text>
-    <text id="PMB_NO_ROLES" development="new" translation="todo">keine Rollen vorhanden</text>    
-    <text id="PMB_OTHER_CONTRIBUTION_ROLES" development="new" translation="todo">Sonstige Beitragsrollen</text>
-    <text id="PMB_ROLE_NAME" development="new" translation="todo">Rollenname</text>
-    <text id="PMB_ROLE_OVERVIEW" development="new" translation="todo">Rollenübersicht</text>
-    
-    <!-- Phrases for reset -->
-	 <text id="PMB_RESET" development="new" translation="todo">Reset</text>
-    
-    <!-- Phrases for contribution settings -->
-    <text id="PMB_CONTRIBUTION_BLANK" development="new" translation="todo">Leerzeichen</text>
-    <text id="PMB_CONTRIBUTION_COMMA" development="new" translation="todo">Komma</text>
-    <text id="PMB_CONTRIBUTION_DOT" development="new" translation="todo">Punkt</text>
-    <text id="PMB_CONTRIBUTION_HYPHEN" development="new" translation="todo">Trennstrich</text>
-  	<text id="PMB_CONTRIBUTION_MINCALC" development="new" translation="todo">Mindestberechnungsbetrag</text>
-    <text id="PMB_CONTRIBUTION_MINCALC_DESC" development="new" translation="todo">Hier kann ein Mindestberechnungsbetrag eingegeben werden. Errechnete Beiträge, die kleiner als dieser Mindestberechnungsbeitrag sind, werden herausgefiltert und nicht in die Datenbank geschrieben.</text>
-    <text id="PMB_CONTRIBUTION_PERCENT" development="new" translation="todo">Prozentzeichen</text>
-    <text id="PMB_CONTRIBUTION_PLUS" development="new" translation="todo">Pluszeichen</text>
-    <text id="PMB_CONTRIBUTION_PREFIX_DESC" development="new" translation="todo">Dem Beitragstext kann ein Präfix vorangestellt werden.</text>
-   	<text id="PMB_CONTRIBUTION_PRORATA" development="new" translation="todo">Anteilige Beitragsberechnung</text>
-    <text id="PMB_CONTRIBUTION_PRORATA_DESC" development="new" translation="todo">Soll die anteilige Beitragsberechnung anhand des Beginns einer Rollenzugehörigkeit ermittelt werden, so ist der Haken zu setzen (ohne Haken wird das Beitrittsdatum verwendet).</text>
-    <text id="PMB_CONTRIBUTION_ROUNDDOWN" development="new" translation="todo">Beiträge abrunden</text>
-    <text id="PMB_CONTRIBUTION_ROUNDDOWN_DESC" development="new" translation="todo">Sollen alle Beiträge zugunsten des Mitglieds abgerundet werden, so ist der Haken zu setzen.</text>
-  	<text id="PMB_CONTRIBUTION_SETTINGS" development="new" translation="todo">Beitragseinstellungen</text>
-    <text id="PMB_CONTRIBUTION_SLASH" development="new" translation="todo">Schrägstrich</text>
-    <text id="PMB_CONTRIBUTION_SUFFIX" development="new" translation="todo">Suffix</text>
-    <text id="PMB_CONTRIBUTION_SUFFIX_DESC" development="new" translation="todo">Anteiligen Beiträgen kann ein Suffix angehängt werden.</text>
-    <text id="PMB_CONTRIBUTION_TEXT_FAMNAMES" development="new" translation="todo">Beitragstext mit Namen (Familien)</text>
-    <text id="PMB_CONTRIBUTION_TEXT_FAMNAMES_DESC" development="new" translation="todo">Sollen im Beitragstext die Namen aller Familienmitglieder aufgeführt werden, so ist der Haken zu setzen.</text>
-    <text id="PMB_CONTRIBUTION_TEXT_TOKEN" development="new" translation="todo">Trennzeichen</text>
-    <text id="PMB_CONTRIBUTION_TEXT_TOKEN_DESC" development="new" translation="todo">Trennzeichen, mit dem der Benutzername / die Namen der Familienmitglieder im Beitragstext hervorgehoben werden. Mit (*) markierte Trennzeichen sind bei EU-Überweisungen nicht zulässig.</text>
-    <text id="PMB_CONTRIBUTION_TEXT_MEMNAMES" development="new" translation="todo">Beitragstext mit Namen</text>
-    <text id="PMB_CONTRIBUTION_TEXT_MEMNAMES_DESC" development="new" translation="todo">Soll im Beitragstext der Name des Benutzers aufgeführt werden, so ist der Haken zu setzen.</text>
-    <text id="PMB_CONTRIBUTION_TIMES" development="new" translation="todo">Malzeichen</text>
-
-    <!-- Phrases for age staggered roles -->
-    <text id="PMB_DEADLINE" development="new" translation="todo">Stichtag</text>
-    <text id="PMB_DEADLINE_DESC" development="new" translation="todo">Das eingetragene Datum dient als Stichtag für die Einteilung in die altersgestaffelten Rollen.</text>
-    <text id="PMB_DELIMITER" development="new" translation="todo">Trennzeichen</text>
-    <text id="PMB_DELIMITER_DESC" development="new" translation="todo">Hier ist das Trennzeichen einzugeben, über das in den altersgestaffelten Rollen die Altersangaben extrahiert werden.</text>
-
-    <text id="PMB_DELIMITER_INFO2" development="new" translation="todo">Mitglieder zwischen *14* und *18* Jahren</text>
-    <text id="PMB_DELIMITER_INFO3" development="new" translation="todo">\n --> In diesem Fall wird der Beitrag für Mitglieder im Alter zwischen 14 und 18 Jahren berechnet.</text>
-    
-    <!-- Phrases for family roles -->    
-    <text id="PMB_FAMILY_ROLES_CONTRIBUTION_DESC" development="new" translation="todo">Wird ein neuer Betrag eingegeben, so wird in allen Familienrollen, d.h. Rollen mit dem Präfix %VAR1_BOLD%, der neue Beitrag gesetzt.</text>
-    <text id="PMB_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC" development="new" translation="todo">Wird ein neuer Betragszeitraum eingegeben, so wird in allen Familienrollen, d.h. Rollen mit dem Präfix %VAR1_BOLD%, der neue Beitragszeitraum gesetzt.</text>
-    <text id="PMB_FAMILY_ROLES_DESCRIPTION_DESC" development="new" translation="todo">Wird eine neue Beschreibung eingegeben, so wird in allen Familienrollen, d.h. Rollen mit dem Präfix %VAR1_BOLD%, die neue Beschreibung gesetzt.</text>
-    <text id="PMB_FAMILY_ROLES_PREFIX_DESC" development="new" translation="todo">Hier ist das Präfix für Familienrollen einzugeben. Über diesen Wert werden alle Familienrollen identifiziert. (Achtung: Führende bzw. nachfolgende Leerzeichen werden nicht berücksichtigt).</text>   
-    
-    <!-- Phrases for plugin control -->
-    <text id="PMB_PLUGIN_CONTROL" development="new" translation="todo">Pluginfreigabe</text>
-    <text id="PMB_ROLE_SELECTION" development="new" translation="todo">Rollenauswahl</text>
-    
-    <!-- Phrases for plugin information -->
-    <text id="PMB_PLUGIN_INFORMATION" development="new" translation="todo">Plugininformationen</text>
-    <text id="PMB_PLUGIN_DATE" development="new" translation="todo">Stand</text>
-    <text id="PMB_PLUGIN_NAME" development="new" translation="todo">Name des Plugins</text>
-    <text id="PMB_PLUGIN_VERSION" development="new" translation="todo">Version</text>
-    
-    <!-- Phrases for modul zahlungen -->
-    <text id="PMB_CHANGE_ALL" development="new" translation="todo">Alle ändern</text>
-    <text id="PMB_DATE_PAID" development="new" translation="todo">Bezahlt-Datum</text>
-    <text id="PMB_FILTER" development="new" translation="todo">Filter</text>
-    <text id="PMB_WITHOUT_PAID" development="new" translation="todo">Ohne Bezahlt</text>
- 
-    <!-- Phrases for modul install -->
-    <text id="PMB_ALL_FIELDS_ARE_AVAILABLE" development="new" translation="todo">Alle notwendigen Profilfelder sind vorhanden.</text>
-    <text id="PMB_AVAILABLE" development="new" translation="todo">vorhanden</text>
-    <text id="PMB_CATEGORIE" development="new" translation="todo">Kategorie</text>
-	<text id="PMB_CREATE_MISSING_FIELDS" development="new" translation="todo">Legt die fehlenden Profilfelder an.</text>
-    <text id="PMB_CHANGE_NEXT_TEST" development="new" translation="todo">wechselt zur nächsten Prüfung.</text>
-    <text id="PMB_DATA_TYPE" development="new" translation="todo">Datentyp</text>
-    <text id="PMB_FIELDS_SHOULD_BE_CREATED" development="new" translation="todo">Sollen die fehlenden Felder und Kategorien angelegt werden?</text>
-    <text id="PMB_INSTALL_DESCRIPTION" development="new" translation="todo">Die Setuproutine von Mitgliedsbeitrag hat festgestellt, daß ein Versionsupdate stattgefunden hat und überprüft deshalb die Struktur.</text>
- 	<text id="PMB_INSTALL_END" development="new" translation="todo">beendet diese Setuproutine.</text>
- 	<text id="PMB_INSTALL_FIRST_PASSAGE" development="new" translation="todo">1. Durchgang</text>  
-    <text id="PMB_INSTALL_SECOND_PASSAGE" development="new" translation="todo">2. Durchgang</text>
-    <text id="PMB_INSTALL_TITLE" development="new" translation="todo">Installation Mitgliedsbeitrag</text> 
-    <text id="PMB_INSTALL_VERIFICATION_COMPARISON" development="new" translation="todo">Überprüfung der Profilfelder (SOLL-IST-Vergleich).</text>
-    <text id="PMB_INSTALL_VERIFICATION_MISSING_FIELDS" development="new" translation="todo">Überprüfung auf fehlende Profilfelder und Kategorien.</text> 
-    <text id="PMB_IS" development="new" translation="todo">IST</text>
-    <text id="PMB_MISSING" development="new" translation="todo">fehlt</text>
-    <text id="PMB_NO_CHANGES_1" development="new" translation="todo">führt keine Veränderungen an der Datenbank durch. Das Plugin kann aber auch nicht gestartet werden.</text>
-    <text id="PMB_NO_CHANGES_2" development="new" translation="todo">führt keine Veränderungen an der Datenbank durch. Das Plugin kann aber unter Umständen nicht gestartet werden.</text>
-    <text id="PMB_PROFILE_FIELD" development="new" translation="todo">Profilfeld</text>
-   	<text id="PMB_SECOND_PASSAGE_INFO" development="new" translation="todo">Die angezeigten Daten dienen nur zur Information. Es werden keine Änderungen an der Datenbank vorgenommen. Sollten jedoch Unterschiede (SOLL/IST) vorhanden sein, kann das Plugin unter Umständen nicht richtig funktionieren.</text>   
-   	<text id="PMB_SHALL" development="new" translation="todo">SOLL</text>
-   	<text id="PMB_STATUS" development="new" translation="todo">Status</text>
-</version>
-</language>
+<resources>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Beitritt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Konto</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Kontodaten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_INFO">Anzugeben sind die Kontodaten des Empfängers.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER">Kontoinhaber</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Zusätzliche Felder</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADDRESS">KtoInh-Adresse</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Weitere Konfiguration hinzufügen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADULT">Erwachsene</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADULT_DESC">Hier ist Min- und Max-Anzahl von Erwachsenen einer Familie einzugeben.\nMögliche Werte wären z.B. 1 für Min und 2 für Max, was bedeutet, daß\n1. eine Familie mindestens einen Erwachsenen aufweisen muß und nicht nur aus Kindern und Jugendlichen bestehen darf\n2. eine Familie maximal zwei Erwachsene aufweisen darf (Vater und Mutter) und nicht das gerade volljährig gewordene Kind.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AGE_LIMIT">Altersgrenze</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AGE_LIMIT_DESC">Hier sind die Altersgrenzen einzugeben, bis zu der Familienmitglieder überprüft werden. Bei Vorhandensein einer Seniorenrolle (z.B. ab 60) ist es evtl. günstiger einer Familie aufzusplitten und die Beiträge für jedes Mitglied einzeln abzurechnen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES">Altersgestaffelte Rollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC">Überprüfung der altersgestaffelten Rollen, auf Lücken oder Überlappungen in den Altersvorgaben.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR">Die aufgeführten Rollen weisen Lücken bzw. Überlappungen auf.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR2">Die Neuzuordung wird abgebrochen, da in den altersgestaffelten Rollen Lücken oder Überlappungen bestehen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK">Es bestehen keine Lücken oder Überlappungen in den altersgestaffelten Rollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE">Alle notwendigen Profilfelder sind vorhanden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ALREADY_PAID">bereits bezahlt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AND">und</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AVAILABLE">vorhanden</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BANK">Bank</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BANK_CHANGED">Neue Kontoverbindung bei einer anderen Bank.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BIC">BIC</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL">Rechnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Bankleitzahlendatei</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CATEGORIE">Kategorie</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION">Kategorieauswahl</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC">Wähle die Kategorien aus, denen ein Mitglied grundsätzlich angehören muß, um bei der Prüfung der Rollenmitgliedschaften berücksichtigt zu werden. Bei keiner Auswahl ist diese Option bedeutungslos.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CHANGE_ALL">Alle ändern</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST">wechselt zur nächsten Prüfung.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CHOICE">Auswahl</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CI">Gläubiger-Identifikationsnummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CITY">KtoInh-Ort</string>
+    <string name="PLG_MITGLIEDSBEITRAG_COLLECTION_ORDER">Sammeleinziehungsauftrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONDITION">Prüfbedingung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA">Konfigurationsdaten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC">Sie werden nach dem Löschen und anschließendem Neustart des Plugins wieder mit Standardwerten befüllt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC">Konfigurationsdaten sind die Daten, die über das Menü "Einstellungen" gesetzt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS">Beitragsanalyse</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK">Leerzeichen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_CALCULATION">Beitragsberechnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA">Komma</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DEFAULT">Standard</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC">Hiermit können Beitrag, Beitragstext, Bezahlt-Datum und Fälligkeitsdatum gelöscht werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DOT">Punkt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HYPHEN">Trennstrich</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC">Mindestberechnungsbetrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC_DESC">Hier kann ein Mindestberechnungsbetrag eingegeben werden. Errechnete Beiträge, die kleiner als dieser Mindestberechnungsbeitrag sind, werden herausgefiltert und nicht in die Datenbank geschrieben.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_DESC">Einstellungen für den Berechnungsmodus. Folgende Optionen sind wählbar:\n- Standard: Ein vorhandener Beitrag (außer 0 €) wird nicht verändert.\n- Überschreiben: Existierende Einträge werden gelöscht und durch neue Einträge ersetzt.\n- Aufsummieren: Beiträge werden aufsummiert und ein Beitragstext wird ergänzt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_NOTE">Wird über die Rollenauswahl die Beitragsberechnung auf bestimmte Rollen beschränkt, so wirkt sich auch der Berechnungsmodus nur für diese Rollen aus. Vorhandene Beiträge, die nicht über diese Rollen abgedeckt sind, bleiben unverändert bestehen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_OVERWRITE">Überschreiben</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS">Beitragszahlungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC">Hierüber kann nach erfolgter Beitragszahlung ein Bezahlt-Datum in die Datenbank geschrieben werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT">Beitragszahlungen bearbeiten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT">Beitragszahlungen E-Mail-Text</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC">Hier kann der Text für eine E-Mail zur Beitragszahlung angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT">Prozentzeichen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS">Pluszeichen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">Dem Beitragstext kann ein Präfix vorangestellt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA">Anteilige Beitragsberechnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">Soll die anteilige Beitragsberechnung anhand des Beginns einer Rollenzugehörigkeit ermittelt werden, so ist der Haken zu setzen (ohne Haken wird das Beitrittsdatum verwendet).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_DESC">Standardmäßig werden bei einer Neuberechnung alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Neuberechnung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO">Für diese Rolle(n) wurde eine neue Beitragsberechnung durchgeführt:</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_NOROLL">Es wurden keine Rollen ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN">Beiträge abrunden</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN_DESC">Sollen alle Beiträge zugunsten des Mitglieds abgerundet werden, so ist der Haken zu setzen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS">Beitragseinstellungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SLASH">Schrägstrich</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX">Suffix</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX_DESC">Anteiligen Beiträgen kann ein Suffix angehängt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUMMATION">Aufsummieren</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES">Beitragstext mit Namen (Familien)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES_DESC">Sollen im Beitragstext die Namen aller Familienmitglieder aufgeführt werden, so ist der Haken zu setzen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_MEMNAMES">Beitragstext mit Namen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_MEMNAMES_DESC">Soll im Beitragstext der Name des Benutzers aufgeführt werden, so ist der Haken zu setzen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN">Trennzeichen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN_DESC">Trennzeichen, mit dem der Benutzername / die Namen der Familienmitglieder im Beitragstext hervorgehoben werden. Mit (*) markierte Trennzeichen sind bei EU-Überweisungen nicht zulässig.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TIMES">Malzeichen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT">Beitragstext</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Kontrolldatei</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Erstellt eine Kontrolldatei im CSV-Format.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Kontrolldateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Kontroll-Datei" wird zu "Kontroll-Datei-2013-04-01-RCUR.csv"</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_SUM">Kontrollsumme</string>
+    <string name="PLG_MITGLIEDSBEITRAG_COPY">Kopieren</string>
+    <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Wähle zuerst eine Quelle und ein Ziel des Kopiervorgangs aus. Danach bestimmst Du über "Auswahl" welches Profilfeld von "Quelle" zu "Ziel" kopiert wird. Der Kopiervorgang erfolgt automatisch mit Setzen des Hakens der Ziel-Auswahl.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_COR1_MARKER">Eil-Lastschrift</string>
+    <string name="PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC">SEPA Eil-Lastschrift (COR1) mit verkürzten Vorlauffristen erstellen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS">Legt die fehlenden Profilfelder an.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Zahlungsempfänger</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Datenfeld für die laufende Nummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE">Datenträgeraustauschdatei</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_DESC">Erstellt eine Datenträgeraustauschdatei.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_NAME">DTA-Dateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATA_TYPE">Datentyp</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATE_ASC">Datum aufsteigend</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATE_DESC">Datum absteigend</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID">Bezahlt-Datum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_CHANGE_ALL_DESC">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig ! ) das Bezahlt-Datum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </string>
+    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC">Das Bezahlt-Datum wird bei einem Benutzer als Kennzeichnung für eine geleistete Beitragszahlung eingetragen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEADLINE">Stichtag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEADLINE_DESC">Das eingetragene Datum dient als Stichtag für die Einteilung in die altersgestaffelten Rollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Zahlungspflichtiger</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION">Deinstallation</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC">Über die Deinstallation können vom Plugin erzeugte Einträge in der Datenbank gelöscht werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC">*** Diese Routine löscht nur Einträge in der Admidio-Datenbank. Programmdateien und der Link im Menü werden nicht gelöscht! ***</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY">Nur Daten der aktuellen Organisation löschen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Daten in allen Organisationen löschen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- Beim Löschen der Daten ist ein Fehler aufgetreten.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- Die vom Plugin angelegten Daten wurden gelöscht.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nUm das Plugin vollständig zu entfernen, müssen jetzt der Browser geschlossen und die Programmdateien und der Link im Menü entfernt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">Es wurden keine Daten zum Löschen ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">Folgende Aktionen wurden durchgeführt:\n\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- Die Tabelle "adm_plugin_preferences" konnte nicht gelöscht werden, da sich darin noch Daten eines anderen Plugins befinden.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_SUCCESS">- Die vom Plugin angelegte Tabelle "adm_plugin_preferences" wurde gelöscht.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE">Löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETED">Gelöscht</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL">Alles löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC">'Alles löschen' löscht alle Beiträge (einschließlich Beitragstext und Bezahlt-Datum).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_CONFIG">Diese Konfiguration löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM">Lösche Daten von</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_DUEDATE">Fälligkeitsdaten löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_IBAN_BIC">IBAN, BIC und Bankname löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_INFO">Die folgenden Optionen sind nur während der SEPA-Einführungsphase verfügbar.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS">Die Profilfelder in dieser Kategorie sind für mehrere Organisationen sichtbar und werden gelöscht unabhängig von der Einstellung in "Organisationswahl".</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_MAIL_TEXTS">Lösche E-Mail Texte in </string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_MANDATE">Mandate löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_MANDATECHANGE">Mandatsänderungen löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_MEMBERNUMBER">Mitgliedsnummern löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_SEQUENCETYPE">Sequenztypen löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELIMITER">Trennzeichen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_DESC">Hier ist das Trennzeichen einzugeben, über das in den altersgestaffelten Rollen die Altersangaben extrahiert werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO1">Beispiel für einen Rollennamen mit dem Trennzeichen *:</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO2">Mitglieder zwischen *14* und *18* Jahren</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO3">\n --> In diesem Fall wird der Beitrag für Mitglieder im Alter zwischen 14 und 18 Jahren berechnet.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION">Dokumentation</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN">Dokumentation öffnen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC">Hiermit kann die Dokumentation zum Plugin geöffnet werden (Eine bestehende Internetverbindung wird vorausgesetzt, da sich die Daten auf admidio.org befinden).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DTA_EXPORT">DTA</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DTA_EXPORT_INFO">DTA Export exportiert Daten, die sich derzeit in der Datenbank befinden. Falls neue Mitglieder existieren und noch keine Neuberechnung (Neuzuordnung) durchgeführt wurde ist die Datenbank unter Umständen nicht auf aktuellem Stand.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUE">Fällig</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE">Fälligkeitsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_CHANGE_ALL_DESC">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig ! ) das Fälligkeitsdatum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_DESC">Das hier gewählte Fälligkeitsdatum wird bei einem Benutzer beim Setzen eines Hakens eingetragen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT">Fälligkeitsdatum bearbeiten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC">Hiermit kann ein Fälligkeitsdatum gesetzt oder gelöscht werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY">Nur Fälligkeitsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY_DESC">'Nur Fälligkeitsdatum' löscht nur das Fälligkeitsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY">Abfrage der Beitragsrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_ACTIV">* * * Rollenfilter aktiv! * * *</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_DESC">Standardmäßig werden beim Bearbeiten des Fälligkeitsdatums alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann das Bearbeiten des Fälligkeitsdatums nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_NOROLL">Es wurden keine Rollen ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_SELECTION_DESC">Wähle die Rollen aus, für die das Fälligkeitsdatum bearbeitet werden soll. Eine Mehrfachauswahl ist über die STRG-Taste möglich.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION">Fälligkeitsdatum/Sequenztyp</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Wähle eine Kombination Fälligkeitsdatum/Sequenztyp aus, für den die XML- oder die Kontrolldatei erstellt werden soll.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUES">Beiträge</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUE_ON">Fällig am</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL">KtoInh-E-Mail</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">Es sind keine Daten für einen E-Mail-Versand ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ERROR">Fehler</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED">Es wurde neue Kontoverbindung bei einer anderen Bank gewählt, aber die IBAN ist dieselbe. - Das kann nicht sein.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG">FEHLER: Mindestens eine Konfiguration muss vorhanden sein!</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED">In den Feldern wurde nichts geändert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING">Die IBAN wurde bei derselben Bank geändert. Das Feld Ursprüngliche IBAN muss deshalb befüllt sein.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">Die Mandatsreferenz wurde geändert. Das Feld Ursprüngliche Mandatsreferenz muss befüllt sein.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Es sind keine Daten zum Exportieren ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER">Anzahl der Erwachsenen in Familien</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Min- bzw. Max-Anzahl an Erwachsenen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_ERROR">Die aufgeführten Familien besitzen nicht die Min- bzw. Max-Anzahl an Erwachsenen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_OK">Alle Familien besitzen die Min- bzw. Max-Anzahl von Erwachsenen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER">Anzahl der Senioren in Familien</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Anzahl an Senioren.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_ERROR">Die aufgeführten Familien besitzen mindestens ein Mitglied, das die im Setup angegebene Altersgrenze von #VAR1# Jahren überschritten hat.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_OK">Keine Familie besitzt ein Mitglied älter als #VAR1# Jahre.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER">Mindestanzahl von Familienmitgliedern</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Mindestanzahl an Mitgliedern.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_ERROR">Die aufgeführten Familien besitzen nicht die Mindestanzahl von #VAR1# Mitgliedern.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK">Alle Familien besitzen die Mindestanzahl von #VAR1# Mitgliedern.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLE">Familienrolle</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES">Familienrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">Wird ein neuer Betrag eingegeben, so wird in allen Familienrollen mit dem obigen Präfix der neue Beitrag gesetzt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC">Wird ein neuer Betragszeitraum eingegeben, so wird in allen Familienrollen mit dem obigen Präfix der neue Beitragszeitraum gesetzt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC">Wird eine neue Beschreibung eingegeben, so wird in allen Familienrollen mit dem obigen Präfix die neue Beschreibung gesetzt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_NUMBER">Anzahl der Familienrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_PREFIX_DESC">Hier ist das Präfix für Familienrollen einzugeben. Über diesen Wert werden alle Familienrollen identifiziert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Anzahl an Mitgliedern.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC2">Hier kann für jede Familienrolle eine Prüfbedingung im Format von*bis:Anzahl angegeben werden. Mehrere Bedingungen sind dabei durch Semikolon zu trennen.\nBsp.: 14*17:0;18*59:2 bedeutet: Prüfung auf 0 Mitglieder im Alter von 14 bis 17 Jahren und Prüfung auf 2 Mitglieder im Alter von 18 bis 59 Jahren.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR">In den aufgeführten Familien erfüllt mindestens ein Mitglied nicht die Prüfbedingungen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Alle Familien entsprechen den Prüfbedingungen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FEE">Beitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FEES">Beiträge</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED">Sollen die fehlenden Felder und Kategorien angelegt werden?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILTER">Filter</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILTER_DESC">Filterauswahl für die Anzeige.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT">Letzte Lastschrift (FNAL)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FIRST_DIRECT_DEBIT">Erstlastschrift (FRST)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FOLLOW_DIRECT_DEBIT">Folgelastschrift (RCUR)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_IBAN">IBAN</string>
+    <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK">IBAN-Test</string>
+    <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC">Überprüfung auf korrekte IBAN (Hinweis: Geprüft wird die IBAN-Prüfziffer an der dritten und vierten Stelle der IBAN anhand der Standard IBAN-Regel.).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist die IBAN fehlerhaft.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK">Keine IBAN weist einen Fehler auf.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">Die Setuproutine von Mitgliedsbeitrag hat festgestellt, daß ein Versionsupdate stattgefunden hat und überprüft deshalb die Struktur.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">beendet diese Setuproutine (Nach Abschluss der Installation sollte Admidio neu gestartet werden). </string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1. Durchgang</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE">2. Durchgang</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_TITLE">Installation Mitgliedsbeitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON">Überprüfung der Profilfelder (SOLL-IST-Vergleich).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS">Überprüfung auf fehlende Profilfelder und Kategorien.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INVALID">ungültig</string>
+    <string name="PLG_MITGLIEDSBEITRAG_IS">IST</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ITEM">Posten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_LINK_TO_DEINSTALLATION">Zur Deinstallation wechseln</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR">Folgender Fehler ist eingetreten:</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MAILCOUNT">  * * * #VAR1# Mitglied(er) * * *</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL">Fehlende Empfänger E-Mailadresse:</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MAILSEND_OK">E-Mail wurde erfolgreich gesendet an:</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MAIL_TEXTS">E-Mail Texte</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE">Mandat</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE">Mandatsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig !) das Mandatsdatum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC">Das hier gewählte Mandatsdatum wird bei einem Benutzer beim Setzen eines Hakens eingetragen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_EXIST">Ein einmal gesetztes Mandatsdatum kann nur über "Profil bearbeiten"" wieder geändert werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_SET">Mandatsdatum setzen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandatsreferenz</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES1">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# wurde die Mandatsreferenz #VAR3_BOLD# zugewiesen.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES2">Es wurden keine neuen Mandatsreferenzen zugewiesen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandate</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE">Mandatsänderung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO">Hier sind Eingaben erforderlich, sofern sich Mandatsdaten gegenüber dem letzten Einzug geändert haben. Ein neues Mandat ist nicht erforderlich. Dem XML-Datensatz müssen lediglich die ursprünglichen Werte mitgegeben werden. Vor einem neuen Einzug müssen die hier eingegebenen Ursprungsdaten manuell gelöscht werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO">Hier sind Eingaben erforderlich, sofern sich Mandatsdaten gegenüber dem letzten Einzug geändert haben. Ein neues Mandat ist nicht erforderlich. Dem XML-Datensatz müssen lediglich die ursprünglichen Werte mitgegeben werden. Die hier eingegebenen Ursprungsdaten werden beim Setzen eines Bezahlt-Datums automatisch wieder gelöscht.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC">Hiermit kann eine Mandatsänderung von Zahlungsempfänger und/oder Gläubiger-Identifikationsnummer durchgeführt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_EDIT">Mandate bearbeiten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_EDIT_DESC">Hiermit können Mandatsdaten bearbeitet werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE">Mandatsreferenzen erzeugen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE_DESC">Erzeugt Mandatsreferenzen für Mitglieder,\n  - falls sie noch keine besitzen\n  - für die ein Mitgliedsbeitrag berechnet wurde\n  - für die eine IBAN hinterlegt ist.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT">Mandatsverwaltung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC">Anhand der oben aufgeführten Felder können die Parameter für die Zusammensetzung der Mandatsreferenz eingestellt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2">Überprüfung auf Vollständigkeit der Daten in der Mandatsverwaltung.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist das Profilfeld Kontoinhaber (=Zahlungspflichtiger) nicht leer und bei diesem Zahlungspflichtigen fehlen Adressangaben.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK">Alle Daten sind vollständig.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN">Mandatsänderungen anzeigen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC">Beim Setzen dieses Hakens werden im Vollbildmodus zusätzliche Spalten mit Mandatsänderungen angezeigt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MAX">Max</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER">Mitgliedsnummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR">Programmabbruch - Die Mitgliedsnummer #VAR1_BOLD# ist doppelt vorhanden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# wurde die Mitgliedsnummer #VAR3_BOLD# zugewiesen.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES2">Es wurden keine neuen Mitgliedsnummern zugewiesen, alle Mitglieder besitzen eine Mitgliedsnummer.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Mitgliedschaft</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Mitgliedsbeitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION">Beiträge der Mitglieder</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Kontodaten sowie die Einträge Beitrag und Bezahlt der zahlungspflichtigen Mitglieder.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT">Anzahl der Mitglieder</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBER_DATA">Benutzerdaten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBER_DATA_ALERT_DESC"> *** ACHTUNG *** Diese Daten können nach dem Löschen nicht wiederhergestellt werden!!! *** ACHTUNG *** </string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBER_DATA_DESC">Benutzerdaten sind die Daten, die im Profil eines Benutzers gesetzt werden (z.B. IBAN oder Fälligkeitsdatum). </string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBER_MEMBERS">Mitglied/Mitglieder</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_DATE">Datum der Nachricht</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_ID">Nachrichten-ID</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME">Auftraggeber</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MIN">Min</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MINIMUM_NUMBER">Mindestanzahl</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MINIMUM_NUMBER_DESC">Hier ist die Mindestanzahl von Familienmitgliedern einzugeben. Eine Familie sollte mindestens zwei Mitglieder aufweisen, da der Einzelbeitrag für ein Mitglied sicher günstiger als ein Familienbeitrag ist.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MIN_LENGTH">Mindestlänge</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MISSING">fehlt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MOVE_CI">Gläubiger-Identifikationsnummer verschieben nach Ursprüngliche Gläubiger-Identifikationsnummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR">Zahlungsempfänger verschieben nach Ursprünglicher Zahlungsempfänger</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MOVE_IBAN">IBAN verschieben nach Ursprüngliche IBAN</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Mandatsreferenz verschieben nach Ursprüngliche Mandatsreferenz</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NOT_CHANGE">nicht ändern</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NOT_SATISFIED">nicht erfüllt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST">Nach jedem Hinzufügen oder Löschen einer Konfiguration ist der Speichern-Button zu betätigen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_1">führt keine Veränderungen an der Datenbank durch. Das Plugin kann aber auch nicht gestartet werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_2">führt keine Veränderungen an der Datenbank durch. Das Plugin kann aber unter Umständen nicht gestartet werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_COMBINATION_ROLES">keine entprechenden Rollenkombinationen vorhanden</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES">keine Beitragsrollen vorhanden</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED">Es sind keine Beitragsrollen vorhanden!\n\nDefiniere bei mindestens einer Rolle einen 'Beitrag' und einen 'Beitragszeitraum'.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_DATA_TO_CONVERT">Es konnten keine Kontodaten konvertiert werden,\n\n - da entweder bereits alle Mitglieder IBAN/BIC/Bankname aufweisen\n - oder nicht genügend Informationen (BLZ, Kontonummer) vorliegen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST">Es existieren keine Fälligkeitsdaten.\n\nDer Download von XML-Datei und Kontrolldatei wird erst ermöglicht, wenn mindestens ein Fälligkeitsdatum festgelegt wurde.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_ROLES">keine Rollen vorhanden</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NUMBER">Anzahl</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS">Anzahl der Transaktionen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT">Einmallastschrift (OOFF)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OPTIONS">Optionen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ORG_CHOICE">Organisationswahl</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ORG_CHOICE_DESC">Sollen die in den Abschnitten "Konfigurationsdaten" und "Benutzerdaten" gewählten Daten in allen Organisationen gelöscht werden oder nur in der aktuellen Organisation?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ORIG_CI">Ursprüngliche Gläubiger-Identifikationsnummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR">Ursprünglicher Zahlungsempfänger</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT">Ursprüngliche Bank</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ORIG_IBAN">Ursprüngliche IBAN</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Ursprüngliche Mandatsreferenz</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Sonstiges</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Sonstige Beitragsrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID">Bezahlt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Bezahlt am</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Nur Bezahlt-Datum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">'Nur Bezahlt-Datum' löscht nur das Bezahlt-Datum.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAPERLESS_DATA_EXCHANGE">Belegloser Datenträgeraustausch</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">Standardmäßig werden beim Bearbeiten der Beitragszahlungen alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Beitragszahlung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Referenz-ID</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PENDING">noch ausstehend</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL">Pluginfreigabe</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_DATE">Stand</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION">Plugininformationen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_NAME">Name des Plugins</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION">Version</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS">#subject# Zahlungserinnerung\n#content# Sehr geehrtes Mitglied,\n\nwir möchten Sie höflichst daran erinnern, dass am 1. April der jährliche Mitgliedsbeitrag in Höhe von #fee# Euro fällig war.\n\nBitte überweisen Sie innerhalb der nächsten 14 Tage den Beitrag auf unser Konto.\n\nMit freundlichen Grüßen\n#organization_long_name#</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION">#subject# Abbuchung Mitgliedsbeitrag\n#content# Sehr geehrtes Mitglied,\n\nam #due_day# buchen wir einen Mitgliedsbeitrag in Höhe von #fee# Euro\nmit der Mandatsreferenz-Nummer #mandate_id#\nund unserer Gläubiger-ID #creditor_id#\nvon Ihren Konto #iban# ab.\n\nBitte sorgen Sie für ausreichende Kontodeckung.\n\nMit freundlichen Grüßen\n#organization_long_name#</string>
+    <string name="PLG_MITGLIEDSBEITRAG_POSTCODE">KtoInh-PLZ</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PREFIX">Präfix</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PREFIX_FAM">Präfix Familie</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PREFIX_MEM">Präfix Mitglied</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PREFIX_PAY">Präfix Zahlungspflichtiger</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Vorabinformation</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Erstellt eine Datei im CSV-Format mit allen erforderlichen Daten zum Erzeugen von Serienbriefen für Vorabinformationen und bietet die Möglichkeit Vorabinformationen per E-Mail zu versenden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Vorabinformation Exportdateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Export-Datei" wird zu "Export-Datei.csv"</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Vorabinformation E-Mail-Text</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER">Mitgliedsnummer(n) erzeugen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Erzeugt einfache, numerische und organisationsübergreifende Mitgliedsnummern für aktive und ehemalige Mitglieder.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">\n#VAR1_BOLD# Die Erzeugung erfolgt mit Betätigung des Buttons.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profilfeld</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Neuberechnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC">Hiermit werden die Beiträge neu berechnet und in die Datenbank geschrieben.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING">Neuzuordnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES">Neuzuordnung altersgestaffelte Rollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC">Hiermit werden alle Mitglieder altersgestaffelter Rollen neu zugeordnet.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO1">Beim Mitglied</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO10">in Rollen mit</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO2">ist kein Geburtsdatum eingetragen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO3">Gelöscht wurde(n):</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4">in Rolle</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5">*** Es wurden keine Rollenzugehörigkeiten gelöscht. ***</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO6">Neu aufgenommen wurde(n):</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7">*** Es wurden keine Mitglieder neuen Rollen zugeteilt. ***</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8">Nicht aufgenommen werden konnte(n):</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9">(Eventuell fehlt eine Rolle mit den entsprechenden Altersgrenzen oder das Mitglied ist bereits Angehöriger.)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_CATEGORY">Entferne Kategorie</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_CONTRIBUTIONS">Beiträge entfernen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_CONTRIBUTIONSTEXT">Beitragstexte entfernen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_CONTRIBUTIONSTEXT_DESC">Löscht alle Beitragstexte in der Datenbank.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_CONTRIBUTIONS_DESC">Löscht alle Beiträge in der Datenbank.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_PAID">Bezahlt entfernen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_PAID_DESC">Löscht alle Bezahlt-Markierungen in der Datenbank.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD">Entferne Profilfeld</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RESET">Löschen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE">Rolle</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Beiträge der Beitragsrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Einträge im Setup, nicht die Einträge der einzelnen Rollen in der Datenbank. Manuelle Änderungen von Beiträgen einzelner Rollen oder anteilige Beiträge werden nicht berücksichtigt. Dies kann daher nur als Prognose angesehen werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Rollenmitgliedschaft (Altersgestaffelte Rollen)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Überprüfung auf mehrfache Mitgliedschaften in altersgestaffelten Rollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">Die aufgeführten Mitglieder befinden sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK">Kein Mitglied befindet sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY">Rollenmitgliedschaft (Pflicht)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC">Überprüfung auf Pflicht-Rollenmitgliedschaften.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC2">Welchen Beitragsrollen muß ein Mitglied mindestens angehören (ODER-Verknüpfung)? Alle möglichen Rollen sind zu markieren.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR">Die aufgeführten Mitglieder sind in keiner Pflicht-Beitragsrolle (oder es sind keine Pflichtbeitragsrollen definiert).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_OK">Alle Mitglieder sind in mindestens einer Pflicht-Beitragsrolle.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION">Rollenmitgliedschaft (Ausschluss)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC">Überprüfung auf doppelte Mitgliedschaften in Ausschluss-Rollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC2">Welche Rollenmitgliedschaften sollen sich gegenseitig ausschließen?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR">Die aufgeführten Mitglieder sind in mindestens zwei Ausschluss-Beitragsrollen doppelt vorhanden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK">Alle Mitglieder sind in keiner Ausschluss-Beitragsrolle doppelt vorhanden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_NAME">Rollenname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Rollenübersicht</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rollenauswahl</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Folgende Rollen sind derzeit berechtigt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC">Wähle die Rollen aus, deren Mitglieder das Plugin aufrufen dürfen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC2">Wähle die Rollen aus, deren Mitglieder die Einstellungen des Plugins aufrufen dürfen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Prüfungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">Die nachfolgenden Einstellungen dienen nur als Parameter für die Rollenprüfung. Sie wirken sich nicht auf die Beitragsberechnung aus.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Abfrage der Beitragsrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV">* * * Rollenfilter aktiv! * * *</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_NOROLL">Es wurden keine Rollen ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO">Die angezeigten Daten dienen nur zur Information. Es werden keine Änderungen an der Datenbank vorgenommen. Sollten jedoch Unterschiede (SOLL/IST) vorhanden sein, kann das Plugin unter Umständen nicht richtig funktionieren.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Alle markieren</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO">Das Plugin Mitgliedsbeitrag kann nur SEPA XML-Dateien erzeugen, die\n1. einen gemeinsamen Sequenztyp aufweisen\n2. dasselbe Fälligkeitsdatum besitzen.\n\n FRST=Erstlastschrift, RCUR=Folgelastschrift, FNAL=letzte Lastschrift, OOFF=Einmallastschrift</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE">Sequenztyp</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC">Sequenztyp: leer=Erstlastschrift(FRST) R=Folgelastschrift(RCUR) F=letzte Lastschrift (FNAL) O=Einmallastschrift (OOFF)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC">Der hier eingestellte Sequenztyp wird gleichzeitig mit dem Setzen eines Fälligkeitsdatum gesetzt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER">Lfd. Nummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SETUP">Einstellungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHALL">SOLL</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHOW_ALL">alle anzeigen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SOURCE">Quelle</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SOURCE_DESC">Dieses hier ausgewählte Mitglied ist die Quelle der Kopieraktion.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STAGGERING">Staffelung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STAGGERING_NUMBER">Anzahl der Staffelungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT">Rechnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA">Es sind nicht genügend Daten vorhanden um eine Rechnungsdatei zu erstellen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2">Eine Rechnungsdatei kann nur erstellt werden, wenn für mindestens ein Mitglied ein Beitrag berechnet wurde und bei diesem Mitglied KEINE IBAN existiert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE">Rechnungsdatei</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Erstellt eine Rechnungsdatei im CSV-Format.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Rechnungsdateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SUM">Summe</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">Allgemein</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TARGET">Ziel</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Gesamtsumme</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternativer Zahlungspflichtiger</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">Diese Profilfelder können nicht kopiert werden, da sie unterschiedliche Datentypen aufweisen (z.B. Datum zu Text).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNSELECT_ALL">Alle abwählen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BIC">BIC des Zahlungspflichtigen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID">Creditor Identifier des Zahlungsempfängers</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR">Name des Zahlungspflichtigen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY">Datum des Fälligkeitstages</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_FEE">Höhe des Mitgliedsbeitrages</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME">Vorname des Mitglieds</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN">IBAN des Zahlungspflichtigen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME">Nachname des Mitglieds</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID">Mandatsreferenz für diesen Beitragseinzug</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT">Verwendungszweck</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_ACCOUNT_DATA">ohne Kontodaten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_DUEDATE">Ohne Fälligkeitsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE">Ohne Mandatsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID">Ohne Bezahlt-Datum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC">'Ohne Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen kein Bezahlt-Datum vorhanden ist.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITH_ACCOUNT_DATA">mit Kontodaten</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITH_DUEDATE">Mit Fälligkeitsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE">Mit Mandatsdatum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITH_PAID">Mit Bezahlt-Datum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WITH_PAID_DESC">'Mit Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen ein Bezahlt-Datum vorhanden ist.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">XML-Datei</string>
+    <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_DESC">Erstellt eine XML-Datei.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML-Dateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
+    <string name="PLG_MITGLIEDSBEITRAG_YEARS">Jahre</string>
+    <!-- Phrases only in Database -->
+    <string name="PMB_ADDRESS">KtoInh-Adresse</string>
+    <string name="PMB_BANK">Bank</string>
+    <string name="PMB_BIC">BIC</string>
+    <string name="PMB_CITY">KtoInh-Ort</string>
+    <string name="PMB_DUEDATE">Fälligkeitsdatum</string>
+    <string name="PMB_EMAIL">KtoInh-E-Mail</string>
+    <string name="PMB_IBAN">IBAN</string>
+    <string name="PMB_MANDATE">Mandat</string>
+    <string name="PMB_MANDATEDATE">Mandatsdatum</string>
+    <string name="PMB_MANDATEID">Mandatsreferenz</string>
+    <string name="PMB_MEMBERNUMBER">Mitgliedsnummer</string>
+    <string name="PMB_ORIG_DEBTOR_AGENT">Ursprüngliche Bank</string>
+    <string name="PMB_ORIG_IBAN">Ursprüngliche IBAN</string>
+    <string name="PMB_ORIG_MANDATEID">Ursprüngliche Mandatsreferenz</string>
+    <string name="PMB_POSTCODE">KtoInh-PLZ</string>
+    <string name="PMB_SEQUENCETYPE">Sequenztyp</string>
+</resources>

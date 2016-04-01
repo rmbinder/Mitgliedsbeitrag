@@ -1,17 +1,16 @@
 <?php
-/******************************************************************************
- * 
- * remapping.php
- *   
+/**
+ ***********************************************************************************************
  * Neuzuordnung von Mitgliedern fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2014 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
- * 
- * Parameters:    keine
  *
- ****************************************************************************/
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ * Parameters:       keine
+ *
+ ***********************************************************************************************
+ */
 
 require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
 require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/classes/tablemembers.php');
@@ -24,9 +23,9 @@ $pPreferences->read();
 
 //Vor der Neuzuordnung die altersgestaffelten Rollen auf Lücken oder Überlappungen prüfen
 $arr = check_rols();
-if (!in_array($gL10n->get('PMB_AGE_STAGGERED_ROLES_RESULT_OK'),$arr))
+if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'),$arr))
 {
-	$gMessage->show($gL10n->get('PMB_AGE_STAGGERED_ROLES_RESULT_ERROR2'));
+	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR2'));
 }
 unset($arr);
 
@@ -35,7 +34,7 @@ $message = '';
 $tablemember = new TableMembers($gDb);
 $sql = '';
  
-$message .= '<strong>'.$gL10n->get('PMB_REMAPPING_INFO3').'</strong><BR>';
+$message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO3').'</strong><BR>';
 
 // alle Altersrollen einlesen
 $altersrollen = beitragsrollen_einlesen('alt',array('FIRST_NAME','LAST_NAME','BIRTHDAY'));
@@ -47,7 +46,7 @@ foreach ($altersrollen as $roleId => $roldata)
     {
         if(strlen($memberdata['BIRTHDAY']) == 0)
         {
-            $gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PMB_REMAPPING_INFO1').' '.$memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'].' '.$gL10n->get('PMB_REMAPPING_INFO2'));
+            $gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO1').' '.$memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO2'));
         }
     
         $age = ageCalculator( strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'] ));
@@ -71,14 +70,14 @@ foreach ($altersrollen as $roleId => $roldata)
 			// 		and the actual date must be before the end date			       
         	//$tablemember->stopMembership( $roleId, $member);
         	       	
-        	$message .= '<BR>'.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].' '.$gL10n->get('PMB_REMAPPING_INFO4').' '.$roldata['rolle'];
+        	$message .= '<BR>'.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
         }
     } 
 }
 
 if (sizeof($stack)==0)
 {
-	$message .= '<BR>'.$gL10n->get('PMB_REMAPPING_INFO5');
+	$message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
 }
 
 // wenn ein Mitglied Angehöriger mehrerer Rollen war (dürfte eigentlich gar nicht vorkommen),
@@ -86,7 +85,7 @@ if (sizeof($stack)==0)
 // --> doppelte Vorkommen löschen
 $stack = array_map("unserialize", array_unique(array_map("serialize", $stack)));
 
-$message .= '<BR><BR><strong>'.$gL10n->get('PMB_REMAPPING_INFO6').'</strong><BR>';
+$message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO6').'</strong><BR>';
 
 // den Stack abarbeiten
 $marker = false;
@@ -102,7 +101,7 @@ foreach ($stack as $key => $stackdata)
         {       	
             // das Mitglied passt in das Altersschema der Rolle und das Kennzeichen dieser Altersstaffelung passt auch
         	$tablemember->startMembership($roleId, $stackdata['user_id']);
-            $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PMB_REMAPPING_INFO4').' '.$roldata['rolle'];
+            $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
                         
          	unset($stack[$key]); 
          	$marker = true;
@@ -112,20 +111,20 @@ foreach ($stack as $key => $stackdata)
 
 if (!$marker)
 {
-	$message .= '<BR>'.$gL10n->get('PMB_REMAPPING_INFO7');
+	$message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7');
 }
 
 if (sizeof($stack)>0)
 {
- 	$message .= '<BR><BR><strong>'.$gL10n->get('PMB_REMAPPING_INFO8').'</strong><BR><small>'.$gL10n->get('PMB_REMAPPING_INFO9').'</small><BR>';   
+ 	$message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><BR><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><BR>';   
     foreach ($stack as $stackdata)
     {
-        $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PMB_REMAPPING_INFO10').' '.$gL10n->get('PMB_STAGGERING').' '.$stackdata['alterstyp'] ;  
+        $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO10').' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING').' '.$stackdata['alterstyp'] ;  
     }
 }
 
 // set headline of the script
-$headline = $gL10n->get('PMB_REMAPPING_AGE_STAGGERED_ROLES');
+$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES');
 
 // create html page object
 $page = new HtmlPage($headline);
@@ -136,5 +135,3 @@ $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PAT
 
 $page->addHtml($form->show(false));
 $page->show();
-
-?>

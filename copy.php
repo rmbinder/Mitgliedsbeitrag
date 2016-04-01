@@ -1,26 +1,24 @@
 <?php
-/******************************************************************************
- * copy.php
- *   
+/**
+ ***********************************************************************************************
  * Kopieren von Profildaten fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.result
  *
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
  * Parameters:
  *
- * mode    - html   	: Standardmodus zun Anzeigen einer html-Liste 
- *           assign 	: Kopieren der Daten
- * full_screen    	-0 	: Normalbildschirm
- *           		 1 	: Vollbildschirm
- * source_userid		: die UserID des Quelle-Mitglieds
- * target_userid		: die UserID des Ziel-Mitglieds
- * source_usfid			: die UsfID der Quelle
- * target_usfid			: die UsfID des Ziels
- * 
- *****************************************************************************/
+ * mode             : html   - Standardmodus zun Anzeigen einer html-Liste
+ *                    assign - Kopieren der Daten
+ * full_screen    	: 0 	 - Normalbildschirm
+ *           		  1 	 - Vollbildschirm
+ * source_userid	: die UserID des Quelle-Mitglieds
+ * target_userid	: die UserID des Ziel-Mitglieds
+ * source_usfid		: die UsfID der Quelle
+ * target_usfid		: die UsfID des Ziels
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -76,7 +74,7 @@ else
     // show html list
     
     // set headline of the script
-    $headline = $gL10n->get('PMB_COPY');
+    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY');
 
     // add current url to navigation stack if last url was not the same page
     if(strpos($gNavigation->getUrl(), 'copy.php') === false)
@@ -142,7 +140,7 @@ else
                      		$("#targetval_"+target_usfid).fadeIn(1200);
 						}
 						else if(data == "unequal_datatype"){
-                    		alert("'.$gL10n->get('PMB_UNEQUAL_DATATYPE').'");
+                    		alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE').'");
                         	return false;
                     	}
                     	else {
@@ -179,16 +177,16 @@ else
     $members = list_members(array('FIRST_NAME','LAST_NAME','BIRTHDAY'),0);
 	foreach ($members as $member => $memberdata)
 	{
-		$datumtemp = new DateTimeExtended($memberdata['BIRTHDAY'], 'Y-m-d', 'date');
+        $datumtemp = new DateTimeExtended($memberdata['BIRTHDAY'], 'Y-m-d');
 		$members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']);
 		$membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']).'</option>';		
 	}
 	asort($members);
 
     $navbarForm = new HtmlForm('navbar_copy_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
-	$navbarForm->addDescription($gL10n->get('PMB_COPY_HEADERINFO'));
-    $navbarForm->addSelectBox('quelle', $gL10n->get('PMB_SOURCE'), $members, array('defaultValue' => $getSourceUserid,'helpTextIdLabel' => 'PMB_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
-    $navbarForm->addSelectBox('ziel', $gL10n->get('PMB_TARGET'), $members, array('defaultValue' => $getTargetUserid,'helpTextIdLabel' => 'PMB_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));   
+	$navbarForm->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
+    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
+    $navbarForm->addSelectBox('ziel', $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));   
     $copyMenu->addForm($navbarForm->show(false));
 
     // create table object
@@ -197,11 +195,11 @@ else
 
     // create array with all column heading values
     $columnHeading = array(
-        $gL10n->get('PMB_SOURCE'),
-        $gL10n->get('PMB_CHOICE'),
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'),
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_CHOICE'),
        	$gL10n->get('MEM_PROFILE_FIELD'),
-        $gL10n->get('PMB_CHOICE'),
-        $gL10n->get('PMB_TARGET')
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_CHOICE'),
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET')
     );
     $table->setColumnAlignByArray(array('center', 'center', 'center','center','center'));
     $table->addRowHeadingByArray($columnHeading);
@@ -265,4 +263,3 @@ else
     $page->addHtml($table->show(false));
     $page->show();
 }
-?>

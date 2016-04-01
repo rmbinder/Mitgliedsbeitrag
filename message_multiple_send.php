@@ -1,16 +1,18 @@
 <?php
-/******************************************************************************
+/**
+ ***********************************************************************************************
  * Check message information and save it
  *
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
- * message_multiple_send.php ist eine modifizierte messages_send.php
- *  
- * Parameters:      -nur $_POST
- * 
- *****************************************************************************/
+ * Hinweis:   message_multiple_send.php ist eine modifizierte messages_send.php
+ *
+ * Parameters:       keine
+ *
+ ***********************************************************************************************
+ */
  
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -20,7 +22,8 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/../adm_program/system/template.php');
-require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');  
+require_once($plugin_path. '/'.$plugin_folder.'/common_function.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');  
 
 // Initialize and check the parameters
 $postFrom                   = admFuncVariableIsValid($_POST, 'mailfrom', 'string', array('defaultValue' => ''));
@@ -40,9 +43,13 @@ $postFrom = $gCurrentUser->getValue('EMAIL');
 $empfaenger = '';
 
 $sendMailResultMessage = '';
-$sendMailResultSendOK = array('<strong>'.$gL10n->get('PMB_MAILSEND_OK').'</strong>');
-$sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PMB_MAILMISSING_EMAIL').'</strong>');
-$sendMailResultAnotherError = array('<strong>'.$gL10n->get('PMB_MAILANOTHER_ERROR').'</strong>');
+$sendMailResultSendOK = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILSEND_OK').'</strong>');
+$sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL').'</strong>');
+$sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR').'</strong>');
+
+// Konfiguration einlesen - $pPreferences ist für die korrekte Auflösung des Parameters #creditor_id# erforderlich          
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
 
 $user_array = $_SESSION['checkedArray'];
 
@@ -64,13 +71,12 @@ if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirm
     $postDeliveryConfirmation = 0;
 }
 
-// Create new Email Object
-$email = new Email();
-
 //$receiver = array();
 foreach ($user_array as $userId)
 {
-	
+	// Create new Email Object
+	$email = new Email();
+
     $user = new User($gDb, $gProfileFields, $userId);
                 
     // save page in navigation - to have a check for a navigation back.
@@ -261,5 +267,3 @@ if(count($sendMailResultAnotherError) > 1)
 // zur Ausgangsseite zurueck
 $gMessage->setForwardUrl($gNavigation->getPreviousUrl(), 0);
 $gMessage->show($sendMailResultMessage);
-
-?>

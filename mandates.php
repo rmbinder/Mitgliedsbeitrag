@@ -1,30 +1,29 @@
 <?php
-/******************************************************************************
- * mandates.php
- *   
+/**
+ ***********************************************************************************************
  * Setzen eines Mandatsdatums fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.result
  *
- * mandates.php ist eine modifizierte members_assignment.php
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ * Hinweis:   mandates.php ist eine modifizierte members_assignment.php
  *
  * Parameters:
  *
- * mode    - html   	: Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beiträgen
- *           assign 	: Setzen eines Mandatsdatums
- * usr_id           	: Id des Benutzers, für den das Mandatsdatum gesetzt/gelöscht wird
- * datum_neu			: Mandatsdatum
- * mem_show_choice	-0 	: (Default) Alle Benutzer anzeigen
- *                	 1 	: Nur Benutzer anzeigen, bei denen ein Mandatsdatum vorhanden ist
- *                	 2	: Nur Benutzer anzeigen, bei denen kein Mandatsdatum vorhanden ist
- * full_screen    	-0 	: Normalbildschirm
- *           		 1 	: Vollbildschirm
- * mandate_screen  	-0 	: zusätzliche Spalten mit Mandatsänderungen werden nicht angezeigt
- *           		 1 	: zusätzliche Spalten mit Mandatsänderungen werden angezeigt
- *
- *****************************************************************************/
+ * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beiträgen
+ *                    assign - Setzen eines Mandatsdatums
+ * usr_id           : Id des Benutzers, für den das Mandatsdatum gesetzt/gelöscht wird
+ * datum_neu		: Mandatsdatum
+ * mem_show_choice	: 0 - (Default) Alle Benutzer anzeigen
+ *                	  1 - Nur Benutzer anzeigen, bei denen ein Mandatsdatum vorhanden ist
+ *                	  2	- Nur Benutzer anzeigen, bei denen kein Mandatsdatum vorhanden ist
+ * full_screen    	: 0 - Normalbildschirm
+ *           		  1 - Vollbildschirm
+ * mandate_screen  	: 0 - zusätzliche Spalten mit Mandatsänderungen werden nicht angezeigt
+ *           		  1 - zusätzliche Spalten mit Mandatsänderungen werden angezeigt
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -34,7 +33,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-  	
+        
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
 {
     // ajax mode then only show text if error occurs
@@ -98,7 +97,7 @@ else
     // show html list
     
     // set headline of the script
-    $headline = $gL10n->get('PMB_MANDATES');
+    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATES');
 
     // add current url to navigation stack if last url was not the same page
     if(strpos($gNavigation->getUrl(), 'mandates.php') === false)
@@ -185,7 +184,7 @@ else
     
         WHERE '. $memberCondition. '
         ORDER BY last_name, first_name ';
-    $resultUser = $gDb->query($sql);
+    $statement = $gDb->query($sql);
 
     // create html page object
     $page = new HtmlPage($headline);
@@ -285,16 +284,16 @@ else
     
     $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
-    $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d', 'date');
+    $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d');
 	$datum = $datumtemp->format($gPreferences['system_date']);
     
-    $navbarForm->addInput('datum', $gL10n->get('PMB_MANDATEDATE'),$datum ,array('type' => 'date','helpTextIdLabel' => 'PMB_MANDATEDATE_DESC'));
-	$selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PMB_WITH_MANDATEDATE'), '2' => $gL10n->get('PMB_WITHOUT_MANDATEDATE') );
-    $navbarForm->addSelectBox('mem_show', $gL10n->get('PMB_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow,'helpTextIdLabel' => 'PMB_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'),$datum ,array('type' => 'date','helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC'));
+	$selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE') );
+    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
     
     if($getFullScreen)
  	{
-    	$navbarForm->addCheckbox('mandate_screen', $gL10n->get('PMB_MANDATE_SCREEN'), $getMandateScreen, array('class'=>'mandatescreen_checkbox','helpTextIdLabel' => 'PMB_MANDATE_SCREEN_DESC'));
+    	$navbarForm->addCheckbox('mandate_screen', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN'), $getMandateScreen, array('class'=>'mandatescreen_checkbox','helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC'));
  	} 
     $mandatesMenu->addForm($navbarForm->show(false));
 
@@ -304,21 +303,21 @@ else
 
     // create array with all column heading values
     $columnHeading = array(
-        '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-info" title="'.$gL10n->get('PMB_MANDATEDATE_CHANGE_ALL_DESC').'"/>',
-        $gL10n->get('PMB_MANDATEDATE'),
-        $gL10n->get('PMB_MANDATEID'),
-        '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/edit.png"
-            alt="'.$gL10n->get('PMB_MANDATE_CHANGE').'" title="'.$gL10n->get('PMB_MANDATE_CHANGE').'" />',
+        '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC').'"/>',
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'),
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'),
+        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/edit.png"
+            alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" />',
         $gL10n->get('SYS_LASTNAME'),
         $gL10n->get('SYS_FIRSTNAME'),
-        '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/map.png"
+        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/map.png"
             alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
         $gL10n->get('SYS_ADDRESS'),
         $gL10n->get('SYS_BIRTHDAY'),
         $gL10n->get('SYS_BIRTHDAY'),
-        $gL10n->get('PMB_ORIG_MANDATEID'),
-        $gL10n->get('PMB_ORIG_IBAN'),
-        $gL10n->get('PMB_ORIG_DEBTOR_AGENT')
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'),
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'),
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')
     );
     
     $table->setColumnAlignByArray(array('center', 'left', 'left','center','left', 'left', 'center', 'left', 'left', 'left', 'left', 'left', 'left'));
@@ -334,7 +333,7 @@ else
  		 $table->setDatatablesColumnsHide(array(11,12,13));
  	}
     // show rows with all organization users
-    while($user = $gDb->fetch_array($resultUser))
+    while($user = $statement->fetch())
     {
     	if(($getMembersShow == 2) && (strlen($user['mandatsreferenz'])>0) && (strlen($user['mandatsdatum'])>0) )
 		{
@@ -353,7 +352,7 @@ else
     	if(strlen($user['mandatsdatum']) > 0)
         {
             $htmlMandatStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
-            $mandatDate = new DateTimeExtended($user['mandatsdatum'], 'Y-m-d', 'date');
+            $mandatDate = new DateTimeExtended($user['mandatsdatum'], 'Y-m-d');
             $htmlMandatDate = '<div class="mandatedate_'.$user['usr_id'].'" id="mandatedate_'.$user['usr_id'].'">'.$mandatDate->format($gPreferences['system_date']).'</div>';
         }
         else
@@ -393,7 +392,7 @@ else
         //9. Spalte ($htmlBirthday)
         if(strlen($user['birthday']) > 0)
         {
-            $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d', 'date');
+            $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
             $birthdayDateSort=$birthdayDate->format("Ymd");
         }
@@ -420,7 +419,7 @@ else
             $htmlMandatDate,
             $htmlMandateID,
 			'<a class="admidio-icon-info" href="'.$g_root_path.'/adm_plugins/'.$plugin_folder.'/mandate_change.php?user_id='. $user['usr_id']. '"><img src="'. THEME_PATH. '/icons/edit.png"
-					alt="'.$gL10n->get('PMB_MANDATE_CHANGE').'" title="'.$gL10n->get('PMB_MANDATE_CHANGE').'" /></a>',
+					alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" /></a>',
             '<a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
             '<a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',
             $htmlAddress,
@@ -444,4 +443,3 @@ else
 
     $page->show();
 }
-?>

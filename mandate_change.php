@@ -1,29 +1,28 @@
 <?php
-/******************************************************************************
- * mandate_change.php
- *   
- * Routine um eine Mandatsaenderung (Zahlungspflichtiger) zu bearbeiten 
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.result
+/**
+ ***********************************************************************************************
+ * Routine um eine Mandatsaenderung (Zahlungspflichtiger) zu bearbeiten
  *
- * mandate_change.php ist eine modifizierte members_assignment.php
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ * Hinweis:   mandate_change.php ist eine modifizierte members_assignment.php
  *
  * Parameters:
  *
- * mode    - html   	: Standardmodus zum Anzeigen einer html-Liste
- *           assign 	: Schreiben der Änderungen in die Datenbank
- * usr_id           	: Id des Benutzers, für den die Mandatsänderungen durchgeführt werden
- * iban                 : die neue IBAN des Zahlungspflichtigen
- * origiban		        : die urspruengliche IBAN des Zahlungspflichtigen
- * mandateid	        : die neue Mandatsreferenz des Zahlungspflichtigen
- * origmandateid        : die urspruengliche Mandatsreferenz des Zahlungspflichtigen
- * bankchanged	        : die Bankverbindung wurde geaendert
- * bank                 : die neue Bank des Zahlungspflichtigen
- * bic                  : der neue BIC des Zahlungspflichtigen
- *
- *****************************************************************************/
+ * mode             : html   - Standardmodus zum Anzeigen einer html-Liste
+ *                    assign - Schreiben der Änderungen in die Datenbank
+ * usr_id           : Id des Benutzers, für den die Mandatsänderungen durchgeführt werden
+ * iban             : die neue IBAN des Zahlungspflichtigen
+ * origiban		    : die urspruengliche IBAN des Zahlungspflichtigen
+ * mandateid	    : die neue Mandatsreferenz des Zahlungspflichtigen
+ * origmandateid    : die urspruengliche Mandatsreferenz des Zahlungspflichtigen
+ * bankchanged	    : die Bankverbindung wurde geaendert
+ * bank             : die neue Bank des Zahlungspflichtigen
+ * bic              : der neue BIC des Zahlungspflichtigen
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -96,7 +95,6 @@ if($getMode == 'assign')  // (Default) Choose language
 			{
 				$user->setValue('IBAN', $getIBAN);	
 				$user->setValue('ORIGIBAN', $getOrigIBAN);
-				$user->setValue('KONTONUMMER', '');			//die alte Kontonummer stimmt dann auch nicht mehr
 				$ret_txt='success';	
 				$user->save();
 			}
@@ -114,8 +112,6 @@ if($getMode == 'assign')  // (Default) Choose language
 			$user->setValue('IBAN', $getIBAN);	
 			$user->setValue('BIC', $getBIC);	
 			$user->setValue('BANKNAME', $getBank);	
-			$user->setValue('BANKLEITZAHL', '');		//die alte BLZ stimmt dann auch nicht mehr
-			$user->setValue('KONTONUMMER', '');			//dito alte Kontonummer 
 			$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
 			$user->setValue('ORIGDEBTORAGENT', 'SMNDA');	
 	
@@ -133,7 +129,7 @@ if($getMode == 'assign')  // (Default) Choose language
 }
 else 
 {
-    $headline = $gL10n->get('PMB_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
+    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
 
     // create html page object
     $page = new HtmlPage($headline);
@@ -202,28 +198,28 @@ else
                     }
                     else if(data == "error_nothing_changed") {
                         $("#"+id+" .form-alert").attr("class", "alert alert-danger form-alert");
-                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PMB_ERROR_NOTHING_CHANGED').'</strong>");
+                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED').'</strong>");
                         $("#"+id+" .form-alert").fadeIn("slow");
                         $("#"+id+" .form-alert").animate({opacity: 1.0}, 5000);
                         $("#"+id+" .form-alert").fadeOut("slow");
                     }
                     else if(data == "error_origmandateid_missing") {
                         $("#"+id+" .form-alert").attr("class", "alert alert-danger form-alert");
-                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PMB_ERROR_ORIGMANDATEID_MISSING').'</strong>");
+                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING').'</strong>");
                         $("#"+id+" .form-alert").fadeIn("slow");
                         $("#"+id+" .form-alert").animate({opacity: 1.0}, 5000);
                         $("#"+id+" .form-alert").fadeOut("slow");
                     }
                     else if(data == "error_origiban_missing") {
                         $("#"+id+" .form-alert").attr("class", "alert alert-danger form-alert");
-                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PMB_ERROR_ORIGIBAN_MISSING').'</strong>");
+                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING').'</strong>");
                         $("#"+id+" .form-alert").fadeIn("slow");
                         $("#"+id+" .form-alert").animate({opacity: 1.0}, 5000);
                         $("#"+id+" .form-alert").fadeOut("slow");
                     }
                     else if(data == "error_bank_changed") {
                         $("#"+id+" .form-alert").attr("class", "alert alert-danger form-alert");
-                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PMB_ERROR_BANK_CHANGED').'</strong>");
+                        $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED').'</strong>");
                         $("#"+id+" .form-alert").fadeIn("slow");
                         $("#"+id+" .form-alert").animate({opacity: 1.0}, 5000);
                         $("#"+id+" .form-alert").fadeOut("slow");
@@ -243,21 +239,21 @@ else
     $mandateChangeMenu->addItem('menu_item_back', $gNavigation->getUrl(), $gL10n->get('SYS_BACK'), 'back.png');
 
     $form = new HtmlForm('configurations_form', null, $page, array('class' => 'form-preferences')); 
-    $form->addInput('mandateid', $gL10n->get('PMB_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')),array('property' => FIELD_REQUIRED));
+    $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')),array('property' => FIELD_REQUIRED));
 	$html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()"><img 
-			src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PMB_MOVE_MANDATEID').'" title="'.$gL10n->get('PMB_MOVE_MANDATEID').'" /></a>';
+			src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" /></a>';
     $form->addCustomContent('', $html);	
-	$form->addInput('origmandateid', $gL10n->get('PMB_ORIG_MANDATEID'), $user->getValue('ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id')),array('property' => FIELD_DISABLED));
-	$form->addInput('iban', $gL10n->get('PMB_IBAN'), $user->getValue('IBAN'),array('property' => FIELD_REQUIRED));
+	$form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id')),array('property' => FIELD_DISABLED));
+	$form->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $user->getValue('IBAN'),array('property' => FIELD_REQUIRED));
     $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()"><img 
-			src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PMB_MOVE_IBAN').'" title="'.$gL10n->get('PMB_MOVE_IBAN').'" /></a>';
+			src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'" /></a>';
     $form->addCustomContent('', $html);	
-    $form->addInput('origiban', $gL10n->get('PMB_ORIG_IBAN'), $user->getValue('ORIGIBAN'),array('property' => FIELD_DISABLED));
-	$form->addCheckbox('bankchanged', $gL10n->get('PMB_BANK_CHANGED'), 0, array('class'=>'bank_changed_checkbox'));  
-	$form->addInput('bic', $gL10n->get('PMB_BIC'), $user->getValue('BIC'),array('property' => FIELD_DISABLED));        
-	$form->addInput('bank', $gL10n->get('PMB_BANK'), $user->getValue('BANKNAME'),array('property' => FIELD_DISABLED));
-	$form->addInput('origdebtoragent', $gL10n->get('PMB_ORIG_DEBTOR_AGENT'), $user->getValue('ORIGDEBTORAGENT'),array('property' => FIELD_DISABLED));  
-	$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PMB_MANDATE_CHANGE_DBTR_INFO').'</div>';
+    $form->addInput('origiban', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'), $user->getValue('ORIGIBAN'),array('property' => FIELD_DISABLED));
+	$form->addCheckbox('bankchanged', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK_CHANGED'), 0, array('class'=>'bank_changed_checkbox'));  
+	$form->addInput('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $user->getValue('BIC'),array('property' => FIELD_DISABLED));        
+	$form->addInput('bank', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'), $user->getValue('BANKNAME'),array('property' => FIELD_DISABLED));
+	$form->addInput('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), $user->getValue('ORIGDEBTORAGENT'),array('property' => FIELD_DISABLED));  
+	$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO').'</div>';
     $form->addCustomContent('', $html);	
     
     $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
@@ -266,4 +262,3 @@ else
                        
     $page->show();  
 }
-?>

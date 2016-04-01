@@ -1,29 +1,28 @@
 <?php
-/******************************************************************************
- * duedates.php
- *   
+/**
+ ***********************************************************************************************
  * Setzen eines Fälligkeitsdatums fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.result
  *
- * duedates.php ist eine modifizierte members_assignment.php
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ * Hinweis:   duedates.php ist eine modifizierte members_assignment.php
  *
  * Parameters:
  *
- * mode    - html   	: Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beiträgen
- *           assign 	: Setzen eines Fälligkeitsdatum
- * usr_id           	: Id des Benutzers, für den das Fälligkeitsdatum gesetzt/gelöscht wird
- * datum_neu			: das neue Fälligkeitsdatum
- * mem_show_choice	-0 	: (Default) Alle Benutzer anzeigen
- *                	 1 	: Nur Benutzer anzeigen, bei denen ein Fälligkeitsdatum vorhanden ist
- *                	 2	: Nur Benutzer anzeigen, bei denen kein Fälligkeitsdatum vorhanden ist
- * full_screen    	-0 	: Normalbildschirm
- *           		 1 	: Vollbildschirm
- * sequencetype    	 	: Sequenztyp, der gleichzeitig mit dem Fälligkeitsdatum gesetzt wird (FRST, RCUR, FNAL oder OOFF)
- *
- *****************************************************************************/
+ * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beiträgen
+ *                    assign - Setzen eines Fälligkeitsdatum
+ * usr_id           : Id des Benutzers, für den das Fälligkeitsdatum gesetzt/gelöscht wird
+ * datum_neu		: das neue Fälligkeitsdatum
+ * mem_show_choice	: 0 - (Default) Alle Benutzer anzeigen
+ *                	  1 - Nur Benutzer anzeigen, bei denen ein Fälligkeitsdatum vorhanden ist
+ *                	  2	- Nur Benutzer anzeigen, bei denen kein Fälligkeitsdatum vorhanden ist
+ * full_screen    	: 0 - Normalbildschirm
+ *           		  1 - Vollbildschirm
+ * sequencetype    	: Sequenztyp, der gleichzeitig mit dem Fälligkeitsdatum gesetzt wird (FRST, RCUR, FNAL oder OOFF)
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -39,7 +38,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
     	
  //alle Beitragsrollen einlesen 
-$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','KONTONUMMER','IBAN','BANKLEITZAHL','KONTOINHABER')); 
+$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','KONTOINHABER'));
 
 //falls eine Rollenabfrage durchgeführt wurde, dann die Rollen, die nicht gewählt wurden, löschen
 if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]<>' ')
@@ -126,7 +125,7 @@ else
 	$userArray = array();
     
     // set headline of the script
-    $headline = $gL10n->get('PMB_DUEDATE');
+    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
 
     // add current url to navigation stack if last url was not the same page
     if(strpos($gNavigation->getUrl(), 'duedates.php') === false)
@@ -219,7 +218,7 @@ else
          AND iban.usd_value IS NOT NULL
          AND '. $memberCondition. '
          ORDER BY last_name, first_name ';
-    $resultUser = $gDb->query($sql);
+    $statement = $gDb->query($sql);
 
     // create html page object
     $page = new HtmlPage($headline);
@@ -240,7 +239,8 @@ else
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
         	var datum = $("#datum").val();
-            $.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/duedates.php?mode=assign&full_screen='.$getFullScreen.'&datum_neu="+datum,
+        	var sequencetype = $("#lastschrifttyp").val(); 
+            $.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/duedates.php?mode=assign&full_screen='.$getFullScreen.'&sequencetype="+sequencetype+"&datum_neu="+datum,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
@@ -321,18 +321,18 @@ else
     
     $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
-    $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d', 'date');
+    $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d');
 	$datum = $datumtemp->format($gPreferences['system_date']);
 	
-    $navbarForm->addInput('datum', $gL10n->get('PMB_DUEDATE'),$datum ,array('type' => 'date','helpTextIdLabel' => 'PMB_DUEDATE_DESC'));
-    $selectBoxEntries = array('RCUR' => $gL10n->get('PMB_FOLLOW_DIRECT_DEBIT'),'FNAL' => $gL10n->get('PMB_FINAL_DIRECT_DEBIT'),'OOFF' => $gL10n->get('PMB_ONETIMES_DIRECT_DEBIT'),'FRST' => $gL10n->get('PMB_FIRST_DIRECT_DEBIT') );
-    $navbarForm->addSelectBox('lastschrifttyp', $gL10n->get('PMB_SEQUENCETYPE'), $selectBoxEntries, array('helpTextIdLabel' => 'PMB_SEQUENCETYPE_SELECT_DESC', 'showContextDependentFirstEntry' => false, 'firstEntry'=>$gL10n->get('PMB_NOT_CHANGE')));
-    $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PMB_WITH_DUEDATE'), '2' => $gL10n->get('PMB_WITHOUT_DUEDATE') );
-    $navbarForm->addSelectBox('mem_show', $gL10n->get('PMB_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow,'helpTextIdLabel' => 'PMB_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'),$datum ,array('type' => 'date','helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_DESC'));
+    $selectBoxEntries = array('RCUR' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FOLLOW_DIRECT_DEBIT'),'FNAL' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT'),'OOFF' => $gL10n->get('PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT'),'FRST' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FIRST_DIRECT_DEBIT') );
+    $navbarForm->addSelectBox('lastschrifttyp', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), $selectBoxEntries, array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC', 'showContextDependentFirstEntry' => false, 'firstEntry'=>$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_CHANGE')));
+    $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_DUEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_DUEDATE') );
+    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
     
     if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]<>' ')
 	{
-		$navbarForm->addDescription('<strong>'.$gL10n->get('PMB_DUEDATE_ROLLQUERY_ACTIV').'</strong>');
+		$navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_ACTIV').'</strong>');
 	}
     $duedatesMenu->addForm($navbarForm->show(false));
 
@@ -342,14 +342,14 @@ else
 
     // create array with all column heading values
     $columnHeading = array(
-        '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-info" title="'.$gL10n->get('PMB_DUEDATE_CHANGE_ALL_DESC').'"/>',
-        $gL10n->get('PMB_DUE_ON'),
-        '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/comment.png"
-            alt="'.$gL10n->get('PMB_SEQUENCETYPE').'" title="'.$gL10n->get('PMB_SEQUENCETYPE_DESC').'" />',
-        $gL10n->get('PMB_FEE'),
+        '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_CHANGE_ALL_DESC').'"/>',
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_DUE_ON'),
+        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/comment.png"
+            alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'" />',
+        $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
         $gL10n->get('SYS_LASTNAME'),
         $gL10n->get('SYS_FIRSTNAME'),
-        '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/map.png"
+        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/map.png"
             alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
         $gL10n->get('SYS_ADDRESS'),
         $gL10n->get('SYS_BIRTHDAY'),
@@ -366,7 +366,7 @@ else
     $table->setDatatablesColumnsHide(10);
 
     // show rows with all organization users
-    while($user = $gDb->fetch_array($resultUser))
+    while($user = $statement->fetch())
     {
     	if(($getMembersShow == 2) && (strlen($user['faelligkeitsdatum'])>0) && (strlen($user['mandatsdatum'])>0) )
 		{
@@ -384,7 +384,7 @@ else
     	if(strlen($user['faelligkeitsdatum']) > 0)
         {
             $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
-            $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d', 'date');
+            $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d');
             $htmlDueDate = '<div class="duedate_'.$user['usr_id'].'" id="duedate_'.$user['usr_id'].'">'.$DueDate->format($gPreferences['system_date']).'</div>';
         }
         else
@@ -445,7 +445,7 @@ else
         //9. Spalte ($htmlBirthday)
         if(strlen($user['birthday']) > 0)
         {
-            $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d', 'date');
+            $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
             $birthdayDateSort=$birthdayDate->format("Ymd");
         }
@@ -478,4 +478,3 @@ else
 
     $page->show();
 }
-?>

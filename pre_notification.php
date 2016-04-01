@@ -1,30 +1,29 @@
 <?php
-/******************************************************************************
- * pre_notification.php
- *   
+/**
+ ***********************************************************************************************
  * Modul Vorabinformation fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.result
  *
- * pre_notification.php ist eine modifizierte members_assignment.php
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ * Hinweis:   pre_notification.php ist eine modifizierte members_assignment.php
  *
  * Parameters:
  *
- * mode    - html   	: Standardmodus zun Anzeigen einer html-Liste
- *           prepare 	: user in einem CheckedArray setzen bzw löschen
- *           csv_export : erzeugt eine csv-Datei
- *           mail_export: nur zur Prüfung, ob user im CheckedArray markiert sind
- * usr_id  - <>0        : Id des Benutzers, für der im CheckedArray gesetzt/gelöscht wird
- *           leer       : alle user im CheckedArray ändern von gesetzt->gelöscht bzw gelöscht->gesetzt
- * full_screen    	-0 	: Normalbildschirm
- *           		 1 	: Vollbildschirm
- * checked		-true	: Der Haken beim Benutzer wurde gesetzt
- * 				 false	: Der Haken beim Benutzer wurde entfernt
- * duedate				: Das übergebene Fälligkeitsdatum zur Filterung
- *
- *****************************************************************************/
+ * mode             : html   	 - Standardmodus zun Anzeigen einer html-Liste
+ *                    prepare 	 - user in einem CheckedArray setzen bzw löschen
+ *                    csv_export - erzeugt eine csv-Datei
+ *                    mail_export- nur zur Prüfung, ob user im CheckedArray markiert sind
+ * usr_id           : <>0        - Id des Benutzers, für der im CheckedArray gesetzt/gelöscht wird
+ *                    leer       - alle user im CheckedArray ändern von gesetzt->gelöscht bzw gelöscht->gesetzt
+ * full_screen    	: 0 - Normalbildschirm
+ *           		  1 - Vollbildschirm
+ * checked		   : true  - Der Haken beim Benutzer wurde gesetzt
+ * 				     false - Der Haken beim Benutzer wurde entfernt
+ * duedate		   : Das übergebene Fälligkeitsdatum zur Filterung
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -64,8 +63,8 @@ if($getMode == 'csv_export')
 	if (count($_SESSION['checkedArray'])<>0)
 	{
 		$export = '';
-		$export = $gL10n->get('PMB_SERIAL_NUMBER').";"
-			 	.$gL10n->get('PMB_MEMBERNUMBER').";"		 	
+		$export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').";"		 	
 			 	.$gL10n->get('SYS_FIRSTNAME').";"
 			 	.$gL10n->get('SYS_LASTNAME').";"
 			 	.$gL10n->get('SYS_ADDRESS').";"
@@ -75,21 +74,21 @@ if($getMode == 'csv_export')
 			 	.$gL10n->get('SYS_PHONE').";"	
 			 	.$gL10n->get('SYS_MOBILE').";"	
 			 	.$gL10n->get('SYS_BIRTHDAY').";"				 
-			 	.$gL10n->get('PMB_ACCESSION').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').";"
 			 				 			 			 			 			 	 
-			 	.$gL10n->get('PMB_ACCOUNT_HOLDER')."/".$gL10n->get('PMB_DEBTOR').";"
-			 	.$gL10n->get('PMB_ADDRESS').";"		 
-			 	.$gL10n->get('PMB_POSTCODE').";"
-			 	.$gL10n->get('PMB_CITY').";"
-			 	.$gL10n->get('PMB_EMAIL').";"	
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER')."/".$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').";"		 
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').";"	
 
-			 	.$gL10n->get('PMB_BANK').";"
-			 	.$gL10n->get('PMB_BIC').";"
-			 	.$gL10n->get('PMB_IBAN').";"	
- 	  		 	.$gL10n->get('PMB_MANDATEDATE').";"	
-			 	.$gL10n->get('PMB_MANDATEID').";"
-			 	.$gL10n->get('PMB_DUEDATE').";"					 			 		 			 			 
- 			 	.$gL10n->get('PMB_FEE').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"	
+ 	  		 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').";"	
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').";"					 			 		 			 			 
+ 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";"
 			 	."\n";
 		 
 		$nr = 1;
@@ -248,7 +247,7 @@ else
          AND mem.mem_usr_id  = usr_id   
          WHERE  '. $memberCondition. '
             ORDER BY last_name, first_name ';
-    $resultUser = $gDb->query($sql);
+    $statement = $gDb->query($sql);
 
     if($getMode == 'prepare')
 	{
@@ -269,7 +268,7 @@ else
 		}
 		else 						// Alle ändern wurde gewählt
 		{
-    		while($user = $gDb->fetch_array($resultUser))
+    		while($user = $statement->fetch())
     		{
     			if (in_array($user['usr_id'],$_SESSION['checkedArray']) ) 
     			{
@@ -288,7 +287,7 @@ else
     else
 	{
 		// set headline of the script
-    	$headline = $gL10n->get('PMB_PRE_NOTIFICATION');
+    	$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION');
 
     	// add current url to navigation stack if last url was not the same page
     	if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
@@ -311,7 +310,7 @@ else
                 	function(data){
                     	// check if error occurs
                    		if(data=="marker_empty") {
-                   			alert("'.$gL10n->get('PMB_EXPORT_EMPTY').'");
+                   			alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
                				return false;
             			}
             			else {
@@ -336,7 +335,7 @@ else
                 	function(data){
                     	// check if error occurs
                    		if(data=="marker_empty") {
-                   			alert("'.$gL10n->get('PMB_EMAIL_EMPTY').'");
+                   			alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY').'");
                				return false;
             			}
             			else {
@@ -419,20 +418,28 @@ else
 
         //alle Fälligkeitsdaten einlesen        
         $sql = 'SELECT DISTINCT usd_value
-                FROM '.TBL_USER_DATA.'
-                WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id').' ';
-		
-        $result = $gDb->query($sql);
-        $selectBoxEntries = array('0'=> '- '.$gL10n->get('PMB_SHOW_ALL').' -'); 
+                FROM '.TBL_USER_DATA.','. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
+                WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id').' 
+                AND   mem_begin <= \''.DATE_NOW.'\'
+                AND   mem_end >= \''.DATE_NOW.'\' 
+                AND   usd_usr_id = mem_usr_id
+                AND   mem_rol_id = rol_id
+                AND   rol_valid = 1
+                AND   rol_cat_id = cat_id
+                AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+                	OR cat_org_id IS NULL )  ';
+
+        $duedateStatement = $gDb->query($sql);
+        $selectBoxEntries = array('0'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -'); 
                                              
-        while ($row = $gDb->fetch_array($result))
+        while ($row = $duedateStatement->fetch())
         {
-            $DueDate = new DateTimeExtended($row['usd_value'], 'Y-m-d', 'date');  
+            $DueDate = new DateTimeExtended($row['usd_value'], 'Y-m-d');
             $selectBoxEntries[$row['usd_value']]=$DueDate->format($gPreferences['system_date']);
         }    
     
-        $navbarForm->addSelectBox('duedate', $gL10n->get('PMB_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate,'helpTextIdLabel' => 'PMB_FILTER_DESC', 'showContextDependentFirstEntry' => false));
- 	  	$navbarForm->addButton('btn_exportieren', $gL10n->get('PMB_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png','link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
+        $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+ 	  	$navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png','link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
  	  	$navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_PATH.'/icons/email.png','link' => 'javascript:massmail()', 'class' => 'btn-primary'));
  	  	$preNotificationsMenu->addForm($navbarForm->show(false));
 
@@ -442,23 +449,23 @@ else
 
         // create array with all column heading values
         $columnHeading = array(
-            '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-info" title="'.$gL10n->get('PMB_CHANGE_ALL').'"/>',
-            $gL10n->get('PMB_DUEDATE'),
-            '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/comment.png"
-                alt="'.$gL10n->get('PMB_SEQUENCETYPE').'" title="'.$gL10n->get('PMB_SEQUENCETYPE_DESC').'" />',
-            $gL10n->get('PMB_FEE'),
+            '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_ALL').'"/>',
+            $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'),
+            '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/comment.png"
+                alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'" />',
+            $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
             $gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
-            '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/map.png"
+            '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/map.png"
                 alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
             $gL10n->get('SYS_ADDRESS'),
-            '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/info.png"
-                alt="'.$gL10n->get('PMB_DEBTOR').'" title="'.$gL10n->get('PMB_DEBTOR').'" />',
-            $gL10n->get('PMB_DEBTOR'),
-            '<img class="admidio-icon-info" src="'. THEME_PATH. '/icons/email.png"
+            '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/info.png"
+                alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" />',
+            $gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR'),
+            '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/email.png"
                 alt="'.$gL10n->get('SYS_EMAIL').'" title="'.$gL10n->get('SYS_EMAIL').'" />',
             $gL10n->get('SYS_EMAIL'),
-            $gL10n->get('PMB_MANDATEID')
+            $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID')
         );
         
         $table->setColumnAlignByArray(array('left', 'left','center', 'right', 'left', 'left', 'center', 'left', 'center', 'left', 'center', 'left', 'left'));
@@ -473,7 +480,7 @@ else
         $table->setDatatablesColumnsHide(12);
 
         // show rows with all organization users
-        while($user = $gDb->fetch_array($resultUser))
+        while($user = $statement->fetch())
         {
             $addressText  = ' ';
             $htmlAddress  = '&nbsp;';
@@ -501,7 +508,7 @@ else
             //2. Spalte ($htmlDueDate)
     	   if($user['faelligkeitsdatum'] > 0)
             {
-        	   $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d', 'date');
+        	   $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d');
                 $htmlDueDate = $DueDate->format($gPreferences['system_date']);
             }
         
@@ -629,4 +636,3 @@ else
         $page->show();
 	}
 }
-?>

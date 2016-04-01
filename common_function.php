@@ -1,31 +1,43 @@
 <?php
-/******************************************************************************
- * 
- * common_function.php
- *   
+/**
+ ***********************************************************************************************
  * Gemeinsame Funktionen fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2014 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
- * 
- ****************************************************************************/
+ *
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
 $plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
 $plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
 $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
- 
+
 require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
 
-// Funktion um alle beitragsbezogenen Rollen einzulesen
-// übergebener 1. Parameter:    'alt'   für alle altersgestaffelte Rollen
-//                              'fam'   für alle Familienrollen 
-//                              'fix'   für alle restlichen Fixbeitragsrollen
-//                              leer    für Gesamtliste aller beitragsbezogenen Rollen  (default))
-// übergebener 2. Parameter:    leer    ohne Members (default)
-//                              array   mit Members z.B. array('FIRST_NAME','LAST_NAME')   
+/**
+ * Funktion um alle beitragsbezogenen Rollen einzulesen
+ * @param string $rollenwahl [optional]     'alt' für alle altersgestaffelte Rollen,
+ *                               			'fam' für alle Familienrollen,
+ *                               			'fix' für alle Fixbeitragsrollen,
+ *                               			leer für alle Beitragsrollen
+ * @param   array   $with_members [optional]   Um die Rollen mit Mitgliedern einzulesen ist hier
+ *                                            ein Array mit den einzulesenden usf_name_intern anzugeben,
+ *                                            z.B. array('FIRST_NAME','LAST_NAME');
+ *                                            ohne übergebenen Parameter werden die Rollen ohne Mitglieder eingelesen
+ * @return  array   $rollen         Array mit Rollennamen im Format:<br>
+ *                                  $rollen[rol_id]['rolle']                  =Rollenname ('rol_name')<br>
+ *                                  $rollen[rol_id]['rol_cost']               =Beitrag der Rollen ('rol_cost')<br>
+ *                                  $rollen[rol_id]['rol_cost_period']        =Beitragszeitraum ('rol_cost_period')<br>
+ *                                  $rollen[rol_id]['rol_timestamp_create']   =Erzeugungsdatum der Rolle ('rol_timestamp_create')<br>
+ *                                  $rollen[rol_id]['rol_description']        =Beschreibung ('rol_description')<br>
+ *                                  $rollen[rol_id]['von']                    =nur bei altersgestaffelnten Rollen 'von'<br>
+ *                                  $rollen[rol_id]['bis']                    =nur bei altersgestaffelnten Rollen 'bis'<br>
+ *                                  $rollen[rol_id]['rollentyp']              =Rollentyp ('alt', 'fam' oder 'fix')
+ */
 function beitragsrollen_einlesen($rollenwahl = '',$with_members = array())
 {
     global $gDb, $gCurrentOrganization, $pPreferences;
@@ -41,9 +53,9 @@ function beitragsrollen_einlesen($rollenwahl = '',$with_members = array())
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                 OR cat_org_id IS NULL ) ';
                                                   
-    $result = $gDb->query($sql);
+    $statement = $gDb->query($sql);
 
-    while ($row = $gDb->fetch_array($result))
+	while ($row = $statement->fetch())
     {
         $rollen[$row['rol_id']] = array('rolle' => $row['rol_name'],'rol_cost' => $row['rol_cost'],'rol_cost_period' => $row['rol_cost_period'],'rol_timestamp_create' => $row['rol_timestamp_create'],'rol_description' => $row['rol_description'],'von' => 0,'bis' => 0,'rollentyp' => '');
     }
@@ -126,10 +138,11 @@ function beitragsrollen_einlesen($rollenwahl = '',$with_members = array())
     return $rollen;
 }
 
-// Funktion bezugskategorie_einlesen
-// Liest alle Mitglieder von Rollen einer oder mehrerer Kategorie(en) ein
-// übergebene Parameter:    keine, die cat_ids der einzulesenden Kategorien werden direkt aus der $config_ini gelesen
-// Rückgabe:				Array mit den user_ids der Mitglieder
+/**
+ * Liest alle Mitglieder von Rollen einer oder mehrerer Kategorie(en) ein.
+ * Die cat_ids der einzulesenden Kategorien werden direkt aus der $config_ini gelesen
+ * @return  array $members   Array mit den user_ids der Mitglieder
+ */
 function bezugskategorie_einlesen()
 {
     global $gDb, $gCurrentOrganization, $pPreferences;  
@@ -174,8 +187,8 @@ function bezugskategorie_einlesen()
               OR cat_org_id IS NULL )
               ORDER BY mem_usr_id ASC ';
 
-    $result = $gDb->query($sql);
-    while($row = $gDb->fetch_array($result))
+    $statement = $gDb->query($sql);
+    while ($row = $statement->fetch())
     {
        $members[] = $row['mem_usr_id']; 
     }    
@@ -183,21 +196,14 @@ function bezugskategorie_einlesen()
     return $members;
 }
 
-//check_date wird verwendet um die bezahlt-Datumsangabe zu überprüfen
-function check_date($date,$format,$sep)
-{    
-    $pos1    = strpos($format, 'd');
-    $pos2    = strpos($format, 'm');
-    $pos3    = strpos($format, 'Y'); 
-    
-    $check    = explode($sep,$date);
-    
-    return checkdate(intval($check[$pos2]),intval($check[$pos1]),intval($check[$pos3]));
-}
-
-// Funktion prueft, ob ein User die uebergebene Rolle besitzt
-// $role_name - Name der zu pruefenden Rolle
-// $user_id   - Id des Users, fuer den die Mitgliedschaft geprueft werden soll
+/**
+ * Funktion prueft, ob ein User Angehöriger einer bestimmten Rolle ist
+ *
+ * @param   int  $role_id   ID der zu pruefenden Rolle
+ * @param   int  $user_id [optional]  ID des Users, fuer den die Mitgliedschaft geprueft werden soll;
+ * 										ohne Übergabe, wird für den aktuellen User geprüft
+ * @return  bool
+ */
 function hasRole_IDPMB($role_id, $user_id = 0)
 {
     global $gCurrentUser,$gCurrentOrganization, $gDb;
@@ -223,9 +229,9 @@ function hasRole_IDPMB($role_id, $user_id = 0)
                 AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                 OR cat_org_id IS NULL ) ';
                 
-    $result = $gDb->query($sql);
+    $statement = $gDb->query($sql);
 
-    $user_found = $gDb->num_rows($result);
+    $user_found = $statement->rowCount();
 
     if($user_found == 1)
     {
@@ -237,16 +243,24 @@ function hasRole_IDPMB($role_id, $user_id = 0)
     }
 }
 
-// Funktion list_members
-// Diese Funktion liefert als Rückgabe ein assoziatives Array der usr_ids.
-// mögliche Aufrufe:
-//       list_members(array('usf_name_intern1','usf_name_intern2'),array('Rollenname1' => Schalter aktiv/ehem) )
-// oder  list_members(array('usf_name_intern1','usf_name_intern2'), 'Rollenname' )
-// oder  list_members(array('usf_name_intern1','usf_name_intern2'), Schalter aktiv/ehem )
-//
-// Schalter aktiv/ehem: 0 = aktive Mitglieder, 1 = ehemalige Mitglieder, ungleich 1 oder 0: alle Mitglieder
-//
-// Aufruf: z.B. list_members(array('FIRST_NAME','LAST_NAME'), array('Mitglied' => 0,'Webmaster' => 0));
+/**
+ * Diese Funktion liefert als Rückgabe die usr_ids von Rollenangehörigen.<br>
+ * mögliche Aufrufe:<br>
+ *         list_members(array('usf_name_intern1','usf_name_intern2'),array('Rollenname1' => Schalter aktiv/ehem) )<br>
+ *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), 'Rollenname' )<br>
+ *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), Schalter aktiv/ehem )<br>
+ *
+ * Schalter aktiv/ehem: 0 = aktive Mitglieder, 1 = ehemalige Mitglieder, ungleich 1 oder 0: alle Mitglieder <br>
+ *
+ * Aufruf: z.B. list_members(array('FIRST_NAME','LAST_NAME'), array('Mitglied' => 0,'Webmaster' => 0));
+ *
+ * @param   array               $fields  Array mit usf_name_intern, z.B. array('FIRST_NAME','LAST_NAME')
+ * @param   array/string/bool   $rols    Array mit Rollen, z.B. <br>
+ *                                            array('Rollenname1' => Schalter aktiv/ehem) )<br>
+ *                                       oder 'Rollenname' <br>
+ *                                       oder Schalter aktiv/ehem  <br>
+ * @return  array   $members
+ */
 function list_members( $fields, $rols = array() )
 {
     global $gDb, $gCurrentOrganization, $gProfileFields;  
@@ -310,8 +324,8 @@ function list_members( $fields, $rols = array() )
               OR cat_org_id IS NULL )
               ORDER BY mem_usr_id ASC ';
 
-    $result = $gDb->query($sql);
-    while($row = $gDb->fetch_array($result))
+    $statement = $gDb->query($sql);
+    while ($row = $statement->fetch())
     {
         $members[$row['mem_usr_id']] = '';
         
@@ -328,16 +342,20 @@ function list_members( $fields, $rols = array() )
                     FROM '.TBL_USER_DATA.'
                     WHERE usd_usr_id = '.$member.'
                     AND usd_usf_id = '.$gProfileFields->getProperty($data, 'usf_id').' ';
-		    $result = $gDb->query($sql);
-		    $row = $gDb->fetch_array($result);
+            $statement = $gDb->query($sql);
+		    $row = $statement->fetch();
 		    $members[$member][$data] = $row['usd_value'];
 	    }
     } 
     return $members;
 }
 
-// loescht Zeilen in einem Array
-// die Variable $delete_NULL_field muß in der uebergebenden Routine definiert sein
+ /**
+ * Callbackfunktion für array_filter ,
+ * die globale Variable $delete_NULL_field muß in der uebergebenden Routine definiert sein
+ * @param   string  $wert
+ * @return  bool
+ */
 function delete_NULL ( $wert )
 {
     global $delete_NULL_field;
@@ -345,7 +363,11 @@ function delete_NULL ( $wert )
     return ( $wert[$delete_NULL_field] != NULL );
 }
 
-// gibt zu einem Rollennamen die entsprechende Role_ID zurück
+/**
+ * Funktion liest die Role-ID einer Rolle aus
+ * @param   string  $role_name Name der zu pruefenden Rolle
+ * @return  int     rol_id  Rol_id der Rolle, 0, wenn nicht gefunden
+ */
 function getRole_IDPMB($role_name)
 {
     global $gDb,$gCurrentOrganization;
@@ -358,8 +380,8 @@ function getRole_IDPMB($role_name)
                  AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                  OR cat_org_id IS NULL ) ';
                       
-    $result = $gDb->query($sql);
-    $row = $gDb->fetch_object($result);
+    $statement = $gDb->query($sql);
+    $row = $statement->fetchObject();
 	if(isset($row->rol_id) AND strlen($row->rol_id) > 0)
 	{
 		return $row->rol_id ;
@@ -370,6 +392,11 @@ function getRole_IDPMB($role_name)
 	}
 }
 
+/**
+ * Konvertiert einen numerischen Beitragszeitraum in einen String
+ * @param   int     $my_rol_cost_period Beitragszeitraum als int
+ * @return  string                      Beitragszeitraum als String
+ */
 function getCostPeriod($my_rol_cost_period)
 {
     global $gL10n;
@@ -400,11 +427,23 @@ function getCostPeriod($my_rol_cost_period)
     }
 } 
 
+/**
+ * Erzeugt Array mit Daten für die Analyse
+ * @return  array $ret   Array im Format:<br>
+ *                       $ret['BEITRAG_kto']        =Gesamtsumme der Beiträge mit Kto-Verbindung<br>
+ *                       $ret['BEITRAG_kto_anzahl'] =Anzahl mit Kto-Verbindung<br>
+ *                       $ret['BEZAHLT_kto']        =Gesamtsumme mit Bezahlt und mit Kto-Verbindung<br>
+ *                       $ret['BEZAHLT_kto_anzahl'] =Anzahl mit Bezahlt und mit Kto-Verbindung<br>
+ *                       $ret['BEITRAG_rech']       =Gesamtsumme der Beiträge ohne Kto-Verbindung<br>
+ *                       $ret['BEITRAG_rech_anzahl']=Anzahl ohne Kto-Verbindung<br>
+ *                       $ret['BEZAHLT_rech']       =Gesamtsumme mit Bezahlt und ohne Kto-Verbindung<br>
+ *                       $ret['BEZAHLT_rech_anzahl']=Anzahl mit Bezahlt und ohne Kto-Verbindung
+ */
 function analyse_mem()                      
 {
     global $gCurrentOrganization;
     
-    $members = list_members(array('BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'KONTONUMMER','BANKLEITZAHL','IBAN','KONTOINHABER'), 0)  ; 
+    $members = list_members(array('BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'IBAN','KONTOINHABER'), 0)  ;
 	$ret = array('data'=> $members,'BEITRAG_kto'=>0,'BEITRAG_kto_anzahl'=>0,'BEITRAG_rech'=>0,'BEITRAG_rech_anzahl'=>0,'BEZAHLT_kto'=>0,'BEZAHLT_kto_anzahl'=>0,'BEZAHLT_rech'=>0,'BEZAHLT_rech_anzahl'=>0);
     
 	// alle Mitglieder durchlaufen und im ersten Schritt alle Mitglieder,  
@@ -421,23 +460,23 @@ function analyse_mem()
     //jetzt wird gezählt
     foreach($members as $member => $memberdata)
     {
-        if ((!empty($memberdata['KONTONUMMER']) && !empty($memberdata['BANKLEITZAHL'])) || !empty($memberdata['IBAN'])) 	    
+        if ( !empty($memberdata['IBAN']))
         {	
             $ret['BEITRAG_kto'] += $memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')];
             $ret['BEITRAG_kto_anzahl']+=1;
         }
-        if ( ((!empty($memberdata['KONTONUMMER']) && !empty($memberdata['BANKLEITZAHL'])) || !empty($memberdata['IBAN']))
+        if ( ( !empty($memberdata['IBAN']))
         	&& !empty($memberdata['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]) )
         {
             $ret['BEZAHLT_kto'] += $memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')];
             $ret['BEZAHLT_kto_anzahl']+=1;
         }
-        if (!((!empty($memberdata['KONTONUMMER']) && !empty($memberdata['BANKLEITZAHL'])) || !empty($memberdata['IBAN'])) )
+        if (empty($memberdata['IBAN']) )
         {
             $ret['BEITRAG_rech'] += $memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')];
             $ret['BEITRAG_rech_anzahl']+=1;
         }
-        if ( !((!empty($memberdata['KONTONUMMER']) && !empty($memberdata['BANKLEITZAHL'])) || !empty($memberdata['IBAN'])) 
+        if ( empty($memberdata['IBAN'])
         	&& !empty($memberdata['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]) )
         {
             $ret['BEZAHLT_rech'] += $memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')];
@@ -446,7 +485,11 @@ function analyse_mem()
     }
     return $ret;
 }
-    
+
+/**
+ * Erzeugt Array mit Daten für die Analyse
+ * @return  array $ret
+ */
 function analyse_rol()                      
 {
     global $pPreferences, $gCurrentOrganization, $gL10n;
@@ -473,12 +516,16 @@ function analyse_rol()
 				$arr[]=$key;
 			} 
     	}	
-		$ret[$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey]] = array('rolle' => $gL10n->get('PMB_FAMILY_ROLE').' '.$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey],'rol_cost' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$famkey],'rol_cost_period' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$famkey],'members' =>$arr,'rollentyp' => 'fam'); 
+		$ret[$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey]] = array('rolle' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE').' '.$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey],'rol_cost' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$famkey],'rol_cost_period' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$famkey],'members' =>$arr,'rollentyp' => 'fam'); 
     		
     }
     return $ret;
 }
 
+/**
+ * Prüft die Rollenmitgliedschaften in altersgestaffelten Rollen
+ * @return  array $ret
+ */
 function check_rollenmitgliedschaft_altersrolle()
 {
 	global $pPreferences, $gL10n, $g_root_path;
@@ -507,15 +554,19 @@ function check_rollenmitgliedschaft_altersrolle()
 
     if (sizeof($ret) == 0)
     {
-        $ret = array($gL10n->get('PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PMB_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
+        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
 
+/**
+ * Prüft die Pflicht-Rollenmitgliedschaften
+ * @return  array $ret
+ */
 function check_rollenmitgliedschaft_pflicht()
 {
     global $pPreferences, $gL10n, $g_root_path;
@@ -585,15 +636,19 @@ function check_rollenmitgliedschaft_pflicht()
 
     if (sizeof($ret) == 0)
     {
-        $ret = array($gL10n->get('PMB_ROLE_MEMBERSHIP_DUTY_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PMB_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR').'</strong>';
+        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
 
+/**
+ * Prüft die Auschluss-Rollenmitgliedschaften
+ * @return  array $ret
+ */
 function check_rollenmitgliedschaft_ausschluss()
 {
     global $pPreferences, $gL10n, $g_root_path;
@@ -689,16 +744,21 @@ function check_rollenmitgliedschaft_ausschluss()
 
     if (sizeof($ret) == 0)
     {
-        $ret = array($gL10n->get('PMB_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PMB_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR').'</strong>';
+        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
 
-// Vergleichsfunktion; erforderlich für usort()
+/**
+ * Vergleichsfunktion erforderlich für usort()
+ * @param  $wert_a
+ * @param  $wert_b
+ * @return int 0,1 oder -1
+ */
 function vergleich($wert_a, $wert_b)
 {
     //Sortierung nach dem zweiten Wert des Arrays (Index: 1)
@@ -709,7 +769,11 @@ function vergleich($wert_a, $wert_b)
     elseif ($a > $b) return 1;
     else return -1;
 }   
- 
+
+/**
+ * Prüft die altersgestaffelten Rollen auf Lücken bzw Überschneidungen
+ * @return  array $ret
+ */
 function check_rols()
 {
 	global $pPreferences,$gL10n;
@@ -747,16 +811,19 @@ function check_rols()
        
     if (sizeof($ret) == 0)
     {
-        $ret = array($gL10n->get('PMB_AGE_STAGGERED_ROLES_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PMB_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
+        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
     }
     return $ret;
 } 
 
-// Funktion für die Rollenprüfung von Familienrollen
+/**
+ * Prüft, ob Angehörige von Familienrollen die Prüfbedingungen erfüllen
+ * @return  array $ret
+ */
 function check_family_roles()
 {
     global $pPreferences, $gL10n, $g_root_path;
@@ -804,7 +871,7 @@ function check_family_roles()
 		// Meldung bei fehlerhaften Prüfbedingungen
 		if($ret_marker && strlen($pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key])>0)
 		{
-			$ret_error[] = '<small>'.$gL10n->get('PMB_CONDITION').' '.$pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key].' ('.$prefix.') '.$gL10n->get('PMB_INVALID').'.</small>';
+			$ret_error[] = '<small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key].' ('.$prefix.') '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INVALID').'.</small>';
 		}
 		$ret_marker = false;        		
     }
@@ -850,13 +917,13 @@ function check_family_roles()
     				
     				if ($counter <> $pruefdata['anz'])         
                 	{
-                		$ret_temp[] = '&#160&#160&#160&#183<small>'.$gL10n->get('PMB_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'].':'.$pruefdata['anz'].' '.$gL10n->get('PMB_NOT_SATISFIED').'.</small>';               		
+                		$ret_temp[] = '&#160&#160&#160&#183<small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'].':'.$pruefdata['anz'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SATISFIED').'.</small>';               		
                 	}
     			}
     			if (sizeof($ret_temp) <> 0)
     			{   
 	   				$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
-	   					<a href="'.$g_root_path.'/adm_program/modules/lists/lists_show.php?mode=html&rol_id='. $famkey. '"><img src="'. THEME_PATH. '/icons/list.png"
+	   					<a href="'.$g_root_path.'/adm_program/modules/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_PATH. '/icons/list.png"
 	   					alt="'.$gL10n->get('ROL_SHOW_MEMBERS').'" title="'.$gL10n->get('ROL_SHOW_MEMBERS').'" /></a>'; 
 	   				$ret = array_merge($ret,$ret_temp);
     			}
@@ -866,11 +933,11 @@ function check_family_roles()
 
 	if (sizeof($ret) == 0)
     {
-        $ret = array($gL10n->get('PMB_FAMILY_ROLES_ROLE_TEST_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PMB_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR').'</strong>';
+        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR').'</strong>';
     }
     
     // eine evtl. vorhandene Fehlermeldung davorsetzen 
@@ -881,6 +948,10 @@ function check_family_roles()
     return $ret;
 } 
 
+/**
+ * Prüft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Adresse, Ort...) vorhanden sind
+ * @return  array $ret
+ */
 function check_mandate_management()
 {
     global $gL10n, $g_root_path;
@@ -898,15 +969,19 @@ function check_mandate_management()
  
 	if (sizeof($ret) == 0)
     {
-        $ret = array($gL10n->get('PMB_MANDATE_MANAGEMENT_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PMB_MANDATE_MANAGEMENT_RESULT_ERROR').'</strong>';
+        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
 
+/**
+ * Durchläuft alle Mitglieder und prüft deren IBAN
+ * @return  array $ret
+ */
 function check_iban()
 {
     global $gL10n, $g_root_path;
@@ -924,35 +999,20 @@ function check_iban()
  
 	if (sizeof($ret) == 0)
     {
-        $ret = array($gL10n->get('PMB_IBANCHECK_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PMB_IBANCHECK_RESULT_ERROR').'</strong>';
+        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
- 
-function iban_berechnung_DE($blz,$kto)
-{
-	//berechnet die IBAN aus BLZ und Kontonummer
-	//NUR FÜR DE-Banken!!!
-	// Autor: guenter47
-	$u_iban = "DE00";
-	$bban=$blz.str_pad($kto,10,"0",STR_PAD_LEFT);
-	$num_de="131400";   // (D = 13, E = 14, +00)
-	$pruefsum=$bban.$num_de;
-	$rest=0;
-   	for($pos=0;$pos<strlen($pruefsum); $pos+=7 ) {
-        $part = strval($rest) . substr($pruefsum,$pos,7);
-        $rest = intval($part) % 97;
-    }	
-	$pz1=98-$rest;
-	$pz2=str_pad($pz1,2,"0",STR_PAD_LEFT);
-	$iban='DE'.$pz2.$bban;
-	return $iban;
-}
 
+/**
+ * Prüft die übergebene IBAN
+ * @param string $iban
+ * @return  bool
+ */
 function test_iban( $iban ) 
 {
 	// aus dem Internet
@@ -975,8 +1035,12 @@ function test_iban( $iban )
         return ($rest==1) ? true : false;
 }
 
-// Funktion prueft, ob der Nutzer, aufgrund seiner Rollenzugehoerigkeiten berechtigt ist, das Plugin aufzurufen
-// Parameter: Array mit Rollen-IDs  ( => $pPreferences->config['Pluginfreigabe']['freigabe'] )
+/**
+ * Funktion prueft, ob der Nutzer, aufgrund seiner Rollenzugehörigkeit, berechtigt ist das Plugin aufzurufen
+ * @param   array  $array   Array mit Rollen-IDs:   entweder $pPreferences->config['Pluginfreigabe']['freigabe']
+ *                                                  oder $pPreferences->config['Pluginfreigabe']['freigabe_config']
+ * @return  bool   $showPlugin
+ */
 function check_showpluginPMB($array)
 {
     $showPlugin = false;
@@ -991,12 +1055,23 @@ function check_showpluginPMB($array)
     return $showPlugin;
 }
 
-// Funktion date_format2mysql ersetzt date_german2mysql (erstellt von eiseli)
+/**
+ * Formatiert den übergebenen Datumsstring für MySQL,
+ * date_format2mysql ersetzt date_german2mysql (erstellt von eiseli)
+ * @param   string  $date       Datumsstring
+ * @return  date                Datum im Format Y-m-d
+ */
 function date_format2mysql($date)
 {
 	return date('Y-m-d',strtotime($date));
 }
 
+/**
+ * Berechnet das Alter an einem bestimmten Tag (Stichtag)
+ * @param   date  $geburtstag     Datum des Geburtstages
+ * @param   date  $stichtag       Datum des Stichtages
+ * @return  int                   Das Alter in Jahren
+ */
 function ageCalculator( $geburtstag, $stichtag )
 { 
     $day = date("d", $geburtstag); 
@@ -1017,28 +1092,10 @@ function ageCalculator( $geburtstag, $stichtag )
         return $calc_year; 
 }   
 
-// Funktion überprüft den übergebenen Namen, ob er gemaess den Namenskonventionen für
-// Profilfelder und Kategorien zum Uebersetzen durch eine Sprachdatei geeignet ist
-// Bsp: SYS_COMMON --> Rueckgabe true
-// Bsp: Mitgliedsbeitrag --> Rueckgabe false
-function check_languagePMB($field_name)
-{
-    $ret = false;
- 
-    //prüfen, ob die ersten 3 Zeichen von $field_name Grußbuchstaben sind
-    //prüfen, ob das vierte Zeichen von $field_name ein _ ist
-    
-    //Prüfung entfällt: prüfen, ob die restlichen Zeichen von $field_name Grußbuchstaben sind
-    //if ((ctype_upper(substr($field_name,0,3))) && ((substr($field_name,3,1))=='_')  && (ctype_upper(substr($field_name,4)))   )
-
-    if ((ctype_upper(substr($field_name,0,3))) && ((substr($field_name,3,1))=='_')   )
-    {
-    	$ret = true;
-    }
-    return $ret;
-} 
-
-// diese Funktion erzeugt eine Mitgliedsnummer
+/**
+ * Funktion erzeugt eine Mitgliedsnummer
+ * @return  int     Mitgliedsnummeer
+ */
 function erzeuge_mitgliedsnummer()
 {    
 	global $gDb,$gMessage,$gL10n;
@@ -1050,15 +1107,16 @@ function erzeuge_mitgliedsnummer()
 	$sql = ' SELECT usf_id
              FROM '.TBL_USER_FIELDS.'
              WHERE usf_name = \'PMB_MEMBERNUMBER\' ';
-    $result = $gDb->query($sql);
-   	$row = $gDb->fetch_object($result);
+    $statement = $gDb->query($sql);
+    $row = $statement->fetchObject();
     $id_mitgliedsnummer = $row->usf_id;
     
     $sql = 'SELECT usd_value
             FROM '.TBL_USER_DATA.'
             WHERE usd_usf_id = \''.$id_mitgliedsnummer.'\' ';
-    $result = $gDb->query($sql);
-    while( $row = $gDb->fetch_array($result))
+	$statement = $gDb->query($sql);
+
+	while($row = $statement->fetch())
 	{
 		$mitgliedsnummern[] = $row['usd_value'];
 	}	
@@ -1070,7 +1128,7 @@ function erzeuge_mitgliedsnummer()
     {
         if ($mitgliedsnummern[$i] == $mitgliedsnummern[$i+1])
         {
-            $gMessage->show($gL10n->get('PMB_MEMBERNUMBER_ERROR',$mitgliedsnummern[$i]));
+            $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR',$mitgliedsnummern[$i]));
             break;
      	}
     }     
@@ -1090,47 +1148,86 @@ function erzeuge_mitgliedsnummer()
     return ($rueckgabe_mitgliedsnummer == 0) ? $hoechste_mitgliedsnummer+1 : $rueckgabe_mitgliedsnummer;
 }
 
-// loescht Zeilen in einem Array
+/**
+ * Callbackfunktion für array_filter
+ * @param   string  $wert
+ * @return  bool    true, wenn Beitrag  != NULL ist
+ */
 function delete_without_BEITRAG ( $wert )
 {
     global $gCurrentOrganization;
     return ( $wert['BEITRAG'.$gCurrentOrganization->getValue('org_id')] != NULL );
 }
-// loescht Zeilen in einem Array
+
+/**
+ * Callbackfunktion für array_filter
+ * @param   string  $wert
+ * @return  bool    true, wenn IBAN  != NULL ist
+ */
 function delete_without_IBAN ( $wert )
 {    
     return ( $wert['IBAN'] != NULL );
 }
-// loescht Zeilen in einem Array
+
+/**
+ * Callbackfunktion für array_filter
+ * @param   string  $wert
+ * @return  bool    true, wenn BIC  != NULL ist
+ */
 function delete_without_BIC ( $wert )
 {    
     return ( $wert['BIC'] != NULL );
 }
-// loescht Zeilen in einem Array
+
+/**
+ * Callbackfunktion für array_filter
+ * @param   string  $wert
+ * @return  bool    true, wenn MandateID  == NULL ist
+ */
 function delete_with_MANDATEID ( $wert )
 {       
 	global $gCurrentOrganization;
     return !( $wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL );
 }
-// loescht Zeilen in einem Array
+
+/**
+ * Callbackfunktion für array_filter
+ * @param   string  $wert
+ * @return  bool    true, wenn Bezahlt  == NULL ist
+ */
 function delete_with_BEZAHLT ( $wert )
 {       
 	global $gCurrentOrganization;
     return !( $wert['BEZAHLT'.$gCurrentOrganization->getValue('org_id')] != NULL );
 }
-// loescht Zeilen in einem Array
+
+/**
+ * Callbackfunktion für array_filter
+ * @param   string  $wert
+ * @return  bool    true, wenn MandateID  != NULL ist
+ */
 function delete_without_MANDATEID ( $wert )
 {       
 	global $gCurrentOrganization;
     return ( $wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL );
 }
-// loescht Zeilen in einem Array
+
+/**
+ * Callbackfunktion für array_filter
+ * @param   string  $wert
+ * @return  bool    true, wenn MandateID  != NULL ist
+ */
 function delete_without_MANDATEDATE ( $wert )
 {       
 	global $gCurrentOrganization;
     return ( $wert['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')] != NULL );
 }
 
+/**
+ * Ersetzt Umlaute
+ * @param   string  $tmptext
+ * @return  string  $tmptext
+ */
 function umlaute($tmptext)
 {
 	// Autor: guenter47
@@ -1147,11 +1244,16 @@ function umlaute($tmptext)
 	return $tmptext;
 }
 
-//Funktion replace_sepadaten
-// ersetzt und entfernt unzulässige Zeichen in der SEPA-XML-Datei
+/**
+ * Ersetzt und entfernt unzulässige Zeichen in der SEPA-XML-Datei
+ * @param   string  $tmptext
+ * @return  string  $ret
+ */
+function replace_sepadaten($tmptext)
+{
 /*
 Zulässige Zeichen
-Für die Erstellung von SEPA-Nachrichten sind die folgenden Zeichen in der 
+Für die Erstellung von SEPA-Nachrichten sind die folgenden Zeichen in der
 Kodierung gemäß UTF-8 bzw. ISO-885933 zugelassen.
 ---------------------------------------------------
 Zugelassener Zeichencode| Zeichen 	| Hexcode
@@ -1169,8 +1271,6 @@ Pluszeichen 			|  +  		| X'2B
 Rechte Klammer 			|  )  		| X'29
 Schrägstrich 			|  /  		| X'2F
 */
-function replace_sepadaten($tmptext)
-{
 	$charMap = array(
         'Ä' => 'Ae',
         'ä' => 'ae',
@@ -1248,43 +1348,52 @@ function replace_sepadaten($tmptext)
 	return $ret;
 }
 
+/**
+ * Ersetzt Parameter im E-Mail-Text
+ * @param   string  $text       Die E-Mail-Nachricht mit Parametern
+ * @param   objekt  $user       User-Objekt
+ * @return  string  $text       Die E-Mail-Nachricht mit ersetzten Werten
+ */
 function replace_emailparameter($text,$user)
 {       
 	global $gCurrentOrganization,$pPreferences;
 
 	// now replace all parameters in email text
-	$text = preg_replace ('/%user_first_name%/', $user->getValue('FIRST_NAME'),  $text);
-	$text = preg_replace ('/%user_last_name%/',  $user->getValue('LAST_NAME'), $text);
-	$text = preg_replace ('/%organization_long_name%/', $gCurrentOrganization->getValue('org_longname'), $text);
-	$text = preg_replace ('/%fee%/', $user->getValue('BEITRAG'.$gCurrentOrganization->getValue('org_id')),   $text);
-	$text = preg_replace ('/%due_day%/', $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')),  $text);
-	$text = preg_replace ('/%mandate_id%/', $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')), $text);
-	$text = preg_replace ('/%creditor_id%/',  $pPreferences->config['Kontodaten']['ci'], $text);
-	$text = preg_replace ('/%iban%/',   $user->getValue('IBAN'), $text);
-	$text = preg_replace ('/%bic%/',   $user->getValue('BIC'), $text);
-	$text = preg_replace ('/%debtor%/',   $user->getValue('KONTOINHABER'), $text);
-	$text = preg_replace ('/%membership_fee_text%/', $user->getValue('BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')),   $text);
+	$text = preg_replace ('/#user_first_name#/', $user->getValue('FIRST_NAME'),  $text);
+	$text = preg_replace ('/#user_last_name#/',  $user->getValue('LAST_NAME'), $text);
+	$text = preg_replace ('/#organization_long_name#/', $gCurrentOrganization->getValue('org_longname'), $text);
+	$text = preg_replace ('/#fee#/', $user->getValue('BEITRAG'.$gCurrentOrganization->getValue('org_id')),   $text);
+	$text = preg_replace ('/#due_day#/', $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')),  $text);
+	$text = preg_replace ('/#mandate_id#/', $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')), $text);
+	$text = preg_replace ('/#creditor_id#/',  $pPreferences->config['Kontodaten']['ci'], $text);
+	$text = preg_replace ('/#iban#/',   $user->getValue('IBAN'), $text);
+	$text = preg_replace ('/#bic#/',   $user->getValue('BIC'), $text);
+	$text = preg_replace ('/#debtor#/',   $user->getValue('KONTOINHABER'), $text);
+	$text = preg_replace ('/#membership_fee_text#/', $user->getValue('BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')),   $text);
  
 	return $text; 
 }
 
+/**
+ * Wandelt Rollentyp von Kurzform in Langform um
+ * @param   string  $rollentyp  Rollentyp in Kurzform ('fix' oder 'fam')
+ * @return  string  $ret        Rollentyp in Langform (z.B. 'Familienrollen')
+ */
 function expand_rollentyp($rollentyp='')
 { 
 	global $gL10n;
 	
 	if ($rollentyp=='fix')
     {
-    	$ret = $gL10n->get('PMB_OTHER_CONTRIBUTION_ROLES');
+    	$ret = $gL10n->get('PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES');
     }
     elseif($rollentyp=='fam')
     {
-    	$ret = $gL10n->get('PMB_FAMILY_ROLES');
+    	$ret = $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES');
     }
     else             //==alt
     {
-    	$ret = $gL10n->get('PMB_AGE_STAGGERED_ROLES');
+    	$ret = $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES');
     }
 	return $ret;				
 }
-	
-?>

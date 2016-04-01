@@ -1,17 +1,16 @@
 <?php
-/******************************************************************************
- * 
- * recalculation.php
- *   
+/**
+ ***********************************************************************************************
  * Neuberechnung der Mitgliedsbeitraege fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2014 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
  *
- * Parameters   :  -keine-
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
- ****************************************************************************/
+ * Parameters:       keine
+ *
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -31,12 +30,12 @@ $text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' 
 $message = '';
 
 //alle Beitragsrollen einlesen 
-$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','KONTONUMMER','IBAN','BANKLEITZAHL','KONTOINHABER')); 
+$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','KONTOINHABER'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
 if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]<>' ' )
 {
-	$message .= '<strong>'.$gL10n->get('PMB_CONTRIBUTION_ROLLQUERY_INFO').'</strong><BR><BR>';
+	$message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><BR><BR>';
 	foreach ($rols as $rol => $roldata)
 	{
 		if (!in_array($rol,$pPreferences->config['Beitrag']['beitrag_rollenwahl']))
@@ -63,7 +62,7 @@ foreach ($rols as $rol => $roldata)
         { 
             $rols[$rol]['has_to_pay'] = $key;
           
-            if( (($data['BANKLEITZAHL'] > 0) && ($data['KONTONUMMER'] > 0)) || strlen($data['IBAN'])<>0 ) 
+            if(  strlen($data['IBAN'])<>0 )
             { 
                 $rols[$rol]['has_to_pay'] = $key;
                 break;
@@ -281,7 +280,7 @@ foreach ($members as $member => $memberdata)
 $message .= $gL10n->get('SYS_SAVE_DATA');
 
 // set headline of the script
-$headline = $gL10n->get('PMB_RECALCULATION');
+$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION');
 
 // create html page object
 $page = new HtmlPage($headline);
@@ -292,5 +291,3 @@ $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PAT
 
 $page->addHtml($form->show(false));
 $page->show();
-	
-?>

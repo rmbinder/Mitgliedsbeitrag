@@ -1,25 +1,23 @@
 <?php
-/******************************************************************************
- * 
- * export_sepa.php
- *    
+/**
+ ***********************************************************************************************
  * SEPA-Export fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
- *  
- *  SEPA Lastschriften als XML-Datei erstellen
- *  Grundgeruest erstellt von Günter Scheuermann am 28.1.2013
- *  
+ *
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ * Hinweis:   Grundgeruest erstellt von Günter Scheuermann am 28.1.2013
+ *
  * Parameters:
  *
  * duedatesepatype	: 	Faelligkeitsdatum und SepaTyp in einem String
  * 						- Zeichen 0 bis 9: Faelligkeitsdatum
- * 						- ab Zeichen 10: Sepatyp		   
+ * 						- ab Zeichen 10: Sepatyp
  *
  * eillastschrift	:	Kennung für SEPA Eil-Lastschrift (COR1)
- *****************************************************************************/
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -42,7 +40,7 @@ $postSepaType=substr($postDueDateSepaType,10);
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
-$members = list_members(array('FIRST_NAME','LAST_NAME','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'KONTONUMMER','BANKLEITZAHL','KONTOINHABER','IBAN','ORIGIBAN','BIC','BANKNAME','ORIGDEBTORAGENT','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'),'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),'DUEDATE'.$gCurrentOrganization->getValue('org_id'),'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
+$members = list_members(array('FIRST_NAME','LAST_NAME','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'KONTOINHABER','IBAN','ORIGIBAN','BIC','BANKNAME','ORIGDEBTORAGENT','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'),'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),'DUEDATE'.$gCurrentOrganization->getValue('org_id'),'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
 
 $zempf=array();
 $zpflgt=array();
@@ -51,7 +49,7 @@ $now=time();
 $format1="Y-m-d";
 $format2="H:i:s";
 
-//alle Mitglieder durchlaufen und abhänfig von bestimmten Daten, das Array $zpflgt befüllen
+//alle Mitglieder durchlaufen und abhängig von bestimmten Daten, das Array $zpflgt befüllen
 foreach ($members as $member => $memberdata)
 {
     if  (!empty($memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')]) 
@@ -360,46 +358,46 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 	header("Cache-Control: post-check=0, pre-check=0");
 	header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ?'COR1-' :'').$postDueDate.'-'.$postSepaType.'.csv"');
 
-	$datumtemp = new DateTimeExtended($payment_datum, 'Y-m-d', 'date');
+	$datumtemp = new DateTimeExtended($payment_datum, 'Y-m-d');
 	
-	echo "SEPA-".$gL10n->get('PMB_CONTROL_FILE')."\n\n"
-        .$gL10n->get('PMB_CONTROL_FILE_NAME').";".$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ?'COR1-' :'').$postDueDate.'-'.$postSepaType.'.csv'."\n"
+	echo "SEPA-".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')."\n\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').";".$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ?'COR1-' :'').$postDueDate.'-'.$postSepaType.'.csv'."\n"
         ."\n"
-        .$gL10n->get('PMB_MESSAGE_ID').";".utf8_decode($message_id)."\n"
-        .$gL10n->get('PMB_MESSAGE_DATE').";".utf8_decode($message_datum)."\n"
-        .$gL10n->get('PMB_MESSAGE_INITIATOR_NAME').";".utf8_decode($message_initiator_name)."\n"
-        .$gL10n->get('PMB_NUMBER_TRANSACTIONS').";".utf8_decode($lst_num)."\n"
-        .$gL10n->get('PMB_CONTROL_SUM').";".utf8_decode($lst_euro_sum)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID').";".utf8_decode($message_id)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE').";".utf8_decode($message_datum)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME').";".utf8_decode($message_initiator_name)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS').";".utf8_decode($lst_num)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM').";".utf8_decode($lst_euro_sum)."\n"
         ."\n"
-        .$gL10n->get('PMB_PAYMENT_ID').";".utf8_decode($payment_id)."\n"
-        .$gL10n->get('PMB_DUEDATE').";".$datumtemp->format($gPreferences['system_date'])."\n"
-        .$gL10n->get('PMB_SEQUENCETYPE').";".utf8_decode($payment_seqtp)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_PAYMENT_ID').";".utf8_decode($payment_id)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').";".$datumtemp->format($gPreferences['system_date'])."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').";".utf8_decode($payment_seqtp)."\n"
         ."\n"
-        .$gL10n->get('PMB_CREDITOR').";".utf8_decode($zempf['name'])."\n"
-		.$gL10n->get('PMB_CI').";".utf8_decode($zempf['ci'] )."\n"
-        .$gL10n->get('PMB_IBAN').";".utf8_decode($zempf['iban'])."\n"
-        .$gL10n->get('PMB_BIC').";".utf8_decode($zempf['bic'])."\n"  
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR').";".utf8_decode($zempf['name'])."\n"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CI').";".utf8_decode($zempf['ci'] )."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";".utf8_decode($zempf['iban'])."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";".utf8_decode($zempf['bic'])."\n"  
         ."\n"
-		.$gL10n->get('PMB_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'] )."\n"
-        .$gL10n->get('PMB_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n" ;  	
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'] )."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n" ;  	
         	
-	echo($gL10n->get('PMB_SERIAL_NUMBER').";"
-		.$gL10n->get('PMB_ACCOUNT_HOLDER').";"            
-		.$gL10n->get('PMB_IBAN').";"
-		.$gL10n->get('PMB_BIC').";"
-		.$gL10n->get('PMB_FEE').";"
-		.$gL10n->get('PMB_CONTRIBUTORY_TEXT').";"
-		.$gL10n->get('PMB_MANDATEID').";"
-		.$gL10n->get('PMB_MANDATEDATE').";"
-		.$gL10n->get('PMB_ULTIMATE_DEBTOR').";"
-		.$gL10n->get('PMB_ORIG_MANDATEID').";"
-		.$gL10n->get('PMB_ORIG_IBAN').";"
-		.$gL10n->get('PMB_ORIG_DEBTOR_AGENT')."\n");
+	echo($gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').";"            
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').";"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')."\n");
 	
 	$nr = 1;
 	foreach ($zpflgt as $dummy => $zpflgtdata)
 	{
-        $datumtemp = new DateTimeExtended($zpflgtdata['mandat_datum'], 'Y-m-d', 'date');
+        $datumtemp = new DateTimeExtended($zpflgtdata['mandat_datum'], 'Y-m-d');
                 
 		echo
          	utf8_decode($nr).";"
@@ -423,4 +421,3 @@ else
 {
 	exit; 
 }
-?>

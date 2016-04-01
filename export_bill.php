@@ -1,16 +1,18 @@
 <?php
-/******************************************************************************
- * 
- * export_bill.php
- *   
+/**
+ ***********************************************************************************************
  * Rechnungs-Export fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) Günter Scheuermann
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
- * 
- * Angepasst an Mitgliedsbeitrag ab Version 4 (rmb)
- * 
- ****************************************************************************/
+ *
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ * Hinweis:   Grundgeruest erstellt von Günter Scheuermann
+ *
+ * Parameters:           keine
+ *
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -26,7 +28,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
     
 //alle Mitglieder einlesen
-$members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'KONTONUMMER','BANKLEITZAHL','IBAN','KONTOINHABER'), 0)  ; 
+$members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'IBAN','KONTOINHABER'), 0)  ;
 
 //$rechnungs_file[]=array();
 $rechnungs_file=array();
@@ -34,7 +36,7 @@ $i=0;
 
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
 foreach ($members as $member => $memberdata){
-    if ( !((!empty($memberdata['KONTONUMMER']) && !empty($memberdata['BANKLEITZAHL'])) || !empty($memberdata['IBAN'])) 
+    if ( empty($memberdata['IBAN'])
         	&&  empty($memberdata['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]) 
         	&& !empty($memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')])
         	&& !empty($memberdata['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')])  )
@@ -55,47 +57,64 @@ foreach ($members as $member => $memberdata){
         $i+=1;
     }
 }
-    
-// Dateityp, der immer abgespeichert wird
-header("Content-Type: application/octet-stream");
 
-// noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
-header('Cache-Control: private');
-
-// Im Grunde ueberfluessig, hat sich anscheinend bewährt
-header("Content-Transfer-Encoding: binary");
-
-// Zwischenspeichern auf Proxies verhindern
-header("Cache-Control: post-check=0, pre-check=0");
-header('Content-Disposition: attachment; filename="'.$pPreferences->config['Rechnungs-Export']['rechnung_dateiname'].'"');
-
-$nr = 1;
-$sum= 0;
-
-//echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
-echo($gL10n->get('PMB_SERIAL_NUMBER').";".$gL10n->get('SYS_NAME').";".$gL10n->get('SYS_ADDRESS').";".$gL10n->get('SYS_POSTCODE').";".$gL10n->get('SYS_LOCATION').";".$gL10n->get('SYS_EMAIL').";".$gL10n->get('PMB_FEE').";".$gL10n->get('PMB_CONTRIBUTORY_TEXT').";".$gL10n->get('PMB_SUM')."\n");
-//print_r($rechnungs_file);
-
-//for ($x = 0; $x < (count($rechnungs_file)-1); $x++){
-for ($x = 0; $x < (count($rechnungs_file)); $x++)
+if (sizeof($rechnungs_file)>0)
 {
-	$sum += $rechnungs_file[$x]['beitrag'];
-	echo
-         utf8_decode($nr).";"
-        .utf8_decode($rechnungs_file[$x]['name']).";"
-        .utf8_decode($rechnungs_file[$x]['adress']).";"
-        .utf8_decode($rechnungs_file[$x]['postcode']).";"
-        .utf8_decode($rechnungs_file[$x]['city']).";"
-        .utf8_decode($rechnungs_file[$x]['email']).";"
-        .utf8_decode($rechnungs_file[$x]['beitrag']).";"
-        .utf8_decode($rechnungs_file[$x]['beitragstext']).";"
-        .utf8_decode($sum)
-        ."\n";
-    $nr += 1;
-        
-}
+	// Dateityp, der immer abgespeichert wird
+	header("Content-Type: application/octet-stream");
 
+	// noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
+	header('Cache-Control: private');
+
+	// Im Grunde ueberfluessig, hat sich anscheinend bewährt
+	header("Content-Transfer-Encoding: binary");
+
+	// Zwischenspeichern auf Proxies verhindern
+	header("Cache-Control: post-check=0, pre-check=0");
+	header('Content-Disposition: attachment; filename="'.$pPreferences->config['Rechnungs-Export']['rechnung_dateiname'].'"');
+
+	$nr = 1;
+	$sum= 0;
+
+	//echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
+	echo($gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";".$gL10n->get('SYS_NAME').";".$gL10n->get('SYS_ADDRESS').";".$gL10n->get('SYS_POSTCODE').";".$gL10n->get('SYS_LOCATION').";".$gL10n->get('SYS_EMAIL').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n");
+	//print_r($rechnungs_file);
+
+	//for ($x = 0; $x < (count($rechnungs_file)-1); $x++){
+	for ($x = 0; $x < (count($rechnungs_file)); $x++)
+	{
+		$sum += $rechnungs_file[$x]['beitrag'];
+		echo
+         	utf8_decode($nr).";"
+        	.utf8_decode($rechnungs_file[$x]['name']).";"
+        	.utf8_decode($rechnungs_file[$x]['adress']).";"
+        	.utf8_decode($rechnungs_file[$x]['postcode']).";"
+        	.utf8_decode($rechnungs_file[$x]['city']).";"
+        	.utf8_decode($rechnungs_file[$x]['email']).";"
+        	.utf8_decode($rechnungs_file[$x]['beitrag']).";"
+        	.utf8_decode($rechnungs_file[$x]['beitragstext']).";"
+        	.utf8_decode($sum)
+        	."\n";
+    	$nr += 1;    
+	}
+}
+else 
+{
+	// set headline of the script
+	$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE');
+
+	$message = '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA').'</strong>';
+	$message .= '<BR><BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');	
+
+	// create html page object
+	$page = new HtmlPage($headline);
+
+	$form = new HtmlForm('export_bill_form', null, $page); 
+	$form->addDescription($message);
+	$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/forward.png', 'link' => 'menue.php?show_option=statementexport', 'class' => 'btn-primary'));
+
+	$page->addHtml($form->show(false));
+	$page->show();
+}
 //########################################################
 //exit;  
-
-?>

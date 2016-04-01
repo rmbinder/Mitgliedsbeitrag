@@ -1,15 +1,14 @@
 <?php
-/******************************************************************************
- * 
- * configdata.php
- *   
+/**
+ ***********************************************************************************************
  * Konfigurationsdaten fuer das Admidio-Plugin Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
- * 
- ****************************************************************************/
+ *
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
+ ***********************************************************************************************
+ */
 
 global $gL10n, $gProfileFields;
 
@@ -31,7 +30,7 @@ $config_default['Familienrollen'] = array(	'familienrollen_beitrag' => array(0),
    											'familienrollen_pruefung' => array('') );	
 
 //Beitrag 
-$config_default['Beitrag'] = array(	'beitrag_prefix' => 'Mitgliedsbeitrag 2015',
+$config_default['Beitrag'] = array(	'beitrag_prefix' => 'Mitgliedsbeitrag 2016',
   									'beitrag_suffix' => '(ant.)',	
   									'beitrag_modus' => 'standard',		
   									'beitrag_rollenwahl' => array(' '),	
@@ -42,11 +41,9 @@ $config_default['Beitrag'] = array(	'beitrag_prefix' => 'Mitgliedsbeitrag 2015',
   									'beitrag_anteilig' => '',
   									'beitrag_abrunden' => 1,
   									'beitrag_mindestbetrag' => 0 );	
-   
+
 //Kontodaten
-$config_default['Kontodaten'] = array(	'ktonr' => 1234567890,	
-   										'blz' => 1234567890,	
-  										'bank' => 'Sparkasse Musterstadt',	
+$config_default['Kontodaten'] = array(	'bank' => 'Sparkasse Musterstadt',	
   								  		'inhaber' => 'Musterverein e.V.',	
  								  		'iban' => 'DE123456789',	
  								 		'bic' => 'ABCDEFGH',	
@@ -95,4 +92,3 @@ $config_default['Plugininformationen']['stand'] = '';
  */
 $dbtoken  = '#_#';  
 
-?>

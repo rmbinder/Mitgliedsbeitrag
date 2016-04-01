@@ -1,19 +1,18 @@
 <?php
-/******************************************************************************
- * 
- * preferences_function.php
- * 
+/**
+ ***********************************************************************************************
  * Verarbeiten der Einstellungen des Admidio-Plugins Mitgliedsbeitrag
- * 
- * Copyright    : (c) 2004 - 2015 The Admidio Team
- * Homepage     : http://www.admidio.org
- * License      : GNU Public License 2 http://www.gnu.org/licenses/gpl-2.0.html
- * 
+ *
+ * @copyright 2004-2016 The Admidio Team
+ * @see http://www.admidio.org/
+ * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
+ *
  * Parameters:
  *
- * form         - The name of the form preferences that were submitted.
- * 
- ****************************************************************************/
+ * form         : The name of the form preferences that were submitted.
+ *
+ ***********************************************************************************************
+ */
 
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
@@ -77,7 +76,7 @@ try
     		// und dadurch nicht durch das Plugin kontrollierte Löschungen oder Hinzufügungen ausführt
     		if($altersrollen_anzahl==0)
     		{
-    			$gMessage->show($gL10n->get('PMB_ERROR_MIN_CONFIG'));
+    			$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG'));
     		}
             break; 
             	
@@ -109,10 +108,10 @@ try
             			FROM '.TBL_ROLES.' 
             			WHERE rol_name LIKE \''. $data.'%'. '\' ';
                                 
-    			$result = $gDb->query($sql); 
+                $statement = $gDb->query($sql);
     	   	
         		// jetzt den neuen Betrag, den Beitragszeitraum und die Beschreibung in die DB schreiben
-    			while ($row = $gDb->fetch_array($result))
+                while ($row = $statement->fetch())
     			{
         			$sql = 'UPDATE '.TBL_ROLES.'
                 			SET rol_cost = \''.$pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key].'\'
@@ -138,8 +137,6 @@ try
     	case 'accountdata':
 			unset($pPreferences->config['Kontodaten']);
 				
-    		$pPreferences->config['Kontodaten']['ktonr'] = $_POST['ktonr'];
-    		$pPreferences->config['Kontodaten']['blz'] = $_POST['blz'];
     		$pPreferences->config['Kontodaten']['iban'] = $_POST['iban'];
     		$pPreferences->config['Kontodaten']['bic'] = $_POST['bic'];
     		$pPreferences->config['Kontodaten']['bank'] = $_POST['bank'];
@@ -148,113 +145,6 @@ try
     		$pPreferences->config['Kontodaten']['ci'] = $_POST['ci'];
     		$pPreferences->config['Kontodaten']['origci'] = isset($_POST['origci']) ? $_POST['origci'] : '' ;
             break; 
-            	
-		case 'convert':
-            	
-            // wenn BIC oder Bankname gewählt wurde, dann muss auch eine Bankleitzahlendatei ausgewählt worden sein
-			// --> überprüfen
-			if (isset($_POST['generateBIC']) || isset($_POST['generateBank']) )
-			{
-    			//Dateigroesse ueberpruefen Servereinstellungen
-    			if ($_FILES['userfile']['error']==1) 
-    			{
-      				$gMessage->show($gL10n->get('SYS_FILE_TO_LARGE_SERVER', $gPreferences['max_file_upload_size']));
-    			}
-    
-    			//Dateigroesse ueberpruefen Administratoreinstellungen
-    			if (($_FILES['userfile']['size']>($gPreferences['max_file_upload_size'])*1024) || ($_FILES['userfile']['error']==2) )
-    			{
-       				$gMessage->show($gL10n->get('DOW_FILE_TO_LARGE', $gPreferences['max_file_upload_size']));
-    			}
-    
-    			// Dateinamen ermitteln
-    			$file_name = $_FILES['userfile']['name'];
-
-    			// pruefen, ob der Dateiname gueltig ist
-    			$ret_code = isValidFileName($file_name, true);
-
-    			if($ret_code < 0)
-    			{
-        			if($ret_code == -1)
-        			{
-            			$gMessage->show($gL10n->get('SYS_FIELD_EMPTY', $gL10n->get('DOW_CHOOSE_FILE')));
-        			}
-        			elseif($ret_code == -2)
-        			{
-            			$gMessage->show($gL10n->get('DOW_FILE_NAME_INVALID'));
-        			}
-        			elseif($ret_code == -3)
-        			{
-            			$gMessage->show($gL10n->get('DOW_FILE_EXTENSION_INVALID'));
-        			}
-    			}
-    
-				if ($_FILES['userfile']['error']==0)
-				{
-					// bei einem Upload von lokal auf Server ist $_FILES['userfile']['tmp_name'] befüllt
-					// dann diesen temporären Dateinamen verwenden
-					// wenn sich die blz-Datei bereits auf dem Server befindet (Testumgebung),
-					//      dann ist $_FILES['userfile']['tmp_name'] leer
-					// dann den originalen Dateinamen verwenden		 
-					if (strlen($_FILES['userfile']['tmp_name'])<>0)
-					{
-						$blz_array = file ($_FILES['userfile']['tmp_name']);			
-					}
-					else 
-					{
-						$blz_array = file ($_FILES['userfile']['name']);			
-					}
-				}
-				else 
-				{
-					$gMessage->show($gL10n->get('DOW_FILE_UPLOAD_ERROR',$file_name));	
-				}    
-			}
-
-			$echomarker = 1;
-
-			$members = list_members(array('KONTONUMMER','BANKLEITZAHL','IBAN','BIC','BANKNAME'), 0)  ;
-
-			//alle Mitglieder durchlaufen
-			foreach ($members as $member => $memberdata)
-			{
-				$user = new User($gDb, $gProfileFields, $member);
-	
-				// IBAN erzeugen
-    			if (empty($memberdata['IBAN']) && !empty($memberdata['KONTONUMMER']) && !empty($memberdata['BANKLEITZAHL']) )
-    			{
-					$user->setValue('IBAN', iban_berechnung_DE($memberdata['BANKLEITZAHL'],$memberdata['KONTONUMMER']));
-					$echomarker = 0;
-    			}
-    
-    			// BIC erzeugen
-				if ( empty($memberdata['BIC']) && !empty($memberdata['BANKLEITZAHL']) &&  isset($_POST['generateBIC']) )
-    			{
-    				foreach ($blz_array as $data)
-					{
-						if ( (substr($data,0,8) == $memberdata['BANKLEITZAHL']) && (substr($data,8,1) =='1') )
-    					{
-    						$user->setValue('BIC', substr($data,139,11));
-    							$echomarker = 0;
-    					}
-					}
-    			}
-
-    			// Bankname erzeugen
-				if ( empty($memberdata['BANKNAME']) && !empty($memberdata['BANKLEITZAHL']) &&  isset($_POST['generateBank']) )
-    			{
-    				foreach ($blz_array as $data)
-					{
-						if ( (substr($data,0,8) == $memberdata['BANKLEITZAHL']) && (substr($data,8,1) =='1') )
-    					{
-    						$user->setValue('BANKNAME', umlaute(substr($data,9,58)));
-    						$echomarker = 0;
-    					}
-					}	
-    			}
-    			$user->save();
-			}
-            break;  
             	
        	case 'export':
        		unset($pPreferences->config['SEPA']['dateiname']);
@@ -341,5 +231,3 @@ elseif($echomarker==1)
 {
 	echo 'convert_error'; 
 }
-	
-?>
