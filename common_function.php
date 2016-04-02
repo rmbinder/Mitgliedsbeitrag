@@ -991,7 +991,7 @@ function check_iban()
 
 	foreach ($members as $member => $memberdata)
 	{
-		if ((strlen($memberdata['IBAN'])<>0) && !test_iban($memberdata['IBAN']) )
+		if ((strlen($memberdata['IBAN'])==1) || ((strlen($memberdata['IBAN'])>1) && !test_iban($memberdata['IBAN']) ))
 		{
 			$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>'; 				
 		}
