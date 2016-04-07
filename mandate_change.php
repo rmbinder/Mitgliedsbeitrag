@@ -50,53 +50,32 @@ $getIBAN            = admFuncVariableIsValid($_GET, 'iban', 'string');
 $getOrigIBAN        = admFuncVariableIsValid($_GET, 'origiban', 'string');
 $getMandateID       = admFuncVariableIsValid($_GET, 'mandateid', 'string');
 $getOrigMandateID   = admFuncVariableIsValid($_GET, 'origmandateid', 'string');
-$getBankChanged     = admFuncVariableIsValid($_GET, 'bankchanged', 'boolean');
-$getBank   			= admFuncVariableIsValid($_GET, 'bank', 'string');
-$getBIC     		= admFuncVariableIsValid($_GET, 'bic', 'string');
+$getBankChanged     = admFuncVariableIsValid($_GET, 'bankchanged', 'string');
+$getBank   			= admFuncVariableIsValid($_GET, 'bank', 'string', array('defaultValue' => ''));
+$getBIC     		= admFuncVariableIsValid($_GET, 'bic', 'string', array('defaultValue' => ''));
 
 $user = new User($gDb, $gProfileFields, $getUserId);
 
-if($getMode == 'assign')  // (Default) Choose language
+if($getMode == 'assign')   
 {
-	 $ret_txt='error_nothing_changed';
+	$ret_txt='error_nothing_changed';
+	$iban_change='false';
+	$bank_change='false';
+	$mandateid_change='false';
 	 
     $gMessage->showTextOnly(true);
-    
-	// wurde die Mandatsreferenz geändert?
-	if ( $getMandateID <> $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')) )
-	{
-		//ja, es hat eine Änderung stattgefunden
-		
-		//bei einer Änderung muss origMandateID befüllt sein
-		if (strlen($getOrigMandateID) <> 0 )
-		{
-			$user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $getMandateID);
-			$user->setValue('ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'), $getOrigMandateID);
-			$ret_txt='success';
-			$user->save();
-		}
-		else 
-		{
-			$ret_txt="error_origmandateid_missing";
-		}
-	}
 	
 	// wurde die Bank geändert?
-	if (  $getBankChanged=='false' )
+	if (  $getBankChanged == 'false' )             //nein, dieselbe Bank
 	{
-		//nein, dieselbe Bank
-		
 		//hat eine Änderung der IBAN stattgefunden?
 		if ( $getIBAN <> $user->getValue('IBAN')  )
 		{
-		
 			//ja, dann muss origIBAN befüllt sein
 			if (strlen($getOrigIBAN) <> 0 )
 			{
-				$user->setValue('IBAN', $getIBAN);	
-				$user->setValue('ORIGIBAN', $getOrigIBAN);
-				$ret_txt='success';	
-				$user->save();
+				$iban_change='true';
+				$ret_txt='success';
 			}
 			else 
 			{
@@ -109,6 +88,39 @@ if($getMode == 'assign')  // (Default) Choose language
 		//bei einer Änderung der Bank muss es eine andere IBAN geben
 		if ( $getIBAN <> $user->getValue('IBAN'))
 		{
+			$bank_change='true';
+			$ret_txt='success';
+		}
+		else 
+		{
+			$ret_txt="error_bank_changed";
+		}
+	}
+	 
+	// wurde die Mandatsreferenz geändert?
+	if($getMandateID <> $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')))
+	{
+		//bei einer Änderung muss origMandateID befüllt sein
+		if (strlen($getOrigMandateID) <> 0 )
+		{
+			$mandateid_change='true';
+			$ret_txt='success';
+		}
+		else 
+		{
+			$ret_txt="error_origmandateid_missing";
+		}
+	}
+	
+	if($ret_txt=='success')
+	{
+		if($iban_change=='true')
+		{
+			$user->setValue('IBAN', $getIBAN);	
+			$user->setValue('ORIGIBAN', $getOrigIBAN);					
+		}
+		if($bank_change=='true')
+		{
 			$user->setValue('IBAN', $getIBAN);	
 			$user->setValue('BIC', $getBIC);	
 			$user->setValue('BANKNAME', $getBank);	
@@ -117,13 +129,13 @@ if($getMode == 'assign')  // (Default) Choose language
 	
 			// wenn die Bank gewechselt wurde, braucht die neue Bank die ursprüngliche IBAN nicht zu kennen
 			$user->setValue('ORIGIBAN', '');
-			$ret_txt='success';	
-			$user->save();
 		}
-		else 
+		if($mandateid_change=='true')
 		{
-			$ret_txt="error_bank_changed";
+			$user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $getMandateID);
+			$user->setValue('ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'), $getOrigMandateID);
 		}
+		$user->save();
 	}
     echo $ret_txt;
 }
@@ -134,7 +146,6 @@ else
     // create html page object
     $page = new HtmlPage($headline);
 
-    //form-preferences umbenennen in form_mandate_change
     $page->addJavascript('
         function ibanschieben(){ 
 		  var iban = $("input[type=text]#iban").val(); 
@@ -167,7 +178,7 @@ else
         	}
         }); 
    
-        $(".form-preferences").submit(function(event) {
+        $(".form-mandate_change").submit(function(event) {
             var id = $(this).attr("id");
             var iban = $("input[type=text]#iban").val(); 
 		    var origiban = $("input[type=text]#origiban").val();
@@ -238,7 +249,7 @@ else
     $mandateChangeMenu = $page->getMenu();
     $mandateChangeMenu->addItem('menu_item_back', $gNavigation->getUrl(), $gL10n->get('SYS_BACK'), 'back.png');
 
-    $form = new HtmlForm('configurations_form', null, $page, array('class' => 'form-preferences')); 
+    $form = new HtmlForm('mandate_change_form', null, $page, array('class' => 'form-mandate_change')); 
     $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')),array('property' => FIELD_REQUIRED));
 	$html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()"><img 
 			src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" /></a>';
