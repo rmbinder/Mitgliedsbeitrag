@@ -67,14 +67,14 @@ foreach ($members as $member => $memberdata)
         
 		$zpflgt[$member]['name']=substr(replace_sepadaten($members[$member]['KONTOINHABER']),0,70);     											// Name of account owner.
 		$zpflgt[$member]['alt_name']="";																								// Array SEPA Zahlungspflichtiger abweichender Name
-		$zpflgt[$member]['iban']=$members[$member]['IBAN'];        																		// IBAN 
+		$zpflgt[$member]['iban']=str_replace(' ','',$members[$member]['IBAN']);        																		// IBAN 
 		$zpflgt[$member]['bic']=$members[$member]['BIC'];        																		// BIC 
 		$zpflgt[$member]['mandat_id']=$members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];        					// Mandats-ID 
 		$zpflgt[$member]['mandat_datum']=$members[$member]['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')];     				// Mandats-Datum
 		$zpflgt[$member]['betrag']=$members[$member]['BEITRAG'.$gCurrentOrganization->getValue('org_id')];        						// Amount of money 
 		$zpflgt[$member]['text']=substr(replace_sepadaten($members[$member]['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')]),0,140);   // Description of the transaction ("Verwendungszweck").
 		$zpflgt[$member]['orig_mandat_id']=$members[$member]['ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id')];        		// ursprüngliche Mandats-ID 
-		$zpflgt[$member]['orig_iban']=$members[$member]['ORIGIBAN'];        															// ursprüngliche IBAN 
+		$zpflgt[$member]['orig_iban']=str_replace(' ','',$members[$member]['ORIGIBAN']);        															// ursprüngliche IBAN 
 		$zpflgt[$member]['orig_dbtr_agent']=$members[$member]['ORIGDEBTORAGENT'];        												// ursprüngliches Kreditinstitut, nur "SMNDA" möglich
 			
     	$lst_euro_sum += $zpflgt[$member]['betrag'];
@@ -101,7 +101,7 @@ $payment_seqtp=$postSepaType;
 
 $zempf['name']=substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']),0,70);								//SEPA  Zahlungsempfänger Kontoinhaber
 $zempf['ci']=$pPreferences->config['Kontodaten']['ci'];                 											//Organisation SEPA_ID (Gläubiger-ID Bundesdbank)
-$zempf['iban']=$pPreferences->config['Kontodaten']['iban'];														//SEPA  Zahlungsempfänger IBAN	
+$zempf['iban']=str_replace(' ','',$pPreferences->config['Kontodaten']['iban']);														//SEPA  Zahlungsempfänger IBAN	
 $zempf['bic']=$pPreferences->config['Kontodaten']['bic'];															//SEPA  Zahlungsempfänger BIC
 $zempf['orig_cdtr_name']=$pPreferences->config['Kontodaten']['origcreditor'];  									//ursprünglicher Creditor
 $zempf['orig_cdtr_id']=$pPreferences->config['Kontodaten']['origci'];  											//ursprüngliche Mandats-ID
