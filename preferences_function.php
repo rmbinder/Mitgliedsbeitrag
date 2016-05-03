@@ -182,7 +182,6 @@ try
         		$pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf] = $_POST['familienrollen_pruefung'. $conf];
     		}
     			
-    		$pPreferences->config['Rollenpruefung']['altersrollenpflicht'] = isset($_POST['altersrollenpflicht']) ? $_POST['altersrollenpflicht'] : '' ;
        		$pPreferences->config['Rollenpruefung']['familienrollenpflicht'] = isset($_POST['familienrollenpflicht']) ? $_POST['familienrollenpflicht'] : '';
     			
        		$fixrollen = beitragsrollen_einlesen('fix');
@@ -192,17 +191,46 @@ try
                 {
                 	$pPreferences->config['Rollenpruefung']['fixrollenpflicht'][] = $key;
                 }
-                if(isset($_POST['altersrollenfix'. $key]))
+                foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
                 {
-                	$pPreferences->config['Rollenpruefung']['altersrollenfix'][] = $key;
+                	if(isset($_POST['altersrollenfix'. $token.$key]))
+                	{
+                		$pPreferences->config['Rollenpruefung']['altersrollenfix'][] = $token.$key;
+                	}
                 }
+                
                 if(isset($_POST['familienrollenfix'. $key]))
                 {
                 	$pPreferences->config['Rollenpruefung']['familienrollenfix'][] = $key;
                 }
 			} 
+			
+    		if ((sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1))         
+			{
+				for ($x=0;$x<sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])-1;$x++) 
+				{
+					for ($y=$x+1;$y<sizeof($pPreferences->config['Altersrollen']['altersrollen_token']);$y++) 
+					{
+					 	if(isset($_POST['altersrollenaltersrollen'.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].$pPreferences->config['Altersrollen']['altersrollen_token'][$y]]))
+                		{
+                			$pPreferences->config['Rollenpruefung']['altersrollenaltersrollen'][] = $pPreferences->config['Altersrollen']['altersrollen_token'][$x].','.$pPreferences->config['Altersrollen']['altersrollen_token'][$y];
+                		}
+					}
+				}
+			}
 
-            $pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen'] = isset($_POST['altersrollenfamilienrollen']) ? $_POST['altersrollenfamilienrollen'] : '' ;
+			foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
+            {
+            	if(isset($_POST['altersrollenpflicht'. $token]))
+                {
+                	$pPreferences->config['Rollenpruefung']['altersrollenpflicht'][] = $token;
+                	
+                }
+            	if(isset($_POST['altersrollenfamilienrollen'. $token]))
+                {
+                	$pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen'][] = $token;
+                }
+            }
             $pPreferences->config['Rollenpruefung']['bezugskategorie'] = isset($_POST['bezugskategorie']) ? $_POST['bezugskategorie'] : array(' ');
 			break;  	  
             	

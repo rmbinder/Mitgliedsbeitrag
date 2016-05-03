@@ -36,6 +36,7 @@ require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program
  *                                  $rollen[rol_id]['rol_description']        =Beschreibung ('rol_description')<br>
  *                                  $rollen[rol_id]['von']                    =nur bei altersgestaffelnten Rollen 'von'<br>
  *                                  $rollen[rol_id]['bis']                    =nur bei altersgestaffelnten Rollen 'bis'<br>
+ *                                  $rollen[rol_id]['alterstyp']              =nur bei altersgestaffelnten Rollen 'Trennzeichen'<br>
  *                                  $rollen[rol_id]['rollentyp']              =Rollentyp ('alt', 'fam' oder 'fix')
  */
 function beitragsrollen_einlesen($rollenwahl = '',$with_members = array())
@@ -543,12 +544,17 @@ function check_rollenmitgliedschaft_altersrolle()
     	}
     } 
     	
-    // jetzt $check durchlaufen und alle Einträge löschen, bei denen die Größe des Arrays nur 1 beträgt
+    // jetzt $check durchlaufen und nur die Einträge bearbeiten, bei denen mehr als 1 Alterstyp vorhanden ist
     foreach($check as $member => $memberdata)
     {
     	if(sizeof($memberdata['alterstyp'])>1)
     	{
-    		$ret[] .= '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>'; 
+    		$alterstypen = '';
+    		foreach($memberdata['alterstyp'] as $alterstyp)
+    		{
+    			$alterstypen .= ' ('.$alterstyp.')';
+    		}
+    		$ret[] .= '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$alterstypen. '</a>'; 
     	}
     }
 
@@ -585,7 +591,7 @@ function check_rollenmitgliedschaft_pflicht()
         {
             unset ($beitragsrollen[$rol]);                                                          
         }       
-        elseif(($roldata['rollentyp'] == 'alt') && (!$pPreferences->config['Rollenpruefung']['altersrollenpflicht']) )
+        elseif(($roldata['rollentyp'] == 'alt') && (is_array($pPreferences->config['Rollenpruefung']['altersrollenpflicht'])) && !(in_array($roldata['alterstyp'],$pPreferences->config['Rollenpruefung']['altersrollenpflicht']))) 
         {
             unset ($beitragsrollen[$rol]);                                                          
         } 
@@ -671,7 +677,7 @@ function check_rollenmitgliedschaft_ausschluss()
         
             if($roldata['rollentyp']== 'alt') 
             {
-                $members[$key]['rollen'][]= 'alt';    
+                $members[$key]['rollen'][]= $roldata['alterstyp'].'alt';    
             }
             elseif($roldata['rollentyp']== 'fam') 
             {
@@ -711,10 +717,27 @@ function check_rollenmitgliedschaft_ausschluss()
         }
         
         $marker = false;
-        if(($pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen']) && (in_array('fam',$memberdata['rollen'])) && (in_array('alt',$memberdata['rollen'])))
+    	if(is_array($pPreferences->config['Rollenpruefung']['altersrollenaltersrollen']))
         {
-            $marker = true;     
-        } 
+        	foreach ($pPreferences->config['Rollenpruefung']['altersrollenaltersrollen'] as $data)
+            {
+            	$token = explode(',',$data);
+            	if((in_array($token[0].'alt',$memberdata['rollen'])) && (in_array($token[1].'alt',$memberdata['rollen'])))
+        		{
+            		$marker = true;     
+        		} 	
+            }
+        }
+        if(is_array($pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen']))
+        {
+        	foreach ($pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen'] as $token)
+            {
+            	if((in_array('fam',$memberdata['rollen'])) && (in_array($token.'alt',$memberdata['rollen'])))
+        		{
+            		$marker = true;     
+        		} 	
+            }
+        }
         if(is_array($pPreferences->config['Rollenpruefung']['familienrollenfix']))
         {
             foreach ($pPreferences->config['Rollenpruefung']['familienrollenfix'] as $rol => $roldata)
@@ -725,15 +748,18 @@ function check_rollenmitgliedschaft_ausschluss()
                 }   
             }     
         } 
-        if(is_array($pPreferences->config['Rollenpruefung']['altersrollenfix']))
+        if(is_array($pPreferences->config['Rollenpruefung']['altersrollenfix']) &&  is_array($pPreferences->config['Altersrollen']['altersrollen_token']))
         {
-            foreach ($pPreferences->config['Rollenpruefung']['altersrollenfix'] as $rol => $roldata)
+        	foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
             {
-                if((in_array($roldata,$memberdata['rollen'])) && (in_array('alt',$memberdata['rollen'])))
-                {
-                    $marker = true;     
-                }   
-            }     
+            	foreach ($pPreferences->config['Rollenpruefung']['altersrollenfix'] as $rol => $roldata)
+            	{
+                	if((in_array(substr($roldata,strlen($token)),$memberdata['rollen'])) && (in_array($token.'alt',$memberdata['rollen'])))
+                	{
+                    	$marker = true;     
+                	}   
+            	}
+            } 
         } 
        
         if ($marker)

@@ -121,6 +121,15 @@ class ConfigTablePMB
     	//  1 = Daten in allen Orgs löschen
     	//  3 = Daten löschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
     	
+    	//Update/Konvertierungsroutine 4.1.x -> 4.1.2
+    	if(!is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
+    	{
+    		unset($this->config['Rollenpruefung']['altersrollenfamilienrollen']);
+    	}
+	    if(!is_array($this->config['Rollenpruefung']['altersrollenpflicht']))
+    	{
+    		unset($this->config['Rollenpruefung']['altersrollenpflicht']);
+    	}
 		// Ende Update/Konvertierungsroutine
 		
 		$this->config['Plugininformationen']['version'] = self::$version;

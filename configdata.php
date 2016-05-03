@@ -59,11 +59,12 @@ $config_default['Mandatsreferenz'] = array(	'prefix_fam' => 'FAM',
    											'data_field' => '-- User_ID --');	
  
 //Rollenpruefung
-$config_default['Rollenpruefung'] = array(	'altersrollenfamilienrollen' => 1,	
-  											'altersrollenpflicht' => '',	
+$config_default['Rollenpruefung'] = array(	'altersrollenfamilienrollen' => array(' '),	
+  											'altersrollenpflicht' => array(' '),	
   											'familienrollenpflicht' => '',	
    											'fixrollenpflicht' => array(' '),	
-   											'bezugskategorie' => array(' '),	
+   											'bezugskategorie' => array(' '),
+											'altersrollenaltersrollen' => array(' '),		
   											'familienrollenfix' => array(' '),	
   											'altersrollenfix' => array(' ') );	
    

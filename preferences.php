@@ -476,7 +476,10 @@ $page->addHtml('
                         	$form->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
                         	if (sizeof($altersrollen)>0)   
 							{
-								$form->addCheckbox('altersrollenpflicht', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'), $pPreferences->config['Rollenpruefung']['altersrollenpflicht']  );
+								foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
+                                {
+                                	$form->addCheckbox('altersrollenpflicht'.$token, $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$token .')', (in_array($token,$pPreferences->config['Rollenpruefung']['altersrollenpflicht']) ? 1 : 0) );
+                                }
 							}
 							if (sizeof($familienrollen)>0)                   
                             {
@@ -499,16 +502,32 @@ $page->addHtml('
 	                    if (((sizeof($altersrollen)>0) && (sizeof($familienrollen)>0)) || ((sizeof($altersrollen)>0) && (sizeof($fixrollen)>0)) || ((sizeof($familienrollen)>0) && (sizeof($fixrollen)>0))) 
                         {
                         	$form->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
+                        	if ((sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1))         
+							{
+								for ($x=0;$x<sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])-1;$x++) 
+								{
+									for ($y=$x+1;$y<sizeof($pPreferences->config['Altersrollen']['altersrollen_token']);$y++) 
+									{
+										$form->addCheckbox('altersrollenaltersrollen'.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].$pPreferences->config['Altersrollen']['altersrollen_token'][$y], $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].') ./. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$pPreferences->config['Altersrollen']['altersrollen_token'][$y].')', (in_array($pPreferences->config['Altersrollen']['altersrollen_token'][$x].','.$pPreferences->config['Altersrollen']['altersrollen_token'][$y],$pPreferences->config['Rollenpruefung']['altersrollenaltersrollen']) ? 1 : 0) );
+									}
+								}
+							}
                         	if ((sizeof($altersrollen)>0) && (sizeof($familienrollen)>0))         
 							{
-								$form->addCheckbox('altersrollenfamilienrollen', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ./. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), $pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen']  );
+								foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
+                                {
+									$form->addCheckbox('altersrollenfamilienrollen'.$token, $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$token .') ./. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), (in_array($token,$pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen']) ? 1 : 0) );
+								}
 							}
 							if ((sizeof($altersrollen)>0) && (sizeof($fixrollen)>0))                       
                             {
                             	foreach($fixrollen as $key => $data)
-                                {
-                                	$form->addCheckbox('altersrollenfix'.$key, $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ./. '.$data['rolle'], (in_array($key,$pPreferences->config['Rollenpruefung']['altersrollenfix']) ? 1 : 0) );                    	                                     	
-                                }
+                            	{
+                            		foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
+                                	{
+                                		$form->addCheckbox('altersrollenfix'.$token.$key, $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$token .') ./. '.$data['rolle'], (in_array($token.$key,$pPreferences->config['Rollenpruefung']['altersrollenfix']) ? 1 : 0) );                    	                                     	
+                                	}
+                            	}
                             }
                         	if ((sizeof($familienrollen)>0) && (sizeof($fixrollen)>0))     
                             {
