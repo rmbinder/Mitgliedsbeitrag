@@ -53,7 +53,7 @@ if($getMode == 'anlegen')
     // prüfen, ob es das Profilfeld Beitritt gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) 
     {
-        $cat_id_mitgliedschaft = getCat_IDPMB('Mitgliedschaft');  
+        $cat_id_mitgliedschaft = getCat_IDPMB('MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'));  
         $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft) ; 
         
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -74,7 +74,7 @@ if($getMode == 'anlegen')
 	// prüfen, ob es das Profilfeld Mitgliedsnummer gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) 
     {
-        $cat_id_stammdaten = getCat_IDPMB('SYS_MASTER_DATA');  
+        $cat_id_stammdaten = getCat_IDPMB('MASTER_DATA');  
         $nextFieldSequence = getNextFieldSequence($cat_id_stammdaten) ; 
         
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -109,7 +109,7 @@ if($getMode == 'anlegen')
         $gDb->query($sql);  
     }
       
-    $cat_id_mitgliedsbeitrag = getCat_IDPMB('Mitgliedsbeitrag');  
+    $cat_id_mitgliedsbeitrag = getCat_IDPMB('MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'));  
     $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedsbeitrag) ; 
     
     // prüfen, ob es das Profilfeld Bezahlt gibt, wenn nicht: anlegen         
@@ -223,7 +223,7 @@ if($getMode == 'anlegen')
         $gDb->query($sql);  
     } 
          
-    $cat_id_mandat = getCat_IDPMB('PMB_MANDATE');  
+    $cat_id_mandat = getCat_IDPMB('MANDATE'.$gCurrentOrganization->getValue('org_id'));  
     $nextFieldSequence = getNextFieldSequence($cat_id_mandat) ; 
     
     // prüfen, ob es das Profilfeld Mandatsreferenz gibt, wenn nicht: anlegen
@@ -299,7 +299,7 @@ if($getMode == 'anlegen')
         $gDb->query($sql);    
     } 
          
-    $cat_id_kontodaten = getCat_IDPMB('Kontodaten');  
+    $cat_id_kontodaten = getCat_IDPMB('KONTODATEN');  
     $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten) ; 
 
    // prüfen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen         
@@ -1205,16 +1205,17 @@ function getNextFieldSequence($usf_cat_id)
 //
 /**
  * Gibt zu einem Kategorienamen die entsprechende Cat_ID zurück
- * @param   string  $cat_name       Name der zu pruefenden Kategorie
+ * @param   string  $cat_name_intern       Name der zu pruefenden Kategorie
  * @return  int     cat_id          Cat_id der Kategorie
  */
-function getCat_IDPMB($cat_name)
+function getCat_IDPMB($cat_name_intern)
 {
     global $gDb,$gCurrentOrganization;
 	
     $sql = ' SELECT cat_id
             FROM '.TBL_CATEGORIES.'
-            WHERE cat_name = \''.$cat_name.'\'
+            WHERE cat_name_intern = \''.$cat_name_intern.'\'
+            AND cat_type = \'USF\'
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                 OR cat_org_id IS NULL ) ';
                
