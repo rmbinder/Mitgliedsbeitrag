@@ -122,11 +122,11 @@ class ConfigTablePMB
     	//  3 = Daten löschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
     	
     	//Update/Konvertierungsroutine 4.1.x -> 4.1.2
-    	if(!is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
+    	if( isset($this->config['Rollenpruefung']['altersrollenfamilienrollen']) && !is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
     	{
     		unset($this->config['Rollenpruefung']['altersrollenfamilienrollen']);
     	}
-	    if(!is_array($this->config['Rollenpruefung']['altersrollenpflicht']))
+	    if( isset($this->config['Rollenpruefung']['altersrollenpflicht']) && !is_array($this->config['Rollenpruefung']['altersrollenpflicht']))
     	{
     		unset($this->config['Rollenpruefung']['altersrollenpflicht']);
     	}
