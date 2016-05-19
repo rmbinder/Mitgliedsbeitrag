@@ -40,7 +40,7 @@ $postSepaType=substr($postDueDateSepaType,10);
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
-$members = list_members(array('FIRST_NAME','LAST_NAME','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'KONTOINHABER','IBAN','ORIGIBAN','BIC','BANKNAME','ORIGDEBTORAGENT','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'),'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),'DUEDATE'.$gCurrentOrganization->getValue('org_id'),'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
+$members = list_members(array('FIRST_NAME','LAST_NAME','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'DEBTOR','IBAN','ORIG_IBAN','BIC','BANK','ORIG_DEBTOR_AGENT','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'),'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),'DUEDATE'.$gCurrentOrganization->getValue('org_id'),'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
 
 $zempf=array();
 $zpflgt=array();
@@ -52,30 +52,30 @@ $format2="H:i:s";
 //alle Mitglieder durchlaufen und abhängig von bestimmten Daten, das Array $zpflgt befüllen
 foreach ($members as $member => $memberdata)
 {
-    if  (!empty($memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')]) 
-    	&& empty($memberdata['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]) 
-    	&& !empty($memberdata['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')]) 
+    if  (!empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
+    	&& empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
+    	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
     	&& !empty($memberdata['IBAN']) 
     	&& ($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]==$postDueDate)
     	&& ( ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==$postSepaType)
     		|| (($postSepaType=='FRST') && ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==''))  ) )
     {
-      	if (empty($memberdata['KONTOINHABER']))
+      	if (empty($memberdata['DEBTOR']))
         {  
-            $members[$member]['KONTOINHABER'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
+            $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
         }
         
-		$zpflgt[$member]['name']=substr(replace_sepadaten($members[$member]['KONTOINHABER']),0,70);     											// Name of account owner.
+		$zpflgt[$member]['name']=substr(replace_sepadaten($members[$member]['DEBTOR']),0,70);     										// Name of account owner.
 		$zpflgt[$member]['alt_name']="";																								// Array SEPA Zahlungspflichtiger abweichender Name
 		$zpflgt[$member]['iban']=str_replace(' ','',$members[$member]['IBAN']);        																		// IBAN 
 		$zpflgt[$member]['bic']=$members[$member]['BIC'];        																		// BIC 
 		$zpflgt[$member]['mandat_id']=$members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];        					// Mandats-ID 
 		$zpflgt[$member]['mandat_datum']=$members[$member]['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')];     				// Mandats-Datum
-		$zpflgt[$member]['betrag']=$members[$member]['BEITRAG'.$gCurrentOrganization->getValue('org_id')];        						// Amount of money 
-		$zpflgt[$member]['text']=substr(replace_sepadaten($members[$member]['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')]),0,140);   // Description of the transaction ("Verwendungszweck").
-		$zpflgt[$member]['orig_mandat_id']=$members[$member]['ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id')];        		// ursprüngliche Mandats-ID 
-		$zpflgt[$member]['orig_iban']=str_replace(' ','',$members[$member]['ORIGIBAN']);        															// ursprüngliche IBAN 
-		$zpflgt[$member]['orig_dbtr_agent']=$members[$member]['ORIGDEBTORAGENT'];        												// ursprüngliches Kreditinstitut, nur "SMNDA" möglich
+		$zpflgt[$member]['betrag']=$members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')];        						// Amount of money
+		$zpflgt[$member]['text']=substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]),0,140);   // Description of the transaction ("Verwendungszweck").
+		$zpflgt[$member]['orig_mandat_id']=$members[$member]['ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id')];        		// ursprüngliche Mandats-ID
+		$zpflgt[$member]['orig_iban']=str_replace(' ','',$members[$member]['ORIG_IBAN']);        															// ursprüngliche IBAN
+		$zpflgt[$member]['orig_dbtr_agent']=$members[$member]['ORIG_DEBTOR_AGENT'];        												// ursprüngliches Kreditinstitut, nur "SMNDA" möglich
 			
     	$lst_euro_sum += $zpflgt[$member]['betrag'];
 

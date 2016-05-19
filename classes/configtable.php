@@ -327,25 +327,25 @@ class ConfigTablePMB
     	// einen Suchstring für die SQL-Abfrage aufbereiten
 		$fieldsarray = array();
 		$fieldsarray[]	 = 'MEMBERNUMBER';
-		$fieldsarray[]	 = 'BEITRITT'.$gCurrentOrganization->getValue('org_id');
-		$fieldsarray[]	 = 'BEITRAG'.$gCurrentOrganization->getValue('org_id');
-		$fieldsarray[]	 = 'BEZAHLT'.$gCurrentOrganization->getValue('org_id');
-		$fieldsarray[]	 = 'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id');
+		$fieldsarray[]	 = 'ACCESSION'.$gCurrentOrganization->getValue('org_id');
+		$fieldsarray[]	 = 'FEE'.$gCurrentOrganization->getValue('org_id');
+		$fieldsarray[]	 = 'PAID'.$gCurrentOrganization->getValue('org_id');
+		$fieldsarray[]	 = 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'DUEDATE'.$gCurrentOrganization->getValue('org_id');                        
 		$fieldsarray[]	 = 'MANDATEID'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id');
-		$fieldsarray[]	 = 'ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id');
+		$fieldsarray[]	 = 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'IBAN';
 		$fieldsarray[]	 = 'BIC';
-		$fieldsarray[]	 = 'BANKNAME';        
-		$fieldsarray[]	 = 'KONTOINHABER';
-		$fieldsarray[]	 = 'DEBTORADDRESS';
-		$fieldsarray[]	 = 'DEBTORPOSTCODE';
-		$fieldsarray[]	 = 'DEBTORCITY'; 
-		$fieldsarray[]	 = 'DEBTOREMAIL';
-		$fieldsarray[]	 = 'ORIGDEBTORAGENT';
-		$fieldsarray[]	 = 'ORIGIBAN' ;
+		$fieldsarray[]	 = 'BANK';
+		$fieldsarray[]	 = 'DEBTOR';
+		$fieldsarray[]	 = 'DEBTOR_ADDRESS';
+		$fieldsarray[]	 = 'DEBTOR_POSTCODE';
+		$fieldsarray[]	 = 'DEBTOR_CITY';
+		$fieldsarray[]	 = 'DEBTOR_EMAIL';
+		$fieldsarray[]	 = 'ORIG_DEBTOR_AGENT';
+		$fieldsarray[]	 = 'ORIG_IBAN' ;
 		
 		$fieldsString ='';
 		foreach ($fieldsarray as $string)

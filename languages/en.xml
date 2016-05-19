@@ -434,20 +434,28 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\XML file name: &quot;SEPA-Datei&quot; becomes &quot;SEPA-Datei-2013-04-01-RCUR.xml&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Years</string>
     <!-- Phrases only in Database -->
-    <string name="PMB_ADDRESS">AccHolder&apos;s address</string>
+    <string name="PMB_ACCESSION">Accession</string>
+    <string name="PMB_ACCOUNT_DATA">Account data</string>
     <string name="PMB_BANK">Bank</string>
     <string name="PMB_BIC">BIC</string>
-    <string name="PMB_CITY">AccHolder&apos;s location</string>
+    <string name="PMB_CONTRIBUTORY_TEXT">Contributory text</string>
+    <string name="PMB_DEBTOR">Account holder</string>
+    <string name="PMB_DEBTOR_ADDRESS">AccHolder&apos;s address</string>
+    <string name="PMB_DEBTOR_CITY">AccHolder&apos;s location</string>
+    <string name="PMB_DEBTOR_EMAIL">AccHolder&apos;s e-mail</string>
+    <string name="PMB_DEBTOR_POSTCODE">AccHolder&apos;s post code</string>
     <string name="PMB_DUEDATE">Due date</string>
-    <string name="PMB_EMAIL">AccHolder&apos;s e-mail</string>
+    <string name="PMB_FEE">Fee</string>
     <string name="PMB_IBAN">IBAN</string>
     <string name="PMB_MANDATE">Mandate</string>
     <string name="PMB_MANDATEDATE">Mandate date</string>
     <string name="PMB_MANDATEID">Mandate reference</string>
     <string name="PMB_MEMBERNUMBER">Membership number</string>
+    <string name="PMB_MEMBERSHIP">Membership</string>
+    <string name="PMB_MEMBERSHIP_FEE">Membership fee</string>
     <string name="PMB_ORIG_DEBTOR_AGENT">Original bank</string>
     <string name="PMB_ORIG_IBAN">Original IBAN</string>
     <string name="PMB_ORIG_MANDATEID">Original mandate reference</string>
-    <string name="PMB_POSTCODE">AccHolder&apos;s post code</string>
+    <string name="PMB_PAID">Paid</string>
     <string name="PMB_SEQUENCETYPE">Sequence type</string>
 </resources>

@@ -28,7 +28,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
     
 //alle Mitglieder einlesen
-$members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'IBAN','KONTOINHABER'), 0)  ;
+$members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'IBAN','DEBTOR'), 0)  ;
 
 //$rechnungs_file[]=array();
 $rechnungs_file=array();
@@ -37,22 +37,22 @@ $i=0;
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
 foreach ($members as $member => $memberdata){
     if ( empty($memberdata['IBAN'])
-        	&&  empty($memberdata['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]) 
-        	&& !empty($memberdata['BEITRAG'.$gCurrentOrganization->getValue('org_id')])
-        	&& !empty($memberdata['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')])  )
+        	&&  empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
+        	&& !empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
+        	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])  )
 	{
-        if (empty($memberdata['KONTOINHABER']))
+        if (empty($memberdata['DEBTOR']))
         {  
-            $members[$member]['KONTOINHABER'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
+            $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
         }
         $rechnungs_file[$i] = array(
-                "name"           => $members[$member]['KONTOINHABER'],     // Name of account owner.
+                "name"           => $members[$member]['DEBTOR'],     // Name of account owner.
                 "adress"         => $members[$member]['ADDRESS'],
                 "postcode"       => $members[$member]['POSTCODE'],
                 "city"           => $members[$member]['CITY'],
                 "email"          => $members[$member]['EMAIL'],
-                "beitrag"        => $members[$member]['BEITRAG'.$gCurrentOrganization->getValue('org_id')],
-                "beitragstext"   => $members[$member]['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')],
+                "beitrag"        => $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')],
+                "beitragstext"   => $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],
         );
         $i+=1;
     }

@@ -98,13 +98,13 @@ foreach ($user_array as $userId)
     }
     
 	//Datensatz für E-Mail-Adresse zusammensetzen
-    if(strlen($user->getValue('KONTOINHABER')) > 0)
+    if(strlen($user->getValue('DEBTOR')) > 0)
     {
-		if(strlen($user->getValue('DEBTOREMAIL')) > 0)
+		if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
 		{
-			$postTo = $user->getValue('DEBTOREMAIL');
+			$postTo = $user->getValue('DEBTOR_EMAIL');
 		}
-		$empfaenger	= 	$user->getValue('KONTOINHABER');		
+		$empfaenger	= 	$user->getValue('DEBTOR');
 		         	
     }
     else 

@@ -123,7 +123,7 @@ elseif($getMode == 'delete')
 	}
     if (isset($_POST['accountholder']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'KONTOINHABER',$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR',$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'));
 	}			
     if (isset($_POST['iban']))
 	{
@@ -135,47 +135,47 @@ elseif($getMode == 'delete')
 	}			
   	if (isset($_POST['bank']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'BANKNAME',$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'BANK',$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'));
 	}			
   	if (isset($_POST['address']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTORADDRESS',$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_ADDRESS',$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'));
 	}
   	if (isset($_POST['postcode']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTORPOSTCODE',$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_POSTCODE',$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE'));
 	}
   	if (isset($_POST['city']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTORCITY',$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_CITY',$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'));
 	}		
     if (isset($_POST['origdebtoragent']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'ORIGDEBTORAGENT',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'ORIG_DEBTOR_AGENT',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'));
 	}
   	if (isset($_POST['origiban']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'ORIGIBAN',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'ORIG_IBAN',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'));
 	}
     if (isset($_POST['email']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOREMAIL',$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_EMAIL',$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'));
 	}
   	if (isset($_POST['accession']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'BEITRITT',$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'ACCESSION',$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'));
 	}
   	if (isset($_POST['paid']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'BEZAHLT',$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'PAID',$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'));
 	}
   	if (isset($_POST['fee']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'BEITRAG',$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'FEE',$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'));
 	}
   	if (isset($_POST['contributorytext']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'BEITRAGSTEXT',$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'CONTRIBUTORY_TEXT',$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'));
 	}
   	if (isset($_POST['sequencetype']))
 	{
@@ -195,7 +195,7 @@ elseif($getMode == 'delete')
 	}
   	if (isset($_POST['orig_mandateid']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'ORIGMANDATEID',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'ORIG_MANDATEID',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'));
 	}
   	if (isset($_POST['mailtexts']))
 	{

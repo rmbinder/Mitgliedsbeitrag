@@ -40,7 +40,7 @@ try
     {           	
        	case 'delete':
 			$members = array();
-			$members = list_members(array('BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'DUEDATE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
+			$members = list_members(array('PAID'.$gCurrentOrganization->getValue('org_id'),'FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'DUEDATE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
 
 			foreach ($members as $key => $data)
 			{
@@ -52,28 +52,28 @@ try
   	     			$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');	
     			}
 
-    			if (!empty($data['BEZAHLT'.$gCurrentOrganization->getValue('org_id')])
+    			if (!empty($data['PAID'.$gCurrentOrganization->getValue('org_id')])
 	   				&& (   isset($_POST['with_paid'])
 						|| isset($_POST['paid_only'])
 						|| isset($_POST['delete_all'])   ) )
     			{
-   	    			$user->setValue('BEZAHLT'.$gCurrentOrganization->getValue('org_id'), '');	
+   	    			$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
     			}
 	
-    			if (!empty($data['BEITRAG'.$gCurrentOrganization->getValue('org_id')])
-	   				&& (   (isset($_POST['with_paid']) && !empty($data['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]))
-		  				|| (isset($_POST['without_paid'])&& empty($data['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]))
+    			if (!empty($data['FEE'.$gCurrentOrganization->getValue('org_id')])
+	   				&& (   (isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+		  				|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
 		  				|| isset($_POST['delete_all'])  ) )
     			{
-  	     			$user->setValue('BEITRAG'.$gCurrentOrganization->getValue('org_id'), '');	
+  	     			$user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), '');
     			}
 	
-				if (!empty($data['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')])
-					&& (   (isset($_POST['with_paid']) && !empty($data['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]))
-						|| (isset($_POST['without_paid'])&& empty($data['BEZAHLT'.$gCurrentOrganization->getValue('org_id')]))
+				if (!empty($data['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
+					&& (   (isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+						|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
 						|| isset($_POST['delete_all'])    ) )
 				{
-   					$user->setValue('BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'), '');	
+   					$user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), '');
 				}
   				$user->save();
 			}        			

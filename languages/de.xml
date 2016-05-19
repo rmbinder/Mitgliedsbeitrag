@@ -434,20 +434,28 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Jahre</string>
     <!-- Phrases only in Database -->
-    <string name="PMB_ADDRESS">KtoInh-Adresse</string>
+    <string name="PMB_ACCESSION">Beitritt</string>
+    <string name="PMB_ACCOUNT_DATA">Kontodaten</string>
     <string name="PMB_BANK">Bank</string>
     <string name="PMB_BIC">BIC</string>
-    <string name="PMB_CITY">KtoInh-Ort</string>
+    <string name="PMB_CONTRIBUTORY_TEXT">Beitragstext</string>
+    <string name="PMB_DEBTOR">Kontoinhaber</string>
+    <string name="PMB_DEBTOR_ADDRESS">KtoInh-Adresse</string>
+    <string name="PMB_DEBTOR_CITY">KtoInh-Ort</string>
+    <string name="PMB_DEBTOR_EMAIL">KtoInh-E-Mail</string>
+    <string name="PMB_DEBTOR_POSTCODE">KtoInh-PLZ</string>
     <string name="PMB_DUEDATE">Fälligkeitsdatum</string>
-    <string name="PMB_EMAIL">KtoInh-E-Mail</string>
+    <string name="PMB_FEE">Beitrag</string>
     <string name="PMB_IBAN">IBAN</string>
     <string name="PMB_MANDATE">Mandat</string>
     <string name="PMB_MANDATEDATE">Mandatsdatum</string>
     <string name="PMB_MANDATEID">Mandatsreferenz</string>
     <string name="PMB_MEMBERNUMBER">Mitgliedsnummer</string>
+    <string name="PMB_MEMBERSHIP">Mitgliedschaft</string>
+    <string name="PMB_MEMBERSHIP_FEE">Mitgliedsbeitrag</string>
     <string name="PMB_ORIG_DEBTOR_AGENT">Ursprüngliche Bank</string>
     <string name="PMB_ORIG_IBAN">Ursprüngliche IBAN</string>
     <string name="PMB_ORIG_MANDATEID">Ursprüngliche Mandatsreferenz</string>
-    <string name="PMB_POSTCODE">KtoInh-PLZ</string>
+    <string name="PMB_PAID">Bezahlt</string>
     <string name="PMB_SEQUENCETYPE">Sequenztyp</string>
 </resources>

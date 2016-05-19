@@ -30,7 +30,7 @@ $text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' 
 $message = '';
 
 //alle Beitragsrollen einlesen 
-$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','KONTOINHABER'));
+$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
 if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]<>' ' )
@@ -82,7 +82,7 @@ foreach ($rols as $rol => $roldata)
 }
 
 // alle aktiven Mitglieder einlesen
-$members = list_members(array('FIRST_NAME','LAST_NAME','BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),'BEITRITT'.$gCurrentOrganization->getValue('org_id'),'KONTOINHABER'), 0)  ; 
+$members = list_members(array('FIRST_NAME','LAST_NAME','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'ACCESSION'.$gCurrentOrganization->getValue('org_id'),'DEBTOR'), 0)  ;
 
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
 foreach ($members as $member => $memberdata)
@@ -97,7 +97,7 @@ foreach ($members as $member => $memberdata)
 		{ 
             if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
             {
-                $members[$member]['BEITRITT'.$gCurrentOrganization->getValue('org_id')] = $roldata['members'][$member]['mem_begin'];
+                $members[$member]['ACCESSION'.$gCurrentOrganization->getValue('org_id')] = $roldata['members'][$member]['mem_begin'];
             }
             
 			if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
@@ -106,7 +106,7 @@ foreach ($members as $member => $memberdata)
             }
             else 
             {
-            	$time_begin = strtotime($members[$member]['BEITRITT'.$gCurrentOrganization->getValue('org_id')]);
+            	$time_begin = strtotime($members[$member]['ACCESSION'.$gCurrentOrganization->getValue('org_id')]);
             }
             
             // das Standarddatum '9999-12-31' kann auf best. Systemen nicht verarbeitet werden
@@ -177,9 +177,9 @@ foreach ($members as $member => $memberdata)
     // wenn definiert: Beitragstext mit dem Namen des Benutzers 
     if(	($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true) 
     	&&  ($members[$member]['BEITRAG-NEU']<>'')
-        &&  !(($members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME']==$members[$member]['KONTOINHABER'])
-           || ($members[$member]['FIRST_NAME'].' '.$members[$member]['LAST_NAME']==$members[$member]['KONTOINHABER'])
-           || (empty($members[$member]['KONTOINHABER']))))
+        &&  !(($members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME']==$members[$member]['DEBTOR'])
+           || ($members[$member]['FIRST_NAME'].' '.$members[$member]['LAST_NAME']==$members[$member]['DEBTOR'])
+           || (empty($members[$member]['DEBTOR']))))
     {
         $members[$member]['BEITRAGSTEXT-NEU'] .= $text_token.$members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME'].$text_token;
     }    
@@ -242,8 +242,8 @@ foreach ($rols as $rol => $roldata)
 foreach ($members as $member => $memberdata)
 {
     // den errechneten Beitrag nur in die DB schreiben wenn mehrere Kriterien erfüllt sind
-    if ( (is_null($members[$member]['BEITRAG'.$gCurrentOrganization->getValue('org_id')])
-    		||  (!(is_null($members[$member]['BEITRAG'.$gCurrentOrganization->getValue('org_id')])) 
+    if ( (is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')])
+    		||  (!(is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')]))
     			&& ( ($pPreferences->config['Beitrag']['beitrag_modus'] == 'overwrite') 
     				||($pPreferences->config['Beitrag']['beitrag_modus'] == 'summation') ) )   )
     	&& ($members[$member]['BEITRAG-NEU']>$pPreferences->config['Beitrag']['beitrag_mindestbetrag']) )
@@ -261,8 +261,8 @@ foreach ($members as $member => $memberdata)
     
         if($pPreferences->config['Beitrag']['beitrag_modus'] == 'summation')
         {    
-         	$members[$member]['BEITRAG-NEU'] += $members[$member]['BEITRAG'.$gCurrentOrganization->getValue('org_id')];   	
-        	$members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$members[$member]['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')].' ';
+         	$members[$member]['BEITRAG-NEU'] += $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')];
+        	$members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')].' ';
         }
  
         //führende und nachfolgene Leerstellen im Beitragstext löschen
@@ -272,8 +272,8 @@ foreach ($members as $member => $memberdata)
         
         //neuen Beitrag schreiben
         $user = new User($gDb, $gProfileFields, $member);
-    	$user->setValue('BEITRAG'.$gCurrentOrganization->getValue('org_id'), $members[$member]['BEITRAG-NEU']);
-    	$user->setValue('BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'), $members[$member]['BEITRAGSTEXT-NEU']);
+    	$user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), $members[$member]['BEITRAG-NEU']);
+    	$user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), $members[$member]['BEITRAGSTEXT-NEU']);
     	$user->save();
     } 
 }

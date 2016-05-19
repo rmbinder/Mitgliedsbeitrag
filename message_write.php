@@ -115,18 +115,18 @@ $messagesWriteMenu->addItem('menu_item_back', $gNavigation->getPreviousUrl(), $g
 $page->addHtml($messagesWriteMenu->show(false));
 
  //Datensatz für E-Mail-Adresse zusammensetzen
-if(strlen($user->getValue('KONTOINHABER')) > 0)
+if(strlen($user->getValue('DEBTOR')) > 0)
 {
-	if(strlen($user->getValue('DEBTOREMAIL')) > 0)
+	if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
 	{
 		// besitzt der User eine gueltige E-Mail-Adresse
-		if (!strValidCharacters($user->getValue('DEBTOREMAIL'), 'email'))
+		if (!strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
 		{
-			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('KONTOINHABER')));
+			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
 		}
 		else 
 		{
-			$userEmail = $user->getValue('DEBTOREMAIL');		
+			$userEmail = $user->getValue('DEBTOR_EMAIL');
 		}
 	}         	
 }

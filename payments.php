@@ -37,7 +37,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
     	
  //alle Beitragsrollen einlesen 
-$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','KONTOINHABER'));
+$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
 if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]<>' ')
@@ -72,7 +72,7 @@ if($getMode == 'assign')
 	$ret_text = 'ERROR';
  
 	$userArray = array();
-	if($getUserId<>0)			// Bezahlt-Datum nur für einen einigen User ändern
+	if($getUserId<>0)			// Bezahlt-Datum nur für einen einzigen User ändern
 	{
 		$userArray[0] = $getUserId ;
 	}
@@ -88,10 +88,10 @@ if($getMode == 'assign')
 			$user = new User($gDb, $gProfileFields, $data);
 			
 			//zuerst mal sehen, ob bei diesem user bereits ein BEZAHLT-Datum vorhanden ist
-			if ( strlen($user->getValue('BEZAHLT'.$gCurrentOrganization->getValue('org_id'))) == 0  )
+			if ( strlen($user->getValue('PAID'.$gCurrentOrganization->getValue('org_id'))) == 0  )
 			{
 				//er hat noch kein BEZAHLT-Datum, deshalb ein neues eintragen
-				$user->setValue('BEZAHLT'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
+				$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
 					
 				// wenn Lastschrifttyp noch nicht gesetzt ist: als Folgelastschrift kennzeichnen
 				// BEZAHLT bedeutet, es hat bereits eine Zahlung stattgefunden
@@ -103,17 +103,17 @@ if($getMode == 'assign')
 				}
 
 				//falls Daten von einer Mandatsänderung vorhanden sind, diese löschen
-				if (strlen($user->getValue('ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'))) <> 0 )
+				if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) <> 0 )
 				{
-					$user->setValue('ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'), '');	
+					$user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), '');
 				}
-				if (strlen($user->getValue('ORIGIBAN')) <> 0 )
+				if (strlen($user->getValue('ORIG_IBAN')) <> 0 )
 				{
-					$user->setValue('ORIGIBAN', '');	
+					$user->setValue('ORIG_IBAN', '');
 				}
-				if (strlen($user->getValue('ORIGDEBTORAGENT')) <> 0 )
+				if (strlen($user->getValue('ORIG_DEBTOR_AGENT')) <> 0 )
 				{
-					$user->setValue('ORIGDEBTORAGENT', '');	
+					$user->setValue('ORIG_DEBTOR_AGENT', '');
 				}
 		
 				//das Fälligkeitsdatum löschen (wird nicht mehr gebraucht, da ja bezahlt)
@@ -125,7 +125,7 @@ if($getMode == 'assign')
 			else 
 			{
 				//er hat bereits ein BEZAHLT-Datum, deshalb das vorhandene löschen
-				$user->setValue('BEZAHLT'.$gCurrentOrganization->getValue('org_id'), '');
+				$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
 			}
 			$user->save();
 			$ret_text = 'success';
@@ -172,13 +172,13 @@ else
 	if($getMembersShow == 1)                   // nur Benutzer mit Bezahlt-Datum anzeigen ("Mit Bezahlt-Datum" wurde gewählt)
 	{
 		$memberCondition .= ' AND usd_usr_id = usr_id
-			AND usd_usf_id = '. $gProfileFields->getProperty('BEZAHLT'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+			AND usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
     		AND usd_value IS NOT NULL )';
 	}
 	else 
 	{
 		$memberCondition .= ' AND usd_usr_id = usr_id
-			AND usd_usf_id = '. $gProfileFields->getProperty('BEITRAG'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+			AND usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
 			AND usd_value IS NOT NULL )';
 	}
 
@@ -206,10 +206,10 @@ else
          AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
        	LEFT JOIN '. TBL_USER_DATA. ' as bezahlt
           ON bezahlt.usd_usr_id = usr_id
-         AND bezahlt.usd_usf_id = '. $gProfileFields->getProperty('BEZAHLT'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
+         AND bezahlt.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as beitrag
           ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('BEITRAG'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
+         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
          AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
@@ -221,22 +221,22 @@ else
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as debtor
           ON debtor.usd_usr_id = usr_id
-         AND debtor.usd_usf_id = '. $gProfileFields->getProperty('KONTOINHABER', 'usf_id'). '    
+         AND debtor.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as debtoraddress
           ON debtoraddress.usd_usr_id = usr_id
-         AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTORADDRESS', 'usf_id'). '    
+         AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_ADDRESS', 'usf_id'). '
 		LEFT JOIN '. TBL_USER_DATA. ' as debtoremail
           ON debtoremail.usd_usr_id = usr_id
-         AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOREMAIL', 'usf_id'). '    
+         AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'). '
  		LEFT JOIN '. TBL_USER_DATA. ' as email
           ON email.usd_usr_id = usr_id
          AND email.usd_usf_id = '. $gProfileFields->getProperty('EMAIL', 'usf_id'). '      
          LEFT JOIN '. TBL_USER_DATA. ' as debtorpostcode
           ON debtorpostcode.usd_usr_id = usr_id
-         AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTORPOSTCODE', 'usf_id'). '    
+         AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as debtorcity
           ON debtorcity.usd_usr_id = usr_id
-         AND debtorcity.usd_usf_id = '. $gProfileFields->getProperty('DEBTORCITY', 'usf_id'). '    
+         AND debtorcity.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as country
           ON country.usd_usr_id = usr_id
          AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '

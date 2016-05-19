@@ -108,15 +108,15 @@ if($getMode == 'csv_export')
 			$export .= $user->getValue('PHONE').";";
 			$export .= $user->getValue('MOBILE').";";
 			$export .= $user->getValue('BIRTHDAY').";";				
-			$export .= $user->getValue('BEITRITT'.$gCurrentOrganization->getValue('org_id')).";";		
+			$export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).";";
 		
-			if (strlen($user->getValue('KONTOINHABER'))<>0)
+			if (strlen($user->getValue('DEBTOR'))<>0)
 			{
-				$export .= $user->getValue('KONTOINHABER').";";
-				$export .= $user->getValue('DEBTORADDRESS').";";
-				$export .= $user->getValue('DEBTORPOSTCODE').";";
-				$export .= $user->getValue('DEBTORCITY').";";
-				$export .= $user->getValue('DEBTOREMAIL').";";							
+				$export .= $user->getValue('DEBTOR').";";
+				$export .= $user->getValue('DEBTOR_ADDRESS').";";
+				$export .= $user->getValue('DEBTOR_POSTCODE').";";
+				$export .= $user->getValue('DEBTOR_CITY').";";
+				$export .= $user->getValue('DEBTOR_EMAIL').";";
 			}
 			else 
 			{
@@ -127,13 +127,13 @@ if($getMode == 'csv_export')
 				$export .= $user->getValue('EMAIL').";";					
 			}
 
-			$export .= $user->getValue('BANKNAME').";";	
+			$export .= $user->getValue('BANK').";";
 			$export .= $user->getValue('BIC').";";	
 			$export .= $user->getValue('IBAN').";";
 			$export .= $user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).";";		
-			$export .= $user->getValue('BEITRAG'.$gCurrentOrganization->getValue('org_id')).";";
+			$export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= "\n";
 	
 			$nr += 1;
@@ -215,28 +215,28 @@ else
          AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
         LEFT JOIN '. TBL_USER_DATA. ' as beitrag
           ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('BEITRAG'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
+         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as debtor
           ON debtor.usd_usr_id = usr_id
-         AND debtor.usd_usf_id = '. $gProfileFields->getProperty('KONTOINHABER', 'usf_id'). '    
+         AND debtor.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as debtoraddress
           ON debtoraddress.usd_usr_id = usr_id
-         AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTORADDRESS', 'usf_id'). '    
+         AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_ADDRESS', 'usf_id'). '
 		LEFT JOIN '. TBL_USER_DATA. ' as debtoremail
           ON debtoremail.usd_usr_id = usr_id
-         AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOREMAIL', 'usf_id'). '    
+         AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'). '
  		LEFT JOIN '. TBL_USER_DATA. ' as email
           ON email.usd_usr_id = usr_id
          AND email.usd_usf_id = '. $gProfileFields->getProperty('EMAIL', 'usf_id'). '      
          LEFT JOIN '. TBL_USER_DATA. ' as debtorpostcode
           ON debtorpostcode.usd_usr_id = usr_id
-         AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTORPOSTCODE', 'usf_id'). '    
+         AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as debtorcity
           ON debtorcity.usd_usr_id = usr_id
-         AND debtorcity.usd_usf_id = '. $gProfileFields->getProperty('DEBTORCITY', 'usf_id'). '    
+         AND debtorcity.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as country
           ON country.usd_usr_id = usr_id
          AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '

@@ -53,7 +53,7 @@ if($getMode == 'assign')
 	$ret_text = 'ERROR';
  
 	$userArray = array();
-	if($getUserId<>0)			// Mandatsdatum nur für einen einigen User ändern
+	if($getUserId<>0)			// Mandatsdatum nur für einen einzigen User ändern
 	{
 		$userArray[0] = $getUserId ;
 	}
@@ -163,13 +163,13 @@ else
          AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
          LEFT JOIN '. TBL_USER_DATA. ' as origmandatsreferenz
           ON origmandatsreferenz.usd_usr_id = usr_id
-         AND origmandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '                 
+         AND origmandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
  		LEFT JOIN '. TBL_USER_DATA. ' as origdebtoragent
           ON origdebtoragent.usd_usr_id = usr_id
-         AND origdebtoragent.usd_usf_id = '. $gProfileFields->getProperty('ORIGDEBTORAGENT', 'usf_id'). '
+         AND origdebtoragent.usd_usf_id = '. $gProfileFields->getProperty('ORIG_DEBTOR_AGENT', 'usf_id'). '
           LEFT JOIN '. TBL_USER_DATA. ' as origiban
           ON origiban.usd_usr_id = usr_id
-         AND origiban.usd_usf_id = '. $gProfileFields->getProperty('ORIGIBAN', 'usf_id'). '      	
+         AND origiban.usd_usf_id = '. $gProfileFields->getProperty('ORIG_IBAN', 'usf_id'). '
          
          LEFT JOIN '. TBL_USER_DATA. ' as zip_code
           ON zip_code.usd_usr_id = usr_id

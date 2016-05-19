@@ -31,11 +31,11 @@ $members = array();
 
 if($pPreferences->config['Mandatsreferenz']['data_field']<>'-- User_ID --')
 {     
-	$members = list_members(array('LAST_NAME','FIRST_NAME','KONTOINHABER','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN',$pPreferences->config['Mandatsreferenz']['data_field']), 0)  ;
+	$members = list_members(array('LAST_NAME','FIRST_NAME','DEBTOR','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN',$pPreferences->config['Mandatsreferenz']['data_field']), 0)  ;
 }
 else 
 {
-	$members = list_members(array('LAST_NAME','FIRST_NAME','KONTOINHABER','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'BEITRAG'.$gCurrentOrganization->getValue('org_id'),'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN'), 0)  ;
+	$members = list_members(array('LAST_NAME','FIRST_NAME','DEBTOR','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN'), 0)  ;
 }
 
 //alle Mitglieder löschen, bei denen kein Beitrag berechnet wurde
@@ -52,15 +52,15 @@ foreach ($members as $member => $memberdata)
 {		
 	$prefix = $pPreferences->config['Mandatsreferenz']['prefix_mem'];
 		
-	//wenn 'KONTOINHABER' nicht leer ist, dann gibt es einen Zahlungspflichtigen
-	if($memberdata['KONTOINHABER']<>'')
+	//wenn 'DEBTOR' nicht leer ist, dann gibt es einen Zahlungspflichtigen
+	if($memberdata['DEBTOR']<>'')
 	{
 		$prefix = $pPreferences->config['Mandatsreferenz']['prefix_pay'];
 	}
 		
 	foreach ($pPreferences->config['Familienrollen']['familienrollen_beschreibung'] as $famrolbesch )
 	{
-		if(substr_count($memberdata['BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id')],$famrolbesch)==1)
+		if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],$famrolbesch)==1)
 		{
 			$prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
 		}			

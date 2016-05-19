@@ -53,7 +53,7 @@ if($getMode == 'anlegen')
     // prüfen, ob es das Profilfeld Beitritt gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) 
     {
-        $cat_id_mitgliedschaft = getCat_IDPMB('MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'));  
+        $cat_id_mitgliedschaft = getCat_IDPMB('MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'));
         $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft) ; 
         
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -109,7 +109,7 @@ if($getMode == 'anlegen')
         $gDb->query($sql);  
     }
       
-    $cat_id_mitgliedsbeitrag = getCat_IDPMB('MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'));  
+    $cat_id_mitgliedsbeitrag = getCat_IDPMB('MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'));
     $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedsbeitrag) ; 
     
     // prüfen, ob es das Profilfeld Bezahlt gibt, wenn nicht: anlegen         
@@ -299,7 +299,7 @@ if($getMode == 'anlegen')
         $gDb->query($sql);    
     } 
          
-    $cat_id_kontodaten = getCat_IDPMB('KONTODATEN');  
+    $cat_id_kontodaten = getCat_IDPMB('ACCOUNT_DATA');
     $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten) ; 
 
    // prüfen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen         
@@ -923,7 +923,7 @@ function check_DB()
   	//Die Installationsscripte der Versionen 1.x und 2.x befüllten jedoch
   	// von der Kategorie kontodaten usf_name_intern nicht mit dem Wert KONTODATEN. 
   	//Hier wird deshalb überprüft, ob es eine Kategorie kontodaten gibt.
-  	//Falls von dieser Kategorei der usf_name_intern leer ist, wird er mit KONTODATEN beschrieben.
+  	//Falls von dieser Kategorie der usf_name_intern leer ist, wird er mit KONTODATEN beschrieben.
           
     $sql = ' SELECT cat_name,cat_name_intern 
            	FROM '. TBL_CATEGORIES. ' 
@@ -944,36 +944,165 @@ function check_DB()
             	OR cat_org_id IS NULL ) ';
         $gDb->query($sql);           
     }        
-            
+
+    //Update/Konvertierungsroutine 4.1.2
+    // mit Version 4.1.2 wird die Struktur der DB-Einträge an Admidio angepasst
+    // deutsche Bezeichnungen werden durch englische Bezeichnungen ersetzt
+    $update_array= array();
+    $update_array[]=array(	'alt_cat_name' => 'Mitgliedschaft',
+    						'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'), 
+    						'neu_cat_name' => 'PMB_MEMBERSHIP',
+    						'neu_cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id') );
+    $update_array[]=array(	'alt_cat_name' => 'Mitgliedsbeitrag',
+    						'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'), 
+    						'neu_cat_name' => 'PMB_MEMBERSHIP_FEE',
+    						'neu_cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id') );
+    $update_array[]=array(	'alt_cat_name' => 'Kontodaten',
+    						'alt_cat_name_intern' => 'KONTODATEN', 
+    						'neu_cat_name' => 'PMB_ACCOUNT_DATA',
+    						'neu_cat_name_intern' => 'ACCOUNT_DATA' );
+
+    foreach($update_array as $data)
+    {
+    	$sql = 'SELECT cat_id 
+            	FROM '.TBL_CATEGORIES.' 
+            	WHERE cat_name = \''.$data['alt_cat_name'].'\'
+            	AND cat_name_intern = \''.$data['alt_cat_name_intern'].'\'
+            	AND cat_type = \'USF\'
+            	 ';
+                    //     AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+                 //	OR cat_org_id IS NULL )
+        $statement = $gDb->query($sql);
+        $row = $statement->fetchObject();
+        // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version  
+        if(isset($row->cat_id) AND strlen($row->cat_id) > 0)
+        {
+        	$sql = 'UPDATE '.TBL_CATEGORIES.' 
+                	SET cat_name = \''.$data['neu_cat_name'].'\' ,
+                           cat_name_intern = \''.$data['neu_cat_name_intern'].'\'
+                	WHERE cat_id = '.$row->cat_id;   
+                $gDb->query($sql);   
+        }
+    }
+
+    $update_array= array();
+    $update_array[]=array(	'alt_usf_name' => 'PMB_BANK',
+    						'alt_usf_name_intern' => 'BANKNAME', 
+    						'neu_usf_name' => 'PMB_BANK',
+    						'neu_usf_name_intern' => 'BANK' );
+     $update_array[]=array(	'alt_usf_name' => 'Kontoinhaber',
+    						'alt_usf_name_intern' => 'KONTOINHABER', 
+    						'neu_usf_name' => 'PMB_DEBTOR',
+    						'neu_usf_name_intern' => 'DEBTOR' );
+     $update_array[]=array(	'alt_usf_name' => 'PMB_ADDRESS',
+							'alt_usf_name_intern' => 'DEBTORADDRESS',
+							'neu_usf_name' => 'PMB_DEBTOR_ADDRESS',
+							'neu_usf_name_intern' => 'DEBTOR_ADDRESS' );
+ 	$update_array[]=array(	'alt_usf_name' => 'PMB_POSTCODE',
+							'alt_usf_name_intern' => 'DEBTORPOSTCODE',
+							'neu_usf_name' => 'PMB_DEBTOR_POSTCODE',
+							'neu_usf_name_intern' => 'DEBTOR_POSTCODE' );
+ 	$update_array[]=array(	'alt_usf_name' => 'PMB_CITY',
+							'alt_usf_name_intern' => 'DEBTORCITY',
+							'neu_usf_name' => 'PMB_DEBTOR_CITY',
+							'neu_usf_name_intern' => 'DEBTOR_CITY' );
+ 	$update_array[]=array(	'alt_usf_name' => 'PMB_EMAIL',
+							'alt_usf_name_intern' => 'DEBTOREMAIL',
+							'neu_usf_name' => 'PMB_DEBTOR_EMAIL',
+							'neu_usf_name_intern' => 'DEBTOR_EMAIL' );
+ 	$update_array[]=array(	'alt_usf_name' => 'Beitritt',
+							'alt_usf_name_intern' => 'BEITRITT'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_ACCESSION',
+							'neu_usf_name_intern' => 'ACCESSION'.$gCurrentOrganization->getValue('org_id') );
+ 	$update_array[]=array(	'alt_usf_name' => 'Bezahlt',
+							'alt_usf_name_intern' => 'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_PAID',
+							'neu_usf_name_intern' => 'PAID'.$gCurrentOrganization->getValue('org_id') );
+	$update_array[]=array(	'alt_usf_name' => 'Beitrag',
+							'alt_usf_name_intern' => 'BEITRAG'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_FEE',
+							'neu_usf_name_intern' => 'FEE'.$gCurrentOrganization->getValue('org_id') );
+	$update_array[]=array(	'alt_usf_name' => 'Beitragstext',
+							'alt_usf_name_intern' => 'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_CONTRIBUTORY_TEXT',
+							'neu_usf_name_intern' => 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id') );
+	$update_array[]=array(	'alt_usf_name' => 'PMB_MANDATEDATE',
+							'alt_usf_name_intern' => 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_MANDATEDATE',
+							'neu_usf_name_intern' => 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id') );
+	$update_array[]=array(	'alt_usf_name' => 'PMB_DUEDATE',
+							'alt_usf_name_intern' => 'DUEDATE'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_DUEDATE',
+							'neu_usf_name_intern' => 'DUEDATE'.$gCurrentOrganization->getValue('org_id') );
+	$update_array[]=array(	'alt_usf_name' => 'PMB_SEQUENCETYPE',
+							'alt_usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_SEQUENCETYPE',
+							'neu_usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id') );
+ 	$update_array[]=array(	'alt_usf_name' => 'PMB_ORIG_DEBTOR_AGENT',
+							'alt_usf_name_intern' => 'ORIGDEBTORAGENT',
+							'neu_usf_name' => 'PMB_ORIG_DEBTOR_AGENT',
+							'neu_usf_name_intern' => 'ORIG_DEBTOR_AGENT' );
+ 	$update_array[]=array(	'alt_usf_name' => 'PMB_ORIG_IBAN',
+							'alt_usf_name_intern' => 'ORIGIBAN',
+							'neu_usf_name' => 'PMB_ORIG_IBAN',
+							'neu_usf_name_intern' => 'ORIG_IBAN' );
+	$update_array[]=array(	'alt_usf_name' => 'PMB_ORIG_MANDATEID',
+							'alt_usf_name_intern' => 'ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'),
+							'neu_usf_name' => 'PMB_ORIG_MANDATEID',
+							'neu_usf_name_intern' => 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id') );
+
+    foreach($update_array as $data)
+	{
+		$sql = 'SELECT usf_id
+        		FROM '.TBL_USER_FIELDS.' , '. TBL_CATEGORIES.  '
+        		WHERE usf_name = \''.$data['alt_usf_name'].'\'
+        		AND usf_name_intern = \''.$data['alt_usf_name_intern'].'\'
+        		 ';
+                    //     AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+             	//	OR cat_org_id IS NULL )
+    	$statement = $gDb->query($sql);
+    	$row = $statement->fetchObject();
+    	// Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version
+    	if(isset($row->usf_id) AND strlen($row->usf_id) > 0)
+    	{
+    		$sql = 'UPDATE '.TBL_USER_FIELDS.'
+            		SET usf_name = \''.$data['neu_usf_name'].'\' ,
+                        usf_name_intern = \''.$data['neu_usf_name_intern'].'\'
+            		WHERE usf_id = '.$row->usf_id;
+            	$gDb->query($sql);
+    	}
+	}
+	// Ende Update/Konvertierungsroutine
+    	
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte für die Kategorien und die User Fields 
-    $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_id'=>-1,'cat_org_id' => 'Null',   									'cat_name' => 'Kontodaten',        	'cat_name_intern' => 'KONTODATEN',              									'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'Mitgliedsbeitrag',  	'cat_name_intern' => 'MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'), 	'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'Mitgliedschaft',    	'cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'),   	'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']   		= array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MANDATE',		'cat_name_intern' => 'MANDATE'.$gCurrentOrganization->getValue('org_id'),   		'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
+    $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_id'=>-1,'cat_org_id' => 'Null',   									'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',              								'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'),'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP',    	'cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'),   	'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']   		= array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MANDATE',		'cat_name_intern' => 'MANDATE'.$gCurrentOrganization->getValue('org_id'),   	'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
                                           
-    $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN'] 				= array('usf_name'=>'PMB_IBAN', 			'usf_name_intern'=>'IBAN',         										'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['BIC'] 				= array('usf_name'=>'PMB_BIC', 				'usf_name_intern'=>'BIC',         										'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
-   	$DB_array['SOLL']['TBL_USER_FIELDS']['Bankname'] 			= array('usf_name'=>'PMB_BANK', 			'usf_name_intern'=>'BANKNAME',         									'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Der Name der Bank für den Bankeinzug');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Kontoinhaber'] 		= array('usf_name'=>'Kontoinhaber', 		'usf_name_intern'=>'KONTOINHABER',         								'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Adresse, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN'] 				= array('usf_name'=>'PMB_IBAN', 			'usf_name_intern'=>'IBAN',         										           'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['BIC'] 				= array('usf_name'=>'PMB_BIC', 				'usf_name_intern'=>'BIC',         										           'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
+   	$DB_array['SOLL']['TBL_USER_FIELDS']['Bankname'] 			= array('usf_name'=>'PMB_BANK', 			'usf_name_intern'=>'BANK',         									               'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Der Name der Bank für den Bankeinzug');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Kontoinhaber'] 		= array('usf_name'=>'PMB_DEBTOR', 	        'usf_name_intern'=>'DEBTOR',         								               'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Adresse, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>');
    	
-  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse'] = array('usf_name'=>'PMB_ADDRESS', 			'usf_name_intern'=>'DEBTORADDRESS',										'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>Adresse des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
-  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ'] 	= array('usf_name'=>'PMB_POSTCODE', 		'usf_name_intern'=>'DEBTORPOSTCODE',									'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>PLZ des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
-  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt'] 	= array('usf_name'=>'PMB_CITY', 			'usf_name_intern'=>'DEBTORCITY',     									'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
-  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail'] 	= array('usf_name'=>'PMB_EMAIL', 			'usf_name_intern'=>'DEBTOREMAIL',     									'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
+  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse'] = array('usf_name'=>'PMB_DEBTOR_ADDRESS', 	'usf_name_intern'=>'DEBTOR_ADDRESS',										       'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>Adresse des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
+  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ'] 	= array('usf_name'=>'PMB_DEBTOR_POSTCODE', 	'usf_name_intern'=>'DEBTOR_POSTCODE',									           'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>PLZ des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
+  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt'] 	= array('usf_name'=>'PMB_DEBTOR_CITY', 		'usf_name_intern'=>'DEBTOR_CITY',     									           'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
+  	$DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail'] 	= array('usf_name'=>'PMB_DEBTOR_EMAIL', 	'usf_name_intern'=>'DEBTOR_EMAIL',     									           'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
   	
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer'] 	= array('usf_name'=>'PMB_MEMBERNUMBER', 	'usf_name_intern'=>'MEMBERNUMBER',         										'usf_type'=>'DECIMAL',  'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>0, 'usf_mandatory'=>0, 'usf_description'=>'ACHTUNG: Mitgliedsnummern nicht selbständig vergeben. Zum Löschen einer Mitgliedsnummer entweder 0 oder eine negative Zahl eingeben.');  
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitritt']     		= array('usf_name'=>'Beitritt',     		'usf_name_intern'=>'BEITRITT'.$gCurrentOrganization->getValue('org_id'),    	'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Das Beitrittsdatum zum Verein');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Bezahlt']      		= array('usf_name'=>'Bezahlt',      		'usf_name_intern'=>'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),     	'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Datumsangabe, ob und wann der Beitrag bezahlt wurde');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitrag']      		= array('usf_name'=>'Beitrag',      		'usf_name_intern'=>'BEITRAG'.$gCurrentOrganization->getValue('org_id'),     	'usf_type'=>'DECIMAL',  'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Der errechnete Mitgliedsbeitrag');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitragstext'] 		= array('usf_name'=>'Beitragstext', 		'usf_name_intern'=>'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),	'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Verwendungszweck');
-   	$DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']		= array('usf_name'=>'PMB_MANDATEID', 		'usf_name_intern'=>'MANDATEID'.$gCurrentOrganization->getValue('org_id'),		'usf_type'=>'TEXT',  	'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsdatum'] 		= array('usf_name'=>'PMB_MANDATEDATE', 		'usf_name_intern'=>'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),		'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum'] 	= array('usf_name'=>'PMB_DUEDATE', 			'usf_name_intern'=>'DUEDATE'.$gCurrentOrganization->getValue('org_id'),			'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Sequenztyp'] 			= array('usf_name'=>'PMB_SEQUENCETYPE', 	'usf_name_intern'=>'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'),	'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer'] 	= array('usf_name'=>'PMB_MEMBERNUMBER', 	'usf_name_intern'=>'MEMBERNUMBER',         										   'usf_type'=>'DECIMAL',  'usf_system'=>0, 'usf_disabled'=>0, 'usf_hidden'=>0, 'usf_mandatory'=>0, 'usf_description'=>'ACHTUNG: Mitgliedsnummern nicht selbständig vergeben. Zum Löschen einer Mitgliedsnummer entweder 0 oder eine negative Zahl eingeben.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitritt']     		= array('usf_name'=>'PMB_ACCESSION',     	'usf_name_intern'=>'ACCESSION'.$gCurrentOrganization->getValue('org_id'),          'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Das Beitrittsdatum zum Verein');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Bezahlt']      		= array('usf_name'=>'PMB_PAID',      		'usf_name_intern'=>'PAID'.$gCurrentOrganization->getValue('org_id'),     	       'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Datumsangabe, ob und wann der Beitrag bezahlt wurde');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitrag']      		= array('usf_name'=>'PMB_FEE',      		'usf_name_intern'=>'FEE'.$gCurrentOrganization->getValue('org_id'),                'usf_type'=>'DECIMAL',  'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Der errechnete Mitgliedsbeitrag');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitragstext'] 		= array('usf_name'=>'PMB_CONTRIBUTORY_TEXT','usf_name_intern'=>'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),  'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Verwendungszweck');
+   	$DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']		= array('usf_name'=>'PMB_MANDATEID', 		'usf_name_intern'=>'MANDATEID'.$gCurrentOrganization->getValue('org_id'),		   'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsdatum'] 		= array('usf_name'=>'PMB_MANDATEDATE', 		'usf_name_intern'=>'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),		   'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum'] 	= array('usf_name'=>'PMB_DUEDATE', 			'usf_name_intern'=>'DUEDATE'.$gCurrentOrganization->getValue('org_id'),			   'usf_type'=>'DATE',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Sequenztyp'] 			= array('usf_name'=>'PMB_SEQUENCETYPE', 	'usf_name_intern'=>'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'),	   'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'');
     
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent'] 	= array('usf_name'=>'PMB_ORIG_DEBTOR_AGENT','usf_name_intern'=>'ORIGDEBTORAGENT',											'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Wird durch das Modul Mandatsänderung automatisch befüllt.');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_IBAN'] 			= array('usf_name'=>'PMB_ORIG_IBAN', 		'usf_name_intern'=>'ORIGIBAN',													'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Wird durch das Modul Mandatsänderung automatisch befüllt.');     
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']= array('usf_name'=>'PMB_ORIG_MANDATEID', 	'usf_name_intern'=>'ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'),	'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Wird durch das Modul Mandatsänderung automatisch befüllt.');     
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent'] 	= array('usf_name'=>'PMB_ORIG_DEBTOR_AGENT','usf_name_intern'=>'ORIG_DEBTOR_AGENT',											   'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Wird durch das Modul Mandatsänderung automatisch befüllt.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_IBAN'] 			= array('usf_name'=>'PMB_ORIG_IBAN', 		'usf_name_intern'=>'ORIG_IBAN',													   'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Wird durch das Modul Mandatsänderung automatisch befüllt.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']= array('usf_name'=>'PMB_ORIG_MANDATEID', 	'usf_name_intern'=>'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'),	   'usf_type'=>'TEXT',     'usf_system'=>0, 'usf_disabled'=>1, 'usf_hidden'=>1, 'usf_mandatory'=>0, 'usf_description'=>'Wird durch das Modul Mandatsänderung automatisch befüllt.');
     
      $DB_array['IST'] = $DB_array['SOLL'];
     

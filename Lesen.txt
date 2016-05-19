@@ -1,4 +1,4 @@
-Mitgliedsbeitrag 4.1.1
+Mitgliedsbeitrag 4.1.2
 
 Dieses Plugin berechnet Mitgliedsbeiträge anhand von Rollenzugehörigkeiten.
 
@@ -45,13 +45,16 @@ Dieses Plugin berechnet Mitgliedsbeiträge anhand von Rollenzugehörigkeiten.
 2. Update
 =========
 
-2.1 Alle Dateien im Pluginverzeichnis von Mitgliedsbeitrag löschen.
+2.1 ACHTUNG: Während des Updates auf diese Version werden umfangreiche Änderungen an der Tabellenstruktur durchgeführt.
+    ! ! ! Es wird DRINGEND empfohlen, vor dem Update eine Sicherung anzulegen. ! ! !
 
-2.2 wie unter Punkt 1.2 beschrieben
+2.2 Alle Dateien im Pluginverzeichnis von Mitgliedsbeitrag löschen.
 
-2.3 wie unter Punkt 1.3 beschrieben
+2.3 wie unter Punkt 1.2 beschrieben
 
-2.4 Admidio starten und das Plugin Mitgliedsbeitrag ausführen
+2.4 wie unter Punkt 1.3 beschrieben
+
+2.5 Admidio starten und das Plugin Mitgliedsbeitrag ausführen
 
 
 WICHTIGER HINWEIS  -  WICHTIGER HINWEIS  -  WICHTIGER HINWEIS  -  WICHTIGER HINWEIS  -  WICHTIGER HINWEIS
@@ -76,6 +79,14 @@ Dadurch werden beim ersten Start des Plugins alle Kontonummern, alle Bankleitzah
 ******************************************************************************
 
 3. Versionshistorie
+
+4.x
+  - Incorrect IBANs with a single sign generate the error message 'Uninitialized string offset: 1'.
+  - In module mandate_change generates 'Neue Kontoverbindung bei einer anderen Bank.' an error message.
+  - Expand Examination of role memberships (Multiple memberships in old staggered rolls could not be verified)
+  - Delete blank spaces in iban before export in XML-File
+  - During setup sql error 23000; Now cat_name_intern is checked in TBL_CATEGORIES
+  - Change table entries in 'adm_categories' and 'adm_user_fields' in English
 
 4.1.1 (17.02.2016)
   - Fehler beim Erzeugen von Mitgliedsnummern behoben (Version 4.1.0 erzeugte für alle Mitglieder neue Mitgliedsnummern)

@@ -38,7 +38,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
     	
  //alle Beitragsrollen einlesen 
-$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','KONTOINHABER'));
+$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, dann die Rollen, die nicht gewählt wurden, löschen
 if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]<>' ')
@@ -74,7 +74,7 @@ if($getMode == 'assign')
 	$ret_text = 'ERROR';
  
 	$userArray = array();
-	if($getUserId<>0)			// Fälligkeitsdatum nur für einen einigen User ändern
+	if($getUserId<>0)			// Fälligkeitsdatum nur für einen einzigen User ändern
 	{
 		$userArray[0] = $getUserId ;
 	}
@@ -194,10 +194,10 @@ else
          AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
          LEFT JOIN '. TBL_USER_DATA. ' as bezahlt
           ON bezahlt.usd_usr_id = usr_id
-         AND bezahlt.usd_usf_id = '. $gProfileFields->getProperty('BEZAHLT'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '         
+         AND bezahlt.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
          LEFT JOIN '. TBL_USER_DATA. ' as beitrag
           ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('BEITRAG'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
+         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
