@@ -25,8 +25,19 @@ $plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
 $plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
 $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
 
-require_once(dirname(__FILE__).'/common_function.php');
+require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
 require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+
+// Konfiguration einlesen
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
+
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
 
 // Initialize and check the parameters
 $postDueDateSepaType 	= admFuncVariableIsValid($_POST, 'duedatesepatype', 'string');
@@ -35,10 +46,6 @@ $postCOR1Marker 		= admFuncVariableIsValid($_POST, 'eillastschrift', 'boolean');
 // $postDueDateSepaType splitten in DueDate und SepaType
 $postDueDate=substr($postDueDateSepaType,0,10);
 $postSepaType=substr($postDueDateSepaType,10);
-
-// Konfiguration einlesen
-$pPreferences = new ConfigTablePMB();
-$pPreferences->read();
 
 $members = list_members(array('FIRST_NAME','LAST_NAME','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'DEBTOR','IBAN','ORIG_IBAN','BIC','BANK','ORIG_DEBTOR_AGENT','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'),'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),'DUEDATE'.$gCurrentOrganization->getValue('org_id'),'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
 

@@ -25,6 +25,13 @@ require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 $pPreferences = new ConfigTablePMB;
 $pPreferences->read();
 
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 // anstelle eines Leerzeichens ist ein # in der $pPreferences->config gespeichert; # wird hier wieder ersetzt
 $text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'] ;
 $message = '';

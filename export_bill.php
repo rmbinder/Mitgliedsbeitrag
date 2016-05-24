@@ -26,7 +26,14 @@ require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 // Konfiguration einlesen
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
-    
+
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 //alle Mitglieder einlesen
 $members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'IBAN','DEBTOR'), 0)  ;
 

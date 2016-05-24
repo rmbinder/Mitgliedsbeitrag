@@ -35,6 +35,16 @@ require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
 require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
 
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
+
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 if(isset($_GET['mode']) && ($_GET['mode'] == 'csv_export' || $_GET['mode'] == 'mail_export' || $_GET['mode'] == 'prepare') )
 {
     // ajax mode then only show text if error occurs
@@ -47,10 +57,6 @@ $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defa
 $getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 $getChecked		= admFuncVariableIsValid($_GET, 'checked', 'string');
 $getDueDate     = admFuncVariableIsValid($_GET, 'duedate', 'string', array('defaultValue' => 0));
-
-// Konfiguration einlesen
-$pPreferences = new ConfigTablePMB();
-$pPreferences->read();
 
 // add current url to navigation stack if last url was not the same page
 if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)

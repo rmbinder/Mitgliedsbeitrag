@@ -21,6 +21,13 @@ require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 //Vor der Neuzuordnung die altersgestaffelten Rollen auf Lücken oder Überlappungen prüfen
 $arr = check_rols();
 if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'),$arr))

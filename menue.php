@@ -29,6 +29,13 @@ $showOption = admFuncVariableIsValid($_GET, 'show_option', 'string');
 $pPreferences = new ConfigTablePMB;
 $pPreferences->read();
 
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 $duedates = array();
 $directdebittype=false;
 $duedatecount = 0;

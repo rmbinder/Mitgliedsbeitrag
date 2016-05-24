@@ -28,6 +28,14 @@ require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start','delete')));
 
 $pPreferences = new ConfigTablePMB;
+$pPreferences->read();
+
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION');
 

@@ -25,6 +25,13 @@ require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 $pPreferences = new ConfigTablePMB;
 $pPreferences->read();
 
+// only authorized user are allowed to start this module
+if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+{
+	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 $referenz = ''; 
 $message = '';  
 $members = array();
