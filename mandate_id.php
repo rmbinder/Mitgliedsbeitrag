@@ -74,21 +74,31 @@ foreach ($members as $member => $memberdata)
 	}				
 	if($pPreferences->config['Mandatsreferenz']['data_field']<>'-- User_ID --')
 	{
-		$suffix = $memberdata[$pPreferences->config['Mandatsreferenz']['data_field']];
+		$suffix = str_replace(' ','',replace_sepadaten($memberdata[$pPreferences->config['Mandatsreferenz']['data_field']]));
 	}
 	else 
 	{
 		$suffix = $member;
 	}		
-		
-    $referenz = str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix) , '0').$suffix;
 	
-    $user = new User($gDb, $gProfileFields, $member);
-    $user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $referenz);
-    $user->save();
-    $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES1',$members[$member]['FIRST_NAME'],$members[$member]['LAST_NAME'],$referenz);
+    $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix) , '0').$suffix,0,35);
+    
+    //überprüfen, ob die lfd. Nummer (=$suffix) auch befüllt ist
+    //u. U. wurde ein leeres Datenbankfeld ausgewählt; 
+    //dabei würden dann Mandatsreferenzen mit endenden Nullen erzeugt
+	if(!empty($suffix))
+	{
+        $user = new User($gDb, $gProfileFields, $member);
+        $user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $referenz);
+        $user->save();
+        $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES1',$members[$member]['FIRST_NAME'],$members[$member]['LAST_NAME'],$referenz);
+    }
+    else
+    {
+        $message .= '<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES3',$members[$member]['FIRST_NAME'],$members[$member]['LAST_NAME'],$referenz);
+    }
 }
-		
+
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE');
 
