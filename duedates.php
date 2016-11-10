@@ -367,8 +367,8 @@ else
    	$table->setDatatablesOrderColumns(array(5, 6));
     $table->addRowHeadingByArray($columnHeading);
    	$table->disableDatatablesColumnsSort(array(1));
-    $table->setDatatablesAlternativOrderColumns(7, 8);
-    $table->setDatatablesAlternativOrderColumns(9, 10);
+    $table->setDatatablesAlternativeOrderColumns(7, 8);
+    $table->setDatatablesAlternativeOrderColumns(9, 10);
     $table->setDatatablesColumnsHide(array(8,10));
 
     // show rows with all organization users
