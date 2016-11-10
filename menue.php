@@ -802,7 +802,7 @@ if(sizeof($rols)>0)
            					foreach ($rollen as $rol_id => $data )
     						{
     							$columnValues = array();
-    							$columnValues[]='<a href="'. ADMIDIO_URL .'/adm_program/modules/roles/roles_new.php?rol_id='. $rol_id. '">'.$data['rolle']. '</a>';
+    							$columnValues[]='<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php?rol_id='. $rol_id. '">'.$data['rolle']. '</a>';
     							$columnValues[]=expand_rollentyp($data['rollentyp']);
     							$columnValues[]=sizeof($data['members']);					
                             	$table->addRowByArray($columnValues);

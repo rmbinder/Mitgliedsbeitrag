@@ -431,8 +431,8 @@ else
             $htmlMandateID,
 			'<a class="admidio-icon-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/mandate_change.php?user_id='. $user['usr_id']. '"><img src="'. THEME_URL . '/icons/edit.png"
 					alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" /></a>',
-            '<a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
-            '<a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',
+            '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
+            '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',
             $htmlAddress,
             $addressText,
             $htmlBirthday,
