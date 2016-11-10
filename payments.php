@@ -293,7 +293,8 @@ else
         });             
             
         // if checkbox of user is clicked then change data
-        $("input[type=checkbox].memlist_checkbox").click(function(){
+        $("input[type=checkbox].memlist_checkbox").click(function(e){
+        	e.stopPropagation();
             var checkbox = $(this);
             var row_id = $(this).parent().parent().attr("id");
             var pos = row_id.search("_");
