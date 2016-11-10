@@ -60,13 +60,13 @@ if(!isset($_SESSION['pmbDeinst']))
 		{
 			// wenn in der my_body_bottom.php ein $pluginMenu definiert wurde, 
 			// dann innerhalb dieses Menüs anzeigen
-			$pluginMenu->addItem('membershipfee_show', '/adm_plugins/'.$plugin_folder.'/'.$startprog,
+			$pluginMenu->addItem('membershipfee_show', FOLDER_PLUGINS . '/'.$plugin_folder.'/'.$startprog,
 				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png'); 
 		}
 		else 
 		{
 			// wenn nicht, dann innerhalb des (immer vorhandenen) Module-Menus anzeigen
-			$moduleMenu->addItem('membershipfee_show', '/adm_plugins/'.$plugin_folder.'/'.$startprog,
+			$moduleMenu->addItem('membershipfee_show', FOLDER_PLUGINS . '/'.$plugin_folder.'/'.$startprog,
 				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
 		}
 	}

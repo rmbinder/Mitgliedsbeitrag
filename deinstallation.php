@@ -46,9 +46,9 @@ if($getMode == 'start' )     //Default
 {
 	// get module menu
     $headerMenu = $page->getMenu();
-    $headerMenu->addItem('menu_item_back', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=deinstallation', $gL10n->get('SYS_BACK'), 'back.png');
+    $headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php?choice=deinstallation', $gL10n->get('SYS_BACK'), 'back.png');
 
-    $form = new HtmlForm('deinstallations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/deinstallation.php?mode=delete', $page);
+    $form = new HtmlForm('deinstallations_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/deinstallation.php?mode=delete', $page);
 	
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
     $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC').'</div>';

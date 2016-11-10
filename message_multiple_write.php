@@ -121,7 +121,7 @@ if (strlen($getSubject) > 0)
 }
     
 // show form
-$form = new HtmlForm('mail_send_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/message_multiple_send.php?'.$formParam, $page);
+$form = new HtmlForm('mail_send_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/message_multiple_send.php?'.$formParam, $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
     
 $preload_data = '';
