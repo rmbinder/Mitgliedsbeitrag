@@ -529,7 +529,7 @@ function analyse_rol()
  */
 function check_rollenmitgliedschaft_altersrolle()
 {
-	global $pPreferences, $gL10n, $g_root_path;
+	global $pPreferences, $gL10n;
     $ret = array();
     $alt = beitragsrollen_einlesen('alt',array('FIRST_NAME','LAST_NAME'));
 
@@ -554,7 +554,7 @@ function check_rollenmitgliedschaft_altersrolle()
     		{
     			$alterstypen .= ' ('.$alterstyp.')';
     		}
-    		$ret[] .= '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$alterstypen. '</a>'; 
+    		$ret[] .= '- <a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$alterstypen. '</a>';
     	}
     }
 
@@ -575,7 +575,7 @@ function check_rollenmitgliedschaft_altersrolle()
  */
 function check_rollenmitgliedschaft_pflicht()
 {
-    global $pPreferences, $gL10n, $g_root_path;
+    global $pPreferences, $gL10n;
     $ret = array();
     
     // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benötigt, ist aber notwendig,
@@ -636,7 +636,7 @@ function check_rollenmitgliedschaft_pflicht()
         }
         if (!$marker)
         { 
-        	$ret[] .= '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>'; 
+        	$ret[] .= '- <a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -657,7 +657,7 @@ function check_rollenmitgliedschaft_pflicht()
  */
 function check_rollenmitgliedschaft_ausschluss()
 {
-    global $pPreferences, $gL10n, $g_root_path;
+    global $pPreferences, $gL10n;
     $ret = array();
     
     // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benötigt, ist aber notwendig,
@@ -764,7 +764,7 @@ function check_rollenmitgliedschaft_ausschluss()
        
         if ($marker)
         {
-        	$ret[] .= '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>'; 
+        	$ret[] .= '- <a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     } 
 
@@ -852,7 +852,7 @@ function check_rols()
  */
 function check_family_roles()
 {
-    global $pPreferences, $gL10n, $g_root_path;
+    global $pPreferences, $gL10n;
     $ret = array();
     $ret_error = array();
     $temp_arr  = array();
@@ -948,8 +948,8 @@ function check_family_roles()
     			}
     			if (sizeof($ret_temp) <> 0)
     			{   
-	   				$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
-	   					<a href="'.$g_root_path.'/adm_program/modules/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_PATH. '/icons/list.png"
+	   				$ret[] = '- <a href="'. ADMIDIO_URL .'/adm_program/modules/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
+	   					<a href="'. ADMIDIO_URL .'/adm_program/modules/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_PATH. '/icons/list.png"
 	   					alt="'.$gL10n->get('ROL_SHOW_MEMBERS').'" title="'.$gL10n->get('ROL_SHOW_MEMBERS').'" /></a>'; 
 	   				$ret = array_merge($ret,$ret_temp);
     			}
@@ -980,7 +980,7 @@ function check_family_roles()
  */
 function check_mandate_management()
 {
-    global $gL10n, $g_root_path;
+    global $gL10n;
     $ret = array();
     
     $members = list_members(array('FIRST_NAME','LAST_NAME','DEBTOR','DEBTOR_POSTCODE','DEBTOR_CITY','DEBTOR_ADDRESS'), 0)  ;
@@ -989,7 +989,7 @@ function check_mandate_management()
 	{
 		if ((strlen($memberdata['DEBTOR'])<>0) && ( (strlen($memberdata['DEBTOR_POSTCODE'])==0) || (strlen($memberdata['DEBTOR_CITY'])==0) || (strlen($memberdata['DEBTOR_ADDRESS'])==0)) )
 		{
-			$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>'; 				
+			$ret[] = '- <a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
 	}
  
@@ -1010,7 +1010,7 @@ function check_mandate_management()
  */
 function check_iban()
 {
-    global $gL10n, $g_root_path;
+    global $gL10n;
     $ret = array();
     
     $members = list_members(array('FIRST_NAME','LAST_NAME','IBAN'), 0)  ;
@@ -1019,7 +1019,7 @@ function check_iban()
 	{
 		if ((strlen($memberdata['IBAN'])==1) || ((strlen($memberdata['IBAN'])>1) && !test_iban($memberdata['IBAN']) ))
 		{
-			$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>'; 				
+			$ret[] = '- <a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
 	}
  

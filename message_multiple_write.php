@@ -49,7 +49,7 @@ if ($gPreferences['enable_mail_module'] != 1 )
 // check if user has email address for sending a email
 if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) == 0)
 {
-    $gMessage->show($gL10n->get('SYS_CURRENT_USER_NO_EMAIL', '<a href="'.$g_root_path.'/adm_program/modules/profile/profile.php">', '</a>'));
+    $gMessage->show($gL10n->get('SYS_CURRENT_USER_NO_EMAIL', '<a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php">', '</a>'));
 }
 
 // Subject und Body erzeugen
@@ -121,7 +121,7 @@ if (strlen($getSubject) > 0)
 }
     
 // show form
-$form = new HtmlForm('mail_send_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_multiple_send.php?'.$formParam, $page);
+$form = new HtmlForm('mail_send_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/message_multiple_send.php?'.$formParam, $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
     
 $preload_data = '';

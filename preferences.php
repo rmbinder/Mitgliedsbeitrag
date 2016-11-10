@@ -151,8 +151,8 @@ $page->addJavascript('
 
 // create module menu with back link
 $headerMenu = new HtmlNavbar('menu_preferences', $headline, $page);
-$headerMenu->addItem('menu_item_back', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php', $gL10n->get('SYS_UPDATE'), 'update_link.png', 'right');
-$headerMenu->addItem('menu_item_back', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue.php', $gL10n->get('SYS_BACK'), 'back.png');
+$headerMenu->addItem('menu_item_back', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences.php', $gL10n->get('SYS_UPDATE'), 'update_link.png', 'right');
+$headerMenu->addItem('menu_item_back', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/menue.php', $gL10n->get('SYS_BACK'), 'back.png');
 
 $page->addHtml($headerMenu->show(false));
 
@@ -175,7 +175,7 @@ $page->addHtml('
                 <div id="collapse_contributionsettings" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=contributionsettings', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=contributionsettings', $page, array('class' => 'form-preferences'));
                         $form->addInput('beitrag_prefix', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX'), $pPreferences->config['Beitrag']['beitrag_prefix'] ,array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC') );
                         $form->addInput('beitrag_suffix', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX'), $pPreferences->config['Beitrag']['beitrag_suffix'] ,array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX_DESC') );
                         $form->addCheckbox('beitrag_anteilig', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA'), $pPreferences->config['Beitrag']['beitrag_anteilig'] ,array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC') );
@@ -236,7 +236,7 @@ $page->addHtml('
                 <div id="collapse_agestaggeredroles" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=agestaggeredroles', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=agestaggeredroles', $page, array('class' => 'form-preferences'));
                         $form->addInput('altersrollen_stichtag', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEADLINE'), $pPreferences->config['Altersrollen']['altersrollen_stichtag'] ,array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DEADLINE_DESC','type' => 'date') );
                     	$form->addLine();
                     	$form->addStaticControl('descd',$gL10n->get('PLG_MITGLIEDSBEITRAG_DELIMITER'),'',array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELIMITER_DESC') );
@@ -249,14 +249,14 @@ $page->addHtml('
 							$form->addInput('altersrollen_token'.$conf, '', $pPreferences->config['Altersrollen']['altersrollen_token'][$conf],array('maxLength' => 1,'property' => FIELD_REQUIRED));
                        		if($num_agestaggeredroles <> 1)
                        		{
-								$html = '<a id="add_config" class="icon-text-link" href="'. $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=agestaggeredroles&conf='.$conf.'"><img
+								$html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=agestaggeredroles&conf='.$conf.'"><img
                                     	src="'. THEME_PATH. '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
                         	 	$form->addCustomContent('', $html);
                        		}
                         	$form->closeGroupBox();
 						}
                         $form->addDescription('</div>');
-                        $html = '<a id="add_config" class="icon-text-link" href="'. $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=agestaggeredroles&conf=-1"><img
+                        $html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=agestaggeredroles&conf=-1"><img
                                 src="'. THEME_PATH. '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
                         $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
                         $form->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));    
@@ -277,7 +277,7 @@ $page->addHtml('
                 <div id="collapse_familyroles" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=familyroles', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=familyroles', $page, array('class' => 'form-preferences'));
                     	$form->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 500 : 650).'px; overflow:auto; border:20px;">');
                         for ($conf=0;$conf<$num_familyroles;$conf++)
 						{
@@ -291,14 +291,14 @@ $page->addHtml('
                         	$form->addInput('familienrollen_beschreibung'.$conf, $gL10n->get('SYS_DESCRIPTION'), $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$conf],array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC'));
 							if($num_familyroles <> 1)
                        		{
-								$html = '<a id="add_config" class="icon-text-link" href="'. $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=familyroles&conf='.$conf.'"><img
+								$html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=familyroles&conf='.$conf.'"><img
                                     	src="'. THEME_PATH. '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
                         	 	$form->addCustomContent('', $html);
                        		}
                         	$form->closeGroupBox();
 						}
                         $form->addDescription('</div>');
-                        $html = '<a id="add_config" class="icon-text-link" href="'. $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=familyroles&conf=-1"><img
+                        $html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=familyroles&conf=-1"><img
                                     src="'. THEME_PATH. '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
                         $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
                         $form->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));    
@@ -318,7 +318,7 @@ $page->addHtml('
                 <div id="collapse_accountdata" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=accountdata', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=accountdata', $page, array('class' => 'form-preferences'));
                         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_INFO'));
                         $form->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $pPreferences->config['Kontodaten']['iban'],array('property' => FIELD_REQUIRED));
                         $form->addInput('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $pPreferences->config['Kontodaten']['bic']);
@@ -353,7 +353,7 @@ $page->addHtml('
 								$form->addInput('origci', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $pPreferences->config['Kontodaten']['origci']);
 							}
 							
-							$html = '<a class="icon-text-info" href="'.$g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=accountdata">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'</a>';
+							$html = '<a class="icon-text-info" href="'. ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=accountdata">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'</a>';
                         	$form->addCustomContent('', $html, array( 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC'));	
 						}
                       	$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
@@ -373,7 +373,7 @@ $page->addHtml('
                 <div id="collapse_export" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=export', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=export', $page, array('class' => 'form-preferences'));
                         $form->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'));
                         $form->addInput('dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_NAME'), $pPreferences->config['SEPA']['dateiname'],array( 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC','property' => FIELD_REQUIRED));
                         $form->addInput('kontroll_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'],array( 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC','property' => FIELD_REQUIRED));
@@ -424,7 +424,7 @@ $page->addHtml('
                 <div id="collapse_mandatemanagement" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=mandatemanagement', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=mandatemanagement', $page, array('class' => 'form-preferences'));
                         $form->addInput('prefix_fam', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX_FAM'), $pPreferences->config['Mandatsreferenz']['prefix_fam']);
                         $form->addInput('prefix_mem', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX_MEM'), $pPreferences->config['Mandatsreferenz']['prefix_mem']);
                         $form->addInput('prefix_pay', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX_PAY'), $pPreferences->config['Mandatsreferenz']['prefix_pay']);
@@ -461,7 +461,7 @@ $page->addHtml('
                 <div id="collapse_testssetup" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=testssetup', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=testssetup', $page, array('class' => 'form-preferences'));
                         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO'));
                         $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'</strong>');
                         $form->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 140 : 160).'px; overflow:auto; border:20px;">');
@@ -572,7 +572,7 @@ $page->addHtml('
                 <div id="collapse_deinstallation" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=deinstallation', $page, array('class' => 'form-preferences')); 
+                        $form = new HtmlForm('configurations_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=deinstallation', $page, array('class' => 'form-preferences'));
                         $form->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_PATH.'/icons/delete.png','link' => 'deinstallation.php', 'class' => 'btn-primary col-sm-offset-3'));
                         $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
     					$page->addHtml($form->show(false));
@@ -591,7 +591,7 @@ $page->addHtml('
                 <div id="collapse_plugin_control" class="panel-collapse collapse">
                     <div class="panel-body">');
                         // show form
-                        $form = new HtmlForm('plugin_control_preferences_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=plugin_control', $page, array('class' => 'form-preferences'));
+                        $form = new HtmlForm('plugin_control_preferences_form', ADMIDIO_URL .'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=plugin_control', $page, array('class' => 'form-preferences'));
                         $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
                                 FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
                                 WHERE cat.cat_id = rol.rol_cat_id

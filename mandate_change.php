@@ -181,7 +181,7 @@ else
           		$("input[type=text]#origdebtoragent").val("SMNDA");
         	}
         	else {
-         		window.location.replace("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/mandate_change.php?user_id='.$getUserId.'");  
+         		window.location.replace("'. ADMIDIO_URL . '/adm_plugins/'.$plugin_folder.'/mandate_change.php?user_id='.$getUserId.'");
         	}
         }); 
    
@@ -195,7 +195,7 @@ else
 		    var bic = $("input[type=text]#bic").val();
 		    var bankchanged = $("input[type=checkbox]#bankchanged").prop("checked");
 		
-            var action ="'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/mandate_change.php?user_id='.$getUserId.'&mode=assign&iban="+iban+"&origiban="+origiban+"&mandateid="+mandateid+"&origmandateid="+origmandateid+"&bank="+bank+"&bic="+bic+"&bankchanged="+bankchanged;
+            var action ="'. ADMIDIO_URL . '/adm_plugins/'.$plugin_folder.'/mandate_change.php?user_id='.$getUserId.'&mode=assign&iban="+iban+"&origiban="+origiban+"&mandateid="+mandateid+"&origmandateid="+origmandateid+"&bank="+bank+"&bic="+bic+"&bankchanged="+bankchanged;
         
             $("#"+id+" .form-alert").hide();
 
