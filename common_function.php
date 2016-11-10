@@ -949,7 +949,7 @@ function check_family_roles()
     			if (sizeof($ret_temp) <> 0)
     			{   
 	   				$ret[] = '- <a href="'. ADMIDIO_URL .'/adm_program/modules/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
-	   					<a href="'. ADMIDIO_URL .'/adm_program/modules/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_PATH. '/icons/list.png"
+	   					<a href="'. ADMIDIO_URL .'/adm_program/modules/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_URL . '/icons/list.png"
 	   					alt="'.$gL10n->get('ROL_SHOW_MEMBERS').'" title="'.$gL10n->get('ROL_SHOW_MEMBERS').'" /></a>'; 
 	   				$ret = array_merge($ret,$ret_temp);
     			}

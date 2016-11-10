@@ -235,7 +235,7 @@ if(sizeof($rols)>0)
 	                <div class="panel-heading">
 	                    <h4 class="panel-title">
 	                        <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_remapping">
-	                            <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'
+	                            <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'
 	                        </a>
 	                    </h4>
 	                </div>
@@ -243,7 +243,7 @@ if(sizeof($rols)>0)
 	                    <div class="panel-body">');
 	                        // show form
 	                        $form = new HtmlForm('configurations_form', null, $page); 
-	                        $form->addButton('btn_remapping_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => THEME_PATH.'/icons/edit.png', 'link' => 'remapping.php', 'class' => 'btn-primary col-sm-offset-3'));
+	                        $form->addButton('btn_remapping_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'remapping.php', 'class' => 'btn-primary col-sm-offset-3'));
 	                        $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
 	                       	$page->addHtml($form->show(false));
 	                    $page->addHtml('</div>
@@ -254,7 +254,7 @@ if(sizeof($rols)>0)
 	                <div class="panel-heading">
 	                    <h4 class="panel-title">
 	                        <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_delete">
-	                            <img src="'.THEME_PATH.'/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RESET').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RESET').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RESET').'
+	                            <img src="'. THEME_URL .'/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RESET').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RESET').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RESET').'
 	                        </a>
 	                    </h4>
 	                </div>
@@ -264,31 +264,31 @@ if(sizeof($rols)>0)
 	                        $form = new HtmlForm('delete_all_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC').'</strong>');
 	                        $form->addInput('delete_all',$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_ALL'),($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC'));                             //FIELD_DISABLED
-	                        $form->addSubmitButton('btn_delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
+	                        $form->addSubmitButton('btn_delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
                         
 	                        $form = new HtmlForm('with_paid_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addLine();
 	                        $form->addInput('with_paid',$gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'),($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']), array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITH_PAID_DESC'));                             //FIELD_DISABLED
-	                        $form->addSubmitButton('btn_with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
+	                        $form->addSubmitButton('btn_with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
                         
 	                        $form = new HtmlForm('without_paid_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addLine();
 	                        $form->addInput('without_paid',$gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'),(($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //FIELD_DISABLED 
-	                        $form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
+	                        $form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
                         
 	                        $form = new HtmlForm('paid_only_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
  	                        $form->addLine();
  	                        $form->addInput('paid_only',$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'),$paidcount, array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //FIELD_DISABLED 
-	                        $form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
+	                        $form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
 	                        
                             $form = new HtmlForm('duedate_only_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
                             $form->addLine();
                             $form->addInput('duedate_only',$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY'),$duedatecount, array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY_DESC')); 
-                            $form->addSubmitButton('btn_duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addSubmitButton('btn_duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
                            $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -298,7 +298,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_recalculation">
-                                <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').'
+                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').'
                             </a>
                         </h4>
                     </div>
@@ -306,7 +306,7 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=recalculation', $page, array('class' => 'form-preferences'));
-                            $form->addButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_PATH.'/icons/edit.png','link' => 'recalculation.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_URL .'/icons/edit.png','link' => 'recalculation.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC'));
                             $form->addLine();
                             $form->addSelectBox('beitrag_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_rollenwahl'],'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_DESC', 'multiselect' => true));
@@ -315,7 +315,7 @@ if(sizeof($rols)>0)
                         								'summation' => $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUMMATION') ); 
         					$form->addRadioButton('beitrag_modus','',$radioButtonEntries, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_modus'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_DESC'));                  	
             				$form->addCustomContent('' , '<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_NOTE'));
-         					$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+         					$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -324,7 +324,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_payments">
-                                <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS').'
+                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS').'
                             </a>
                         </h4>
                     </div>
@@ -332,11 +332,11 @@ if(sizeof($rols)>0)
                     <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=payments', $page, array('class' => 'form-preferences'));
-                            $form->addButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => THEME_PATH.'/icons/edit.png','link' => 'payments.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => THEME_URL .'/icons/edit.png','link' => 'payments.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC'));
                             $form->addLine();
             				$form->addSelectBox('zahlungen_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['Beitrag']['zahlungen_rollenwahl'],'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC','multiselect' => true));
-         					$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+         					$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                             $page->addHtml($form->show(false));                        
                         $page->addHtml('</div>
                     </div>
@@ -345,7 +345,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_analysis">
-                                <img src="'.THEME_PATH.'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS').'
+                                <img src="'. THEME_URL .'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS').'
                             </a>
                         </h4>
                     </div>
@@ -469,7 +469,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_mandatemanagement" href="#collapse_mandategenerate">
-                                <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'
+                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'
                             </a>
                         </h4>
                     </div>
@@ -477,7 +477,7 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('mandategenerate_form', null, $page); 
-    	                    $form->addButton('btn_mandategenerate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE'), array('icon' => THEME_PATH.'/icons/edit.png', 'link' => 'mandate_id.php', 'class' => 'btn-primary col-sm-offset-3'));
+    	                    $form->addButton('btn_mandategenerate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'mandate_id.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE_DESC'));
     	                    $page->addHtml($form->show(false));
                         $page->addHtml('</div>
@@ -487,7 +487,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_mandatemanagement" href="#collapse_mandates">
-                                <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT').'
+                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT').'
                             </a>
                         </h4>
                     </div>
@@ -495,7 +495,7 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('configurations_form', null, $page); 
-                            $form->addButton('btn_mandates', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT'), array('icon' => THEME_PATH.'/icons/edit.png','link' => 'mandates.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addButton('btn_mandates', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT'), array('icon' => THEME_URL .'/icons/edit.png','link' => 'mandates.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
@@ -512,7 +512,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_export" href="#collapse_sepa">
-                                <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA').'
+                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA').'
                             </a>
                         </h4>
                     </div>
@@ -520,11 +520,11 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('duedate_rollenwahl_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=sepa', $page, array('class' => 'form-preferences'));
-                            $form->addButton('btn_duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => THEME_PATH.'/icons/edit.png','link' => 'duedates.php', 'class' => 'btn-primary col-sm-offset-3'));                      
+                            $form->addButton('btn_duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => THEME_URL .'/icons/edit.png','link' => 'duedates.php', 'class' => 'btn-primary col-sm-offset-3'));
             				$form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC'));
                             $form->addLine();
                             $form->addSelectBox('duedate_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['SEPA']['duedate_rollenwahl'],'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_DESC','multiselect' => true));
-                            $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                            $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                           	$form->addLine();
                          	$page->addHtml($form->show(false));
    
@@ -618,17 +618,17 @@ if(sizeof($rols)>0)
 						
     							$form->addCheckbox('eillastschrift', $gL10n->get('PLG_MITGLIEDSBEITRAG_COR1_MARKER'), 0 ,array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC') ); 
 
-    							$form->addSubmitButton('btn_xml_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'), array('icon' => THEME_PATH.'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
+    							$form->addSubmitButton('btn_xml_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'), array('icon' => THEME_URL .'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
     							$form->addCustomContent('' , $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_DESC'));
 						 
-    							$form->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => THEME_PATH.'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
+    							$form->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => THEME_URL .'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
     							$form->addCustomContent('' , $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
 						 
     							$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
             					$form->addStaticControl('','',$html);
         
     							$form->addLine();
-    							$form->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => THEME_PATH.'/icons/download.png','link' => 'pre_notification.php', 'class' => 'btn-primary col-sm-offset-3'));
+    							$form->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => THEME_URL .'/icons/download.png','link' => 'pre_notification.php', 'class' => 'btn-primary col-sm-offset-3'));
     							$form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
     						}
                             $page->addHtml($form->show(false));
@@ -639,7 +639,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_export" href="#collapse_statementexport">
-                                <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT').'
+                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT').'
                             </a>
                         </h4>
                     </div>
@@ -647,7 +647,7 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('rechnung_export_form', null, $page, array('class' => 'form-preferences')); 
-                            $form->addButton('btn_rechnung_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), array('icon' => THEME_PATH.'/icons/download.png','link' => 'export_bill.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addButton('btn_rechnung_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), array('icon' => THEME_URL .'/icons/download.png','link' => 'export_bill.php', 'class' => 'btn-primary col-sm-offset-3'));
     						$form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
@@ -664,7 +664,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_options" href="#collapse_producemembernumber">
-                                <img src="'.THEME_PATH.'/icons/disk.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER').'
+                                <img src="'. THEME_URL .'/icons/disk.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER').'
                             </a>
                         </h4>
                     </div>
@@ -672,7 +672,7 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('producemembernumber_form', null, $page); 
-                            $form->addButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => THEME_PATH.'/icons/disk.png', 'link' => 'membernumber.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => 'membernumber.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC').$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2',$gL10n->get('SYS_NOTE').':'));   	
                            	$page->addHtml($form->show(false));
                         $page->addHtml('</div>
@@ -682,7 +682,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_options" href="#collapse_copy">
-                                <img src="'.THEME_PATH.'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY').'
+                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY').'
                             </a>
                         </h4>
                     </div>
@@ -690,7 +690,7 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('copy_form', null, $page); 
-                            $form->addButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => THEME_PATH.'/icons/edit.png', 'link' => 'copy.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'copy.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_DESC'));   	
                            	$page->addHtml($form->show(false));
                         $page->addHtml('</div>
@@ -700,7 +700,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_options" href="#collapse_tests">
-                                <img src="'.THEME_PATH.'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'
+                                <img src="'. THEME_URL .'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'
                             </a>
                         </h4>
                     </div>
@@ -780,7 +780,7 @@ if(sizeof($rols)>0)
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_options" href="#collapse_roleoverview">
-                                <img src="'.THEME_PATH.'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW').'
+                                <img src="'. THEME_URL .'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW').'
                             </a>
                         </h4>
                     </div>

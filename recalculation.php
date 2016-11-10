@@ -294,7 +294,7 @@ $page = new HtmlPage($headline);
 
 $form = new HtmlForm('recalculation_form', null, $page); 
 $form->addDescription($message);
-$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/forward.png', 'link' => 'menue.php?show_option=recalculation', 'class' => 'btn-primary'));
+$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => 'menue.php?show_option=recalculation', 'class' => 'btn-primary'));
 
 $page->addHtml($form->show(false));
 $page->show();

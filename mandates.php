@@ -318,11 +318,11 @@ else
         '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC').'"/>',
         $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'),
         $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'),
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/edit.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/edit.png"
             alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" />',
         $gL10n->get('SYS_LASTNAME'),
         $gL10n->get('SYS_FIRSTNAME'),
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/map.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
             alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
         $gL10n->get('SYS_ADDRESS'),
         $gL10n->get('SYS_BIRTHDAY'),
@@ -396,7 +396,7 @@ else
         }
     	if(strlen($addressText) > 1)
         {
-            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
+            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
         }
         //8. Spalte ($addressText)
 
@@ -429,7 +429,7 @@ else
             $htmlMandatStatus,
             $htmlMandatDate,
             $htmlMandateID,
-			'<a class="admidio-icon-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/mandate_change.php?user_id='. $user['usr_id']. '"><img src="'. THEME_PATH. '/icons/edit.png"
+			'<a class="admidio-icon-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/mandate_change.php?user_id='. $user['usr_id']. '"><img src="'. THEME_URL . '/icons/edit.png"
 					alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" /></a>',
             '<a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
             '<a href="'. ADMIDIO_URL .'/adm_program/modules/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',

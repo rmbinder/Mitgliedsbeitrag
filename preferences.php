@@ -168,7 +168,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_contributionsettings">
-                            <img src="'.THEME_PATH.'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS').'
+                            <img src="'.THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS').'
                         </a>
                     </h4>
                 </div>
@@ -219,7 +219,7 @@ $page->addHtml('
             				$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
                     	}
                         $form->addMultilineTextInput('mail_text', '', $text->getValue('txt_text'), 7);
-                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -229,7 +229,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_agestaggeredroles">
-                            <img src="'.THEME_PATH.'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').'
+                            <img src="'. THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').'
                         </a>
                     </h4>
                 </div>
@@ -250,17 +250,17 @@ $page->addHtml('
                        		if($num_agestaggeredroles <> 1)
                        		{
 								$html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php?choice=agestaggeredroles&conf='.$conf.'"><img
-                                    	src="'. THEME_PATH. '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
+                                    	src="'. THEME_URL . '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
                         	 	$form->addCustomContent('', $html);
                        		}
                         	$form->closeGroupBox();
 						}
                         $form->addDescription('</div>');
                         $html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php?choice=agestaggeredroles&conf=-1"><img
-                                src="'. THEME_PATH. '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
+                                src="'. THEME_URL . '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
                         $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
                         $form->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));    
-                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -270,7 +270,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_familyroles">
-                            <img src="'.THEME_PATH.'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'
+                            <img src="'. THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'
                         </a>
                     </h4>
                 </div>
@@ -292,17 +292,17 @@ $page->addHtml('
 							if($num_familyroles <> 1)
                        		{
 								$html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php?choice=familyroles&conf='.$conf.'"><img
-                                    	src="'. THEME_PATH. '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
+                                    	src="'. THEME_URL . '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
                         	 	$form->addCustomContent('', $html);
                        		}
                         	$form->closeGroupBox();
 						}
                         $form->addDescription('</div>');
                         $html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php?choice=familyroles&conf=-1"><img
-                                    src="'. THEME_PATH. '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
+                                    src="'. THEME_URL . '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
                         $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
                         $form->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));    
-                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -311,7 +311,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_accountdata">
-                            <img src="'.THEME_PATH.'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').'
+                            <img src="'. THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').'
                         </a>
                     </h4>
                 </div>
@@ -328,13 +328,13 @@ $page->addHtml('
 						{
 							$form->addInput('creditor', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR'), $pPreferences->config['Kontodaten']['inhaber'],array('property' => FIELD_REQUIRED));
 							$html = '<a class="iconLink" id="creditorschieben" href="javascript:creditorschieben()"><img 
-									src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'" /></a>';
+									src="'. THEME_URL . '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'" /></a>';
                         	$form->addCustomContent('', $html);	
 							$form->addInput('origcreditor', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR'), $pPreferences->config['Kontodaten']['origcreditor']);
 							
 							$form->addInput('ci', $gL10n->get('PLG_MITGLIEDSBEITRAG_CI'), $pPreferences->config['Kontodaten']['ci'],array('property' => FIELD_REQUIRED));
 							$html = '<a class="iconLink" id="cischieben" href="javascript:cischieben()"><img 
-									src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'" /></a>';
+									src="'. THEME_URL . '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'" /></a>';
                         	$form->addCustomContent('', $html);	
 							$form->addInput('origci', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $pPreferences->config['Kontodaten']['origci']);
 							$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO').'</div>';
@@ -356,7 +356,7 @@ $page->addHtml('
 							$html = '<a class="icon-text-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php?choice=accountdata">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'</a>';
                         	$form->addCustomContent('', $html, array( 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC'));	
 						}
-                      	$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                      	$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -366,7 +366,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_export">
-                            <img src="'.THEME_PATH.'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'
+                            <img src="'. THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'
                         </a>
                     </h4>
                 </div>
@@ -407,7 +407,7 @@ $page->addHtml('
                         $form->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname']);
                        	$form->closeGroupBox();
                         $form->addDescription('');
-                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -417,7 +417,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_mandatemanagement">
-                            <img src="'.THEME_PATH.'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'
+                            <img src="'. THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'
                         </a>
                     </h4>
                 </div>
@@ -444,7 +444,7 @@ $page->addHtml('
             			$configSelection[$i][2]   = $gL10n->get('PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS'); 
                         $form->addSelectBox('data_field', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER'), $configSelection, array('defaultValue' => $pPreferences->config['Mandatsreferenz']['data_field'], 'showContextDependentFirstEntry' => false));
                         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC'));
-                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -454,7 +454,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_testssetup">
-                            <img src="'.THEME_PATH.'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'
+                            <img src="'. THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST').'
                         </a>
                     </h4>
                 </div>
@@ -555,7 +555,7 @@ $page->addHtml('
                                     AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                                     OR cat_org_id IS NULL )';
 				        $form->addSelectBoxFromSql('bezugskategorie', $gL10n->get('PLG_MITGLIEDSBEITRAG_CAT_SELECTION'), $gDb, $sql, array('defaultValue' => $pPreferences->config['Rollenpruefung']['bezugskategorie'], 'multiselect' => true,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC'));				                                                 
-                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -565,7 +565,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_deinstallation">
-                            <img src="'.THEME_PATH.'/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION').'
+                            <img src="'. THEME_URL .'/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION').'
                         </a>
                     </h4>
                 </div>
@@ -573,7 +573,7 @@ $page->addHtml('
                     <div class="panel-body">');
                         // show form
                         $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences_function.php?form=deinstallation', $page, array('class' => 'form-preferences'));
-                        $form->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_PATH.'/icons/delete.png','link' => 'deinstallation.php', 'class' => 'btn-primary col-sm-offset-3'));
+                        $form->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_URL .'/icons/delete.png','link' => 'deinstallation.php', 'class' => 'btn-primary col-sm-offset-3'));
                         $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
     					$page->addHtml($form->show(false));
                     $page->addHtml('</div>
@@ -584,7 +584,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_plugin_control">
-                            <img src="'.THEME_PATH.'/icons/lock.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL').'
+                            <img src="'. THEME_URL .'/icons/lock.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL').'
                         </a>
                     </h4>
                 </div>
@@ -599,7 +599,7 @@ $page->addHtml('
                                 OR cat.cat_org_id IS NULL )';
 				        $form->addSelectBoxFromSql('freigabe', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $sql, array('defaultValue' => $pPreferences->config['Pluginfreigabe']['freigabe'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC','multiselect' => true,'property' => FIELD_REQUIRED));				                                                 
                         $form->addSelectBoxFromSql('freigabe_config', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['Pluginfreigabe']['freigabe_config'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC2','multiselect' => true,'property' => FIELD_REQUIRED));
-                        $form->addSubmitButton('btn_save_plugin_control_preferences', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $form->addSubmitButton('btn_save_plugin_control_preferences', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>
@@ -608,7 +608,7 @@ $page->addHtml('
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_plugin_informations">
-                            <img src="'.THEME_PATH.'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION').'
+                            <img src="'. THEME_URL .'/icons/info.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION').'
                         </a>
                     </h4>
                 </div>
@@ -620,7 +620,7 @@ $page->addHtml('
                         $form->addStaticControl('plg_version', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION'), $pPreferences->config['Plugininformationen']['version']);
                         $form->addStaticControl('plg_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_DATE'), $pPreferences->config['Plugininformationen']['stand']);
                         $html = '<a class="btn" href="http://www.admidio.de/dokuwiki/doku.php?id=de:plugins:mitgliedsbeitrag" target="_blank"><img
-                                    src="'. THEME_PATH. '/icons/eye.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
+                                    src="'. THEME_URL . '/icons/eye.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
                         $form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION'), $html, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>

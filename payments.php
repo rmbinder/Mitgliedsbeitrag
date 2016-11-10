@@ -375,17 +375,17 @@ else
         '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID_CHANGE_ALL_DESC').'"/>',
         $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ON'),
         $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'),
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/comment.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/comment.png"
             alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'" />',
         $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
         $gL10n->get('SYS_LASTNAME'),
         $gL10n->get('SYS_FIRSTNAME'),
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/map.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
             alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
         $gL10n->get('SYS_ADDRESS'),
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/info.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/info.png"
             alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" />',
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/email.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/email.png"
             alt="'.$gL10n->get('SYS_EMAIL').'" title="'.$gL10n->get('SYS_EMAIL').'" />',
         $gL10n->get('SYS_EMAIL'),
         $gL10n->get('SYS_BIRTHDAY'),
@@ -489,7 +489,7 @@ else
         }
     	if(strlen($addressText) > 1)
         {
-            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
+            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
         }
         //9. Spalte ($addressText)
         
@@ -508,7 +508,7 @@ else
         }
      	if(strlen($debtor_text) > 1)
         {
-            $htmlDebtorText = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/info.png" alt="'.$debtor_text.'" title="'.$debtor_text.'" />';
+            $htmlDebtorText = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/info.png" alt="'.$debtor_text.'" title="'.$debtor_text.'" />';
         }
         
         //11. Spalte ($htmlMail)
@@ -536,7 +536,7 @@ else
 			{
 				$mail_link = ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/message_write.php?usr_id='. $user['usr_id'];
 			}
-			$htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_PATH. '/icons/email.png"
+			$htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
 					alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
 		} 
 		      

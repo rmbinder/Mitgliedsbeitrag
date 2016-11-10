@@ -700,8 +700,8 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     {
     	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));	
     	$form->openButtonGroup();
-    	$form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png', 'link' => ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/installation.php?mode=anlegen', 'class' => 'btn-primary'));
-    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
+    	$form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/installation.php?mode=anlegen', 'class' => 'btn-primary'));
+    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png','link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
     	$form->closeButtonGroup();
     	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));	
     	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_1'));	
@@ -710,8 +710,8 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     {
     	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));	
     	$form->openButtonGroup();
-   		$form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png','link' => ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
-    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
+   		$form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png','link' => ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
+    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png','link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
     	$form->closeButtonGroup();
     	$form->addDescription('<BR>');
     	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));	
@@ -752,9 +752,9 @@ elseif($getMode == 'soll_ist')
     $columnAttributes['colspan'] = 2;
     $table->addColumn($gL10n->get('SYS_INTERNAL_NAME'), $columnAttributes, 'th');
     $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_DATA_TYPE'), $columnAttributes, 'th');
-   	$table->addColumn('<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />', $columnAttributes, 'th');
-   	$table->addColumn('<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />', $columnAttributes, 'th');
-   	$table->addColumn('<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />', $columnAttributes, 'th');
+   	$table->addColumn('<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />', $columnAttributes, 'th');
+   	$table->addColumn('<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />', $columnAttributes, 'th');
+   	$table->addColumn('<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />', $columnAttributes, 'th');
 
    	$table->addRow('',null,'th');
    	$columnAttributes['colspan'] = 1;
@@ -911,7 +911,7 @@ elseif($getMode == 'soll_ist')
 	$form->addDescription($table->show(false));	
 
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));	
-   	$form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png','link' => $gHomepage, 'class' => 'btn-primary'));
+   	$form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png','link' => $gHomepage, 'class' => 'btn-primary'));
     $form->addDescription('<BR>');
     $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));		
    
@@ -1210,56 +1210,56 @@ function SollIstProfilfeld($arr,$field)
                 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden']==1)
     {
-      	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
+      	$columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
     }
     else
     {
-    	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_hidden']==1)
     {
-      	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
+      	$columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
     }
     else
     {
-    	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
     }
     
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_disabled']==1)
     {
-        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
+        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
     }
     else
     {
-    	$columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
     }
              
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_disabled']==1)
     {
-    	$columnValues[] =  '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
+    	$columnValues[] =  '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
     }
     else
     {
-        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'.THEME_PATH.'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
+        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
     }
                                   
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_mandatory']==1)
     {
-    	$columnValues[] =  '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
+    	$columnValues[] =  '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
     }
     else
     {
-    	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
+    	$columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
     }
                                       
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_mandatory']==1)
     {
-    	$columnValues[] =  '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
+    	$columnValues[] =  '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
     }
     else
     {
-     	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
+     	$columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
     }             
 	
     return $columnValues;

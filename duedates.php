@@ -352,12 +352,12 @@ else
     $columnHeading = array(
         '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_CHANGE_ALL_DESC').'"/>',
         $gL10n->get('PLG_MITGLIEDSBEITRAG_DUE_ON'),
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/comment.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/comment.png"
             alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'" />',
         $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
         $gL10n->get('SYS_LASTNAME'),
         $gL10n->get('SYS_FIRSTNAME'),
-        '<img class="admidio-icon-help" src="'. THEME_PATH. '/icons/map.png"
+        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
             alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
         $gL10n->get('SYS_ADDRESS'),
         $gL10n->get('SYS_BIRTHDAY'),
@@ -444,7 +444,7 @@ else
         }
     	if(strlen($addressText) > 1)
         {
-            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
+            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
         }
         
         //8. Spalte ($addressText)

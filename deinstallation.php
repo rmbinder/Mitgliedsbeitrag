@@ -114,7 +114,7 @@ if($getMode == 'start' )     //Default
     $form->closeGroupBox(); 
     $form->closeGroupBox(); 
 
-    $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_PATH.'/icons/delete.png', 'class' => ' col-sm-offset-3')); 
+    $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_URL .'/icons/delete.png', 'class' => ' col-sm-offset-3'));
 }
 elseif($getMode == 'delete')
 {
@@ -237,7 +237,7 @@ elseif($getMode == 'delete')
 	else 
 	{
 		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA'));
-		$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/forward.png', 'link' => $gHomepage, 'class' => 'btn-primary'));
+		$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => $gHomepage, 'class' => 'btn-primary'));
 	}
 }
 $page->addHtml($form->show(false));

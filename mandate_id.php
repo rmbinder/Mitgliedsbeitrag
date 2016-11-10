@@ -117,7 +117,7 @@ else
     $form->addDescription($message);
 }
 
-$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/forward.png', 'link' => 'menue.php?show_option=mandategenerate', 'class' => 'btn-primary'));
+$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => 'menue.php?show_option=mandategenerate', 'class' => 'btn-primary'));
 
 $page->addHtml($form->show(false));
 $page->show();    
