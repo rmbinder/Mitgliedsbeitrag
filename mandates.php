@@ -336,9 +336,8 @@ else
     $table->addRowHeadingByArray($columnHeading);
    	$table->disableDatatablesColumnsSort(array(1,4));
     $table->setDatatablesAlternativOrderColumns(7, 8);
-    $table->setDatatablesColumnsHide(8);
     $table->setDatatablesAlternativOrderColumns(9, 10);
-    $table->setDatatablesColumnsHide(10);
+    $table->setDatatablesColumnsHide(array(8,10));
     if($getFullScreen == false || ($getFullScreen && $getMandateScreen==false))
  	{
  		 $table->setDatatablesColumnsHide(array(11,12,13));

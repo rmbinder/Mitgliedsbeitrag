@@ -366,11 +366,10 @@ else
     $table->setColumnAlignByArray(array('left', 'left','center', 'right', 'left', 'left', 'center', 'left', 'center', 'left'));
    	$table->setDatatablesOrderColumns(array(5, 6));
     $table->addRowHeadingByArray($columnHeading);
-   	$table->disableDatatablesColumnsSort(1);
+   	$table->disableDatatablesColumnsSort(array(1));
     $table->setDatatablesAlternativOrderColumns(7, 8);
-    $table->setDatatablesColumnsHide(8);
     $table->setDatatablesAlternativOrderColumns(9, 10);
-    $table->setDatatablesColumnsHide(10);
+    $table->setDatatablesColumnsHide(array(8,10));
 
     // show rows with all organization users
     while($user = $statement->fetch())

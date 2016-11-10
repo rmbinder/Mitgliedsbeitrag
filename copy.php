@@ -216,11 +216,11 @@ else
     $table->addRowHeadingByArray($columnHeading);
     if($getSourceUserid == 0)
     {
-    	$table->setDatatablesColumnsHide(2);
+    	$table->setDatatablesColumnsHide(array(2));
     }	
 	if($getTargetUserid ==0)
 	{
-		$table->setDatatablesColumnsHide(4);
+		$table->setDatatablesColumnsHide(array(4));
 	}
 
     // show rows 

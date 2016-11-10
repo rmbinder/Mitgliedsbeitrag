@@ -396,11 +396,9 @@ else
     $table->addRowHeadingByArray($columnHeading);
    	$table->disableDatatablesColumnsSort(array(1,8, 9,10));
     $table->setDatatablesAlternativOrderColumns(8, 9);
-    $table->setDatatablesColumnsHide(9);
     $table->setDatatablesAlternativOrderColumns(11, 12);
-    $table->setDatatablesColumnsHide(12);
     $table->setDatatablesAlternativOrderColumns(13, 14);
-    $table->setDatatablesColumnsHide(14);
+    $table->setDatatablesColumnsHide(array(9,12,14));
     
     // show rows with all organization users
     while($user = $statement->fetch())
