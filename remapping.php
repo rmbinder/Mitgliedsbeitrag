@@ -12,11 +12,10 @@
  ***********************************************************************************************
  */
 
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/classes/tablemembers.php');
-require_once(dirname(__FILE__).'/common_function.php');
-
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/../../adm_program/system/classes/tablemembers.php');
+require_once(__DIR__ . '/common_function.php');
+require_once(__DIR__ . '/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();

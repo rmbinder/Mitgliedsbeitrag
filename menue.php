@@ -12,16 +12,10 @@
  ***********************************************************************************************
  */
 
-// Pfad des Plugins ermitteln
-$plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
-$plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
-$plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
-$plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
-
-require_once($plugin_path. '/../adm_program/system/common.php');
-require_once($plugin_path. '/../adm_program/system/login_valid.php');
-require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/../../adm_program/system/login_valid.php');
+require_once(__DIR__ . '/common_function.php');
+require_once(__DIR__ . '/classes/configtable.php');
 
 // Initialize and check the parameters
 $showOption = admFuncVariableIsValid($_GET, 'show_option', 'string');
@@ -103,7 +97,7 @@ array_multisort($sortArray, SORT_ASC,$selectBoxEntriesBeitragsrollen );
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
-$gNavigation->addStartUrl( ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue.php', $headline);
+$gNavigation->addStartUrl( ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue.php', $headline);
  
 // create html page object
 $page = new HtmlPage($headline);
@@ -171,7 +165,7 @@ $page->addJavascript('
                     $("#"+id+" .form-alert").html("<span class=\"glyphicon glyphicon-remove\"></span>"+data);
                 }
                 if(replace == true) {
-                   window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue.php?show_option=delete");
+                   window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue.php?show_option=delete");
                 }
             }
         });    
@@ -212,7 +206,7 @@ $headerMenu->addForm($form->show(false));
 if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config']))
 {
 	// show link to pluginpreferences 
-	$headerMenu->addItem('admMenuItemPreferencesLists', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php',
+	$headerMenu->addItem('admMenuItemPreferencesLists', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php',
                         $gL10n->get('SYS_SETTINGS'), 'options.png', 'right');        
 }
 
@@ -261,31 +255,31 @@ if(sizeof($rols)>0)
 	                <div id="collapse_delete" class="panel-collapse collapse">
 	                    <div class="panel-body">');
 	                        // show form
-	                        $form = new HtmlForm('delete_all_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
+	                        $form = new HtmlForm('delete_all_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC').'</strong>');
 	                        $form->addInput('delete_all',$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_ALL'),($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC'));                             //FIELD_DISABLED
 	                        $form->addSubmitButton('btn_delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
                         
-	                        $form = new HtmlForm('with_paid_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
+	                        $form = new HtmlForm('with_paid_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addLine();
 	                        $form->addInput('with_paid',$gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'),($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']), array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITH_PAID_DESC'));                             //FIELD_DISABLED
 	                        $form->addSubmitButton('btn_with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
                         
-	                        $form = new HtmlForm('without_paid_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
+	                        $form = new HtmlForm('without_paid_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addLine();
 	                        $form->addInput('without_paid',$gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'),(($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //FIELD_DISABLED 
 	                        $form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
                         
-	                        $form = new HtmlForm('paid_only_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
+	                        $form = new HtmlForm('paid_only_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
  	                        $form->addLine();
  	                        $form->addInput('paid_only',$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'),$paidcount, array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //FIELD_DISABLED 
 	                        $form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
 	                        
-                            $form = new HtmlForm('duedate_only_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
+                            $form = new HtmlForm('duedate_only_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
                             $form->addLine();
                             $form->addInput('duedate_only',$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY'),$duedatecount, array('property' => FIELD_READONLY,'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY_DESC')); 
                             $form->addSubmitButton('btn_duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_URL .'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
@@ -305,7 +299,7 @@ if(sizeof($rols)>0)
                     <div id="collapse_recalculation" class="panel-collapse collapse">
                         <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=recalculation', $page, array('class' => 'form-preferences'));
+                            $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=recalculation', $page, array('class' => 'form-preferences'));
                             $form->addButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_URL .'/icons/edit.png','link' => 'recalculation.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC'));
                             $form->addLine();
@@ -331,7 +325,7 @@ if(sizeof($rols)>0)
                     <div id="collapse_payments" class="panel-collapse collapse">
                     <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=payments', $page, array('class' => 'form-preferences'));
+                            $form = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=payments', $page, array('class' => 'form-preferences'));
                             $form->addButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => THEME_URL .'/icons/edit.png','link' => 'payments.php', 'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC'));
                             $form->addLine();
@@ -519,7 +513,7 @@ if(sizeof($rols)>0)
                     <div id="collapse_sepa" class="panel-collapse collapse">
                         <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('duedate_rollenwahl_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=sepa', $page, array('class' => 'form-preferences'));
+                            $form = new HtmlForm('duedate_rollenwahl_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=sepa', $page, array('class' => 'form-preferences'));
                             $form->addButton('btn_duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => THEME_URL .'/icons/edit.png','link' => 'duedates.php', 'class' => 'btn-primary col-sm-offset-3'));
             				$form->addCustomContent('' , '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC'));
                             $form->addLine();
@@ -528,7 +522,7 @@ if(sizeof($rols)>0)
                           	$form->addLine();
                          	$page->addHtml($form->show(false));
    
-    						$form = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/export_sepa.php', $page);
+    						$form = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/export_sepa.php', $page);
     						if (!$directdebittype)
     						{
                                 $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST').'</div>';
@@ -707,7 +701,7 @@ if(sizeof($rols)>0)
                     <div id="collapse_tests" class="panel-collapse collapse">
                         <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/menue_function.php?form=tests', $page, array('class' => 'form-preferences'));
+                            $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/menue_function.php?form=tests', $page, array('class' => 'form-preferences'));
     
                             $form->openGroupBox('AGE_STAGGERed_roles',$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');

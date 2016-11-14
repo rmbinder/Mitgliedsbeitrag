@@ -14,15 +14,9 @@
  ***********************************************************************************************
  */
 
-// Pfad des Plugins ermitteln
-$plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
-$plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
-$plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
-$plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
-
-require_once($plugin_path. '/../adm_program/system/common.php');
-require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/common_function.php');
+require_once(__DIR__ . '/classes/configtable.php');
 
 // Initialize and check the parameters
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start','delete')));
@@ -46,9 +40,9 @@ if($getMode == 'start' )     //Default
 {
 	// get module menu
     $headerMenu = $page->getMenu();
-    $headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/preferences.php?choice=deinstallation', $gL10n->get('SYS_BACK'), 'back.png');
+    $headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php?choice=deinstallation', $gL10n->get('SYS_BACK'), 'back.png');
 
-    $form = new HtmlForm('deinstallations_form', ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/deinstallation.php?mode=delete', $page);
+    $form = new HtmlForm('deinstallations_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/deinstallation.php?mode=delete', $page);
 	
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
     $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC').'</div>';

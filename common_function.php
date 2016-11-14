@@ -10,13 +10,12 @@
  ***********************************************************************************************
  */
 
-// Pfad des Plugins ermitteln
-$plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
-$plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
-$plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
-$plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
+require_once(__DIR__ . '/../../adm_program/system/common.php');
 
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
+if(!defined('PLUGIN_FOLDER'))
+{
+    define('PLUGIN_FOLDER', '/'.substr(__DIR__,strrpos(__DIR__,DIRECTORY_SEPARATOR)+1));
+}
 
 /**
  * Funktion um alle beitragsbezogenen Rollen einzulesen

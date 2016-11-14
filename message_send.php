@@ -15,8 +15,8 @@
  ***********************************************************************************************
  */
 
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/template.php');
+require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/../../adm_program/system/template.php');
 
 // Initialize and check the parameters
 $getUserId  = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0));

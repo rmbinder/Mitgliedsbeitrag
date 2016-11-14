@@ -15,15 +15,9 @@
  ***********************************************************************************************
  */
 
-// Pfad des Plugins ermitteln
-$plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
-$plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
-$plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
-$plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
-
-require_once($plugin_path. '/../adm_program/system/common.php');
-require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/common_function.php');
+require_once(__DIR__ . '/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -700,7 +694,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     {
     	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));	
     	$form->openButtonGroup();
-    	$form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/installation.php?mode=anlegen', 'class' => 'btn-primary'));
+    	$form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php?mode=anlegen', 'class' => 'btn-primary'));
     	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png','link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
     	$form->closeButtonGroup();
     	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));	
@@ -710,7 +704,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     {
     	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));	
     	$form->openButtonGroup();
-   		$form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png','link' => ADMIDIO_URL . FOLDER_PLUGINS . '/'.$plugin_folder.'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
+   		$form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png','link' => ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
     	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png','link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
     	$form->closeButtonGroup();
     	$form->addDescription('<BR>');
