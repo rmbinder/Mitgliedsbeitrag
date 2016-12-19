@@ -80,7 +80,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
                 $rollen[$key]['von'] = str_replace(' ', '', $rollen[$key]['von']);
                 $rollen[$key]['bis'] = str_replace(' ', '', $rollen[$key]['bis']);
 
-                if((is_numeric($rollen[$key]['von'] )) && (is_numeric($rollen[$key]['bis']) ))
+                if((is_numeric($rollen[$key]['von'])) && (is_numeric($rollen[$key]['bis'])))
                 {
                     if ($rollen[$key]['von'] > $rollen[$key]['bis'])
                     {
@@ -262,7 +262,7 @@ function hasRole_IDPMB($role_id, $user_id = 0)
  *                                       oder Schalter aktiv/ehem  <br>
  * @return  array   $members
  */
-function list_members( $fields, $rols = array() )
+function list_members($fields, $rols = array())
 {
     global $gDb, $gCurrentOrganization, $gProfileFields;
 
@@ -275,14 +275,14 @@ function list_members( $fields, $rols = array() )
     {
         $sql .= ' WHERE mem_rol_id = '.getRole_IDPMB($rols).' ';
     }
-    elseif  (is_integer($rols) && ($rols == 0) )
+    elseif  (is_integer($rols) && ($rols == 0))
     {
         // nur aktive Mitglieder
         $sql .= ' WHERE mem_begin <= \''.DATE_NOW.'\' ';
         $sql .= ' AND mem_end >= \''.DATE_NOW.'\' ';
 
     }
-    elseif  (is_integer($rols) && ($rols == 1) )
+    elseif  (is_integer($rols) && ($rols == 1))
     {
         // nicht-aktive Mitglieder    ALT:nur ehemalige Mitglieder
         $sql .= ' WHERE ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') )';
@@ -357,7 +357,7 @@ function list_members( $fields, $rols = array() )
  * @param   string  $wert
  * @return  bool
  */
-function delete_NULL ( $wert )
+function delete_NULL ($wert)
 {
     global $delete_NULL_field;
 
@@ -452,7 +452,7 @@ function analyse_mem()
 	// und kein Beitragstext (=Verwendungszweck) existiert,  herausfiltern
     foreach ($members as $member => $memberdata)
     {
-        if (empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')]) || empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]) )
+        if (empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')]) || empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]))
         {
             unset($members[$member]);
         }
@@ -461,24 +461,24 @@ function analyse_mem()
     //jetzt wird gezählt
     foreach($members as $member => $memberdata)
     {
-        if ( !empty($memberdata['IBAN']))
+        if (!empty($memberdata['IBAN']))
         {
             $ret['BEITRAG_kto'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
             $ret['BEITRAG_kto_anzahl']+=1;
         }
-        if ( ( !empty($memberdata['IBAN']))
-        	&& !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]) )
+        if ((!empty($memberdata['IBAN']))
+        	&& !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]))
         {
             $ret['BEZAHLT_kto'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
             $ret['BEZAHLT_kto_anzahl']+=1;
         }
-        if (empty($memberdata['IBAN']) )
+        if (empty($memberdata['IBAN']))
         {
             $ret['BEITRAG_rech'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
             $ret['BEITRAG_rech_anzahl']+=1;
         }
-        if ( empty($memberdata['IBAN'])
-        	&& !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]) )
+        if (empty($memberdata['IBAN'])
+        	&& !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]))
         {
             $ret['BEZAHLT_rech'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
             $ret['BEZAHLT_rech_anzahl']+=1;
@@ -587,7 +587,7 @@ function check_rollenmitgliedschaft_pflicht()
     foreach ($beitragsrollen as $rol => $roldata)
     {
         //alle if und elseif könnte man in einer Zeile schreiben und mit || verknüpfen, aber so ist es übersichtlicher 
-        if(($roldata['rollentyp'] == 'fam') && (!$pPreferences->config['Rollenpruefung']['familienrollenpflicht']) )
+        if(($roldata['rollentyp'] == 'fam') && (!$pPreferences->config['Rollenpruefung']['familienrollenpflicht']))
         {
             unset($beitragsrollen[$rol]);
         }
@@ -750,7 +750,7 @@ function check_rollenmitgliedschaft_ausschluss()
         }
         if(is_array($pPreferences->config['Rollenpruefung']['altersrollenfix']) &&  is_array($pPreferences->config['Altersrollen']['altersrollen_token']))
         {
-        	foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
+        	foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
             {
             	foreach ($pPreferences->config['Rollenpruefung']['altersrollenfix'] as $rol => $roldata)
             	{
@@ -874,7 +874,7 @@ function check_family_roles()
 			$temp_arr2 = explode('*', $bedingung);
 
 			// prüfen auf unsinnige Bedingungen
-			if( isset($temp_arr2[0]) && isset($temp_arr2[1]) && isset($temp_arr2[2])
+			if(isset($temp_arr2[0]) && isset($temp_arr2[1]) && isset($temp_arr2[2])
 			 && is_numeric($temp_arr2[0]) && is_numeric($temp_arr2[1]) && is_numeric($temp_arr2[2]))
 			{
 				$check['pruefungsbedingungen'][$key][$keybed]['von'] = $temp_arr2[0];
@@ -934,7 +934,7 @@ function check_family_roles()
     					$age = date("Y", strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'])) - date("Y", strtotime($memberdata['BIRTHDAY']));
 
     					// passt das Alter zu einer der Prüfbedingungen?
-    					if (   $age >= $pruefdata['von'] && $age <= $pruefdata['bis'] )
+    					if ($age >= $pruefdata['von'] && $age <= $pruefdata['bis'])
             			{
                 			$counter++;
             			}
@@ -986,7 +986,7 @@ function check_mandate_management()
 
 	foreach ($members as $member => $memberdata)
 	{
-		if ((strlen($memberdata['DEBTOR'])!=0) && ( (strlen($memberdata['DEBTOR_POSTCODE'])==0) || (strlen($memberdata['DEBTOR_CITY'])==0) || (strlen($memberdata['DEBTOR_ADDRESS'])==0)) )
+		if ((strlen($memberdata['DEBTOR'])!=0) && ((strlen($memberdata['DEBTOR_POSTCODE'])==0) || (strlen($memberdata['DEBTOR_CITY'])==0) || (strlen($memberdata['DEBTOR_ADDRESS'])==0)))
 		{
 			$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
@@ -1016,7 +1016,7 @@ function check_iban()
 
 	foreach ($members as $member => $memberdata)
 	{
-		if ((strlen($memberdata['IBAN'])==1) || ((strlen($memberdata['IBAN'])>1) && !test_iban($memberdata['IBAN']) ))
+		if ((strlen($memberdata['IBAN'])==1) || ((strlen($memberdata['IBAN'])>1) && !test_iban($memberdata['IBAN'])))
 		{
 			$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
@@ -1038,24 +1038,24 @@ function check_iban()
  * @param string $iban
  * @return  bool
  */
-function test_iban( $iban )
+function test_iban($iban)
 {
 	// aus dem Internet
-    $iban = str_replace( ' ', '', $iban );
-    $iban1 = substr( $iban, 4 )
-        . strval( ord( $iban{0} )-55 )
-        . strval( ord( $iban{1} )-55 )
-        . substr( $iban, 2, 2 );
+    $iban = str_replace(' ', '', $iban);
+    $iban1 = substr($iban, 4)
+        . strval(ord($iban{0})-55)
+        . strval(ord($iban{1})-55)
+        . substr($iban, 2, 2);
 
     $rest=0;
-    for ( $pos=0; $pos<strlen($iban1); $pos+=7 ) {
+    for ($pos=0; $pos<strlen($iban1); $pos+=7) {
         $part = strval($rest) . substr($iban1, $pos, 7);
         $rest = intval($part) % 97;
     }
     $pz = sprintf("%02d", 98-$rest);
 
-    if ( substr($iban, 2, 2)=='00')
-        return substr_replace( $iban, $pz, 2, 2 );
+    if (substr($iban, 2, 2)=='00')
+        return substr_replace($iban, $pz, 2, 2);
     else
         return ($rest==1) ? true : false;
 }
@@ -1097,7 +1097,7 @@ function date_format2mysql($date)
  * @param   date  $stichtag       Datum des Stichtages
  * @return  int                   Das Alter in Jahren
  */
-function ageCalculator( $geburtstag, $stichtag )
+function ageCalculator($geburtstag, $stichtag)
 {
     $day = date("d", $geburtstag);
     $month = date("m", $geburtstag);
@@ -1109,9 +1109,9 @@ function ageCalculator( $geburtstag, $stichtag )
 
     $calc_year = $cur_year - $year;
 
-    if( $month > $cur_month )
+    if($month > $cur_month)
         return $calc_year - 1;
-    elseif ( $month == $cur_month && $day > $cur_day )
+    elseif ($month == $cur_month && $day > $cur_day)
         return $calc_year - 1;
      else
         return $calc_year;
@@ -1178,7 +1178,7 @@ function erzeuge_mitgliedsnummer()
  * @param   string  $wert
  * @return  bool    true, wenn Beitrag  != NULL ist
  */
-function delete_without_BEITRAG ( $wert )
+function delete_without_BEITRAG ($wert)
 {
     global $gCurrentOrganization;
     return  $wert['FEE'.$gCurrentOrganization->getValue('org_id')] != NULL;
@@ -1189,7 +1189,7 @@ function delete_without_BEITRAG ( $wert )
  * @param   string  $wert
  * @return  bool    true, wenn IBAN  != NULL ist
  */
-function delete_without_IBAN ( $wert )
+function delete_without_IBAN ($wert)
 {
     return  $wert['IBAN'] != NULL;
 }
@@ -1199,7 +1199,7 @@ function delete_without_IBAN ( $wert )
  * @param   string  $wert
  * @return  bool    true, wenn BIC  != NULL ist
  */
-function delete_without_BIC ( $wert )
+function delete_without_BIC ($wert)
 {
     return  $wert['BIC'] != NULL;
 }
@@ -1209,10 +1209,10 @@ function delete_without_BIC ( $wert )
  * @param   string  $wert
  * @return  bool    true, wenn MandateID  == NULL ist
  */
-function delete_with_MANDATEID ( $wert )
+function delete_with_MANDATEID ($wert)
 {
 	global $gCurrentOrganization;
-    return !( $wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL );
+    return !($wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL);
 }
 
 /**
@@ -1220,10 +1220,10 @@ function delete_with_MANDATEID ( $wert )
  * @param   string  $wert
  * @return  bool    true, wenn Bezahlt  == NULL ist
  */
-function delete_with_BEZAHLT ( $wert )
+function delete_with_BEZAHLT ($wert)
 {
 	global $gCurrentOrganization;
-    return !( $wert['PAID'.$gCurrentOrganization->getValue('org_id')] != NULL );
+    return !($wert['PAID'.$gCurrentOrganization->getValue('org_id')] != NULL);
 }
 
 /**
@@ -1231,7 +1231,7 @@ function delete_with_BEZAHLT ( $wert )
  * @param   string  $wert
  * @return  bool    true, wenn MandateID  != NULL ist
  */
-function delete_without_MANDATEID ( $wert )
+function delete_without_MANDATEID ($wert)
 {
 	global $gCurrentOrganization;
     return  $wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL;
@@ -1242,7 +1242,7 @@ function delete_without_MANDATEID ( $wert )
  * @param   string  $wert
  * @return  bool    true, wenn MandateID  != NULL ist
  */
-function delete_without_MANDATEDATE ( $wert )
+function delete_without_MANDATEDATE ($wert)
 {
 	global $gCurrentOrganization;
     return  $wert['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')] != NULL;

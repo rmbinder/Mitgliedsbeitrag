@@ -45,7 +45,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
+if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
     // ajax mode then only show text if error occurs
     $gMessage->showTextOnly(true);
@@ -75,12 +75,12 @@ if($getMode == 'assign')
 
   try
    {
-        foreach ($userArray as $dummy => $data )
+        foreach ($userArray as $dummy => $data)
 		{
 			$user = new User($gDb, $gProfileFields, $data);
 
 			//zuerst mal sehen, ob bei diesem user bereits ein Mandatsdatum vorhanden ist
-			if ( strlen($user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0  )
+			if (strlen($user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0)
 			{
 				//er hat noch kein Mandatsdatum, deshalb ein neues eintragen
 				$user->setValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
@@ -346,7 +346,7 @@ else
     // show rows with all organization users
     while($user = $statement->fetch())
     {
-    	if(($getMembersShow == 2) && (strlen($user['mandatsreferenz'])>0) && (strlen($user['mandatsdatum'])>0) )
+    	if(($getMembersShow == 2) && (strlen($user['mandatsreferenz'])>0) && (strlen($user['mandatsdatum'])>0))
 		{
 			continue;
 		}

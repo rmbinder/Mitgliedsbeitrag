@@ -56,10 +56,10 @@ foreach ($altersrollen as $roleId => $roldata)
             $gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO1').' '.$memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO2'));
         }
 
-        $age = ageCalculator( strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'] ));
+        $age = ageCalculator(strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag']));
 
         // ist das Alter des Mitglieds außerhalb des Altersschemas der Rolle
-        if (($age < $roldata['von'] ) || ($age > $roldata['bis'] ))
+        if (($age < $roldata['von']) || ($age > $roldata['bis']))
         {
             // wenn ja, dann Mitglied auf den Stack legen und Rollenmitgliedschaft löschen
         	$stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
@@ -101,8 +101,8 @@ foreach ($stack as $key => $stackdata)
     // alle Altersrollen durchlaufen und prüfen, ob das Mitglied in das Altersschema der Rolle passt
     foreach ($altersrollen as $roleId => $roldata)
     {
-		if (($stackdata['alter'] <= $roldata['bis'] )
-		&& ($stackdata['alter'] >= $roldata['von'] )
+		if (($stackdata['alter'] <= $roldata['bis'])
+		&& ($stackdata['alter'] >= $roldata['von'])
 		&& ($stackdata['alterstyp']==$roldata['alterstyp'])
 		&& !array_key_exists($stackdata['user_id'], $roldata['members']))
         {

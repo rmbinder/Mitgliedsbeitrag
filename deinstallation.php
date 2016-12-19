@@ -42,7 +42,7 @@ $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION');
 // create html page object
 $page = new HtmlPage($headline);
 
-if($getMode == 'start' )     //Default
+if($getMode == 'start')     //Default
 {
 	// get module menu
     $headerMenu = $page->getMenu();
@@ -64,7 +64,7 @@ if($getMode == 'start' )     //Default
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC'));
     $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC').'</div>';
     $form->addDescription($html);
-    $form->addCheckbox('configurationdata', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'), 0  );
+    $form->addCheckbox('configurationdata', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'), 0);
     $form->closeGroupBox();
 
     $form->openGroupBox('memberdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA'));
@@ -74,43 +74,43 @@ if($getMode == 'start' )     //Default
 
     $form->openGroupBox('masterdata', $headline = $gL10n->get('SYS_MASTER_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS'));
-    $form->addCheckbox('membernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'), 0  );
+    $form->addCheckbox('membernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'), 0);
     $form->closeGroupBox();
 
     $form->openGroupBox('accountdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS'));
-    $form->addCheckbox('accountholder', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'), 0  );
-    $form->addCheckbox('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), 0  );
-    $form->addCheckbox('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), 0  );
-    $form->addCheckbox('bank', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'), 0  );
-    $form->addCheckbox('address', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'), 0  );
-    $form->addCheckbox('postcode', $gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE'), 0  );
-    $form->addCheckbox('city', $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'), 0  );
-    $form->addCheckbox('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), 0  );
-    $form->addCheckbox('origiban', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'), 0  );
-    $form->addCheckbox('email', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'), 0  );
+    $form->addCheckbox('accountholder', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'), 0);
+    $form->addCheckbox('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), 0);
+    $form->addCheckbox('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), 0);
+    $form->addCheckbox('bank', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'), 0);
+    $form->addCheckbox('address', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'), 0);
+    $form->addCheckbox('postcode', $gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE'), 0);
+    $form->addCheckbox('city', $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'), 0);
+    $form->addCheckbox('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), 0);
+    $form->addCheckbox('origiban', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'), 0);
+    $form->addCheckbox('email', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'), 0);
     $form->closeGroupBox();
 
     $form->openGroupBox('membership', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP'));
-    $form->addCheckbox('accession', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'), 0  );
+    $form->addCheckbox('accession', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'), 0);
     $form->closeGroupBox();
 
     $form->openGroupBox('membershipfee', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
-    $form->addCheckbox('paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'), 0  );
-    $form->addCheckbox('fee', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'), 0  );
-    $form->addCheckbox('contributorytext', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'), 0  );
-    $form->addCheckbox('sequencetype', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), 0  );
-    $form->addCheckbox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), 0  );
+    $form->addCheckbox('paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'), 0);
+    $form->addCheckbox('fee', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'), 0);
+    $form->addCheckbox('contributorytext', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'), 0);
+    $form->addCheckbox('sequencetype', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), 0);
+    $form->addCheckbox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), 0);
     $form->closeGroupBox();
 
 	$form->openGroupBox('mandate', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE'));
-    $form->addCheckbox('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), 0  );
-    $form->addCheckbox('mandatedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), 0  );
-    $form->addCheckbox('orig_mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), 0  );
+    $form->addCheckbox('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), 0);
+    $form->addCheckbox('mandatedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), 0);
+    $form->addCheckbox('orig_mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), 0);
     $form->closeGroupBox();
 
     $form->openGroupBox('others', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_OTHERS'));
-    $form->addCheckbox('mailtexts', $gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS'), 0  );
+    $form->addCheckbox('mailtexts', $gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS'), 0);
     $form->closeGroupBox();
     $form->closeGroupBox();
 

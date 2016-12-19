@@ -64,8 +64,8 @@ foreach ($members as $member => $memberdata)
     	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
     	&& !empty($memberdata['IBAN'])
     	&& ($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]==$postDueDate)
-    	&& ( ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==$postSepaType)
-    		|| (($postSepaType=='FRST') && ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==''))  ) )
+    	&& (($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==$postSepaType)
+    		|| (($postSepaType=='FRST') && ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==''))))
     {
       	if (empty($memberdata['DEBTOR']))
         {
@@ -224,11 +224,11 @@ if (isset($_POST['btn_xml_file']))
             				$xmlfile.="<MndtId>".$zpflgtdata['mandat_id']."</MndtId>\n";            //eindeutige Mandatsreferenz
             				$xmlfile.="<DtOfSgntr>".$zpflgtdata['mandat_datum']."</DtOfSgntr>\n";   //Datum, zu dem das Mandat unterschrieben wurde
 
-            				if(	   (strlen($zempf['orig_cdtr_name'])!=0)
+            				if((strlen($zempf['orig_cdtr_name'])!=0)
             					|| (strlen($zempf['orig_cdtr_id'])!=0)
             					|| (strlen($zpflgtdata['orig_mandat_id'])!=0)
             					|| (strlen($zpflgtdata['orig_iban'])!=0)
-            					|| (strlen($zpflgtdata['orig_dbtr_agent'])!=0) )	//Kennzeichnet, ob das Mandat verändert wurde,
+            					|| (strlen($zpflgtdata['orig_dbtr_agent'])!=0))	//Kennzeichnet, ob das Mandat verändert wurde,
             				{
             					$xmlfile.="<AmdmntInd>true</AmdmntInd>\n";  //AmendmentIndicator "true"
             					$xmlfile.="<AmdmntInfDtls>\n";            	//AmendmentInformationDetails, Pflichtfeld, falls <AmdmntInd>=true
@@ -238,7 +238,7 @@ if (isset($_POST['btn_xml_file']))
             						$xmlfile.="<OrgnlMndtId>".$zpflgtdata['orig_mandat_id']."</OrgnlMndtId>\n";
             					}
 
-            					if((strlen($zempf['orig_cdtr_name'])!=0) || (strlen($zempf['orig_cdtr_id'])!=0) )				//Kennzeichnet, ob das Mandat verändert wurde,
+            					if((strlen($zempf['orig_cdtr_name'])!=0) || (strlen($zempf['orig_cdtr_id'])!=0))				//Kennzeichnet, ob das Mandat verändert wurde,
             					{
             						$xmlfile.="<OrgnlCdtrSchmeId>\n";       //Identifikation des Zahlungsempfängers
             						if(strlen($zempf['orig_cdtr_name'])!=0) //Kennzeichnet, ob das Mandat verändert wurde,
@@ -381,11 +381,11 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').";".utf8_decode($payment_seqtp)."\n"
         ."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR').";".utf8_decode($zempf['name'])."\n"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CI').";".utf8_decode($zempf['ci'] )."\n"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CI').";".utf8_decode($zempf['ci'])."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";".utf8_decode($zempf['iban'])."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";".utf8_decode($zempf['bic'])."\n"
         ."\n"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'] )."\n"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'])."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n";
 
 	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"

@@ -47,31 +47,31 @@ try
 				$user = new User($gDb, $gProfileFields, $key);
 
     			if (!empty($data['DUEDATE'.$gCurrentOrganization->getValue('org_id')])
-	   				&&  isset($_POST['duedate_only'])  )
+	   				&&  isset($_POST['duedate_only']))
     			{
   	     			$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
     			}
 
     			if (!empty($data['PAID'.$gCurrentOrganization->getValue('org_id')])
-	   				&& (   isset($_POST['with_paid'])
+	   				&& (isset($_POST['with_paid'])
 						|| isset($_POST['paid_only'])
-						|| isset($_POST['delete_all'])   ) )
+						|| isset($_POST['delete_all'])))
     			{
    	    			$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
     			}
 
     			if (!empty($data['FEE'.$gCurrentOrganization->getValue('org_id')])
-	   				&& (   (isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+	   				&& ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
 		  				|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-		  				|| isset($_POST['delete_all'])  ) )
+		  				|| isset($_POST['delete_all'])))
     			{
   	     			$user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), '');
     			}
 
 				if (!empty($data['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
-					&& (   (isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+					&& ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
 						|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-						|| isset($_POST['delete_all'])    ) )
+						|| isset($_POST['delete_all'])))
 				{
    					$user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), '');
 				}

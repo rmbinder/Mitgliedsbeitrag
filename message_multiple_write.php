@@ -40,7 +40,7 @@ $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defa
 $getSubject = '';
 
 // check if the call of the page was allowed by settings
-if ($gPreferences['enable_mail_module'] != 1 )
+if ($gPreferences['enable_mail_module'] != 1)
 {
     // message if the sending of PM is not allowed
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));

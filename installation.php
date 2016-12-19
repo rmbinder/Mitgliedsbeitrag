@@ -677,7 +677,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 	$table->addRowByArray($columnValues);
 	$form->addDescription($table->show(false));
 
-	if (   (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
+	if ((!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name']))
@@ -946,7 +946,7 @@ function check_DB()
     $row = $statement->fetchObject();
 
     // Gibt es einen zutreffenden Datensatz?  Wenn ja: UPDATE
-    if( isset($row->cat_name_intern) && isset($row->cat_name) && (($row->cat_name_intern) == '') && (($row->cat_name) == 'Kontodaten') )
+    if(isset($row->cat_name_intern) && isset($row->cat_name) && (($row->cat_name_intern) == '') && (($row->cat_name) == 'Kontodaten'))
     {
     	$sql = 'UPDATE '.TBL_CATEGORIES.' 
                 SET cat_name_intern = \'KONTODATEN\' 

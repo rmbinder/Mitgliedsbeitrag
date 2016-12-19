@@ -45,7 +45,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-if(isset($_GET['mode']) && ($_GET['mode'] == 'csv_export' || $_GET['mode'] == 'mail_export' || $_GET['mode'] == 'prepare') )
+if(isset($_GET['mode']) && ($_GET['mode'] == 'csv_export' || $_GET['mode'] == 'mail_export' || $_GET['mode'] == 'prepare'))
 {
     // ajax mode then only show text if error occurs
     $gMessage->showTextOnly(true);
@@ -99,7 +99,7 @@ if($getMode == 'csv_export')
 
 		$nr = 1;
 
-		foreach ($_SESSION['checkedArray'] as $UserId )
+		foreach ($_SESSION['checkedArray'] as $UserId)
 		{
 			$user = new User($gDb, $gProfileFields, $UserId);
 
@@ -179,7 +179,7 @@ else
             AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
                 OR cat_org_id IS NULL ) ';
 
-	if($getDueDate !=0 )                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
+	if($getDueDate !=0)                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
 	{
 		$memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
 	}
@@ -276,7 +276,7 @@ else
 		{
     		while($user = $statement->fetch())
     		{
-    			if (in_array($user['usr_id'], $_SESSION['checkedArray']) )
+    			if (in_array($user['usr_id'], $_SESSION['checkedArray']))
     			{
     				unset($_SESSION['checkedArray'][$user['usr_id']]);
     			}
@@ -502,7 +502,7 @@ else
             $lastschrifttyp = '';
 
             //1. Spalte ($htmlDueDateStatus)
-    	   if (in_array($user['usr_id'], $_SESSION['checkedArray']) )
+    	   if (in_array($user['usr_id'], $_SESSION['checkedArray']))
             {
                 $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
             }

@@ -43,10 +43,10 @@ $i=0;
 
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
 foreach ($members as $member => $memberdata){
-    if ( empty($memberdata['IBAN'])
+    if (empty($memberdata['IBAN'])
         	&&  empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
         	&& !empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
-        	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])  )
+        	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]))
 	{
         if (empty($memberdata['DEBTOR']))
         {

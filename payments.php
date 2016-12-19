@@ -61,7 +61,7 @@ if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]!=' ')
 //umwandeln von array nach string wg SQL-Statement
 $rolesString = implode(',', array_keys($rols));
 
-if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
+if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
     // ajax mode then only show text if error occurs
     $gMessage->showTextOnly(true);
@@ -90,12 +90,12 @@ if($getMode == 'assign')
 
   	try
    	{
-        foreach ($userArray as $dummy => $data )
+        foreach ($userArray as $dummy => $data)
 		{
 			$user = new User($gDb, $gProfileFields, $data);
 
 			//zuerst mal sehen, ob bei diesem user bereits ein BEZAHLT-Datum vorhanden ist
-			if ( strlen($user->getValue('PAID'.$gCurrentOrganization->getValue('org_id'))) == 0  )
+			if (strlen($user->getValue('PAID'.$gCurrentOrganization->getValue('org_id'))) == 0)
 			{
 				//er hat noch kein BEZAHLT-Datum, deshalb ein neues eintragen
 				$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
@@ -104,27 +104,27 @@ if($getMode == 'assign')
 				// BEZAHLT bedeutet, es hat bereits eine Zahlung stattgefunden
 				// die nächste Zahlung kann nur eine Folgelastschrift sein
 				// Lastschrifttyp darf aber nur geändert werden, wenn der Einzug per SEPA stattfand, also ein Fälligkeitsdatum vorhanden ist
-				if ( strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) == 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0 )
+				if (strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) == 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0)
 				{
 					$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'RCUR');
 				}
 
 				//falls Daten von einer Mandatsänderung vorhanden sind, diese löschen
-				if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) != 0 )
+				if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) != 0)
 				{
 					$user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), '');
 				}
-				if (strlen($user->getValue('ORIG_IBAN')) != 0 )
+				if (strlen($user->getValue('ORIG_IBAN')) != 0)
 				{
 					$user->setValue('ORIG_IBAN', '');
 				}
-				if (strlen($user->getValue('ORIG_DEBTOR_AGENT')) != 0 )
+				if (strlen($user->getValue('ORIG_DEBTOR_AGENT')) != 0)
 				{
 					$user->setValue('ORIG_DEBTOR_AGENT', '');
 				}
 
 				//das Fälligkeitsdatum löschen (wird nicht mehr gebraucht, da ja bezahlt)
-				if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0 )
+				if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0)
 				{
 					$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
 				}
@@ -405,7 +405,7 @@ else
     // show rows with all organization users
     while($user = $statement->fetch())
     {
-    	if(($getMembersShow == 2) && (strlen($user['beitrag'])>0) && (strlen($user['bezahlt'])>0) )
+    	if(($getMembersShow == 2) && (strlen($user['beitrag'])>0) && (strlen($user['bezahlt'])>0))
 		{
 			continue;
 		}

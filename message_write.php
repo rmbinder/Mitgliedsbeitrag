@@ -40,7 +40,7 @@ $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defa
 $getSubject = '';
 
 // check if the call of the page was allowed by settings
-if ($gPreferences['enable_mail_module'] != 1 )
+if ($gPreferences['enable_mail_module'] != 1)
 {
     // message if the sending of PM is not allowed
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
@@ -57,7 +57,7 @@ $user = new User($gDb, $gProfileFields, $getUserId);
 
 // if an User ID is given, we need to check if the actual user is alowed to contact this user  
 if (($gCurrentUser->editUsers() == false && isMember($user->getValue('usr_id')) == false)
-   || strlen($user->getValue('usr_id')) == 0 )
+   || strlen($user->getValue('usr_id')) == 0)
 {
     $gMessage->show($gL10n->get('SYS_USER_ID_NOT_FOUND'));
 }

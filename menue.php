@@ -99,7 +99,7 @@ foreach ($rols as $key => $data)
 	$sortArray[$key]=expand_rollentyp($data['rollentyp']);
 }
 
-array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen );
+array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen);
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
@@ -435,7 +435,7 @@ if(sizeof($rols)>0)
         							$table->addRowHeadingByArray($columnValues);
 
         							$rollen = analyse_rol();
-        							foreach ($rollen as $rol => $roldata )
+        							foreach ($rollen as $rol => $roldata)
     								{
     									$columnValues = array();
     									$columnValues[]=$roldata['rolle'];
@@ -616,7 +616,7 @@ if(sizeof($rols)>0)
     							$form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION'), $htmlTable);
     							$form->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC'));
 
-    							$form->addCheckbox('eillastschrift', $gL10n->get('PLG_MITGLIEDSBEITRAG_COR1_MARKER'), 0, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC') );
+    							$form->addCheckbox('eillastschrift', $gL10n->get('PLG_MITGLIEDSBEITRAG_COR1_MARKER'), 0, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC'));
 
     							$form->addSubmitButton('btn_xml_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'), array('icon' => THEME_PATH.'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
     							$form->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_DESC'));
@@ -711,7 +711,7 @@ if(sizeof($rols)>0)
 
                             $form->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
-                            foreach (check_rols() as $data )
+                            foreach (check_rols() as $data)
                             {
                             	$form->addDescription($data);
                             }
@@ -722,7 +722,7 @@ if(sizeof($rols)>0)
         					{
                     			$form->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
                     			$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
-                    			foreach (check_rollenmitgliedschaft_altersrolle() as $data )
+                    			foreach (check_rollenmitgliedschaft_altersrolle() as $data)
                             	{
                             		$form->addDescription($data);
                             	}
@@ -730,7 +730,7 @@ if(sizeof($rols)>0)
                             }
                             $form->openGroupBox('role_membership_duty', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC').'</strong>');
-                    		foreach (check_rollenmitgliedschaft_pflicht() as $data )
+                    		foreach (check_rollenmitgliedschaft_pflicht() as $data)
                             {
                             	$form->addDescription($data);
                             }
@@ -738,7 +738,7 @@ if(sizeof($rols)>0)
 
                     		$form->openGroupBox('role_membership_exclusion', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC').'</strong>');
-                            foreach (check_rollenmitgliedschaft_ausschluss() as $data )
+                            foreach (check_rollenmitgliedschaft_ausschluss() as $data)
                             {
                             	$form->addDescription($data);
                             }
@@ -746,7 +746,7 @@ if(sizeof($rols)>0)
 
                             $form->openGroupBox('family_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
-                    		foreach (check_family_roles() as $data )
+                    		foreach (check_family_roles() as $data)
                             {
                             	$form->addDescription($data);
                             }
@@ -754,7 +754,7 @@ if(sizeof($rols)>0)
 
                             $form->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
-                    		foreach (check_mandate_management() as $data )
+                    		foreach (check_mandate_management() as $data)
                             {
                             	$form->addDescription($data);
                             }
@@ -762,7 +762,7 @@ if(sizeof($rols)>0)
 
                     		$form->openGroupBox('iban_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC').'</strong>');
-                    		foreach (check_iban() as $data )
+                    		foreach (check_iban() as $data)
                             {
                             	$form->addDescription($data);
                             }
@@ -799,7 +799,7 @@ if(sizeof($rols)>0)
         					$table->addRowHeadingByArray($columnValues);
 
         					$rollen = beitragsrollen_einlesen('', array('LAST_NAME'));
-           					foreach ($rollen as $rol_id => $data )
+           					foreach ($rollen as $rol_id => $data)
     						{
     							$columnValues = array();
     							$columnValues[]='<a href="'.$g_root_path.'/adm_program/modules/roles/roles_new.php?rol_id='. $rol_id. '">'.$data['rolle']. '</a>';

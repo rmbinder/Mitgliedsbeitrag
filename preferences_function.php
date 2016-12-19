@@ -195,7 +195,7 @@ try
                 {
                 	$pPreferences->config['Rollenpruefung']['fixrollenpflicht'][] = $key;
                 }
-                foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
+                foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
                 {
                 	if(isset($_POST['altersrollenfix'. $token.$key]))
                 	{
@@ -223,7 +223,7 @@ try
 				}
 			}
 
-			foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token )
+			foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
             {
             	if(isset($_POST['altersrollenpflicht'. $token]))
                 {

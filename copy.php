@@ -40,7 +40,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
+if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
     // ajax mode then only show text if error occurs
     $gMessage->showTextOnly(true);

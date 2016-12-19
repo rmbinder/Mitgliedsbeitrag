@@ -40,7 +40,7 @@ $message = '';
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
-if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]!=' ' )
+if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]!=' ')
 {
 	$message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><BR><BR>';
 	foreach ($rols as $rol => $roldata)
@@ -69,7 +69,7 @@ foreach ($rols as $rol => $roldata)
         {
             $rols[$rol]['has_to_pay'] = $key;
 
-            if(  strlen($data['IBAN'])!=0 )
+            if(strlen($data['IBAN'])!=0)
             {
                 $rols[$rol]['has_to_pay'] = $key;
                 break;
@@ -129,12 +129,12 @@ foreach ($members as $member => $memberdata)
             // anteiligen Beitrag berechnen, falls das Mitglied im aktuellen Jahr ein- oder ausgetreten ist
             // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
             // && Beitragszeitraum (cost_period) darf nicht "Jährlich" (1) sein
-            if ( (strtotime(date("Y")."-01-01") < $time_begin || $time_end < strtotime(date("Y")."-12-31")  )
+            if ((strtotime(date("Y")."-01-01") < $time_begin || $time_end < strtotime(date("Y")."-12-31"))
             	&& ($roldata['rol_cost_period']!=-1)
-            	&& ($roldata['rol_cost_period']!=1) )
+            	&& ($roldata['rol_cost_period']!=1))
             {
 
-            	if ( strtotime(date("Y")."-01-01") <  $time_begin )
+            	if (strtotime(date("Y")."-01-01") <  $time_begin)
             	{
             		$month_begin = date("n", $time_begin);
             	}
@@ -142,7 +142,7 @@ foreach ($members as $member => $memberdata)
             	{
             		$month_begin = 1;
             	}
-            	if (strtotime(date("Y")."-12-31") >  $time_end )
+            	if (strtotime(date("Y")."-12-31") >  $time_end)
             	{
             		$month_end   = date("n", $time_end);
             	}
@@ -182,7 +182,7 @@ foreach ($members as $member => $memberdata)
     }
 
     // wenn definiert: Beitragstext mit dem Namen des Benutzers 
-    if(	($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
+    if(($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
     	&&  ($members[$member]['BEITRAG-NEU']!='')
         &&  !(($members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME']==$members[$member]['DEBTOR'])
            || ($members[$member]['FIRST_NAME'].' '.$members[$member]['LAST_NAME']==$members[$member]['DEBTOR'])
@@ -214,7 +214,7 @@ foreach ($rols as $rol => $roldata)
         foreach ($roldata['members'] as $member => $memberdata)
         {
             // nicht beim Zahlungspflichtigen selber und auch nur, wenn ein Zusatzbeitrag beim Mitglied errechnet wurde
-            if  (( $roldata['has_to_pay'] != $member ) && ($members[$member]['BEITRAG-NEU'] > 0))
+            if  (($roldata['has_to_pay'] != $member) && ($members[$member]['BEITRAG-NEU'] > 0))
             {
                 $members[$roldata['has_to_pay']]['BEITRAG-NEU'] += $members[$member]['BEITRAG-NEU'];
                 $members[$member]['BEITRAG-NEU'] = '';
@@ -249,11 +249,11 @@ foreach ($rols as $rol => $roldata)
 foreach ($members as $member => $memberdata)
 {
     // den errechneten Beitrag nur in die DB schreiben wenn mehrere Kriterien erfüllt sind
-    if ( (is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')])
+    if ((is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')])
     		||  (!(is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')]))
-    			&& ( ($pPreferences->config['Beitrag']['beitrag_modus'] == 'overwrite')
-    				||($pPreferences->config['Beitrag']['beitrag_modus'] == 'summation') ) )   )
-    	&& ($members[$member]['BEITRAG-NEU']>$pPreferences->config['Beitrag']['beitrag_mindestbetrag']) )
+    			&& (($pPreferences->config['Beitrag']['beitrag_modus'] == 'overwrite')
+    				||($pPreferences->config['Beitrag']['beitrag_modus'] == 'summation'))))
+    	&& ($members[$member]['BEITRAG-NEU']>$pPreferences->config['Beitrag']['beitrag_mindestbetrag']))
     {
         $members[$member]['BEITRAGSTEXT-NEU'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['BEITRAGSTEXT-NEU'].' ';
 

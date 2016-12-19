@@ -92,9 +92,9 @@ if(strlen($postName) == 0)
 }
 
 // check sending attributes for user, to be sure that they are correct
-if ( $gValidLogin
-    && (  $postFrom != $gCurrentUser->getValue('EMAIL')
-       || $postName != $gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME')) )
+if ($gValidLogin
+    && ($postFrom != $gCurrentUser->getValue('EMAIL')
+       || $postName != $gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME')))
 {
     $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
 }
