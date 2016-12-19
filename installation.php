@@ -1342,7 +1342,6 @@ function getNextFieldSequence($usf_cat_id)
     return $sequence+1;
 }
 
-//
 /**
  * Gibt zu einem Kategorienamen die entsprechende Cat_ID zurück
  * @param   string  $cat_name_intern       Name der zu pruefenden Kategorie
