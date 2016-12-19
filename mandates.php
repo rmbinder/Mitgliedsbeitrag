@@ -57,7 +57,7 @@ $getUserId         	= admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('
 $getDatumNeu 		= admFuncVariableIsValid($_GET, 'datum_neu', 'date');
 $getMembersShow 	= admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
 $getFullScreen  	= admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
-$getMandateScreen  	= admFuncVariableIsValid($_GET, 'mandate_screen','numeric');
+$getMandateScreen  	= admFuncVariableIsValid($_GET, 'mandate_screen', 'numeric');
 
 if($getMode == 'assign')
 {
@@ -298,13 +298,13 @@ else
     $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d');
 	$datum = $datumtemp->format($gPreferences['system_date']);
     
-    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'),$datum ,array('type' => 'date','helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC'));
+    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC'));
 	$selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE') );
-    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
     
     if($getFullScreen)
  	{
-    	$navbarForm->addCheckbox('mandate_screen', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN'), $getMandateScreen, array('class'=>'mandatescreen_checkbox','helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC'));
+    	$navbarForm->addCheckbox('mandate_screen', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN'), $getMandateScreen, array('class'=>'mandatescreen_checkbox', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC'));
  	}
     $mandatesMenu->addForm($navbarForm->show(false));
 
@@ -331,17 +331,17 @@ else
         $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')
     );
     
-    $table->setColumnAlignByArray(array('center', 'left', 'left','center','left', 'left', 'center', 'left', 'left', 'left', 'left', 'left', 'left'));
+    $table->setColumnAlignByArray(array('center', 'left', 'left', 'center', 'left', 'left', 'center', 'left', 'left', 'left', 'left', 'left', 'left'));
    	$table->setDatatablesOrderColumns(array(5, 6));
     $table->addRowHeadingByArray($columnHeading);
-   	$table->disableDatatablesColumnsSort(array(1,4));
+   	$table->disableDatatablesColumnsSort(array(1, 4));
     $table->setDatatablesAlternativOrderColumns(7, 8);
     $table->setDatatablesColumnsHide(8);
     $table->setDatatablesAlternativOrderColumns(9, 10);
     $table->setDatatablesColumnsHide(10);
     if($getFullScreen == false || ($getFullScreen && $getMandateScreen==false))
  	{
- 		 $table->setDatatablesColumnsHide(array(11,12,13));
+ 		 $table->setDatatablesColumnsHide(array(11, 12, 13));
  	}
     // show rows with all organization users
     while($user = $statement->fetch())

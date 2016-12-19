@@ -35,7 +35,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 }
 
 //alle Mitglieder einlesen
-$members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'IBAN','DEBTOR'), 0)  ;
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'ADDRESS', 'POSTCODE', 'CITY', 'EMAIL', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0)  ;
 
 //$rechnungs_file[]=array();
 $rechnungs_file=array();

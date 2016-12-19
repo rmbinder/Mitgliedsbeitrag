@@ -44,14 +44,14 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 }
 
  //alle Beitragsrollen einlesen 
-$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','DEBTOR'));
+$rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
 if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]<>' ')
 {
 	foreach ($rols as $rol => $roldata)
 	{
-		if (!in_array($rol,$pPreferences->config['Beitrag']['zahlungen_rollenwahl']))
+		if (!in_array($rol, $pPreferences->config['Beitrag']['zahlungen_rollenwahl']))
 		{
 			unset($rols[$rol]) ;
 		}
@@ -59,7 +59,7 @@ if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]<>' ')
 }
 
 //umwandeln von array nach string wg SQL-Statement
-$rolesString = implode(',',array_keys($rols));
+$rolesString = implode(',', array_keys($rols));
     	
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
 {
@@ -356,9 +356,9 @@ else
     $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d');
 	$datum = $datumtemp->format($gPreferences['system_date']);
     
-    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'),$datum ,array('type' => 'date','helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
+    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID') );
-    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
   	if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]<>' ')
 	{
 		$navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
@@ -391,10 +391,10 @@ else
         $gL10n->get('SYS_BIRTHDAY')
     );
         
-    $table->setColumnAlignByArray(array('left', 'left', 'left','center','right', 'left', 'left', 'center', 'left', 'center','center', 'left', 'left','left'));
+    $table->setColumnAlignByArray(array('left', 'left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'center', 'left', 'left', 'left'));
    	$table->setDatatablesOrderColumns(array(6, 7));
     $table->addRowHeadingByArray($columnHeading);
-   	$table->disableDatatablesColumnsSort(array(1,8, 9,10));
+   	$table->disableDatatablesColumnsSort(array(1, 8, 9, 10));
     $table->setDatatablesAlternativOrderColumns(8, 9);
     $table->setDatatablesColumnsHide(9);
     $table->setDatatablesAlternativOrderColumns(11, 12);

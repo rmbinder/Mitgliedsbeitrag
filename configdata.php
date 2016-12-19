@@ -20,7 +20,7 @@ $config_default['Pluginfreigabe']['freigabe_config'] = array(	getRole_IDPMB($gL1
 
 // Altersrollen
 $config_default['Altersrollen'] = array('altersrollen_token' 	=> array('*'),
-   										'altersrollen_stichtag' => date('d.m.Y',strtotime((date('Y')-1).'-12-31')) );
+   										'altersrollen_stichtag' => date('d.m.Y', strtotime((date('Y')-1).'-12-31')) );
   
 // Familienrollen
 $config_default['Familienrollen'] = array(	'familienrollen_beitrag' => array(0),

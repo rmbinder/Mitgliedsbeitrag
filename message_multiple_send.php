@@ -131,11 +131,11 @@ foreach ($user_array as $userId)
 	}
 		
     // evtl. definierte Parameter ersetzen
-	$postSubject = replace_emailparameter($postSubjectOrig,$user);
-	$postBody = replace_emailparameter($postBodyOrig,$user);
+	$postSubject = replace_emailparameter($postSubjectOrig, $user);
+	$postBody = replace_emailparameter($postBodyOrig, $user);
 	
     // set sending address
-    if ($email->setSender($postFrom,$postName))
+    if ($email->setSender($postFrom, $postName))
     {
         // set subject
         if ($email->setSubject($postSubject))
@@ -225,7 +225,7 @@ foreach ($user_array as $userId)
 
     // load the template and set the new email body with template
     $emailTemplate = admReadTemplateFile("template.html");
-    $emailTemplate = str_replace("#message#",$postBody,$emailTemplate);
+    $emailTemplate = str_replace("#message#", $postBody, $emailTemplate);
 
     // set Text
     $email->setText($emailTemplate);

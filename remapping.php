@@ -12,8 +12,8 @@
  ***********************************************************************************************
  */
 
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/classes/tablemembers.php');
+require_once(substr(__FILE__, 0, strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
+require_once(substr(__FILE__, 0, strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/classes/tablemembers.php');
 require_once(dirname(__FILE__).'/common_function.php');
 
 require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
@@ -30,7 +30,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 
 //Vor der Neuzuordnung die altersgestaffelten Rollen auf Lücken oder Überlappungen prüfen
 $arr = check_rols();
-if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'),$arr))
+if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'), $arr))
 {
 	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR2'));
 }
@@ -44,7 +44,7 @@ $sql = '';
 $message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO3').'</strong><BR>';
 
 // alle Altersrollen einlesen
-$altersrollen = beitragsrollen_einlesen('alt',array('FIRST_NAME','LAST_NAME','BIRTHDAY'));
+$altersrollen = beitragsrollen_einlesen('alt', array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'));
 
 // alle Altersrollen durchlaufen
 foreach ($altersrollen as $roleId => $roldata)
@@ -65,7 +65,7 @@ foreach ($altersrollen as $roleId => $roldata)
         	$stack[] = array('last_name' => $memberdata['LAST_NAME'],'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
         	
             $sql = 'UPDATE '.TBL_MEMBERS.'
-                    SET mem_end = \''.date("Y-m-d",strtotime('-1 day')).'\'
+                    SET mem_end = \''.date("Y-m-d", strtotime('-1 day')).'\'
                     WHERE mem_usr_id = '.$member.'
                     AND mem_rol_id = '.$roleId;
             $gDb->query($sql);
@@ -104,7 +104,7 @@ foreach ($stack as $key => $stackdata)
 		if (($stackdata['alter'] <= $roldata['bis'] )
 		&& ($stackdata['alter'] >= $roldata['von'] )
 		&& ($stackdata['alterstyp']==$roldata['alterstyp'])
-		&& !array_key_exists($stackdata['user_id'],$roldata['members']))
+		&& !array_key_exists($stackdata['user_id'], $roldata['members']))
         {
             // das Mitglied passt in das Altersschema der Rolle und das Kennzeichen dieser Altersstaffelung passt auch
         	$tablemember->startMembership($roleId, $stackdata['user_id']);

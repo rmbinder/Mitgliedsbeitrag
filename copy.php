@@ -185,7 +185,7 @@ else
     }
     
     $membersSelectString='';
-    $members = list_members(array('FIRST_NAME','LAST_NAME','BIRTHDAY'),0);
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'), 0);
 	foreach ($members as $member => $memberdata)
 	{
         $datumtemp = new DateTimeExtended($memberdata['BIRTHDAY'], 'Y-m-d');
@@ -196,8 +196,8 @@ else
 
     $navbarForm = new HtmlForm('navbar_copy_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 	$navbarForm->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
-    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
-    $navbarForm->addSelectBox('ziel', $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
+    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
+    $navbarForm->addSelectBox('ziel', $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
     $copyMenu->addForm($navbarForm->show(false));
 
     // create table object
@@ -212,7 +212,7 @@ else
         $gL10n->get('PLG_MITGLIEDSBEITRAG_CHOICE'),
         $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET')
     );
-    $table->setColumnAlignByArray(array('center', 'center', 'center','center','center'));
+    $table->setColumnAlignByArray(array('center', 'center', 'center', 'center', 'center'));
     $table->addRowHeadingByArray($columnHeading);
     if($getSourceUserid == 0)
     {

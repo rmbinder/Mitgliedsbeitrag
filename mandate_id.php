@@ -38,11 +38,11 @@ $members = array();
 
 if($pPreferences->config['Mandatsreferenz']['data_field']<>'-- User_ID --')
 {
-	$members = list_members(array('LAST_NAME','FIRST_NAME','DEBTOR','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN',$pPreferences->config['Mandatsreferenz']['data_field']), 0)  ;
+	$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN', $pPreferences->config['Mandatsreferenz']['data_field']), 0)  ;
 }
 else
 {
-	$members = list_members(array('LAST_NAME','FIRST_NAME','DEBTOR','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN'), 0)  ;
+	$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN'), 0)  ;
 }
 
 //alle Mitglieder löschen, bei denen kein Beitrag berechnet wurde
@@ -67,21 +67,21 @@ foreach ($members as $member => $memberdata)
 		
 	foreach ($pPreferences->config['Familienrollen']['familienrollen_beschreibung'] as $famrolbesch )
 	{
-		if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],$famrolbesch)==1)
+		if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')], $famrolbesch)==1)
 		{
 			$prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
 		}
 	}
 	if($pPreferences->config['Mandatsreferenz']['data_field']<>'-- User_ID --')
 	{
-		$suffix = str_replace(' ','',replace_sepadaten($memberdata[$pPreferences->config['Mandatsreferenz']['data_field']]));
+		$suffix = str_replace(' ', '', replace_sepadaten($memberdata[$pPreferences->config['Mandatsreferenz']['data_field']]));
 	}
 	else
 	{
 		$suffix = $member;
 	}
 	
-    $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix) , '0').$suffix,0,35);
+    $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix), '0').$suffix, 0, 35);
     
     //überprüfen, ob die lfd. Nummer (=$suffix) auch befüllt ist
     //u. U. wurde ein leeres Datenbankfeld ausgewählt; 
@@ -91,11 +91,11 @@ foreach ($members as $member => $memberdata)
         $user = new User($gDb, $gProfileFields, $member);
         $user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $referenz);
         $user->save();
-        $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES1',$members[$member]['FIRST_NAME'],$members[$member]['LAST_NAME'],$referenz);
+        $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES1', $members[$member]['FIRST_NAME'], $members[$member]['LAST_NAME'], $referenz);
     }
     else
     {
-        $message .= '<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES3',$members[$member]['FIRST_NAME'],$members[$member]['LAST_NAME'],$referenz);
+        $message .= '<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID_RES3', $members[$member]['FIRST_NAME'], $members[$member]['LAST_NAME'], $referenz);
     }
 }
 

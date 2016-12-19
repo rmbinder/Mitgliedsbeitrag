@@ -37,7 +37,7 @@ $text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' 
 $message = '';
 
 //alle Beitragsrollen einlesen 
-$rols = beitragsrollen_einlesen('',array('FIRST_NAME','LAST_NAME','IBAN','DEBTOR'));
+$rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
 if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]<>' ' )
@@ -45,7 +45,7 @@ if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]<>' ' )
 	$message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><BR><BR>';
 	foreach ($rols as $rol => $roldata)
 	{
-		if (!in_array($rol,$pPreferences->config['Beitrag']['beitrag_rollenwahl']))
+		if (!in_array($rol, $pPreferences->config['Beitrag']['beitrag_rollenwahl']))
 		{
 			unset($rols[$rol]) ;
 		}
@@ -89,7 +89,7 @@ foreach ($rols as $rol => $roldata)
 }
 
 // alle aktiven Mitglieder einlesen
-$members = list_members(array('FIRST_NAME','LAST_NAME','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'ACCESSION'.$gCurrentOrganization->getValue('org_id'),'DEBTOR'), 0)  ;
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'ACCESSION'.$gCurrentOrganization->getValue('org_id'), 'DEBTOR'), 0)  ;
 
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
 foreach ($members as $member => $memberdata)
@@ -166,9 +166,9 @@ foreach ($members as $member => $memberdata)
                 // nur einmal soll beitrag_suffix angezeigt werden, wenn aber rol_description leer ist,
                 // wird es mehrfach hintereinander mit vielen Leerzeichen dazwischen angefügt, deshalb ersetzen
                 //zuerst zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
-        		$members[$member]['BEITRAGSTEXT-NEU'] = str_replace('  ',' ',$members[$member]['BEITRAGSTEXT-NEU']);
+        		$members[$member]['BEITRAGSTEXT-NEU'] = str_replace('  ', ' ', $members[$member]['BEITRAGSTEXT-NEU']);
         		//jetzt mehrfache beitrag_suffix löschen
-                $members[$member]['BEITRAGSTEXT-NEU'] = str_replace($pPreferences->config['Beitrag']['beitrag_suffix'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'],$pPreferences->config['Beitrag']['beitrag_suffix'],$members[$member]['BEITRAGSTEXT-NEU']);
+                $members[$member]['BEITRAGSTEXT-NEU'] = str_replace($pPreferences->config['Beitrag']['beitrag_suffix'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'], $pPreferences->config['Beitrag']['beitrag_suffix'], $members[$member]['BEITRAGSTEXT-NEU']);
             }
             else                             //keine anteilige Berechnung
             {
@@ -258,7 +258,7 @@ foreach ($members as $member => $memberdata)
         $members[$member]['BEITRAGSTEXT-NEU'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['BEITRAGSTEXT-NEU'].' '  ;
     
         // alle Beiträge auf 2 Nachkommastellen runden
-        $members[$member]['BEITRAG-NEU'] = round($members[$member]['BEITRAG-NEU'],2);
+        $members[$member]['BEITRAG-NEU'] = round($members[$member]['BEITRAG-NEU'], 2);
         
         //ggf. abrunden
         if ($pPreferences->config['Beitrag']['beitrag_abrunden'] == true)
@@ -275,7 +275,7 @@ foreach ($members as $member => $memberdata)
         //führende und nachfolgene Leerstellen im Beitragstext löschen
         $members[$member]['BEITRAGSTEXT-NEU'] = trim($members[$member]['BEITRAGSTEXT-NEU']);
         //zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
-        $members[$member]['BEITRAGSTEXT-NEU'] = str_replace('  ',' ',$members[$member]['BEITRAGSTEXT-NEU']);
+        $members[$member]['BEITRAGSTEXT-NEU'] = str_replace('  ', ' ', $members[$member]['BEITRAGSTEXT-NEU']);
         
         //neuen Beitrag schreiben
         $user = new User($gDb, $gProfileFields, $member);

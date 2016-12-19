@@ -76,7 +76,7 @@ elseif (substr_count($gNavigation->getUrl(), 'payments')==1)
 }
 
 $mailSrcText = $text->getValue('txt_text');
-$mailSrcText = replace_emailparameter($mailSrcText,$user);
+$mailSrcText = replace_emailparameter($mailSrcText, $user);
      
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
@@ -154,7 +154,7 @@ else
 
 // Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,
 // dann soll das Formular gefuellt werden mit den Werten aus der Session
-if (strpos($gNavigation->getUrl(),'message_send.php') > 0 && isset($_SESSION['message_request']))
+if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['message_request']))
 {
     // Das Formular wurde also schon einmal ausgef�llt,
     // da der User hier wieder gelandet ist nach der Mailversand-Seite

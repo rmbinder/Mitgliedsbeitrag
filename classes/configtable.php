@@ -203,7 +203,7 @@ class ConfigTablePMB
             	if (is_array($value))
             	{
                 	// um diesen Datensatz in der Datenbank als Array zu kennzeichnen, wird er von Doppelklammern eingeschlossen 
-            		$value = '(('.implode(self::$dbtoken,$value).'))';
+            		$value = '(('.implode(self::$dbtoken, $value).'))';
             	}
             
   				$plp_name = self::$shortcut.'__'.$section.'__'.$key;
@@ -254,13 +254,13 @@ class ConfigTablePMB
 
 		while($row = $statement->fetch())
 		{
-			$array = explode('__',$row['plp_name']);
+			$array = explode('__', $row['plp_name']);
 		
 			// wenn plp_value von ((  )) eingeschlossen ist, dann ist es als Array einzulesen
-			if ((substr($row['plp_value'],0,2)=='((' ) && (substr($row['plp_value'],-2)=='))' ))
+			if ((substr($row['plp_value'], 0, 2)=='((' ) && (substr($row['plp_value'], -2)=='))' ))
         	{
-        		$row['plp_value'] = substr($row['plp_value'],2,-2);
-        		$this->config[$array[1]] [$array[2]] = explode(self::$dbtoken,$row['plp_value']);
+        		$row['plp_value'] = substr($row['plp_value'], 2, -2);
+        		$this->config[$array[1]] [$array[2]] = explode(self::$dbtoken, $row['plp_value']);
         	}
         	else
 			{

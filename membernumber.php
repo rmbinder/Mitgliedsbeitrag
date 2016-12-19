@@ -90,7 +90,7 @@ foreach ($members as $member => $key)
     	$user->setValue('MEMBERNUMBER', $nummer);
     	$user->save();
     	
-    	$message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1',$members[$member]['SYS_FIRSTNAME'],$members[$member]['SYS_LASTNAME'],$nummer);
+    	$message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $members[$member]['SYS_FIRSTNAME'], $members[$member]['SYS_LASTNAME'], $nummer);
 	}
 }
 

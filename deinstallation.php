@@ -25,7 +25,7 @@ require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
 require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 // Initialize and check the parameters
-$getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start','delete')));
+$getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start', 'delete')));
 
 $pPreferences = new ConfigTablePMB;
 $pPreferences->read();
@@ -57,7 +57,7 @@ if($getMode == 'start' )     //Default
     $form->openGroupBox('orgchoice', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORG_CHOICE'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ORG_CHOICE_DESC'));
     $radioButtonEntries = array('0' => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ALLORG') );
-    $form->addRadioButton('deinst_org_select','',$radioButtonEntries);
+    $form->addRadioButton('deinst_org_select', '', $radioButtonEntries);
     $form->closeGroupBox();
      
     $form->openGroupBox('configdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'));
@@ -127,83 +127,83 @@ elseif($getMode == 'delete')
 	$deinst_member_data_message='';
   	if (isset($_POST['membernumber']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'MEMBERNUMBER',$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'MEMBERNUMBER', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'));
 	}
     if (isset($_POST['accountholder']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR',$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'));
 	}
     if (isset($_POST['iban']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'IBAN',$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'IBAN', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'));
 	}
 	if (isset($_POST['bic']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'BIC',$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'BIC', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'));
 	}
   	if (isset($_POST['bank']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'BANK',$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'BANK', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'));
 	}
   	if (isset($_POST['address']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_ADDRESS',$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR_ADDRESS', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'));
 	}
   	if (isset($_POST['postcode']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_POSTCODE',$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR_POSTCODE', $gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE'));
 	}
   	if (isset($_POST['city']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_CITY',$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR_CITY', $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'));
 	}
     if (isset($_POST['origdebtoragent']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'ORIG_DEBTOR_AGENT',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'ORIG_DEBTOR_AGENT', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'));
 	}
   	if (isset($_POST['origiban']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'ORIG_IBAN',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'ORIG_IBAN', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'));
 	}
     if (isset($_POST['email']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_EMAIL',$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR_EMAIL', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'));
 	}
   	if (isset($_POST['accession']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'ACCESSION',$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'ACCESSION', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'));
 	}
   	if (isset($_POST['paid']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'PAID',$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'PAID', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'));
 	}
   	if (isset($_POST['fee']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'FEE',$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'FEE', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'));
 	}
   	if (isset($_POST['contributorytext']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'CONTRIBUTORY_TEXT',$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'CONTRIBUTORY_TEXT', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'));
 	}
   	if (isset($_POST['sequencetype']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'SEQUENCETYPE',$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'SEQUENCETYPE', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'));
 	}
   	if (isset($_POST['duedate']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'DUEDATE',$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'DUEDATE', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'));
 	}
 	if (isset($_POST['mandateid']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'MANDATEID',$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'MANDATEID', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'));
 	}
  	if (isset($_POST['mandatedate']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'MANDATEDATE',$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'MANDATEDATE', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'));
 	}
   	if (isset($_POST['orig_mandateid']))
 	{
-	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'ORIG_MANDATEID',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'));
+	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'ORIG_MANDATEID', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'));
 	}
   	if (isset($_POST['mailtexts']))
 	{
@@ -230,7 +230,7 @@ elseif($getMode == 'delete')
     	$form->addDescription($html);
     	
     	//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt 
-        $form->addStaticControl('','','');
+        $form->addStaticControl('', '', '');
         
 		$_SESSION['pmbDeinst'] = true;
 	}

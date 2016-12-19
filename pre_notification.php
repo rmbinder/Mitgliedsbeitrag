@@ -276,7 +276,7 @@ else
 		{
     		while($user = $statement->fetch())
     		{
-    			if (in_array($user['usr_id'],$_SESSION['checkedArray']) )
+    			if (in_array($user['usr_id'], $_SESSION['checkedArray']) )
     			{
     				unset($_SESSION['checkedArray'][$user['usr_id']]);
     			}
@@ -444,9 +444,9 @@ else
             $selectBoxEntries[$row['usd_value']]=$DueDate->format($gPreferences['system_date']);
         }
     
-        $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
- 	  	$navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png','link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
- 	  	$navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_PATH.'/icons/email.png','link' => 'javascript:massmail()', 'class' => 'btn-primary'));
+        $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+ 	  	$navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png', 'link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
+ 	  	$navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_PATH.'/icons/email.png', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
  	  	$preNotificationsMenu->addForm($navbarForm->show(false));
 
         // create table object
@@ -474,7 +474,7 @@ else
             $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID')
         );
         
-        $table->setColumnAlignByArray(array('left', 'left','center', 'right', 'left', 'left', 'center', 'left', 'center', 'left', 'center', 'left', 'left'));
+        $table->setColumnAlignByArray(array('left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'left', 'center', 'left', 'left'));
    	    $table->setDatatablesOrderColumns(array(5, 6));
         $table->addRowHeadingByArray($columnHeading);
    	    $table->disableDatatablesColumnsSort(1);
@@ -502,7 +502,7 @@ else
             $lastschrifttyp = '';
 
             //1. Spalte ($htmlDueDateStatus)
-    	   if (in_array($user['usr_id'],$_SESSION['checkedArray']) )
+    	   if (in_array($user['usr_id'], $_SESSION['checkedArray']) )
             {
                 $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
             }

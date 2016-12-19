@@ -15,8 +15,8 @@
  ***********************************************************************************************
  */
 
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
-require_once(substr(__FILE__, 0,strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/template.php');
+require_once(substr(__FILE__, 0, strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/common.php');
+require_once(substr(__FILE__, 0, strpos(__FILE__, 'adm_plugins')-1).'/adm_program/system/template.php');
 
 // Initialize and check the parameters
 $getUserId  = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0));
@@ -100,7 +100,7 @@ if ( $gValidLogin
 }
 
 // set sending address
-if ($email->setSender($postFrom,$postName))
+if ($email->setSender($postFrom, $postName))
 {
     // set subject
     if ($email->setSubject($postSubject))
@@ -189,7 +189,7 @@ if($postDeliveryConfirmation == 1)
 
 // load the template and set the new email body with template
 $emailTemplate = admReadTemplateFile("template.html");
-$emailTemplate = str_replace("#message#",$postBody,$emailTemplate);
+$emailTemplate = str_replace("#message#", $postBody, $emailTemplate);
 
 // set Text
 $email->setText($emailTemplate);
