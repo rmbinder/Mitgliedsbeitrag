@@ -99,7 +99,6 @@ else
 
 $getBody = preg_replace('/\r\n/', '<BR>', $getBody);
 
-
 if (strlen($getSubject) > 0)
 {
     $headline = $gL10n->get('MAI_SUBJECT').': '.$getSubject;

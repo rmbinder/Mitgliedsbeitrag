@@ -432,7 +432,6 @@ class ConfigTablePMB
     	$result_category=false;
     	$usfIDs=array();
 
-
     	if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org löschen 
 		{
 			$orgSelector = $gCurrentOrganization->getValue('org_id');
