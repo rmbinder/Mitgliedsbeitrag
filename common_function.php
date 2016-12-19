@@ -1149,7 +1149,7 @@ function erzeuge_mitgliedsnummer()
     sort($mitgliedsnummern);
    
     //überprüfung auf doppelte Mitgliedsnummern
-    for ($i=0; $i < count($mitgliedsnummern)-1;$i++)
+    for ($i=0; $i < count($mitgliedsnummern)-1; $i++)
     {
         if ($mitgliedsnummern[$i] == $mitgliedsnummern[$i+1])
         {
@@ -1363,7 +1363,7 @@ Schrägstrich 			|  /  		| X'2F
 
 	$ret=str_replace(array_keys($charMap), array_values($charMap), $tmptext);
 	
-	for ($i=0;$i<strlen($ret);$i++)
+	for ($i=0; $i<strlen($ret); $i++)
 	{
   		if (preg_match('/[^A-Za-z0-9\'\:\?\,\-\s\(\+\)\/]/', substr($ret, $i, 1)))
   		{

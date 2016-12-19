@@ -758,7 +758,7 @@ elseif($getMode == 'soll_ist')
 
    	$table->addRow('', null, 'th');
    	$columnAttributes['colspan'] = 1;
-   	for ($i=0;$i<5;$i++)
+   	for ($i=0; $i<5; $i++)
     {
     	$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_SHALL'), $columnAttributes, 'th');
     	$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_IS'), $columnAttributes, 'th');

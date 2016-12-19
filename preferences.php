@@ -243,7 +243,7 @@ $page->addHtml('
                     	$html = $gL10n->get('PLG_MITGLIEDSBEITRAG_DELIMITER_INFO1').'<strong><BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELIMITER_INFO2').' </strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELIMITER_INFO3');
                         $form->addCustomContent('', $html);
                         $form->addDescription('<div style="width:100%; height:'.($num_agestaggeredroles<2 ? 170 : 210).'px; overflow:auto; border:20px;">');
-                        for ($conf=0;$conf<$num_agestaggeredroles;$conf++)
+                        for ($conf=0; $conf<$num_agestaggeredroles; $conf++)
 						{
 							$form->openGroupBox('agestaggeredroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING'));
 							$form->addInput('altersrollen_token'.$conf, '', $pPreferences->config['Altersrollen']['altersrollen_token'][$conf], array('maxLength' => 1, 'property' => FIELD_REQUIRED));
@@ -279,7 +279,7 @@ $page->addHtml('
                         // show form
                         $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences_function.php?form=familyroles', $page, array('class' => 'form-preferences'));
                     	$form->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 500 : 650).'px; overflow:auto; border:20px;">');
-                        for ($conf=0;$conf<$num_familyroles;$conf++)
+                        for ($conf=0; $conf<$num_familyroles; $conf++)
 						{
 							$form->openGroupBox('familyroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE'));
 							$form->addInput('familienrollen_prefix'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX'), $pPreferences->config['Familienrollen']['familienrollen_prefix'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_PREFIX_DESC', 'property' => FIELD_REQUIRED));
@@ -465,7 +465,7 @@ $page->addHtml('
                         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO'));
                         $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'</strong>');
                         $form->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 140 : 160).'px; overflow:auto; border:20px;">');
-                        for ($conf=0;$conf<$num_familyroles;$conf++)
+                        for ($conf=0; $conf<$num_familyroles; $conf++)
 						{
 							$form->openGroupBox('familyroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE'));
 							$form->addInput('familienrollen_pruefung'.$conf, $pPreferences->config['Familienrollen']['familienrollen_prefix'][$conf], $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf]);
@@ -511,9 +511,9 @@ $page->addHtml('
                         	$form->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
                         	if ((sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1))
 							{
-								for ($x=0;$x<sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])-1;$x++)
+								for ($x=0; $x<sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])-1; $x++)
 								{
-									for ($y=$x+1;$y<sizeof($pPreferences->config['Altersrollen']['altersrollen_token']);$y++)
+									for ($y=$x+1; $y<sizeof($pPreferences->config['Altersrollen']['altersrollen_token']); $y++)
 									{
 										$form->addCheckbox('altersrollenaltersrollen'.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].$pPreferences->config['Altersrollen']['altersrollen_token'][$y], $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].') ./. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$pPreferences->config['Altersrollen']['altersrollen_token'][$y].')', (in_array($pPreferences->config['Altersrollen']['altersrollen_token'][$x].','.$pPreferences->config['Altersrollen']['altersrollen_token'][$y], $pPreferences->config['Rollenpruefung']['altersrollenaltersrollen']) ? 1 : 0) );
 									}

@@ -341,8 +341,8 @@ if (isset($_POST['btn_xml_file']))
  	*****************************************************************************/
 
 	header("content-type: text/xml");
-	header('Cache-Control: private');// noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
-	header("Content-Transfer-Encoding: binary");// Im Grunde ueberfluessig, hat sich anscheinend bewährt
+	header('Cache-Control: private'); // noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
+	header("Content-Transfer-Encoding: binary"); // Im Grunde ueberfluessig, hat sich anscheinend bewährt
 	header("Cache-Control: post-check=0, pre-check=0"); // Zwischenspeichern auf Proxies verhindern
 	header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.xml"');
 	
