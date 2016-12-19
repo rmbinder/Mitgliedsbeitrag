@@ -84,7 +84,7 @@ if (sizeof($rechnungs_file)>0)
 	$sum= 0;
 
 	//echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
-	echo($gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";".$gL10n->get('SYS_NAME').";".$gL10n->get('SYS_ADDRESS').";".$gL10n->get('SYS_POSTCODE').";".$gL10n->get('SYS_LOCATION').";".$gL10n->get('SYS_EMAIL').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n");
+	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";".$gL10n->get('SYS_NAME').";".$gL10n->get('SYS_ADDRESS').";".$gL10n->get('SYS_POSTCODE').";".$gL10n->get('SYS_LOCATION').";".$gL10n->get('SYS_EMAIL').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n";
 	//print_r($rechnungs_file);
 
 	//for ($x = 0; $x < (count($rechnungs_file)-1); $x++){

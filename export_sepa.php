@@ -388,7 +388,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'] )."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n" ;
         	
-	echo($gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
+	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";"
@@ -399,7 +399,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')."\n");
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')."\n";
 	
 	$nr = 1;
 	foreach ($zpflgt as $dummy => $zpflgtdata)
