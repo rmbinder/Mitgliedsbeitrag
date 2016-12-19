@@ -78,7 +78,7 @@ else
 	$getBody   = $mailSrcText;
 }
 
-$getBody = preg_replace ('/\r\n/', '<BR>', $getBody);
+$getBody = preg_replace('/\r\n/', '<BR>', $getBody);
 
  
 if (strlen($getSubject) > 0)

@@ -589,19 +589,19 @@ function check_rollenmitgliedschaft_pflicht()
         //alle if und elseif könnte man in einer Zeile schreiben und mit || verknüpfen, aber so ist es übersichtlicher 
         if(($roldata['rollentyp'] == 'fam') && (!$pPreferences->config['Rollenpruefung']['familienrollenpflicht']) )
         {
-            unset ($beitragsrollen[$rol]);
+            unset($beitragsrollen[$rol]);
         }
         elseif(($roldata['rollentyp'] == 'alt') && (is_array($pPreferences->config['Rollenpruefung']['altersrollenpflicht'])) && !(in_array($roldata['alterstyp'],$pPreferences->config['Rollenpruefung']['altersrollenpflicht'])))
         {
-            unset ($beitragsrollen[$rol]);
+            unset($beitragsrollen[$rol]);
         }
         elseif (($roldata['rollentyp'] == 'fix') && (!is_array($pPreferences->config['Rollenpruefung']['fixrollenpflicht'])))
         {
-            unset ($beitragsrollen[$rol]);
+            unset($beitragsrollen[$rol]);
         }
         elseif (($roldata['rollentyp'] == 'fix') && (is_array($pPreferences->config['Rollenpruefung']['fixrollenpflicht'])) && !(in_array($rol,$pPreferences->config['Rollenpruefung']['fixrollenpflicht'])))
         {
-            unset ($beitragsrollen[$rol]);
+            unset($beitragsrollen[$rol]);
         }
     }
     // in $beitragsrollen sind jetzt nur noch Pflicht-Beitragsrollen 
@@ -1385,17 +1385,17 @@ function replace_emailparameter($text,$user)
 	global $gCurrentOrganization,$pPreferences;
 
 	// now replace all parameters in email text
-	$text = preg_replace ('/#user_first_name#/', $user->getValue('FIRST_NAME'),  $text);
-	$text = preg_replace ('/#user_last_name#/',  $user->getValue('LAST_NAME'), $text);
-	$text = preg_replace ('/#organization_long_name#/', $gCurrentOrganization->getValue('org_longname'), $text);
-	$text = preg_replace ('/#fee#/', $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')),   $text);
-	$text = preg_replace ('/#due_day#/', $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')),  $text);
-	$text = preg_replace ('/#mandate_id#/', $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')), $text);
-	$text = preg_replace ('/#creditor_id#/',  $pPreferences->config['Kontodaten']['ci'], $text);
-	$text = preg_replace ('/#iban#/',   $user->getValue('IBAN'), $text);
-	$text = preg_replace ('/#bic#/',   $user->getValue('BIC'), $text);
-	$text = preg_replace ('/#debtor#/',   $user->getValue('DEBTOR'), $text);
-	$text = preg_replace ('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')),   $text);
+	$text = preg_replace('/#user_first_name#/', $user->getValue('FIRST_NAME'),  $text);
+	$text = preg_replace('/#user_last_name#/',  $user->getValue('LAST_NAME'), $text);
+	$text = preg_replace('/#organization_long_name#/', $gCurrentOrganization->getValue('org_longname'), $text);
+	$text = preg_replace('/#fee#/', $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')),   $text);
+	$text = preg_replace('/#due_day#/', $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')),  $text);
+	$text = preg_replace('/#mandate_id#/', $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')), $text);
+	$text = preg_replace('/#creditor_id#/',  $pPreferences->config['Kontodaten']['ci'], $text);
+	$text = preg_replace('/#iban#/',   $user->getValue('IBAN'), $text);
+	$text = preg_replace('/#bic#/',   $user->getValue('BIC'), $text);
+	$text = preg_replace('/#debtor#/',   $user->getValue('DEBTOR'), $text);
+	$text = preg_replace('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')),   $text);
  
 	return $text;
 }
