@@ -29,14 +29,14 @@
 class ConfigTablePMB
 {
 	public	  $config		= array();     ///< Array mit allen Konfigurationsdaten
-	
+
 	protected $table_name;
 	protected static $shortcut =  'PMB';
 	protected static $version ;
 	protected static $stand;
 	protected static $dbtoken;
 
-	public $config_default= array();	
+	public $config_default= array();
 	
     /**
      * ConfigTablePMB constructor
@@ -99,7 +99,7 @@ class ConfigTablePMB
           		default character set = utf8
          		collate = utf8_unicode_ci';
     		$gDb->query($sql);
-    	} 
+    	}
     
 		$this->read();
 	
@@ -107,20 +107,20 @@ class ConfigTablePMB
 		if (isset($this->config['Rollenpruefung']['bezugskategorie']) && $this->config['Rollenpruefung']['bezugskategorie'] == '')
     	{
     		$this->config['Rollenpruefung']['bezugskategorie'][0] = ' ';
-    	} 	
+    	}
     	//Update/Konvertierungsroutine 4.0.0 -> 4.1.0
         // seit 01.02.2016 gibt es keine Kontonummern mehr; sollen alle Kontonummern und Bankleitzahlen automatisch gelöscht werden,
         // so sind in den nächsten beiden Zeilen die führenden "//" zu entfernen
     	//$this->delete_member_data(3,'KONTONUMMER');
     	//$this->delete_member_data(3,'BANKLEITZAHL');
-    	
+
     	// Hinweis: delete_member_data() wird auch im Modul Deinstallation verwendet
     	// der zweite Parameter bestimmt das zu löschende Profilfeld
     	// der erste Parameter definiert die Organistaion, in der gelöscht wird
     	// 	0 = Daten nur in aktueller Org löschen 
     	//  1 = Daten in allen Orgs löschen
     	//  3 = Daten löschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
-    	
+
     	//Update/Konvertierungsroutine 4.1.x -> 4.1.2
     	if( isset($this->config['Rollenpruefung']['altersrollenfamilienrollen']) && !is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
     	{
@@ -131,7 +131,7 @@ class ConfigTablePMB
     		unset($this->config['Rollenpruefung']['altersrollenpflicht']);
     	}
 		// Ende Update/Konvertierungsroutine
-		
+
 		$this->config['Plugininformationen']['version'] = self::$version;
 		$this->config['Plugininformationen']['stand'] = self::$stand;
 	
@@ -204,7 +204,7 @@ class ConfigTablePMB
             	{
                 	// um diesen Datensatz in der Datenbank als Array zu kennzeichnen, wird er von Doppelklammern eingeschlossen 
             		$value = '(('.implode(self::$dbtoken,$value).'))';
-            	} 
+            	}
             
   				$plp_name = self::$shortcut.'__'.$section.'__'.$key;
           
@@ -222,18 +222,18 @@ class ConfigTablePMB
             	{
                 	$sql = 'UPDATE '.$this->table_name.' 
                 			SET plp_value = \''.$value.'\' 
-                			WHERE plp_id = '.$row->plp_id;   
+                			WHERE plp_id = '.$row->plp_id;
                     
-                	$gDb->query($sql);           
+                	$gDb->query($sql);
             	}
             	// wenn nicht: INSERT eines neuen Datensatzes 
             	else
             	{
   					$sql = 'INSERT INTO '.$this->table_name.' (plp_org_id, plp_name, plp_value) 
-  							VALUES (\''.$gCurrentOrganization->getValue('org_id').'\' ,\''.self::$shortcut.'__'.$section.'__'.$key.'\' ,\''.$value.'\')'; 
-            		$gDb->query($sql); 
-            	}   
-        	} 
+  							VALUES (\''.$gCurrentOrganization->getValue('org_id').'\' ,\''.self::$shortcut.'__'.$section.'__'.$key.'\' ,\''.$value.'\')';
+            		$gDb->query($sql);
+            	}
+        	}
     	}
 	}
 
@@ -260,9 +260,9 @@ class ConfigTablePMB
 			if ((substr($row['plp_value'],0,2)=='((' ) && (substr($row['plp_value'],-2)=='))' ))
         	{
         		$row['plp_value'] = substr($row['plp_value'],2,-2);
-        		$this->config[$array[1]] [$array[2]] = explode(self::$dbtoken,$row['plp_value']); 
+        		$this->config[$array[1]] [$array[2]] = explode(self::$dbtoken,$row['plp_value']);
         	}
-        	else 
+        	else
 			{
             	$this->config[$array[1]] [$array[2]] = $row['plp_value'];
         	}
@@ -300,7 +300,7 @@ class ConfigTablePMB
     		// Vergleich Version.php  ./. DB (hier: version)
     		if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value<>self::$version)
     		{
-    			$ret = 1;    
+    			$ret = 1;
     		}
 	
     		$plp_name = self::$shortcut.'__Plugininformationen__stand';
@@ -316,12 +316,12 @@ class ConfigTablePMB
     		// Vergleich Version.php  ./. DB (hier: stand)
     		if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value<>self::$stand)
     		{
-    			$ret = 1;    
+    			$ret = 1;
     		}
     	}
     	else  		// nein, Konfigurationstabelle fehlt komplett, deshalb Neuinstallation
     	{
-    		$ret = 2; 
+    		$ret = 2;
     	}
 			    
     	// einen Suchstring für die SQL-Abfrage aufbereiten
@@ -332,7 +332,7 @@ class ConfigTablePMB
 		$fieldsarray[]	 = 'PAID'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id');
-		$fieldsarray[]	 = 'DUEDATE'.$gCurrentOrganization->getValue('org_id');                        
+		$fieldsarray[]	 = 'DUEDATE'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'MANDATEID'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id');
 		$fieldsarray[]	 = 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id');
@@ -352,7 +352,7 @@ class ConfigTablePMB
 		{
 			$fieldsString .="'".$string."',";
 		}
-		$fieldsString = substr($fieldsString, 0, -1); 
+		$fieldsString = substr($fieldsString, 0, -1);
 
     	// pruefen, ob alle erforderlichen Profilfelder des Plugins vorhanden sind
     	$sql = 'SELECT DISTINCT usf_id 
@@ -364,8 +364,8 @@ class ConfigTablePMB
 
 		if($statement->rowCount() <> sizeof($fieldsarray))
 		{
-			$ret = 2; 
-		}	
+			$ret = 2;
+		}
     
     	return $ret;
 	}
@@ -388,13 +388,13 @@ class ConfigTablePMB
 			$sql = 'DELETE FROM '.$this->table_name.'
         			WHERE plp_name LIKE \''.self::$shortcut.'__%\'
         			AND plp_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
-			$result_data = $gDb->query($sql);		
+			$result_data = $gDb->query($sql);
 		}
 		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen 
 		{
 			$sql = 'DELETE FROM '.$this->table_name.'
         			WHERE plp_name LIKE \''.self::$shortcut.'__%\' ';
-			$result_data = $gDb->query($sql);		
+			$result_data = $gDb->query($sql);
 		}
 
 		// wenn die Tabelle nur Einträge dieses Plugins hatte, sollte sie jetzt leer sein und kann gelöscht werden
@@ -461,7 +461,7 @@ class ConfigTablePMB
 			$usfIDs[$row['usf_id']]['usf_cat_id'] = $row['usf_cat_id'];
 			$usfIDs[$row['usf_id']]['cat_name'] = $row['cat_name'];
 			$usfIDs[$row['usf_id']]['cat_name_intern'] = $row['cat_name_intern'];
-		}	
+		}
 		
 		$result .= '<BR><EM>'.$dataDesc.'</EM>';
 		
@@ -523,7 +523,7 @@ class ConfigTablePMB
         			$result_category = $gDb->query($sql);
         	
         			$result .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMOVE_CATEGORY').' '.$data['cat_name_intern'].' in '.TBL_CATEGORIES.' - Status: '.($result_category ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR') );
-    		}			
+    		}
 		}
 		$result  .= '<BR>';
 		
@@ -547,13 +547,13 @@ class ConfigTablePMB
 			$sql = 'DELETE FROM '.TBL_TEXTS.'
         			WHERE txt_name LIKE \'PMBMAIL_%\'
         			AND txt_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
-			$result_data = $gDb->query($sql);		
+			$result_data = $gDb->query($sql);
 		}
 		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen 
 		{
 			$sql = 'DELETE FROM '.TBL_TEXTS.'
         			WHERE txt_name LIKE \'PMBMAIL_%\' ';
-			$result_data = $gDb->query($sql);		
+			$result_data = $gDb->query($sql);
 		}
 
 		$result .= '<BR><EM>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS').'</EM>';

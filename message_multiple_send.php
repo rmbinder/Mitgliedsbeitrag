@@ -22,8 +22,8 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/../adm_program/system/template.php');
-require_once($plugin_path. '/'.$plugin_folder.'/common_function.php'); 
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');  
+require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 // $pPreferences ist auch für die korrekte Auflösung des Parameters #creditor_id# erforderlich          
 $pPreferences = new ConfigTablePMB();
@@ -97,8 +97,8 @@ foreach ($user_array as $userId)
     }
 
     // check sending attributes for user, to be sure that they are correct
-    if ( $gValidLogin 
-        && (  $postFrom != $gCurrentUser->getValue('EMAIL') 
+    if ( $gValidLogin
+        && (  $postFrom != $gCurrentUser->getValue('EMAIL')
         || $postName != $gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME')) )
     {
         $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
@@ -114,15 +114,15 @@ foreach ($user_array as $userId)
 		$empfaenger	= 	$user->getValue('DEBTOR');
 		         	
     }
-    else 
+    else
     {
 		if(strlen($user->getValue('EMAIL')) > 0)
 		{
-			$postTo = $user->getValue('EMAIL');	
+			$postTo = $user->getValue('EMAIL');
 		}
-		$empfaenger	= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');		
+		$empfaenger	= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');
 		         	
-    } 
+    }
 	
 	if (!strValidCharacters($postTo, 'email'))
 	{
@@ -170,7 +170,7 @@ foreach ($user_array as $userId)
                         // set filetyp to standart if not given
                         if (strlen($_FILES['userfile']['type'][$currentAttachmentNo]) <= 0)
                         {
-                            $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';                        
+                            $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';
                         }
 
                         // add the attachment to the mail
@@ -181,7 +181,7 @@ foreach ($user_array as $userId)
                         catch (phpmailerException $e)
                         {
                             $gMessage->show($e->errorMessage());
-                        }             
+                        }
                     }
                 }
             }
@@ -253,7 +253,7 @@ if(count($sendMailResultSendOK) > 1)
 	{
 		$sendMailResultMessage .= $data.'<br>';
 	}
-	$sendMailResultMessage .=	'<br>';	
+	$sendMailResultMessage .=	'<br>';
 }
 if(count($sendMailResultMissingEmail) > 1)
 {
@@ -261,14 +261,14 @@ if(count($sendMailResultMissingEmail) > 1)
 	{
 		$sendMailResultMessage .= $data.'<br>';
 	}
-	$sendMailResultMessage .=	'<br>';			
+	$sendMailResultMessage .=	'<br>';
 }
 if(count($sendMailResultAnotherError) > 1)
 {
 	foreach ($sendMailResultAnotherError as $data)
 	{
 		$sendMailResultMessage .= $data.'<br>';
-	}		
+	}
 }
 
 // zur Ausgangsseite zurueck

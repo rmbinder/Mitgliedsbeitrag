@@ -22,8 +22,8 @@ $plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
 $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
 
 require_once($plugin_path. '/../adm_program/system/common.php');
-require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');  
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -95,7 +95,7 @@ if(strpos($mailSrcText, '#content#') !== false)
 else
 {
 	$getBody   = $mailSrcText;
-}  
+}
 
 $getBody = preg_replace ('/\r\n/', '<BR>', $getBody);
 
@@ -130,13 +130,13 @@ if(strlen($user->getValue('DEBTOR')) > 0)
 		{
 			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
 		}
-		else 
+		else
 		{
 			$userEmail = $user->getValue('DEBTOR_EMAIL');
 		}
-	}         	
+	}
 }
-else 
+else
 {
 	if(strlen($user->getValue('EMAIL')) > 0)
 	{
@@ -145,12 +145,12 @@ else
 		{
 			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
 		}
-		else 
+		else
 		{
-			$userEmail = $user->getValue('EMAIL');		
+			$userEmail = $user->getValue('EMAIL');
 		}
-	}         	
-}   
+	}
+}
 
 // Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,
 // dann soll das Formular gefuellt werden mit den Werten aus der Session
@@ -191,7 +191,7 @@ if ($getUserId > 0)
     $preload_data = '{ id: "' .$getUserId. '", text: "' .$userEmail. '", locked: true}';
 }
  
-$form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => FIELD_DISABLED)); 
+$form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addLine();
 $form->addInput('name', $gL10n->get('MAI_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addInput('mailfrom', $gL10n->get('MAI_YOUR_EMAIL'), $gCurrentUser->getValue('EMAIL'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
@@ -207,7 +207,7 @@ $form->closeGroupBox();
 $form->openGroupBox('gb_mail_message', $gL10n->get('SYS_MESSAGE'));
 $form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => FIELD_REQUIRED));
 
-$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true, 'multiUploadLabel' => $gL10n->get('MAI_ADD_ATTACHEMENT'), 
+$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true, 'multiUploadLabel' => $gL10n->get('MAI_ADD_ATTACHEMENT'),
         'hideUploadField' => true, 'helpTextIdLabel' => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
 
 // add textfield or ckeditor to form

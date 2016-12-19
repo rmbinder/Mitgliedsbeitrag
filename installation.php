@@ -23,7 +23,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -57,15 +57,15 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_system'].' ,
                         '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql);  
-    }  
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+    }
         
     // prüfen, ob es das Profilfeld Beitritt gibt, wenn nicht: anlegen
-    if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) 
+    if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
     {
         $cat_id_mitgliedschaft = getCat_IDPMB('MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'));
-        $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft) ; 
+        $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft) ;
         
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
                 VALUES (\''.$cat_id_mitgliedschaft.'\' ,
@@ -78,15 +78,15 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql);          
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
     }
 
 	// prüfen, ob es das Profilfeld Mitgliedsnummer gibt, wenn nicht: anlegen
-    if (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) 
+    if (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
     {
-        $cat_id_stammdaten = getCat_IDPMB('MASTER_DATA');  
-        $nextFieldSequence = getNextFieldSequence($cat_id_stammdaten) ; 
+        $cat_id_stammdaten = getCat_IDPMB('MASTER_DATA');
+        $nextFieldSequence = getNextFieldSequence($cat_id_stammdaten) ;
         
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
                 VALUES (\''.$cat_id_stammdaten.'\' ,
@@ -99,8 +99,8 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql);          
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
     }
     
     // prüfen, ob es die Kategorie Mitgliedsbeitrag gibt, wenn nicht: anlegen
@@ -116,12 +116,12 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_system'].' ,
                         '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql);  
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
     }
       
     $cat_id_mitgliedsbeitrag = getCat_IDPMB('MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'));
-    $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedsbeitrag) ; 
+    $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedsbeitrag) ;
     
     // prüfen, ob es das Profilfeld Bezahlt gibt, wenn nicht: anlegen         
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))
@@ -137,9 +137,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++; 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
 
     // prüfen, ob es das Profilfeld Beitrag gibt, wenn nicht: anlegen        
@@ -156,9 +156,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;                                          
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
         
     // prüfen, ob es das Profilfeld Beitragstext gibt, wenn nicht: anlegen
@@ -175,9 +175,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;    
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
     
     // prüfen, ob es das Profilfeld Sequenztyp gibt, wenn nicht: anlegen
@@ -194,9 +194,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;    
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
     
     // prüfen, ob es das Profilfeld Fälligkeitsdatum gibt, wenn nicht: anlegen
@@ -213,8 +213,8 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
     }
 
     // prüfen, ob es die Kategorie Mandat gibt, wenn nicht: anlegen
@@ -230,12 +230,12 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_system'].' ,
                         '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql);  
-    } 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+    }
          
-    $cat_id_mandat = getCat_IDPMB('MANDATE'.$gCurrentOrganization->getValue('org_id'));  
-    $nextFieldSequence = getNextFieldSequence($cat_id_mandat) ; 
+    $cat_id_mandat = getCat_IDPMB('MANDATE'.$gCurrentOrganization->getValue('org_id'));
+    $nextFieldSequence = getNextFieldSequence($cat_id_mandat) ;
     
     // prüfen, ob es das Profilfeld Mandatsreferenz gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name']))
@@ -251,9 +251,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;  
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
     
     // prüfen, ob es das Profilfeld Mandatsdatum gibt, wenn nicht: anlegen
@@ -270,9 +270,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;  
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
     
     // prüfen, ob es das Profilfeld Orig_Mandatsreferenz gibt, wenn nicht: anlegen 
@@ -289,9 +289,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
+                        '.$gCurrentUser->getValue('usr_id').' )';
         $gDb->query($sql);
- 	} 
+ 	}
     
     // prüfen, ob es die Kategorie Kontodaten gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_id']))
@@ -306,12 +306,12 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_system'].' ,
                         '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql);    
-    } 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+    }
          
     $cat_id_kontodaten = getCat_IDPMB('ACCOUNT_DATA');
-    $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten) ; 
+    $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten) ;
 
    // prüfen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen         
     if (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name']))
@@ -327,9 +327,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;                                      
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
     // prüfen, ob es das Profilfeld BIC gibt, wenn nicht: anlegen         
     if (!isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name']))
@@ -345,9 +345,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;                                        
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
     
    	// prüfen, ob es das Profilfeld Bankname gibt, wenn nicht: anlegen         
@@ -364,9 +364,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-        $nextFieldSequence++;                                        
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+        $nextFieldSequence++;
     }
        
     // prüfen, ob es das Profilfeld Kontoinhaber gibt, wenn nicht: anlegen 
@@ -383,8 +383,8 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
         $nextFieldSequence++;
     }
     
@@ -402,10 +402,10 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
         $nextFieldSequence++;
-    } 
+    }
     
     // prüfen, ob es das Profilfeld KontoinhaberPLZ gibt, wenn nicht: anlegen 
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name']))
@@ -421,9 +421,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
+                        '.$gCurrentUser->getValue('usr_id').' )';
         $gDb->query($sql);
-        $nextFieldSequence++; 
+        $nextFieldSequence++;
     }
                
     // prüfen, ob es das Profilfeld KontoinhaberOrt gibt, wenn nicht: anlegen 
@@ -440,8 +440,8 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
         $nextFieldSequence++;
     }
     
@@ -459,10 +459,10 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
         $nextFieldSequence++;
-    }    
+    }
     
     // prüfen, ob es das Profilfeld Orig_Debtor_Agent gibt, wenn nicht: anlegen 
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name']))
@@ -478,10 +478,10 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
         $nextFieldSequence++;
-    }                             
+    }
     // prüfen, ob es das Profilfeld Orig_IBAN gibt, wenn nicht: anlegen 
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name']))
     {
@@ -496,9 +496,9 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )'; 
-        $gDb->query($sql); 
-    }                               
+                        '.$gCurrentUser->getValue('usr_id').' )';
+        $gDb->query($sql);
+    }
 }
 
 if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
@@ -512,7 +512,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 	$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
 	$page->setHeadline($headline);
 
-    $form = new HtmlForm('configurations_form', null, $page); 
+    $form = new HtmlForm('configurations_form', null, $page);
 	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
 	$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').':  ==> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS').'</strong>');
 	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON'));
@@ -675,50 +675,50 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
     $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
 	$table->addRowByArray($columnValues);
-	$form->addDescription($table->show(false));	
+	$form->addDescription($table->show(false));
 		
-	if (   (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))  
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))  
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name']))  
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) 
+	if (   (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name']))
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name'])) 
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name']))
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name']))        
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) 
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name']))              
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])))
     {
-    	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));	
+    	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));
     	$form->openButtonGroup();
     	$form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png', 'link' => $g_root_path.'/adm_plugins/'.$plugin_folder.'/installation.php?mode=anlegen', 'class' => 'btn-primary'));
-    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => $g_root_path.'/adm_program/system/back.php', 'class' => 'btn-primary'));    	
+    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => $g_root_path.'/adm_program/system/back.php', 'class' => 'btn-primary'));
     	$form->closeButtonGroup();
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));	
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_1'));	
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_1'));
     }
-    else 
+    else
     {
-    	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));	
+    	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));
     	$form->openButtonGroup();
    		$form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png','link' => $g_root_path.'/adm_plugins/'.$plugin_folder.'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
-    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => $g_root_path.'/adm_program/system/back.php', 'class' => 'btn-primary'));    	
+    	$form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_PATH.'/icons/delete.png','link' => $g_root_path.'/adm_program/system/back.php', 'class' => 'btn-primary'));
     	$form->closeButtonGroup();
     	$form->addDescription('<BR>');
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));	
-    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_2'));	
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));
+    	$form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_2'));
     }
-	$page->addHtml($form->show(false));		       
-    $page->show();  
+	$page->addHtml($form->show(false));
+    $page->show();
 }
 elseif($getMode == 'soll_ist')
 {
@@ -729,7 +729,7 @@ elseif($getMode == 'soll_ist')
 	// create html page object
 	$page = new HtmlPage($headline);
 
-    $form = new HtmlForm('configurations_form', null, $page); 
+    $form = new HtmlForm('configurations_form', null, $page);
     
 	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
 	$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS'));
@@ -743,7 +743,7 @@ elseif($getMode == 'soll_ist')
     $leer = '&nbsp;';
     $strich = '- ';
     	
-    $columnAttributes['style'] = 'text-align: center; vertical-align: middle';					
+    $columnAttributes['style'] = 'text-align: center; vertical-align: middle';
    	$columnAttributes['rowspan'] = 2;
     $table->addColumn($gL10n->get('SYS_CATEGORY'), $columnAttributes, 'th');
     $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_PROFILE_FIELD'), $columnAttributes, 'th');
@@ -761,8 +761,8 @@ elseif($getMode == 'soll_ist')
    	for ($i=0;$i<5;$i++)
     {
     	$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_SHALL'), $columnAttributes, 'th');
-    	$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_IS'), $columnAttributes, 'th');		 
-    } 
+    	$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_IS'), $columnAttributes, 'th');
+    }
 	
 	$columnValues = array();
 	$columnValues[]=$gL10n->get('SYS_MASTER_DATA');
@@ -908,15 +908,15 @@ elseif($getMode == 'soll_ist')
     $columnValues= array_merge($columnValues,SollIstProfilfeld($arr,'Orig_IBAN'));
 	$table->addRowByArray($columnValues);
 
-	$form->addDescription($table->show(false));	
+	$form->addDescription($table->show(false));
 
-    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));	
+    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));
    	$form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/disk.png','link' => $gHomepage, 'class' => 'btn-primary'));
     $form->addDescription('<BR>');
-    $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));		
+    $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));
    
-	$page->addHtml($form->show(false));		       
-    $page->show();  
+	$page->addHtml($form->show(false));
+    $page->show();
 }
 
 // Funktionen, die nur in diesem Script benötigt werden
@@ -935,7 +935,7 @@ function check_DB()
   	// von der Kategorie kontodaten usf_name_intern nicht mit dem Wert KONTODATEN. 
   	//Hier wird deshalb überprüft, ob es eine Kategorie kontodaten gibt.
   	//Falls von dieser Kategorie der usf_name_intern leer ist, wird er mit KONTODATEN beschrieben.
-          
+
     $sql = ' SELECT cat_name,cat_name_intern 
            	FROM '. TBL_CATEGORIES. ' 
            	WHERE cat_name = \'Kontodaten\' 
@@ -953,23 +953,23 @@ function check_DB()
                 WHERE cat_name = \'Kontodaten\'
                 AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
             	OR cat_org_id IS NULL ) ';
-        $gDb->query($sql);           
-    }        
+        $gDb->query($sql);
+    }
 
     //Update/Konvertierungsroutine 4.1.2
     // mit Version 4.1.2 wird die Struktur der DB-Einträge an Admidio angepasst
     // deutsche Bezeichnungen werden durch englische Bezeichnungen ersetzt
     $update_array= array();
     $update_array[]=array(	'alt_cat_name' => 'Mitgliedschaft',
-    						'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'), 
+    						'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'),
     						'neu_cat_name' => 'PMB_MEMBERSHIP',
     						'neu_cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id') );
     $update_array[]=array(	'alt_cat_name' => 'Mitgliedsbeitrag',
-    						'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'), 
+    						'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'),
     						'neu_cat_name' => 'PMB_MEMBERSHIP_FEE',
     						'neu_cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id') );
     $update_array[]=array(	'alt_cat_name' => 'Kontodaten',
-    						'alt_cat_name_intern' => 'KONTODATEN', 
+    						'alt_cat_name_intern' => 'KONTODATEN',
     						'neu_cat_name' => 'PMB_ACCOUNT_DATA',
     						'neu_cat_name_intern' => 'ACCOUNT_DATA' );
 
@@ -991,18 +991,18 @@ function check_DB()
         	$sql = 'UPDATE '.TBL_CATEGORIES.' 
                 	SET cat_name = \''.$data['neu_cat_name'].'\' ,
                            cat_name_intern = \''.$data['neu_cat_name_intern'].'\'
-                	WHERE cat_id = '.$row->cat_id;   
-                $gDb->query($sql);   
+                	WHERE cat_id = '.$row->cat_id;
+                $gDb->query($sql);
         }
     }
 
     $update_array= array();
     $update_array[]=array(	'alt_usf_name' => 'PMB_BANK',
-    						'alt_usf_name_intern' => 'BANKNAME', 
+    						'alt_usf_name_intern' => 'BANKNAME',
     						'neu_usf_name' => 'PMB_BANK',
     						'neu_usf_name_intern' => 'BANK' );
      $update_array[]=array(	'alt_usf_name' => 'Kontoinhaber',
-    						'alt_usf_name_intern' => 'KONTOINHABER', 
+    						'alt_usf_name_intern' => 'KONTOINHABER',
     						'neu_usf_name' => 'PMB_DEBTOR',
     						'neu_usf_name_intern' => 'DEBTOR' );
      $update_array[]=array(	'alt_usf_name' => 'PMB_ADDRESS',
@@ -1084,7 +1084,7 @@ function check_DB()
     	}
 	}
 	// Ende Update/Konvertierungsroutine
-    	
+
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte für die Kategorien und die User Fields 
     $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_id'=>-1,'cat_org_id' => 'Null',   									'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',              								'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0);
     $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_id'=>-1,'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'),'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0 );
@@ -1130,19 +1130,19 @@ function check_DB()
         $row = $statement->fetchObject();
 
         $DB_array['IST']['TBL_USER_FIELDS'][$field]= array(
-				'usf_name_intern'  	=>  (isset($row->usf_name_intern) ? $row->usf_name_intern : ''), 
-				'usf_name'  		=>  (isset($row->usf_name) ? $row->usf_name : ''), 
-				'usf_type'  		=>  (isset($row->usf_type) ? $row->usf_type : ''), 
-				'usf_system'  		=>  (isset($row->usf_system) ? $row->usf_system : ''), 
- 				'usf_disabled'  	=>  (isset($row->usf_disabled) ? $row->usf_disabled : ''), 
+				'usf_name_intern'  	=>  (isset($row->usf_name_intern) ? $row->usf_name_intern : ''),
+				'usf_name'  		=>  (isset($row->usf_name) ? $row->usf_name : ''),
+				'usf_type'  		=>  (isset($row->usf_type) ? $row->usf_type : ''),
+				'usf_system'  		=>  (isset($row->usf_system) ? $row->usf_system : ''),
+ 				'usf_disabled'  	=>  (isset($row->usf_disabled) ? $row->usf_disabled : ''),
  				'usf_hidden'  		=>  (isset($row->usf_hidden) ? $row->usf_hidden : ''),
-  				'usf_mandatory'  	=>  (isset($row->usf_mandatory) ? $row->usf_mandatory : '')        
+  				'usf_mandatory'  	=>  (isset($row->usf_mandatory) ? $row->usf_mandatory : '')
         	);
        
         if ($DB_array['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'] <> $DB_array['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'])
         {
             unset($DB_array['IST']['TBL_USER_FIELDS'][$field]);
-        }  
+        }
     }
      
     foreach ($DB_array['IST']['TBL_CATEGORIES'] as $cat => $catdata)
@@ -1158,20 +1158,20 @@ function check_DB()
         $row = $statement->fetchObject();
 
          $DB_array['IST']['TBL_CATEGORIES'][$cat]= array(
-				'cat_name_intern'  	=>  (isset($row->cat_name_intern) ? $row->cat_name_intern : ''), 
-				'cat_name'  		=>  (isset($row->cat_name) ? $row->cat_name : ''), 
-				'cat_id'  			=>  (isset($row->cat_id) ? $row->cat_id : ''), 
-				'cat_org_id'  		=>  (isset($row->cat_org_id) ? $row->cat_org_id : ''), 
- 				'cat_type'  		=>  (isset($row->cat_type) ? $row->cat_type : ''), 
- 				'cat_system'  		=>  (isset($row->cat_system) ? $row->cat_system : ''), 
-  				'cat_hidden'  		=>  (isset($row->cat_hidden) ? $row->cat_hidden : '')       
-        	);       
+				'cat_name_intern'  	=>  (isset($row->cat_name_intern) ? $row->cat_name_intern : ''),
+				'cat_name'  		=>  (isset($row->cat_name) ? $row->cat_name : ''),
+				'cat_id'  			=>  (isset($row->cat_id) ? $row->cat_id : ''),
+				'cat_org_id'  		=>  (isset($row->cat_org_id) ? $row->cat_org_id : ''),
+ 				'cat_type'  		=>  (isset($row->cat_type) ? $row->cat_type : ''),
+ 				'cat_system'  		=>  (isset($row->cat_system) ? $row->cat_system : ''),
+  				'cat_hidden'  		=>  (isset($row->cat_hidden) ? $row->cat_hidden : '')
+        	);
           
         if ($DB_array['IST']['TBL_CATEGORIES'][$cat]['cat_name_intern'] <> $DB_array['SOLL']['TBL_CATEGORIES'][$cat]['cat_name_intern'])
         {
             unset($DB_array['IST']['TBL_CATEGORIES'][$cat]);
-        } 
-    }        
+        }
+    }
     return $DB_array;
 }
 
@@ -1190,7 +1190,7 @@ function SollIstProfilfeld($arr,$field)
     {
         $columnValues[] = '<strong>'.$arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'].'</strong>';
         $columnValues[] = '<strong>'.$arr['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'].'</strong>';
-    } 
+    }
     else
     {
         $columnValues[] = $arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'];
@@ -1201,12 +1201,12 @@ function SollIstProfilfeld($arr,$field)
     {
         $columnValues[] = '<strong>'.$arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type'].'</strong>';
         $columnValues[] = '<strong>'.$arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'].'</strong>';
-    } 
+    }
     else
     {
         $columnValues[] = $arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type'];
         $columnValues[] = $arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'];
-    }            
+    }
                 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden']==1)
     {
@@ -1260,7 +1260,7 @@ function SollIstProfilfeld($arr,$field)
     else
     {
      	$columnValues[] = '<img class="admidio-icon-info" src="'.THEME_PATH.'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
-    }             
+    }
 	
     return $columnValues;
 }
@@ -1282,13 +1282,13 @@ function SollIstKategorie($arr,$field)
         $columnValues[] = '<strong>'.$arr['SOLL']['TBL_CATEGORIES'][$field]['cat_name_intern'].'</strong>';
         $columnValues[] = '<strong>'.$arr['IST']['TBL_CATEGORIES'][$field]['cat_name_intern'].'</strong>';
         $columnValues[] = '&nbsp;';
-     } 
+     }
      else
      {
      	$columnValues[] = '&nbsp;';
         $columnValues[] = $arr['SOLL']['TBL_CATEGORIES'][$field]['cat_name_intern'];
         $columnValues[] = $arr['IST']['TBL_CATEGORIES'][$field]['cat_name_intern'];
-        $columnValues[] = '&nbsp;';    
+        $columnValues[] = '&nbsp;';
 	}
     return $columnValues;
 }

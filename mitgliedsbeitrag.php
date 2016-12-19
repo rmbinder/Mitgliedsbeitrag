@@ -28,10 +28,10 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 // Einbinden der Sprachdatei
-$gL10n->addLanguagePath($plugin_path.'/'.$plugin_folder.'/languages');  	
+$gL10n->addLanguagePath($plugin_path.'/'.$plugin_folder.'/languages');
 
 $pPreferences = new ConfigTablePMB();
 
@@ -43,7 +43,7 @@ if(!isset($_SESSION['pmbDeinst']))
 
 	if ($checked==1 )   		//Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
 	{
-		$pPreferences->init();	
+		$pPreferences->init();
 	}
 	elseif ($checked==2)		//Installationsroutine durchlaufen
 	{
@@ -52,7 +52,7 @@ if(!isset($_SESSION['pmbDeinst']))
 	}
 
 	$pPreferences->read();			// (checked ==0) : nur Einlesen der Konfigurationsdaten
-	
+
 	// Zeige Link zum Plugin
 	if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']) )
 	{
@@ -61,9 +61,9 @@ if(!isset($_SESSION['pmbDeinst']))
 			// wenn in der my_body_bottom.php ein $pluginMenu definiert wurde, 
 			// dann innerhalb dieses Menüs anzeigen
 			$pluginMenu->addItem('membershipfee_show', '/adm_plugins/'.$plugin_folder.'/'.$startprog,
-				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png'); 
+				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
 		}
-		else 
+		else
 		{
 			// wenn nicht, dann innerhalb des (immer vorhandenen) Module-Menus anzeigen
 			$moduleMenu->addItem('membershipfee_show', '/adm_plugins/'.$plugin_folder.'/'.$startprog,

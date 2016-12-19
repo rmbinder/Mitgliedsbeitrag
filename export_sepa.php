@@ -26,7 +26,7 @@ $plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
 $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
 
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 // Konfiguration einlesen
 $pPreferences = new ConfigTablePMB();
@@ -62,13 +62,13 @@ foreach ($members as $member => $memberdata)
     if  (!empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
     	&& empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
     	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
-    	&& !empty($memberdata['IBAN']) 
+    	&& !empty($memberdata['IBAN'])
     	&& ($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]==$postDueDate)
     	&& ( ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==$postSepaType)
     		|| (($postSepaType=='FRST') && ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==''))  ) )
     {
       	if (empty($memberdata['DEBTOR']))
-        {  
+        {
             $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
         }
         
@@ -83,7 +83,7 @@ foreach ($members as $member => $memberdata)
 		$zpflgt[$member]['orig_mandat_id']=$members[$member]['ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id')];        		// ursprüngliche Mandats-ID
 		$zpflgt[$member]['orig_iban']=str_replace(' ','',$members[$member]['ORIG_IBAN']);        															// ursprüngliche IBAN
 		$zpflgt[$member]['orig_dbtr_agent']=$members[$member]['ORIG_DEBTOR_AGENT'];        												// ursprüngliches Kreditinstitut, nur "SMNDA" möglich
-			
+
     	$lst_euro_sum += $zpflgt[$member]['betrag'];
 
     	$zpflgt[$member]['end2end_id']=substr(replace_sepadaten($gCurrentOrganization->getValue('org_shortname')).'-'.$member.'-'.date($format1,$now),0,35);		//SEPA End2End-ID	(max. 35)
@@ -94,7 +94,7 @@ $lst_num=count($zpflgt);																												//SEPA Anzahl der Lastschrif
 
 if ($lst_num==0)
 {
-	$gMessage->show('Keine Daten für den Export vorhanden!');	
+	$gMessage->show('Keine Daten für den Export vorhanden!');
 }
 				
 $message_id=substr("Message-ID-".replace_sepadaten($gCurrentOrganization->getValue('org_shortname')),0,35);		//SEPA Message-ID	(max. 35)		
@@ -104,7 +104,7 @@ $message_initiator_name=substr(replace_sepadaten($pPreferences->config['Kontodat
 $payment_id="Beitragszahlungen";																		//SEPA Payment_ID (max. 35)
 $payment_datum=$postDueDate;
 $payment_end2end_id="NOTPROVIDED";																	//SEPA Payment_EndToEndIdentification
-$payment_seqtp=$postSepaType; 
+$payment_seqtp=$postSepaType;
 
 $zempf['name']=substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']),0,70);								//SEPA  Zahlungsempfänger Kontoinhaber
 $zempf['ci']=$pPreferences->config['Kontodaten']['ci'];                 											//Organisation SEPA_ID (Gläubiger-ID Bundesdbank)
@@ -134,9 +134,9 @@ if (isset($_POST['btn_xml_file']))
   	//$xmlfile.="<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.002.02'
     //      xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     //      xsi:schemaLocation='urn:iso:std:iso:20022:tech:xsd:pain.008.002.02 pain.008.002.02.xsd'>\n";
-  	
+
   		// ########## Customer Direct Debit Initiation ###########
-  		$xmlfile.="<CstmrDrctDbtInitn>\n";                                      	
+  		$xmlfile.="<CstmrDrctDbtInitn>\n";
 
     	// ########## Group-Header ###########
     	$xmlfile.="<GrpHdr>\n";
@@ -164,7 +164,7 @@ if (isset($_POST['btn_xml_file']))
     			{
     				$xmlfile.="<Cd>COR1</Cd>\n";                            //COR1 (Eil-Lastschrift)                                                            		
     			}
-    			else 
+    			else
     			{
     				$xmlfile.="<Cd>CORE</Cd>\n";                            //CORE (Basislastschrift oder B2B (Firmenlastschrift)                                                           		
     			}
@@ -224,28 +224,28 @@ if (isset($_POST['btn_xml_file']))
             				$xmlfile.="<MndtId>".$zpflgtdata['mandat_id']."</MndtId>\n";            //eindeutige Mandatsreferenz
             				$xmlfile.="<DtOfSgntr>".$zpflgtdata['mandat_datum']."</DtOfSgntr>\n";   //Datum, zu dem das Mandat unterschrieben wurde
 
-            				if(	   (strlen($zempf['orig_cdtr_name'])<>0) 
-            					|| (strlen($zempf['orig_cdtr_id'])<>0) 
-            					|| (strlen($zpflgtdata['orig_mandat_id'])<>0) 
-            					|| (strlen($zpflgtdata['orig_iban'])<>0) 
+            				if(	   (strlen($zempf['orig_cdtr_name'])<>0)
+            					|| (strlen($zempf['orig_cdtr_id'])<>0)
+            					|| (strlen($zpflgtdata['orig_mandat_id'])<>0)
+            					|| (strlen($zpflgtdata['orig_iban'])<>0)
             					|| (strlen($zpflgtdata['orig_dbtr_agent'])<>0) )	//Kennzeichnet, ob das Mandat verändert wurde,
             				{
             					$xmlfile.="<AmdmntInd>true</AmdmntInd>\n";  //AmendmentIndicator "true"
             					$xmlfile.="<AmdmntInfDtls>\n";            	//AmendmentInformationDetails, Pflichtfeld, falls <AmdmntInd>=true
 
             					if(strlen($zpflgtdata['orig_mandat_id'])<>0) 		//Kennzeichnet, ob das Mandat verändert wurde,
-            					{ 
+            					{
             						$xmlfile.="<OrgnlMndtId>".$zpflgtdata['orig_mandat_id']."</OrgnlMndtId>\n";
             					}
             					
             					if((strlen($zempf['orig_cdtr_name'])<>0) || (strlen($zempf['orig_cdtr_id'])<>0) )				//Kennzeichnet, ob das Mandat verändert wurde,
-            					{ 
+            					{
             						$xmlfile.="<OrgnlCdtrSchmeId>\n";       //Identifikation des Zahlungsempfängers
             						if(strlen($zempf['orig_cdtr_name'])<>0) //Kennzeichnet, ob das Mandat verändert wurde,
-            						{ 
+            						{
             							$xmlfile.="<Nm>".$zempf['orig_cdtr_name']."</Nm>\n";
             						}
-            						if(strlen($zempf['orig_cdtr_id'])<>0)  
+            						if(strlen($zempf['orig_cdtr_id'])<>0)
             						{
 										$xmlfile.="<Id>\n";
                   							$xmlfile.="<PrvtId>\n";
@@ -256,13 +256,13 @@ if (isset($_POST['btn_xml_file']))
                       								$xmlfile.="</SchmeNm>\n";
                     							$xmlfile.="</Othr>\n";
                   							$xmlfile.="</PrvtId>\n";
-                						$xmlfile.="</Id>\n";            							
+                						$xmlfile.="</Id>\n";
             						}
-            						$xmlfile.="</OrgnlCdtrSchmeId>\n";						
-            					}						
+            						$xmlfile.="</OrgnlCdtrSchmeId>\n";
+            					}
             						
             				    if(strlen($zpflgtdata['orig_iban'])<>0) 			//Kennzeichnet, ob das Mandat verändert wurde,
-            					{ 
+            					{
             						$xmlfile.="<OrgnlDbtrAcct>\n";
                   						$xmlfile.="<Id>\n";
             								$xmlfile.="<IBAN>".$zpflgtdata['orig_iban']."</IBAN>\n";
@@ -271,7 +271,7 @@ if (isset($_POST['btn_xml_file']))
             					}
             					              			 				
             				    if(strlen($zpflgtdata['orig_dbtr_agent'])<>0) 		//Kennzeichnet, ob das Mandat verändert wurde,
-            					{ 
+            					{
             						$xmlfile.="<OrgnlDbtrAgt>\n";
                   						$xmlfile.="<FinInstnId>\n";
                   							$xmlfile.="<Othr>\n";
@@ -279,14 +279,14 @@ if (isset($_POST['btn_xml_file']))
             								$xmlfile.="</Othr>\n";
             							$xmlfile.="</FinInstnId>\n";
                   					$xmlfile.="</OrgnlDbtrAgt>\n";
-            					}                      							
+            					}
               						
             					$xmlfile.="</AmdmntInfDtls>\n";
             				}
  							else
  							{
             					$xmlfile.="<AmdmntInd>false</AmdmntInd>\n"; 	//AmendmentIndicator "false"
-  							}                                                   
+  							}
           				$xmlfile.="</MndtRltdInf>\n";
         			$xmlfile.="</DrctDbtTx>\n";
         					
@@ -295,17 +295,17 @@ if (isset($_POST['btn_xml_file']))
         				$xmlfile.="<DbtrAgt>\n";                         		//DebtorAgent, Kreditinstitut des Zahlers (Zahlungspflichtigen)
           					$xmlfile.="<FinInstnId>\n"; 						//FinancialInstitutionIdentification 		
           					if(strlen($zpflgtdata['bic'])<>0) 		//ist ein BIC vorhanden?
-            				{ 
+            				{
             					$xmlfile.="<BIC>".$zpflgtdata['bic']."</BIC>\n";
             				}
-            				else 
+            				else
             				{
             					$xmlfile.="<Othr>\n";
             						$xmlfile.="<Id>NOTPROVIDED</Id>\n";
             					$xmlfile.="</Othr>\n";
-            				}	
+            				}
           					$xmlfile.="</FinInstnId>\n";
-        				$xmlfile.="</DbtrAgt>\n";					
+        				$xmlfile.="</DbtrAgt>\n";
 			
         			$xmlfile.="<Dbtr>\n";                         				//Zahlungspflichtiger
           				$xmlfile.="<Nm>".$zpflgtdata['name']."</Nm>\n";     	//Name (70)
@@ -314,13 +314,13 @@ if (isset($_POST['btn_xml_file']))
           				$xmlfile.="<Id>\n";
             				$xmlfile.="<IBAN>".$zpflgtdata['iban']."</IBAN>\n";
           				$xmlfile.="</Id>\n";
-        			$xmlfile.="</DbtrAcct>\n";		
+        			$xmlfile.="</DbtrAcct>\n";
 					if(strlen($zpflgtdata['alt_name'])>0)
 					{
         				$xmlfile.="<UltmtDbtr>\n";                       		//UltimateDebtor
           					$xmlfile.="<Nm>".$zpflgtdata['alt_name']."</Nm>\n";
-        				$xmlfile.="</UltmtDbtr>\n";		
-					}	
+        				$xmlfile.="</UltmtDbtr>\n";
+					}
         			$xmlfile.="<RmtInf>\n";                              		// Remittance Information, Verwendungszweck
           				$xmlfile.="<Ustrd>".$zpflgtdata['text']."</Ustrd>\n";   //Unstructured, unstrukturierter Verwendungszweck(max. 140 Zeichen))
         			$xmlfile.="</RmtInf>\n";
@@ -383,13 +383,13 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR').";".utf8_decode($zempf['name'])."\n"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CI').";".utf8_decode($zempf['ci'] )."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";".utf8_decode($zempf['iban'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";".utf8_decode($zempf['bic'])."\n"  
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";".utf8_decode($zempf['bic'])."\n"
         ."\n"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'] )."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n" ;  	
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n" ;
         	
 	echo($gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').";"            
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";"
@@ -418,13 +418,13 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 			.utf8_decode($zpflgtdata['alt_name']).";"
 			.utf8_decode($zpflgtdata['orig_mandat_id']).";"
         	.utf8_decode($zpflgtdata['orig_iban']).";"
-        	.utf8_decode($zpflgtdata['orig_dbtr_agent'])        	
+        	.utf8_decode($zpflgtdata['orig_dbtr_agent'])
         	."\n";
-    	$nr += 1;        	  	
-	}       
-	exit;  
+    	$nr += 1;
+	}
+	exit;
 }
 else
 {
-	exit; 
+	exit;
 }

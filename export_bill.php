@@ -21,7 +21,7 @@ $plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
 $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$plugin_folder_pos-2);
 
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 // Konfiguration einlesen
 $pPreferences = new ConfigTablePMB();
@@ -49,7 +49,7 @@ foreach ($members as $member => $memberdata){
         	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])  )
 	{
         if (empty($memberdata['DEBTOR']))
-        {  
+        {
             $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
         }
         $rechnungs_file[$i] = array(
@@ -102,21 +102,21 @@ if (sizeof($rechnungs_file)>0)
         	.utf8_decode($rechnungs_file[$x]['beitragstext']).";"
         	.utf8_decode($sum)
         	."\n";
-    	$nr += 1;    
+    	$nr += 1;
 	}
 }
-else 
+else
 {
 	// set headline of the script
 	$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE');
 
 	$message = '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA').'</strong>';
-	$message .= '<BR><BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');	
+	$message .= '<BR><BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');
 
 	// create html page object
 	$page = new HtmlPage($headline);
 
-	$form = new HtmlForm('export_bill_form', null, $page); 
+	$form = new HtmlForm('export_bill_form', null, $page);
 	$form->addDescription($message);
 	$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/forward.png', 'link' => 'menue.php?show_option=statementexport', 'class' => 'btn-primary'));
 

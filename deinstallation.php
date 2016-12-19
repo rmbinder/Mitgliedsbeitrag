@@ -22,7 +22,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 // Initialize and check the parameters
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start','delete')));
@@ -48,7 +48,7 @@ if($getMode == 'start' )     //Default
     $headerMenu = $page->getMenu();
     $headerMenu->addItem('menu_item_back', $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=deinstallation', $gL10n->get('SYS_BACK'), 'back.png');
 
-    $form = new HtmlForm('deinstallations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/deinstallation.php?mode=delete', $page); 
+    $form = new HtmlForm('deinstallations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/deinstallation.php?mode=delete', $page);
 	
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
     $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC').'</div>';
@@ -57,25 +57,25 @@ if($getMode == 'start' )     //Default
     $form->openGroupBox('orgchoice', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORG_CHOICE'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ORG_CHOICE_DESC'));
     $radioButtonEntries = array('0' => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ALLORG') );
-    $form->addRadioButton('deinst_org_select','',$radioButtonEntries);                    	
-    $form->closeGroupBox(); 
+    $form->addRadioButton('deinst_org_select','',$radioButtonEntries);
+    $form->closeGroupBox();
      
     $form->openGroupBox('configdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC'));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC').'</div>';	
+    $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC').'</div>';
     $form->addDescription($html);
-    $form->addCheckbox('configurationdata', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'), 0  ); 
-    $form->closeGroupBox(); 
+    $form->addCheckbox('configurationdata', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'), 0  );
+    $form->closeGroupBox();
     
     $form->openGroupBox('memberdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA_DESC'));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA_ALERT_DESC').'</div>';	
+    $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA_ALERT_DESC').'</div>';
     $form->addDescription($html);
                    
     $form->openGroupBox('masterdata', $headline = $gL10n->get('SYS_MASTER_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS'));
-    $form->addCheckbox('membernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'), 0  );                      	
-    $form->closeGroupBox(); 
+    $form->addCheckbox('membernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'), 0  );
+    $form->closeGroupBox();
     
     $form->openGroupBox('accountdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS'));
@@ -88,33 +88,33 @@ if($getMode == 'start' )     //Default
     $form->addCheckbox('city', $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'), 0  );
     $form->addCheckbox('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), 0  );
     $form->addCheckbox('origiban', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'), 0  );
-    $form->addCheckbox('email', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'), 0  );                        	
-    $form->closeGroupBox(); 
+    $form->addCheckbox('email', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'), 0  );
+    $form->closeGroupBox();
                   	
     $form->openGroupBox('membership', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP'));
-    $form->addCheckbox('accession', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'), 0  );                      	
-    $form->closeGroupBox(); 
+    $form->addCheckbox('accession', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'), 0  );
+    $form->closeGroupBox();
     
     $form->openGroupBox('membershipfee', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
-    $form->addCheckbox('paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'), 0  );  
-    $form->addCheckbox('fee', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'), 0  );   
-    $form->addCheckbox('contributorytext', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'), 0  ); 
-    $form->addCheckbox('sequencetype', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), 0  ); 
-    $form->addCheckbox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), 0  );                     	
-    $form->closeGroupBox(); 					
+    $form->addCheckbox('paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID'), 0  );
+    $form->addCheckbox('fee', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'), 0  );
+    $form->addCheckbox('contributorytext', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'), 0  );
+    $form->addCheckbox('sequencetype', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), 0  );
+    $form->addCheckbox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), 0  );
+    $form->closeGroupBox();
     
 	$form->openGroupBox('mandate', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE'));
-    $form->addCheckbox('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), 0  );  
-    $form->addCheckbox('mandatedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), 0  );   
-    $form->addCheckbox('orig_mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), 0  );                     	
-    $form->closeGroupBox();  
+    $form->addCheckbox('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), 0  );
+    $form->addCheckbox('mandatedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), 0  );
+    $form->addCheckbox('orig_mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), 0  );
+    $form->closeGroupBox();
 
     $form->openGroupBox('others', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_OTHERS'));
-    $form->addCheckbox('mailtexts', $gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS'), 0  );  
-    $form->closeGroupBox(); 
-    $form->closeGroupBox(); 
+    $form->addCheckbox('mailtexts', $gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS'), 0  );
+    $form->closeGroupBox();
+    $form->closeGroupBox();
 
-    $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_PATH.'/icons/delete.png', 'class' => ' col-sm-offset-3')); 
+    $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_PATH.'/icons/delete.png', 'class' => ' col-sm-offset-3'));
 }
 elseif($getMode == 'delete')
 {
@@ -124,7 +124,7 @@ elseif($getMode == 'delete')
 	 	$deinst_config_data_message = $pPreferences->delete_config_data($_POST['deinst_org_select']);
 	}
 	
-	$deinst_member_data_message=''; 
+	$deinst_member_data_message='';
   	if (isset($_POST['membernumber']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'MEMBERNUMBER',$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'));
@@ -132,19 +132,19 @@ elseif($getMode == 'delete')
     if (isset($_POST['accountholder']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR',$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'));
-	}			
+	}
     if (isset($_POST['iban']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'IBAN',$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'));
-	}	
+	}
 	if (isset($_POST['bic']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'BIC',$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'));
-	}			
+	}
   	if (isset($_POST['bank']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'BANK',$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'));
-	}			
+	}
   	if (isset($_POST['address']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_ADDRESS',$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'));
@@ -156,7 +156,7 @@ elseif($getMode == 'delete')
   	if (isset($_POST['city']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'DEBTOR_CITY',$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'));
-	}		
+	}
     if (isset($_POST['origdebtoragent']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data(3,'ORIG_DEBTOR_AGENT',$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'));
@@ -192,7 +192,7 @@ elseif($getMode == 'delete')
   	if (isset($_POST['duedate']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'DUEDATE',$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'));
-	}		
+	}
 	if (isset($_POST['mandateid']))
 	{
 	 	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'],'MANDATEID',$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'));
@@ -222,7 +222,7 @@ elseif($getMode == 'delete')
 		$deinstMessage .= $deinst_member_data_message;
 	}
 
-	$form = new HtmlForm('deinstallations_form', null, $page); 
+	$form = new HtmlForm('deinstallations_form', null, $page);
   	if($deinstMessage <> $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE'))
 	{
 		$form->addDescription($deinstMessage);
@@ -234,7 +234,7 @@ elseif($getMode == 'delete')
         
 		$_SESSION['pmbDeinst'] = true;
 	}
-	else 
+	else
 	{
 		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA'));
 		$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_PATH.'/icons/forward.png', 'link' => $gHomepage, 'class' => 'btn-primary'));

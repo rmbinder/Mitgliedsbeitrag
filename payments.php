@@ -31,7 +31,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -53,13 +53,13 @@ if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]<>' ')
 	{
 		if (!in_array($rol,$pPreferences->config['Beitrag']['zahlungen_rollenwahl']))
 		{
-			unset($rols[$rol]) ;	
+			unset($rols[$rol]) ;
 		}
 	}
 }
 
 //umwandeln von array nach string wg SQL-Statement
-$rolesString = implode(',',array_keys($rols));   
+$rolesString = implode(',',array_keys($rols));
     	
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
 {
@@ -126,17 +126,17 @@ if($getMode == 'assign')
 				//das Fälligkeitsdatum löschen (wird nicht mehr gebraucht, da ja bezahlt)
 				if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) <> 0 )
 				{
-					$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');	
-				}			
+					$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
+				}
 			}
-			else 
+			else
 			{
 				//er hat bereits ein BEZAHLT-Datum, deshalb das vorhandene löschen
 				$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
 			}
 			$user->save();
 			$ret_text = 'success';
-		} 
+		}
    }
     catch(AdmException $e)
     {
@@ -149,7 +149,7 @@ else
 	$userArray = array();
 	
     // show html list
-    
+
     // set headline of the script
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS');
 
@@ -182,7 +182,7 @@ else
 			AND usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
     		AND usd_value IS NOT NULL )';
 	}
-	else 
+	else
 	{
 		$memberCondition .= ' AND usd_usr_id = usr_id
 			AND usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
@@ -342,14 +342,14 @@ else
 
     if($getFullScreen == true)
     {
-    	$paymentsMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/payments.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=0',  
+    	$paymentsMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/payments.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
     }
     else
     {
-        $paymentsMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/payments.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',   
+        $paymentsMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/payments.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-    }   
+    }
     
     $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
@@ -475,9 +475,9 @@ else
         }
         
         //6. Spalte (Nachname)
-        
+
         //7. Spalte (Vorname)
-        
+
         //8. Spalte ($htmlAddress)
     	// create string with user address
         if(strlen($user['zip_code']) > 0 || strlen($user['city']) > 0)
@@ -493,7 +493,7 @@ else
             $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
         }
         //9. Spalte ($addressText)
-        
+
         //10. Spalte ($htmlDebtorText)
         if(strlen($user['debtor']) > 0)
         {
@@ -517,15 +517,15 @@ else
         {
 			if(strlen($user['debtoremail']) > 0)
 			{
-				$email = $user['debtoremail'];				
-			}         	
+				$email = $user['debtoremail'];
+			}
         }
-        else 
+        else
         {
 			if(strlen($user['email']) > 0)
 			{
-				$email = $user['email'];				
-			}         	
+				$email = $user['email'];
+			}
         }
     	if(strlen($email) > 0)
 		{
@@ -535,14 +535,14 @@ else
 			}
 			else
 			{
-				$mail_link = $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_write.php?usr_id='. $user['usr_id'];			
+				$mail_link = $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_write.php?usr_id='. $user['usr_id'];
 			}
 			$htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_PATH. '/icons/email.png"
 					alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
-		} 
+		}
 		      
         //12. Spalte ($email)
-        
+
         //13. Spalte ($htmlBirthday)
         if(strlen($user['birthday']) > 0)
         {
@@ -552,7 +552,7 @@ else
         }
         
         //14. Spalte ($birthdayDateSort)
-        
+
         // create array with all column values
         $columnValues = array(
             $htmlBezahltStatus,
@@ -575,7 +575,7 @@ else
         $userArray[] = $user['usr_id'];
   
     }//End While
-    
+
 	$_SESSION['userArray'] = $userArray;
 
     $page->addHtml($table->show(false));

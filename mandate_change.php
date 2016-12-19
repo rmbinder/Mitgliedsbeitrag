@@ -32,7 +32,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB;
 $pPreferences->read();
@@ -63,7 +63,7 @@ $getBIC     		= admFuncVariableIsValid($_GET, 'bic', 'string', array('defaultVal
 
 $user = new User($gDb, $gProfileFields, $getUserId);
 
-if($getMode == 'assign')   
+if($getMode == 'assign')
 {
 	$ret_txt='error_nothing_changed';
 	$iban_change='false';
@@ -84,7 +84,7 @@ if($getMode == 'assign')
 				$iban_change='true';
 				$ret_txt='success';
 			}
-			else 
+			else
 			{
 				$ret_txt="error_origiban_missing";
 			}
@@ -98,7 +98,7 @@ if($getMode == 'assign')
 			$bank_change='true';
 			$ret_txt='success';
 		}
-		else 
+		else
 		{
 			$ret_txt="error_bank_changed";
 		}
@@ -113,7 +113,7 @@ if($getMode == 'assign')
 			$mandateid_change='true';
 			$ret_txt='success';
 		}
-		else 
+		else
 		{
 			$ret_txt="error_origmandateid_missing";
 		}
@@ -123,13 +123,13 @@ if($getMode == 'assign')
 	{
 		if($iban_change=='true')
 		{
-			$user->setValue('IBAN', $getIBAN);	
+			$user->setValue('IBAN', $getIBAN);
 			$user->setValue('ORIG_IBAN', $getOrigIBAN);
 		}
 		if($bank_change=='true')
 		{
-			$user->setValue('IBAN', $getIBAN);	
-			$user->setValue('BIC', $getBIC);	
+			$user->setValue('IBAN', $getIBAN);
+			$user->setValue('BIC', $getBIC);
 			$user->setValue('BANK', $getBank);
 			$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
 			$user->setValue('ORIG_DEBTOR_AGENT', 'SMNDA');
@@ -146,7 +146,7 @@ if($getMode == 'assign')
 	}
     echo $ret_txt;
 }
-else 
+else
 {
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
 
@@ -256,27 +256,27 @@ else
     $mandateChangeMenu = $page->getMenu();
     $mandateChangeMenu->addItem('menu_item_back', $gNavigation->getUrl(), $gL10n->get('SYS_BACK'), 'back.png');
 
-    $form = new HtmlForm('mandate_change_form', null, $page, array('class' => 'form-mandate_change')); 
+    $form = new HtmlForm('mandate_change_form', null, $page, array('class' => 'form-mandate_change'));
     $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')),array('property' => FIELD_REQUIRED));
 	$html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()"><img 
 			src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" /></a>';
-    $form->addCustomContent('', $html);	
+    $form->addCustomContent('', $html);
 	$form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id')),array('property' => FIELD_DISABLED));
 	$form->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $user->getValue('IBAN'),array('property' => FIELD_REQUIRED));
     $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()"><img 
 			src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'" /></a>';
-    $form->addCustomContent('', $html);	
+    $form->addCustomContent('', $html);
     $form->addInput('origiban', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'), $user->getValue('ORIG_IBAN'),array('property' => FIELD_DISABLED));
-	$form->addCheckbox('bankchanged', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK_CHANGED'), 0, array('class'=>'bank_changed_checkbox'));  
-	$form->addInput('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $user->getValue('BIC'),array('property' => FIELD_DISABLED));        
+	$form->addCheckbox('bankchanged', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK_CHANGED'), 0, array('class'=>'bank_changed_checkbox'));
+	$form->addInput('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $user->getValue('BIC'),array('property' => FIELD_DISABLED));
 	$form->addInput('bank', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'), $user->getValue('BANK'),array('property' => FIELD_DISABLED));
 	$form->addInput('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'),array('property' => FIELD_DISABLED));
 	$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO').'</div>';
-    $form->addCustomContent('', $html);	
+    $form->addCustomContent('', $html);
     
     $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
     
     $page->addHtml($form->show(false));
                        
-    $page->show();  
+    $page->show();
 }

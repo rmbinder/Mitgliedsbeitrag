@@ -22,7 +22,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -56,7 +56,7 @@ try
     		$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 			$text->setValue('txt_text', $_POST['mail_text']);
             $text->save();
-            break; 
+            break;
             	
         case 'agestaggeredroles':
 			unset($pPreferences->config['Altersrollen']);
@@ -65,7 +65,7 @@ try
 				
     		for($conf = 0; isset($_POST['altersrollen_token'. $conf]); $conf++)
     		{
-    			if (empty($_POST['altersrollen_token'. $conf]))	
+    			if (empty($_POST['altersrollen_token'. $conf]))
     			{
     				continue;
     			}
@@ -78,7 +78,7 @@ try
     		{
     			$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG'));
     		}
-            break; 
+            break;
             	
 		case 'familyroles':
             //familienrollen_pruefung zwischenspeichern
@@ -88,7 +88,7 @@ try
 				
     		for($conf = 0; isset($_POST['familienrollen_prefix'. $conf]); $conf++)
     		{
-    			if (empty($_POST['familienrollen_prefix'. $conf]))	
+    			if (empty($_POST['familienrollen_prefix'. $conf]))
     			{
     				continue;
     			}
@@ -102,7 +102,7 @@ try
 
     		// alle Familienkonfigurationen durchlaufen
 			foreach($pPreferences->config['Familienrollen']['familienrollen_prefix'] as $key => $data)
-    		{ 
+    		{
     			// zuerst alle Familienrollen herausfinden 
     			$sql = 'SELECT rol_name, rol_id, rol_cost, rol_cost_period
             			FROM '.TBL_ROLES.' 
@@ -115,24 +115,24 @@ try
     			{
         			$sql = 'UPDATE '.TBL_ROLES.'
                 			SET rol_cost = \''.$pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key].'\'
-                			WHERE rol_id = \''.$row['rol_id'].'\' '; 
+                			WHERE rol_id = \''.$row['rol_id'].'\' ';
            
         			$gDb->query($sql);
  
         			$sql = 'UPDATE '.TBL_ROLES.'
             				SET rol_cost_period = \''.$pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key].'\'
-            				WHERE rol_id = \''.$row['rol_id'].'\' '; 
+            				WHERE rol_id = \''.$row['rol_id'].'\' ';
            
-        			$gDb->query($sql); 
+        			$gDb->query($sql);
      
         			$sql = 'UPDATE '.TBL_ROLES.'
                 			SET rol_description = \''.$pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key].'\'
-                			WHERE rol_id = \''.$row['rol_id'].'\' '; 
+                			WHERE rol_id = \''.$row['rol_id'].'\' ';
            
-        			$gDb->query($sql); 
+        			$gDb->query($sql);
     			}
-    		}    	
-    		break; 
+    		}
+    		break;
             	
     	case 'accountdata':
 			unset($pPreferences->config['Kontodaten']);
@@ -144,7 +144,7 @@ try
     		$pPreferences->config['Kontodaten']['origcreditor'] = isset($_POST['origcreditor']) ? $_POST['origcreditor'] : '' ;
     		$pPreferences->config['Kontodaten']['ci'] = $_POST['ci'];
     		$pPreferences->config['Kontodaten']['origci'] = isset($_POST['origci']) ? $_POST['origci'] : '' ;
-            break; 
+            break;
             	
        	case 'export':
        		unset($pPreferences->config['SEPA']['dateiname']);
@@ -161,7 +161,7 @@ try
     		$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 			$text->setValue('txt_text', $_POST['pre_notification_text']);
             $text->save();
-            break;  
+            break;
             	
 		case 'mandatemanagement':
        		unset($pPreferences->config['Mandatsreferenz']);
@@ -171,7 +171,7 @@ try
        		$pPreferences->config['Mandatsreferenz']['prefix_pay'] = $_POST['prefix_pay'];
        		$pPreferences->config['Mandatsreferenz']['min_length'] = $_POST['min_length'];
        		$pPreferences->config['Mandatsreferenz']['data_field'] = $_POST['data_field'];
-            break;  
+            break;
             		
 		case 'testssetup':
     		unset($pPreferences->config['Familienrollen']['familienrollen_pruefung']);
@@ -203,13 +203,13 @@ try
                 {
                 	$pPreferences->config['Rollenpruefung']['familienrollenfix'][] = $key;
                 }
-			} 
+			}
 			
-    		if ((sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1))         
+    		if ((sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1))
 			{
-				for ($x=0;$x<sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])-1;$x++) 
+				for ($x=0;$x<sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])-1;$x++)
 				{
-					for ($y=$x+1;$y<sizeof($pPreferences->config['Altersrollen']['altersrollen_token']);$y++) 
+					for ($y=$x+1;$y<sizeof($pPreferences->config['Altersrollen']['altersrollen_token']);$y++)
 					{
 					 	if(isset($_POST['altersrollenaltersrollen'.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].$pPreferences->config['Altersrollen']['altersrollen_token'][$y]]))
                 		{
@@ -232,7 +232,7 @@ try
                 }
             }
             $pPreferences->config['Rollenpruefung']['bezugskategorie'] = isset($_POST['bezugskategorie']) ? $_POST['bezugskategorie'] : array(' ');
-			break;  	  
+			break;
             	
         case 'plugin_control':
             unset($pPreferences->config['Pluginfreigabe']);
@@ -247,15 +247,15 @@ try
 catch(AdmException $e)
 {
 	$e->showText();
-}    
+}
     
 $pPreferences->save();
 
 if ($echomarker==0)
 {
-	echo 'success';         
+	echo 'success';
 }
 elseif($echomarker==1)
 {
-	echo 'convert_error'; 
+	echo 'convert_error';
 }

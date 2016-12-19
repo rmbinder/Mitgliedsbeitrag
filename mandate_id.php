@@ -20,7 +20,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB;
 $pPreferences->read();
@@ -32,15 +32,15 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-$referenz = ''; 
-$message = '';  
+$referenz = '';
+$message = '';
 $members = array();
 
 if($pPreferences->config['Mandatsreferenz']['data_field']<>'-- User_ID --')
-{     
+{
 	$members = list_members(array('LAST_NAME','FIRST_NAME','DEBTOR','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN',$pPreferences->config['Mandatsreferenz']['data_field']), 0)  ;
 }
-else 
+else
 {
 	$members = list_members(array('LAST_NAME','FIRST_NAME','DEBTOR','MANDATEID'.$gCurrentOrganization->getValue('org_id'),'FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'IBAN'), 0)  ;
 }
@@ -56,7 +56,7 @@ $members = array_filter($members, 'delete_with_MANDATEID');
 	
 //alle übriggebliebenen Mitglieder durchlaufen und eine Mandatsreferenz erzeugen
 foreach ($members as $member => $memberdata)
-{		
+{
 	$prefix = $pPreferences->config['Mandatsreferenz']['prefix_mem'];
 		
 	//wenn 'DEBTOR' nicht leer ist, dann gibt es einen Zahlungspflichtigen
@@ -70,16 +70,16 @@ foreach ($members as $member => $memberdata)
 		if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],$famrolbesch)==1)
 		{
 			$prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
-		}			
-	}				
+		}
+	}
 	if($pPreferences->config['Mandatsreferenz']['data_field']<>'-- User_ID --')
 	{
 		$suffix = str_replace(' ','',replace_sepadaten($memberdata[$pPreferences->config['Mandatsreferenz']['data_field']]));
 	}
-	else 
+	else
 	{
 		$suffix = $member;
-	}		
+	}
 	
     $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix) , '0').$suffix,0,35);
     
@@ -105,7 +105,7 @@ $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE');
 // create html page object
 $page = new HtmlPage($headline);
 
-$form = new HtmlForm('mandateid_form', null, $page); 
+$form = new HtmlForm('mandateid_form', null, $page);
 
 // Message ausgeben (wenn keinem Mitglied eine Mitgliedsnummer zugewiesen wurde, dann ist die Variable leer)
 if ($message == '')

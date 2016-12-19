@@ -92,8 +92,8 @@ if(strlen($postName) == 0)
 }
 
 // check sending attributes for user, to be sure that they are correct
-if ( $gValidLogin 
-    && (  $postFrom != $gCurrentUser->getValue('EMAIL') 
+if ( $gValidLogin
+    && (  $postFrom != $gCurrentUser->getValue('EMAIL')
        || $postName != $gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME')) )
 {
     $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
@@ -135,7 +135,7 @@ if ($email->setSender($postFrom,$postName))
                     // set filetyp to standart if not given
                     if (strlen($_FILES['userfile']['type'][$currentAttachmentNo]) <= 0)
                     {
-                        $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';                        
+                        $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';
                     }
 
                     // add the attachment to the mail
@@ -146,7 +146,7 @@ if ($email->setSender($postFrom,$postName))
                     catch (phpmailerException $e)
                     {
                         $gMessage->show($e->errorMessage());
-                    }             
+                    }
                 }
             }
         }

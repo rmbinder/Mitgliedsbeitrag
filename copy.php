@@ -28,7 +28,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB;
 $pPreferences->read();
@@ -58,7 +58,7 @@ $userSource = new User($gDb, $gProfileFields, $getSourceUserid);
 $userTarget = new User($gDb, $gProfileFields, $getTargetUserid);
 
 if($getMode == 'assign')
-{   	
+{
 	$ret_text = 'ERROR';
 	try
    	{
@@ -66,9 +66,9 @@ if($getMode == 'assign')
 		{
 			$ret_text = 'unequal_datatype';
 		}
-		else 
+		else
 		{
-			$userTarget->setValue($gProfileFields->getPropertyById($getTargetUsfid, 'usf_name_intern'), $userSource->getValue($gProfileFields->getPropertyById($getSourceUsfid, 'usf_name_intern')));		
+			$userTarget->setValue($gProfileFields->getPropertyById($getTargetUsfid, 'usf_name_intern'), $userSource->getValue($gProfileFields->getPropertyById($getSourceUsfid, 'usf_name_intern')));
 			$userTarget->save();
 			$ret_text = 'success';
 		}
@@ -83,7 +83,7 @@ if($getMode == 'assign')
 else
 {
     // show html list
-    
+
     // set headline of the script
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY');
 
@@ -175,14 +175,14 @@ else
 
     if($getFullScreen == true)
     {
-    	$copyMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=0',  
+    	$copyMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
     }
     else
     {
-        $copyMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=1',   
+        $copyMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-    }   
+    }
     
     $membersSelectString='';
     $members = list_members(array('FIRST_NAME','LAST_NAME','BIRTHDAY'),0);
@@ -190,14 +190,14 @@ else
 	{
         $datumtemp = new DateTimeExtended($memberdata['BIRTHDAY'], 'Y-m-d');
 		$members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']);
-		$membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']).'</option>';		
+		$membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']).'</option>';
 	}
 	asort($members);
 
     $navbarForm = new HtmlForm('navbar_copy_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 	$navbarForm->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
     $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
-    $navbarForm->addSelectBox('ziel', $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));   
+    $navbarForm->addSelectBox('ziel', $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
     $copyMenu->addForm($navbarForm->show(false));
 
     // create table object
@@ -217,7 +217,7 @@ else
     if($getSourceUserid == 0)
     {
     	$table->setDatatablesColumnsHide(2);
-    }	
+    }
 	if($getTargetUserid ==0)
 	{
 		$table->setDatatablesColumnsHide(4);
@@ -235,7 +235,7 @@ else
     	{
     		$htmlSource = '<div class="sourceval_'.$field->getValue('usf_id').'" id="sourceval_'.$field->getValue('usf_id').'">'.$userSource->getValue($field->getValue('usf_name_intern')).'</div>';
     	}
-    	else 
+    	else
     	{
     		$htmlSource = '<div class="sourceval_'.$field->getValue('usf_id').'" id="sourceval_'.$field->getValue('usf_id').'">'.'&nbsp;'.'</div>';
     	}
@@ -254,7 +254,7 @@ else
     	{
     		$htmlTarget = '<div class="targetval_'.$field->getValue('usf_id').'" id="targetval_'.$field->getValue('usf_id').'">'.$userTarget->getValue($field->getValue('usf_name_intern')).'</div>';
     	}
-        else 
+        else
     	{
     		$htmlTarget = '<div class="targetval_'.$field->getValue('usf_id').'" id="targetval_'.$field->getValue('usf_id').'">'.'&nbsp;'.'</div>';
     	}

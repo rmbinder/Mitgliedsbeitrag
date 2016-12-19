@@ -24,7 +24,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -54,7 +54,7 @@ while($row = $statement->fetch())
 
 // die IDs der Attribute aus der Datenbank herausssuchen
 $attributes = array('SYS_LASTNAME' => 0, 'SYS_FIRSTNAME' => 0, 'PMB_MEMBERNUMBER' => 0);
-foreach($attributes as $attribute => $dummy) 
+foreach($attributes as $attribute => $dummy)
 {
     $sql = ' SELECT usf_id
              FROM '.TBL_USER_FIELDS.'
@@ -66,8 +66,8 @@ foreach($attributes as $attribute => $dummy)
 
 // Die Daten jedes Mitglieds abfragen und in das Array schreiben
 foreach ($members as $member => $key)
-{ 	
-	foreach ($attributes as $attribute => $usf_id) 
+{
+	foreach ($attributes as $attribute => $usf_id)
     {
         $sql = 'SELECT usd_value
                 FROM '.TBL_USER_DATA.'
@@ -76,12 +76,12 @@ foreach ($members as $member => $key)
         $statement = $gDb->query($sql);
 	    $row = $statement->fetch();
 		$members[$member][$attribute] = $row['usd_value'];
-	}    
+	}
 }
    
 //alle Mitglieder durchlaufen und prüfen, ob eine Mitgliedsnummer existiert       
  foreach ($members as $member => $key)
-{ 
+{
 	if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))
 	{
 		$nummer = erzeuge_mitgliedsnummer();
@@ -100,7 +100,7 @@ $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER');
 // create html page object
 $page = new HtmlPage($headline);
 
-$form = new HtmlForm('membernumber_form', null, $page); 
+$form = new HtmlForm('membernumber_form', null, $page);
 
 // Message ausgeben (wenn keinem Mitglied eine Mitgliedsnummer zugewiesen wurde, dann ist die Variable leer)
 if ($message == '')

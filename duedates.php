@@ -32,7 +32,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -54,13 +54,13 @@ if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]<>' ')
 	{
 		if (!in_array($rol,$pPreferences->config['SEPA']['duedate_rollenwahl']))
 		{
-			unset($rols[$rol]) ;	
+			unset($rols[$rol]) ;
 		}
 	}
 }
 
 //umwandeln von array nach string wg SQL-Statement
-$rolesString = implode(',',array_keys($rols));   
+$rolesString = implode(',',array_keys($rols));
     	
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
 {
@@ -100,18 +100,18 @@ if($getMode == 'assign')
 			if ( strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0  )
 			{
 				//er hat noch kein Fälligkeitsdatum, deshalb ein neues eintragen
-				$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);	
+				$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
 
 				if ($getSequenceType=='FRST')
 				{
-					$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');	
+					$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
 				}
 				elseif ($getSequenceType<>'')
 				{
-					$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), $getSequenceType);	
+					$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), $getSequenceType);
 				}
 			}
-			else 
+			else
 			{
 				//er hat bereits ein Fälligkeitsdatum, deshalb das vorhandene löschen
 				$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
@@ -119,7 +119,7 @@ if($getMode == 'assign')
 			
 			$user->save();
 			$ret_text = 'success';
-		} 
+		}
    	}
     catch(AdmException $e)
     {
@@ -163,7 +163,7 @@ else
 			AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
     		AND usd_value IS NOT NULL )';
 	}
-	else 
+	else
 	{
 		$memberCondition .= ' AND usd_usr_id = usr_id
 			AND usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
@@ -317,14 +317,14 @@ else
 
     if($getFullScreen == true)
     {
-    	$duedatesMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/duedates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=0',  
+    	$duedatesMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/duedates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
     }
     else
     {
-        $duedatesMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/duedates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',   
+        $duedatesMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/duedates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-    }   
+    }
     
     $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
@@ -430,9 +430,9 @@ else
         }
         
         //5. Spalte (Nachname)
-        
+
         //6. Spalte (Vorname)
-        
+
         //7. Spalte ($htmlAddress)
         if(strlen($user['zip_code']) > 0 || strlen($user['city']) > 0)
         {
@@ -448,7 +448,7 @@ else
         }
         
         //8. Spalte ($addressText)
-               
+
         //9. Spalte ($htmlBirthday)
         if(strlen($user['birthday']) > 0)
         {
@@ -458,7 +458,7 @@ else
         }
         
         //10. Spalte ($birthdayDateSort)
-        
+
         // create array with all column values
         $columnValues = array(
             $htmlDueDateStatus,
@@ -477,7 +477,7 @@ else
         $userArray[] = $user['usr_id'];
   
     }//End While
-    
+
 	$_SESSION['userArray'] = $userArray;
 
     $page->addHtml($table->show(false));

@@ -33,7 +33,7 @@ $plugin_folder     = substr(__FILE__, $plugin_folder_pos+1, $plugin_file_pos-$pl
 
 require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
-require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php'); 
+require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -70,30 +70,30 @@ if($getMode == 'csv_export')
 	{
 		$export = '';
 		$export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').";"		 	
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').";"
 			 	.$gL10n->get('SYS_FIRSTNAME').";"
 			 	.$gL10n->get('SYS_LASTNAME').";"
 			 	.$gL10n->get('SYS_ADDRESS').";"
 			 	.$gL10n->get('SYS_POSTCODE').";"
-			 	.$gL10n->get('SYS_CITY').";"	
-			 	.$gL10n->get('SYS_EMAIL').";"	
-			 	.$gL10n->get('SYS_PHONE').";"	
-			 	.$gL10n->get('SYS_MOBILE').";"	
-			 	.$gL10n->get('SYS_BIRTHDAY').";"				 
+			 	.$gL10n->get('SYS_CITY').";"
+			 	.$gL10n->get('SYS_EMAIL').";"
+			 	.$gL10n->get('SYS_PHONE').";"
+			 	.$gL10n->get('SYS_MOBILE').";"
+			 	.$gL10n->get('SYS_BIRTHDAY').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').";"
 			 				 			 			 			 			 	 
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER')."/".$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').";"		 
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').";"	
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').";"
 
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"	
- 	  		 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').";"	
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"
+ 	  		 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').";"					 			 		 			 			 
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').";"
  			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";"
 			 	."\n";
 		 
@@ -101,10 +101,10 @@ if($getMode == 'csv_export')
 
 		foreach ($_SESSION['checkedArray'] as $UserId )
 		{
-			$user = new User($gDb, $gProfileFields, $UserId);	
+			$user = new User($gDb, $gProfileFields, $UserId);
 	
 			$export .= $nr.";";
-			$export .= $user->getValue('MEMBERNUMBER').";";		
+			$export .= $user->getValue('MEMBERNUMBER').";";
 			$export .= $user->getValue('FIRST_NAME').";";
 			$export .= $user->getValue('LAST_NAME').";";
 			$export .= $user->getValue('ADDRESS').";";
@@ -113,7 +113,7 @@ if($getMode == 'csv_export')
 			$export .= $user->getValue('EMAIL').";";
 			$export .= $user->getValue('PHONE').";";
 			$export .= $user->getValue('MOBILE').";";
-			$export .= $user->getValue('BIRTHDAY').";";				
+			$export .= $user->getValue('BIRTHDAY').";";
 			$export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).";";
 		
 			if (strlen($user->getValue('DEBTOR'))<>0)
@@ -124,39 +124,39 @@ if($getMode == 'csv_export')
 				$export .= $user->getValue('DEBTOR_CITY').";";
 				$export .= $user->getValue('DEBTOR_EMAIL').";";
 			}
-			else 
+			else
 			{
 				$export .= $user->getValue('FIRST_NAME')." ".$user->getValue('LAST_NAME').";";
 				$export .= $user->getValue('ADDRESS').";";
 				$export .= $user->getValue('POSTCODE').";";
-				$export .= $user->getValue('CITY').";";	
-				$export .= $user->getValue('EMAIL').";";					
+				$export .= $user->getValue('CITY').";";
+				$export .= $user->getValue('EMAIL').";";
 			}
 
 			$export .= $user->getValue('BANK').";";
-			$export .= $user->getValue('BIC').";";	
+			$export .= $user->getValue('BIC').";";
 			$export .= $user->getValue('IBAN').";";
 			$export .= $user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')).";";
-			$export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).";";		
+			$export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= "\n";
 	
 			$nr += 1;
 		}
-		echo $export;	
+		echo $export;
 	}
-	else 
+	else
 	{
 		echo 'marker_empty';
-	}  
+	}
 }
 else if($getMode == 'mail_export')
 {
 	if (count($_SESSION['checkedArray'])==0)
 	{
 		echo 'marker_empty';
-	} 
+	}
 }
 else
 {
@@ -177,13 +177,13 @@ else
             AND rol_valid  = 1
             AND rol_cat_id = cat_id
             AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
-                OR cat_org_id IS NULL ) ';	
+                OR cat_org_id IS NULL ) ';
 
 	if($getDueDate <>0 )                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
 	{
 		$memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
 	}
-	else                    
+	else
 	{
 		$memberCondition .= 'AND usd_value IS NOT NULL )';
 	}
@@ -276,11 +276,11 @@ else
 		{
     		while($user = $statement->fetch())
     		{
-    			if (in_array($user['usr_id'],$_SESSION['checkedArray']) ) 
+    			if (in_array($user['usr_id'],$_SESSION['checkedArray']) )
     			{
     				unset($_SESSION['checkedArray'][$user['usr_id']]);
     			}
-    			else 
+    			else
     			{
     				$_SESSION['checkedArray'][$user['usr_id']]=$user['usr_id'];
     			}
@@ -411,14 +411,14 @@ else
 
         if($getFullScreen == true)
         {
-    	   $preNotificationsMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen=0',  
+    	   $preNotificationsMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
         }
         else
         {
-            $preNotificationsMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen=1',   
+            $preNotificationsMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-        }   
+        }
     
         $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
@@ -436,13 +436,13 @@ else
                 	OR cat_org_id IS NULL )  ';
 
         $duedateStatement = $gDb->query($sql);
-        $selectBoxEntries = array('0'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -'); 
+        $selectBoxEntries = array('0'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
                                              
         while ($row = $duedateStatement->fetch())
         {
             $DueDate = new DateTimeExtended($row['usd_value'], 'Y-m-d');
             $selectBoxEntries[$row['usd_value']]=$DueDate->format($gPreferences['system_date']);
-        }    
+        }
     
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate,'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
  	  	$navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png','link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
@@ -502,7 +502,7 @@ else
             $lastschrifttyp = '';
 
             //1. Spalte ($htmlDueDateStatus)
-    	   if (in_array($user['usr_id'],$_SESSION['checkedArray']) ) 
+    	   if (in_array($user['usr_id'],$_SESSION['checkedArray']) )
             {
                 $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
             }
@@ -544,9 +544,9 @@ else
             }
         
             //5. Spalte (Nachname)
-        
+
             //6. Spalte (Vorname)
-        
+
             //7. Spalte ($htmlAddress)
             if(strlen($user['zip_code']) > 0 || strlen($user['city']) > 0)
             {
@@ -562,7 +562,7 @@ else
             }
         
             //8. Spalte ($addressText)
-               
+
             //10. Spalte ($htmlDebtorText)
             if(strlen($user['debtor']) > 0)
             {
@@ -587,15 +587,15 @@ else
             {
 			     if(strlen($user['debtoremail']) > 0)
 			     {
-				    $email = $user['debtoremail'];				
-			     }         	
+				    $email = $user['debtoremail'];
+			     }
             }
-            else 
+            else
             {
 			     if(strlen($user['email']) > 0)
 			     {
-				    $email = $user['email'];				
-			     }         	
+				    $email = $user['email'];
+			     }
             }
     	    if(strlen($email) > 0)
             {
@@ -605,14 +605,14 @@ else
 			     }
 			     else
 			     {
-				    $mail_link = $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_write.php?usr_id='. $user['usr_id'];			
+				    $mail_link = $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_write.php?usr_id='. $user['usr_id'];
 			     }
 			     $htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_PATH. '/icons/email.png"
 					alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
-            } 
+            }
 		      
             //12. Spalte ($email)
-        
+
     	    if(strlen($user['mandatsreferenz']) > 0)
             {
                 $htmlMandateID = $user['mandatsreferenz'];
@@ -637,7 +637,7 @@ else
             
             $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
         }//End While
-    
+
         $page->addHtml($table->show(false));
         $page->show();
 	}
