@@ -351,7 +351,7 @@ function list_members( $fields, $rols = array() )
     return $members;
 }
 
- /**
+/**
  * Callbackfunktion für array_filter ,
  * die globale Variable $delete_NULL_field muß in der uebergebenden Routine definiert sein
  * @param   string  $wert
