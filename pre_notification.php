@@ -151,7 +151,7 @@ if($getMode == 'csv_export')
 		echo 'marker_empty';
 	}
 }
-else if($getMode == 'mail_export')
+elseif($getMode == 'mail_export')
 {
 	if (count($_SESSION['checkedArray'])==0)
 	{
