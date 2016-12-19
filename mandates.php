@@ -44,7 +44,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 	$gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
-        
+
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
 {
     // ajax mode then only show text if error occurs
@@ -62,7 +62,7 @@ $getMandateScreen  	= admFuncVariableIsValid($_GET, 'mandate_screen', 'numeric')
 if($getMode == 'assign')
 {
 	$ret_text = 'ERROR';
- 
+
 	$userArray = array();
 	if($getUserId!=0)			// Mandatsdatum nur für einen einzigen User ändern
 	{
@@ -78,7 +78,7 @@ if($getMode == 'assign')
         foreach ($userArray as $dummy => $data )
 		{
 			$user = new User($gDb, $gProfileFields, $data);
-			
+
 			//zuerst mal sehen, ob bei diesem user bereits ein Mandatsdatum vorhanden ist
 			if ( strlen($user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0  )
 			{
@@ -90,7 +90,7 @@ if($getMode == 'assign')
 				//er hat bereits ein Mandatsdatum, deshalb das vorhandene löschen
 				$user->setValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), '');
 			}
-			
+
 			$user->save();
 			$ret_text = 'success';
 		}
@@ -104,7 +104,7 @@ if($getMode == 'assign')
 else
 {
 	$userArray = array();
-	
+
     // show html list
 
     // set headline of the script
@@ -199,7 +199,7 @@ else
 
     // create html page object
     $page = new HtmlPage($headline);
-        
+
     if($getFullScreen == true)
     {
     	$page->hideThemeHtml();
@@ -292,16 +292,16 @@ else
         $mandatesMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/mandates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
-    
+
     $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
     $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d');
 	$datum = $datumtemp->format($gPreferences['system_date']);
-    
+
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC'));
 	$selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-    
+
     if($getFullScreen)
  	{
     	$navbarForm->addCheckbox('mandate_screen', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN'), $getMandateScreen, array('class'=>'mandatescreen_checkbox', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC'));
@@ -330,7 +330,7 @@ else
         $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'),
         $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')
     );
-    
+
     $table->setColumnAlignByArray(array('center', 'left', 'left', 'center', 'left', 'left', 'center', 'left', 'left', 'left', 'left', 'left', 'left'));
    	$table->setDatatablesOrderColumns(array(5, 6));
     $table->addRowHeadingByArray($columnHeading);
@@ -350,7 +350,7 @@ else
 		{
 			continue;
 		}
-		
+
         $addressText  = ' ';
         $htmlAddress  = '&nbsp;';
         $htmlBirthday = '&nbsp;';
@@ -371,13 +371,13 @@ else
             $htmlMandatStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
  			$htmlMandatDate = '<div class="mandatedate_'.$user['usr_id'].'" id="mandatedate_'.$user['usr_id'].'">&nbsp;</div>';
         }
-        
+
         //3. Spalte ($htmlBeitrag)
   		if(strlen($user['mandatsreferenz']) > 0)
        	{
             $htmlMandateID = $user['mandatsreferenz'];
       	}
-        
+
        	//4. Spalte (Mandatsänderung)
 
         //5. Spalte (Nachname)
@@ -407,7 +407,7 @@ else
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
             $birthdayDateSort=$birthdayDate->format("Ymd");
         }
-        
+
         //10. Spalte ($birthdayDateSort)
 
         //11. Spalte und weiter: Anzeige von Mandatsänderungen
@@ -423,7 +423,7 @@ else
        	{
             $htmlOrigDebtorAgent = $user['origdebtoragent'];
       	}
-          
+
         // create array with all column values
         $columnValues = array(
             $htmlMandatStatus,
@@ -441,10 +441,10 @@ else
             $htmlOrigIBAN,
             $htmlOrigDebtorAgent
             );
-            
+
         $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
         $userArray[] = $user['usr_id'];
-  
+
     }//End While
 
 	$_SESSION['userArray'] = $userArray;

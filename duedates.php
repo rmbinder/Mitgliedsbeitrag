@@ -61,7 +61,7 @@ if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]!=' ')
 
 //umwandeln von array nach string wg SQL-Statement
 $rolesString = implode(',', array_keys($rols));
-    	
+
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
 {
     // ajax mode then only show text if error occurs
@@ -79,7 +79,7 @@ $getSequenceType= admFuncVariableIsValid($_GET, 'sequencetype', 'string');
 if($getMode == 'assign')
 {
 	$ret_text = 'ERROR';
- 
+
 	$userArray = array();
 	if($getUserId!=0)			// Fälligkeitsdatum nur für einen einzigen User ändern
 	{
@@ -95,7 +95,7 @@ if($getMode == 'assign')
         foreach ($userArray as $dummy => $data )
 		{
 			$user = new User($gDb, $gProfileFields, $data);
-			
+
 			//zuerst mal sehen, ob bei diesem user bereits ein Fälligkeitsdatum vorhanden ist
 			if ( strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0  )
 			{
@@ -116,7 +116,7 @@ if($getMode == 'assign')
 				//er hat bereits ein Fälligkeitsdatum, deshalb das vorhandene löschen
 				$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
 			}
-			
+
 			$user->save();
 			$ret_text = 'success';
 		}
@@ -130,7 +130,7 @@ if($getMode == 'assign')
 else
 {
 	$userArray = array();
-    
+
     // set headline of the script
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
 
@@ -229,7 +229,7 @@ else
 
     // create html page object
     $page = new HtmlPage($headline);
-        
+
     if($getFullScreen == true)
     {
     	$page->hideThemeHtml();
@@ -325,18 +325,18 @@ else
         $duedatesMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/duedates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
-    
+
     $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
     $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d');
 	$datum = $datumtemp->format($gPreferences['system_date']);
-	
+
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_DESC'));
     $selectBoxEntries = array('RCUR' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FOLLOW_DIRECT_DEBIT'), 'FNAL' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT'), 'OOFF' => $gL10n->get('PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT'), 'FRST' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FIRST_DIRECT_DEBIT'));
     $navbarForm->addSelectBox('lastschrifttyp', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), $selectBoxEntries, array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC', 'showContextDependentFirstEntry' => false, 'firstEntry'=>$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_CHANGE')));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_DUEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_DUEDATE'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-    
+
     if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]!=' ')
 	{
 		$navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_ACTIV').'</strong>');
@@ -362,7 +362,7 @@ else
         $gL10n->get('SYS_BIRTHDAY'),
         $gL10n->get('SYS_BIRTHDAY')
     );
-        
+
     $table->setColumnAlignByArray(array('left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'left'));
    	$table->setDatatablesOrderColumns(array(5, 6));
     $table->addRowHeadingByArray($columnHeading);
@@ -379,14 +379,14 @@ else
 		{
 			continue;
 		}
-		
+
         $addressText  = ' ';
         $htmlAddress  = '&nbsp;';
         $htmlBirthday = '&nbsp;';
         $htmlBeitrag  = '&nbsp;';
         $htmlDueDate  = '&nbsp;';
         $lastschrifttyp = '';
-        
+
         //1. Spalte ($htmlDueDateStatus)+ 2. Spalte ($htmlDueDate)
     	if(strlen($user['faelligkeitsdatum']) > 0)
         {
@@ -399,7 +399,7 @@ else
             $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
  			$htmlDueDate = '<div class="duedate_'.$user['usr_id'].'" id="duedate_'.$user['usr_id'].'">&nbsp;</div>';
         }
-        
+
     	//3. Spalte ($htmlLastschrifttyp)
     	switch($user['lastschrifttyp'])
         {
@@ -422,13 +422,13 @@ else
         {
  			$htmlLastschrifttyp = '<div class="lastschrifttyp_'.$user['usr_id'].'" id="lastschrifttyp_'.$user['usr_id'].'">&nbsp;</div>';
         }
-        
+
         //4. Spalte ($htmlBeitrag)
     	if($user['beitrag'] > 0)
         {
             $htmlBeitrag = $user['beitrag'].' '.$gPreferences['system_currency'];
         }
-        
+
         //5. Spalte (Nachname)
 
         //6. Spalte (Vorname)
@@ -446,7 +446,7 @@ else
         {
             $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
         }
-        
+
         //8. Spalte ($addressText)
 
         //9. Spalte ($htmlBirthday)
@@ -456,7 +456,7 @@ else
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
             $birthdayDateSort=$birthdayDate->format("Ymd");
         }
-        
+
         //10. Spalte ($birthdayDateSort)
 
         // create array with all column values
@@ -472,10 +472,10 @@ else
             $htmlBirthday,
             $birthdayDateSort
         );
-            
+
         $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
         $userArray[] = $user['usr_id'];
-  
+
     }//End While
 
 	$_SESSION['userArray'] = $userArray;

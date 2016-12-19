@@ -40,7 +40,7 @@ $duedates = array();
 $directdebittype=false;
 $duedatecount = 0;
 $paidcount = 0;
-    
+
 //alle Mitglieder einlesen
 $members = list_members(array('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'BIC'), 0);
 
@@ -52,7 +52,7 @@ foreach ($members as $member => $memberdata)
 	{
 		$duedatecount++;
 		$directdebittype=true;
-		
+
 		if(!isset($duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]))
 		{
 			$duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]] = array();
@@ -61,7 +61,7 @@ foreach ($members as $member => $memberdata)
     		$duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['OOFF']=0;
     		$duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FRST']=0;
 		}
-		
+
 		if($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]=='FNAL')
 		{
 			$duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FNAL']++;
@@ -85,7 +85,7 @@ foreach ($members as $member => $memberdata)
 	}
 }
 unset($members);
-    
+
 $beitrag = analyse_mem();
 $sum = 0;
 
@@ -104,7 +104,7 @@ array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen );
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
 $gNavigation->addStartUrl($g_root_path.'/adm_plugins/'.$plugin_folder.'/menue.php', $headline);
- 
+
 // create html page object
 $page = new HtmlPage($headline);
 
@@ -126,7 +126,7 @@ if($showOption != '')
 	{
 		$navOption = 'fees';
 	}
-	
+
     $page->addJavascript('$("#tabs_nav_'.$navOption.'").attr("class", "active");
         $("#tabs-'.$navOption.'").attr("class", "tab-pane active");
         $("#collapse_'.$showOption.'").attr("class", "panel-collapse collapse in");
@@ -206,7 +206,7 @@ $form->addCustomContent('', '<table class="table table-condensed">
 		<td style="text-align: right;">'.(($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])).'</td> 
 	</tr>
 </table>');
-   
+
 $headerMenu->addForm($form->show(false));
 
 if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config']))
@@ -266,25 +266,25 @@ if(sizeof($rols)>0)
 	                        $form->addInput('delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_ALL'), ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC'));                             //FIELD_DISABLED
 	                        $form->addSubmitButton('btn_delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
-                        
+
 	                        $form = new HtmlForm('with_paid_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addLine();
 	                        $form->addInput('with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']), array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITH_PAID_DESC'));                             //FIELD_DISABLED
 	                        $form->addSubmitButton('btn_with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
-                        
+
 	                        $form = new HtmlForm('without_paid_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addLine();
 	                        $form->addInput('without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'), (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //FIELD_DISABLED 
 	                        $form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
-                        
+
 	                        $form = new HtmlForm('paid_only_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
  	                        $form->addLine();
  	                        $form->addInput('paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'), $paidcount, array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //FIELD_DISABLED 
 	                        $form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
-	                        
+
                             $form = new HtmlForm('duedate_only_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
                             $form->addLine();
                             $form->addInput('duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY'), $duedatecount, array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY_DESC'));
@@ -355,21 +355,21 @@ if(sizeof($rols)>0)
                             $page->addHtml('<div id="members_contribution" class="panel panel-default">
                   	 			<div class="panel-heading">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION').'</div>
                   	 			<div class="panel-body">');
-              	 		
+
                             		$datatable = false;
             						$hoverRows = true;
              						$classTable  = 'table table-condensed';
              						$table = new HtmlTable('table_members_contribution', $page, $hoverRows, $datatable, $classTable);
-            				
+
              						$columnAttributes['style'] = 'text-align: left';
              						$table->addColumn('', $columnAttributes, 'th');
-         						
+
              						$columnAttributes['colspan'] = 2;
             						$columnAttributes['style'] = 'text-align: right';
              						$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_ACCOUNT_DATA'), $columnAttributes, 'th');
              						$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_ACCOUNT_DATA'), $columnAttributes, 'th');
              						$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'), $columnAttributes, 'th');
-         						  
+
              						$columnAlign  = array('left', 'right', 'right', 'right', 'right', 'right', 'right');
             						$table->setColumnAlignByArray($columnAlign);
 
@@ -392,7 +392,7 @@ if(sizeof($rols)>0)
     								$columnValues[]=($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gPreferences['system_currency'];
     								$columnValues[]=($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']);
     								$table->addRowByArray($columnValues);
-								
+
     								$columnValues = array();
     								$columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID');
     								$columnValues[]=$beitrag['BEZAHLT_kto'].' '.$gPreferences['system_currency'];
@@ -402,7 +402,7 @@ if(sizeof($rols)>0)
     								$columnValues[]=($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'];
     								$columnValues[]=($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']);
     								$table->addRowByArray($columnValues);
-								
+
     								$columnValues = array();
     								$columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING');
     								$columnValues[]=($beitrag['BEITRAG_kto']-$beitrag['BEZAHLT_kto']).' '.$gPreferences['system_currency'];
@@ -422,18 +422,18 @@ if(sizeof($rols)>0)
                   	 		<div id="roles_contribution" class="panel panel-default">
                   	 			<div class="panel-heading">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION').'</div>
                   	 			<div class="panel-body">');
-              	 		
+
                             		$datatable = true;
             						$hoverRows = true;
              						$classTable  = 'table table-condensed';
              						$table = new HtmlTable('table_roles_contribution', $page, $hoverRows, $datatable, $classTable);
-        				
+
              						$columnAlign  = array('left', 'right', 'right', 'right', 'right');
             						$table->setColumnAlignByArray($columnAlign);
-        				
+
         							$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), 'dummy', $gL10n->get('SYS_CONTRIBUTION'), $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'));
         							$table->addRowHeadingByArray($columnValues);
-    				
+
         							$rollen = analyse_rol();
         							foreach ($rollen as $rol => $roldata )
     								{
@@ -443,7 +443,7 @@ if(sizeof($rols)>0)
     									$columnValues[]=$roldata['rol_cost'].' '.$gPreferences['system_currency'];
     									$columnValues[]=sizeof($roldata['members']);
     									$columnValues[]=($roldata['rol_cost']*sizeof($roldata['members'])).' '.$gPreferences['system_currency'];
-                                             
+
                                 		$sum += ($roldata['rol_cost']*sizeof($roldata['members']));
                             			$table->addRowByArray($columnValues);
     								}
@@ -527,7 +527,7 @@ if(sizeof($rols)>0)
                             $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                           	$form->addLine();
                          	$page->addHtml($form->show(false));
-   
+
     						$form = new HtmlForm('sepa_export_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/export_sepa.php', $page);
     						if (!$directdebittype)
     						{
@@ -555,7 +555,7 @@ if(sizeof($rols)>0)
             							foreach($duedates as $duedate => $duedatedata)
      									{
     										$datumtemp = new DateTimeExtended($duedate, 'Y-m-d');
-											
+
     										$htmlTable .= '
     										<tr>
                 								<td style="text-align: center;">'.$datumtemp->format($gPreferences['system_date']).'</td>
@@ -615,18 +615,18 @@ if(sizeof($rols)>0)
 
     							$form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION'), $htmlTable);
     							$form->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC'));
-						
+
     							$form->addCheckbox('eillastschrift', $gL10n->get('PLG_MITGLIEDSBEITRAG_COR1_MARKER'), 0, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC') );
 
     							$form->addSubmitButton('btn_xml_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'), array('icon' => THEME_PATH.'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
     							$form->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_DESC'));
-						 
+
     							$form->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => THEME_PATH.'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
     							$form->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
-						 
+
     							$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
             					$form->addStaticControl('', '', $html);
-        
+
     							$form->addLine();
     							$form->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => THEME_PATH.'/icons/download.png', 'link' => 'pre_notification.php', 'class' => 'btn-primary col-sm-offset-3'));
     							$form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
@@ -708,7 +708,7 @@ if(sizeof($rols)>0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('configurations_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue_function.php?form=tests', $page, array('class' => 'form-preferences'));
-    
+
                             $form->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
                             foreach (check_rols() as $data )
@@ -716,7 +716,7 @@ if(sizeof($rols)>0)
                             	$form->addDescription($data);
                             }
                     		$form->closeGroupBox();
-                		
+
                     		// Prüfung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
                     		if (sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1)
         					{
@@ -743,7 +743,7 @@ if(sizeof($rols)>0)
                             	$form->addDescription($data);
                             }
                             $form->closeGroupBox();
-              	
+
                             $form->openGroupBox('family_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
                     		foreach (check_family_roles() as $data )
@@ -751,7 +751,7 @@ if(sizeof($rols)>0)
                             	$form->addDescription($data);
                             }
                    		$form->closeGroupBox();
-                		
+
                             $form->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
                     		$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
                     		foreach (check_mandate_management() as $data )
@@ -767,10 +767,10 @@ if(sizeof($rols)>0)
                             	$form->addDescription($data);
                             }
                     		$form->closeGroupBox();
-                		
+
                     		//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt 
                     		$form->addStaticControl('', '', '');
-                		
+
                             $page->addHtml($form->show(false));
                        $page->addHtml('</div>
                     </div>
@@ -786,18 +786,18 @@ if(sizeof($rols)>0)
                     </div>
                     <div id="collapse_roleoverview" class="panel-collapse collapse">
             			<div class="panel-body">');
-              	 		
+
                          	$datatable = true;
             				$hoverRows = true;
              				$classTable  = 'table table-condensed';
              				$table = new HtmlTable('table_role_overview', $page, $hoverRows, $datatable, $classTable);
-        				
+
              				$columnAlign  = array('left', 'right', 'right');
             				$table->setColumnAlignByArray($columnAlign);
-        				
+
         					$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'), 'dummy', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT'));
         					$table->addRowHeadingByArray($columnValues);
-    				
+
         					$rollen = beitragsrollen_einlesen('', array('LAST_NAME'));
            					foreach ($rollen as $rol_id => $data )
     						{
@@ -811,7 +811,7 @@ if(sizeof($rols)>0)
             				$table->setDatatablesRowsPerPage(10);
 
         					$page->addHtml($table->show(false));
-    		
+
         				$page->addHtml('</div>
                 	</div>
                 </div>

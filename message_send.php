@@ -75,13 +75,13 @@ $receiver = array();
 $email = new Email();
 
 $user = new User($gDb, $gProfileFields, $getUserId);
-                
+
 // error if no valid Email for given user ID
 if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
 {
 	$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
 }
-                
+
 // save page in navigation - to have a check for a navigation back.
 $gNavigation->addUrl(CURRENT_URL);
 
@@ -122,7 +122,7 @@ if ($email->setSender($postFrom, $postName))
                 {
                     $gMessage->show($gL10n->get('MAI_ATTACHMENT_TO_LARGE'));
                 }
-                    
+
                 if ($_FILES['userfile']['error'][$currentAttachmentNo] == 0)
                 {
                     // check the size of the attachment
@@ -210,11 +210,11 @@ if ($sendResult === TRUE)
             VALUES (".$getMsgId.", 1, ".$gCurrentUser->getValue('usr_id').", '".$postBodySQL."', CURRENT_TIMESTAMP)";
 
     $gDb->query($sql);
- 
+
     // after sending remove the actual Page from the NaviObject and remove also the send-page
     $gNavigation->deleteLastUrl();
     $gNavigation->deleteLastUrl();
-    
+
     // message if sending was OK
     if($gNavigation->count() > 0)
     {

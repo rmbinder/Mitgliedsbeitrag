@@ -77,7 +77,7 @@ elseif (substr_count($gNavigation->getUrl(), 'payments')==1)
 
 $mailSrcText = $text->getValue('txt_text');
 $mailSrcText = replace_emailparameter($mailSrcText, $user);
-     
+
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
 {
@@ -87,7 +87,7 @@ else
 {
 	$getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
 }
-        
+
 if(strpos($mailSrcText, '#content#') !== false)
 {
 	$getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
@@ -99,7 +99,7 @@ else
 
 $getBody = preg_replace('/\r\n/', '<BR>', $getBody);
 
- 
+
 if (strlen($getSubject) > 0)
 {
     $headline = $gL10n->get('MAI_SUBJECT').': '.$getSubject;
@@ -180,23 +180,23 @@ if (strlen($getSubject) > 0)
 {
     $formParam .= 'subject='.$getSubject.'&';
 }
-    
+
 // show form
 $form = new HtmlForm('mail_send_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_send.php?'.$formParam, $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
-    
+
 if ($getUserId > 0)
 {
     // usr_id wurde uebergeben, dann E-Mail direkt an den User schreiben
     $preload_data = '{ id: "' .$getUserId. '", text: "' .$userEmail. '", locked: true}';
 }
- 
+
 $form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addLine();
 $form->addInput('name', $gL10n->get('MAI_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addInput('mailfrom', $gL10n->get('MAI_YOUR_EMAIL'), $gCurrentUser->getValue('EMAIL'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addCheckbox('carbon_copy', $gL10n->get('MAI_SEND_COPY'), $form_values['carbon_copy']);
- 
+
 if (($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation']==2) || $gPreferences['mail_delivery_confirmation']==1)
 {
     $form->addCheckbox('delivery_confirmation', $gL10n->get('MAI_DELIVERY_CONFIRMATION'), $form_values['delivery_confirmation']);

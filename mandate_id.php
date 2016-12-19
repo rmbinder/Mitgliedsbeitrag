@@ -11,7 +11,7 @@
  *
  ***********************************************************************************************
  */
- 
+
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
 $plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
@@ -47,24 +47,24 @@ else
 
 //alle Mitglieder löschen, bei denen kein Beitrag berechnet wurde
 $members = array_filter($members, 'delete_without_BEITRAG');
-                            
+
 //alle Mitglieder löschen, bei denen keine IBAN vorhanden ist
 $members = array_filter($members, 'delete_without_IBAN');
-	
+
 //alle Mitglieder löschen, bei denen bereits eine Mandatsreferenz vorhanden ist
 $members = array_filter($members, 'delete_with_MANDATEID');
-	
+
 //alle übriggebliebenen Mitglieder durchlaufen und eine Mandatsreferenz erzeugen
 foreach ($members as $member => $memberdata)
 {
 	$prefix = $pPreferences->config['Mandatsreferenz']['prefix_mem'];
-		
+
 	//wenn 'DEBTOR' nicht leer ist, dann gibt es einen Zahlungspflichtigen
 	if($memberdata['DEBTOR']!='')
 	{
 		$prefix = $pPreferences->config['Mandatsreferenz']['prefix_pay'];
 	}
-		
+
 	foreach ($pPreferences->config['Familienrollen']['familienrollen_beschreibung'] as $famrolbesch )
 	{
 		if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')], $famrolbesch)==1)
@@ -80,9 +80,9 @@ foreach ($members as $member => $memberdata)
 	{
 		$suffix = $member;
 	}
-	
+
     $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix), '0').$suffix, 0, 35);
-    
+
     //überprüfen, ob die lfd. Nummer (=$suffix) auch befüllt ist
     //u. U. wurde ein leeres Datenbankfeld ausgewählt; 
     //dabei würden dann Mandatsreferenzen mit endenden Nullen erzeugt

@@ -60,7 +60,7 @@ if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]!=' ')
 
 //umwandeln von array nach string wg SQL-Statement
 $rolesString = implode(',', array_keys($rols));
-    	
+
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign' )
 {
     // ajax mode then only show text if error occurs
@@ -77,7 +77,7 @@ $getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 if($getMode == 'assign')
 {
 	$ret_text = 'ERROR';
- 
+
 	$userArray = array();
 	if($getUserId!=0)			// Bezahlt-Datum nur für einen einzigen User ändern
 	{
@@ -93,13 +93,13 @@ if($getMode == 'assign')
         foreach ($userArray as $dummy => $data )
 		{
 			$user = new User($gDb, $gProfileFields, $data);
-			
+
 			//zuerst mal sehen, ob bei diesem user bereits ein BEZAHLT-Datum vorhanden ist
 			if ( strlen($user->getValue('PAID'.$gCurrentOrganization->getValue('org_id'))) == 0  )
 			{
 				//er hat noch kein BEZAHLT-Datum, deshalb ein neues eintragen
 				$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
-					
+
 				// wenn Lastschrifttyp noch nicht gesetzt ist: als Folgelastschrift kennzeichnen
 				// BEZAHLT bedeutet, es hat bereits eine Zahlung stattgefunden
 				// die nächste Zahlung kann nur eine Folgelastschrift sein
@@ -122,7 +122,7 @@ if($getMode == 'assign')
 				{
 					$user->setValue('ORIG_DEBTOR_AGENT', '');
 				}
-		
+
 				//das Fälligkeitsdatum löschen (wird nicht mehr gebraucht, da ja bezahlt)
 				if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0 )
 				{
@@ -147,7 +147,7 @@ if($getMode == 'assign')
 else
 {
 	$userArray = array();
-	
+
     // show html list
 
     // set headline of the script
@@ -259,7 +259,7 @@ else
 
     // create html page object
     $page = new HtmlPage($headline);
-        
+
     if($getFullScreen == true)
     {
     	$page->hideThemeHtml();
@@ -350,12 +350,12 @@ else
         $paymentsMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/payments.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
-    
+
     $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
     $datumtemp = new DateTimeExtended(DATE_NOW, 'Y-m-d');
 	$datum = $datumtemp->format($gPreferences['system_date']);
-    
+
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
@@ -390,7 +390,7 @@ else
         $gL10n->get('SYS_BIRTHDAY'),
         $gL10n->get('SYS_BIRTHDAY')
     );
-        
+
     $table->setColumnAlignByArray(array('left', 'left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'center', 'left', 'left', 'left'));
    	$table->setDatatablesOrderColumns(array(6, 7));
     $table->addRowHeadingByArray($columnHeading);
@@ -401,7 +401,7 @@ else
     $table->setDatatablesColumnsHide(12);
     $table->setDatatablesAlternativOrderColumns(13, 14);
     $table->setDatatablesColumnsHide(14);
-    
+
     // show rows with all organization users
     while($user = $statement->fetch())
     {
@@ -409,7 +409,7 @@ else
 		{
 			continue;
 		}
-		
+
         $addressText  = ' ';
         $htmlAddress  = '&nbsp;';
         $htmlBirthday = '&nbsp;';
@@ -420,7 +420,7 @@ else
         $htmlDebtorText = '&nbsp;';
         $htmlDueDate  = '&nbsp;';
     	$lastschrifttyp = '';
-        
+
         //1. Spalte ($htmlBezahltStatus)+ 2. Spalte ($htmlBezahltDate)
     	if(strlen($user['bezahlt']) > 0)
         {
@@ -433,7 +433,7 @@ else
             $htmlBezahltStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
  			$htmlBezahltDate = '<div class="bezahlt_'.$user['usr_id'].'" id="bezahlt_'.$user['usr_id'].'">&nbsp;</div>';
         }
-        
+
      	//3. Spalte ($htmlDuedate)
     	if(strlen($user['duedate']) > 0)
         {
@@ -444,7 +444,7 @@ else
         {
  			$htmlDuedate = '<div class="duedate_'.$user['usr_id'].'" id="duedate_'.$user['usr_id'].'">&nbsp;</div>';
         }
-        
+
         //4. Spalte ($htmlLastschrifttyp)
     	switch($user['lastschrifttyp'])
         {
@@ -467,13 +467,13 @@ else
         {
  			$htmlLastschrifttyp = '<div class="lastschrifttyp_'.$user['usr_id'].'" id="lastschrifttyp_'.$user['usr_id'].'">&nbsp;</div>';
         }
-        
+
         //5. Spalte ($htmlBeitrag)
     	if($user['beitrag'] > 0)
         {
             $htmlBeitrag = $user['beitrag'].' '.$gPreferences['system_currency'];
         }
-        
+
         //6. Spalte (Nachname)
 
         //7. Spalte (Vorname)
@@ -511,7 +511,7 @@ else
         {
             $htmlDebtorText = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/info.png" alt="'.$debtor_text.'" title="'.$debtor_text.'" />';
         }
-        
+
         //11. Spalte ($htmlMail)
         if(strlen($user['debtor']) > 0)
         {
@@ -540,7 +540,7 @@ else
 			$htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_PATH. '/icons/email.png"
 					alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
 		}
-		      
+
         //12. Spalte ($email)
 
         //13. Spalte ($htmlBirthday)
@@ -550,7 +550,7 @@ else
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
             $birthdayDateSort=$birthdayDate->format("Ymd");
         }
-        
+
         //14. Spalte ($birthdayDateSort)
 
         // create array with all column values
@@ -570,10 +570,10 @@ else
             $htmlBirthday,
             $birthdayDateSort
             );
-            
+
         $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
         $userArray[] = $user['usr_id'];
-  
+
     }//End While
 
 	$_SESSION['userArray'] = $userArray;

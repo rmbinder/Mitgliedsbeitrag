@@ -69,9 +69,9 @@ if($getMode == 'assign')
 	$iban_change='false';
 	$bank_change='false';
 	$mandateid_change='false';
-	 
+
     $gMessage->showTextOnly(true);
-	
+
 	// wurde die Bank geändert?
 	if (  $getBankChanged == 'false' )             //nein, dieselbe Bank
 	{
@@ -103,7 +103,7 @@ if($getMode == 'assign')
 			$ret_txt="error_bank_changed";
 		}
 	}
-	 
+
 	// wurde die Mandatsreferenz geändert?
 	if($getMandateID != $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')))
 	{
@@ -118,7 +118,7 @@ if($getMode == 'assign')
 			$ret_txt="error_origmandateid_missing";
 		}
 	}
-	
+
 	if($ret_txt=='success')
 	{
 		if($iban_change=='true')
@@ -133,7 +133,7 @@ if($getMode == 'assign')
 			$user->setValue('BANK', $getBank);
 			$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
 			$user->setValue('ORIG_DEBTOR_AGENT', 'SMNDA');
-	
+
 			// wenn die Bank gewechselt wurde, braucht die neue Bank die ursprüngliche IBAN nicht zu kennen
 			$user->setValue('ORIG_IBAN', '');
 		}
@@ -272,10 +272,10 @@ else
 	$form->addInput('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'), array('property' => FIELD_DISABLED));
 	$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO').'</div>';
     $form->addCustomContent('', $html);
-    
+
     $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_PATH.'/icons/disk.png', 'class' => ' col-sm-offset-3'));
-    
+
     $page->addHtml($form->show(false));
-                       
+
     $page->show();
 }

@@ -63,7 +63,7 @@ if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
 {
 	$_SESSION['checkedArray']= array();
 }
-    
+
 if($getMode == 'csv_export')
 {
 	if (count($_SESSION['checkedArray'])!=0)
@@ -81,7 +81,7 @@ if($getMode == 'csv_export')
 			 	.$gL10n->get('SYS_MOBILE').";"
 			 	.$gL10n->get('SYS_BIRTHDAY').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').";"
-			 				 			 			 			 			 	 
+
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER')."/".$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').";"
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').";"
@@ -96,13 +96,13 @@ if($getMode == 'csv_export')
 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').";"
  			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";"
 			 	."\n";
-		 
+
 		$nr = 1;
 
 		foreach ($_SESSION['checkedArray'] as $UserId )
 		{
 			$user = new User($gDb, $gProfileFields, $UserId);
-	
+
 			$export .= $nr.";";
 			$export .= $user->getValue('MEMBERNUMBER').";";
 			$export .= $user->getValue('FIRST_NAME').";";
@@ -115,7 +115,7 @@ if($getMode == 'csv_export')
 			$export .= $user->getValue('MOBILE').";";
 			$export .= $user->getValue('BIRTHDAY').";";
 			$export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).";";
-		
+
 			if (strlen($user->getValue('DEBTOR'))!=0)
 			{
 				$export .= $user->getValue('DEBTOR').";";
@@ -141,7 +141,7 @@ if($getMode == 'csv_export')
 			$export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).";";
 			$export .= "\n";
-	
+
 			$nr += 1;
 		}
 		echo $export;
@@ -269,7 +269,7 @@ else
 			{
 				$_SESSION['checkedArray'][$getUserId]=$getUserId;
 		 		$ret_text = 'success';
-			 	
+
 			}
 		}
 		else 						// Alle ändern wurde gewählt
@@ -284,7 +284,7 @@ else
     			{
     				$_SESSION['checkedArray'][$user['usr_id']]=$user['usr_id'];
     			}
- 
+
     		}
     		$ret_text = 'success';
 		}
@@ -300,15 +300,15 @@ else
     	{
         	$gNavigation->addUrl(CURRENT_URL, $headline);
     	}
-    
+
     	// create html page object
     	$page = new HtmlPage($headline);
-        
+
     	if($getFullScreen == true)
     	{
     		$page->hideThemeHtml();
     	}
-    	
+
     	$page->addJavascript('
     		function prenotexport(){ 
 				//var duedate = $("#duedate").val(); 
@@ -419,7 +419,7 @@ else
             $preNotificationsMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
         }
-    
+
         $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
         //alle Fälligkeitsdaten einlesen        
@@ -437,13 +437,13 @@ else
 
         $duedateStatement = $gDb->query($sql);
         $selectBoxEntries = array('0'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
-                                             
+
         while ($row = $duedateStatement->fetch())
         {
             $DueDate = new DateTimeExtended($row['usd_value'], 'Y-m-d');
             $selectBoxEntries[$row['usd_value']]=$DueDate->format($gPreferences['system_date']);
         }
-    
+
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
  	  	$navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png', 'link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
  	  	$navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_PATH.'/icons/email.png', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
@@ -473,7 +473,7 @@ else
             $gL10n->get('SYS_EMAIL'),
             $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID')
         );
-        
+
         $table->setColumnAlignByArray(array('left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'left', 'center', 'left', 'left'));
    	    $table->setDatatablesOrderColumns(array(5, 6));
         $table->addRowHeadingByArray($columnHeading);
@@ -510,14 +510,14 @@ else
             {
                 $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
             }
-        
+
             //2. Spalte ($htmlDueDate)
     	   if($user['faelligkeitsdatum'] > 0)
             {
         	   $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d');
                 $htmlDueDate = $DueDate->format($gPreferences['system_date']);
             }
-        
+
     	    //3. Spalte ($htmlLastschrifttyp)
     	    switch($user['lastschrifttyp'])
             {
@@ -536,13 +536,13 @@ else
             {
         	   $htmlLastschrifttyp = $lastschrifttyp;
             }
-        
+
             //4. Spalte ($htmlBeitrag)
     	    if($user['beitrag'] > 0)
             {
                 $htmlBeitrag = $user['beitrag'].' '.$gPreferences['system_currency'];
             }
-        
+
             //5. Spalte (Nachname)
 
             //6. Spalte (Vorname)
@@ -560,7 +560,7 @@ else
            {
                 $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
             }
-        
+
             //8. Spalte ($addressText)
 
             //10. Spalte ($htmlDebtorText)
@@ -576,12 +576,12 @@ else
             {
                 $debtor_text = $debtor_text. ' - '. $user['debtorpostcode']. ' '. $user['debtorcity'];
             }
-        
+
      	    if(strlen($debtor_text) > 1)
             {
                 $htmlDebtorText = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/info.png" alt="'.$debtor_text.'" title="'.$debtor_text.'" />';
             }
-        
+
             //11. Spalte ($htmlMail)
             if(strlen($user['debtor']) > 0)
             {
@@ -610,14 +610,14 @@ else
 			     $htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_PATH. '/icons/email.png"
 					alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
             }
-		      
+
             //12. Spalte ($email)
 
     	    if(strlen($user['mandatsreferenz']) > 0)
             {
                 $htmlMandateID = $user['mandatsreferenz'];
             }
-        
+
             // create array with all column values
             $columnValues = array(
                 $htmlDueDateStatus,
@@ -634,7 +634,7 @@ else
                 $email,
                 $htmlMandateID
             );
-            
+
             $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
         }//End While
 

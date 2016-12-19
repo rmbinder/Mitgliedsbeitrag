@@ -13,7 +13,7 @@
  *
  ***********************************************************************************************
  */
- 
+
 // Pfad des Plugins ermitteln
 $plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
 $plugin_file_pos   = strpos(__FILE__, basename(__FILE__));
@@ -85,7 +85,7 @@ foreach ($user_array as $userId)
 	$email = new Email();
 
     $user = new User($gDb, $gProfileFields, $userId);
-                
+
     // save page in navigation - to have a check for a navigation back.
     $gNavigation->addUrl(CURRENT_URL);
     $postTo = '';
@@ -103,7 +103,7 @@ foreach ($user_array as $userId)
     {
         $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
-    
+
 	//Datensatz für E-Mail-Adresse zusammensetzen
     if(strlen($user->getValue('DEBTOR')) > 0)
     {
@@ -112,7 +112,7 @@ foreach ($user_array as $userId)
 			$postTo = $user->getValue('DEBTOR_EMAIL');
 		}
 		$empfaenger	= 	$user->getValue('DEBTOR');
-		         	
+
     }
     else
     {
@@ -121,19 +121,19 @@ foreach ($user_array as $userId)
 			$postTo = $user->getValue('EMAIL');
 		}
 		$empfaenger	= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');
-		         	
+
     }
-	
+
 	if (!strValidCharacters($postTo, 'email'))
 	{
 		$sendMailResultMissingEmail[] = $empfaenger;
 		continue;
 	}
-		
+
     // evtl. definierte Parameter ersetzen
 	$postSubject = replace_emailparameter($postSubjectOrig, $user);
 	$postBody = replace_emailparameter($postBodyOrig, $user);
-	
+
     // set sending address
     if ($email->setSender($postFrom, $postName))
     {
@@ -157,7 +157,7 @@ foreach ($user_array as $userId)
                     {
                         $gMessage->show($gL10n->get('MAI_ATTACHMENT_TO_LARGE'));
                     }
-                    
+
                     if ($_FILES['userfile']['error'][$currentAttachmentNo] == 0)
                     {
                         // check the size of the attachment

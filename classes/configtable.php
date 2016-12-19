@@ -37,14 +37,14 @@ class ConfigTablePMB
 	protected static $dbtoken;
 
 	public $config_default= array();
-	
+
     /**
      * ConfigTablePMB constructor
      */
 	public function __construct()
 	{
 		global  $gDb, $gCurrentOrganization, $g_tbl_praefix;
-		
+
 		$plugin_folder_pos = strpos(__FILE__, 'adm_plugins') + 11;
 		$plugin_file_pos   = strpos(__FILE__, basename(__FILE__))-8;
 		$plugin_path       = substr(__FILE__, 0, $plugin_folder_pos);
@@ -52,7 +52,7 @@ class ConfigTablePMB
 
 		require_once($plugin_path. '/'.$plugin_folder.'/version.php');
 		include($plugin_path. '/'.$plugin_folder.'/configdata.php');
-		
+
 		$this->table_name = $g_tbl_praefix.'_plugin_preferences';
 
 		if(isset($plugin_version))
@@ -69,7 +69,7 @@ class ConfigTablePMB
 		}
 		$this->config_default = $config_default;
 	}
-	
+
     /**
      * Prüft, ob die Konfigurationstabelle existiert, legt sie ggf an und befüllt sie mit Standardwerten
      * @return void
@@ -77,9 +77,9 @@ class ConfigTablePMB
 	public function init()
 	{
 		global $gL10n, $gDb, $gCurrentOrganization,$gProfileFields;
-	
+
 		$config_ist = array();
-		
+
 		// pruefen, ob es die Tabelle bereits gibt
 		$sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
    	 	$statement = $gDb->query($sql);
@@ -100,9 +100,9 @@ class ConfigTablePMB
          		collate = utf8_unicode_ci';
     		$gDb->query($sql);
     	}
-    
+
 		$this->read();
-	
+
 		// Update/Konvertierungsroutine 3.3.7 -> 4.0.0
 		if (isset($this->config['Rollenpruefung']['bezugskategorie']) && $this->config['Rollenpruefung']['bezugskategorie'] == '')
     	{
@@ -134,10 +134,10 @@ class ConfigTablePMB
 
 		$this->config['Plugininformationen']['version'] = self::$version;
 		$this->config['Plugininformationen']['stand'] = self::$stand;
-	
+
 		// die eingelesenen Konfigurationsdaten in ein Arbeitsarray kopieren
 		$config_ist = $this->config;
-	
+
 		// die Default-config durchlaufen
 		foreach($this->config_default as $section => $sectiondata)
     	{
@@ -161,7 +161,7 @@ class ConfigTablePMB
         		unset($config_ist[$section]);
         	}
     	}
-    
+
     	// die Ist-config durchlaufen 
     	// jetzt befinden sich hier nur noch die DB-Einträge, die nicht verwendet werden und deshalb: 
     	// 1. in der DB gelöscht werden können
@@ -195,7 +195,7 @@ class ConfigTablePMB
 	public function save()
 	{
     	global $gDb, $gCurrentOrganization;
-    
+
     	foreach($this->config as $section => $sectiondata)
     	{
         	foreach($sectiondata as $key => $value)
@@ -205,9 +205,9 @@ class ConfigTablePMB
                 	// um diesen Datensatz in der Datenbank als Array zu kennzeichnen, wird er von Doppelklammern eingeschlossen 
             		$value = '(('.implode(self::$dbtoken, $value).'))';
             	}
-            
+
   				$plp_name = self::$shortcut.'__'.$section.'__'.$key;
-          
+
             	$sql = ' SELECT plp_id 
             			FROM '.$this->table_name.' 
             			WHERE plp_name = \''.$plp_name.'\' 
@@ -223,7 +223,7 @@ class ConfigTablePMB
                 	$sql = 'UPDATE '.$this->table_name.' 
                 			SET plp_value = \''.$value.'\' 
                 			WHERE plp_id = '.$row->plp_id;
-                    
+
                 	$gDb->query($sql);
             	}
             	// wenn nicht: INSERT eines neuen Datensatzes 
@@ -244,7 +244,7 @@ class ConfigTablePMB
 	public function read()
 	{
     	global $gDb, $gCurrentOrganization;
-     
+
 		$sql = ' SELECT plp_id, plp_name, plp_value
              	FROM '.$this->table_name.'
              	WHERE plp_name LIKE \''.self::$shortcut.'__%\'
@@ -255,7 +255,7 @@ class ConfigTablePMB
 		while($row = $statement->fetch())
 		{
 			$array = explode('__', $row['plp_name']);
-		
+
 			// wenn plp_value von ((  )) eingeschlossen ist, dann ist es als Array einzulesen
 			if ((substr($row['plp_value'], 0, 2)=='((' ) && (substr($row['plp_value'], -2)=='))' ))
         	{
@@ -280,7 +280,7 @@ class ConfigTablePMB
 	{
 	 	global $gL10n, $gDb, $gCurrentOrganization,$gProfileFields;
 	 	$ret = 0;
- 	
+
 	 	// pruefen, ob es die Konfigurationstabelle gibt
 		$sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
    	 	$tableExistStatement = $gDb->query($sql);
@@ -288,7 +288,7 @@ class ConfigTablePMB
     	if ($tableExistStatement->rowCount())
     	{
 			$plp_name = self::$shortcut.'__Plugininformationen__version';
-          
+
     		$sql = 'SELECT plp_value 
             		FROM '.$this->table_name.' 
             		WHERE plp_name = \''.$plp_name.'\' 
@@ -302,9 +302,9 @@ class ConfigTablePMB
     		{
     			$ret = 1;
     		}
-	
+
     		$plp_name = self::$shortcut.'__Plugininformationen__stand';
-          
+
     		$sql = 'SELECT plp_value 
             		FROM '.$this->table_name.' 
             		WHERE plp_name = \''.$plp_name.'\' 
@@ -323,7 +323,7 @@ class ConfigTablePMB
     	{
     		$ret = 2;
     	}
-			    
+
     	// einen Suchstring für die SQL-Abfrage aufbereiten
 		$fieldsarray = array();
 		$fieldsarray[]	 = 'MEMBERNUMBER';
@@ -346,7 +346,7 @@ class ConfigTablePMB
 		$fieldsarray[]	 = 'DEBTOR_EMAIL';
 		$fieldsarray[]	 = 'ORIG_DEBTOR_AGENT';
 		$fieldsarray[]	 = 'ORIG_IBAN';
-		
+
 		$fieldsString ='';
 		foreach ($fieldsarray as $string)
 		{
@@ -366,10 +366,10 @@ class ConfigTablePMB
 		{
 			$ret = 2;
 		}
-    
+
     	return $ret;
 	}
-	
+
     /**
      * Löscht die Konfigurationsdaten in der Datenbank
      * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org löschen, 1 = Daten in allen Org löschen
@@ -378,11 +378,11 @@ class ConfigTablePMB
 	public function delete_config_data($deinst_org_select)
 	{
     	global $gDb, $gCurrentOrganization,$gL10n;
- 	
+
     	$result = '';
 		$result_data=false;
 		$result_db = false;
-		
+
 		if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen 
 		{
 			$sql = 'DELETE FROM '.$this->table_name.'
@@ -406,10 +406,10 @@ class ConfigTablePMB
         	$sql = 'DROP TABLE '.$this->table_name.' ';
         	$result_db = $gDb->query($sql);
     	}
-    	
+
     	$result  = ($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR') );
 		$result .= ($result_db ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR') );
-		
+
 		return $result;
 	}
 
@@ -431,8 +431,8 @@ class ConfigTablePMB
     	$result_profilefield=false;
     	$result_category=false;
     	$usfIDs=array();
-    	
-    	
+
+
     	if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org löschen 
 		{
 			$orgSelector = $gCurrentOrganization->getValue('org_id');
@@ -446,7 +446,7 @@ class ConfigTablePMB
 		{
 			$orgSelector = '';
 		}
-    	
+
 		// alle usf_id´s des übergebenen $dataField einlesen
 		$sql = 'SELECT usf_id, usf_name, usf_name_intern,usf_cat_id, cat_name,cat_name_intern FROM '.TBL_USER_FIELDS.', '.TBL_CATEGORIES.'
 				WHERE usf_name_intern LIKE  \''.$dataField.$orgSelector.'\'
@@ -462,9 +462,9 @@ class ConfigTablePMB
 			$usfIDs[$row['usf_id']]['cat_name'] = $row['cat_name'];
 			$usfIDs[$row['usf_id']]['cat_name_intern'] = $row['cat_name_intern'];
 		}
-		
+
 		$result .= '<BR><EM>'.$dataDesc.'</EM>';
-		
+
 		// das Array durchlaufen und DELETE ausführen
 		foreach ($usfIDs as $dummy => $data)
 		{
@@ -480,7 +480,7 @@ class ConfigTablePMB
     			$result .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_DATA.' - Status: '.($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR') );
     			//$result_sum .='<BR>';
     		}
-    		
+
 			$sql = 'SELECT * FROM '.TBL_USER_LOG.'
 			WHERE usl_usf_id = '.$data['usf_id'];
             $statement = $gDb->query($sql);
@@ -493,7 +493,7 @@ class ConfigTablePMB
    				$result .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_LOG.' - Status: '.($result_logdata ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR') );
     			//$result_sum .='<BR>';
     		}
-    		
+
 			$sql = 'SELECT * FROM '.TBL_LIST_COLUMNS.'
 				WHERE lsc_usf_id = '.$data['usf_id'];
             $statement = $gDb->query($sql);
@@ -506,13 +506,13 @@ class ConfigTablePMB
    				$result .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_LIST_COLUMNS.' - Status: '.($result_listdata ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR') );
     			//$result_sum .='<BR>';
     		}
- 
+
         	$sql = 'DELETE FROM '.TBL_USER_FIELDS.'
             		WHERE usf_id = '.$data['usf_id'];
         	$result_profilefield = $gDb->query($sql);
-        	
+
         	$result .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD').' '.$data['usf_name_intern'].' in '.TBL_USER_FIELDS.' - Status: '.($result_profilefield ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR') );
-        		
+
         	$sql = 'SELECT * FROM '.TBL_USER_FIELDS.'
 				    WHERE usf_cat_id = '.$data['usf_cat_id'];
             $statement = $gDb->query($sql);
@@ -521,12 +521,12 @@ class ConfigTablePMB
     				$sql = 'DELETE FROM '.TBL_CATEGORIES.'
             			WHERE cat_id = '.$data['usf_cat_id'];
         			$result_category = $gDb->query($sql);
-        	
+
         			$result .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMOVE_CATEGORY').' '.$data['cat_name_intern'].' in '.TBL_CATEGORIES.' - Status: '.($result_category ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR') );
     		}
 		}
 		$result  .= '<BR>';
-		
+
 		return $result;
 	}
 
@@ -538,10 +538,10 @@ class ConfigTablePMB
     public function delete_mail_data($deinst_org_select)
 	{
     	global $gDb, $gCurrentOrganization,$gL10n;
- 	
+
     	$result = '';
 		$result_data=false;
-		
+
 		if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen 
 		{
 			$sql = 'DELETE FROM '.TBL_TEXTS.'
@@ -557,7 +557,7 @@ class ConfigTablePMB
 		}
 
 		$result .= '<BR><EM>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS').'</EM>';
-    	
+
   		$result .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_MAIL_TEXTS').TBL_LIST_COLUMNS.' - Status: '.($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR') );
 
 		return $result;

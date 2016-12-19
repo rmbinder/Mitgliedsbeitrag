@@ -21,7 +21,7 @@ $config_default['Pluginfreigabe']['freigabe_config'] = array(getRole_IDPMB($gL10
 // Altersrollen
 $config_default['Altersrollen'] = array('altersrollen_token' 	=> array('*'),
    										'altersrollen_stichtag' => date('d.m.Y', strtotime((date('Y')-1).'-12-31')));
-  
+
 // Familienrollen
 $config_default['Familienrollen'] = array('familienrollen_beitrag' => array(0),
    											'familienrollen_zeitraum' => array(12),
@@ -50,14 +50,14 @@ $config_default['Kontodaten'] = array('bank' => 'Sparkasse Musterstadt',
  										'ci' => 'DE98ZZZ09999999999',
  								  		'origcreditor' => '',
  										'origci' => '');
-       
+
 //Mandatsreferenz
 $config_default['Mandatsreferenz'] = array('prefix_fam' => 'FAM',
    											'prefix_mem' => 'MIT',
    											'prefix_pay' => 'ZAL',
   											'min_length' => 15,
    											'data_field' => '-- User_ID --');
- 
+
 //Rollenpruefung
 $config_default['Rollenpruefung'] = array('altersrollenfamilienrollen' => array(' '),
   											'altersrollenpflicht' => array(' '),
@@ -67,16 +67,16 @@ $config_default['Rollenpruefung'] = array('altersrollenfamilienrollen' => array(
 											'altersrollenaltersrollen' => array(' '),
   											'familienrollenfix' => array(' '),
   											'altersrollenfix' => array(' '));
-   
+
 //Rechnungs-Export
 $config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung.csv');
-  
+
 //SEPA
 $config_default['SEPA'] = array('dateiname' => 'sepa',
  								'kontroll_dateiname' => 'sepa',
 								'vorabinformation_dateiname' => 'export',
 								'duedate_rollenwahl'  => array(' '));
-	
+
 // Plugininformationen													
 $config_default['Plugininformationen']['version'] = '';
 $config_default['Plugininformationen']['stand'] = '';

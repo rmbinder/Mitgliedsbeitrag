@@ -41,7 +41,7 @@ $message = '';
 
 //prüfen, ob doppelte Mitgliedsnummern bestehen
 $nummer = erzeuge_mitgliedsnummer();
- 
+
 // alle mitglieder abfragen
 $sql = ' SELECT mem_usr_id
          FROM '.TBL_MEMBERS.' ';
@@ -78,18 +78,18 @@ foreach ($members as $member => $key)
 		$members[$member][$attribute] = $row['usd_value'];
 	}
 }
-   
+
 //alle Mitglieder durchlaufen und prüfen, ob eine Mitgliedsnummer existiert       
  foreach ($members as $member => $key)
 {
 	if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))
 	{
 		$nummer = erzeuge_mitgliedsnummer();
-		
+
 		$user = new User($gDb, $gProfileFields, $member);
     	$user->setValue('MEMBERNUMBER', $nummer);
     	$user->save();
-    	
+
     	$message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $members[$member]['SYS_FIRSTNAME'], $members[$member]['SYS_LASTNAME'], $nummer);
 	}
 }

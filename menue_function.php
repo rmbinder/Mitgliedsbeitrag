@@ -33,7 +33,7 @@ $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
 $gMessage->showHtmlTextOnly(true);
 
 $ret_message = 'success';
-	
+
 try
 {
 	switch($getForm)
@@ -59,7 +59,7 @@ try
     			{
    	    			$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
     			}
-	
+
     			if (!empty($data['FEE'.$gCurrentOrganization->getValue('org_id')])
 	   				&& (   (isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
 		  				|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
@@ -67,7 +67,7 @@ try
     			{
   	     			$user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), '');
     			}
-	
+
 				if (!empty($data['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
 					&& (   (isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
 						|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
@@ -85,23 +85,23 @@ try
 			$pPreferences->config['Beitrag']['beitrag_modus'] = $_POST['beitrag_modus'];
 			$pPreferences->save();
             break;
-            	
+
         case 'payments':
             $pPreferences->config['Beitrag']['zahlungen_rollenwahl'] = isset($_POST['zahlungen_rollenwahl']) ? $_POST['zahlungen_rollenwahl'] : array(' ');
 			$pPreferences->save();
             break;
-            	
+
         case 'sepa':
             $pPreferences->config['SEPA']['duedate_rollenwahl'] = isset($_POST['duedate_rollenwahl']) ? $_POST['duedate_rollenwahl'] : array(' ');
 			$pPreferences->save();
             break;
-            	
+
        	case 'plugin_control':
             unset($pPreferences->config['Pluginfreigabe']);
     		$pPreferences->config['Pluginfreigabe']['freigabe'] = $_POST['freigabe'];
     		$pPreferences->config['Pluginfreigabe']['freigabe_config'] = $_POST['freigabe_config'];
             break;
-            
+
         default:
            	$gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }

@@ -68,7 +68,7 @@ foreach ($rols as $rol => $roldata)
         foreach ($roldata['members'] as $key => $data)
         {
             $rols[$rol]['has_to_pay'] = $key;
-          
+
             if(  strlen($data['IBAN'])!=0 )
             {
                 $rols[$rol]['has_to_pay'] = $key;
@@ -96,7 +96,7 @@ foreach ($members as $member => $memberdata)
 {
 	$members[$member]['BEITRAG-NEU']='';
 	$members[$member]['BEITRAGSTEXT-NEU']='';
-	
+
     foreach ($rols as $rol => $roldata)
     {
     	// alle Rollen, außer Familienrollen
@@ -106,7 +106,7 @@ foreach ($members as $member => $memberdata)
             {
                 $members[$member]['ACCESSION'.$gCurrentOrganization->getValue('org_id')] = $roldata['members'][$member]['mem_begin'];
             }
-            
+
 			if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
             {
                 $time_begin = strtotime($roldata['members'][$member]['mem_begin']);
@@ -115,7 +115,7 @@ foreach ($members as $member => $memberdata)
             {
             	$time_begin = strtotime($members[$member]['ACCESSION'.$gCurrentOrganization->getValue('org_id')]);
             }
-            
+
             // das Standarddatum '9999-12-31' kann auf best. Systemen nicht verarbeitet werden
 			if($roldata['members'][$member]['mem_end'] == '9999-12-31')
             {
@@ -125,7 +125,7 @@ foreach ($members as $member => $memberdata)
             {
             	$time_end = strtotime($roldata['members'][$member]['mem_end']);
             }
-            
+
             // anteiligen Beitrag berechnen, falls das Mitglied im aktuellen Jahr ein- oder ausgetreten ist
             // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
             // && Beitragszeitraum (cost_period) darf nicht "Jährlich" (1) sein
@@ -133,7 +133,7 @@ foreach ($members as $member => $memberdata)
             	&& ($roldata['rol_cost_period']!=-1)
             	&& ($roldata['rol_cost_period']!=1) )
             {
-                
+
             	if ( strtotime(date("Y")."-01-01") <  $time_begin )
             	{
             		$month_begin = date("n", $time_begin);
@@ -153,7 +153,7 @@ foreach ($members as $member => $memberdata)
 
                 $segment_begin = ceil($month_begin * $roldata['rol_cost_period']/12);
                 $segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
-                
+
                 $members[$member]['BEITRAG-NEU'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
                 if ($roldata['rol_description']!='')
                 {
@@ -180,7 +180,7 @@ foreach ($members as $member => $memberdata)
             }
         }
     }
-    
+
     // wenn definiert: Beitragstext mit dem Namen des Benutzers 
     if(	($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
     	&&  ($members[$member]['BEITRAG-NEU']!='')
@@ -209,7 +209,7 @@ foreach ($rols as $rol => $roldata)
             }
             $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.' ';
         }
-         
+
         //alle Mitglieder dieser Rolle durchlaufen und die Beiträge der Mitglieder dem Zahlungspflichtigen zuordnen
         foreach ($roldata['members'] as $member => $memberdata)
         {
@@ -219,7 +219,7 @@ foreach ($rols as $rol => $roldata)
                 $members[$roldata['has_to_pay']]['BEITRAG-NEU'] += $members[$member]['BEITRAG-NEU'];
                 $members[$member]['BEITRAG-NEU'] = '';
                 $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $members[$member]['BEITRAGSTEXT-NEU'].' ';
-                
+
                 // wenn nicht definiert: Beitragstext mit allen Familienmitgliedern, trotzdem Name und Vorname anfügen
                 if(!$pPreferences->config['Beitrag']['beitrag_textmitnam'])
                 {
@@ -228,7 +228,7 @@ foreach ($rols as $rol => $roldata)
                 $members[$member]['BEITRAGSTEXT-NEU'] = '';
             }
         }
-        
+
         // anteiligen Beitrag berechnen, falls die Familie erst im aktuellen Jahr angelegt wurde
         // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
         // && Beitragszeitraum (cost_period) darf nicht "Jährlich" (1) sein
@@ -245,7 +245,7 @@ foreach ($rols as $rol => $roldata)
         }
     }
 }
-                             
+
 foreach ($members as $member => $memberdata)
 {
     // den errechneten Beitrag nur in die DB schreiben wenn mehrere Kriterien erfüllt sind
@@ -256,27 +256,27 @@ foreach ($members as $member => $memberdata)
     	&& ($members[$member]['BEITRAG-NEU']>$pPreferences->config['Beitrag']['beitrag_mindestbetrag']) )
     {
         $members[$member]['BEITRAGSTEXT-NEU'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['BEITRAGSTEXT-NEU'].' ';
-    
+
         // alle Beiträge auf 2 Nachkommastellen runden
         $members[$member]['BEITRAG-NEU'] = round($members[$member]['BEITRAG-NEU'], 2);
-        
+
         //ggf. abrunden
         if ($pPreferences->config['Beitrag']['beitrag_abrunden'] == true)
         {
             $members[$member]['BEITRAG-NEU'] = floor($members[$member]['BEITRAG-NEU']);
         }
-    
+
         if($pPreferences->config['Beitrag']['beitrag_modus'] == 'summation')
         {
          	$members[$member]['BEITRAG-NEU'] += $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')];
         	$members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')].' ';
         }
- 
+
         //führende und nachfolgene Leerstellen im Beitragstext löschen
         $members[$member]['BEITRAGSTEXT-NEU'] = trim($members[$member]['BEITRAGSTEXT-NEU']);
         //zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
         $members[$member]['BEITRAGSTEXT-NEU'] = str_replace('  ', ' ', $members[$member]['BEITRAGSTEXT-NEU']);
-        
+
         //neuen Beitrag schreiben
         $user = new User($gDb, $gProfileFields, $member);
     	$user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), $members[$member]['BEITRAG-NEU']);

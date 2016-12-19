@@ -40,7 +40,7 @@ $stack = array();
 $message = '';
 $tablemember = new TableMembers($gDb);
 $sql = '';
- 
+
 $message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO3').'</strong><BR>';
 
 // alle Altersrollen einlesen
@@ -55,7 +55,7 @@ foreach ($altersrollen as $roleId => $roldata)
         {
             $gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO1').' '.$memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO2'));
         }
-    
+
         $age = ageCalculator( strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'] ));
 
         // ist das Alter des Mitglieds außerhalb des Altersschemas der Rolle
@@ -63,13 +63,13 @@ foreach ($altersrollen as $roleId => $roldata)
         {
             // wenn ja, dann Mitglied auf den Stack legen und Rollenmitgliedschaft löschen
         	$stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
-        	
+
             $sql = 'UPDATE '.TBL_MEMBERS.'
                     SET mem_end = \''.date("Y-m-d", strtotime('-1 day')).'\'
                     WHERE mem_usr_id = '.$member.'
                     AND mem_rol_id = '.$roleId;
             $gDb->query($sql);
-            
+
 			// stopMembership() kann nicht verwendet werden, da es unter best. Umständen Mitgliedschaften nicht löscht
 			// Beschreibung von stopMembership()
         	// 		only stop membership if there is an actual membership
@@ -109,7 +109,7 @@ foreach ($stack as $key => $stackdata)
             // das Mitglied passt in das Altersschema der Rolle und das Kennzeichen dieser Altersstaffelung passt auch
         	$tablemember->startMembership($roleId, $stackdata['user_id']);
             $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
-                        
+
          	unset($stack[$key]);
          	$marker = true;
         }

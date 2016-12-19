@@ -78,7 +78,7 @@ if($getMode == 'assign')
         $e->showText();
     }
     echo $ret_text;
-	
+
 }
 else
 {
@@ -95,7 +95,7 @@ else
 
     // create html page object
     $page = new HtmlPage($headline);
-        
+
     if($getFullScreen == true)
     {
     	$page->hideThemeHtml();
@@ -183,7 +183,7 @@ else
         $copyMenu->addItem('menu_item_full_screen', $g_root_path. '/adm_plugins/'.$plugin_folder.'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
-    
+
     $membersSelectString='';
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'), 0);
 	foreach ($members as $member => $memberdata)
@@ -245,7 +245,7 @@ else
 
     	//3. Spalte 
     	$htmlProfileField 	= addslashes($field->getValue('usf_name'));
-    	  
+
     	//4. Spalte 
        	$htmlTargetMarker = '<input type="checkbox" id="targetfield_'.$field->getValue('usf_id').'" name="targetfield_'.$field->getValue('usf_id').'" class="targetlist_checkbox" /><b id="loadindicator_targetfield_'.$field->getValue('usf_id').'"></b>';
 
@@ -258,7 +258,7 @@ else
     	{
     		$htmlTarget = '<div class="targetval_'.$field->getValue('usf_id').'" id="targetval_'.$field->getValue('usf_id').'">'.'&nbsp;'.'</div>';
     	}
-     
+
         // create array with all column values
         $columnValues = array(
             $htmlSource,
@@ -267,7 +267,7 @@ else
             $htmlTargetMarker,
             $htmlTarget
             );
-            
+
         $table->addRowByArray($columnValues);
     }//End Foreach
 

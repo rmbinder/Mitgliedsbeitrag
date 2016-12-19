@@ -98,7 +98,7 @@ else
     	$("#tabs-preferences").attr("class", "tab-pane active");
     	', true);
 }
- 
+
 $page->addJavascript('function cischieben(){ 
 		var ci = $("input[type=text]#ci").val(); 
 		var origci = $("input[type=text]#origci").val(ci);
@@ -192,7 +192,7 @@ $page->addHtml('
                                                     '*'=>'* '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TIMES').'(*)',
                                                     '%'=>'% '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT').'(*)');
         				$form->addSelectBox('beitrag_text_token', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_text_token'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN_DESC', 'showContextDependentFirstEntry' => false));
-                        
+
  						$form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT'),
                             '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC').':</p>
                             		<p><strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
@@ -284,7 +284,7 @@ $page->addHtml('
 							$form->openGroupBox('familyroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE'));
 							$form->addInput('familienrollen_prefix'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX'), $pPreferences->config['Familienrollen']['familienrollen_prefix'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_PREFIX_DESC', 'property' => FIELD_REQUIRED));
 							$form->addInput('familienrollen_beitrag'.$conf, $gL10n->get('SYS_CONTRIBUTION').' '.$gPreferences['system_currency'], $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC'));
-			         		
+
 							$selectBoxEntries = array('--', -1, 1, 2, 4, 12);
 							$role = new TableRoles($gDb);
         					$form->addSelectBox('familienrollen_zeitraum'.$conf, $gL10n->get('SYS_CONTRIBUTION_PERIOD'), $role->getCostPeriods(), array('firstEntry' => '', 'defaultValue' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$conf], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC', 'showContextDependentFirstEntry' => false));
@@ -331,7 +331,7 @@ $page->addHtml('
 									src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'" /></a>';
                         	$form->addCustomContent('', $html);
 							$form->addInput('origcreditor', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR'), $pPreferences->config['Kontodaten']['origcreditor']);
-							
+
 							$form->addInput('ci', $gL10n->get('PLG_MITGLIEDSBEITRAG_CI'), $pPreferences->config['Kontodaten']['ci'], array('property' => FIELD_REQUIRED));
 							$html = '<a class="iconLink" id="cischieben" href="javascript:cischieben()"><img 
 									src="'. THEME_PATH. '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'" /></a>';
@@ -352,7 +352,7 @@ $page->addHtml('
 							{
 								$form->addInput('origci', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $pPreferences->config['Kontodaten']['origci']);
 							}
-							
+
 							$html = '<a class="icon-text-info" href="'.$g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=accountdata">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'</a>';
                         	$form->addCustomContent('', $html, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC'));
 						}

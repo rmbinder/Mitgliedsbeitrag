@@ -71,7 +71,7 @@ foreach ($members as $member => $memberdata)
         {
             $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'];
         }
-        
+
 		$zpflgt[$member]['name']=substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);     										// Name of account owner.
 		$zpflgt[$member]['alt_name']="";																								// Array SEPA Zahlungspflichtiger abweichender Name
 		$zpflgt[$member]['iban']=str_replace(' ', '', $members[$member]['IBAN']);        																		// IBAN 
@@ -96,7 +96,7 @@ if ($lst_num==0)
 {
 	$gMessage->show('Keine Daten für den Export vorhanden!');
 }
-				
+
 $message_id=substr("Message-ID-".replace_sepadaten($gCurrentOrganization->getValue('org_shortname')), 0, 35);		//SEPA Message-ID	(max. 35)		
 $message_datum=date($format1, $now)."T".date($format2, $now).".000Z";										//SEPA Message-Datum z.B.: 2010-11-21T09:30:47.000Z
 $message_initiator_name=substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);						//SEPA Message Initiator Name
@@ -128,7 +128,7 @@ if (isset($_POST['btn_xml_file']))
   	$xmlfile.="<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.003.02'
           xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
           xsi:schemaLocation='urn:iso:std:iso:20022:tech:xsd:pain.008.003.02 pain.008.003.02.xsd'>\n";
-  	
+
   	// DFÜ-Abkommen Version 2.6
   	// Pain 008.002.002
   	//$xmlfile.="<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.002.02'
@@ -237,7 +237,7 @@ if (isset($_POST['btn_xml_file']))
             					{
             						$xmlfile.="<OrgnlMndtId>".$zpflgtdata['orig_mandat_id']."</OrgnlMndtId>\n";
             					}
-            					
+
             					if((strlen($zempf['orig_cdtr_name'])!=0) || (strlen($zempf['orig_cdtr_id'])!=0) )				//Kennzeichnet, ob das Mandat verändert wurde,
             					{
             						$xmlfile.="<OrgnlCdtrSchmeId>\n";       //Identifikation des Zahlungsempfängers
@@ -260,7 +260,7 @@ if (isset($_POST['btn_xml_file']))
             						}
             						$xmlfile.="</OrgnlCdtrSchmeId>\n";
             					}
-            						
+
             				    if(strlen($zpflgtdata['orig_iban'])!=0) 			//Kennzeichnet, ob das Mandat verändert wurde,
             					{
             						$xmlfile.="<OrgnlDbtrAcct>\n";
@@ -269,7 +269,7 @@ if (isset($_POST['btn_xml_file']))
             							$xmlfile.="</Id>\n";
                   					$xmlfile.="</OrgnlDbtrAcct>\n";
             					}
-            					              			 				
+
             				    if(strlen($zpflgtdata['orig_dbtr_agent'])!=0) 		//Kennzeichnet, ob das Mandat verändert wurde,
             					{
             						$xmlfile.="<OrgnlDbtrAgt>\n";
@@ -280,7 +280,7 @@ if (isset($_POST['btn_xml_file']))
             							$xmlfile.="</FinInstnId>\n";
                   					$xmlfile.="</OrgnlDbtrAgt>\n";
             					}
-              						
+
             					$xmlfile.="</AmdmntInfDtls>\n";
             				}
  							else
@@ -289,7 +289,7 @@ if (isset($_POST['btn_xml_file']))
   							}
           				$xmlfile.="</MndtRltdInf>\n";
         			$xmlfile.="</DrctDbtTx>\n";
-        					
+
         			//## Kreditinstitut des Zahlers (Zahlungspflichtigen)
         			// BIC ist Pflicht bis Feb 2014!
         				$xmlfile.="<DbtrAgt>\n";                         		//DebtorAgent, Kreditinstitut des Zahlers (Zahlungspflichtigen)
@@ -306,7 +306,7 @@ if (isset($_POST['btn_xml_file']))
             				}
           					$xmlfile.="</FinInstnId>\n";
         				$xmlfile.="</DbtrAgt>\n";
-			
+
         			$xmlfile.="<Dbtr>\n";                         				//Zahlungspflichtiger
           				$xmlfile.="<Nm>".$zpflgtdata['name']."</Nm>\n";     	//Name (70)
         			$xmlfile.="</Dbtr>\n";
@@ -326,13 +326,13 @@ if (isset($_POST['btn_xml_file']))
         			$xmlfile.="</RmtInf>\n";
       			$xmlfile.="</DrctDbtTxInf>\n";
 			}
-		
+
     	// ########## Ende Payment Information ##############
     	$xmlfile.="</PmtInf>\n";
-    
+
     // ######## Ende der Payment Information ############
     $xmlfile.="</CstmrDrctDbtInitn>\n";
-		
+
     //Ende Customer Debit Transfer Initiation
 	$xmlfile.="</Document>\n";
 
@@ -345,7 +345,7 @@ if (isset($_POST['btn_xml_file']))
 	header("Content-Transfer-Encoding: binary"); // Im Grunde ueberfluessig, hat sich anscheinend bewährt
 	header("Cache-Control: post-check=0, pre-check=0"); // Zwischenspeichern auf Proxies verhindern
 	header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.xml"');
-	
+
 	echo $xmlfile;
 
 	die();
@@ -366,7 +366,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 	header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.csv"');
 
 	$datumtemp = new DateTimeExtended($payment_datum, 'Y-m-d');
-	
+
 	echo "SEPA-".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')."\n\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').";".$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.csv'."\n"
         ."\n"
@@ -387,7 +387,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         ."\n"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'] )."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n";
-        	
+
 	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"
@@ -400,12 +400,12 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')."\n";
-	
+
 	$nr = 1;
 	foreach ($zpflgt as $dummy => $zpflgtdata)
 	{
         $datumtemp = new DateTimeExtended($zpflgtdata['mandat_datum'], 'Y-m-d');
-                
+
 		echo
          	utf8_decode($nr).";"
         	.utf8_decode($zpflgtdata['name']).";"
