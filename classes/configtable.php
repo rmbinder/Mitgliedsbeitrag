@@ -28,7 +28,7 @@
 
 class ConfigTablePMB
 {
-	public	  $config		= array();     ///< Array mit allen Konfigurationsdaten
+	public $config		= array();     ///< Array mit allen Konfigurationsdaten
 
 	protected $table_name;
 	protected static $shortcut =  'PMB';
