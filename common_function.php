@@ -58,7 +58,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
 
 	while ($row = $statement->fetch())
     {
-        $rollen[$row['rol_id']] = array('rolle' => $row['rol_name'],'rol_cost' => $row['rol_cost'],'rol_cost_period' => $row['rol_cost_period'],'rol_timestamp_create' => $row['rol_timestamp_create'],'rol_description' => $row['rol_description'],'von' => 0,'bis' => 0,'rollentyp' => '');
+        $rollen[$row['rol_id']] = array('rolle' => $row['rol_name'], 'rol_cost' => $row['rol_cost'], 'rol_cost_period' => $row['rol_cost_period'], 'rol_timestamp_create' => $row['rol_timestamp_create'], 'rol_description' => $row['rol_description'], 'von' => 0, 'bis' => 0, 'rollentyp' => '');
     }
     
     foreach ($rollen as $key => $data)
@@ -445,7 +445,7 @@ function analyse_mem()
     global $gCurrentOrganization;
     
     $members = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0)  ;
-	$ret = array('data'=> $members,'BEITRAG_kto'=>0,'BEITRAG_kto_anzahl'=>0,'BEITRAG_rech'=>0,'BEITRAG_rech_anzahl'=>0,'BEZAHLT_kto'=>0,'BEZAHLT_kto_anzahl'=>0,'BEZAHLT_rech'=>0,'BEZAHLT_rech_anzahl'=>0);
+	$ret = array('data'=> $members, 'BEITRAG_kto'=>0, 'BEITRAG_kto_anzahl'=>0, 'BEITRAG_rech'=>0, 'BEITRAG_rech_anzahl'=>0, 'BEZAHLT_kto'=>0, 'BEZAHLT_kto_anzahl'=>0, 'BEZAHLT_rech'=>0, 'BEZAHLT_rech_anzahl'=>0);
     
 	// alle Mitglieder durchlaufen und im ersten Schritt alle Mitglieder,  
 	// bei denen kein Beitrag berechnet wurde,
@@ -517,7 +517,7 @@ function analyse_rol()
 				$arr[]=$key;
 			}
     	}
-		$ret[$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey]] = array('rolle' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE').' '.$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey],'rol_cost' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$famkey],'rol_cost_period' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$famkey],'members' =>$arr,'rollentyp' => 'fam');
+		$ret[$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey]] = array('rolle' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE').' '.$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey], 'rol_cost' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$famkey], 'rol_cost_period' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$famkey], 'members' =>$arr, 'rollentyp' => 'fam');
     		
     }
     return $ret;
@@ -813,8 +813,8 @@ function check_rols()
     	{
     		if ($altdata['alterstyp']==$tokendata)
     		{
-	       		$check[]  = array('year' => $altdata['von'],'rol' => $altrol);
-        		$check[]  = array('year' => $altdata['bis'],'rol' => $altrol);
+	       		$check[]  = array('year' => $altdata['von'], 'rol' => $altrol);
+        		$check[]  = array('year' => $altdata['bis'], 'rol' => $altrol);
     		}
     	}
  

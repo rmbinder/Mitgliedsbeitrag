@@ -95,7 +95,7 @@ $selectBoxEntriesBeitragsrollen=array();
 
 foreach ($rols as $key => $data)
 {
-	$selectBoxEntriesBeitragsrollen[$key]=array($key,$data['rolle'],expand_rollentyp($data['rollentyp']));
+	$selectBoxEntriesBeitragsrollen[$key]=array($key, $data['rolle'], expand_rollentyp($data['rollentyp']));
 	$sortArray[$key]=expand_rollentyp($data['rollentyp']);
 }
 
@@ -428,10 +428,10 @@ if(sizeof($rols)>0)
              						$classTable  = 'table table-condensed';
              						$table = new HtmlTable('table_roles_contribution', $page, $hoverRows, $datatable, $classTable);
         				
-             						$columnAlign  = array('left','right', 'right', 'right', 'right');
+             						$columnAlign  = array('left', 'right', 'right', 'right', 'right');
             						$table->setColumnAlignByArray($columnAlign);
         				
-        							$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), 'dummy',$gL10n->get('SYS_CONTRIBUTION'), $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'));
+        							$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), 'dummy', $gL10n->get('SYS_CONTRIBUTION'), $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'));
         							$table->addRowHeadingByArray($columnValues);
     				
         							$rollen = analyse_rol() ;
@@ -448,7 +448,7 @@ if(sizeof($rols)>0)
                             			$table->addRowByArray($columnValues);
     								}
 
-        							$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL'), '','', '', $sum.' '.$gPreferences['system_currency']);
+        							$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL'), '', '', '', $sum.' '.$gPreferences['system_currency']);
             						$table->addRowByArray($columnValues);
             						$table->setDatatablesGroupColumn(2);
             						$table->setDatatablesRowsPerPage(10);
@@ -795,7 +795,7 @@ if(sizeof($rols)>0)
              				$columnAlign  = array('left', 'right', 'right');
             				$table->setColumnAlignByArray($columnAlign);
         				
-        					$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'),'dummy',$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT'));
+        					$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'), 'dummy', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT'));
         					$table->addRowHeadingByArray($columnValues);
     				
         					$rollen = beitragsrollen_einlesen('', array('LAST_NAME'));
