@@ -26,7 +26,7 @@ require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 // Initialize and check the parameters
 $showOption = admFuncVariableIsValid($_GET, 'show_option', 'string');
 
-$pPreferences = new ConfigTablePMB;
+$pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 // only authorized user are allowed to start this module

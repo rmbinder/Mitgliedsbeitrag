@@ -22,7 +22,7 @@ require_once($plugin_path. '/../adm_program/system/common.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
 require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
-$pPreferences = new ConfigTablePMB;
+$pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 // only authorized user are allowed to start this module

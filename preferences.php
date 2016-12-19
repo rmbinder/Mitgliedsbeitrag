@@ -31,7 +31,7 @@ require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 $getChoice  = admFuncVariableIsValid($_GET, 'choice', 'string', array('defaultValue' => ''));
 $getConf    = admFuncVariableIsValid($_GET, 'conf', 'numeric');
 
-$pPreferences = new ConfigTablePMB;
+$pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 // only authorized user are allowed to start this module
