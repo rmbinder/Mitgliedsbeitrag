@@ -91,5 +91,4 @@ $config_default['Plugininformationen']['stand'] = '';
  *  Achtung: Vor einer Änderung muss eine Deinstallation durchgeführt werden!
  *  Bereits gespeicherte Werte in der Datenbank können nach einer Änderung nicht mehr eingelesen werden!
  */
-$dbtoken  = '#_#';  
-
+$dbtoken  = '#_#';

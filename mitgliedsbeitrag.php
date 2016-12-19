@@ -70,4 +70,4 @@ if(!isset($_SESSION['pmbDeinst']))
 				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
 		}
 	}
-}	
+}
