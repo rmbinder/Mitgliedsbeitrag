@@ -166,7 +166,6 @@ else
 	   };	
     ');            // !!!: ohne true
 
-
     $page->addJavascript('
 
         // checkbox "Kontoverbindung bei anderer Bank" wurde gewählt
