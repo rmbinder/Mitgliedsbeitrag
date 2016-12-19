@@ -218,7 +218,7 @@ class ConfigTablePMB
 
             	// Gibt es den Datensatz bereits?
             	// wenn ja: UPDATE des bestehende Datensatzes  
-            	if(isset($row->plp_id) AND strlen($row->plp_id) > 0)
+            	if(isset($row->plp_id) && strlen($row->plp_id) > 0)
             	{
                 	$sql = 'UPDATE '.$this->table_name.' 
                 			SET plp_value = \''.$value.'\' 

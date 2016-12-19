@@ -986,7 +986,7 @@ function check_DB()
         $statement = $gDb->query($sql);
         $row = $statement->fetchObject();
         // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version  
-        if(isset($row->cat_id) AND strlen($row->cat_id) > 0)
+        if(isset($row->cat_id) && strlen($row->cat_id) > 0)
         {
         	$sql = 'UPDATE '.TBL_CATEGORIES.' 
                 	SET cat_name = \''.$data['neu_cat_name'].'\' ,
@@ -1074,7 +1074,7 @@ function check_DB()
     	$statement = $gDb->query($sql);
     	$row = $statement->fetchObject();
     	// Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version
-    	if(isset($row->usf_id) AND strlen($row->usf_id) > 0)
+    	if(isset($row->usf_id) && strlen($row->usf_id) > 0)
     	{
     		$sql = 'UPDATE '.TBL_USER_FIELDS.'
             		SET usf_name = \''.$data['neu_usf_name'].'\' ,

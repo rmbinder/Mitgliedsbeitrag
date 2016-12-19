@@ -383,7 +383,7 @@ function getRole_IDPMB($role_name)
                       
     $statement = $gDb->query($sql);
     $row = $statement->fetchObject();
-	if(isset($row->rol_id) AND strlen($row->rol_id) > 0)
+	if(isset($row->rol_id) && strlen($row->rol_id) > 0)
 	{
 		return $row->rol_id ;
 	}
@@ -1071,7 +1071,7 @@ function check_showpluginPMB($array)
 {
     $showPlugin = false;
 
-    foreach ($array AS $i)
+    foreach ($array as $i)
     {
         if(hasRole_IDPMB($i))
         {
