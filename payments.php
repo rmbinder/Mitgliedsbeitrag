@@ -47,7 +47,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
-if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]<>' ')
+if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]!=' ')
 {
 	foreach ($rols as $rol => $roldata)
 	{
@@ -79,7 +79,7 @@ if($getMode == 'assign')
 	$ret_text = 'ERROR';
  
 	$userArray = array();
-	if($getUserId<>0)			// Bezahlt-Datum nur für einen einzigen User ändern
+	if($getUserId!=0)			// Bezahlt-Datum nur für einen einzigen User ändern
 	{
 		$userArray[0] = $getUserId;
 	}
@@ -104,27 +104,27 @@ if($getMode == 'assign')
 				// BEZAHLT bedeutet, es hat bereits eine Zahlung stattgefunden
 				// die nächste Zahlung kann nur eine Folgelastschrift sein
 				// Lastschrifttyp darf aber nur geändert werden, wenn der Einzug per SEPA stattfand, also ein Fälligkeitsdatum vorhanden ist
-				if ( strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) == 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) <> 0 )
+				if ( strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) == 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0 )
 				{
 					$user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'RCUR');
 				}
 
 				//falls Daten von einer Mandatsänderung vorhanden sind, diese löschen
-				if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) <> 0 )
+				if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) != 0 )
 				{
 					$user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), '');
 				}
-				if (strlen($user->getValue('ORIG_IBAN')) <> 0 )
+				if (strlen($user->getValue('ORIG_IBAN')) != 0 )
 				{
 					$user->setValue('ORIG_IBAN', '');
 				}
-				if (strlen($user->getValue('ORIG_DEBTOR_AGENT')) <> 0 )
+				if (strlen($user->getValue('ORIG_DEBTOR_AGENT')) != 0 )
 				{
 					$user->setValue('ORIG_DEBTOR_AGENT', '');
 				}
 		
 				//das Fälligkeitsdatum löschen (wird nicht mehr gebraucht, da ja bezahlt)
-				if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) <> 0 )
+				if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0 )
 				{
 					$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
 				}
@@ -359,7 +359,7 @@ else
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-  	if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]<>' ')
+  	if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]!=' ')
 	{
 		$navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
 	}

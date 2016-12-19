@@ -298,7 +298,7 @@ class ConfigTablePMB
     		$row = $statement->fetchObject();
 
     		// Vergleich Version.php  ./. DB (hier: version)
-    		if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value<>self::$version)
+    		if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value!=self::$version)
     		{
     			$ret = 1;
     		}
@@ -314,7 +314,7 @@ class ConfigTablePMB
     		$row = $statement->fetchObject();
 
     		// Vergleich Version.php  ./. DB (hier: stand)
-    		if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value<>self::$stand)
+    		if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value!=self::$stand)
     		{
     			$ret = 1;
     		}
@@ -362,7 +362,7 @@ class ConfigTablePMB
 			OR cat_org_id IS NULL ) ';
         $statement = $gDb->query($sql);
 
-		if($statement->rowCount() <> sizeof($fieldsarray))
+		if($statement->rowCount() != sizeof($fieldsarray))
 		{
 			$ret = 2;
 		}
@@ -472,7 +472,7 @@ class ConfigTablePMB
 			WHERE usd_usf_id = '.$data['usf_id'];
       	 	$statement = $gDb->query($sql);
 
-    		if($statement->rowCount() <>0)
+    		if($statement->rowCount() !=0)
     		{
     			$sql = 'DELETE FROM '.TBL_USER_DATA.'
             			WHERE usd_usf_id = '.$data['usf_id'];
@@ -485,7 +485,7 @@ class ConfigTablePMB
 			WHERE usl_usf_id = '.$data['usf_id'];
             $statement = $gDb->query($sql);
 
-    		if($statement->rowCount() <>0)
+    		if($statement->rowCount() !=0)
     		{
     			$sql = 'DELETE FROM '.TBL_USER_LOG.'
             		WHERE usl_usf_id = '.$data['usf_id'];
@@ -498,7 +498,7 @@ class ConfigTablePMB
 				WHERE lsc_usf_id = '.$data['usf_id'];
             $statement = $gDb->query($sql);
 
-            if($statement->rowCount() <>0)
+            if($statement->rowCount() !=0)
     		{
     			$sql = 'DELETE FROM '.TBL_LIST_COLUMNS.'
             		WHERE lsc_usf_id = '.$data['usf_id'];

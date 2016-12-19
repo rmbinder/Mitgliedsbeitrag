@@ -211,19 +211,19 @@ elseif($getMode == 'delete')
 	}
 	
 	$deinstMessage = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE');
-	if($deinst_config_data_message<>'')
+	if($deinst_config_data_message!='')
 	{
 		$deinstMessage .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA').'</strong><BR>';
 		$deinstMessage .= $deinst_config_data_message;
 	}
-  	if($deinst_member_data_message<>'')
+  	if($deinst_member_data_message!='')
 	{
 		$deinstMessage .= '<BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA').'</strong>';
 		$deinstMessage .= $deinst_member_data_message;
 	}
 
 	$form = new HtmlForm('deinstallations_form', null, $page);
-  	if($deinstMessage <> $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE'))
+  	if($deinstMessage != $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE'))
 	{
 		$form->addDescription($deinstMessage);
 		$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE').'</div>';

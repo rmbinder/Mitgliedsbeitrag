@@ -76,10 +76,10 @@ if($getMode == 'assign')
 	if (  $getBankChanged == 'false' )             //nein, dieselbe Bank
 	{
 		//hat eine Änderung der IBAN stattgefunden?
-		if ( $getIBAN <> $user->getValue('IBAN')  )
+		if ( $getIBAN != $user->getValue('IBAN')  )
 		{
 			//ja, dann muss origIBAN befüllt sein
-			if (strlen($getOrigIBAN) <> 0 )
+			if (strlen($getOrigIBAN) != 0 )
 			{
 				$iban_change='true';
 				$ret_txt='success';
@@ -93,7 +93,7 @@ if($getMode == 'assign')
 	else               //die Bank wurde geändert
 	{
 		//bei einer Änderung der Bank muss es eine andere IBAN geben
-		if ( $getIBAN <> $user->getValue('IBAN'))
+		if ( $getIBAN != $user->getValue('IBAN'))
 		{
 			$bank_change='true';
 			$ret_txt='success';
@@ -105,10 +105,10 @@ if($getMode == 'assign')
 	}
 	 
 	// wurde die Mandatsreferenz geändert?
-	if($getMandateID <> $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')))
+	if($getMandateID != $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')))
 	{
 		//bei einer Änderung muss origMandateID befüllt sein
-		if (strlen($getOrigMandateID) <> 0 )
+		if (strlen($getOrigMandateID) != 0 )
 		{
 			$mandateid_change='true';
 			$ret_txt='success';

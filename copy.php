@@ -62,7 +62,7 @@ if($getMode == 'assign')
 	$ret_text = 'ERROR';
 	try
    	{
-		if($gProfileFields->getPropertyById($getSourceUsfid, 'usf_type') <> $gProfileFields->getPropertyById($getTargetUsfid, 'usf_type'))
+		if($gProfileFields->getPropertyById($getSourceUsfid, 'usf_type') != $gProfileFields->getPropertyById($getTargetUsfid, 'usf_type'))
 		{
 			$ret_text = 'unequal_datatype';
 		}

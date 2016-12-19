@@ -116,15 +116,15 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
     // alle nicht benötigten Rollen löschen
     foreach ($rollen as $key => $data)
     {
-        if (($rollenwahl == 'fam') && ($rollen[$key]['rollentyp'] <> 'fam'))
+        if (($rollenwahl == 'fam') && ($rollen[$key]['rollentyp'] != 'fam'))
         {
             unset($rollen[$key]);
         }
-        elseif (($rollenwahl == 'alt') && ($rollen[$key]['rollentyp'] <> 'alt'))
+        elseif (($rollenwahl == 'alt') && ($rollen[$key]['rollentyp'] != 'alt'))
         {
             unset($rollen[$key]);
         }
-        elseif (($rollenwahl == 'fix') && ($rollen[$key]['rollentyp'] <> 'fix'))
+        elseif (($rollenwahl == 'fix') && ($rollen[$key]['rollentyp'] != 'fix'))
         {
             unset($rollen[$key]);
         }
@@ -608,7 +608,7 @@ function check_rollenmitgliedschaft_pflicht()
 
     // Feature-Wunsch von joesch
     $bezugskategorieMembers = array();
-    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]<>' ')
+    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]!=' ')
     {
     	// zuerst alle Member der Bezugskategorien einlesen
 		$bezugskategorieMembers = bezugskategorie_einlesen();
@@ -692,7 +692,7 @@ function check_rollenmitgliedschaft_ausschluss()
 
     // Feature-Wunsch von joesch
     $bezugskategorieMembers = array();
-    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]<> ' ')
+    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]!= ' ')
     {
     	// zuerst alle Member der Bezugskategorien einlesen
 		$bezugskategorieMembers = bezugskategorie_einlesen();
@@ -822,12 +822,12 @@ function check_rols()
      
     	for ($i = 0; $i < sizeof($check)-1; $i = $i+2)
     	{
-	   	if ($check[$i]['rol'] <> $check[$i+1]['rol'])
+	   	if ($check[$i]['rol'] != $check[$i+1]['rol'])
         	{
             	$ret[$check[$i]['rol']] = '- '.$alt[$check[$i]['rol']]['rolle'];
             	$ret[$check[$i+1]['rol']] = '- '.$alt[$check[$i+1]['rol']]['rolle'];
 			}
-			if (($i < sizeof($check)-2) && ($check[$i+1]['year'] <> ($check[$i+2]['year'])-1))
+			if (($i < sizeof($check)-2) && ($check[$i+1]['year'] != ($check[$i+2]['year'])-1))
         	{
             	$ret[$check[$i+1]['rol']] = '- '.$alt[$check[$i+1]['rol']]['rolle'];
             	$ret[$check[$i+2]['rol']] = '- '.$alt[$check[$i+2]['rol']]['rolle'];
@@ -906,7 +906,7 @@ function check_family_roles()
     }
     
     // Leerzeile einfügen
-	if (sizeof($ret_error) <> 0)
+	if (sizeof($ret_error) != 0)
     {
         $ret_error[] = '';
     }
@@ -940,12 +940,12 @@ function check_family_roles()
             			}
     				}
     				
-    				if ($counter <> $pruefdata['anz'])
+    				if ($counter != $pruefdata['anz'])
                 	{
                 		$ret_temp[] = '&#160&#160&#160&#183<small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'].':'.$pruefdata['anz'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SATISFIED').'.</small>';
                 	}
     			}
-    			if (sizeof($ret_temp) <> 0)
+    			if (sizeof($ret_temp) != 0)
     			{
 	   				$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
 	   					<a href="'.$g_root_path.'/adm_program/modules/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_PATH. '/icons/list.png"
@@ -966,7 +966,7 @@ function check_family_roles()
     }
     
     // eine evtl. vorhandene Fehlermeldung davorsetzen 
-	if (sizeof($ret_error) <> 0)
+	if (sizeof($ret_error) != 0)
     {
     	$ret = array_merge($ret_error, $ret);
     }
@@ -986,7 +986,7 @@ function check_mandate_management()
 
 	foreach ($members as $member => $memberdata)
 	{
-		if ((strlen($memberdata['DEBTOR'])<>0) && ( (strlen($memberdata['DEBTOR_POSTCODE'])==0) || (strlen($memberdata['DEBTOR_CITY'])==0) || (strlen($memberdata['DEBTOR_ADDRESS'])==0)) )
+		if ((strlen($memberdata['DEBTOR'])!=0) && ( (strlen($memberdata['DEBTOR_POSTCODE'])==0) || (strlen($memberdata['DEBTOR_CITY'])==0) || (strlen($memberdata['DEBTOR_ADDRESS'])==0)) )
 		{
 			$ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}

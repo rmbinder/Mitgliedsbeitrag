@@ -64,7 +64,7 @@ if($getMode == 'assign')
 	$ret_text = 'ERROR';
  
 	$userArray = array();
-	if($getUserId<>0)			// Mandatsdatum nur für einen einzigen User ändern
+	if($getUserId!=0)			// Mandatsdatum nur für einen einzigen User ändern
 	{
 		$userArray[0] = $getUserId;
 	}

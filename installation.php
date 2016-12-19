@@ -1139,7 +1139,7 @@ function check_DB()
   				'usf_mandatory'  	=>  (isset($row->usf_mandatory) ? $row->usf_mandatory : '')
         	);
        
-        if ($DB_array['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'] <> $DB_array['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'])
+        if ($DB_array['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'] != $DB_array['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'])
         {
             unset($DB_array['IST']['TBL_USER_FIELDS'][$field]);
         }
@@ -1167,7 +1167,7 @@ function check_DB()
   				'cat_hidden'  		=>  (isset($row->cat_hidden) ? $row->cat_hidden : '')
         	);
           
-        if ($DB_array['IST']['TBL_CATEGORIES'][$cat]['cat_name_intern'] <> $DB_array['SOLL']['TBL_CATEGORIES'][$cat]['cat_name_intern'])
+        if ($DB_array['IST']['TBL_CATEGORIES'][$cat]['cat_name_intern'] != $DB_array['SOLL']['TBL_CATEGORIES'][$cat]['cat_name_intern'])
         {
             unset($DB_array['IST']['TBL_CATEGORIES'][$cat]);
         }
@@ -1186,7 +1186,7 @@ function SollIstProfilfeld($arr, $field)
 	global $gL10n;
 	$columnValues = array();
 	
-    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'] <> $arr['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'])
+    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'] != $arr['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'])
     {
         $columnValues[] = '<strong>'.$arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'].'</strong>';
         $columnValues[] = '<strong>'.$arr['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'].'</strong>';
@@ -1197,7 +1197,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = $arr['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'];
     }
   
-    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type']<>$arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'])
+    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type']!=$arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'])
     {
         $columnValues[] = '<strong>'.$arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type'].'</strong>';
         $columnValues[] = '<strong>'.$arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'].'</strong>';
@@ -1276,7 +1276,7 @@ function SollIstKategorie($arr, $field)
 	global $gL10n;
 	$columnValues = array();
 
-    if ($arr['SOLL']['TBL_CATEGORIES'][$field]['cat_name_intern'] <> $arr['IST']['TBL_CATEGORIES'][$field]['cat_name_intern'])
+    if ($arr['SOLL']['TBL_CATEGORIES'][$field]['cat_name_intern'] != $arr['IST']['TBL_CATEGORIES'][$field]['cat_name_intern'])
     {
 		$columnValues[] = '&nbsp;';
         $columnValues[] = '<strong>'.$arr['SOLL']['TBL_CATEGORIES'][$field]['cat_name_intern'].'</strong>';

@@ -85,7 +85,7 @@ if($getChoice == '')
 $page = new HtmlPage($headline);
 
 // open the modules tab if the options of a module should be shown
-if($getChoice <> '')
+if($getChoice != '')
 {
     $page->addJavascript('$("#tabs_nav_preferences").attr("class", "active");
         $("#tabs-preferences").attr("class", "tab-pane active");
@@ -247,7 +247,7 @@ $page->addHtml('
 						{
 							$form->openGroupBox('agestaggeredroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING'));
 							$form->addInput('altersrollen_token'.$conf, '', $pPreferences->config['Altersrollen']['altersrollen_token'][$conf], array('maxLength' => 1, 'property' => FIELD_REQUIRED));
-                       		if($num_agestaggeredroles <> 1)
+                       		if($num_agestaggeredroles != 1)
                        		{
 								$html = '<a id="add_config" class="icon-text-link" href="'. $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=agestaggeredroles&conf='.$conf.'"><img
                                     	src="'. THEME_PATH. '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
@@ -289,7 +289,7 @@ $page->addHtml('
 							$role = new TableRoles($gDb);
         					$form->addSelectBox('familienrollen_zeitraum'.$conf, $gL10n->get('SYS_CONTRIBUTION_PERIOD'), $role->getCostPeriods(), array('firstEntry' => '', 'defaultValue' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$conf], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC', 'showContextDependentFirstEntry' => false));
                         	$form->addInput('familienrollen_beschreibung'.$conf, $gL10n->get('SYS_DESCRIPTION'), $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC'));
-							if($num_familyroles <> 1)
+							if($num_familyroles != 1)
                        		{
 								$html = '<a id="add_config" class="icon-text-link" href="'. $g_root_path.'/adm_plugins/'.$plugin_folder.'/preferences.php?choice=familyroles&conf='.$conf.'"><img
                                     	src="'. THEME_PATH. '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';

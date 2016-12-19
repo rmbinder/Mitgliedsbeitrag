@@ -108,7 +108,7 @@ $gNavigation->addStartUrl($g_root_path.'/adm_plugins/'.$plugin_folder.'/menue.ph
 // create html page object
 $page = new HtmlPage($headline);
 
-if($showOption <> '')
+if($showOption != '')
 {
 	if(in_array($showOption, array('mandategenerate', 'mandates')) == true)
 	{
@@ -564,7 +564,7 @@ if(sizeof($rols)>0)
                                                 	{
                                                     	$htmlTable .= ' disabled="disabled" ';
                                                 	}
-                                                	elseif ($duedatedata['FRST']<>0 && $checked_marker)
+                                                	elseif ($duedatedata['FRST']!=0 && $checked_marker)
                                                 	{
                                                 		$htmlTable .= ' checked="checked" ';
                                                 		$checked_marker = false;
@@ -576,7 +576,7 @@ if(sizeof($rols)>0)
                                                 	{
                                                     	$htmlTable .= ' disabled="disabled" ';
                                                 	}
-     												elseif ($duedatedata['RCUR']<>0 && $checked_marker)
+     												elseif ($duedatedata['RCUR']!=0 && $checked_marker)
                                                 	{
                                                 		$htmlTable .= ' checked="checked" ';
                                                 		$checked_marker = false;
@@ -588,7 +588,7 @@ if(sizeof($rols)>0)
                                                 	{
                                                     	$htmlTable .= ' disabled="disabled" ';
                                                 	}
-     												elseif ($duedatedata['FNAL']<>0 && $checked_marker)
+     												elseif ($duedatedata['FNAL']!=0 && $checked_marker)
                                                 	{
                                                 		$htmlTable .= ' checked="checked" ';
                                                 		$checked_marker = false;
@@ -600,7 +600,7 @@ if(sizeof($rols)>0)
                                                 	{
                                                      	$htmlTable .= ' disabled="disabled" ';
                                                 	}
-    												elseif ($duedatedata['OOFF']<>0 && $checked_marker)
+    												elseif ($duedatedata['OOFF']!=0 && $checked_marker)
                                                 	{
                                                    		$htmlTable .= ' checked="checked" ';
                                                 		$checked_marker = false;

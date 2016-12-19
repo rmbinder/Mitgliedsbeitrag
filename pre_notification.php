@@ -66,7 +66,7 @@ if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
     
 if($getMode == 'csv_export')
 {
-	if (count($_SESSION['checkedArray'])<>0)
+	if (count($_SESSION['checkedArray'])!=0)
 	{
 		$export = '';
 		$export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
@@ -116,7 +116,7 @@ if($getMode == 'csv_export')
 			$export .= $user->getValue('BIRTHDAY').";";
 			$export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).";";
 		
-			if (strlen($user->getValue('DEBTOR'))<>0)
+			if (strlen($user->getValue('DEBTOR'))!=0)
 			{
 				$export .= $user->getValue('DEBTOR').";";
 				$export .= $user->getValue('DEBTOR_ADDRESS').";";
@@ -179,7 +179,7 @@ else
             AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
                 OR cat_org_id IS NULL ) ';
 
-	if($getDueDate <>0 )                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
+	if($getDueDate !=0 )                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
 	{
 		$memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
 	}
@@ -258,7 +258,7 @@ else
     if($getMode == 'prepare')
 	{
 		$ret_text = 'ERROR';
-		if($getUserId<>0)			// ein einzelner User wurde selektiert
+		if($getUserId!=0)			// ein einzelner User wurde selektiert
 		{
 			if($getChecked=='false')			// der Haken wurde gelöscht
 			{
