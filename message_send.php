@@ -127,7 +127,7 @@ if ($email->setSender($postFrom, $postName))
                 {
                     // check the size of the attachment
                     $attachmentSize = $attachmentSize + $_FILES['userfile']['size'][$currentAttachmentNo];
-                    if($attachmentSize > $email->getMaxAttachementSize("b"))
+                    if($attachmentSize > $email->getMaxAttachementSize('b'))
                     {
                         $gMessage->show($gL10n->get('MAI_ATTACHMENT_TO_LARGE'));
                     }
@@ -188,8 +188,8 @@ if($postDeliveryConfirmation == 1)
 }
 
 // load the template and set the new email body with template
-$emailTemplate = admReadTemplateFile("template.html");
-$emailTemplate = str_replace("#message#", $postBody, $emailTemplate);
+$emailTemplate = admReadTemplateFile('template.html');
+$emailTemplate = str_replace('#message#', $postBody, $emailTemplate);
 
 // set Text
 $email->setText($emailTemplate);
@@ -200,14 +200,14 @@ $sendResult = $email->sendEmail();
 // message if send/save is OK
 if ($sendResult === TRUE)
 {
-    $sql = "INSERT INTO ". TBL_MESSAGES. " (msg_type, msg_subject, msg_usr_id_sender, msg_usr_id_receiver, msg_timestamp, msg_read) 
-            VALUES ('".$getMsgType."', '".$postSubjectSQL."', ".$gCurrentUser->getValue('usr_id').", ".$user->getValue('usr_id').", CURRENT_TIMESTAMP, 0)";
+    $sql = 'INSERT INTO '. TBL_MESSAGES. " (msg_type, msg_subject, msg_usr_id_sender, msg_usr_id_receiver, msg_timestamp, msg_read) 
+            VALUES ('".$getMsgType."', '".$postSubjectSQL."', ".$gCurrentUser->getValue('usr_id').', '.$user->getValue('usr_id').', CURRENT_TIMESTAMP, 0)';
 
     $gDb->query($sql);
     $getMsgId = $gDb->lastInsertId();
 
-    $sql = "INSERT INTO ". TBL_MESSAGES_CONTENT. " (msc_msg_id, msc_part_id, msc_usr_id, msc_message, msc_timestamp) 
-            VALUES (".$getMsgId.", 1, ".$gCurrentUser->getValue('usr_id').", '".$postBodySQL."', CURRENT_TIMESTAMP)";
+    $sql = 'INSERT INTO '. TBL_MESSAGES_CONTENT. ' (msc_msg_id, msc_part_id, msc_usr_id, msc_message, msc_timestamp) 
+            VALUES ('.$getMsgId.', 1, '.$gCurrentUser->getValue('usr_id').", '".$postBodySQL."', CURRENT_TIMESTAMP)";
 
     $gDb->query($sql);
 

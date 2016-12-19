@@ -69,32 +69,32 @@ if($getMode == 'csv_export')
 	if (count($_SESSION['checkedArray'])!=0)
 	{
 		$export = '';
-		$export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').";"
-			 	.$gL10n->get('SYS_FIRSTNAME').";"
-			 	.$gL10n->get('SYS_LASTNAME').";"
-			 	.$gL10n->get('SYS_ADDRESS').";"
-			 	.$gL10n->get('SYS_POSTCODE').";"
-			 	.$gL10n->get('SYS_CITY').";"
-			 	.$gL10n->get('SYS_EMAIL').";"
-			 	.$gL10n->get('SYS_PHONE').";"
-			 	.$gL10n->get('SYS_MOBILE').";"
-			 	.$gL10n->get('SYS_BIRTHDAY').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').";"
+		$export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').';'
+			 	.$gL10n->get('SYS_FIRSTNAME').';'
+			 	.$gL10n->get('SYS_LASTNAME').';'
+			 	.$gL10n->get('SYS_ADDRESS').';'
+			 	.$gL10n->get('SYS_POSTCODE').';'
+			 	.$gL10n->get('SYS_CITY').';'
+			 	.$gL10n->get('SYS_EMAIL').';'
+			 	.$gL10n->get('SYS_PHONE').';'
+			 	.$gL10n->get('SYS_MOBILE').';'
+			 	.$gL10n->get('SYS_BIRTHDAY').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').';'
 
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER')."/".$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').'/'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').';'
 
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"
- 	  		 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').";"
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').";"
- 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";"
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'
+ 	  		 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').';'
+			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').';'
+ 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'
 			 	."\n";
 
 		$nr = 1;
@@ -103,43 +103,43 @@ if($getMode == 'csv_export')
 		{
 			$user = new User($gDb, $gProfileFields, $UserId);
 
-			$export .= $nr.";";
-			$export .= $user->getValue('MEMBERNUMBER').";";
-			$export .= $user->getValue('FIRST_NAME').";";
-			$export .= $user->getValue('LAST_NAME').";";
-			$export .= $user->getValue('ADDRESS').";";
-			$export .= $user->getValue('POSTCODE').";";
-			$export .= $user->getValue('CITY').";";
-			$export .= $user->getValue('EMAIL').";";
-			$export .= $user->getValue('PHONE').";";
-			$export .= $user->getValue('MOBILE').";";
-			$export .= $user->getValue('BIRTHDAY').";";
-			$export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).";";
+			$export .= $nr.';';
+			$export .= $user->getValue('MEMBERNUMBER').';';
+			$export .= $user->getValue('FIRST_NAME').';';
+			$export .= $user->getValue('LAST_NAME').';';
+			$export .= $user->getValue('ADDRESS').';';
+			$export .= $user->getValue('POSTCODE').';';
+			$export .= $user->getValue('CITY').';';
+			$export .= $user->getValue('EMAIL').';';
+			$export .= $user->getValue('PHONE').';';
+			$export .= $user->getValue('MOBILE').';';
+			$export .= $user->getValue('BIRTHDAY').';';
+			$export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).';';
 
 			if (strlen($user->getValue('DEBTOR'))!=0)
 			{
-				$export .= $user->getValue('DEBTOR').";";
-				$export .= $user->getValue('DEBTOR_ADDRESS').";";
-				$export .= $user->getValue('DEBTOR_POSTCODE').";";
-				$export .= $user->getValue('DEBTOR_CITY').";";
-				$export .= $user->getValue('DEBTOR_EMAIL').";";
+				$export .= $user->getValue('DEBTOR').';';
+				$export .= $user->getValue('DEBTOR_ADDRESS').';';
+				$export .= $user->getValue('DEBTOR_POSTCODE').';';
+				$export .= $user->getValue('DEBTOR_CITY').';';
+				$export .= $user->getValue('DEBTOR_EMAIL').';';
 			}
 			else
 			{
-				$export .= $user->getValue('FIRST_NAME')." ".$user->getValue('LAST_NAME').";";
-				$export .= $user->getValue('ADDRESS').";";
-				$export .= $user->getValue('POSTCODE').";";
-				$export .= $user->getValue('CITY').";";
-				$export .= $user->getValue('EMAIL').";";
+				$export .= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME').';';
+				$export .= $user->getValue('ADDRESS').';';
+				$export .= $user->getValue('POSTCODE').';';
+				$export .= $user->getValue('CITY').';';
+				$export .= $user->getValue('EMAIL').';';
 			}
 
-			$export .= $user->getValue('BANK').";";
-			$export .= $user->getValue('BIC').";";
-			$export .= $user->getValue('IBAN').";";
-			$export .= $user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id')).";";
-			$export .= $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')).";";
-			$export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).";";
-			$export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).";";
+			$export .= $user->getValue('BANK').';';
+			$export .= $user->getValue('BIC').';';
+			$export .= $user->getValue('IBAN').';';
+			$export .= $user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id')).';';
+			$export .= $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')).';';
+			$export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).';';
+			$export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).';';
 			$export .= "\n";
 
 			$nr += 1;

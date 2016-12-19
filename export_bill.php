@@ -53,13 +53,13 @@ foreach ($members as $member => $memberdata){
             $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'];
         }
         $rechnungs_file[$i] = array(
-                "name"           => $members[$member]['DEBTOR'],     // Name of account owner.
-                "adress"         => $members[$member]['ADDRESS'],
-                "postcode"       => $members[$member]['POSTCODE'],
-                "city"           => $members[$member]['CITY'],
-                "email"          => $members[$member]['EMAIL'],
-                "beitrag"        => $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')],
-                "beitragstext"   => $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],
+                'name'           => $members[$member]['DEBTOR'],     // Name of account owner.
+                'adress'         => $members[$member]['ADDRESS'],
+                'postcode'       => $members[$member]['POSTCODE'],
+                'city'           => $members[$member]['CITY'],
+                'email'          => $members[$member]['EMAIL'],
+                'beitrag'        => $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')],
+                'beitragstext'   => $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],
         );
         $i+=1;
     }
@@ -68,23 +68,23 @@ foreach ($members as $member => $memberdata){
 if (sizeof($rechnungs_file)>0)
 {
 	// Dateityp, der immer abgespeichert wird
-	header("Content-Type: application/octet-stream");
+	header('Content-Type: application/octet-stream');
 
 	// noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
 	header('Cache-Control: private');
 
 	// Im Grunde ueberfluessig, hat sich anscheinend bewährt
-	header("Content-Transfer-Encoding: binary");
+	header('Content-Transfer-Encoding: binary');
 
 	// Zwischenspeichern auf Proxies verhindern
-	header("Cache-Control: post-check=0, pre-check=0");
+	header('Cache-Control: post-check=0, pre-check=0');
 	header('Content-Disposition: attachment; filename="'.$pPreferences->config['Rechnungs-Export']['rechnung_dateiname'].'"');
 
 	$nr = 1;
 	$sum= 0;
 
 	//echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
-	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";".$gL10n->get('SYS_NAME').";".$gL10n->get('SYS_ADDRESS').";".$gL10n->get('SYS_POSTCODE').";".$gL10n->get('SYS_LOCATION').";".$gL10n->get('SYS_EMAIL').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n";
+	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'.$gL10n->get('SYS_NAME').';'.$gL10n->get('SYS_ADDRESS').';'.$gL10n->get('SYS_POSTCODE').';'.$gL10n->get('SYS_LOCATION').';'.$gL10n->get('SYS_EMAIL').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n";
 	//print_r($rechnungs_file);
 
 	//for ($x = 0; $x < (count($rechnungs_file)-1); $x++){
@@ -92,14 +92,14 @@ if (sizeof($rechnungs_file)>0)
 	{
 		$sum += $rechnungs_file[$x]['beitrag'];
 		echo
-         	utf8_decode($nr).";"
-        	.utf8_decode($rechnungs_file[$x]['name']).";"
-        	.utf8_decode($rechnungs_file[$x]['adress']).";"
-        	.utf8_decode($rechnungs_file[$x]['postcode']).";"
-        	.utf8_decode($rechnungs_file[$x]['city']).";"
-        	.utf8_decode($rechnungs_file[$x]['email']).";"
-        	.utf8_decode($rechnungs_file[$x]['beitrag']).";"
-        	.utf8_decode($rechnungs_file[$x]['beitragstext']).";"
+         	utf8_decode($nr).';'
+        	.utf8_decode($rechnungs_file[$x]['name']).';'
+        	.utf8_decode($rechnungs_file[$x]['adress']).';'
+        	.utf8_decode($rechnungs_file[$x]['postcode']).';'
+        	.utf8_decode($rechnungs_file[$x]['city']).';'
+        	.utf8_decode($rechnungs_file[$x]['email']).';'
+        	.utf8_decode($rechnungs_file[$x]['beitrag']).';'
+        	.utf8_decode($rechnungs_file[$x]['beitragstext']).';'
         	.utf8_decode($sum)
         	."\n";
     	$nr += 1;

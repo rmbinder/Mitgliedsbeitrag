@@ -931,7 +931,7 @@ function check_family_roles()
 					foreach($famdata['members'] as $memberID => $memberdata)
     				{
     					// das Alter des Mitglieds am Stichtag bestimmen
-    					$age = date("Y", strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'])) - date("Y", strtotime($memberdata['BIRTHDAY']));
+    					$age = date('Y', strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'])) - date('Y', strtotime($memberdata['BIRTHDAY']));
 
     					// passt das Alter zu einer der Prüfbedingungen?
     					if ($age >= $pruefdata['von'] && $age <= $pruefdata['bis'])
@@ -1052,7 +1052,7 @@ function test_iban($iban)
         $part = strval($rest) . substr($iban1, $pos, 7);
         $rest = intval($part) % 97;
     }
-    $pz = sprintf("%02d", 98-$rest);
+    $pz = sprintf('%02d', 98-$rest);
 
     if (substr($iban, 2, 2)=='00')
         return substr_replace($iban, $pz, 2, 2);
@@ -1099,13 +1099,13 @@ function date_format2mysql($date)
  */
 function ageCalculator($geburtstag, $stichtag)
 {
-    $day = date("d", $geburtstag);
-    $month = date("m", $geburtstag);
-    $year = date("Y", $geburtstag);
+    $day = date('d', $geburtstag);
+    $month = date('m', $geburtstag);
+    $year = date('Y', $geburtstag);
 
-    $cur_day = date("d", $stichtag);
-    $cur_month = date("m", $stichtag);
-    $cur_year = date("Y", $stichtag);
+    $cur_day = date('d', $stichtag);
+    $cur_month = date('m', $stichtag);
+    $cur_year = date('Y', $stichtag);
 
     $calc_year = $cur_year - $year;
 

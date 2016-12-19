@@ -405,7 +405,7 @@ else
         {
             $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
-            $birthdayDateSort=$birthdayDate->format("Ymd");
+            $birthdayDateSort=$birthdayDate->format('Ymd');
         }
 
         //10. Spalte ($birthdayDateSort)

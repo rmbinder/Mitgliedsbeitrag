@@ -129,22 +129,22 @@ foreach ($members as $member => $memberdata)
             // anteiligen Beitrag berechnen, falls das Mitglied im aktuellen Jahr ein- oder ausgetreten ist
             // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
             // && Beitragszeitraum (cost_period) darf nicht "Jährlich" (1) sein
-            if ((strtotime(date("Y")."-01-01") < $time_begin || $time_end < strtotime(date("Y")."-12-31"))
+            if ((strtotime(date('Y').'-01-01') < $time_begin || $time_end < strtotime(date('Y').'-12-31'))
             	&& ($roldata['rol_cost_period']!=-1)
             	&& ($roldata['rol_cost_period']!=1))
             {
 
-            	if (strtotime(date("Y")."-01-01") <  $time_begin)
+            	if (strtotime(date('Y').'-01-01') <  $time_begin)
             	{
-            		$month_begin = date("n", $time_begin);
+            		$month_begin = date('n', $time_begin);
             	}
             	else
             	{
             		$month_begin = 1;
             	}
-            	if (strtotime(date("Y")."-12-31") >  $time_end)
+            	if (strtotime(date('Y').'-12-31') >  $time_end)
             	{
-            		$month_end   = date("n", $time_end);
+            		$month_end   = date('n', $time_end);
             	}
             	else
             	{
@@ -232,9 +232,9 @@ foreach ($rols as $rol => $roldata)
         // anteiligen Beitrag berechnen, falls die Familie erst im aktuellen Jahr angelegt wurde
         // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
         // && Beitragszeitraum (cost_period) darf nicht "Jährlich" (1) sein
-	    if ((date("Y") == date("Y", strtotime($roldata['rol_timestamp_create']))) && ($roldata['rol_cost_period']!=-1) && ($roldata['rol_cost_period']!=1))
+	    if ((date('Y') == date('Y', strtotime($roldata['rol_timestamp_create']))) && ($roldata['rol_cost_period']!=-1) && ($roldata['rol_cost_period']!=1))
         {
-            $beitrittsmonat = date("n", strtotime($roldata['rol_timestamp_create']));
+            $beitrittsmonat = date('n', strtotime($roldata['rol_timestamp_create']));
             $members[$roldata['has_to_pay']]['BEITRAG-NEU'] +=  (($roldata['rol_cost_period']+1)-ceil($beitrittsmonat/(12/$roldata['rol_cost_period'])))*($roldata['rol_cost']/$roldata['rol_cost_period']);
             $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'].' ';
         }

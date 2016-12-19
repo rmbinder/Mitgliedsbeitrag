@@ -53,8 +53,8 @@ $zempf=array();
 $zpflgt=array();
 $lst_euro_sum = 0;
 $now=time();
-$format1="Y-m-d";
-$format2="H:i:s";
+$format1='Y-m-d';
+$format2='H:i:s';
 
 //alle Mitglieder durchlaufen und abhängig von bestimmten Daten, das Array $zpflgt befüllen
 foreach ($members as $member => $memberdata)
@@ -73,7 +73,7 @@ foreach ($members as $member => $memberdata)
         }
 
 		$zpflgt[$member]['name']=substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);     										// Name of account owner.
-		$zpflgt[$member]['alt_name']="";																								// Array SEPA Zahlungspflichtiger abweichender Name
+		$zpflgt[$member]['alt_name']='';																								// Array SEPA Zahlungspflichtiger abweichender Name
 		$zpflgt[$member]['iban']=str_replace(' ', '', $members[$member]['IBAN']);        																		// IBAN
 		$zpflgt[$member]['bic']=$members[$member]['BIC'];        																		// BIC
 		$zpflgt[$member]['mandat_id']=$members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];        					// Mandats-ID
@@ -97,13 +97,13 @@ if ($lst_num==0)
 	$gMessage->show('Keine Daten für den Export vorhanden!');
 }
 
-$message_id=substr("Message-ID-".replace_sepadaten($gCurrentOrganization->getValue('org_shortname')), 0, 35);		//SEPA Message-ID	(max. 35)
-$message_datum=date($format1, $now)."T".date($format2, $now).".000Z";										//SEPA Message-Datum z.B.: 2010-11-21T09:30:47.000Z
+$message_id=substr('Message-ID-'.replace_sepadaten($gCurrentOrganization->getValue('org_shortname')), 0, 35);		//SEPA Message-ID	(max. 35)
+$message_datum=date($format1, $now).'T'.date($format2, $now).'.000Z';										//SEPA Message-Datum z.B.: 2010-11-21T09:30:47.000Z
 $message_initiator_name=substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);						//SEPA Message Initiator Name
 
-$payment_id="Beitragszahlungen";																		//SEPA Payment_ID (max. 35)
+$payment_id='Beitragszahlungen';																		//SEPA Payment_ID (max. 35)
 $payment_datum=$postDueDate;
-$payment_end2end_id="NOTPROVIDED";																	//SEPA Payment_EndToEndIdentification
+$payment_end2end_id='NOTPROVIDED';																	//SEPA Payment_EndToEndIdentification
 $payment_seqtp=$postSepaType;
 
 $zempf['name']=substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);								//SEPA  Zahlungsempfänger Kontoinhaber
@@ -119,7 +119,7 @@ if (isset($_POST['btn_xml_file']))
 	/******************************************************************************
  	* Schreibt Lastschriften in einen XML-String
  	*****************************************************************************/
-  	$xmlfile="";
+  	$xmlfile='';
   	$xmlfile.="<?xml version='1.0' encoding='UTF-8'?>\n";
 
   	// DFÜ-Abkommen Version 2.7
@@ -178,16 +178,16 @@ if (isset($_POST['btn_xml_file']))
    			$xmlfile.="</PmtTpInf>\n";
     		$xmlfile.="<ReqdColltnDt>$payment_datum</ReqdColltnDt>\n";      //RequestedCollectionDate, Fälligkeitsdatum der Lastschrift
     		$xmlfile.="<Cdtr>\n";                                           //Creditor, Kreditor
-    			$xmlfile.="<Nm>".$zempf['name']."</Nm>\n";                  //Name, max. 70 Zeichen
+    			$xmlfile.='<Nm>'.$zempf['name']."</Nm>\n";                  //Name, max. 70 Zeichen
     		$xmlfile.="</Cdtr>\n";
     		$xmlfile.="<CdtrAcct>\n";                                       //CreditorAccount, Creditor-Konto
     			$xmlfile.="<Id>\n";
-    				$xmlfile.="<IBAN>".$zempf['iban']."</IBAN>\n";
+    				$xmlfile.='<IBAN>'.$zempf['iban']."</IBAN>\n";
     			$xmlfile.="</Id>\n";
     		$xmlfile.="</CdtrAcct>\n";
     		$xmlfile.="<CdtrAgt>\n";                                       	//CreditorAgent, Creditor-Bank
     			$xmlfile.="<FinInstnId>\n";                                 //FinancialInstitutionIdentification
-    				$xmlfile.="<BIC>".$zempf['bic']."</BIC>\n";             //Business Identifier Code
+    				$xmlfile.='<BIC>'.$zempf['bic']."</BIC>\n";             //Business Identifier Code
     			$xmlfile.="</FinInstnId>\n";
     		$xmlfile.="</CdtrAgt>\n";
     		$xmlfile.="<ChrgBr>SLEV</ChrgBr>\n";                           	//ChargeBearer, Entgeltverrechnungsart, immer SLEV
@@ -197,7 +197,7 @@ if (isset($_POST['btn_xml_file']))
     			$xmlfile.="<Id>\n";                  						//Eindeutiges Identifizierungmerkmal einer Organisation oder Person
     				$xmlfile.="<PrvtId>\n";            						//PrivateIdentification, Personenidentifikation
     					$xmlfile.="<Othr>\n";            					//OtherIdentification
-    						$xmlfile.="<Id>".$zempf['ci']."</Id>\n";		//Eindeutiges Identifizierungsmerkmal des Gläubigers
+    						$xmlfile.='<Id>'.$zempf['ci']."</Id>\n";		//Eindeutiges Identifizierungsmerkmal des Gläubigers
     						$xmlfile.="<SchmeNm>\n";       					//SchemeName, Name des Identifikationsschemas
     							$xmlfile.="<Prtry>SEPA</Prtry>\n";          //Proprietary, immer SEPA
     						$xmlfile.="</SchmeNm>\n";
@@ -212,17 +212,17 @@ if (isset($_POST['btn_xml_file']))
 				$xmlfile.="<DrctDbtTxInf>\n";        						//DirectDebitTransactionInformation
         			$xmlfile.="<PmtId>\n";             						//PaymentIdentification, Referenzierung einer einzelnen Transaktion
           				//$xmlfile.="<EndToEndId>$payment_end2end_id</EndToEndId>\n";   //EndToEndIdentification
-          				$xmlfile.="<EndToEndId>".$zpflgtdata['end2end_id']."</EndToEndId>\n";   //EndToEndIdentification
+          				$xmlfile.='<EndToEndId>'.$zpflgtdata['end2end_id']."</EndToEndId>\n";   //EndToEndIdentification
             							//eindeutige Referenz des Zahlers (Auftraggebers). Diese Referenz
             							//wird unverändert durch die gesamte Kette bis zum Zahlungsempfänger
             							//geleitet (Ende-zu-Ende-Referenz). Ist keine Referenz vorhanden
             							//muss die Konstante NOTPROVIDED benutzt werden.
         			$xmlfile.="</PmtId>\n";
-        			$xmlfile.="<InstdAmt Ccy=\"EUR\">".$zpflgtdata['betrag']."</InstdAmt>\n";   //InstructedAmount (Dezimalpunkt)
+        			$xmlfile.='<InstdAmt Ccy="EUR">'.$zpflgtdata['betrag']."</InstdAmt>\n";   //InstructedAmount (Dezimalpunkt)
         			$xmlfile.="<DrctDbtTx>\n";         						//DirectDebitTransaction, Angaben zum Lastschriftmandat
           				$xmlfile.="<MndtRltdInf>\n";     					//MandateRelated-Information, mandatsbezogene Informationen
-            				$xmlfile.="<MndtId>".$zpflgtdata['mandat_id']."</MndtId>\n";            //eindeutige Mandatsreferenz
-            				$xmlfile.="<DtOfSgntr>".$zpflgtdata['mandat_datum']."</DtOfSgntr>\n";   //Datum, zu dem das Mandat unterschrieben wurde
+            				$xmlfile.='<MndtId>'.$zpflgtdata['mandat_id']."</MndtId>\n";            //eindeutige Mandatsreferenz
+            				$xmlfile.='<DtOfSgntr>'.$zpflgtdata['mandat_datum']."</DtOfSgntr>\n";   //Datum, zu dem das Mandat unterschrieben wurde
 
             				if((strlen($zempf['orig_cdtr_name'])!=0)
             					|| (strlen($zempf['orig_cdtr_id'])!=0)
@@ -235,7 +235,7 @@ if (isset($_POST['btn_xml_file']))
 
             					if(strlen($zpflgtdata['orig_mandat_id'])!=0) 		//Kennzeichnet, ob das Mandat verändert wurde,
             					{
-            						$xmlfile.="<OrgnlMndtId>".$zpflgtdata['orig_mandat_id']."</OrgnlMndtId>\n";
+            						$xmlfile.='<OrgnlMndtId>'.$zpflgtdata['orig_mandat_id']."</OrgnlMndtId>\n";
             					}
 
             					if((strlen($zempf['orig_cdtr_name'])!=0) || (strlen($zempf['orig_cdtr_id'])!=0))				//Kennzeichnet, ob das Mandat verändert wurde,
@@ -243,14 +243,14 @@ if (isset($_POST['btn_xml_file']))
             						$xmlfile.="<OrgnlCdtrSchmeId>\n";       //Identifikation des Zahlungsempfängers
             						if(strlen($zempf['orig_cdtr_name'])!=0) //Kennzeichnet, ob das Mandat verändert wurde,
             						{
-            							$xmlfile.="<Nm>".$zempf['orig_cdtr_name']."</Nm>\n";
+            							$xmlfile.='<Nm>'.$zempf['orig_cdtr_name']."</Nm>\n";
             						}
             						if(strlen($zempf['orig_cdtr_id'])!=0)
             						{
 										$xmlfile.="<Id>\n";
                   							$xmlfile.="<PrvtId>\n";
                     							$xmlfile.="<Othr>\n";
-                      								$xmlfile.="<Id>".$zempf['orig_cdtr_id']."</Id>\n";
+                      								$xmlfile.='<Id>'.$zempf['orig_cdtr_id']."</Id>\n";
                       								$xmlfile.="<SchmeNm>\n";
                         								$xmlfile.="<Prtry>SEPA</Prtry>\n";
                       								$xmlfile.="</SchmeNm>\n";
@@ -265,7 +265,7 @@ if (isset($_POST['btn_xml_file']))
             					{
             						$xmlfile.="<OrgnlDbtrAcct>\n";
                   						$xmlfile.="<Id>\n";
-            								$xmlfile.="<IBAN>".$zpflgtdata['orig_iban']."</IBAN>\n";
+            								$xmlfile.='<IBAN>'.$zpflgtdata['orig_iban']."</IBAN>\n";
             							$xmlfile.="</Id>\n";
                   					$xmlfile.="</OrgnlDbtrAcct>\n";
             					}
@@ -275,7 +275,7 @@ if (isset($_POST['btn_xml_file']))
             						$xmlfile.="<OrgnlDbtrAgt>\n";
                   						$xmlfile.="<FinInstnId>\n";
                   							$xmlfile.="<Othr>\n";
-            									$xmlfile.="<Id>".$zpflgtdata['orig_dbtr_agent']."</Id>\n";
+            									$xmlfile.='<Id>'.$zpflgtdata['orig_dbtr_agent']."</Id>\n";
             								$xmlfile.="</Othr>\n";
             							$xmlfile.="</FinInstnId>\n";
                   					$xmlfile.="</OrgnlDbtrAgt>\n";
@@ -296,7 +296,7 @@ if (isset($_POST['btn_xml_file']))
           					$xmlfile.="<FinInstnId>\n"; 						//FinancialInstitutionIdentification
           					if(strlen($zpflgtdata['bic'])!=0) 		//ist ein BIC vorhanden?
             				{
-            					$xmlfile.="<BIC>".$zpflgtdata['bic']."</BIC>\n";
+            					$xmlfile.='<BIC>'.$zpflgtdata['bic']."</BIC>\n";
             				}
             				else
             				{
@@ -308,21 +308,21 @@ if (isset($_POST['btn_xml_file']))
         				$xmlfile.="</DbtrAgt>\n";
 
         			$xmlfile.="<Dbtr>\n";                         				//Zahlungspflichtiger
-          				$xmlfile.="<Nm>".$zpflgtdata['name']."</Nm>\n";     	//Name (70)
+          				$xmlfile.='<Nm>'.$zpflgtdata['name']."</Nm>\n";     	//Name (70)
         			$xmlfile.="</Dbtr>\n";
         			$xmlfile.="<DbtrAcct>\n";
           				$xmlfile.="<Id>\n";
-            				$xmlfile.="<IBAN>".$zpflgtdata['iban']."</IBAN>\n";
+            				$xmlfile.='<IBAN>'.$zpflgtdata['iban']."</IBAN>\n";
           				$xmlfile.="</Id>\n";
         			$xmlfile.="</DbtrAcct>\n";
 					if(strlen($zpflgtdata['alt_name'])>0)
 					{
         				$xmlfile.="<UltmtDbtr>\n";                       		//UltimateDebtor
-          					$xmlfile.="<Nm>".$zpflgtdata['alt_name']."</Nm>\n";
+          					$xmlfile.='<Nm>'.$zpflgtdata['alt_name']."</Nm>\n";
         				$xmlfile.="</UltmtDbtr>\n";
 					}
         			$xmlfile.="<RmtInf>\n";                              		// Remittance Information, Verwendungszweck
-          				$xmlfile.="<Ustrd>".$zpflgtdata['text']."</Ustrd>\n";   //Unstructured, unstrukturierter Verwendungszweck(max. 140 Zeichen))
+          				$xmlfile.='<Ustrd>'.$zpflgtdata['text']."</Ustrd>\n";   //Unstructured, unstrukturierter Verwendungszweck(max. 140 Zeichen))
         			$xmlfile.="</RmtInf>\n";
       			$xmlfile.="</DrctDbtTxInf>\n";
 			}
@@ -340,10 +340,10 @@ if (isset($_POST['btn_xml_file']))
  	* Schreibt XML-Datei
  	*****************************************************************************/
 
-	header("content-type: text/xml");
+	header('content-type: text/xml');
 	header('Cache-Control: private'); // noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
-	header("Content-Transfer-Encoding: binary"); // Im Grunde ueberfluessig, hat sich anscheinend bewährt
-	header("Cache-Control: post-check=0, pre-check=0"); // Zwischenspeichern auf Proxies verhindern
+	header('Content-Transfer-Encoding: binary'); // Im Grunde ueberfluessig, hat sich anscheinend bewährt
+	header('Cache-Control: post-check=0, pre-check=0'); // Zwischenspeichern auf Proxies verhindern
 	header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.xml"');
 
 	echo $xmlfile;
@@ -353,52 +353,52 @@ if (isset($_POST['btn_xml_file']))
 elseif (isset($_POST['btn_xml_kontroll_datei']))
 {
 	// Dateityp, der immer abgespeichert wird
-	header("Content-Type: application/octet-stream");
+	header('Content-Type: application/octet-stream');
 
 	// noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
 	header('Cache-Control: private');
 
 	// Im Grunde ueberfluessig, hat sich anscheinend bewährt
-	header("Content-Transfer-Encoding: binary");
+	header('Content-Transfer-Encoding: binary');
 
 	// Zwischenspeichern auf Proxies verhindern
-	header("Cache-Control: post-check=0, pre-check=0");
+	header('Cache-Control: post-check=0, pre-check=0');
 	header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.csv"');
 
 	$datumtemp = new DateTimeExtended($payment_datum, 'Y-m-d');
 
-	echo "SEPA-".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')."\n\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').";".$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.csv'."\n"
+	echo 'SEPA-'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')."\n\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').';'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.csv'."\n"
         ."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID').";".utf8_decode($message_id)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE').";".utf8_decode($message_datum)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME').";".utf8_decode($message_initiator_name)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS').";".utf8_decode($lst_num)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM').";".utf8_decode($lst_euro_sum)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID').';'.utf8_decode($message_id)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE').';'.utf8_decode($message_datum)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME').';'.utf8_decode($message_initiator_name)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS').';'.utf8_decode($lst_num)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM').';'.utf8_decode($lst_euro_sum)."\n"
         ."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_PAYMENT_ID').";".utf8_decode($payment_id)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').";".$datumtemp->format($gPreferences['system_date'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').";".utf8_decode($payment_seqtp)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_PAYMENT_ID').';'.utf8_decode($payment_id)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').';'.$datumtemp->format($gPreferences['system_date'])."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').';'.utf8_decode($payment_seqtp)."\n"
         ."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR').";".utf8_decode($zempf['name'])."\n"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CI').";".utf8_decode($zempf['ci'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";".utf8_decode($zempf['iban'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";".utf8_decode($zempf['bic'])."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR').';'.utf8_decode($zempf['name'])."\n"
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CI').';'.utf8_decode($zempf['ci'])."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'.utf8_decode($zempf['iban'])."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'.utf8_decode($zempf['bic'])."\n"
         ."\n"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n";
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').';'.utf8_decode($zempf['orig_cdtr_id'])."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').';'.utf8_decode($zempf['orig_cdtr_name'])."\n\n";
 
-	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID').";"
-		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').";"
+	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID').';'
+		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').';'
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')."\n";
 
 	$nr = 1;
@@ -407,17 +407,17 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         $datumtemp = new DateTimeExtended($zpflgtdata['mandat_datum'], 'Y-m-d');
 
 		echo
-         	utf8_decode($nr).";"
-        	.utf8_decode($zpflgtdata['name']).";"
-        	.utf8_decode($zpflgtdata['iban']).";"
-        	.utf8_decode($zpflgtdata['bic']).";"
-        	.utf8_decode($zpflgtdata['betrag']).";"
-        	.utf8_decode($zpflgtdata['text']).";"
-        	.utf8_decode($zpflgtdata['mandat_id']).";"
-        	.$datumtemp->format($gPreferences['system_date']).";"
-			.utf8_decode($zpflgtdata['alt_name']).";"
-			.utf8_decode($zpflgtdata['orig_mandat_id']).";"
-        	.utf8_decode($zpflgtdata['orig_iban']).";"
+         	utf8_decode($nr).';'
+        	.utf8_decode($zpflgtdata['name']).';'
+        	.utf8_decode($zpflgtdata['iban']).';'
+        	.utf8_decode($zpflgtdata['bic']).';'
+        	.utf8_decode($zpflgtdata['betrag']).';'
+        	.utf8_decode($zpflgtdata['text']).';'
+        	.utf8_decode($zpflgtdata['mandat_id']).';'
+        	.$datumtemp->format($gPreferences['system_date']).';'
+			.utf8_decode($zpflgtdata['alt_name']).';'
+			.utf8_decode($zpflgtdata['orig_mandat_id']).';'
+        	.utf8_decode($zpflgtdata['orig_iban']).';'
         	.utf8_decode($zpflgtdata['orig_dbtr_agent'])
         	."\n";
     	$nr += 1;

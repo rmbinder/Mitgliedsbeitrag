@@ -86,7 +86,7 @@ if($getMode == 'assign')
 			}
 			else
 			{
-				$ret_txt="error_origiban_missing";
+				$ret_txt='error_origiban_missing';
 			}
 		}
 	}
@@ -100,7 +100,7 @@ if($getMode == 'assign')
 		}
 		else
 		{
-			$ret_txt="error_bank_changed";
+			$ret_txt='error_bank_changed';
 		}
 	}
 
@@ -115,7 +115,7 @@ if($getMode == 'assign')
 		}
 		else
 		{
-			$ret_txt="error_origmandateid_missing";
+			$ret_txt='error_origmandateid_missing';
 		}
 	}
 

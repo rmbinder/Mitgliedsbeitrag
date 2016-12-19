@@ -162,7 +162,7 @@ foreach ($user_array as $userId)
                     {
                         // check the size of the attachment
                         $attachmentSize = $attachmentSize + $_FILES['userfile']['size'][$currentAttachmentNo];
-                        if($attachmentSize > $email->getMaxAttachementSize("b"))
+                        if($attachmentSize > $email->getMaxAttachementSize('b'))
                         {
                             $gMessage->show($gL10n->get('MAI_ATTACHMENT_TO_LARGE'));
                         }
@@ -224,8 +224,8 @@ foreach ($user_array as $userId)
     }
 
     // load the template and set the new email body with template
-    $emailTemplate = admReadTemplateFile("template.html");
-    $emailTemplate = str_replace("#message#", $postBody, $emailTemplate);
+    $emailTemplate = admReadTemplateFile('template.html');
+    $emailTemplate = str_replace('#message#', $postBody, $emailTemplate);
 
     // set Text
     $email->setText($emailTemplate);

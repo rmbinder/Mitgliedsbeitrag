@@ -65,7 +65,7 @@ foreach ($altersrollen as $roleId => $roldata)
         	$stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
 
             $sql = 'UPDATE '.TBL_MEMBERS.'
-                    SET mem_end = \''.date("Y-m-d", strtotime('-1 day')).'\'
+                    SET mem_end = \''.date('Y-m-d', strtotime('-1 day')).'\'
                     WHERE mem_usr_id = '.$member.'
                     AND mem_rol_id = '.$roleId;
             $gDb->query($sql);
@@ -90,7 +90,7 @@ if (sizeof($stack)==0)
 // wenn ein Mitglied Angehöriger mehrerer Rollen war (dürfte eigentlich gar nicht vorkommen),
 // dann wurde er auch mehrfach in das Array $stack aufgenommen
 // --> doppelte Vorkommen löschen
-$stack = array_map("unserialize", array_unique(array_map("serialize", $stack)));
+$stack = array_map('unserialize', array_unique(array_map('serialize', $stack)));
 
 $message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO6').'</strong><BR>';
 
