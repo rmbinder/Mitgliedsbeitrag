@@ -883,12 +883,15 @@ function check_family_roles()
 			}
 			else
 			{
-				unset($check['familienrollen_prefix'][$key]);
-    			unset($check['familienrollen_beitrag'][$key]);
-    			unset($check['familienrollen_zeitraum'][$key]);
-    			unset($check['familienrollen_beschreibung'][$key]);
-    			unset($check['familienrollen_pruefung'][$key]);
-    			unset($check['pruefungsbedingungen'][$key]);
+				unset(
+				    $check['familienrollen_prefix'][$key],
+                    $check['familienrollen_beitrag'][$key],
+                    $check['familienrollen_zeitraum'][$key],
+                    $check['familienrollen_beschreibung'][$key],
+                    $check['familienrollen_pruefung'][$key],
+                    $check['pruefungsbedingungen'][$key]
+                );
+
     			$ret_marker = true;
     			continue;
 			}
@@ -908,11 +911,7 @@ function check_family_roles()
         $ret_error[] = '';
     }
     
-    unset($bedingung);
-    unset($keybed);
-    unset($temp_arr);
-    unset($temp_arr2);
-    unset($ret_marker);
+    unset($bedingung, $keybed, $temp_arr, $temp_arr2, $ret_marker);
        
     // alle Prüfbedingungen durchlaufen
 	foreach($check['familienrollen_prefix'] as $key => $prefix)

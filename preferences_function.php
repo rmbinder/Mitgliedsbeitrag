@@ -147,11 +147,13 @@ try
             break;
             	
        	case 'export':
-       		unset($pPreferences->config['SEPA']['dateiname']);
-       		unset($pPreferences->config['SEPA']['kontroll_dateiname']);
-       		unset($pPreferences->config['SEPA']['vorabinformation_dateiname']);
-       		unset($pPreferences->config['Rechnungs-Export']);
-       			
+       		unset(
+       		    $pPreferences->config['SEPA']['dateiname'],
+                $pPreferences->config['SEPA']['kontroll_dateiname'],
+                $pPreferences->config['SEPA']['vorabinformation_dateiname'],
+                $pPreferences->config['Rechnungs-Export']
+            );
+
        		$pPreferences->config['SEPA']['dateiname'] = $_POST['dateiname'];
     		$pPreferences->config['SEPA']['kontroll_dateiname'] = $_POST['kontroll_dateiname'];
     		$pPreferences->config['SEPA']['vorabinformation_dateiname'] = $_POST['vorabinformation_dateiname'];
@@ -174,8 +176,10 @@ try
             break;
             		
 		case 'testssetup':
-    		unset($pPreferences->config['Familienrollen']['familienrollen_pruefung']);
-    		unset($pPreferences->config['Rollenpruefung']);
+    		unset(
+    		    $pPreferences->config['Familienrollen']['familienrollen_pruefung'],
+                $pPreferences->config['Rollenpruefung']
+            );
 			
     		for($conf = 0; isset($_POST['familienrollen_pruefung'. $conf]); $conf++)
     		{
