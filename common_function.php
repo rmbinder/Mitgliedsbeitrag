@@ -118,21 +118,21 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
     {
         if (($rollenwahl == 'fam') && ($rollen[$key]['rollentyp'] <> 'fam'))
         {
-            unset($rollen[$key]) ;
+            unset($rollen[$key]);
         }
         elseif (($rollenwahl == 'alt') && ($rollen[$key]['rollentyp'] <> 'alt'))
         {
-            unset($rollen[$key]) ;
+            unset($rollen[$key]);
         }
         elseif (($rollenwahl == 'fix') && ($rollen[$key]['rollentyp'] <> 'fix'))
         {
-            unset($rollen[$key]) ;
+            unset($rollen[$key]);
         }
         else
         {
             if (is_array($with_members) && sizeof($with_members)>0)
             {
-                $rollen[$key]['members'] = list_members($with_members, array($data['rolle'] => 0))  ;
+                $rollen[$key]['members'] = list_members($with_members, array($data['rolle'] => 0));
             }
         }
     }
@@ -361,7 +361,7 @@ function delete_NULL ( $wert )
 {
     global $delete_NULL_field;
     
-    return  $wert[$delete_NULL_field] != NULL ;
+    return  $wert[$delete_NULL_field] != NULL;
 }
 
 /**
@@ -385,11 +385,11 @@ function getRole_IDPMB($role_name)
     $row = $statement->fetchObject();
 	if(isset($row->rol_id) && strlen($row->rol_id) > 0)
 	{
-		return $row->rol_id ;
+		return $row->rol_id;
 	}
 	else
 	{
-		return 0 ;
+		return 0;
 	}
 }
 
@@ -444,7 +444,7 @@ function analyse_mem()
 {
     global $gCurrentOrganization;
     
-    $members = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0)  ;
+    $members = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0);
 	$ret = array('data'=> $members, 'BEITRAG_kto'=>0, 'BEITRAG_kto_anzahl'=>0, 'BEITRAG_rech'=>0, 'BEITRAG_rech_anzahl'=>0, 'BEZAHLT_kto'=>0, 'BEZAHLT_kto_anzahl'=>0, 'BEZAHLT_rech'=>0, 'BEZAHLT_rech_anzahl'=>0);
     
 	// alle Mitglieder durchlaufen und im ersten Schritt alle Mitglieder,  
@@ -499,7 +499,7 @@ function analyse_rol()
     $ret = array_merge($ret, beitragsrollen_einlesen('fix'));
     foreach ($ret as $rol => $roldata)
     {
-        $ret[$rol]['members'] = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id')), array($roldata['rolle'] => 0))  ;
+        $ret[$rol]['members'] = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id')), array($roldata['rolle'] => 0));
     }
     
     $fam = beitragsrollen_einlesen('fam');
@@ -581,7 +581,7 @@ function check_rollenmitgliedschaft_pflicht()
     // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benötigt, ist aber notwendig,
     // damit die Rollenmitglieder eingelesen werden)
     $beitragsrollen = beitragsrollen_einlesen('', array('FIRST_NAME'));
-    $members = list_members(array('FIRST_NAME', 'LAST_NAME'), 0)  ;
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME'), 0);
     
     // alle Beitragsrollen durchlaufen und diejenigen Rollen löschen, die nicht als Pflichtrolle definiert sind
     foreach ($beitragsrollen as $rol => $roldata)
@@ -618,7 +618,7 @@ function check_rollenmitgliedschaft_pflicht()
     		// alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind 
     		if (!in_array($member, $bezugskategorieMembers))
     		{
-    			unset($members[$member]) ;
+    			unset($members[$member]);
     		}
     	}
     }
@@ -663,7 +663,7 @@ function check_rollenmitgliedschaft_ausschluss()
     // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benötigt, ist aber notwendig,
     // damit die Rollenmitglieder eingelesen werden)
     $beitragsrollen = beitragsrollen_einlesen('', array('FIRST_NAME'));
-    $members = list_members(array('FIRST_NAME', 'LAST_NAME'), 0)  ;
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME'), 0);
     
     // alle Beitragsrollen durchlaufen und für jedes Mitglied seine Rollenzugehörigkeiten bestimmen
     foreach ($beitragsrollen as $rol => $roldata)
@@ -702,7 +702,7 @@ function check_rollenmitgliedschaft_ausschluss()
     		// alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind 
     		if (!in_array($member, $bezugskategorieMembers))
     		{
-    			unset($members[$member]) ;
+    			unset($members[$member]);
     		}
     	}
     }
@@ -982,7 +982,7 @@ function check_mandate_management()
     global $gL10n, $g_root_path;
     $ret = array();
     
-    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_ADDRESS'), 0)  ;
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_ADDRESS'), 0);
 
 	foreach ($members as $member => $memberdata)
 	{
@@ -1012,7 +1012,7 @@ function check_iban()
     global $gL10n, $g_root_path;
     $ret = array();
     
-    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN'), 0)  ;
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN'), 0);
 
 	foreach ($members as $member => $memberdata)
 	{
@@ -1181,7 +1181,7 @@ function erzeuge_mitgliedsnummer()
 function delete_without_BEITRAG ( $wert )
 {
     global $gCurrentOrganization;
-    return  $wert['FEE'.$gCurrentOrganization->getValue('org_id')] != NULL ;
+    return  $wert['FEE'.$gCurrentOrganization->getValue('org_id')] != NULL;
 }
 
 /**
@@ -1191,7 +1191,7 @@ function delete_without_BEITRAG ( $wert )
  */
 function delete_without_IBAN ( $wert )
 {
-    return  $wert['IBAN'] != NULL ;
+    return  $wert['IBAN'] != NULL;
 }
 
 /**
@@ -1201,7 +1201,7 @@ function delete_without_IBAN ( $wert )
  */
 function delete_without_BIC ( $wert )
 {
-    return  $wert['BIC'] != NULL ;
+    return  $wert['BIC'] != NULL;
 }
 
 /**
@@ -1234,7 +1234,7 @@ function delete_with_BEZAHLT ( $wert )
 function delete_without_MANDATEID ( $wert )
 {
 	global $gCurrentOrganization;
-    return  $wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL ;
+    return  $wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL;
 }
 
 /**
@@ -1245,7 +1245,7 @@ function delete_without_MANDATEID ( $wert )
 function delete_without_MANDATEDATE ( $wert )
 {
 	global $gCurrentOrganization;
-    return  $wert['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')] != NULL ;
+    return  $wert['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')] != NULL;
 }
 
 /**

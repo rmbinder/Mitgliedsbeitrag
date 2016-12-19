@@ -45,11 +45,11 @@ try
 				
     		$pPreferences->config['Beitrag']['beitrag_prefix'] = $_POST['beitrag_prefix'];
     		$pPreferences->config['Beitrag']['beitrag_suffix'] = $_POST['beitrag_suffix'];
-    		$pPreferences->config['Beitrag']['beitrag_anteilig'] = isset($_POST['beitrag_anteilig']) ? 1 : 0 ;
-    		$pPreferences->config['Beitrag']['beitrag_abrunden'] = isset($_POST['beitrag_abrunden']) ? 1 : 0 ;
+    		$pPreferences->config['Beitrag']['beitrag_anteilig'] = isset($_POST['beitrag_anteilig']) ? 1 : 0;
+    		$pPreferences->config['Beitrag']['beitrag_abrunden'] = isset($_POST['beitrag_abrunden']) ? 1 : 0;
     		$pPreferences->config['Beitrag']['beitrag_mindestbetrag'] = $_POST['beitrag_mindestbetrag'];
-    		$pPreferences->config['Beitrag']['beitrag_textmitnam'] = isset($_POST['beitrag_textmitnam']) ? 1 : 0 ;
-    		$pPreferences->config['Beitrag']['beitrag_textmitfam'] = isset($_POST['beitrag_textmitfam']) ? 1 : 0 ;
+    		$pPreferences->config['Beitrag']['beitrag_textmitnam'] = isset($_POST['beitrag_textmitnam']) ? 1 : 0;
+    		$pPreferences->config['Beitrag']['beitrag_textmitfam'] = isset($_POST['beitrag_textmitfam']) ? 1 : 0;
     		$pPreferences->config['Beitrag']['beitrag_text_token'] = $_POST['beitrag_text_token'];
     			
     		$text = new TableText($gDb);
@@ -97,7 +97,7 @@ try
         		$pPreferences->config['Familienrollen']['familienrollen_beitrag'][] = $_POST['familienrollen_beitrag'. $conf];
         		$pPreferences->config['Familienrollen']['familienrollen_zeitraum'][] = $_POST['familienrollen_zeitraum'. $conf];
         		$pPreferences->config['Familienrollen']['familienrollen_beschreibung'][] = $_POST['familienrollen_beschreibung'. $conf];
-        		$pPreferences->config['Familienrollen']['familienrollen_pruefung'][] = isset($familienrollen_pruefung[$conf]) ? $familienrollen_pruefung[$conf] : '' ;
+        		$pPreferences->config['Familienrollen']['familienrollen_pruefung'][] = isset($familienrollen_pruefung[$conf]) ? $familienrollen_pruefung[$conf] : '';
     		}
 
     		// alle Familienkonfigurationen durchlaufen
@@ -141,9 +141,9 @@ try
     		$pPreferences->config['Kontodaten']['bic'] = $_POST['bic'];
     		$pPreferences->config['Kontodaten']['bank'] = $_POST['bank'];
     		$pPreferences->config['Kontodaten']['inhaber'] = $_POST['creditor'];
-    		$pPreferences->config['Kontodaten']['origcreditor'] = isset($_POST['origcreditor']) ? $_POST['origcreditor'] : '' ;
+    		$pPreferences->config['Kontodaten']['origcreditor'] = isset($_POST['origcreditor']) ? $_POST['origcreditor'] : '';
     		$pPreferences->config['Kontodaten']['ci'] = $_POST['ci'];
-    		$pPreferences->config['Kontodaten']['origci'] = isset($_POST['origci']) ? $_POST['origci'] : '' ;
+    		$pPreferences->config['Kontodaten']['origci'] = isset($_POST['origci']) ? $_POST['origci'] : '';
             break;
             	
        	case 'export':

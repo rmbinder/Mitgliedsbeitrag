@@ -54,7 +54,7 @@ if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]<>' ')
 	{
 		if (!in_array($rol, $pPreferences->config['SEPA']['duedate_rollenwahl']))
 		{
-			unset($rols[$rol]) ;
+			unset($rols[$rol]);
 		}
 	}
 }
@@ -83,11 +83,11 @@ if($getMode == 'assign')
 	$userArray = array();
 	if($getUserId<>0)			// Fälligkeitsdatum nur für einen einzigen User ändern
 	{
-		$userArray[0] = $getUserId ;
+		$userArray[0] = $getUserId;
 	}
 	else 						// Alle ändern wurde gewählt
 	{
-		$userArray = $_SESSION['userArray'] ;
+		$userArray = $_SESSION['userArray'];
 	}
 
   	try

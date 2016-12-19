@@ -32,7 +32,7 @@ class ConfigTablePMB
 
 	protected $table_name;
 	protected static $shortcut =  'PMB';
-	protected static $version ;
+	protected static $version;
 	protected static $stand;
 	protected static $dbtoken;
 
@@ -345,7 +345,7 @@ class ConfigTablePMB
 		$fieldsarray[]	 = 'DEBTOR_CITY';
 		$fieldsarray[]	 = 'DEBTOR_EMAIL';
 		$fieldsarray[]	 = 'ORIG_DEBTOR_AGENT';
-		$fieldsarray[]	 = 'ORIG_IBAN' ;
+		$fieldsarray[]	 = 'ORIG_IBAN';
 		
 		$fieldsString ='';
 		foreach ($fieldsarray as $string)

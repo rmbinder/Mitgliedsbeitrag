@@ -47,7 +47,7 @@ if($getMode == 'anlegen')
     // prüfen, ob es die Kategorie Mitgliedschaft gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_id']))
     {
-        $nextCatSequence = getNextCatSequence('USF') ;
+        $nextCatSequence = getNextCatSequence('USF');
         
         $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
                 VALUES (\'USF\' ,
@@ -65,7 +65,7 @@ if($getMode == 'anlegen')
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
     {
         $cat_id_mitgliedschaft = getCat_IDPMB('MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'));
-        $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft) ;
+        $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft);
         
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
                 VALUES (\''.$cat_id_mitgliedschaft.'\' ,
@@ -86,7 +86,7 @@ if($getMode == 'anlegen')
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
     {
         $cat_id_stammdaten = getCat_IDPMB('MASTER_DATA');
-        $nextFieldSequence = getNextFieldSequence($cat_id_stammdaten) ;
+        $nextFieldSequence = getNextFieldSequence($cat_id_stammdaten);
         
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
                 VALUES (\''.$cat_id_stammdaten.'\' ,
@@ -106,7 +106,7 @@ if($getMode == 'anlegen')
     // prüfen, ob es die Kategorie Mitgliedsbeitrag gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_id']))
     {
-        $nextCatSequence = getNextCatSequence('USF') ;
+        $nextCatSequence = getNextCatSequence('USF');
         
         $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
                 VALUES (\'USF\' ,
@@ -121,7 +121,7 @@ if($getMode == 'anlegen')
     }
       
     $cat_id_mitgliedsbeitrag = getCat_IDPMB('MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'));
-    $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedsbeitrag) ;
+    $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedsbeitrag);
     
     // prüfen, ob es das Profilfeld Bezahlt gibt, wenn nicht: anlegen         
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))
@@ -220,7 +220,7 @@ if($getMode == 'anlegen')
     // prüfen, ob es die Kategorie Mandat gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_id']))
     {
-        $nextCatSequence = getNextCatSequence('USF') ;
+        $nextCatSequence = getNextCatSequence('USF');
         
         $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
                 VALUES (\'USF\' ,
@@ -235,7 +235,7 @@ if($getMode == 'anlegen')
     }
          
     $cat_id_mandat = getCat_IDPMB('MANDATE'.$gCurrentOrganization->getValue('org_id'));
-    $nextFieldSequence = getNextFieldSequence($cat_id_mandat) ;
+    $nextFieldSequence = getNextFieldSequence($cat_id_mandat);
     
     // prüfen, ob es das Profilfeld Mandatsreferenz gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name']))
@@ -296,7 +296,7 @@ if($getMode == 'anlegen')
     // prüfen, ob es die Kategorie Kontodaten gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_id']))
     {
-        $nextCatSequence = getNextCatSequence('USF') ;
+        $nextCatSequence = getNextCatSequence('USF');
         
         $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
                 VALUES (\'USF\' ,
@@ -311,7 +311,7 @@ if($getMode == 'anlegen')
     }
          
     $cat_id_kontodaten = getCat_IDPMB('ACCOUNT_DATA');
-    $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten) ;
+    $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten);
 
    // prüfen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen         
     if (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name']))
@@ -539,141 +539,141 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
   	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues, null, null, 1, 2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 				
 	$columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues, null, null, 1, 2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('SYS_CONTRIBUTION');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_PAID');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues, null, null, 1, 2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues, null, null, 1, 2);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	
 	$columnValues   = array();
 	$columnValues[] = $leer;
 	$columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE') ;
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
 	$table->addRowByArray($columnValues);
 	$form->addDescription($table->show(false));
 		
@@ -1315,7 +1315,7 @@ function getNextCatSequence($cat_type)
     {
         $sequence = $row['cat_sequence'];
     }
-    return $sequence+1 ;
+    return $sequence+1;
 }
 
 /**
@@ -1339,7 +1339,7 @@ function getNextFieldSequence($usf_cat_id)
     {
         $sequence = $row['usf_sequence'];
     }
-    return $sequence+1 ;
+    return $sequence+1;
 }
 
 //
@@ -1362,5 +1362,5 @@ function getCat_IDPMB($cat_name_intern)
     $statement = $gDb->query($sql);
     $row = $statement->fetchObject();
 
-    return $row->cat_id ;
+    return $row->cat_id;
 }

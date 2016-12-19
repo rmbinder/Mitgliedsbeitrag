@@ -126,7 +126,7 @@ if (sizeof($stack)>0)
  	$message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><BR><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><BR>';
     foreach ($stack as $stackdata)
     {
-        $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO10').' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING').' '.$stackdata['alterstyp'] ;
+        $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO10').' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING').' '.$stackdata['alterstyp'];
     }
 }
 

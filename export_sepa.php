@@ -47,7 +47,7 @@ $postCOR1Marker 		= admFuncVariableIsValid($_POST, 'eillastschrift', 'boolean');
 $postDueDate=substr($postDueDateSepaType, 0, 10);
 $postSepaType=substr($postDueDateSepaType, 10);
 
-$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'DEBTOR', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0)  ;
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'DEBTOR', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0);
 
 $zempf=array();
 $zpflgt=array();
@@ -69,7 +69,7 @@ foreach ($members as $member => $memberdata)
     {
       	if (empty($memberdata['DEBTOR']))
         {
-            $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
+            $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'];
         }
         
 		$zpflgt[$member]['name']=substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);     										// Name of account owner.
@@ -386,7 +386,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').";".utf8_decode($zempf['bic'])."\n"
         ."\n"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').";".utf8_decode($zempf['orig_cdtr_id'] )."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n" ;
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').";".utf8_decode($zempf['orig_cdtr_name'])."\n\n";
         	
 	echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";"
 		.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').";"

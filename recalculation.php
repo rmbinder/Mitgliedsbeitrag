@@ -33,7 +33,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 }
 
 // anstelle eines Leerzeichens ist ein # in der $pPreferences->config gespeichert; # wird hier wieder ersetzt
-$text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'] ;
+$text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'];
 $message = '';
 
 //alle Beitragsrollen einlesen 
@@ -47,7 +47,7 @@ if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]<>' ' )
 	{
 		if (!in_array($rol, $pPreferences->config['Beitrag']['beitrag_rollenwahl']))
 		{
-			unset($rols[$rol]) ;
+			unset($rols[$rol]);
 		}
 		else
 		{
@@ -89,7 +89,7 @@ foreach ($rols as $rol => $roldata)
 }
 
 // alle aktiven Mitglieder einlesen
-$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'ACCESSION'.$gCurrentOrganization->getValue('org_id'), 'DEBTOR'), 0)  ;
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'ACCESSION'.$gCurrentOrganization->getValue('org_id'), 'DEBTOR'), 0);
 
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
 foreach ($members as $member => $memberdata)
@@ -154,7 +154,7 @@ foreach ($members as $member => $memberdata)
                 $segment_begin = ceil($month_begin * $roldata['rol_cost_period']/12);
                 $segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
                 
-                $members[$member]['BEITRAG-NEU'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'] ;
+                $members[$member]['BEITRAG-NEU'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
                 if ($roldata['rol_description']<>'')
                 {
                     $members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$roldata['rol_description'].' ';
@@ -172,7 +172,7 @@ foreach ($members as $member => $memberdata)
             }
             else                             //keine anteilige Berechnung
             {
-                $members[$member]['BEITRAG-NEU'] += $roldata['rol_cost'] ;
+                $members[$member]['BEITRAG-NEU'] += $roldata['rol_cost'];
                 if ($roldata['rol_description']<>'')
                 {
                     $members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$roldata['rol_description'].' ';
@@ -205,7 +205,7 @@ foreach ($rols as $rol => $roldata)
             $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= ' ';
             foreach ($roldata['members'] as $member => $memberdata)
             {
-                $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.$members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME'] ;
+                $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.$members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME'];
             }
             $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.' ';
         }
@@ -216,14 +216,14 @@ foreach ($rols as $rol => $roldata)
             // nicht beim Zahlungspflichtigen selber und auch nur, wenn ein Zusatzbeitrag beim Mitglied errechnet wurde
             if  (( $roldata['has_to_pay'] <> $member ) && ($members[$member]['BEITRAG-NEU'] > 0))
             {
-                $members[$roldata['has_to_pay']]['BEITRAG-NEU'] += $members[$member]['BEITRAG-NEU'] ;
+                $members[$roldata['has_to_pay']]['BEITRAG-NEU'] += $members[$member]['BEITRAG-NEU'];
                 $members[$member]['BEITRAG-NEU'] = '';
-                $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $members[$member]['BEITRAGSTEXT-NEU'].' ' ;
+                $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $members[$member]['BEITRAGSTEXT-NEU'].' ';
                 
                 // wenn nicht definiert: Beitragstext mit allen Familienmitgliedern, trotzdem Name und Vorname anfügen
                 if(!$pPreferences->config['Beitrag']['beitrag_textmitnam'])
                 {
-                    $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].$text_token.' ' ;
+                    $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].$text_token.' ';
                 }
                 $members[$member]['BEITRAGSTEXT-NEU'] = '';
             }
@@ -235,13 +235,13 @@ foreach ($rols as $rol => $roldata)
 	    if ((date("Y") == date("Y", strtotime($roldata['rol_timestamp_create']))) && ($roldata['rol_cost_period']<>-1) && ($roldata['rol_cost_period']<>1))
         {
             $beitrittsmonat = date("n", strtotime($roldata['rol_timestamp_create']));
-            $members[$roldata['has_to_pay']]['BEITRAG-NEU'] +=  (($roldata['rol_cost_period']+1)-ceil($beitrittsmonat/(12/$roldata['rol_cost_period'])))*($roldata['rol_cost']/$roldata['rol_cost_period']) ;
-            $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'].' ' ;
+            $members[$roldata['has_to_pay']]['BEITRAG-NEU'] +=  (($roldata['rol_cost_period']+1)-ceil($beitrittsmonat/(12/$roldata['rol_cost_period'])))*($roldata['rol_cost']/$roldata['rol_cost_period']);
+            $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'].' ';
         }
         else
         {
-            $members[$roldata['has_to_pay']]['BEITRAG-NEU'] += $roldata['rol_cost'] ;
-            $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] = ' '.$roldata['rol_description'].$members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'].' ' ;
+            $members[$roldata['has_to_pay']]['BEITRAG-NEU'] += $roldata['rol_cost'];
+            $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] = ' '.$roldata['rol_description'].$members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'].' ';
         }
     }
 }
@@ -255,7 +255,7 @@ foreach ($members as $member => $memberdata)
     				||($pPreferences->config['Beitrag']['beitrag_modus'] == 'summation') ) )   )
     	&& ($members[$member]['BEITRAG-NEU']>$pPreferences->config['Beitrag']['beitrag_mindestbetrag']) )
     {
-        $members[$member]['BEITRAGSTEXT-NEU'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['BEITRAGSTEXT-NEU'].' '  ;
+        $members[$member]['BEITRAGSTEXT-NEU'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['BEITRAGSTEXT-NEU'].' ';
     
         // alle Beiträge auf 2 Nachkommastellen runden
         $members[$member]['BEITRAG-NEU'] = round($members[$member]['BEITRAG-NEU'], 2);

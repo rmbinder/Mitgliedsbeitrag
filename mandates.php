@@ -66,11 +66,11 @@ if($getMode == 'assign')
 	$userArray = array();
 	if($getUserId<>0)			// Mandatsdatum nur für einen einzigen User ändern
 	{
-		$userArray[0] = $getUserId ;
+		$userArray[0] = $getUserId;
 	}
 	else 						// Alle ändern wurde gewählt
 	{
-		$userArray = $_SESSION['userArray'] ;
+		$userArray = $_SESSION['userArray'];
 	}
 
   try
