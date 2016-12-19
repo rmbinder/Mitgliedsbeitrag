@@ -47,7 +47,7 @@ $members = list_members(array('DUEDATE'.$gCurrentOrganization->getValue('org_id'
 //jetzt wird gezählt
 foreach ($members as $member => $memberdata)
 {
-	//alle Fälligkeitsdaten einlesen   
+	//alle Fälligkeitsdaten einlesen
 	if (!empty($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]))
 	{
 		$duedatecount++;
@@ -211,7 +211,7 @@ $headerMenu->addForm($form->show(false));
 
 if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config']))
 {
-	// show link to pluginpreferences 
+	// show link to pluginpreferences
 	$headerMenu->addItem('admMenuItemPreferencesLists', $g_root_path. '/adm_plugins/'.$plugin_folder.'/preferences.php',
                         $gL10n->get('SYS_SETTINGS'), 'options.png', 'right');
 }
@@ -275,13 +275,13 @@ if(sizeof($rols)>0)
 
 	                        $form = new HtmlForm('without_paid_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
 	                        $form->addLine();
-	                        $form->addInput('without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'), (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //FIELD_DISABLED 
+	                        $form->addInput('without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'), (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //FIELD_DISABLED
 	                        $form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
 
 	                        $form = new HtmlForm('paid_only_form', $g_root_path.'/adm_plugins/'.$plugin_folder.'/menue_function.php?form=delete', $page, array('class' => 'form-preferences'));
  	                        $form->addLine();
- 	                        $form->addInput('paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'), $paidcount, array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //FIELD_DISABLED 
+ 	                        $form->addInput('paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'), $paidcount, array('property' => FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //FIELD_DISABLED
 	                        $form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => THEME_PATH.'/icons/delete.png',  'class' => 'btn-primary col-sm-offset-3'));
 	                        $page->addHtml($form->show(false));
 
@@ -768,7 +768,7 @@ if(sizeof($rols)>0)
                             }
                     		$form->closeGroupBox();
 
-                    		//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt 
+                    		//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
                     		$form->addStaticControl('', '', '');
 
                             $page->addHtml($form->show(false));
@@ -825,7 +825,7 @@ else
 	$form = new HtmlForm('no_roles_defined_form', null, $page);
 	$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED').'</div>';
     $form->addDescription($html);
-    //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt 
+    //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
     $form->addStaticControl('', '', '');
 	$page->addHtml($form->show(false));
 }

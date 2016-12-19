@@ -73,8 +73,8 @@ foreach ($altersrollen as $roleId => $roldata)
 			// stopMembership() kann nicht verwendet werden, da es unter best. Umständen Mitgliedschaften nicht löscht
 			// Beschreibung von stopMembership()
         	// 		only stop membership if there is an actual membership
-			// 		the actual date must be after the beginning 
-			// 		and the actual date must be before the end date			       
+			// 		the actual date must be after the beginning
+			// 		and the actual date must be before the end date
         	//$tablemember->stopMembership( $roleId, $member);
 
         	$message .= '<BR>'.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];

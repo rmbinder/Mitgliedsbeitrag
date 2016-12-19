@@ -25,7 +25,7 @@ require_once($plugin_path. '/../adm_program/system/template.php');
 require_once($plugin_path. '/'.$plugin_folder.'/common_function.php');
 require_once($plugin_path. '/'.$plugin_folder.'/classes/configtable.php');
 
-// $pPreferences ist auch für die korrekte Auflösung des Parameters #creditor_id# erforderlich          
+// $pPreferences ist auch für die korrekte Auflösung des Parameters #creditor_id# erforderlich
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
@@ -72,7 +72,7 @@ if (empty($_POST))
     $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
 }
 
-// if no User is set, he is not able to ask for delivery confirmation 
+// if no User is set, he is not able to ask for delivery confirmation
 if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirmation']==2) && $gPreferences['mail_delivery_confirmation']!=1)
 {
     $postDeliveryConfirmation = 0;

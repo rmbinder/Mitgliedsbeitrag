@@ -84,7 +84,7 @@ foreach ($members as $member => $memberdata)
     $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix), '0').$suffix, 0, 35);
 
     //überprüfen, ob die lfd. Nummer (=$suffix) auch befüllt ist
-    //u. U. wurde ein leeres Datenbankfeld ausgewählt; 
+    //u. U. wurde ein leeres Datenbankfeld ausgewählt;
     //dabei würden dann Mandatsreferenzen mit endenden Nullen erzeugt
 	if(!empty($suffix))
 	{

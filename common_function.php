@@ -105,7 +105,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
         	}
     	}
 
-        // wenn der Rollentyp jetzt immer noch leer ist, dann kann es nur eine Fixrolle sein                      
+        // wenn der Rollentyp jetzt immer noch leer ist, dann kann es nur eine Fixrolle sein
         if ($rollen[$key]['rollentyp']=='')
         {
             $rollen[$key]['rollentyp'] = 'fix';
@@ -447,7 +447,7 @@ function analyse_mem()
     $members = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0);
 	$ret = array('data'=> $members, 'BEITRAG_kto'=>0, 'BEITRAG_kto_anzahl'=>0, 'BEITRAG_rech'=>0, 'BEITRAG_rech_anzahl'=>0, 'BEZAHLT_kto'=>0, 'BEZAHLT_kto_anzahl'=>0, 'BEZAHLT_rech'=>0, 'BEZAHLT_rech_anzahl'=>0);
 
-	// alle Mitglieder durchlaufen und im ersten Schritt alle Mitglieder,  
+	// alle Mitglieder durchlaufen und im ersten Schritt alle Mitglieder,
 	// bei denen kein Beitrag berechnet wurde,
 	// und kein Beitragstext (=Verwendungszweck) existiert,  herausfiltern
     foreach ($members as $member => $memberdata)
@@ -507,7 +507,7 @@ function analyse_rol()
 	foreach($pPreferences->config['Familienrollen']['familienrollen_prefix'] as $famkey => $famdata)
     {
         //wieviele Familienrollen mit diesem Präfix gibt es denn?
-        //in der aufrufenden Funktion wird mittels sizeof abgefragt, 
+        //in der aufrufenden Funktion wird mittels sizeof abgefragt,
         //deshalb muss hier eine Array erzeugt werden
         $arr = array();
     	foreach($fam as $key => $data)
@@ -586,7 +586,7 @@ function check_rollenmitgliedschaft_pflicht()
     // alle Beitragsrollen durchlaufen und diejenigen Rollen löschen, die nicht als Pflichtrolle definiert sind
     foreach ($beitragsrollen as $rol => $roldata)
     {
-        //alle if und elseif könnte man in einer Zeile schreiben und mit || verknüpfen, aber so ist es übersichtlicher 
+        //alle if und elseif könnte man in einer Zeile schreiben und mit || verknüpfen, aber so ist es übersichtlicher
         if(($roldata['rollentyp'] == 'fam') && (!$pPreferences->config['Rollenpruefung']['familienrollenpflicht']))
         {
             unset($beitragsrollen[$rol]);
@@ -604,7 +604,7 @@ function check_rollenmitgliedschaft_pflicht()
             unset($beitragsrollen[$rol]);
         }
     }
-    // in $beitragsrollen sind jetzt nur noch Pflicht-Beitragsrollen 
+    // in $beitragsrollen sind jetzt nur noch Pflicht-Beitragsrollen
 
     // Feature-Wunsch von joesch
     $bezugskategorieMembers = array();
@@ -615,7 +615,7 @@ function check_rollenmitgliedschaft_pflicht()
 
 		foreach ($members as $member => $memberdata)
     	{
-    		// alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind 
+    		// alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind
     		if (!in_array($member, $bezugskategorieMembers))
     		{
     			unset($members[$member]);
@@ -699,7 +699,7 @@ function check_rollenmitgliedschaft_ausschluss()
 
 		foreach ($members as $member => $memberdata)
     	{
-    		// alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind 
+    		// alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind
     		if (!in_array($member, $bezugskategorieMembers))
     		{
     			unset($members[$member]);
@@ -710,7 +710,7 @@ function check_rollenmitgliedschaft_ausschluss()
     // alle Mitglieder durchlaufen und prüfen, ob sie in Ausschluss-Beitragsrollen sind
     foreach ($members as $member => $memberdata)
     {
-        //falls das Mitglied kein Angehöriger einer Beitragsrolle ist: abbrechen und zum nächsten Datensatz gehen 
+        //falls das Mitglied kein Angehöriger einer Beitragsrolle ist: abbrechen und zum nächsten Datensatz gehen
         if (!isset($memberdata['rollen']))
         {
             continue;
@@ -965,7 +965,7 @@ function check_family_roles()
         $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR').'</strong>';
     }
 
-    // eine evtl. vorhandene Fehlermeldung davorsetzen 
+    // eine evtl. vorhandene Fehlermeldung davorsetzen
 	if (sizeof($ret_error) != 0)
     {
     	$ret = array_merge($ret_error, $ret);

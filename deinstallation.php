@@ -229,7 +229,7 @@ elseif($getMode == 'delete')
 		$html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE').'</div>';
     	$form->addDescription($html);
 
-    	//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt 
+    	//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
         $form->addStaticControl('', '', '');
 
 		$_SESSION['pmbDeinst'] = true;

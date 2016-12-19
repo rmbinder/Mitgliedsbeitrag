@@ -43,7 +43,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
- //alle Beitragsrollen einlesen 
+ //alle Beitragsrollen einlesen
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen

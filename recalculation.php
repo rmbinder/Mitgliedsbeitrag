@@ -36,7 +36,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 $text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'];
 $message = '';
 
-//alle Beitragsrollen einlesen 
+//alle Beitragsrollen einlesen
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
@@ -181,7 +181,7 @@ foreach ($members as $member => $memberdata)
         }
     }
 
-    // wenn definiert: Beitragstext mit dem Namen des Benutzers 
+    // wenn definiert: Beitragstext mit dem Namen des Benutzers
     if(($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
     	&&  ($members[$member]['BEITRAG-NEU']!='')
         &&  !(($members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME']==$members[$member]['DEBTOR'])
@@ -196,7 +196,7 @@ foreach ($members as $member => $memberdata)
 // das zudem ein Familienmitglied ist, dem Zahlungspflichtigen der Familie zugeschlagen
 foreach ($rols as $rol => $roldata)
 {
-    // nur Rollen mit dem Präfix einer Familie && die Familienrolle muß Mitglieder aufweisen 
+    // nur Rollen mit dem Präfix einer Familie && die Familienrolle muß Mitglieder aufweisen
     if (($roldata['rollentyp']== 'fam')	&& (sizeof($roldata['members'])>0))
     {
         // wenn definiert: Beitragstext mit allen Familienmitgliedern

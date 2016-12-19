@@ -74,9 +74,9 @@ foreach ($members as $member => $memberdata)
 
 		$zpflgt[$member]['name']=substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);     										// Name of account owner.
 		$zpflgt[$member]['alt_name']="";																								// Array SEPA Zahlungspflichtiger abweichender Name
-		$zpflgt[$member]['iban']=str_replace(' ', '', $members[$member]['IBAN']);        																		// IBAN 
-		$zpflgt[$member]['bic']=$members[$member]['BIC'];        																		// BIC 
-		$zpflgt[$member]['mandat_id']=$members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];        					// Mandats-ID 
+		$zpflgt[$member]['iban']=str_replace(' ', '', $members[$member]['IBAN']);        																		// IBAN
+		$zpflgt[$member]['bic']=$members[$member]['BIC'];        																		// BIC
+		$zpflgt[$member]['mandat_id']=$members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];        					// Mandats-ID
 		$zpflgt[$member]['mandat_datum']=$members[$member]['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')];     				// Mandats-Datum
 		$zpflgt[$member]['betrag']=$members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')];        						// Amount of money
 		$zpflgt[$member]['text']=substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]), 0, 140);   // Description of the transaction ("Verwendungszweck").
@@ -97,7 +97,7 @@ if ($lst_num==0)
 	$gMessage->show('Keine Daten für den Export vorhanden!');
 }
 
-$message_id=substr("Message-ID-".replace_sepadaten($gCurrentOrganization->getValue('org_shortname')), 0, 35);		//SEPA Message-ID	(max. 35)		
+$message_id=substr("Message-ID-".replace_sepadaten($gCurrentOrganization->getValue('org_shortname')), 0, 35);		//SEPA Message-ID	(max. 35)
 $message_datum=date($format1, $now)."T".date($format2, $now).".000Z";										//SEPA Message-Datum z.B.: 2010-11-21T09:30:47.000Z
 $message_initiator_name=substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);						//SEPA Message Initiator Name
 
@@ -108,7 +108,7 @@ $payment_seqtp=$postSepaType;
 
 $zempf['name']=substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);								//SEPA  Zahlungsempfänger Kontoinhaber
 $zempf['ci']=$pPreferences->config['Kontodaten']['ci'];                 											//Organisation SEPA_ID (Gläubiger-ID Bundesdbank)
-$zempf['iban']=str_replace(' ', '', $pPreferences->config['Kontodaten']['iban']);														//SEPA  Zahlungsempfänger IBAN	
+$zempf['iban']=str_replace(' ', '', $pPreferences->config['Kontodaten']['iban']);														//SEPA  Zahlungsempfänger IBAN
 $zempf['bic']=$pPreferences->config['Kontodaten']['bic'];															//SEPA  Zahlungsempfänger BIC
 $zempf['orig_cdtr_name']=$pPreferences->config['Kontodaten']['origcreditor'];  									//ursprünglicher Creditor
 $zempf['orig_cdtr_id']=$pPreferences->config['Kontodaten']['origci'];  											//ursprüngliche Mandats-ID
@@ -152,7 +152,7 @@ if (isset($_POST['btn_xml_file']))
     	$xmlfile.="<PmtInf>\n";
     		$xmlfile.="<PmtInfId>$payment_id</PmtInfId>\n";                 //Payment-ID
     		$xmlfile.="<PmtMtd>DD</PmtMtd>\n";                              //Payment-Methode, Lastschrift: DD
-    		$xmlfile.="<BtchBookg>true</BtchBookg>\n";                      //BatchBooking, Sammelbuchung (true) oder eine Einzelbuchung handelt (false)																	
+    		$xmlfile.="<BtchBookg>true</BtchBookg>\n";                      //BatchBooking, Sammelbuchung (true) oder eine Einzelbuchung handelt (false)
     		$xmlfile.="<NbOfTxs>$lst_num</NbOfTxs>\n";                      //Number of Transactions
     		$xmlfile.="<CtrlSum>$lst_euro_sum</CtrlSum>\n";                 //Control Summe
     		$xmlfile.="<PmtTpInf>\n";                                       //PaymentTypeIn-formation
@@ -162,11 +162,11 @@ if (isset($_POST['btn_xml_file']))
     			$xmlfile.="<LclInstrm>\n";                                  //LocalInstrument, Lastschriftart
     			if($postCOR1Marker)
     			{
-    				$xmlfile.="<Cd>COR1</Cd>\n";                            //COR1 (Eil-Lastschrift)                                                            		
+    				$xmlfile.="<Cd>COR1</Cd>\n";                            //COR1 (Eil-Lastschrift)
     			}
     			else
     			{
-    				$xmlfile.="<Cd>CORE</Cd>\n";                            //CORE (Basislastschrift oder B2B (Firmenlastschrift)                                                           		
+    				$xmlfile.="<Cd>CORE</Cd>\n";                            //CORE (Basislastschrift oder B2B (Firmenlastschrift)
     			}
     			$xmlfile.="</LclInstrm>\n";
     			$xmlfile.="<SeqTp>$payment_seqtp</SeqTp>\n";				//SequenceType
@@ -176,7 +176,7 @@ if (isset($_POST['btn_xml_file']))
                       														//Wenn <OrgnlDbtrAgt> = SMNDA und <Amdmnt-Ind> = true
                       														//dann muss dieses Feld mit FRST belegt sein.
    			$xmlfile.="</PmtTpInf>\n";
-    		$xmlfile.="<ReqdColltnDt>$payment_datum</ReqdColltnDt>\n";      //RequestedCollectionDate, Fälligkeitsdatum der Lastschrift                                                             		
+    		$xmlfile.="<ReqdColltnDt>$payment_datum</ReqdColltnDt>\n";      //RequestedCollectionDate, Fälligkeitsdatum der Lastschrift
     		$xmlfile.="<Cdtr>\n";                                           //Creditor, Kreditor
     			$xmlfile.="<Nm>".$zempf['name']."</Nm>\n";                  //Name, max. 70 Zeichen
     		$xmlfile.="</Cdtr>\n";
@@ -293,7 +293,7 @@ if (isset($_POST['btn_xml_file']))
         			//## Kreditinstitut des Zahlers (Zahlungspflichtigen)
         			// BIC ist Pflicht bis Feb 2014!
         				$xmlfile.="<DbtrAgt>\n";                         		//DebtorAgent, Kreditinstitut des Zahlers (Zahlungspflichtigen)
-          					$xmlfile.="<FinInstnId>\n"; 						//FinancialInstitutionIdentification 		
+          					$xmlfile.="<FinInstnId>\n"; 						//FinancialInstitutionIdentification
           					if(strlen($zpflgtdata['bic'])!=0) 		//ist ein BIC vorhanden?
             				{
             					$xmlfile.="<BIC>".$zpflgtdata['bic']."</BIC>\n";

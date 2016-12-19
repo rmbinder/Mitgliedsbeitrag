@@ -422,7 +422,7 @@ else
 
         $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
-        //alle Fälligkeitsdaten einlesen        
+        //alle Fälligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
                 FROM '.TBL_USER_DATA.','. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
                 WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id').' 

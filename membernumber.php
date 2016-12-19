@@ -79,7 +79,7 @@ foreach ($members as $member => $key)
 	}
 }
 
-//alle Mitglieder durchlaufen und prüfen, ob eine Mitgliedsnummer existiert       
+//alle Mitglieder durchlaufen und prüfen, ob eine Mitgliedsnummer existiert
  foreach ($members as $member => $key)
 {
 	if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))

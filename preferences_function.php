@@ -103,7 +103,7 @@ try
     		// alle Familienkonfigurationen durchlaufen
 			foreach($pPreferences->config['Familienrollen']['familienrollen_prefix'] as $key => $data)
     		{
-    			// zuerst alle Familienrollen herausfinden 
+    			// zuerst alle Familienrollen herausfinden
     			$sql = 'SELECT rol_name, rol_id, rol_cost, rol_cost_period
             			FROM '.TBL_ROLES.' 
             			WHERE rol_name LIKE \''. $data.'%'. '\' ';

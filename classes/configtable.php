@@ -117,7 +117,7 @@ class ConfigTablePMB
     	// Hinweis: delete_member_data() wird auch im Modul Deinstallation verwendet
     	// der zweite Parameter bestimmt das zu löschende Profilfeld
     	// der erste Parameter definiert die Organistaion, in der gelöscht wird
-    	// 	0 = Daten nur in aktueller Org löschen 
+    	// 	0 = Daten nur in aktueller Org löschen
     	//  1 = Daten in allen Orgs löschen
     	//  3 = Daten löschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
 
@@ -162,8 +162,8 @@ class ConfigTablePMB
         	}
     	}
 
-    	// die Ist-config durchlaufen 
-    	// jetzt befinden sich hier nur noch die DB-Einträge, die nicht verwendet werden und deshalb: 
+    	// die Ist-config durchlaufen
+    	// jetzt befinden sich hier nur noch die DB-Einträge, die nicht verwendet werden und deshalb:
     	// 1. in der DB gelöscht werden können
     	// 2. in der normalen config gelöscht werden können
 		foreach($config_ist as $section => $sectiondata)
@@ -184,7 +184,7 @@ class ConfigTablePMB
         	}
     	}
 
-    	// die aktualisierten und bereinigten Konfigurationsdaten in die DB schreiben 
+    	// die aktualisierten und bereinigten Konfigurationsdaten in die DB schreiben
   		$this->save();
 	}
 
@@ -202,7 +202,7 @@ class ConfigTablePMB
         	{
             	if (is_array($value))
             	{
-                	// um diesen Datensatz in der Datenbank als Array zu kennzeichnen, wird er von Doppelklammern eingeschlossen 
+                	// um diesen Datensatz in der Datenbank als Array zu kennzeichnen, wird er von Doppelklammern eingeschlossen
             		$value = '(('.implode(self::$dbtoken, $value).'))';
             	}
 
@@ -217,7 +217,7 @@ class ConfigTablePMB
             	$row = $statement->fetchObject();
 
             	// Gibt es den Datensatz bereits?
-            	// wenn ja: UPDATE des bestehende Datensatzes  
+            	// wenn ja: UPDATE des bestehende Datensatzes
             	if(isset($row->plp_id) && strlen($row->plp_id) > 0)
             	{
                 	$sql = 'UPDATE '.$this->table_name.' 
@@ -226,7 +226,7 @@ class ConfigTablePMB
 
                 	$gDb->query($sql);
             	}
-            	// wenn nicht: INSERT eines neuen Datensatzes 
+            	// wenn nicht: INSERT eines neuen Datensatzes
             	else
             	{
   					$sql = 'INSERT INTO '.$this->table_name.' (plp_org_id, plp_name, plp_value) 
@@ -383,14 +383,14 @@ class ConfigTablePMB
 		$result_data=false;
 		$result_db = false;
 
-		if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen 
+		if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen
 		{
 			$sql = 'DELETE FROM '.$this->table_name.'
         			WHERE plp_name LIKE \''.self::$shortcut.'__%\'
         			AND plp_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
 			$result_data = $gDb->query($sql);
 		}
-		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen 
+		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen
 		{
 			$sql = 'DELETE FROM '.$this->table_name.'
         			WHERE plp_name LIKE \''.self::$shortcut.'__%\' ';
@@ -415,7 +415,7 @@ class ConfigTablePMB
 
     /**
      * Löscht die Nutzerdaten in der Datenbank
-     * @param   int		$deinst_org_select  0 = Daten nur in aktueller Org löschen, 1 = Daten in allen Orgs löschen, !=0 oder !=1) = Daten löschen, die in allen Orgs sichtbar sind 
+     * @param   int		$deinst_org_select  0 = Daten nur in aktueller Org löschen, 1 = Daten in allen Orgs löschen, !=0 oder !=1) = Daten löschen, die in allen Orgs sichtbar sind
      * @param   string  $dataField          usf_name_intern des zu löschenden Datenfeldes
      * @param   string  $dataDesc           Überschrift eines Blocks der Meldung
      * @return  string  $result             Meldung
@@ -432,11 +432,11 @@ class ConfigTablePMB
     	$result_category=false;
     	$usfIDs=array();
 
-    	if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org löschen 
+    	if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org löschen
 		{
 			$orgSelector = $gCurrentOrganization->getValue('org_id');
 		}
-		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen 
+		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen
 		{
 			$orgSelector = '%';
 			//$orgSelector = '_';
@@ -541,14 +541,14 @@ class ConfigTablePMB
     	$result = '';
 		$result_data=false;
 
-		if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen 
+		if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen
 		{
 			$sql = 'DELETE FROM '.TBL_TEXTS.'
         			WHERE txt_name LIKE \'PMBMAIL_%\'
         			AND txt_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
 			$result_data = $gDb->query($sql);
 		}
-		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen 
+		elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen
 		{
 			$sql = 'DELETE FROM '.TBL_TEXTS.'
         			WHERE txt_name LIKE \'PMBMAIL_%\' ';

@@ -29,7 +29,7 @@ $config_default['Familienrollen'] = array('familienrollen_beitrag' => array(0),
   											'familienrollen_prefix' => array('Familie'),
    											'familienrollen_pruefung' => array(''));
 
-//Beitrag 
+//Beitrag
 $config_default['Beitrag'] = array('beitrag_prefix' => 'Mitgliedsbeitrag 2016',
   									'beitrag_suffix' => '(ant.)',
   									'beitrag_modus' => 'standard',
@@ -77,17 +77,17 @@ $config_default['SEPA'] = array('dateiname' => 'sepa',
 								'vorabinformation_dateiname' => 'export',
 								'duedate_rollenwahl'  => array(' '));
 
-// Plugininformationen													
+// Plugininformationen
 $config_default['Plugininformationen']['version'] = '';
 $config_default['Plugininformationen']['stand'] = '';
 
 /*
  *  Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden,
- *  zu einem String zusammengefasst und in der Admidiodatenbank gespeichert. 
- *  Müssen die vorgegebenen Zeichenkombinationen (#_#) jedoch ebenfalls, z.B. in der Beschreibung 
- *  einer Konfiguration, verwendet werden, so kann das Plugin gespeicherte Konfigurationsdaten 
+ *  zu einem String zusammengefasst und in der Admidiodatenbank gespeichert.
+ *  Müssen die vorgegebenen Zeichenkombinationen (#_#) jedoch ebenfalls, z.B. in der Beschreibung
+ *  einer Konfiguration, verwendet werden, so kann das Plugin gespeicherte Konfigurationsdaten
  *  nicht mehr richtig einlesen. In diesem Fall ist die vorgegebene Zeichenkombination abzuändern (z.B. in !-!)
- *  
+ *
  *  Achtung: Vor einer Änderung muss eine Deinstallation durchgeführt werden!
  *  Bereits gespeicherte Werte in der Datenbank können nach einer Änderung nicht mehr eingelesen werden!
  */

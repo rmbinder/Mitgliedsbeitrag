@@ -123,7 +123,7 @@ if($getMode == 'anlegen')
     $cat_id_mitgliedsbeitrag = getCat_IDPMB('MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'));
     $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedsbeitrag);
 
-    // prüfen, ob es das Profilfeld Bezahlt gibt, wenn nicht: anlegen         
+    // prüfen, ob es das Profilfeld Bezahlt gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -142,7 +142,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld Beitrag gibt, wenn nicht: anlegen        
+    // prüfen, ob es das Profilfeld Beitrag gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -275,7 +275,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld Orig_Mandatsreferenz gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld Orig_Mandatsreferenz gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -313,7 +313,7 @@ if($getMode == 'anlegen')
     $cat_id_kontodaten = getCat_IDPMB('ACCOUNT_DATA');
     $nextFieldSequence = getNextFieldSequence($cat_id_kontodaten);
 
-   // prüfen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen         
+   // prüfen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -331,7 +331,7 @@ if($getMode == 'anlegen')
         $gDb->query($sql);
         $nextFieldSequence++;
     }
-    // prüfen, ob es das Profilfeld BIC gibt, wenn nicht: anlegen         
+    // prüfen, ob es das Profilfeld BIC gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -350,7 +350,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-   	// prüfen, ob es das Profilfeld Bankname gibt, wenn nicht: anlegen         
+   	// prüfen, ob es das Profilfeld Bankname gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -369,7 +369,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld Kontoinhaber gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld Kontoinhaber gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -388,7 +388,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld KontoinhaberAdresse gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld KontoinhaberAdresse gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -407,7 +407,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld KontoinhaberPLZ gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld KontoinhaberPLZ gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -426,7 +426,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld KontoinhaberOrt gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld KontoinhaberOrt gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -445,7 +445,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld KontoinhaberEMail gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld KontoinhaberEMail gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -464,7 +464,7 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // prüfen, ob es das Profilfeld Orig_Debtor_Agent gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld Orig_Debtor_Agent gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -482,7 +482,7 @@ if($getMode == 'anlegen')
         $gDb->query($sql);
         $nextFieldSequence++;
     }
-    // prüfen, ob es das Profilfeld Orig_IBAN gibt, wenn nicht: anlegen 
+    // prüfen, ob es das Profilfeld Orig_IBAN gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
@@ -929,10 +929,10 @@ function check_DB()
 {
     global $gDb,$gCurrentOrganization,$gL10n;
 
-    //Mit der Version 3.3.0 wurde die Installationsroutine umprogrammiert. 
+    //Mit der Version 3.3.0 wurde die Installationsroutine umprogrammiert.
 	//Früher wurde auf usf_name geprüft, jetzt auf usf_name_intern.
   	//Die Installationsscripte der Versionen 1.x und 2.x befüllten jedoch
-  	// von der Kategorie kontodaten usf_name_intern nicht mit dem Wert KONTODATEN. 
+  	// von der Kategorie kontodaten usf_name_intern nicht mit dem Wert KONTODATEN.
   	//Hier wird deshalb überprüft, ob es eine Kategorie kontodaten gibt.
   	//Falls von dieser Kategorie der usf_name_intern leer ist, wird er mit KONTODATEN beschrieben.
 
@@ -985,7 +985,7 @@ function check_DB()
                  //	OR cat_org_id IS NULL )
         $statement = $gDb->query($sql);
         $row = $statement->fetchObject();
-        // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version  
+        // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version
         if(isset($row->cat_id) && strlen($row->cat_id) > 0)
         {
         	$sql = 'UPDATE '.TBL_CATEGORIES.' 
@@ -1085,7 +1085,7 @@ function check_DB()
 	}
 	// Ende Update/Konvertierungsroutine
 
-    // $DB_array['SOLL'] beinhaltet die erforderlichen Werte für die Kategorien und die User Fields 
+    // $DB_array['SOLL'] beinhaltet die erforderlichen Werte für die Kategorien und die User Fields
     $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_id'=>-1, 'cat_org_id' => 'Null',   									'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',              								'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0);
     $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_id'=>-1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'), 'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0);
     $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_id'=>-1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP',    	'cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'),   	'cat_type' => 'USF', 'cat_system'=> 0, 'cat_hidden' => 0);

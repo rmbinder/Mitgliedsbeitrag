@@ -223,14 +223,14 @@ else
 		$table->setDatatablesColumnsHide(4);
 	}
 
-    // show rows 
+    // show rows
    	foreach($gProfileFields->mProfileFields as $field)
     {
         $htmlSourceMarker 	= '&nbsp;';
         $htmlProfileField 	= '&nbsp;';
         $htmlTargetMarker 	= '&nbsp;';
 
-    	//1. Spalte 
+    	//1. Spalte
     	if(strlen($userSource->getValue($field->getValue('usf_name_intern'))) > 0)
     	{
     		$htmlSource = '<div class="sourceval_'.$field->getValue('usf_id').'" id="sourceval_'.$field->getValue('usf_id').'">'.$userSource->getValue($field->getValue('usf_name_intern')).'</div>';
@@ -243,10 +243,10 @@ else
     	//2. Spalte
     	$htmlSourceMarker = '<input type="checkbox" id="sourcefield_'.$field->getValue('usf_id').'" name="sourcefield_'.$field->getValue('usf_id').'" class="sourcelist_checkbox" /><b id="loadindicator_sourcefield_'.$field->getValue('usf_id').'"></b>';
 
-    	//3. Spalte 
+    	//3. Spalte
     	$htmlProfileField 	= addslashes($field->getValue('usf_name'));
 
-    	//4. Spalte 
+    	//4. Spalte
        	$htmlTargetMarker = '<input type="checkbox" id="targetfield_'.$field->getValue('usf_id').'" name="targetfield_'.$field->getValue('usf_id').'" class="targetlist_checkbox" /><b id="loadindicator_targetfield_'.$field->getValue('usf_id').'"></b>';
 
        	//5. Spalte

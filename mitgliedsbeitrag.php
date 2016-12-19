@@ -58,7 +58,7 @@ if(!isset($_SESSION['pmbDeinst']))
 	{
 		if (isset($pluginMenu))
 		{
-			// wenn in der my_body_bottom.php ein $pluginMenu definiert wurde, 
+			// wenn in der my_body_bottom.php ein $pluginMenu definiert wurde,
 			// dann innerhalb dieses Menüs anzeigen
 			$pluginMenu->addItem('membershipfee_show', '/adm_plugins/'.$plugin_folder.'/'.$startprog,
 				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
