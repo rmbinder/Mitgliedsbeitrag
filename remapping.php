@@ -82,7 +82,7 @@ foreach ($altersrollen as $roleId => $roldata)
     }
 }
 
-if (sizeof($stack)==0)
+if (count($stack)==0)
 {
     $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
 }
@@ -121,7 +121,7 @@ if (!$marker)
     $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7');
 }
 
-if (sizeof($stack)>0)
+if (count($stack)>0)
 {
     $message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><BR><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><BR>';
     foreach ($stack as $stackdata)

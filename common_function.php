@@ -130,7 +130,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
         }
         else
         {
-            if (is_array($with_members) && sizeof($with_members)>0)
+            if (is_array($with_members) && count($with_members)>0)
             {
                 $rollen[$key]['members'] = list_members($with_members, array($data['rolle'] => 0));
             }
@@ -547,7 +547,7 @@ function check_rollenmitgliedschaft_altersrolle()
     // jetzt $check durchlaufen und nur die Einträge bearbeiten, bei denen mehr als 1 Alterstyp vorhanden ist
     foreach($check as $member => $memberdata)
     {
-        if(sizeof($memberdata['alterstyp'])>1)
+        if(count($memberdata['alterstyp'])>1)
         {
             $alterstypen = '';
             foreach($memberdata['alterstyp'] as $alterstyp)
@@ -558,7 +558,7 @@ function check_rollenmitgliedschaft_altersrolle()
         }
     }
 
-    if (sizeof($ret) == 0)
+    if (count($ret) == 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
@@ -640,7 +640,7 @@ function check_rollenmitgliedschaft_pflicht()
         }
     }
 
-    if (sizeof($ret) == 0)
+    if (count($ret) == 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_OK'));
     }
@@ -768,7 +768,7 @@ function check_rollenmitgliedschaft_ausschluss()
         }
     }
 
-    if (sizeof($ret) == 0)
+    if (count($ret) == 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK'));
     }
@@ -820,14 +820,14 @@ function check_rols()
 
         usort($check, 'vergleich');
 
-        for ($i = 0; $i < sizeof($check)-1; $i = $i+2)
+        for ($i = 0; $i < count($check)-1; $i = $i+2)
         {
         if ($check[$i]['rol'] != $check[$i+1]['rol'])
             {
                 $ret[$check[$i]['rol']] = '- '.$alt[$check[$i]['rol']]['rolle'];
                 $ret[$check[$i+1]['rol']] = '- '.$alt[$check[$i+1]['rol']]['rolle'];
             }
-            if (($i < sizeof($check)-2) && ($check[$i+1]['year'] != ($check[$i+2]['year'])-1))
+            if (($i < count($check)-2) && ($check[$i+1]['year'] != ($check[$i+2]['year'])-1))
             {
                 $ret[$check[$i+1]['rol']] = '- '.$alt[$check[$i+1]['rol']]['rolle'];
                 $ret[$check[$i+2]['rol']] = '- '.$alt[$check[$i+2]['rol']]['rolle'];
@@ -835,7 +835,7 @@ function check_rols()
         }
     }
 
-    if (sizeof($ret) == 0)
+    if (count($ret) == 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
@@ -906,7 +906,7 @@ function check_family_roles()
     }
 
     // Leerzeile einfügen
-    if (sizeof($ret_error) != 0)
+    if (count($ret_error) != 0)
     {
         $ret_error[] = '';
     }
@@ -945,7 +945,7 @@ function check_family_roles()
                         $ret_temp[] = '&#160&#160&#160&#183<small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'].':'.$pruefdata['anz'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SATISFIED').'.</small>';
                     }
                 }
-                if (sizeof($ret_temp) != 0)
+                if (count($ret_temp) != 0)
                 {
                     $ret[] = '- <a href="'.$g_root_path.'/adm_program/modules/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
                         <a href="'.$g_root_path.'/adm_program/modules/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_PATH. '/icons/list.png"
@@ -956,7 +956,7 @@ function check_family_roles()
         }
     }
 
-    if (sizeof($ret) == 0)
+    if (count($ret) == 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK'));
     }
@@ -966,7 +966,7 @@ function check_family_roles()
     }
 
     // eine evtl. vorhandene Fehlermeldung davorsetzen
-    if (sizeof($ret_error) != 0)
+    if (count($ret_error) != 0)
     {
         $ret = array_merge($ret_error, $ret);
     }
@@ -992,7 +992,7 @@ function check_mandate_management()
         }
     }
 
-    if (sizeof($ret) == 0)
+    if (count($ret) == 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK'));
     }
@@ -1022,7 +1022,7 @@ function check_iban()
         }
     }
 
-    if (sizeof($ret) == 0)
+    if (count($ret) == 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK'));
     }

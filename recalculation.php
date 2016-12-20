@@ -197,7 +197,7 @@ foreach ($members as $member => $memberdata)
 foreach ($rols as $rol => $roldata)
 {
     // nur Rollen mit dem Präfix einer Familie && die Familienrolle muß Mitglieder aufweisen
-    if (($roldata['rollentyp']== 'fam') && (sizeof($roldata['members'])>0))
+    if (($roldata['rollentyp']== 'fam') && (count($roldata['members'])>0))
     {
         // wenn definiert: Beitragstext mit allen Familienmitgliedern
         if($pPreferences->config['Beitrag']['beitrag_textmitfam'] == true)
