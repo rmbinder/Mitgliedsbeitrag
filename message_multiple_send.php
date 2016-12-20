@@ -32,7 +32,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -81,8 +81,8 @@ if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirm
 //$receiver = array();
 foreach ($user_array as $userId)
 {
-	// Create new Email Object
-	$email = new Email();
+    // Create new Email Object
+    $email = new Email();
 
     $user = new User($gDb, $gProfileFields, $userId);
 
@@ -104,35 +104,35 @@ foreach ($user_array as $userId)
         $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
 
-	//Datensatz für E-Mail-Adresse zusammensetzen
+    //Datensatz für E-Mail-Adresse zusammensetzen
     if(strlen($user->getValue('DEBTOR')) > 0)
     {
-		if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
-		{
-			$postTo = $user->getValue('DEBTOR_EMAIL');
-		}
-		$empfaenger	= 	$user->getValue('DEBTOR');
+        if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
+        {
+            $postTo = $user->getValue('DEBTOR_EMAIL');
+        }
+        $empfaenger =   $user->getValue('DEBTOR');
 
     }
     else
     {
-		if(strlen($user->getValue('EMAIL')) > 0)
-		{
-			$postTo = $user->getValue('EMAIL');
-		}
-		$empfaenger	= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');
+        if(strlen($user->getValue('EMAIL')) > 0)
+        {
+            $postTo = $user->getValue('EMAIL');
+        }
+        $empfaenger = $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');
 
     }
 
-	if (!strValidCharacters($postTo, 'email'))
-	{
-		$sendMailResultMissingEmail[] = $empfaenger;
-		continue;
-	}
+    if (!strValidCharacters($postTo, 'email'))
+    {
+        $sendMailResultMissingEmail[] = $empfaenger;
+        continue;
+    }
 
     // evtl. definierte Parameter ersetzen
-	$postSubject = replace_emailparameter($postSubjectOrig, $user);
-	$postBody = replace_emailparameter($postBodyOrig, $user);
+    $postSubject = replace_emailparameter($postSubjectOrig, $user);
+    $postBody = replace_emailparameter($postBodyOrig, $user);
 
     // set sending address
     if ($email->setSender($postFrom, $postName))
@@ -215,7 +215,7 @@ foreach ($user_array as $userId)
     }
 
     //den gefundenen User dem Mailobjekt hinzufuegen...
-  	$email->addRecipient($postTo, $empfaenger);
+    $email->addRecipient($postTo, $empfaenger);
 
     // add confirmation mail to the sender
     if($postDeliveryConfirmation == 1)
@@ -233,42 +233,42 @@ foreach ($user_array as $userId)
     // finally send the mail
     $sendMailResult = $email->sendEmail();
 
-	if ($sendMailResult === TRUE)
-	{
-    	$sendMailResultSendOK[] = $empfaenger.' ('.$postTo.')';
-	}
-	else
-	{
-		if(strlen($postTo) > 0)
-		{
-			$sendMailResultAnotherError[] = $sendMailResult.$empfaenger;
-		}
-	}
+    if ($sendMailResult === TRUE)
+    {
+        $sendMailResultSendOK[] = $empfaenger.' ('.$postTo.')';
+    }
+    else
+    {
+        if(strlen($postTo) > 0)
+        {
+            $sendMailResultAnotherError[] = $sendMailResult.$empfaenger;
+        }
+    }
 }
 
 // Erfolgsmeldung zusammensetzen
 if(count($sendMailResultSendOK) > 1)
 {
-	foreach ($sendMailResultSendOK as $data)
-	{
-		$sendMailResultMessage .= $data.'<br>';
-	}
-	$sendMailResultMessage .=	'<br>';
+    foreach ($sendMailResultSendOK as $data)
+    {
+        $sendMailResultMessage .= $data.'<br>';
+    }
+    $sendMailResultMessage .=   '<br>';
 }
 if(count($sendMailResultMissingEmail) > 1)
 {
-	foreach ($sendMailResultMissingEmail as $data)
-	{
-		$sendMailResultMessage .= $data.'<br>';
-	}
-	$sendMailResultMessage .=	'<br>';
+    foreach ($sendMailResultMissingEmail as $data)
+    {
+        $sendMailResultMessage .= $data.'<br>';
+    }
+    $sendMailResultMessage .=   '<br>';
 }
 if(count($sendMailResultAnotherError) > 1)
 {
-	foreach ($sendMailResultAnotherError as $data)
-	{
-		$sendMailResultMessage .= $data.'<br>';
-	}
+    foreach ($sendMailResultAnotherError as $data)
+    {
+        $sendMailResultMessage .= $data.'<br>';
+    }
 }
 
 // zur Ausgangsseite zurueck

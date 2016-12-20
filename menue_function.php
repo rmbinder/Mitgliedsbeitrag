@@ -36,79 +36,79 @@ $ret_message = 'success';
 
 try
 {
-	switch($getForm)
+    switch($getForm)
     {
-       	case 'delete':
-			$members = array();
-			$members = list_members(array('PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id')), 0);
+        case 'delete':
+            $members = array();
+            $members = list_members(array('PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id')), 0);
 
-			foreach ($members as $key => $data)
-			{
-				$user = new User($gDb, $gProfileFields, $key);
+            foreach ($members as $key => $data)
+            {
+                $user = new User($gDb, $gProfileFields, $key);
 
-    			if (!empty($data['DUEDATE'.$gCurrentOrganization->getValue('org_id')])
-	   				&&  isset($_POST['duedate_only']))
-    			{
-  	     			$user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
-    			}
+                if (!empty($data['DUEDATE'.$gCurrentOrganization->getValue('org_id')])
+                    &&  isset($_POST['duedate_only']))
+                {
+                    $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
+                }
 
-    			if (!empty($data['PAID'.$gCurrentOrganization->getValue('org_id')])
-	   				&& (isset($_POST['with_paid'])
-						|| isset($_POST['paid_only'])
-						|| isset($_POST['delete_all'])))
-    			{
-   	    			$user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
-    			}
+                if (!empty($data['PAID'.$gCurrentOrganization->getValue('org_id')])
+                    && (isset($_POST['with_paid'])
+                        || isset($_POST['paid_only'])
+                        || isset($_POST['delete_all'])))
+                {
+                    $user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
+                }
 
-    			if (!empty($data['FEE'.$gCurrentOrganization->getValue('org_id')])
-	   				&& ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-		  				|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-		  				|| isset($_POST['delete_all'])))
-    			{
-  	     			$user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), '');
-    			}
+                if (!empty($data['FEE'.$gCurrentOrganization->getValue('org_id')])
+                    && ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+                        || (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+                        || isset($_POST['delete_all'])))
+                {
+                    $user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), '');
+                }
 
-				if (!empty($data['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
-					&& ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-						|| (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-						|| isset($_POST['delete_all'])))
-				{
-   					$user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), '');
-				}
-  				$user->save();
-			}
-       		$ret_message= 'delete';
-           	break;
+                if (!empty($data['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
+                    && ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+                        || (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+                        || isset($_POST['delete_all'])))
+                {
+                    $user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), '');
+                }
+                $user->save();
+            }
+            $ret_message= 'delete';
+            break;
 
         case 'recalculation':
             $pPreferences->config['Beitrag']['beitrag_rollenwahl'] = isset($_POST['beitrag_rollenwahl']) ? $_POST['beitrag_rollenwahl'] : array(' ');
-			$pPreferences->config['Beitrag']['beitrag_modus'] = $_POST['beitrag_modus'];
-			$pPreferences->save();
+            $pPreferences->config['Beitrag']['beitrag_modus'] = $_POST['beitrag_modus'];
+            $pPreferences->save();
             break;
 
         case 'payments':
             $pPreferences->config['Beitrag']['zahlungen_rollenwahl'] = isset($_POST['zahlungen_rollenwahl']) ? $_POST['zahlungen_rollenwahl'] : array(' ');
-			$pPreferences->save();
+            $pPreferences->save();
             break;
 
         case 'sepa':
             $pPreferences->config['SEPA']['duedate_rollenwahl'] = isset($_POST['duedate_rollenwahl']) ? $_POST['duedate_rollenwahl'] : array(' ');
-			$pPreferences->save();
+            $pPreferences->save();
             break;
 
-       	case 'plugin_control':
+        case 'plugin_control':
             unset($pPreferences->config['Pluginfreigabe']);
-    		$pPreferences->config['Pluginfreigabe']['freigabe'] = $_POST['freigabe'];
-    		$pPreferences->config['Pluginfreigabe']['freigabe_config'] = $_POST['freigabe_config'];
+            $pPreferences->config['Pluginfreigabe']['freigabe'] = $_POST['freigabe'];
+            $pPreferences->config['Pluginfreigabe']['freigabe_config'] = $_POST['freigabe_config'];
             break;
 
         default:
-           	$gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
+            $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
 }
 catch(AdmException $e)
 {
-	$e->showText();
+    $e->showText();
 }
 
 echo $ret_message;

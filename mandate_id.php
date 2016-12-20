@@ -28,7 +28,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -38,11 +38,11 @@ $members = array();
 
 if($pPreferences->config['Mandatsreferenz']['data_field']!='-- User_ID --')
 {
-	$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN', $pPreferences->config['Mandatsreferenz']['data_field']), 0);
+    $members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN', $pPreferences->config['Mandatsreferenz']['data_field']), 0);
 }
 else
 {
-	$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN'), 0);
+    $members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN'), 0);
 }
 
 //alle Mitglieder löschen, bei denen kein Beitrag berechnet wurde
@@ -57,37 +57,37 @@ $members = array_filter($members, 'delete_with_MANDATEID');
 //alle übriggebliebenen Mitglieder durchlaufen und eine Mandatsreferenz erzeugen
 foreach ($members as $member => $memberdata)
 {
-	$prefix = $pPreferences->config['Mandatsreferenz']['prefix_mem'];
+    $prefix = $pPreferences->config['Mandatsreferenz']['prefix_mem'];
 
-	//wenn 'DEBTOR' nicht leer ist, dann gibt es einen Zahlungspflichtigen
-	if($memberdata['DEBTOR']!='')
-	{
-		$prefix = $pPreferences->config['Mandatsreferenz']['prefix_pay'];
-	}
+    //wenn 'DEBTOR' nicht leer ist, dann gibt es einen Zahlungspflichtigen
+    if($memberdata['DEBTOR']!='')
+    {
+        $prefix = $pPreferences->config['Mandatsreferenz']['prefix_pay'];
+    }
 
-	foreach ($pPreferences->config['Familienrollen']['familienrollen_beschreibung'] as $famrolbesch)
-	{
-		if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')], $famrolbesch)==1)
-		{
-			$prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
-		}
-	}
-	if($pPreferences->config['Mandatsreferenz']['data_field']!='-- User_ID --')
-	{
-		$suffix = str_replace(' ', '', replace_sepadaten($memberdata[$pPreferences->config['Mandatsreferenz']['data_field']]));
-	}
-	else
-	{
-		$suffix = $member;
-	}
+    foreach ($pPreferences->config['Familienrollen']['familienrollen_beschreibung'] as $famrolbesch)
+    {
+        if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')], $famrolbesch)==1)
+        {
+            $prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
+        }
+    }
+    if($pPreferences->config['Mandatsreferenz']['data_field']!='-- User_ID --')
+    {
+        $suffix = str_replace(' ', '', replace_sepadaten($memberdata[$pPreferences->config['Mandatsreferenz']['data_field']]));
+    }
+    else
+    {
+        $suffix = $member;
+    }
 
     $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix), '0').$suffix, 0, 35);
 
     //überprüfen, ob die lfd. Nummer (=$suffix) auch befüllt ist
     //u. U. wurde ein leeres Datenbankfeld ausgewählt;
     //dabei würden dann Mandatsreferenzen mit endenden Nullen erzeugt
-	if(!empty($suffix))
-	{
+    if(!empty($suffix))
+    {
         $user = new User($gDb, $gProfileFields, $member);
         $user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $referenz);
         $user->save();

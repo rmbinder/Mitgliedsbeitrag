@@ -61,13 +61,13 @@ if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirm
 
 // put values into SESSION
 $_SESSION['message_request'] = array(
-		'name'          => $postName,
-		'msgfrom'       => $postFrom,
-		'subject'       => $postSubject,
-		'msg_body'      => $postBody,
-		'carbon_copy'   => $postCarbonCopy,
-		'delivery_confirmation' => $postDeliveryConfirmation,
-	);
+        'name'          => $postName,
+        'msgfrom'       => $postFrom,
+        'subject'       => $postSubject,
+        'msg_body'      => $postBody,
+        'carbon_copy'   => $postCarbonCopy,
+        'delivery_confirmation' => $postDeliveryConfirmation,
+    );
 
 $receiver = array();
 
@@ -79,7 +79,7 @@ $user = new User($gDb, $gProfileFields, $getUserId);
 // error if no valid Email for given user ID
 if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
 {
-	$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
+    $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
 }
 
 // save page in navigation - to have a check for a navigation back.
@@ -200,13 +200,13 @@ $sendResult = $email->sendEmail();
 // message if send/save is OK
 if ($sendResult === TRUE)
 {
-    $sql = 'INSERT INTO '. TBL_MESSAGES. " (msg_type, msg_subject, msg_usr_id_sender, msg_usr_id_receiver, msg_timestamp, msg_read) 
+    $sql = 'INSERT INTO '. TBL_MESSAGES. " (msg_type, msg_subject, msg_usr_id_sender, msg_usr_id_receiver, msg_timestamp, msg_read)
             VALUES ('".$getMsgType."', '".$postSubjectSQL."', ".$gCurrentUser->getValue('usr_id').', '.$user->getValue('usr_id').', CURRENT_TIMESTAMP, 0)';
 
     $gDb->query($sql);
     $getMsgId = $gDb->lastInsertId();
 
-    $sql = 'INSERT INTO '. TBL_MESSAGES_CONTENT. ' (msc_msg_id, msc_part_id, msc_usr_id, msc_message, msc_timestamp) 
+    $sql = 'INSERT INTO '. TBL_MESSAGES_CONTENT. ' (msc_msg_id, msc_part_id, msc_usr_id, msc_message, msc_timestamp)
             VALUES ('.$getMsgId.', 1, '.$gCurrentUser->getValue('usr_id').", '".$postBodySQL."', CURRENT_TIMESTAMP)";
 
     $gDb->query($sql);
@@ -218,7 +218,7 @@ if ($sendResult === TRUE)
     // message if sending was OK
     if($gNavigation->count() > 0)
     {
-		$gMessage->setForwardUrl($gNavigation->getUrl(), 2000);
+        $gMessage->setForwardUrl($gNavigation->getUrl(), 2000);
     }
     else
     {

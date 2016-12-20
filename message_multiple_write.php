@@ -11,7 +11,7 @@
  *
  * Parameters:
  *
- * usr_id    	: E-Mail an den entsprechenden Benutzer schreiben
+ * usr_id       : E-Mail an den entsprechenden Benutzer schreiben
  ***********************************************************************************************
  */
 
@@ -31,7 +31,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -62,20 +62,20 @@ $mailSrcText = $text->getValue('txt_text');
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
 {
-	$getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
+    $getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
 }
 else
 {
-	$getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
+    $getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
 }
 
 if(strpos($mailSrcText, '#content#') !== false)
 {
-	$getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
+    $getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
 }
 else
 {
-	$getBody   = $mailSrcText;
+    $getBody   = $mailSrcText;
 }
 
 $getBody = preg_replace('/\r\n/', '<BR>', $getBody);

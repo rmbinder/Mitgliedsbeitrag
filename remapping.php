@@ -24,7 +24,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -32,7 +32,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 $arr = check_rols();
 if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'), $arr))
 {
-	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR2'));
+    $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR2'));
 }
 unset($arr);
 
@@ -62,7 +62,7 @@ foreach ($altersrollen as $roleId => $roldata)
         if (($age < $roldata['von']) || ($age > $roldata['bis']))
         {
             // wenn ja, dann Mitglied auf den Stack legen und Rollenmitgliedschaft löschen
-        	$stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
+            $stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
 
             $sql = 'UPDATE '.TBL_MEMBERS.'
                     SET mem_end = \''.date('Y-m-d', strtotime('-1 day')).'\'
@@ -70,21 +70,21 @@ foreach ($altersrollen as $roleId => $roldata)
                     AND mem_rol_id = '.$roleId;
             $gDb->query($sql);
 
-			// stopMembership() kann nicht verwendet werden, da es unter best. Umständen Mitgliedschaften nicht löscht
-			// Beschreibung von stopMembership()
-        	// 		only stop membership if there is an actual membership
-			// 		the actual date must be after the beginning
-			// 		and the actual date must be before the end date
-        	//$tablemember->stopMembership( $roleId, $member);
+            // stopMembership() kann nicht verwendet werden, da es unter best. Umständen Mitgliedschaften nicht löscht
+            // Beschreibung von stopMembership()
+            //      only stop membership if there is an actual membership
+            //      the actual date must be after the beginning
+            //      and the actual date must be before the end date
+            //$tablemember->stopMembership( $roleId, $member);
 
-        	$message .= '<BR>'.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
+            $message .= '<BR>'.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
         }
     }
 }
 
 if (sizeof($stack)==0)
 {
-	$message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
+    $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
 }
 
 // wenn ein Mitglied Angehöriger mehrerer Rollen war (dürfte eigentlich gar nicht vorkommen),
@@ -101,29 +101,29 @@ foreach ($stack as $key => $stackdata)
     // alle Altersrollen durchlaufen und prüfen, ob das Mitglied in das Altersschema der Rolle passt
     foreach ($altersrollen as $roleId => $roldata)
     {
-		if (($stackdata['alter'] <= $roldata['bis'])
-		&& ($stackdata['alter'] >= $roldata['von'])
-		&& ($stackdata['alterstyp']==$roldata['alterstyp'])
-		&& !array_key_exists($stackdata['user_id'], $roldata['members']))
+        if (($stackdata['alter'] <= $roldata['bis'])
+        && ($stackdata['alter'] >= $roldata['von'])
+        && ($stackdata['alterstyp']==$roldata['alterstyp'])
+        && !array_key_exists($stackdata['user_id'], $roldata['members']))
         {
             // das Mitglied passt in das Altersschema der Rolle und das Kennzeichen dieser Altersstaffelung passt auch
-        	$tablemember->startMembership($roleId, $stackdata['user_id']);
+            $tablemember->startMembership($roleId, $stackdata['user_id']);
             $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
 
-         	unset($stack[$key]);
-         	$marker = true;
+            unset($stack[$key]);
+            $marker = true;
         }
     }
 }
 
 if (!$marker)
 {
-	$message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7');
+    $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7');
 }
 
 if (sizeof($stack)>0)
 {
- 	$message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><BR><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><BR>';
+    $message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><BR><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><BR>';
     foreach ($stack as $stackdata)
     {
         $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO10').' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING').' '.$stackdata['alterstyp'];

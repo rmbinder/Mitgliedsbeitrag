@@ -11,17 +11,17 @@
  *
  * Parameters:
  *
- * mode             : html   	 - Standardmodus zun Anzeigen einer html-Liste
- *                    prepare 	 - user in einem CheckedArray setzen bzw löschen
+ * mode             : html       - Standardmodus zun Anzeigen einer html-Liste
+ *                    prepare    - user in einem CheckedArray setzen bzw löschen
  *                    csv_export - erzeugt eine csv-Datei
  *                    mail_export- nur zur Prüfung, ob user im CheckedArray markiert sind
  * usr_id           : <>0        - Id des Benutzers, für der im CheckedArray gesetzt/gelöscht wird
  *                    leer       - alle user im CheckedArray ändern von gesetzt->gelöscht bzw gelöscht->gesetzt
- * full_screen    	: 0 - Normalbildschirm
- *           		  1 - Vollbildschirm
- * checked		   : true  - Der Haken beim Benutzer wurde gesetzt
- * 				     false - Der Haken beim Benutzer wurde entfernt
- * duedate		   : Das übergebene Fälligkeitsdatum zur Filterung
+ * full_screen      : 0 - Normalbildschirm
+ *                    1 - Vollbildschirm
+ * checked         : true  - Der Haken beim Benutzer wurde gesetzt
+ *                   false - Der Haken beim Benutzer wurde entfernt
+ * duedate         : Das übergebene Fälligkeitsdatum zur Filterung
  ***********************************************************************************************
  */
 
@@ -41,7 +41,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -55,117 +55,117 @@ if(isset($_GET['mode']) && ($_GET['mode'] == 'csv_export' || $_GET['mode'] == 'm
 $getMode        = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'csv_export', 'mail_export', 'prepare')));
 $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
 $getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
-$getChecked		= admFuncVariableIsValid($_GET, 'checked', 'string');
+$getChecked     = admFuncVariableIsValid($_GET, 'checked', 'string');
 $getDueDate     = admFuncVariableIsValid($_GET, 'duedate', 'string', array('defaultValue' => 0));
 
 // add current url to navigation stack if last url was not the same page
 if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
 {
-	$_SESSION['checkedArray']= array();
+    $_SESSION['checkedArray']= array();
 }
 
 if($getMode == 'csv_export')
 {
-	if (count($_SESSION['checkedArray'])!=0)
-	{
-		$export = '';
-		$export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').';'
-			 	.$gL10n->get('SYS_FIRSTNAME').';'
-			 	.$gL10n->get('SYS_LASTNAME').';'
-			 	.$gL10n->get('SYS_ADDRESS').';'
-			 	.$gL10n->get('SYS_POSTCODE').';'
-			 	.$gL10n->get('SYS_CITY').';'
-			 	.$gL10n->get('SYS_EMAIL').';'
-			 	.$gL10n->get('SYS_PHONE').';'
-			 	.$gL10n->get('SYS_MOBILE').';'
-			 	.$gL10n->get('SYS_BIRTHDAY').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').';'
+    if (count($_SESSION['checkedArray'])!=0)
+    {
+        $export = '';
+        $export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').';'
+                .$gL10n->get('SYS_FIRSTNAME').';'
+                .$gL10n->get('SYS_LASTNAME').';'
+                .$gL10n->get('SYS_ADDRESS').';'
+                .$gL10n->get('SYS_POSTCODE').';'
+                .$gL10n->get('SYS_CITY').';'
+                .$gL10n->get('SYS_EMAIL').';'
+                .$gL10n->get('SYS_PHONE').';'
+                .$gL10n->get('SYS_MOBILE').';'
+                .$gL10n->get('SYS_BIRTHDAY').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').';'
 
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').'/'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').'/'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').';'
 
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'
- 	  		 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').';'
-			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').';'
- 			 	.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'
-			 	."\n";
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'
+                ."\n";
 
-		$nr = 1;
+        $nr = 1;
 
-		foreach ($_SESSION['checkedArray'] as $UserId)
-		{
-			$user = new User($gDb, $gProfileFields, $UserId);
+        foreach ($_SESSION['checkedArray'] as $UserId)
+        {
+            $user = new User($gDb, $gProfileFields, $UserId);
 
-			$export .= $nr.';';
-			$export .= $user->getValue('MEMBERNUMBER').';';
-			$export .= $user->getValue('FIRST_NAME').';';
-			$export .= $user->getValue('LAST_NAME').';';
-			$export .= $user->getValue('ADDRESS').';';
-			$export .= $user->getValue('POSTCODE').';';
-			$export .= $user->getValue('CITY').';';
-			$export .= $user->getValue('EMAIL').';';
-			$export .= $user->getValue('PHONE').';';
-			$export .= $user->getValue('MOBILE').';';
-			$export .= $user->getValue('BIRTHDAY').';';
-			$export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= $nr.';';
+            $export .= $user->getValue('MEMBERNUMBER').';';
+            $export .= $user->getValue('FIRST_NAME').';';
+            $export .= $user->getValue('LAST_NAME').';';
+            $export .= $user->getValue('ADDRESS').';';
+            $export .= $user->getValue('POSTCODE').';';
+            $export .= $user->getValue('CITY').';';
+            $export .= $user->getValue('EMAIL').';';
+            $export .= $user->getValue('PHONE').';';
+            $export .= $user->getValue('MOBILE').';';
+            $export .= $user->getValue('BIRTHDAY').';';
+            $export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).';';
 
-			if (strlen($user->getValue('DEBTOR'))!=0)
-			{
-				$export .= $user->getValue('DEBTOR').';';
-				$export .= $user->getValue('DEBTOR_ADDRESS').';';
-				$export .= $user->getValue('DEBTOR_POSTCODE').';';
-				$export .= $user->getValue('DEBTOR_CITY').';';
-				$export .= $user->getValue('DEBTOR_EMAIL').';';
-			}
-			else
-			{
-				$export .= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME').';';
-				$export .= $user->getValue('ADDRESS').';';
-				$export .= $user->getValue('POSTCODE').';';
-				$export .= $user->getValue('CITY').';';
-				$export .= $user->getValue('EMAIL').';';
-			}
+            if (strlen($user->getValue('DEBTOR'))!=0)
+            {
+                $export .= $user->getValue('DEBTOR').';';
+                $export .= $user->getValue('DEBTOR_ADDRESS').';';
+                $export .= $user->getValue('DEBTOR_POSTCODE').';';
+                $export .= $user->getValue('DEBTOR_CITY').';';
+                $export .= $user->getValue('DEBTOR_EMAIL').';';
+            }
+            else
+            {
+                $export .= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME').';';
+                $export .= $user->getValue('ADDRESS').';';
+                $export .= $user->getValue('POSTCODE').';';
+                $export .= $user->getValue('CITY').';';
+                $export .= $user->getValue('EMAIL').';';
+            }
 
-			$export .= $user->getValue('BANK').';';
-			$export .= $user->getValue('BIC').';';
-			$export .= $user->getValue('IBAN').';';
-			$export .= $user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id')).';';
-			$export .= $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')).';';
-			$export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).';';
-			$export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).';';
-			$export .= "\n";
+            $export .= $user->getValue('BANK').';';
+            $export .= $user->getValue('BIC').';';
+            $export .= $user->getValue('IBAN').';';
+            $export .= $user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= "\n";
 
-			$nr += 1;
-		}
-		echo $export;
-	}
-	else
-	{
-		echo 'marker_empty';
-	}
+            $nr += 1;
+        }
+        echo $export;
+    }
+    else
+    {
+        echo 'marker_empty';
+    }
 }
 elseif($getMode == 'mail_export')
 {
-	if (count($_SESSION['checkedArray'])==0)
-	{
-		echo 'marker_empty';
-	}
+    if (count($_SESSION['checkedArray'])==0)
+    {
+        echo 'marker_empty';
+    }
 }
 else
 {
     // create sql for all relevant users
     $memberCondition = '';
 
-	// Filter zusammensetzen
-	$memberCondition = ' EXISTS 
-		(SELECT 1
+    // Filter zusammensetzen
+    $memberCondition = ' EXISTS
+        (SELECT 1
          FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ','. TBL_USER_DATA. '
          WHERE mem_usr_id = usr_id
             AND mem_rol_id = rol_id
@@ -173,22 +173,22 @@ else
             AND mem_end    > \''.DATE_NOW.'\'
             AND usd_usr_id = usr_id
             AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-         	
+
             AND rol_valid  = 1
             AND rol_cat_id = cat_id
             AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
                 OR cat_org_id IS NULL ) ';
 
-	if($getDueDate !=0)                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
-	{
-		$memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
-	}
-	else
-	{
-		$memberCondition .= 'AND usd_value IS NOT NULL )';
-	}
+    if($getDueDate !=0)                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
+    {
+        $memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
+    }
+    else
+    {
+        $memberCondition .= 'AND usd_value IS NOT NULL )';
+    }
 
-	$sql = 'SELECT DISTINCT usr_id, last_name.usd_value as last_name, first_name.usd_value as first_name, birthday.usd_value as birthday,
+    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value as last_name, first_name.usd_value as first_name, birthday.usd_value as birthday,
                city.usd_value as city, address.usd_value as address, zip_code.usd_value as zip_code, country.usd_value as country,
                faelligkeitsdatum.usd_value as faelligkeitsdatum,beitrag.usd_value as beitrag,lastschrifttyp.usd_value as lastschrifttyp,
                mandatsreferenz.usd_value as mandatsreferenz,debtor.usd_value as debtor, debtoraddress.usd_value as debtoraddress,
@@ -210,15 +210,15 @@ else
         LEFT JOIN '. TBL_USER_DATA. ' as address
           ON address.usd_usr_id = usr_id
          AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
-      	LEFT JOIN '. TBL_USER_DATA. ' as mandatsreferenz
+        LEFT JOIN '. TBL_USER_DATA. ' as mandatsreferenz
           ON mandatsreferenz.usd_usr_id = usr_id
-         AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '     
-       	LEFT JOIN '. TBL_USER_DATA. ' as faelligkeitsdatum
+         AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' as faelligkeitsdatum
           ON faelligkeitsdatum.usd_usr_id = usr_id
-         AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
-       	LEFT JOIN '. TBL_USER_DATA. ' as lastschrifttyp
+         AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' as lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
-         AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). ' 
+         AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' as beitrag
           ON beitrag.usd_usr_id = usr_id
          AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
@@ -231,12 +231,12 @@ else
         LEFT JOIN '. TBL_USER_DATA. ' as debtoraddress
           ON debtoraddress.usd_usr_id = usr_id
          AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_ADDRESS', 'usf_id'). '
-		LEFT JOIN '. TBL_USER_DATA. ' as debtoremail
+        LEFT JOIN '. TBL_USER_DATA. ' as debtoremail
           ON debtoremail.usd_usr_id = usr_id
          AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'). '
- 		LEFT JOIN '. TBL_USER_DATA. ' as email
+        LEFT JOIN '. TBL_USER_DATA. ' as email
           ON email.usd_usr_id = usr_id
-         AND email.usd_usf_id = '. $gProfileFields->getProperty('EMAIL', 'usf_id'). '      
+         AND email.usd_usf_id = '. $gProfileFields->getProperty('EMAIL', 'usf_id'). '
          LEFT JOIN '. TBL_USER_DATA. ' as debtorpostcode
           ON debtorpostcode.usd_usr_id = usr_id
          AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'). '
@@ -246,139 +246,139 @@ else
         LEFT JOIN '. TBL_USER_DATA. ' as country
           ON country.usd_usr_id = usr_id
          AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '
-       
+
         LEFT JOIN '. TBL_MEMBERS. ' mem
           ON  mem.mem_begin  <= \''.DATE_NOW.'\'
          AND mem.mem_end     > \''.DATE_NOW.'\'
-         AND mem.mem_usr_id  = usr_id   
+         AND mem.mem_usr_id  = usr_id
          WHERE  '. $memberCondition. '
             ORDER BY last_name, first_name ';
     $statement = $gDb->query($sql);
 
     if($getMode == 'prepare')
-	{
-		$ret_text = 'ERROR';
-		if($getUserId!=0)			// ein einzelner User wurde selektiert
-		{
-			if($getChecked=='false')			// der Haken wurde gelöscht
-			{
-		 		unset($_SESSION['checkedArray'][$getUserId]);
-			 	$ret_text = 'success';
-			}
-			elseif ($getChecked=='true')		// der Haken wurde gesetzt
-			{
-				$_SESSION['checkedArray'][$getUserId]=$getUserId;
-		 		$ret_text = 'success';
+    {
+        $ret_text = 'ERROR';
+        if($getUserId!=0)           // ein einzelner User wurde selektiert
+        {
+            if($getChecked=='false')            // der Haken wurde gelöscht
+            {
+                unset($_SESSION['checkedArray'][$getUserId]);
+                $ret_text = 'success';
+            }
+            elseif ($getChecked=='true')        // der Haken wurde gesetzt
+            {
+                $_SESSION['checkedArray'][$getUserId]=$getUserId;
+                $ret_text = 'success';
 
-			}
-		}
-		else 						// Alle ändern wurde gewählt
-		{
-    		while($user = $statement->fetch())
-    		{
-    			if (in_array($user['usr_id'], $_SESSION['checkedArray']))
-    			{
-    				unset($_SESSION['checkedArray'][$user['usr_id']]);
-    			}
-    			else
-    			{
-    				$_SESSION['checkedArray'][$user['usr_id']]=$user['usr_id'];
-    			}
+            }
+        }
+        else                        // Alle ändern wurde gewählt
+        {
+            while($user = $statement->fetch())
+            {
+                if (in_array($user['usr_id'], $_SESSION['checkedArray']))
+                {
+                    unset($_SESSION['checkedArray'][$user['usr_id']]);
+                }
+                else
+                {
+                    $_SESSION['checkedArray'][$user['usr_id']]=$user['usr_id'];
+                }
 
-    		}
-    		$ret_text = 'success';
-		}
-		echo $ret_text;
+            }
+            $ret_text = 'success';
+        }
+        echo $ret_text;
     }
     else
-	{
-		// set headline of the script
-    	$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION');
+    {
+        // set headline of the script
+        $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION');
 
-    	// add current url to navigation stack if last url was not the same page
-    	if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
-    	{
-        	$gNavigation->addUrl(CURRENT_URL, $headline);
-    	}
+        // add current url to navigation stack if last url was not the same page
+        if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
+        {
+            $gNavigation->addUrl(CURRENT_URL, $headline);
+        }
 
-    	// create html page object
-    	$page = new HtmlPage($headline);
+        // create html page object
+        $page = new HtmlPage($headline);
 
-    	if($getFullScreen == true)
-    	{
-    		$page->hideThemeHtml();
-    	}
+        if($getFullScreen == true)
+        {
+            $page->hideThemeHtml();
+        }
 
-    	$page->addJavascript('
-    		function prenotexport(){ 
-				//var duedate = $("#duedate").val(); 
-				$.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?mode=csv_export&full_screen='.$getFullScreen.'",
-                	function(data){
-                    	// check if error occurs
-                   		if(data=="marker_empty") {
-                   			alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
-               				return false;
-            			}
-            			else {
- 							//	var uriContent = "data:text/csv;charset=utf-8," + encodeURIComponent(data);
-     						//	var myWindow = window.open(uriContent);
-     						//	myWindow.focus(); 
-     						var a = document.createElement("a");
-     						a.href =  "data:text/csv;charset=utf-8," + encodeURIComponent(data);
-     						a.target = "_blank";
-     						a.download = "'.$pPreferences->config['SEPA']['vorabinformation_dateiname'].'.csv";
-     						document.body.appendChild(a);
-     						a.click();
-            			}
-                    	return true;
-                	}
-            	);
-			};
-			
-			function massmail(){ 
-			//var duedate = $("#duedate").val(); 
-				$.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?mode=mail_export&full_screen='.$getFullScreen.'",
-                	function(data){
-                    	// check if error occurs
-                   		if(data=="marker_empty") {
-                   			alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY').'");
-               				return false;
-            			}
-            			else {
- 							//alert("jetzt gehts zu mail");
- 							window.location.href = "'.$g_root_path.'/adm_plugins/'.$plugin_folder.'/message_multiple_write.php" ; 
-            			}
-                    	return true;
-                	}
-            	);
-			};	
-		');            // !!!: ohne true
+        $page->addJavascript('
+            function prenotexport(){
+                //var duedate = $("#duedate").val();
+                $.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?mode=csv_export&full_screen='.$getFullScreen.'",
+                    function(data){
+                        // check if error occurs
+                        if(data=="marker_empty") {
+                            alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
+                            return false;
+                        }
+                        else {
+                            //  var uriContent = "data:text/csv;charset=utf-8," + encodeURIComponent(data);
+                            //  var myWindow = window.open(uriContent);
+                            //  myWindow.focus();
+                            var a = document.createElement("a");
+                            a.href =  "data:text/csv;charset=utf-8," + encodeURIComponent(data);
+                            a.target = "_blank";
+                            a.download = "'.$pPreferences->config['SEPA']['vorabinformation_dateiname'].'.csv";
+                            document.body.appendChild(a);
+                            a.click();
+                        }
+                        return true;
+                    }
+                );
+            };
 
-    	$javascriptCode = '    
+            function massmail(){
+            //var duedate = $("#duedate").val();
+                $.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?mode=mail_export&full_screen='.$getFullScreen.'",
+                    function(data){
+                        // check if error occurs
+                        if(data=="marker_empty") {
+                            alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY').'");
+                            return false;
+                        }
+                        else {
+                            //alert("jetzt gehts zu mail");
+                            window.location.href = "'.$g_root_path.'/adm_plugins/'.$plugin_folder.'/message_multiple_write.php" ;
+                        }
+                        return true;
+                    }
+                );
+            };
+        ');            // !!!: ohne true
 
-    	// if checkbox in header is clicked then change all data
+        $javascriptCode = '
+
+        // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
-            var duedate = $("#duedate").val(); 
+            var duedate = $("#duedate").val();
             $.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?mode=prepare&full_screen='.$getFullScreen.'&duedate="+duedate,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
-                    	window.location.replace("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen='.$getFullScreen.'&duedate="+duedate);  
-					}
+                        window.location.replace("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen='.$getFullScreen.'&duedate="+duedate);
+                    }
                     else {
-                    	alert(data);
+                        alert(data);
                         return false;
                     }
                     return true;
                 }
             );
-        }); 
-    	
+        });
+
         $("#duedate").change(function () {
             if($(this).val().length > 0) {
                 window.location.replace("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen='.$getFullScreen.'&duedate="+$(this).val());
             }
-        });     
+        });
 
         // if checkbox of user is clicked then change data
         $("input[type=checkbox].memlist_checkbox").click(function(){
@@ -386,15 +386,15 @@ else
             var row_id = $(this).parent().parent().attr("id");
             var pos = row_id.search("_");
             var userid = row_id.substring(pos+1);
-           	var member_checked = $("input[type=checkbox]#member_"+userid).prop("checked");
-			var duedate = $("#duedate").val(); 
+            var member_checked = $("input[type=checkbox]#member_"+userid).prop("checked");
+            var duedate = $("#duedate").val();
 
-    		// change data in checkedArray
+            // change data in checkedArray
             $.post("'.$g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?mode=prepare&usr_id="+userid+"&full_screen='.$getFullScreen.'&checked="+member_checked+"&duedate="+duedate,
                 function(data){
                     // check if error occurs
                    if(data != "success") {
-                    	alert(data);
+                        alert(data);
                         return false;
                     }
                     return true;
@@ -411,7 +411,7 @@ else
 
         if($getFullScreen == true)
         {
-    	   $preNotificationsMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen=0',
+           $preNotificationsMenu->addItem('menu_item_normal_picture', $g_root_path. '/adm_plugins/'.$plugin_folder.'/pre_notification.php?full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
         }
         else
@@ -425,15 +425,15 @@ else
         //alle Fälligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
                 FROM '.TBL_USER_DATA.','. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
-                WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id').' 
+                WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id').'
                 AND   mem_begin <= \''.DATE_NOW.'\'
-                AND   mem_end >= \''.DATE_NOW.'\' 
+                AND   mem_end >= \''.DATE_NOW.'\'
                 AND   usd_usr_id = mem_usr_id
                 AND   mem_rol_id = rol_id
                 AND   rol_valid = 1
                 AND   rol_cat_id = cat_id
                 AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
-                	OR cat_org_id IS NULL )  ';
+                    OR cat_org_id IS NULL )  ';
 
         $duedateStatement = $gDb->query($sql);
         $selectBoxEntries = array('0'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
@@ -445,9 +445,9 @@ else
         }
 
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
- 	  	$navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png', 'link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
- 	  	$navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_PATH.'/icons/email.png', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
- 	  	$preNotificationsMenu->addForm($navbarForm->show(false));
+        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_PATH.'/icons/disk.png', 'link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
+        $navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_PATH.'/icons/email.png', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
+        $preNotificationsMenu->addForm($navbarForm->show(false));
 
         // create table object
         $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');
@@ -475,9 +475,9 @@ else
         );
 
         $table->setColumnAlignByArray(array('left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'left', 'center', 'left', 'left'));
-   	    $table->setDatatablesOrderColumns(array(5, 6));
+        $table->setDatatablesOrderColumns(array(5, 6));
         $table->addRowHeadingByArray($columnHeading);
-   	    $table->disableDatatablesColumnsSort(1);
+        $table->disableDatatablesColumnsSort(1);
         $table->setDatatablesAlternativOrderColumns(7, 8);
         $table->setDatatablesColumnsHide(8);
         $table->setDatatablesAlternativOrderColumns(9, 10);
@@ -502,7 +502,7 @@ else
             $lastschrifttyp = '';
 
             //1. Spalte ($htmlDueDateStatus)
-    	   if (in_array($user['usr_id'], $_SESSION['checkedArray']))
+           if (in_array($user['usr_id'], $_SESSION['checkedArray']))
             {
                 $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
             }
@@ -512,33 +512,33 @@ else
             }
 
             //2. Spalte ($htmlDueDate)
-    	   if($user['faelligkeitsdatum'] > 0)
+           if($user['faelligkeitsdatum'] > 0)
             {
-        	   $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d');
+               $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d');
                 $htmlDueDate = $DueDate->format($gPreferences['system_date']);
             }
 
-    	    //3. Spalte ($htmlLastschrifttyp)
-    	    switch($user['lastschrifttyp'])
+            //3. Spalte ($htmlLastschrifttyp)
+            switch($user['lastschrifttyp'])
             {
-        	   case 'RCUR':
-        		  $lastschrifttyp = 'R';
-        		  break;
-        	   case 'FNAL':
-        		  $lastschrifttyp = 'F';
-        		  break;
-        	   case 'OOFF':
-        		  $lastschrifttyp = 'O';
-        		  break;
+               case 'RCUR':
+                  $lastschrifttyp = 'R';
+                  break;
+               case 'FNAL':
+                  $lastschrifttyp = 'F';
+                  break;
+               case 'OOFF':
+                  $lastschrifttyp = 'O';
+                  break;
             }
 
-    	    if(strlen($lastschrifttyp) > 0)
+            if(strlen($lastschrifttyp) > 0)
             {
-        	   $htmlLastschrifttyp = $lastschrifttyp;
+               $htmlLastschrifttyp = $lastschrifttyp;
             }
 
             //4. Spalte ($htmlBeitrag)
-    	    if($user['beitrag'] > 0)
+            if($user['beitrag'] > 0)
             {
                 $htmlBeitrag = $user['beitrag'].' '.$gPreferences['system_currency'];
             }
@@ -556,7 +556,7 @@ else
             {
                 $addressText .= ' - '. $user['address'];
             }
-    	   if(strlen($addressText) > 1)
+           if(strlen($addressText) > 1)
            {
                 $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
             }
@@ -577,7 +577,7 @@ else
                 $debtor_text = $debtor_text. ' - '. $user['debtorpostcode']. ' '. $user['debtorcity'];
             }
 
-     	    if(strlen($debtor_text) > 1)
+            if(strlen($debtor_text) > 1)
             {
                 $htmlDebtorText = '<img class="admidio-icon-info" src="'. THEME_PATH.'/icons/info.png" alt="'.$debtor_text.'" title="'.$debtor_text.'" />';
             }
@@ -585,35 +585,35 @@ else
             //11. Spalte ($htmlMail)
             if(strlen($user['debtor']) > 0)
             {
-			     if(strlen($user['debtoremail']) > 0)
-			     {
-				    $email = $user['debtoremail'];
-			     }
+                 if(strlen($user['debtoremail']) > 0)
+                 {
+                    $email = $user['debtoremail'];
+                 }
             }
             else
             {
-			     if(strlen($user['email']) > 0)
-			     {
-				    $email = $user['email'];
-			     }
+                 if(strlen($user['email']) > 0)
+                 {
+                    $email = $user['email'];
+                 }
             }
-    	    if(strlen($email) > 0)
+            if(strlen($email) > 0)
             {
-			     if($gPreferences['enable_mail_module'] != 1)
-			     {
-				    $mail_link = 'mailto:'. $email;
-			     }
-			     else
-			     {
-				    $mail_link = $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_write.php?usr_id='. $user['usr_id'];
-			     }
-			     $htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_PATH. '/icons/email.png"
-					alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
+                 if($gPreferences['enable_mail_module'] != 1)
+                 {
+                    $mail_link = 'mailto:'. $email;
+                 }
+                 else
+                 {
+                    $mail_link = $g_root_path.'/adm_plugins/'.$plugin_folder.'/message_write.php?usr_id='. $user['usr_id'];
+                 }
+                 $htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_PATH. '/icons/email.png"
+                    alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
             }
 
             //12. Spalte ($email)
 
-    	    if(strlen($user['mandatsreferenz']) > 0)
+            if(strlen($user['mandatsreferenz']) > 0)
             {
                 $htmlMandateID = $user['mandatsreferenz'];
             }
@@ -640,5 +640,5 @@ else
 
         $page->addHtml($table->show(false));
         $page->show();
-	}
+    }
 }

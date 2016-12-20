@@ -31,7 +31,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -68,11 +68,11 @@ $text = new TableText($gDb);
 //abhängig vom aufrufenden Modul Text einlesen
 if (substr_count($gNavigation->getUrl(), 'pre_notification')==1)
 {
-	$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 }
 elseif (substr_count($gNavigation->getUrl(), 'payments')==1)
 {
-	$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 }
 
 $mailSrcText = $text->getValue('txt_text');
@@ -81,20 +81,20 @@ $mailSrcText = replace_emailparameter($mailSrcText, $user);
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
 {
-	$getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
+    $getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
 }
 else
 {
-	$getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
+    $getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
 }
 
 if(strpos($mailSrcText, '#content#') !== false)
 {
-	$getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
+    $getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
 }
 else
 {
-	$getBody   = $mailSrcText;
+    $getBody   = $mailSrcText;
 }
 
 $getBody = preg_replace('/\r\n/', '<BR>', $getBody);
@@ -122,33 +122,33 @@ $page->addHtml($messagesWriteMenu->show(false));
  //Datensatz für E-Mail-Adresse zusammensetzen
 if(strlen($user->getValue('DEBTOR')) > 0)
 {
-	if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
-	{
-		// besitzt der User eine gueltige E-Mail-Adresse
-		if (!strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
-		{
-			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
-		}
-		else
-		{
-			$userEmail = $user->getValue('DEBTOR_EMAIL');
-		}
-	}
+    if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
+    {
+        // besitzt der User eine gueltige E-Mail-Adresse
+        if (!strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
+        {
+            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
+        }
+        else
+        {
+            $userEmail = $user->getValue('DEBTOR_EMAIL');
+        }
+    }
 }
 else
 {
-	if(strlen($user->getValue('EMAIL')) > 0)
-	{
-		// besitzt der User eine gueltige E-Mail-Adresse
-		if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
-		{
-			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
-		}
-		else
-		{
-			$userEmail = $user->getValue('EMAIL');
-		}
-	}
+    if(strlen($user->getValue('EMAIL')) > 0)
+    {
+        // besitzt der User eine gueltige E-Mail-Adresse
+        if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
+        {
+            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
+        }
+        else
+        {
+            $userEmail = $user->getValue('EMAIL');
+        }
+    }
 }
 
 // Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,

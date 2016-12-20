@@ -32,7 +32,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -49,7 +49,7 @@ $statement = $gDb->query($sql);
 
 while($row = $statement->fetch())
 {
-	$members[$row['mem_usr_id']] = array();
+    $members[$row['mem_usr_id']] = array();
 }
 
 // die IDs der Attribute aus der Datenbank herausssuchen
@@ -59,39 +59,39 @@ foreach($attributes as $attribute => $dummy)
     $sql = ' SELECT usf_id
              FROM '.TBL_USER_FIELDS.'
              WHERE usf_name = \''.$attribute.'\' ';
-	$statement = $gDb->query($sql);
-	$row = $statement->fetch();
-	$attributes[$attribute] = $row['usf_id'];
+    $statement = $gDb->query($sql);
+    $row = $statement->fetch();
+    $attributes[$attribute] = $row['usf_id'];
 }
 
 // Die Daten jedes Mitglieds abfragen und in das Array schreiben
 foreach ($members as $member => $key)
 {
-	foreach ($attributes as $attribute => $usf_id)
+    foreach ($attributes as $attribute => $usf_id)
     {
         $sql = 'SELECT usd_value
                 FROM '.TBL_USER_DATA.'
                 WHERE usd_usr_id = \''.$member.'\'
                 AND usd_usf_id = \''.$usf_id.'\' ';
         $statement = $gDb->query($sql);
-	    $row = $statement->fetch();
-		$members[$member][$attribute] = $row['usd_value'];
-	}
+        $row = $statement->fetch();
+        $members[$member][$attribute] = $row['usd_value'];
+    }
 }
 
 //alle Mitglieder durchlaufen und prüfen, ob eine Mitgliedsnummer existiert
  foreach ($members as $member => $key)
 {
-	if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))
-	{
-		$nummer = erzeuge_mitgliedsnummer();
+    if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))
+    {
+        $nummer = erzeuge_mitgliedsnummer();
 
-		$user = new User($gDb, $gProfileFields, $member);
-    	$user->setValue('MEMBERNUMBER', $nummer);
-    	$user->save();
+        $user = new User($gDb, $gProfileFields, $member);
+        $user->setValue('MEMBERNUMBER', $nummer);
+        $user->save();
 
-    	$message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $members[$member]['SYS_FIRSTNAME'], $members[$member]['SYS_LASTNAME'], $nummer);
-	}
+        $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $members[$member]['SYS_FIRSTNAME'], $members[$member]['SYS_LASTNAME'], $nummer);
+    }
 }
 
 // set headline of the script
