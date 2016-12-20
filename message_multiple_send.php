@@ -19,14 +19,14 @@ require_once(__DIR__ . '/../../adm_program/system/template.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
-// $pPreferences ist auch für die korrekte Auflösung des Parameters #creditor_id# erforderlich          
+// $pPreferences ist auch für die korrekte Auflösung des Parameters #creditor_id# erforderlich
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -66,7 +66,7 @@ if (empty($_POST))
     $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
 }
 
-// if no User is set, he is not able to ask for delivery confirmation 
+// if no User is set, he is not able to ask for delivery confirmation
 if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirmation']==2) && $gPreferences['mail_delivery_confirmation']!=1)
 {
     $postDeliveryConfirmation = 0;
@@ -75,11 +75,11 @@ if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirm
 //$receiver = array();
 foreach ($user_array as $userId)
 {
-	// Create new Email Object
-	$email = new Email();
+    // Create new Email Object
+    $email = new Email();
 
     $user = new User($gDb, $gProfileFields, $userId);
-                
+
     // save page in navigation - to have a check for a navigation back.
     $gNavigation->addUrl(CURRENT_URL);
     $postTo = '';
@@ -91,45 +91,45 @@ foreach ($user_array as $userId)
     }
 
     // check sending attributes for user, to be sure that they are correct
-    if ( $gValidLogin 
-        && (  $postFrom != $gCurrentUser->getValue('EMAIL') 
-        || $postName != $gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME')) )
+    if ($gValidLogin
+        && ($postFrom != $gCurrentUser->getValue('EMAIL')
+        || $postName != $gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME')))
     {
         $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
-    
-	//Datensatz für E-Mail-Adresse zusammensetzen
+
+    //Datensatz für E-Mail-Adresse zusammensetzen
     if(strlen($user->getValue('DEBTOR')) > 0)
     {
-		if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
-		{
-			$postTo = $user->getValue('DEBTOR_EMAIL');
-		}
-		$empfaenger	= 	$user->getValue('DEBTOR');
-		         	
+        if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
+        {
+            $postTo = $user->getValue('DEBTOR_EMAIL');
+        }
+        $empfaenger =   $user->getValue('DEBTOR');
+
     }
-    else 
+    else
     {
-		if(strlen($user->getValue('EMAIL')) > 0)
-		{
-			$postTo = $user->getValue('EMAIL');	
-		}
-		$empfaenger	= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');		
-		         	
-    } 
-	
-	if (!strValidCharacters($postTo, 'email'))
-	{
-		$sendMailResultMissingEmail[] = $empfaenger;
-		continue;
-	}
-		
+        if(strlen($user->getValue('EMAIL')) > 0)
+        {
+            $postTo = $user->getValue('EMAIL');
+        }
+        $empfaenger = $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');
+
+    }
+
+    if (!strValidCharacters($postTo, 'email'))
+    {
+        $sendMailResultMissingEmail[] = $empfaenger;
+        continue;
+    }
+
     // evtl. definierte Parameter ersetzen
-	$postSubject = replace_emailparameter($postSubjectOrig,$user);
-	$postBody = replace_emailparameter($postBodyOrig,$user);
-	
+    $postSubject = replace_emailparameter($postSubjectOrig, $user);
+    $postBody = replace_emailparameter($postBodyOrig, $user);
+
     // set sending address
-    if ($email->setSender($postFrom,$postName))
+    if ($email->setSender($postFrom, $postName))
     {
         // set subject
         if ($email->setSubject($postSubject))
@@ -151,12 +151,12 @@ foreach ($user_array as $userId)
                     {
                         $gMessage->show($gL10n->get('MAI_ATTACHMENT_TO_LARGE'));
                     }
-                    
+
                     if ($_FILES['userfile']['error'][$currentAttachmentNo] == 0)
                     {
                         // check the size of the attachment
                         $attachmentSize = $attachmentSize + $_FILES['userfile']['size'][$currentAttachmentNo];
-                        if($attachmentSize > $email->getMaxAttachementSize("b"))
+                        if($attachmentSize > $email->getMaxAttachementSize('b'))
                         {
                             $gMessage->show($gL10n->get('MAI_ATTACHMENT_TO_LARGE'));
                         }
@@ -164,7 +164,7 @@ foreach ($user_array as $userId)
                         // set filetyp to standart if not given
                         if (strlen($_FILES['userfile']['type'][$currentAttachmentNo]) <= 0)
                         {
-                            $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';                        
+                            $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';
                         }
 
                         // add the attachment to the mail
@@ -175,7 +175,7 @@ foreach ($user_array as $userId)
                         catch (phpmailerException $e)
                         {
                             $gMessage->show($e->errorMessage());
-                        }             
+                        }
                     }
                 }
             }
@@ -209,7 +209,7 @@ foreach ($user_array as $userId)
     }
 
     //den gefundenen User dem Mailobjekt hinzufuegen...
-  	$email->addRecipient($postTo, $empfaenger);
+    $email->addRecipient($postTo, $empfaenger);
 
     // add confirmation mail to the sender
     if($postDeliveryConfirmation == 1)
@@ -218,8 +218,8 @@ foreach ($user_array as $userId)
     }
 
     // load the template and set the new email body with template
-    $emailTemplate = admReadTemplateFile("template.html");
-    $emailTemplate = str_replace("#message#",$postBody,$emailTemplate);
+    $emailTemplate = admReadTemplateFile('template.html');
+    $emailTemplate = str_replace('#message#', $postBody, $emailTemplate);
 
     // set Text
     $email->setText($emailTemplate);
@@ -227,42 +227,42 @@ foreach ($user_array as $userId)
     // finally send the mail
     $sendMailResult = $email->sendEmail();
 
-	if ($sendMailResult === TRUE)
-	{
-    	$sendMailResultSendOK[] = $empfaenger.' ('.$postTo.')';
-	}
-	else
-	{
-		if(strlen($postTo) > 0)
-		{
-			$sendMailResultAnotherError[] = $sendMailResult.$empfaenger;
-		}
-	}
+    if ($sendMailResult === TRUE)
+    {
+        $sendMailResultSendOK[] = $empfaenger.' ('.$postTo.')';
+    }
+    else
+    {
+        if(strlen($postTo) > 0)
+        {
+            $sendMailResultAnotherError[] = $sendMailResult.$empfaenger;
+        }
+    }
 }
 
 // Erfolgsmeldung zusammensetzen
 if(count($sendMailResultSendOK) > 1)
 {
-	foreach ($sendMailResultSendOK as $data)
-	{
-		$sendMailResultMessage .= $data.'<br>';
-	}
-	$sendMailResultMessage .=	'<br>';	
+    foreach ($sendMailResultSendOK as $data)
+    {
+        $sendMailResultMessage .= $data.'<br>';
+    }
+    $sendMailResultMessage .=   '<br>';
 }
 if(count($sendMailResultMissingEmail) > 1)
 {
-	foreach ($sendMailResultMissingEmail as $data)
-	{
-		$sendMailResultMessage .= $data.'<br>';
-	}
-	$sendMailResultMessage .=	'<br>';			
+    foreach ($sendMailResultMissingEmail as $data)
+    {
+        $sendMailResultMessage .= $data.'<br>';
+    }
+    $sendMailResultMessage .=   '<br>';
 }
 if(count($sendMailResultAnotherError) > 1)
 {
-	foreach ($sendMailResultAnotherError as $data)
-	{
-		$sendMailResultMessage .= $data.'<br>';
-	}		
+    foreach ($sendMailResultAnotherError as $data)
+    {
+        $sendMailResultMessage .= $data.'<br>';
+    }
 }
 
 // zur Ausgangsseite zurueck

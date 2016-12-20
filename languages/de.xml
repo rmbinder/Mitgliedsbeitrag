@@ -230,7 +230,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandatsreferenz</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES1">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# wurde die Mandatsreferenz #VAR3_BOLD# zugewiesen.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES2">Es wurden keine neuen Mandatsreferenzen zugewiesen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES3">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# konnte keine eindeutige Mandatsreferenz (#VAR3#) zugewiesen werden.\n</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES3">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# konnte keine eindeutige Mandatsreferenz (#VAR3#) zugewiesen werden.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandate</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE">Mandatsänderung</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO">Hier sind Eingaben erforderlich, sofern sich Mandatsdaten gegenüber dem letzten Einzug geändert haben. Ein neues Mandat ist nicht erforderlich. Dem XML-Datensatz müssen lediglich die ursprünglichen Werte mitgegeben werden. Vor einem neuen Einzug müssen die hier eingegebenen Ursprungsdaten manuell gelöscht werden.</string>

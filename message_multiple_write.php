@@ -11,7 +11,7 @@
  *
  * Parameters:
  *
- * usr_id    	: E-Mail an den entsprechenden Benutzer schreiben
+ * usr_id       : E-Mail an den entsprechenden Benutzer schreiben
  ***********************************************************************************************
  */
 
@@ -25,7 +25,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -34,7 +34,7 @@ $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defa
 $getSubject = '';
 
 // check if the call of the page was allowed by settings
-if ($gPreferences['enable_mail_module'] != 1 )
+if ($gPreferences['enable_mail_module'] != 1)
 {
     // message if the sending of PM is not allowed
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
@@ -56,25 +56,24 @@ $mailSrcText = $text->getValue('txt_text');
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
 {
-	$getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
+    $getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
 }
 else
 {
-	$getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
+    $getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
 }
-        
+
 if(strpos($mailSrcText, '#content#') !== false)
 {
-	$getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
+    $getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
 }
 else
 {
-	$getBody   = $mailSrcText;
-}  
+    $getBody   = $mailSrcText;
+}
 
-$getBody = preg_replace ('/\r\n/', '<BR>', $getBody);
+$getBody = preg_replace('/\r\n/', '<BR>', $getBody);
 
- 
 if (strlen($getSubject) > 0)
 {
     $headline = $gL10n->get('MAI_SUBJECT').': '.$getSubject;
@@ -94,7 +93,7 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 $messagesWriteMenu = new HtmlNavbar('menu_messages_write', $headline, $page);
 $messagesWriteMenu->addItem('menu_item_back', $gNavigation->getPreviousUrl(), $gL10n->get('SYS_BACK'), 'back.png');
 $page->addHtml($messagesWriteMenu->show(false));
-  
+
 $user_array = $_SESSION['checkedArray'];
 $userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', count($user_array));
 
@@ -113,18 +112,18 @@ if (strlen($getSubject) > 0)
 {
     $formParam .= 'subject='.$getSubject.'&';
 }
-    
+
 // show form
 $form = new HtmlForm('mail_send_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_multiple_send.php?'.$formParam, $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
-    
+
 $preload_data = '';
-$form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => FIELD_DISABLED)); 
+$form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addLine();
 $form->addInput('name', $gL10n->get('MAI_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addInput('mailfrom', $gL10n->get('MAI_YOUR_EMAIL'), $gCurrentUser->getValue('EMAIL'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addCheckbox('carbon_copy', $gL10n->get('MAI_SEND_COPY'), $form_values['carbon_copy']);
- 
+
 if (($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation']==2) || $gPreferences['mail_delivery_confirmation']==1)
 {
     $form->addCheckbox('delivery_confirmation', $gL10n->get('MAI_DELIVERY_CONFIRMATION'), $form_values['delivery_confirmation']);
@@ -135,7 +134,7 @@ $form->closeGroupBox();
 $form->openGroupBox('gb_mail_message', $gL10n->get('SYS_MESSAGE'));
 $form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => FIELD_REQUIRED));
 
-$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true, 'multiUploadLabel' => $gL10n->get('MAI_ADD_ATTACHEMENT'), 
+$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true, 'multiUploadLabel' => $gL10n->get('MAI_ADD_ATTACHEMENT'),
         'hideUploadField' => true, 'helpTextIdLabel' => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
 
 // add textfield or ckeditor to form

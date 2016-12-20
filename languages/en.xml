@@ -230,7 +230,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandate reference</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES1">Mandate reference #VAR3_BOLD# has been assigned to member #VAR1_BOLD# #VAR2_BOLD#.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES2">No new mandate references have been assigned.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES3">The member #VAR1_BOLD# #VAR2_BOLD# was no unique mandate reference (#VAR3#) assigned to it.\n</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES3">The member #VAR1_BOLD# #VAR2_BOLD# was no unique mandate reference (#VAR3#) assigned to it.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandates</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE">Change of mandate</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO">Entries have to be made here if mandate data has changed since the last collection. No new mandate is required. Only the original values have to be included into the XML data record. Prior to a new collection, the original data entered here has to be deleted manually.</string>
