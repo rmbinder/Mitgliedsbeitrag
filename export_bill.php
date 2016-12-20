@@ -59,7 +59,7 @@ foreach ($members as $member => $memberdata){
     }
 }
 
-if (sizeof($rechnungs_file)>0)
+if (count($rechnungs_file)>0)
 {
     // Dateityp, der immer abgespeichert wird
     header('Content-Type: application/octet-stream');

@@ -954,17 +954,17 @@ function check_DB()
     // mit Version 4.1.2 wird die Struktur der DB-Einträge an Admidio angepasst
     // deutsche Bezeichnungen werden durch englische Bezeichnungen ersetzt
     $update_array= array();
-    $update_array[]=array('alt_cat_name' => 'Mitgliedschaft',
+    $update_array[]=array('alt_cat_name'          => 'Mitgliedschaft',
                             'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_cat_name' => 'PMB_MEMBERSHIP',
+                            'neu_cat_name'        => 'PMB_MEMBERSHIP',
                             'neu_cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_cat_name' => 'Mitgliedsbeitrag',
+    $update_array[]=array('alt_cat_name'          => 'Mitgliedsbeitrag',
                             'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_cat_name' => 'PMB_MEMBERSHIP_FEE',
+                            'neu_cat_name'        => 'PMB_MEMBERSHIP_FEE',
                             'neu_cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_cat_name' => 'Kontodaten',
+    $update_array[]=array('alt_cat_name'          => 'Kontodaten',
                             'alt_cat_name_intern' => 'KONTODATEN',
-                            'neu_cat_name' => 'PMB_ACCOUNT_DATA',
+                            'neu_cat_name'        => 'PMB_ACCOUNT_DATA',
                             'neu_cat_name_intern' => 'ACCOUNT_DATA');
 
     foreach($update_array as $data)
@@ -991,69 +991,69 @@ function check_DB()
     }
 
     $update_array= array();
-    $update_array[]=array('alt_usf_name' => 'PMB_BANK',
+    $update_array[] = array('alt_usf_name'        => 'PMB_BANK',
                             'alt_usf_name_intern' => 'BANKNAME',
-                            'neu_usf_name' => 'PMB_BANK',
+                            'neu_usf_name'        => 'PMB_BANK',
                             'neu_usf_name_intern' => 'BANK');
-     $update_array[]=array('alt_usf_name' => 'Kontoinhaber',
+     $update_array[] = array('alt_usf_name'       => 'Kontoinhaber',
                             'alt_usf_name_intern' => 'KONTOINHABER',
-                            'neu_usf_name' => 'PMB_DEBTOR',
+                            'neu_usf_name'        => 'PMB_DEBTOR',
                             'neu_usf_name_intern' => 'DEBTOR');
-     $update_array[]=array('alt_usf_name' => 'PMB_ADDRESS',
+     $update_array[] = array('alt_usf_name'       => 'PMB_ADDRESS',
                             'alt_usf_name_intern' => 'DEBTORADDRESS',
-                            'neu_usf_name' => 'PMB_DEBTOR_ADDRESS',
+                            'neu_usf_name'        => 'PMB_DEBTOR_ADDRESS',
                             'neu_usf_name_intern' => 'DEBTOR_ADDRESS');
-    $update_array[]=array('alt_usf_name' => 'PMB_POSTCODE',
+    $update_array[] = array('alt_usf_name'        => 'PMB_POSTCODE',
                             'alt_usf_name_intern' => 'DEBTORPOSTCODE',
-                            'neu_usf_name' => 'PMB_DEBTOR_POSTCODE',
+                            'neu_usf_name'        => 'PMB_DEBTOR_POSTCODE',
                             'neu_usf_name_intern' => 'DEBTOR_POSTCODE');
-    $update_array[]=array('alt_usf_name' => 'PMB_CITY',
+    $update_array[] = array('alt_usf_name'        => 'PMB_CITY',
                             'alt_usf_name_intern' => 'DEBTORCITY',
-                            'neu_usf_name' => 'PMB_DEBTOR_CITY',
+                            'neu_usf_name'        => 'PMB_DEBTOR_CITY',
                             'neu_usf_name_intern' => 'DEBTOR_CITY');
-    $update_array[]=array('alt_usf_name' => 'PMB_EMAIL',
+    $update_array[] = array('alt_usf_name'        => 'PMB_EMAIL',
                             'alt_usf_name_intern' => 'DEBTOREMAIL',
-                            'neu_usf_name' => 'PMB_DEBTOR_EMAIL',
+                            'neu_usf_name'        => 'PMB_DEBTOR_EMAIL',
                             'neu_usf_name_intern' => 'DEBTOR_EMAIL');
-    $update_array[]=array('alt_usf_name' => 'Beitritt',
+    $update_array[] = array('alt_usf_name'        => 'Beitritt',
                             'alt_usf_name_intern' => 'BEITRITT'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_ACCESSION',
+                            'neu_usf_name'        => 'PMB_ACCESSION',
                             'neu_usf_name_intern' => 'ACCESSION'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_usf_name' => 'Bezahlt',
+    $update_array[] = array('alt_usf_name'        => 'Bezahlt',
                             'alt_usf_name_intern' => 'BEZAHLT'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_PAID',
+                            'neu_usf_name'        => 'PMB_PAID',
                             'neu_usf_name_intern' => 'PAID'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_usf_name' => 'Beitrag',
+    $update_array[] = array('alt_usf_name'        => 'Beitrag',
                             'alt_usf_name_intern' => 'BEITRAG'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_FEE',
+                            'neu_usf_name'        => 'PMB_FEE',
                             'neu_usf_name_intern' => 'FEE'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_usf_name' => 'Beitragstext',
+    $update_array[] = array('alt_usf_name'        => 'Beitragstext',
                             'alt_usf_name_intern' => 'BEITRAGSTEXT'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_CONTRIBUTORY_TEXT',
+                            'neu_usf_name'        => 'PMB_CONTRIBUTORY_TEXT',
                             'neu_usf_name_intern' => 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_usf_name' => 'PMB_MANDATEDATE',
+    $update_array[] = array('alt_usf_name'        => 'PMB_MANDATEDATE',
                             'alt_usf_name_intern' => 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_MANDATEDATE',
+                            'neu_usf_name'        => 'PMB_MANDATEDATE',
                             'neu_usf_name_intern' => 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_usf_name' => 'PMB_DUEDATE',
+    $update_array[] = array('alt_usf_name'        => 'PMB_DUEDATE',
                             'alt_usf_name_intern' => 'DUEDATE'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_DUEDATE',
+                            'neu_usf_name'        => 'PMB_DUEDATE',
                             'neu_usf_name_intern' => 'DUEDATE'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_usf_name' => 'PMB_SEQUENCETYPE',
+    $update_array[] = array('alt_usf_name'        => 'PMB_SEQUENCETYPE',
                             'alt_usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_SEQUENCETYPE',
+                            'neu_usf_name'        => 'PMB_SEQUENCETYPE',
                             'neu_usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[]=array('alt_usf_name' => 'PMB_ORIG_DEBTOR_AGENT',
+    $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_DEBTOR_AGENT',
                             'alt_usf_name_intern' => 'ORIGDEBTORAGENT',
-                            'neu_usf_name' => 'PMB_ORIG_DEBTOR_AGENT',
+                            'neu_usf_name'        => 'PMB_ORIG_DEBTOR_AGENT',
                             'neu_usf_name_intern' => 'ORIG_DEBTOR_AGENT');
-    $update_array[]=array('alt_usf_name' => 'PMB_ORIG_IBAN',
+    $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_IBAN',
                             'alt_usf_name_intern' => 'ORIGIBAN',
-                            'neu_usf_name' => 'PMB_ORIG_IBAN',
+                            'neu_usf_name'        => 'PMB_ORIG_IBAN',
                             'neu_usf_name_intern' => 'ORIG_IBAN');
-    $update_array[]=array('alt_usf_name' => 'PMB_ORIG_MANDATEID',
+    $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_MANDATEID',
                             'alt_usf_name_intern' => 'ORIGMANDATEID'.$gCurrentOrganization->getValue('org_id'),
-                            'neu_usf_name' => 'PMB_ORIG_MANDATEID',
+                            'neu_usf_name'        => 'PMB_ORIG_MANDATEID',
                             'neu_usf_name_intern' => 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'));
 
     foreach($update_array as $data)
@@ -1123,15 +1123,15 @@ function check_DB()
         $statement = $gDb->query($sql);
         $row = $statement->fetchObject();
 
-        $DB_array['IST']['TBL_USER_FIELDS'][$field]= array(
-                'usf_name_intern'   =>  (isset($row->usf_name_intern) ? $row->usf_name_intern : ''),
-                'usf_name'          =>  (isset($row->usf_name) ? $row->usf_name : ''),
-                'usf_type'          =>  (isset($row->usf_type) ? $row->usf_type : ''),
-                'usf_system'        =>  (isset($row->usf_system) ? $row->usf_system : ''),
-                'usf_disabled'      =>  (isset($row->usf_disabled) ? $row->usf_disabled : ''),
-                'usf_hidden'        =>  (isset($row->usf_hidden) ? $row->usf_hidden : ''),
-                'usf_mandatory'     =>  (isset($row->usf_mandatory) ? $row->usf_mandatory : '')
-            );
+        $DB_array['IST']['TBL_USER_FIELDS'][$field] = array(
+            'usf_name_intern' => (isset($row->usf_name_intern) ? $row->usf_name_intern : ''),
+            'usf_name'        => (isset($row->usf_name) ? $row->usf_name : ''),
+            'usf_type'        => (isset($row->usf_type) ? $row->usf_type : ''),
+            'usf_system'      => (isset($row->usf_system) ? $row->usf_system : ''),
+            'usf_disabled'    => (isset($row->usf_disabled) ? $row->usf_disabled : ''),
+            'usf_hidden'      => (isset($row->usf_hidden) ? $row->usf_hidden : ''),
+            'usf_mandatory'   => (isset($row->usf_mandatory) ? $row->usf_mandatory : '')
+        );
 
         if ($DB_array['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'] != $DB_array['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'])
         {
@@ -1151,15 +1151,15 @@ function check_DB()
         $statement = $gDb->query($sql);
         $row = $statement->fetchObject();
 
-         $DB_array['IST']['TBL_CATEGORIES'][$cat]= array(
-                'cat_name_intern'   =>  (isset($row->cat_name_intern) ? $row->cat_name_intern : ''),
-                'cat_name'          =>  (isset($row->cat_name) ? $row->cat_name : ''),
-                'cat_id'            =>  (isset($row->cat_id) ? $row->cat_id : ''),
-                'cat_org_id'        =>  (isset($row->cat_org_id) ? $row->cat_org_id : ''),
-                'cat_type'          =>  (isset($row->cat_type) ? $row->cat_type : ''),
-                'cat_system'        =>  (isset($row->cat_system) ? $row->cat_system : ''),
-                'cat_hidden'        =>  (isset($row->cat_hidden) ? $row->cat_hidden : '')
-            );
+        $DB_array['IST']['TBL_CATEGORIES'][$cat] = array(
+            'cat_name_intern' => (isset($row->cat_name_intern) ? $row->cat_name_intern : ''),
+            'cat_name'        => (isset($row->cat_name) ? $row->cat_name : ''),
+            'cat_id'          => (isset($row->cat_id) ? $row->cat_id : ''),
+            'cat_org_id'      => (isset($row->cat_org_id) ? $row->cat_org_id : ''),
+            'cat_type'        => (isset($row->cat_type) ? $row->cat_type : ''),
+            'cat_system'      => (isset($row->cat_system) ? $row->cat_system : ''),
+            'cat_hidden'      => (isset($row->cat_hidden) ? $row->cat_hidden : '')
+        );
 
         if ($DB_array['IST']['TBL_CATEGORIES'][$cat]['cat_name_intern'] != $DB_array['SOLL']['TBL_CATEGORIES'][$cat]['cat_name_intern'])
         {

@@ -177,14 +177,14 @@ $page->addHtml('
                         $form->addInput('beitrag_mindestbetrag', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC').' '.$gPreferences['system_currency'], $pPreferences->config['Beitrag']['beitrag_mindestbetrag'], array('type' => 'number', 'minNumber' => 0, 'maxNumber' => 999, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC_DESC'));
                         $form->addCheckbox('beitrag_textmitnam', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_MEMNAMES'), $pPreferences->config['Beitrag']['beitrag_textmitnam'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_MEMNAMES_DESC'));
                         $form->addCheckbox('beitrag_textmitfam', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES'), $pPreferences->config['Beitrag']['beitrag_textmitfam'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES_DESC'));
-                        $selectBoxEntries = array('#'=>' &nbsp '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK'),
-                                                    '.'=>'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DOT'),
-                                                    ','=>', '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA'),
-                                                    '-'=>'- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HYPHEN'),
-                                                    '/'=>'/ '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SLASH'),
-                                                    '+'=>'+ '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS'),
-                                                    '*'=>'* '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TIMES').'(*)',
-                                                    '%'=>'% '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT').'(*)');
+                        $selectBoxEntries = array('#'  => ' &nbsp '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK'),
+                                                    '.'=> '. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DOT'),
+                                                    ','=> ', '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA'),
+                                                    '-'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HYPHEN'),
+                                                    '/'=> '/ '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SLASH'),
+                                                    '+'=> '+ '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS'),
+                                                    '*'=> '* '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TIMES').'(*)',
+                                                    '%'=> '% '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT').'(*)');
                         $form->addSelectBox('beitrag_text_token', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_text_token'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN_DESC', 'showContextDependentFirstEntry' => false));
 
                         $form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT'),
@@ -472,21 +472,21 @@ $page->addHtml('
                         $altersrollen = beitragsrollen_einlesen('alt');
                         $fixrollen = beitragsrollen_einlesen('fix');
                         $form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC2'));
-                        if ((sizeof($altersrollen)>0) || (sizeof($familienrollen)>0) || (sizeof($fixrollen)>0))
+                        if ((count($altersrollen)>0) || (count($familienrollen)>0) || (count($fixrollen)>0))
                         {
                             $form->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
-                            if (sizeof($altersrollen)>0)
+                            if (count($altersrollen)>0)
                             {
                                 foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
                                 {
                                     $form->addCheckbox('altersrollenpflicht'.$token, $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$token .')', (in_array($token, $pPreferences->config['Rollenpruefung']['altersrollenpflicht']) ? 1 : 0));
                                 }
                             }
-                            if (sizeof($familienrollen)>0)
+                            if (count($familienrollen)>0)
                             {
                                 $form->addCheckbox('familienrollenpflicht', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), $pPreferences->config['Rollenpruefung']['familienrollenpflicht']);
                             }
-                            if (sizeof($fixrollen)>0)
+                            if (count($fixrollen)>0)
                             {
                                 foreach($fixrollen as $key => $data)
                                 {
@@ -500,27 +500,27 @@ $page->addHtml('
                             $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES'));
                         }
                         $form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC2'));
-                        if (((sizeof($altersrollen)>0) && (sizeof($familienrollen)>0)) || ((sizeof($altersrollen)>0) && (sizeof($fixrollen)>0)) || ((sizeof($familienrollen)>0) && (sizeof($fixrollen)>0)))
+                        if (((count($altersrollen)>0) && (count($familienrollen)>0)) || ((count($altersrollen)>0) && (count($fixrollen)>0)) || ((count($familienrollen)>0) && (count($fixrollen)>0)))
                         {
                             $form->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
-                            if ((sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1))
+                            if ((count($pPreferences->config['Altersrollen']['altersrollen_token'])>1))
                             {
-                                for ($x=0; $x<sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])-1; $x++)
+                                for ($x=0; $x<count($pPreferences->config['Altersrollen']['altersrollen_token'])-1; $x++)
                                 {
-                                    for ($y=$x+1; $y<sizeof($pPreferences->config['Altersrollen']['altersrollen_token']); $y++)
+                                    for ($y=$x+1; $y<count($pPreferences->config['Altersrollen']['altersrollen_token']); $y++)
                                     {
                                         $form->addCheckbox('altersrollenaltersrollen'.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].$pPreferences->config['Altersrollen']['altersrollen_token'][$y], $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].') ./. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$pPreferences->config['Altersrollen']['altersrollen_token'][$y].')', (in_array($pPreferences->config['Altersrollen']['altersrollen_token'][$x].','.$pPreferences->config['Altersrollen']['altersrollen_token'][$y], $pPreferences->config['Rollenpruefung']['altersrollenaltersrollen']) ? 1 : 0));
                                     }
                                 }
                             }
-                            if ((sizeof($altersrollen)>0) && (sizeof($familienrollen)>0))
+                            if ((count($altersrollen)>0) && (count($familienrollen)>0))
                             {
                                 foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
                                 {
                                     $form->addCheckbox('altersrollenfamilienrollen'.$token, $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$token .') ./. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), (in_array($token, $pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen']) ? 1 : 0));
                                 }
                             }
-                            if ((sizeof($altersrollen)>0) && (sizeof($fixrollen)>0))
+                            if ((count($altersrollen)>0) && (count($fixrollen)>0))
                             {
                                 foreach($fixrollen as $key => $data)
                                 {
@@ -530,7 +530,7 @@ $page->addHtml('
                                     }
                                 }
                             }
-                            if ((sizeof($familienrollen)>0) && (sizeof($fixrollen)>0))
+                            if ((count($familienrollen)>0) && (count($fixrollen)>0))
                             {
                                 foreach($fixrollen as $key => $data)
                                 {

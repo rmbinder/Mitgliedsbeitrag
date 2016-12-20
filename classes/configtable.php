@@ -357,7 +357,7 @@ class ConfigTablePMB
             OR cat_org_id IS NULL ) ';
         $statement = $gDb->query($sql);
 
-        if($statement->rowCount() != sizeof($fieldsarray))
+        if($statement->rowCount() != count($fieldsarray))
         {
             $ret = 2;
         }

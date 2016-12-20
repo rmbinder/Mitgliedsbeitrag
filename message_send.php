@@ -61,13 +61,13 @@ if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirm
 
 // put values into SESSION
 $_SESSION['message_request'] = array(
-        'name'          => $postName,
-        'msgfrom'       => $postFrom,
-        'subject'       => $postSubject,
-        'msg_body'      => $postBody,
-        'carbon_copy'   => $postCarbonCopy,
-        'delivery_confirmation' => $postDeliveryConfirmation,
-    );
+    'name'                  => $postName,
+    'msgfrom'               => $postFrom,
+    'subject'               => $postSubject,
+    'msg_body'              => $postBody,
+    'carbon_copy'           => $postCarbonCopy,
+    'delivery_confirmation' => $postDeliveryConfirmation,
+);
 
 $receiver = array();
 

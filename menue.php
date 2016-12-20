@@ -212,7 +212,7 @@ if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config'
 
 $page->addHtml($headerMenu->show(false));
 
-if(sizeof($rols)>0)
+if(count($rols)>0)
 {
     $page->addHtml('
     <ul class="nav nav-tabs" id="preferences_tabs">
@@ -435,10 +435,10 @@ if(sizeof($rols)>0)
                                         $columnValues[]=$roldata['rolle'];
                                         $columnValues[]=expand_rollentyp($roldata['rollentyp']);
                                         $columnValues[]=$roldata['rol_cost'].' '.$gPreferences['system_currency'];
-                                        $columnValues[]=sizeof($roldata['members']);
-                                        $columnValues[]=($roldata['rol_cost']*sizeof($roldata['members'])).' '.$gPreferences['system_currency'];
+                                        $columnValues[]=count($roldata['members']);
+                                        $columnValues[]=($roldata['rol_cost']*count($roldata['members'])).' '.$gPreferences['system_currency'];
 
-                                        $sum += ($roldata['rol_cost']*sizeof($roldata['members']));
+                                        $sum += ($roldata['rol_cost']*count($roldata['members']));
                                         $table->addRowByArray($columnValues);
                                     }
 
@@ -712,7 +712,7 @@ if(sizeof($rols)>0)
                             $form->closeGroupBox();
 
                             // Prüfung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
-                            if (sizeof($pPreferences->config['Altersrollen']['altersrollen_token'])>1)
+                            if (count($pPreferences->config['Altersrollen']['altersrollen_token'])>1)
                             {
                                 $form->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
                                 $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
@@ -798,7 +798,7 @@ if(sizeof($rols)>0)
                                 $columnValues = array();
                                 $columnValues[]='<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php?rol_id='. $rol_id. '">'.$data['rolle']. '</a>';
                                 $columnValues[]=expand_rollentyp($data['rollentyp']);
-                                $columnValues[]=sizeof($data['members']);
+                                $columnValues[]=count($data['members']);
                                 $table->addRowByArray($columnValues);
                             }
                             $table->setDatatablesGroupColumn(2);
