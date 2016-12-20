@@ -206,8 +206,10 @@ $form->closeGroupBox();
 $form->openGroupBox('gb_mail_message', $gL10n->get('SYS_MESSAGE'));
 $form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => FIELD_REQUIRED));
 
-$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true, 'multiUploadLabel' => $gL10n->get('MAI_ADD_ATTACHEMENT'),
-        'hideUploadField' => true, 'helpTextIdLabel' => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
+$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true,
+                                                                                 'multiUploadLabel'   => $gL10n->get('MAI_ADD_ATTACHEMENT'),
+                                                                                 'hideUploadField'    => true,
+                                                                                 'helpTextIdLabel'    => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
 
 // add textfield or ckeditor to form
 if($gValidLogin == true && $gPreferences['mail_html_registered_users'] == 1)
