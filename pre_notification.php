@@ -12,16 +12,16 @@
  * Parameters:
  *
  * mode             : html       - Standardmodus zun Anzeigen einer html-Liste
- *                    prepare    - user in einem CheckedArray setzen bzw löschen
+ *                    prepare    - user in einem CheckedArray setzen bzw loeschen
  *                    csv_export - erzeugt eine csv-Datei
- *                    mail_export- nur zur Prüfung, ob user im CheckedArray markiert sind
- * usr_id           : <>0        - Id des Benutzers, für der im CheckedArray gesetzt/gelöscht wird
- *                    leer       - alle user im CheckedArray ändern von gesetzt->gelöscht bzw gelöscht->gesetzt
+ *                    mail_export- nur zur Pruefung, ob user im CheckedArray markiert sind
+ * usr_id           : <>0        - Id des Benutzers, fuer der im CheckedArray gesetzt/geloescht wird
+ *                    leer       - alle user im CheckedArray aendern von gesetzt->geloescht bzw geloescht->gesetzt
  * full_screen      : 0 - Normalbildschirm
  *                    1 - Vollbildschirm
  * checked         : true  - Der Haken beim Benutzer wurde gesetzt
  *                   false - Der Haken beim Benutzer wurde entfernt
- * duedate         : Das übergebene Fälligkeitsdatum zur Filterung
+ * duedate         : Das uebergebene Faelligkeitsdatum zur Filterung
  ***********************************************************************************************
  */
 
@@ -173,7 +173,7 @@ else
             AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
                 OR cat_org_id IS NULL ) ';
 
-    if($getDueDate !=0)                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
+    if($getDueDate !=0)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
     {
         $memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
     }
@@ -254,7 +254,7 @@ else
         $ret_text = 'ERROR';
         if($getUserId!=0)           // ein einzelner User wurde selektiert
         {
-            if($getChecked=='false')            // der Haken wurde gelöscht
+            if($getChecked=='false')            // der Haken wurde geloescht
             {
                 unset($_SESSION['checkedArray'][$getUserId]);
                 $ret_text = 'success';
@@ -266,7 +266,7 @@ else
 
             }
         }
-        else                        // Alle ändern wurde gewählt
+        else                        // Alle aendern wurde gewaehlt
         {
             while($user = $statement->fetch())
             {
@@ -417,7 +417,7 @@ else
 
         $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
-        //alle Fälligkeitsdaten einlesen
+        //alle Faelligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
                 FROM '.TBL_USER_DATA.','. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
                 WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id').'

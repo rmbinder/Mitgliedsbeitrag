@@ -27,7 +27,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-//Vor der Neuzuordnung die altersgestaffelten Rollen auf Lücken oder Überlappungen prüfen
+//Vor der Neuzuordnung die altersgestaffelten Rollen auf Luecken oder Ueberlappungen pruefen
 $arr = check_rols();
 if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'), $arr))
 {
@@ -60,7 +60,7 @@ foreach ($altersrollen as $roleId => $roldata)
         // ist das Alter des Mitglieds außerhalb des Altersschemas der Rolle
         if (($age < $roldata['von']) || ($age > $roldata['bis']))
         {
-            // wenn ja, dann Mitglied auf den Stack legen und Rollenmitgliedschaft löschen
+            // wenn ja, dann Mitglied auf den Stack legen und Rollenmitgliedschaft loeschen
             $stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
 
             $sql = 'UPDATE '.TBL_MEMBERS.'
@@ -69,7 +69,7 @@ foreach ($altersrollen as $roleId => $roldata)
                     AND mem_rol_id = '.$roleId;
             $gDb->query($sql);
 
-            // stopMembership() kann nicht verwendet werden, da es unter best. Umständen Mitgliedschaften nicht löscht
+            // stopMembership() kann nicht verwendet werden, da es unter best. Umstaenden Mitgliedschaften nicht loescht
             // Beschreibung von stopMembership()
             //      only stop membership if there is an actual membership
             //      the actual date must be after the beginning
@@ -86,9 +86,9 @@ if (count($stack)==0)
     $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
 }
 
-// wenn ein Mitglied Angehöriger mehrerer Rollen war (dürfte eigentlich gar nicht vorkommen),
+// wenn ein Mitglied Angehoeriger mehrerer Rollen war (duerfte eigentlich gar nicht vorkommen),
 // dann wurde er auch mehrfach in das Array $stack aufgenommen
-// --> doppelte Vorkommen löschen
+// --> doppelte Vorkommen loeschen
 $stack = array_map('unserialize', array_unique(array_map('serialize', $stack)));
 
 $message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO6').'</strong><BR>';
@@ -97,7 +97,7 @@ $message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO6
 $marker = false;
 foreach ($stack as $key => $stackdata)
 {
-    // alle Altersrollen durchlaufen und prüfen, ob das Mitglied in das Altersschema der Rolle passt
+    // alle Altersrollen durchlaufen und pruefen, ob das Mitglied in das Altersschema der Rolle passt
     foreach ($altersrollen as $roleId => $roldata)
     {
         if (($stackdata['alter'] <= $roldata['bis'])

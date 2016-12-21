@@ -11,17 +11,17 @@
  *
  * Parameters:
  *
- * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beiträgen
+ * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beitraegen
  *                    assign - Setzen eines Mandatsdatums
- * usr_id           : Id des Benutzers, für den das Mandatsdatum gesetzt/gelöscht wird
+ * usr_id           : Id des Benutzers, fuer den das Mandatsdatum gesetzt/geloescht wird
  * datum_neu        : Mandatsdatum
  * mem_show_choice  : 0 - (Default) Alle Benutzer anzeigen
  *                    1 - Nur Benutzer anzeigen, bei denen ein Mandatsdatum vorhanden ist
  *                    2 - Nur Benutzer anzeigen, bei denen kein Mandatsdatum vorhanden ist
  * full_screen      : 0 - Normalbildschirm
  *                    1 - Vollbildschirm
- * mandate_screen   : 0 - zusätzliche Spalten mit Mandatsänderungen werden nicht angezeigt
- *                    1 - zusätzliche Spalten mit Mandatsänderungen werden angezeigt
+ * mandate_screen   : 0 - zusaetzliche Spalten mit Mandatsaenderungen werden nicht angezeigt
+ *                    1 - zusaetzliche Spalten mit Mandatsaenderungen werden angezeigt
  ***********************************************************************************************
  */
 
@@ -58,11 +58,11 @@ if($getMode == 'assign')
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId!=0)           // Mandatsdatum nur für einen einzigen User ändern
+    if($getUserId!=0)           // Mandatsdatum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
-    else                        // Alle ändern wurde gewählt
+    else                        // Alle aendern wurde gewaehlt
     {
         $userArray = $_SESSION['userArray'];
     }
@@ -81,7 +81,7 @@ if($getMode == 'assign')
             }
             else
             {
-                //er hat bereits ein Mandatsdatum, deshalb das vorhandene löschen
+                //er hat bereits ein Mandatsdatum, deshalb das vorhandene loeschen
                 $user->setValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), '');
             }
 
@@ -127,7 +127,7 @@ else
         AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
             OR cat_org_id IS NULL ) ';
 
-    if($getMembersShow == 1)                  // nur Benutzer anzeigen mit Bezahlt-Datum wurde gewählt
+    if($getMembersShow == 1)                  // nur Benutzer anzeigen mit Bezahlt-Datum wurde gewaehlt
     {
         $memberCondition .= ' AND usd_usr_id = usr_id
             AND usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
@@ -200,7 +200,7 @@ else
     }
 
     $javascriptCode = '
-        // Anzeige abhängig vom gewählten Filter
+        // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
                 if($(this).val().length > 0) {
                     window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mandates.php?full_screen='.$getFullScreen.'&mem_show_choice="+$(this).val());
@@ -226,7 +226,7 @@ else
             );
         });
 
-        // checkbox "Mandatsänderungen anzeigen" wurde gewählt
+        // checkbox "Mandatsaenderungen anzeigen" wurde gewaehlt
         $("input[type=checkbox].mandatescreen_checkbox").click(function(){
             if( $("input[type=checkbox]#mandate_screen").prop("checked")) {
                 var mandatescreen_checked=1;
@@ -371,7 +371,7 @@ else
             $htmlMandateID = $user['mandatsreferenz'];
         }
 
-        //4. Spalte (Mandatsänderung)
+        //4. Spalte (Mandatsaenderung)
 
         //5. Spalte (Nachname)
 
@@ -403,7 +403,7 @@ else
 
         //10. Spalte ($birthdayDateSort)
 
-        //11. Spalte und weiter: Anzeige von Mandatsänderungen
+        //11. Spalte und weiter: Anzeige von Mandatsaenderungen
         if(strlen($user['origmandatsreferenz']) > 0)
         {
             $htmlOrigMandateID = $user['origmandatsreferenz'];

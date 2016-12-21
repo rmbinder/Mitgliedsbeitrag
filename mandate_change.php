@@ -12,8 +12,8 @@
  * Parameters:
  *
  * mode             : html   - Standardmodus zum Anzeigen einer html-Liste
- *                    assign - Schreiben der Änderungen in die Datenbank
- * usr_id           : Id des Benutzers, für den die Mandatsänderungen durchgeführt werden
+ *                    assign - Schreiben der Aenderungen in die Datenbank
+ * usr_id           : Id des Benutzers, fuer den die Mandatsaenderungen durchgefuehrt werden
  * iban             : die neue IBAN des Zahlungspflichtigen
  * origiban         : die urspruengliche IBAN des Zahlungspflichtigen
  * mandateid        : die neue Mandatsreferenz des Zahlungspflichtigen
@@ -66,13 +66,13 @@ if($getMode == 'assign')
 
     $gMessage->showTextOnly(true);
 
-    // wurde die Bank geändert?
+    // wurde die Bank geaendert?
     if ($getBankChanged == 'false')             //nein, dieselbe Bank
     {
-        //hat eine Änderung der IBAN stattgefunden?
+        //hat eine Aenderung der IBAN stattgefunden?
         if ($getIBAN != $user->getValue('IBAN'))
         {
-            //ja, dann muss origIBAN befüllt sein
+            //ja, dann muss origIBAN befuellt sein
             if (strlen($getOrigIBAN) != 0)
             {
                 $iban_change='true';
@@ -84,9 +84,9 @@ if($getMode == 'assign')
             }
         }
     }
-    else               //die Bank wurde geändert
+    else               //die Bank wurde geaendert
     {
-        //bei einer Änderung der Bank muss es eine andere IBAN geben
+        //bei einer Aenderung der Bank muss es eine andere IBAN geben
         if ($getIBAN != $user->getValue('IBAN'))
         {
             $bank_change='true';
@@ -98,10 +98,10 @@ if($getMode == 'assign')
         }
     }
 
-    // wurde die Mandatsreferenz geändert?
+    // wurde die Mandatsreferenz geaendert?
     if($getMandateID != $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')))
     {
-        //bei einer Änderung muss origMandateID befüllt sein
+        //bei einer Aenderung muss origMandateID befuellt sein
         if (strlen($getOrigMandateID) != 0)
         {
             $mandateid_change='true';
@@ -128,7 +128,7 @@ if($getMode == 'assign')
             $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
             $user->setValue('ORIG_DEBTOR_AGENT', 'SMNDA');
 
-            // wenn die Bank gewechselt wurde, braucht die neue Bank die ursprüngliche IBAN nicht zu kennen
+            // wenn die Bank gewechselt wurde, braucht die neue Bank die urspruengliche IBAN nicht zu kennen
             $user->setValue('ORIG_IBAN', '');
         }
         if($mandateid_change=='true')
@@ -162,7 +162,7 @@ else
 
     $page->addJavascript('
 
-        // checkbox "Kontoverbindung bei anderer Bank" wurde gewählt
+        // checkbox "Kontoverbindung bei anderer Bank" wurde gewaehlt
         $("input[type=checkbox].bank_changed_checkbox").click(function(){
             var bankchanged = $("input[type=checkbox]#bankchanged").prop("checked");
             if(bankchanged) {

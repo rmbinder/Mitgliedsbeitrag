@@ -9,11 +9,11 @@
  *
  * Parameters:
  *
- * choice     : agestaggeredroles   - Löschen oder Hinzufügen einer Konfiguration in den altersgestaffelten Rollen
- *              familyroles         - Löschen oder Hinzufügen einer Konfiguration in den Familienollen
- *              accountdata         - Mandatsänderung im Abschnitt Kontodaten wurde gewählt
- * conf       : -1                  - Hinzufügen einer Konfiguration
- *              Zahl >= 0           - Löschen einer Konfiguration
+ * choice     : agestaggeredroles   - Loeschen oder Hinzufuegen einer Konfiguration in den altersgestaffelten Rollen
+ *              familyroles         - Loeschen oder Hinzufuegen einer Konfiguration in den Familienollen
+ *              accountdata         - Mandatsaenderung im Abschnitt Kontodaten wurde gewaehlt
+ * conf       : -1                  - Hinzufuegen einer Konfiguration
+ *              Zahl >= 0           - Loeschen einer Konfiguration
  ***********************************************************************************************
  */
 

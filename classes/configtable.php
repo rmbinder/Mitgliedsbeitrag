@@ -12,17 +12,17 @@
 /******************************************************************************
  * Klasse verwaltet die Konfigurationstabelle "adm_plugin_preferences"
  *
- * Folgende Methoden stehen zur Verfügung:
+ * Folgende Methoden stehen zur Verfuegung:
  *
- * init()                       :   prüft, ob die Konfigurationstabelle existiert,
- *                                  legt sie ggf. an und befüllt sie mit Default-Werten
+ * init()                       :   prueft, ob die Konfigurationstabelle existiert,
+ *                                  legt sie ggf. an und befuellt sie mit Default-Werten
  * save()                       :   schreibt die Konfiguration in die Datenbank
  * read()                       :   liest die Konfigurationsdaten aus der Datenbank
  * checkforupdate()             :   vergleicht die Angaben in der Datei version.php
  *                                  mit den Daten in der DB
- * delete_config_data()         :   löscht Konfigurationsdaten in der Datenbank
- * delete_member_data           :   löscht Nutzerdaten in der Datenbank
- * delete_mail_data             :   löscht Mail-Texte  in der Datenbank
+ * delete_config_data()         :   loescht Konfigurationsdaten in der Datenbank
+ * delete_member_data           :   loescht Nutzerdaten in der Datenbank
+ * delete_mail_data             :   loescht Mail-Texte  in der Datenbank
  *
  *****************************************************************************/
 
@@ -66,7 +66,7 @@ class ConfigTablePMB
     }
 
     /**
-     * Prüft, ob die Konfigurationstabelle existiert, legt sie ggf an und befüllt sie mit Standardwerten
+     * Prueft, ob die Konfigurationstabelle existiert, legt sie ggf an und befuellt sie mit Standardwerten
      * @return void
      */
     public function init()
@@ -104,17 +104,17 @@ class ConfigTablePMB
             $this->config['Rollenpruefung']['bezugskategorie'][0] = ' ';
         }
         //Update/Konvertierungsroutine 4.0.0 -> 4.1.0
-        // seit 01.02.2016 gibt es keine Kontonummern mehr; sollen alle Kontonummern und Bankleitzahlen automatisch gelöscht werden,
-        // so sind in den nächsten beiden Zeilen die führenden "//" zu entfernen
+        // seit 01.02.2016 gibt es keine Kontonummern mehr; sollen alle Kontonummern und Bankleitzahlen automatisch geloescht werden,
+        // so sind in den naechsten beiden Zeilen die fuehrenden "//" zu entfernen
         //$this->delete_member_data(3,'KONTONUMMER');
         //$this->delete_member_data(3,'BANKLEITZAHL');
 
         // Hinweis: delete_member_data() wird auch im Modul Deinstallation verwendet
-        // der zweite Parameter bestimmt das zu löschende Profilfeld
-        // der erste Parameter definiert die Organistaion, in der gelöscht wird
-        //  0 = Daten nur in aktueller Org löschen
-        //  1 = Daten in allen Orgs löschen
-        //  3 = Daten löschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
+        // der zweite Parameter bestimmt das zu loeschende Profilfeld
+        // der erste Parameter definiert die Organistaion, in der geloescht wird
+        //  0 = Daten nur in aktueller Org loeschen
+        //  1 = Daten in allen Orgs loeschen
+        //  3 = Daten loeschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
 
         //Update/Konvertierungsroutine 4.1.x -> 4.1.2
         if(isset($this->config['Rollenpruefung']['altersrollenfamilienrollen']) && !is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
@@ -141,16 +141,16 @@ class ConfigTablePMB
                 // gibt es diese Sektion bereits in der config?
                 if (isset($config_ist[$section][$key]))
                 {
-                    // wenn ja, diese Sektion in der Ist-config löschen
+                    // wenn ja, diese Sektion in der Ist-config loeschen
                     unset($config_ist[$section][$key]);
                 }
                 else
                 {
-                    // wenn nicht, diese Sektion in der config anlegen und mit den Standardwerten aus der Soll-config befüllen
+                    // wenn nicht, diese Sektion in der config anlegen und mit den Standardwerten aus der Soll-config befuellen
                     $this->config[$section][$key]=$value;
                 }
             }
-            // leere Abschnitte (=leere Arrays) löschen
+            // leere Abschnitte (=leere Arrays) loeschen
             if ((isset($config_ist[$section]) && count($config_ist[$section])==0))
             {
                 unset($config_ist[$section]);
@@ -158,9 +158,9 @@ class ConfigTablePMB
         }
 
         // die Ist-config durchlaufen
-        // jetzt befinden sich hier nur noch die DB-Einträge, die nicht verwendet werden und deshalb:
-        // 1. in der DB gelöscht werden können
-        // 2. in der normalen config gelöscht werden können
+        // jetzt befinden sich hier nur noch die DB-Eintraege, die nicht verwendet werden und deshalb:
+        // 1. in der DB geloescht werden koennen
+        // 2. in der normalen config geloescht werden koennen
         foreach($config_ist as $section => $sectiondata)
         {
             foreach($sectiondata as $key => $value)
@@ -172,7 +172,7 @@ class ConfigTablePMB
                 $gDb->query($sql);
                 unset($this->config[$section][$key]);
             }
-            // leere Abschnitte (=leere Arrays) löschen
+            // leere Abschnitte (=leere Arrays) loeschen
             if (count($this->config[$section])==0)
             {
                 unset($this->config[$section]);
@@ -319,7 +319,7 @@ class ConfigTablePMB
             $ret = 2;
         }
 
-        // einen Suchstring für die SQL-Abfrage aufbereiten
+        // einen Suchstring fuer die SQL-Abfrage aufbereiten
         $fieldsarray = array();
         $fieldsarray[] = 'MEMBERNUMBER';
         $fieldsarray[] = 'ACCESSION'.$gCurrentOrganization->getValue('org_id');
@@ -366,8 +366,8 @@ class ConfigTablePMB
     }
 
     /**
-     * Löscht die Konfigurationsdaten in der Datenbank
-     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org löschen, 1 = Daten in allen Org löschen
+     * Loescht die Konfigurationsdaten in der Datenbank
+     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Org loeschen
      * @return  string  $result             Meldung
      */
     public function delete_config_data($deinst_org_select)
@@ -378,21 +378,21 @@ class ConfigTablePMB
         $result_data=false;
         $result_db = false;
 
-        if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen
+        if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org loeschen
         {
             $sql = 'DELETE FROM '.$this->table_name.'
                     WHERE plp_name LIKE \''.self::$shortcut.'__%\'
                     AND plp_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
             $result_data = $gDb->query($sql);
         }
-        elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen
+        elseif ($deinst_org_select==1)              //1 = Daten in allen Org loeschen
         {
             $sql = 'DELETE FROM '.$this->table_name.'
                     WHERE plp_name LIKE \''.self::$shortcut.'__%\' ';
             $result_data = $gDb->query($sql);
         }
 
-        // wenn die Tabelle nur Einträge dieses Plugins hatte, sollte sie jetzt leer sein und kann gelöscht werden
+        // wenn die Tabelle nur Eintraege dieses Plugins hatte, sollte sie jetzt leer sein und kann geloescht werden
         $sql = 'SELECT * FROM '.$this->table_name.' ';
         $statement = $gDb->query($sql);
 
@@ -409,10 +409,10 @@ class ConfigTablePMB
     }
 
     /**
-     * Löscht die Nutzerdaten in der Datenbank
-     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org löschen, 1 = Daten in allen Orgs löschen, !=0 oder !=1) = Daten löschen, die in allen Orgs sichtbar sind
-     * @param   string  $dataField          usf_name_intern des zu löschenden Datenfeldes
-     * @param   string  $dataDesc           Überschrift eines Blocks der Meldung
+     * Loescht die Nutzerdaten in der Datenbank
+     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Orgs loeschen, !=0 oder !=1) = Daten loeschen, die in allen Orgs sichtbar sind
+     * @param   string  $dataField          usf_name_intern des zu loeschenden Datenfeldes
+     * @param   string  $dataDesc           Ueberschrift eines Blocks der Meldung
      * @return  string  $result             Meldung
      */
     public function delete_member_data($deinst_org_select, $dataField, $dataDesc='')
@@ -427,21 +427,21 @@ class ConfigTablePMB
         $result_category=false;
         $usfIDs=array();
 
-        if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org löschen
+        if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org loeschen
         {
             $orgSelector = $gCurrentOrganization->getValue('org_id');
         }
-        elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen
+        elseif ($deinst_org_select==1)              //1 = Daten in allen Org loeschen
         {
             $orgSelector = '%';
             //$orgSelector = '_';
         }
-        else                                         // else: übergebenes Datenfeld ist nicht Org-gebunden (ohne Org-ID, NULL)
+        else                                         // else: uebergebenes Datenfeld ist nicht Org-gebunden (ohne Org-ID, NULL)
         {
             $orgSelector = '';
         }
 
-        // alle usf_id´s des übergebenen $dataField einlesen
+        // alle usf_id´s des uebergebenen $dataField einlesen
         $sql = 'SELECT usf_id, usf_name, usf_name_intern,usf_cat_id, cat_name,cat_name_intern FROM '.TBL_USER_FIELDS.', '.TBL_CATEGORIES.'
                 WHERE usf_name_intern LIKE  \''.$dataField.$orgSelector.'\'
                 AND  usf_cat_id=cat_id  ';
@@ -459,7 +459,7 @@ class ConfigTablePMB
 
         $result .= '<BR><EM>'.$dataDesc.'</EM>';
 
-        // das Array durchlaufen und DELETE ausführen
+        // das Array durchlaufen und DELETE ausfuehren
         foreach ($usfIDs as $dummy => $data)
         {
             $sql = 'SELECT * FROM '.TBL_USER_DATA.'
@@ -525,8 +525,8 @@ class ConfigTablePMB
     }
 
     /**
-     * Löscht die über das Plugin erstellten Mailtexte in der Datenbank
-     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org löschen, 1 = Daten in allen Org löschen
+     * Loescht die ueber das Plugin erstellten Mailtexte in der Datenbank
+     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Org loeschen
      * @return  string  $result             Meldung
      */
     public function delete_mail_data($deinst_org_select)
@@ -536,14 +536,14 @@ class ConfigTablePMB
         $result = '';
         $result_data=false;
 
-        if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org löschen
+        if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org loeschen
         {
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                     WHERE txt_name LIKE \'PMBMAIL_%\'
                     AND txt_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
             $result_data = $gDb->query($sql);
         }
-        elseif ($deinst_org_select==1)              //1 = Daten in allen Org löschen
+        elseif ($deinst_org_select==1)              //1 = Daten in allen Org loeschen
         {
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                     WHERE txt_name LIKE \'PMBMAIL_%\' ';

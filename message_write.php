@@ -59,7 +59,7 @@ if (($gCurrentUser->editUsers() == false && isMember($user->getValue('usr_id')) 
 // Subject und Body erzeugen
 $text = new TableText($gDb);
 
-//abhängig vom aufrufenden Modul Text einlesen
+//abhaengig vom aufrufenden Modul Text einlesen
 if (substr_count($gNavigation->getUrl(), 'pre_notification')==1)
 {
     $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
@@ -113,7 +113,7 @@ $messagesWriteMenu = new HtmlNavbar('menu_messages_write', $headline, $page);
 $messagesWriteMenu->addItem('menu_item_back', $gNavigation->getPreviousUrl(), $gL10n->get('SYS_BACK'), 'back.png');
 $page->addHtml($messagesWriteMenu->show(false));
 
- //Datensatz für E-Mail-Adresse zusammensetzen
+ //Datensatz fuer E-Mail-Adresse zusammensetzen
 if(strlen($user->getValue('DEBTOR')) > 0)
 {
     if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)

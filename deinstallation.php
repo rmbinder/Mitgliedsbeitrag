@@ -10,7 +10,7 @@
  * Parameters:
  *
  * mode         : start  - Startbildschirm anzeigen
- *                delete - Löschen der Daten
+ *                delete - Loeschen der Daten
  ***********************************************************************************************
  */
 

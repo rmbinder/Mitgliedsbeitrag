@@ -35,7 +35,7 @@ $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'ADDRESS', 'POSTCODE', 
 $rechnungs_file=array();
 $i=0;
 
-//alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
+//alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 foreach ($members as $member => $memberdata){
     if (empty($memberdata['IBAN'])
             &&  empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
@@ -67,7 +67,7 @@ if (count($rechnungs_file)>0)
     // noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
     header('Cache-Control: private');
 
-    // Im Grunde ueberfluessig, hat sich anscheinend bewährt
+    // Im Grunde ueberfluessig, hat sich anscheinend bewaehrt
     header('Content-Transfer-Encoding: binary');
 
     // Zwischenspeichern auf Proxies verhindern

@@ -39,16 +39,16 @@ else
     $members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN'), 0);
 }
 
-//alle Mitglieder löschen, bei denen kein Beitrag berechnet wurde
+//alle Mitglieder loeschen, bei denen kein Beitrag berechnet wurde
 $members = array_filter($members, 'delete_without_BEITRAG');
 
-//alle Mitglieder löschen, bei denen keine IBAN vorhanden ist
+//alle Mitglieder loeschen, bei denen keine IBAN vorhanden ist
 $members = array_filter($members, 'delete_without_IBAN');
 
-//alle Mitglieder löschen, bei denen bereits eine Mandatsreferenz vorhanden ist
+//alle Mitglieder loeschen, bei denen bereits eine Mandatsreferenz vorhanden ist
 $members = array_filter($members, 'delete_with_MANDATEID');
 
-//alle übriggebliebenen Mitglieder durchlaufen und eine Mandatsreferenz erzeugen
+//alle uebriggebliebenen Mitglieder durchlaufen und eine Mandatsreferenz erzeugen
 foreach ($members as $member => $memberdata)
 {
     $prefix = $pPreferences->config['Mandatsreferenz']['prefix_mem'];
@@ -77,9 +77,9 @@ foreach ($members as $member => $memberdata)
 
     $referenz = substr(str_pad($prefix, $pPreferences->config['Mandatsreferenz']['min_length']-strlen($suffix), '0').$suffix, 0, 35);
 
-    //überprüfen, ob die lfd. Nummer (=$suffix) auch befüllt ist
-    //u. U. wurde ein leeres Datenbankfeld ausgewählt;
-    //dabei würden dann Mandatsreferenzen mit endenden Nullen erzeugt
+    //ueberpruefen, ob die lfd. Nummer (=$suffix) auch befuellt ist
+    //u. U. wurde ein leeres Datenbankfeld ausgewaehlt;
+    //dabei wuerden dann Mandatsreferenzen mit endenden Nullen erzeugt
     if(!empty($suffix))
     {
         $user = new User($gDb, $gProfileFields, $member);

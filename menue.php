@@ -38,10 +38,10 @@ $paidcount = 0;
 //alle Mitglieder einlesen
 $members = list_members(array('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'BIC'), 0);
 
-//jetzt wird gezählt
+//jetzt wird gezaehlt
 foreach ($members as $member => $memberdata)
 {
-    //alle Fälligkeitsdaten einlesen
+    //alle Faelligkeitsdaten einlesen
     if (!empty($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]))
     {
         $duedatecount++;
@@ -711,7 +711,7 @@ if(count($rols)>0)
                             }
                             $form->closeGroupBox();
 
-                            // Prüfung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
+                            // Pruefung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
                             if (count($pPreferences->config['Altersrollen']['altersrollen_token'])>1)
                             {
                                 $form->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));

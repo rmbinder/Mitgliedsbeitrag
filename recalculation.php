@@ -33,7 +33,7 @@ $message = '';
 //alle Beitragsrollen einlesen
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
-//falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
+//falls eine Rollenabfrage durchgefuehrt wurde, die Rollen, die nicht gewaehlt wurden, loeschen
 if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]!=' ')
 {
     $message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><BR><BR>';
@@ -70,7 +70,7 @@ foreach ($rols as $rol => $roldata)
             }
         }
         // alle Mitglieder dieser Rolle durchlaufen und einen Zahlungspflichtigen bestimmen
-        // 2. Durchlauf: gibt es einen Rollenleiter, dann den Zahlungspflichtigen überschreiben, da höherwertiger
+        // 2. Durchlauf: gibt es einen Rollenleiter, dann den Zahlungspflichtigen ueberschreiben, da hoeherwertiger
         foreach ($roldata['members'] as $key => $data)
         {
             if (isGroupLeader($key, $rol))
@@ -85,7 +85,7 @@ foreach ($rols as $rol => $roldata)
 // alle aktiven Mitglieder einlesen
 $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'ACCESSION'.$gCurrentOrganization->getValue('org_id'), 'DEBTOR'), 0);
 
-//alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
+//alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 foreach ($members as $member => $memberdata)
 {
     $members[$member]['BEITRAG-NEU']='';
@@ -122,7 +122,7 @@ foreach ($members as $member => $memberdata)
 
             // anteiligen Beitrag berechnen, falls das Mitglied im aktuellen Jahr ein- oder ausgetreten ist
             // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
-            // && Beitragszeitraum (cost_period) darf nicht "Jährlich" (1) sein
+            // && Beitragszeitraum (cost_period) darf nicht "Jaehrlich" (1) sein
             if ((strtotime(date('Y').'-01-01') < $time_begin || $time_end < strtotime(date('Y').'-12-31'))
                 && ($roldata['rol_cost_period']!=-1)
                 && ($roldata['rol_cost_period']!=1))
@@ -158,10 +158,10 @@ foreach ($members as $member => $memberdata)
                     $members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' ';
                 }
                 // nur einmal soll beitrag_suffix angezeigt werden, wenn aber rol_description leer ist,
-                // wird es mehrfach hintereinander mit vielen Leerzeichen dazwischen angefügt, deshalb ersetzen
+                // wird es mehrfach hintereinander mit vielen Leerzeichen dazwischen angefuegt, deshalb ersetzen
                 //zuerst zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
                 $members[$member]['BEITRAGSTEXT-NEU'] = str_replace('  ', ' ', $members[$member]['BEITRAGSTEXT-NEU']);
-                //jetzt mehrfache beitrag_suffix löschen
+                //jetzt mehrfache beitrag_suffix loeschen
                 $members[$member]['BEITRAGSTEXT-NEU'] = str_replace($pPreferences->config['Beitrag']['beitrag_suffix'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'], $pPreferences->config['Beitrag']['beitrag_suffix'], $members[$member]['BEITRAGSTEXT-NEU']);
             }
             else                             //keine anteilige Berechnung
@@ -186,11 +186,11 @@ foreach ($members as $member => $memberdata)
     }
 }
 
-// alle Rollen und deren Mitglieder durchlaufen  und die Beiträge eines Mitglieds,
+// alle Rollen und deren Mitglieder durchlaufen  und die Beitraege eines Mitglieds,
 // das zudem ein Familienmitglied ist, dem Zahlungspflichtigen der Familie zugeschlagen
 foreach ($rols as $rol => $roldata)
 {
-    // nur Rollen mit dem Präfix einer Familie && die Familienrolle muß Mitglieder aufweisen
+    // nur Rollen mit dem Praefix einer Familie && die Familienrolle muß Mitglieder aufweisen
     if (($roldata['rollentyp']== 'fam') && (count($roldata['members'])>0))
     {
         // wenn definiert: Beitragstext mit allen Familienmitgliedern
@@ -204,7 +204,7 @@ foreach ($rols as $rol => $roldata)
             $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.' ';
         }
 
-        //alle Mitglieder dieser Rolle durchlaufen und die Beiträge der Mitglieder dem Zahlungspflichtigen zuordnen
+        //alle Mitglieder dieser Rolle durchlaufen und die Beitraege der Mitglieder dem Zahlungspflichtigen zuordnen
         foreach ($roldata['members'] as $member => $memberdata)
         {
             // nicht beim Zahlungspflichtigen selber und auch nur, wenn ein Zusatzbeitrag beim Mitglied errechnet wurde
@@ -214,7 +214,7 @@ foreach ($rols as $rol => $roldata)
                 $members[$member]['BEITRAG-NEU'] = '';
                 $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $members[$member]['BEITRAGSTEXT-NEU'].' ';
 
-                // wenn nicht definiert: Beitragstext mit allen Familienmitgliedern, trotzdem Name und Vorname anfügen
+                // wenn nicht definiert: Beitragstext mit allen Familienmitgliedern, trotzdem Name und Vorname anfuegen
                 if(!$pPreferences->config['Beitrag']['beitrag_textmitnam'])
                 {
                     $members[$roldata['has_to_pay']]['BEITRAGSTEXT-NEU'] .= $text_token.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].$text_token.' ';
@@ -225,7 +225,7 @@ foreach ($rols as $rol => $roldata)
 
         // anteiligen Beitrag berechnen, falls die Familie erst im aktuellen Jahr angelegt wurde
         // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
-        // && Beitragszeitraum (cost_period) darf nicht "Jährlich" (1) sein
+        // && Beitragszeitraum (cost_period) darf nicht "Jaehrlich" (1) sein
         if ((date('Y') == date('Y', strtotime($roldata['rol_timestamp_create']))) && ($roldata['rol_cost_period']!=-1) && ($roldata['rol_cost_period']!=1))
         {
             $beitrittsmonat = date('n', strtotime($roldata['rol_timestamp_create']));
@@ -242,7 +242,7 @@ foreach ($rols as $rol => $roldata)
 
 foreach ($members as $member => $memberdata)
 {
-    // den errechneten Beitrag nur in die DB schreiben wenn mehrere Kriterien erfüllt sind
+    // den errechneten Beitrag nur in die DB schreiben wenn mehrere Kriterien erfuellt sind
     if ((is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')])
             ||  (!(is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')]))
                 && (($pPreferences->config['Beitrag']['beitrag_modus'] == 'overwrite')
@@ -251,7 +251,7 @@ foreach ($members as $member => $memberdata)
     {
         $members[$member]['BEITRAGSTEXT-NEU'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['BEITRAGSTEXT-NEU'].' ';
 
-        // alle Beiträge auf 2 Nachkommastellen runden
+        // alle Beitraege auf 2 Nachkommastellen runden
         $members[$member]['BEITRAG-NEU'] = round($members[$member]['BEITRAG-NEU'], 2);
 
         //ggf. abrunden
@@ -266,7 +266,7 @@ foreach ($members as $member => $memberdata)
             $members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')].' ';
         }
 
-        //führende und nachfolgene Leerstellen im Beitragstext löschen
+        //fuehrende und nachfolgene Leerstellen im Beitragstext loeschen
         $members[$member]['BEITRAGSTEXT-NEU'] = trim($members[$member]['BEITRAGSTEXT-NEU']);
         //zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
         $members[$member]['BEITRAGSTEXT-NEU'] = str_replace('  ', ' ', $members[$member]['BEITRAGSTEXT-NEU']);

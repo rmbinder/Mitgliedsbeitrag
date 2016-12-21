@@ -1,7 +1,7 @@
 <?php
 /**
  ***********************************************************************************************
- * Setzen eines Fälligkeitsdatums fuer das Admidio-Plugin Mitgliedsbeitrag
+ * Setzen eines Faelligkeitsdatums fuer das Admidio-Plugin Mitgliedsbeitrag
  *
  * @copyright 2004-2016 The Admidio Team
  * @see http://www.admidio.org/
@@ -11,16 +11,16 @@
  *
  * Parameters:
  *
- * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beiträgen
- *                    assign - Setzen eines Fälligkeitsdatum
- * usr_id           : Id des Benutzers, für den das Fälligkeitsdatum gesetzt/gelöscht wird
- * datum_neu        : das neue Fälligkeitsdatum
+ * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beitraegen
+ *                    assign - Setzen eines Faelligkeitsdatum
+ * usr_id           : Id des Benutzers, fuer den das Faelligkeitsdatum gesetzt/geloescht wird
+ * datum_neu        : das neue Faelligkeitsdatum
  * mem_show_choice  : 0 - (Default) Alle Benutzer anzeigen
- *                    1 - Nur Benutzer anzeigen, bei denen ein Fälligkeitsdatum vorhanden ist
- *                    2 - Nur Benutzer anzeigen, bei denen kein Fälligkeitsdatum vorhanden ist
+ *                    1 - Nur Benutzer anzeigen, bei denen ein Faelligkeitsdatum vorhanden ist
+ *                    2 - Nur Benutzer anzeigen, bei denen kein Faelligkeitsdatum vorhanden ist
  * full_screen      : 0 - Normalbildschirm
  *                    1 - Vollbildschirm
- * sequencetype     : Sequenztyp, der gleichzeitig mit dem Fälligkeitsdatum gesetzt wird (FRST, RCUR, FNAL oder OOFF)
+ * sequencetype     : Sequenztyp, der gleichzeitig mit dem Faelligkeitsdatum gesetzt wird (FRST, RCUR, FNAL oder OOFF)
  ***********************************************************************************************
  */
 
@@ -41,7 +41,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
  //alle Beitragsrollen einlesen
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
-//falls eine Rollenabfrage durchgeführt wurde, dann die Rollen, die nicht gewählt wurden, löschen
+//falls eine Rollenabfrage durchgefuehrt wurde, dann die Rollen, die nicht gewaehlt wurden, loeschen
 if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]!=' ')
 {
     foreach ($rols as $rol => $roldata)
@@ -75,11 +75,11 @@ if($getMode == 'assign')
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId!=0)           // Fälligkeitsdatum nur für einen einzigen User ändern
+    if($getUserId!=0)           // Faelligkeitsdatum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
-    else                        // Alle ändern wurde gewählt
+    else                        // Alle aendern wurde gewaehlt
     {
         $userArray = $_SESSION['userArray'];
     }
@@ -90,10 +90,10 @@ if($getMode == 'assign')
         {
             $user = new User($gDb, $gProfileFields, $data);
 
-            //zuerst mal sehen, ob bei diesem user bereits ein Fälligkeitsdatum vorhanden ist
+            //zuerst mal sehen, ob bei diesem user bereits ein Faelligkeitsdatum vorhanden ist
             if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0)
             {
-                //er hat noch kein Fälligkeitsdatum, deshalb ein neues eintragen
+                //er hat noch kein Faelligkeitsdatum, deshalb ein neues eintragen
                 $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
 
                 if ($getSequenceType=='FRST')
@@ -107,7 +107,7 @@ if($getMode == 'assign')
             }
             else
             {
-                //er hat bereits ein Fälligkeitsdatum, deshalb das vorhandene löschen
+                //er hat bereits ein Faelligkeitsdatum, deshalb das vorhandene loeschen
                 $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
             }
 
@@ -151,7 +151,7 @@ else
         AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
             OR cat_org_id IS NULL ) ';
 
-    if($getMembersShow == 1)                  // nur Benutzer mit Fälligkeitsdatum anzeigen ("Mit Fälligkeitsdatum" wurde gewählt)
+    if($getMembersShow == 1)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
     {
         $memberCondition .= ' AND usd_usr_id = usr_id
             AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
@@ -230,7 +230,7 @@ else
     }
 
     $javascriptCode = '
-        // Anzeige abhängig vom gewählten Filter
+        // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
             if($(this).val().length > 0) {
                 window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/duedates.php?full_screen='.$getFullScreen.'&mem_show_choice="+$(this).val());

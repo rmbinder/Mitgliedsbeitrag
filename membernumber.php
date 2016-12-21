@@ -1,7 +1,7 @@
 <?php
 /**
  ***********************************************************************************************
- * Dieses Plugin generiert für jedes aktive und ehemalige Mitglied eine Mitgliedsnummer.
+ * Dieses Plugin generiert fuer jedes aktive und ehemalige Mitglied eine Mitgliedsnummer.
  *
  * @copyright 2004-2016 The Admidio Team
  * @see http://www.admidio.org/
@@ -33,10 +33,10 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 $members = array();
 $message = '';
 
-//prüfen, ob doppelte Mitgliedsnummern bestehen
+//pruefen, ob doppelte Mitgliedsnummern bestehen
 $nummer = erzeuge_mitgliedsnummer();
 
-// alle mitglieder abfragen
+// alle Mitglieder abfragen
 $sql = ' SELECT mem_usr_id
          FROM '.TBL_MEMBERS.' ';
 $statement = $gDb->query($sql);
@@ -73,7 +73,7 @@ foreach ($members as $member => $key)
     }
 }
 
-//alle Mitglieder durchlaufen und prüfen, ob eine Mitgliedsnummer existiert
+//alle Mitglieder durchlaufen und pruefen, ob eine Mitgliedsnummer existiert
  foreach ($members as $member => $key)
 {
     if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))

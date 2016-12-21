@@ -27,7 +27,7 @@ $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
 // in ajax mode return simple text on error
 $gMessage->showHtmlTextOnly(true);
 
-// Marker für Rückgabecode
+// Marker fuer Rueckgabecode
 $echomarker = 0;
 
 try
@@ -66,8 +66,8 @@ try
                 $pPreferences->config['Altersrollen']['altersrollen_token'][] = $_POST['altersrollen_token'. $conf];
                 $altersrollen_anzahl++;
             }
-            //diese Zeile ist nur zur Sicherheit, falls ein Nutzer einen Refresh (F5) des Browsers ausführt
-            // und dadurch nicht durch das Plugin kontrollierte Löschungen oder Hinzufügungen ausführt
+            //diese Zeile ist nur zur Sicherheit, falls ein Nutzer einen Refresh (F5) des Browsers ausfuehrt
+            //und dadurch nicht durch das Plugin kontrollierte Loeschungen oder Hinzufuegungen ausfuehrt
             if($altersrollen_anzahl==0)
             {
                 $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG'));

@@ -19,7 +19,7 @@ require_once(__DIR__ . '/../../adm_program/system/template.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
-// $pPreferences ist auch für die korrekte Auflösung des Parameters #creditor_id# erforderlich
+// $pPreferences ist auch fuer die korrekte Aufloesung des Parameters #creditor_id# erforderlich
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
@@ -98,7 +98,7 @@ foreach ($user_array as $userId)
         $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
 
-    //Datensatz für E-Mail-Adresse zusammensetzen
+    //Datensatz fuer E-Mail-Adresse zusammensetzen
     if(strlen($user->getValue('DEBTOR')) > 0)
     {
         if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)

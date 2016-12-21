@@ -11,9 +11,9 @@
  *
  * Parameters:
  *
- * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beiträgen
+ * mode             : html   - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beitraegen
  *                    assign - Setzen eines Bezahlt-Datums
- * usr_id           : Id des Benutzers, für den das Bezahlt-Datum gesetzt/gelöscht wird
+ * usr_id           : Id des Benutzers, fuer den das Bezahlt-Datum gesetzt/geloescht wird
  * datum_neu        : das neue Bezahlt-Datum
  * mem_show_choice  : 0 - (Default) Alle Benutzer anzeigen
  *                    1 - Nur Benutzer anzeigen, bei denen ein Bezahlt-Datum vorhanden ist
@@ -40,7 +40,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
  //alle Beitragsrollen einlesen
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
-//falls eine Rollenabfrage durchgeführt wurde, die Rollen, die nicht gewählt wurden, löschen
+//falls eine Rollenabfrage durchgefuehrt wurde, die Rollen, die nicht gewaehlt wurden, loeschen
 if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]!=' ')
 {
     foreach ($rols as $rol => $roldata)
@@ -73,11 +73,11 @@ if($getMode == 'assign')
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId!=0)           // Bezahlt-Datum nur für einen einzigen User ändern
+    if($getUserId!=0)           // Bezahlt-Datum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
-    else                        // Alle ändern wurde gewählt
+    else                        // Alle aendern wurde gewaehlt
     {
         $userArray = $_SESSION['userArray'];
     }
@@ -96,14 +96,14 @@ if($getMode == 'assign')
 
                 // wenn Lastschrifttyp noch nicht gesetzt ist: als Folgelastschrift kennzeichnen
                 // BEZAHLT bedeutet, es hat bereits eine Zahlung stattgefunden
-                // die nächste Zahlung kann nur eine Folgelastschrift sein
-                // Lastschrifttyp darf aber nur geändert werden, wenn der Einzug per SEPA stattfand, also ein Fälligkeitsdatum vorhanden ist
+                // die naechste Zahlung kann nur eine Folgelastschrift sein
+                // Lastschrifttyp darf aber nur geaendert werden, wenn der Einzug per SEPA stattfand, also ein Faelligkeitsdatum vorhanden ist
                 if (strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) == 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0)
                 {
                     $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'RCUR');
                 }
 
-                //falls Daten von einer Mandatsänderung vorhanden sind, diese löschen
+                //falls Daten von einer Mandatsaenderung vorhanden sind, diese loeschen
                 if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) != 0)
                 {
                     $user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), '');
@@ -117,7 +117,7 @@ if($getMode == 'assign')
                     $user->setValue('ORIG_DEBTOR_AGENT', '');
                 }
 
-                //das Fälligkeitsdatum löschen (wird nicht mehr gebraucht, da ja bezahlt)
+                //das Faelligkeitsdatum loeschen (wird nicht mehr gebraucht, da ja bezahlt)
                 if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0)
                 {
                     $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
@@ -125,7 +125,7 @@ if($getMode == 'assign')
             }
             else
             {
-                //er hat bereits ein BEZAHLT-Datum, deshalb das vorhandene löschen
+                //er hat bereits ein BEZAHLT-Datum, deshalb das vorhandene loeschen
                 $user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
             }
             $user->save();
@@ -170,7 +170,7 @@ else
         AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
             OR cat_org_id IS NULL ) ';
 
-    if($getMembersShow == 1)                   // nur Benutzer mit Bezahlt-Datum anzeigen ("Mit Bezahlt-Datum" wurde gewählt)
+    if($getMembersShow == 1)                   // nur Benutzer mit Bezahlt-Datum anzeigen ("Mit Bezahlt-Datum" wurde gewaehlt)
     {
         $memberCondition .= ' AND usd_usr_id = usr_id
             AND usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
@@ -260,7 +260,7 @@ else
     }
 
     $javascriptCode = '
-        // Anzeige abhängig vom gewählten Filter
+        // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
             if($(this).val().length > 0) {
                 window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/payments.php?full_screen='.$getFullScreen.'&mem_show_choice="+$(this).val());

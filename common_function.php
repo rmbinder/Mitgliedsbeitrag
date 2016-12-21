@@ -16,14 +16,14 @@ $plugin_folder = '/'.substr(__DIR__, strrpos(__DIR__, DIRECTORY_SEPARATOR)+1);
 
 /**
  * Funktion um alle beitragsbezogenen Rollen einzulesen
- * @param string $rollenwahl [optional]     'alt' für alle altersgestaffelte Rollen,
- *                                          'fam' für alle Familienrollen,
- *                                          'fix' für alle Fixbeitragsrollen,
- *                                          leer für alle Beitragsrollen
+ * @param string $rollenwahl [optional]     'alt' fuer alle altersgestaffelte Rollen,
+ *                                          'fam' fuer alle Familienrollen,
+ *                                          'fix' fuer alle Fixbeitragsrollen,
+ *                                          leer fuer alle Beitragsrollen
  * @param   array   $with_members [optional]   Um die Rollen mit Mitgliedern einzulesen ist hier
  *                                            ein Array mit den einzulesenden usf_name_intern anzugeben,
  *                                            z.B. array('FIRST_NAME','LAST_NAME');
- *                                            ohne übergebenen Parameter werden die Rollen ohne Mitglieder eingelesen
+ *                                            ohne uebergebenen Parameter werden die Rollen ohne Mitglieder eingelesen
  * @return  array   $rollen         Array mit Rollennamen im Format:<br>
  *                                  $rollen[rol_id]['rolle']                  =Rollenname ('rol_name')<br>
  *                                  $rollen[rol_id]['rol_cost']               =Beitrag der Rollen ('rol_cost')<br>
@@ -109,7 +109,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
     }
 
     // jetzt sind alle Familienrollen, Altersrollen und Fixrollen markiert
-    // alle nicht benötigten Rollen löschen
+    // alle nicht benoetigten Rollen loeschen
     foreach ($rollen as $key => $data)
     {
         if (($rollenwahl == 'fam') && ($rollen[$key]['rollentyp'] != 'fam'))
@@ -146,8 +146,8 @@ function bezugskategorie_einlesen()
 
     $members = array();
 
-    // Hinweis: die Überprüfung, ob $config_ini['Rollenpruefung']['bezugskategorie']
-    // befüllt und ein Array ist, ist in der aufrufenden Routine erfolgt
+    // Hinweis: die Ueberpruefung, ob $config_ini['Rollenpruefung']['bezugskategorie']
+    // befuellt und ein Array ist, ist in der aufrufenden Routine erfolgt
 
     $sql = 'SELECT DISTINCT mem_usr_id
             FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ' ';
@@ -194,11 +194,11 @@ function bezugskategorie_einlesen()
 }
 
 /**
- * Funktion prueft, ob ein User Angehöriger einer bestimmten Rolle ist
+ * Funktion prueft, ob ein User Angehoeriger einer bestimmten Rolle ist
  *
  * @param   int  $role_id   ID der zu pruefenden Rolle
  * @param   int  $user_id [optional]  ID des Users, fuer den die Mitgliedschaft geprueft werden soll;
- *                                         ohne Übergabe, wird für den aktuellen User geprüft
+ *                                         ohne Uebergabe, wird fuer den aktuellen User geprueft
  * @return  bool
  */
 function hasRole_IDPMB($role_id, $user_id = 0)
@@ -241,8 +241,8 @@ function hasRole_IDPMB($role_id, $user_id = 0)
 }
 
 /**
- * Diese Funktion liefert als Rückgabe die usr_ids von Rollenangehörigen.<br>
- * mögliche Aufrufe:<br>
+ * Diese Funktion liefert als Rueckgabe die usr_ids von Rollenangehoerigen.<br>
+ * moegliche Aufrufe:<br>
  *         list_members(array('usf_name_intern1','usf_name_intern2'),array('Rollenname1' => Schalter aktiv/ehem) )<br>
  *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), 'Rollenname' )<br>
  *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), Schalter aktiv/ehem )<br>
@@ -327,7 +327,7 @@ function list_members($fields, $rols = array())
         $members[$row['mem_usr_id']] = '';
 
         // mem_begin und mem_end werden nur in der recalculation.php ausgewertet,
-        // wird für anteilige Beitragsberechnung verwendet
+        // wird fuer anteilige Beitragsberechnung verwendet
         $members[$row['mem_usr_id']]['mem_begin']=$row['mem_begin'];
         $members[$row['mem_usr_id']]['mem_end']=$row['mem_end'];
     }
@@ -348,7 +348,7 @@ function list_members($fields, $rols = array())
 }
 
 /**
- * Callbackfunktion für array_filter ,
+ * Callbackfunktion fuer array_filter ,
  * die globale Variable $delete_NULL_field muß in der uebergebenden Routine definiert sein
  * @param   string  $wert
  * @return  bool
@@ -425,13 +425,13 @@ function getCostPeriod($my_rol_cost_period)
 }
 
 /**
- * Erzeugt Array mit Daten für die Analyse
+ * Erzeugt Array mit Daten fuer die Analyse
  * @return  array $ret   Array im Format:<br>
- *                       $ret['BEITRAG_kto']        =Gesamtsumme der Beiträge mit Kto-Verbindung<br>
+ *                       $ret['BEITRAG_kto']        =Gesamtsumme der Beitraege mit Kto-Verbindung<br>
  *                       $ret['BEITRAG_kto_anzahl'] =Anzahl mit Kto-Verbindung<br>
  *                       $ret['BEZAHLT_kto']        =Gesamtsumme mit Bezahlt und mit Kto-Verbindung<br>
  *                       $ret['BEZAHLT_kto_anzahl'] =Anzahl mit Bezahlt und mit Kto-Verbindung<br>
- *                       $ret['BEITRAG_rech']       =Gesamtsumme der Beiträge ohne Kto-Verbindung<br>
+ *                       $ret['BEITRAG_rech']       =Gesamtsumme der Beitraege ohne Kto-Verbindung<br>
  *                       $ret['BEITRAG_rech_anzahl']=Anzahl ohne Kto-Verbindung<br>
  *                       $ret['BEZAHLT_rech']       =Gesamtsumme mit Bezahlt und ohne Kto-Verbindung<br>
  *                       $ret['BEZAHLT_rech_anzahl']=Anzahl mit Bezahlt und ohne Kto-Verbindung
@@ -454,7 +454,7 @@ function analyse_mem()
         }
     }
 
-    //jetzt wird gezählt
+    //jetzt wird gezaehlt
     foreach($members as $member => $memberdata)
     {
         if (!empty($memberdata['IBAN']))
@@ -484,7 +484,7 @@ function analyse_mem()
 }
 
 /**
- * Erzeugt Array mit Daten für die Analyse
+ * Erzeugt Array mit Daten fuer die Analyse
  * @return  array $ret
  */
 function analyse_rol()
@@ -502,7 +502,7 @@ function analyse_rol()
 
     foreach($pPreferences->config['Familienrollen']['familienrollen_prefix'] as $famkey => $famdata)
     {
-        //wieviele Familienrollen mit diesem Präfix gibt es denn?
+        //wieviele Familienrollen mit diesem Praefix gibt es denn?
         //in der aufrufenden Funktion wird mittels sizeof abgefragt,
         //deshalb muss hier eine Array erzeugt werden
         $arr = array();
@@ -520,7 +520,7 @@ function analyse_rol()
 }
 
 /**
- * Prüft die Rollenmitgliedschaften in altersgestaffelten Rollen
+ * Prueft die Rollenmitgliedschaften in altersgestaffelten Rollen
  * @return  array $ret
  */
 function check_rollenmitgliedschaft_altersrolle()
@@ -540,7 +540,7 @@ function check_rollenmitgliedschaft_altersrolle()
         }
     }
 
-    // jetzt $check durchlaufen und nur die Einträge bearbeiten, bei denen mehr als 1 Alterstyp vorhanden ist
+    // jetzt $check durchlaufen und nur die Eintraege bearbeiten, bei denen mehr als 1 Alterstyp vorhanden ist
     foreach($check as $member => $memberdata)
     {
         if(count($memberdata['alterstyp'])>1)
@@ -566,7 +566,7 @@ function check_rollenmitgliedschaft_altersrolle()
 }
 
 /**
- * Prüft die Pflicht-Rollenmitgliedschaften
+ * Prueft die Pflicht-Rollenmitgliedschaften
  * @return  array $ret
  */
 function check_rollenmitgliedschaft_pflicht()
@@ -574,15 +574,15 @@ function check_rollenmitgliedschaft_pflicht()
     global $pPreferences, $gL10n;
     $ret = array();
 
-    // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benötigt, ist aber notwendig,
+    // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benoetigt, ist aber notwendig,
     // damit die Rollenmitglieder eingelesen werden)
     $beitragsrollen = beitragsrollen_einlesen('', array('FIRST_NAME'));
     $members = list_members(array('FIRST_NAME', 'LAST_NAME'), 0);
 
-    // alle Beitragsrollen durchlaufen und diejenigen Rollen löschen, die nicht als Pflichtrolle definiert sind
+    // alle Beitragsrollen durchlaufen und diejenigen Rollen loeschen, die nicht als Pflichtrolle definiert sind
     foreach ($beitragsrollen as $rol => $roldata)
     {
-        //alle if und elseif könnte man in einer Zeile schreiben und mit || verknüpfen, aber so ist es übersichtlicher
+        //alle if und elseif koennte man in einer Zeile schreiben und mit || verknuepfen, aber so ist es uebersichtlicher
         if(($roldata['rollentyp'] == 'fam') && (!$pPreferences->config['Rollenpruefung']['familienrollenpflicht']))
         {
             unset($beitragsrollen[$rol]);
@@ -611,7 +611,7 @@ function check_rollenmitgliedschaft_pflicht()
 
         foreach ($members as $member => $memberdata)
         {
-            // alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind
+            // alle usr_ids loeschen, wenn sie nicht innerhalb der Bezugskategorie sind
             if (!in_array($member, $bezugskategorieMembers))
             {
                 unset($members[$member]);
@@ -619,7 +619,7 @@ function check_rollenmitgliedschaft_pflicht()
         }
     }
 
-    // alle Mitglieder durchlaufen und prüfen, ob sie in mind. einer Pflicht-Beitragsrolle sind
+    // alle Mitglieder durchlaufen und pruefen, ob sie in mind. einer Pflicht-Beitragsrolle sind
     foreach ($members as $member => $memberdata)
     {
         $marker = false;
@@ -648,7 +648,7 @@ function check_rollenmitgliedschaft_pflicht()
 }
 
 /**
- * Prüft die Auschluss-Rollenmitgliedschaften
+ * Prueft die Auschluss-Rollenmitgliedschaften
  * @return  array $ret
  */
 function check_rollenmitgliedschaft_ausschluss()
@@ -656,12 +656,12 @@ function check_rollenmitgliedschaft_ausschluss()
     global $pPreferences, $gL10n;
     $ret = array();
 
-    // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benötigt, ist aber notwendig,
+    // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benoetigt, ist aber notwendig,
     // damit die Rollenmitglieder eingelesen werden)
     $beitragsrollen = beitragsrollen_einlesen('', array('FIRST_NAME'));
     $members = list_members(array('FIRST_NAME', 'LAST_NAME'), 0);
 
-    // alle Beitragsrollen durchlaufen und für jedes Mitglied seine Rollenzugehörigkeiten bestimmen
+    // alle Beitragsrollen durchlaufen und fuer jedes Mitglied seine Rollenzugehoerigkeiten bestimmen
     foreach ($beitragsrollen as $rol => $roldata)
     {
         foreach ($roldata['members'] as $key => $dummy)
@@ -695,7 +695,7 @@ function check_rollenmitgliedschaft_ausschluss()
 
         foreach ($members as $member => $memberdata)
         {
-            // alle usr_ids löschen, wenn sie nicht innerhalb der Bezugskategorie sind
+            // alle usr_ids loeschen, wenn sie nicht innerhalb der Bezugskategorie sind
             if (!in_array($member, $bezugskategorieMembers))
             {
                 unset($members[$member]);
@@ -703,10 +703,10 @@ function check_rollenmitgliedschaft_ausschluss()
         }
     }
 
-    // alle Mitglieder durchlaufen und prüfen, ob sie in Ausschluss-Beitragsrollen sind
+    // alle Mitglieder durchlaufen und pruefen, ob sie in Ausschluss-Beitragsrollen sind
     foreach ($members as $member => $memberdata)
     {
-        //falls das Mitglied kein Angehöriger einer Beitragsrolle ist: abbrechen und zum nächsten Datensatz gehen
+        //falls das Mitglied kein Angehoeriger einer Beitragsrolle ist: abbrechen und zum naechsten Datensatz gehen
         if (!isset($memberdata['rollen']))
         {
             continue;
@@ -776,7 +776,7 @@ function check_rollenmitgliedschaft_ausschluss()
 }
 
 /**
- * Vergleichsfunktion erforderlich für usort()
+ * Vergleichsfunktion erforderlich fuer usort()
  * @param  $wert_a
  * @param  $wert_b
  * @return int 0,1 oder -1
@@ -793,7 +793,7 @@ function vergleich($wert_a, $wert_b)
 }
 
 /**
- * Prüft die altersgestaffelten Rollen auf Lücken bzw Überschneidungen
+ * Prueft die altersgestaffelten Rollen auf Luecken bzw Ueberschneidungen
  * @return  array $ret
  */
 function check_rols()
@@ -843,7 +843,7 @@ function check_rols()
 }
 
 /**
- * Prüft, ob Angehörige von Familienrollen die Prüfbedingungen erfüllen
+ * Prueft, ob Angehoerige von Familienrollen die Pruefbedingungen erfuellen
  * @return  array $ret
  */
 function check_family_roles()
@@ -857,19 +857,19 @@ function check_family_roles()
     $fam = beitragsrollen_einlesen('fam', array('LAST_NAME', 'FIRST_NAME', 'BIRTHDAY'));
     $check = $pPreferences->config['Familienrollen'];
 
-    // alle Prüfbedingungen einlesen
+    // alle Pruefbedingungen einlesen
     foreach($check['familienrollen_prefix'] as $key => $prefix)
     {
         $temp_arr = explode(';', $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key]);
         foreach ($temp_arr as $keybed => $bedingung)
         {
-            // den Doppelpunkt in der Prüfbedingung ersetzen
-            // eine Prüfbedingung könnte deshalb auch in folgender Syntax geschrieben werden: von*bis*Anzahl
+            // den Doppelpunkt in der Pruefbedingung ersetzen
+            // eine Pruefbedingung koennte deshalb auch in folgender Syntax geschrieben werden: von*bis*Anzahl
             $bedingung = str_replace(':', '*', $bedingung);
 
             $temp_arr2 = explode('*', $bedingung);
 
-            // prüfen auf unsinnige Bedingungen
+            // pruefen auf unsinnige Bedingungen
             if(isset($temp_arr2[0]) && isset($temp_arr2[1]) && isset($temp_arr2[2])
              && is_numeric($temp_arr2[0]) && is_numeric($temp_arr2[1]) && is_numeric($temp_arr2[2]))
             {
@@ -893,7 +893,7 @@ function check_family_roles()
             }
         }
 
-        // Meldung bei fehlerhaften Prüfbedingungen
+        // Meldung bei fehlerhaften Pruefbedingungen
         if($ret_marker && strlen($pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key])>0)
         {
             $ret_error[] = '<small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key].' ('.$prefix.') '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INVALID').'.</small>';
@@ -901,7 +901,7 @@ function check_family_roles()
         $ret_marker = false;
     }
 
-    // Leerzeile einfügen
+    // Leerzeile einfuegen
     if (count($ret_error) != 0)
     {
         $ret_error[] = '';
@@ -909,7 +909,7 @@ function check_family_roles()
 
     unset($bedingung, $keybed, $temp_arr, $temp_arr2, $ret_marker);
 
-    // alle Prüfbedingungen durchlaufen
+    // alle Pruefbedingungen durchlaufen
     foreach($check['familienrollen_prefix'] as $key => $prefix)
     {
         // alle Familienrollen durchlaufen
@@ -919,7 +919,7 @@ function check_family_roles()
             {
                 $ret_temp = array();
 
-                // alle Prüfungsbedingungen durchlaufen
+                // alle Pruefungsbedingungen durchlaufen
                 foreach ($check['pruefungsbedingungen'][$key] as $pruefkey => $pruefdata)
                 {
                     $counter = 0;
@@ -929,7 +929,7 @@ function check_family_roles()
                         // das Alter des Mitglieds am Stichtag bestimmen
                         $age = date('Y', strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'])) - date('Y', strtotime($memberdata['BIRTHDAY']));
 
-                        // passt das Alter zu einer der Prüfbedingungen?
+                        // passt das Alter zu einer der Pruefbedingungen?
                         if ($age >= $pruefdata['von'] && $age <= $pruefdata['bis'])
                         {
                             $counter++;
@@ -970,7 +970,7 @@ function check_family_roles()
 }
 
 /**
- * Prüft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Adresse, Ort...) vorhanden sind
+ * Prueft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Adresse, Ort...) vorhanden sind
  * @return  array $ret
  */
 function check_mandate_management()
@@ -1000,7 +1000,7 @@ function check_mandate_management()
 }
 
 /**
- * Durchläuft alle Mitglieder und prüft deren IBAN
+ * Durchlaeuft alle Mitglieder und prueft deren IBAN
  * @return  array $ret
  */
 function check_iban()
@@ -1030,7 +1030,7 @@ function check_iban()
 }
 
 /**
- * Prüft die übergebene IBAN
+ * Prueft die uebergebene IBAN
  * @param string $iban
  * @return  bool
  */
@@ -1057,7 +1057,7 @@ function test_iban($iban)
 }
 
 /**
- * Funktion prueft, ob der Nutzer, aufgrund seiner Rollenzugehörigkeit, berechtigt ist das Plugin aufzurufen
+ * Funktion prueft, ob der Nutzer, aufgrund seiner Rollenzugehoerigkeit, berechtigt ist das Plugin aufzurufen
  * @param   array  $array   Array mit Rollen-IDs:   entweder $pPreferences->config['Pluginfreigabe']['freigabe']
  *                                                  oder $pPreferences->config['Pluginfreigabe']['freigabe_config']
  * @return  bool   $showPlugin
@@ -1077,7 +1077,7 @@ function check_showpluginPMB($array)
 }
 
 /**
- * Formatiert den übergebenen Datumsstring für MySQL,
+ * Formatiert den uebergebenen Datumsstring fuer MySQL,
  * date_format2mysql ersetzt date_german2mysql (erstellt von eiseli)
  * @param   string  $date       Datumsstring
  * @return  date                Datum im Format Y-m-d
@@ -1144,7 +1144,7 @@ function erzeuge_mitgliedsnummer()
 
     sort($mitgliedsnummern);
 
-    //überprüfung auf doppelte Mitgliedsnummern
+    //Ueberpruefung auf doppelte Mitgliedsnummern
     for ($i=0; $i < count($mitgliedsnummern)-1; $i++)
     {
         if ($mitgliedsnummern[$i] == $mitgliedsnummern[$i+1])
@@ -1170,7 +1170,7 @@ function erzeuge_mitgliedsnummer()
 }
 
 /**
- * Callbackfunktion für array_filter
+ * Callbackfunktion fuer array_filter
  * @param   string  $wert
  * @return  bool    true, wenn Beitrag  != NULL ist
  */
@@ -1181,7 +1181,7 @@ function delete_without_BEITRAG ($wert)
 }
 
 /**
- * Callbackfunktion für array_filter
+ * Callbackfunktion fuer array_filter
  * @param   string  $wert
  * @return  bool    true, wenn IBAN  != NULL ist
  */
@@ -1191,7 +1191,7 @@ function delete_without_IBAN ($wert)
 }
 
 /**
- * Callbackfunktion für array_filter
+ * Callbackfunktion fuer array_filter
  * @param   string  $wert
  * @return  bool    true, wenn BIC  != NULL ist
  */
@@ -1201,7 +1201,7 @@ function delete_without_BIC ($wert)
 }
 
 /**
- * Callbackfunktion für array_filter
+ * Callbackfunktion fuer array_filter
  * @param   string  $wert
  * @return  bool    true, wenn MandateID  == NULL ist
  */
@@ -1212,7 +1212,7 @@ function delete_with_MANDATEID ($wert)
 }
 
 /**
- * Callbackfunktion für array_filter
+ * Callbackfunktion fuer array_filter
  * @param   string  $wert
  * @return  bool    true, wenn Bezahlt  == NULL ist
  */
@@ -1223,7 +1223,7 @@ function delete_with_BEZAHLT ($wert)
 }
 
 /**
- * Callbackfunktion für array_filter
+ * Callbackfunktion fuer array_filter
  * @param   string  $wert
  * @return  bool    true, wenn MandateID  != NULL ist
  */
@@ -1234,7 +1234,7 @@ function delete_without_MANDATEID ($wert)
 }
 
 /**
- * Callbackfunktion für array_filter
+ * Callbackfunktion fuer array_filter
  * @param   string  $wert
  * @return  bool    true, wenn MandateID  != NULL ist
  */
@@ -1266,16 +1266,16 @@ function umlaute($tmptext)
 }
 
 /**
- * Ersetzt und entfernt unzulässige Zeichen in der SEPA-XML-Datei
+ * Ersetzt und entfernt unzulaessige Zeichen in der SEPA-XML-Datei
  * @param   string  $tmptext
  * @return  string  $ret
  */
 function replace_sepadaten($tmptext)
 {
 /*
-Zulässige Zeichen
-Für die Erstellung von SEPA-Nachrichten sind die folgenden Zeichen in der
-Kodierung gemäß UTF-8 bzw. ISO-885933 zugelassen.
+Zulaessige Zeichen
+Fuer die Erstellung von SEPA-Nachrichten sind die folgenden Zeichen in der
+Kodierung gemaess UTF-8 bzw. ISO-885933 zugelassen.
 ---------------------------------------------------
 Zugelassener Zeichencode| Zeichen   | Hexcode
 Numerische Zeichen      | 0 bis 9   | X'30' bis X'39'
@@ -1290,7 +1290,7 @@ Leerzeichen             |           | X'20
 Linke Klammer           |  (        | X'28
 Pluszeichen             |  +        | X'2B
 Rechte Klammer          |  )        | X'29
-Schrägstrich            |  /        | X'2F
+Schraegstrich           |  /        | X'2F
 */
     $charMap = array(
         'Ä' => 'Ae',
