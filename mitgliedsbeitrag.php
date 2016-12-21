@@ -32,36 +32,36 @@ $pPreferences = new ConfigTablePMB();
 // eine Deinstallation hat stattgefunden, deshalb keine Installationsroutine durchlaufen und auch keinen Link anzeigen
 if(!isset($_SESSION['pmbDeinst']))
 {
-	$checked = $pPreferences->checkforupdate();
-	$startprog='menue.php';
+    $checked = $pPreferences->checkforupdate();
+    $startprog='menue.php';
 
-	if ($checked==1 )   		//Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
-	{
-		$pPreferences->init();	
-	}
-	elseif ($checked==2)		//Installationsroutine durchlaufen
-	{
-		$startprog='installation.php';
-		$pPreferences->init();
-	}
+    if ($checked==1)        //Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
+    {
+        $pPreferences->init();
+    }
+    elseif ($checked==2)        //Installationsroutine durchlaufen
+    {
+        $startprog='installation.php';
+        $pPreferences->init();
+    }
 
-	$pPreferences->read();			// (checked ==0) : nur Einlesen der Konfigurationsdaten
-	
-	// Zeige Link zum Plugin
-	if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']) )
-	{
-		if (isset($pluginMenu))
-		{
-			// wenn in der my_body_bottom.php ein $pluginMenu definiert wurde, 
-			// dann innerhalb dieses Menüs anzeigen
-			$pluginMenu->addItem('membershipfee_show', FOLDER_PLUGINS . $plugin_folder .'/'.$startprog,
-				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png'); 
-		}
-		else 
-		{
-			// wenn nicht, dann innerhalb des (immer vorhandenen) Module-Menus anzeigen
-			$moduleMenu->addItem('membershipfee_show', FOLDER_PLUGINS . $plugin_folder .'/'.$startprog,
-				$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
-		}
-	}
-}	
+    $pPreferences->read();            // (checked ==0) : nur Einlesen der Konfigurationsdaten
+
+    // Zeige Link zum Plugin
+    if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+    {
+        if (isset($pluginMenu))
+        {
+            // wenn in der my_body_bottom.php ein $pluginMenu definiert wurde,
+            // dann innerhalb dieses Menüs anzeigen
+            $pluginMenu->addItem('membershipfee_show', FOLDER_PLUGINS . $plugin_folder .'/'.$startprog,
+                $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
+        }
+        else
+        {
+            // wenn nicht, dann innerhalb des (immer vorhandenen) Module-Menus anzeigen
+            $moduleMenu->addItem('membershipfee_show', FOLDER_PLUGINS . $plugin_folder .'/'.$startprog,
+                $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
+        }
+    }
+}

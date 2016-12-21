@@ -25,7 +25,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
@@ -34,7 +34,7 @@ $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defa
 $getSubject = '';
 
 // check if the call of the page was allowed by settings
-if ($gPreferences['enable_mail_module'] != 1 )
+if ($gPreferences['enable_mail_module'] != 1)
 {
     // message if the sending of PM is not allowed
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
@@ -49,9 +49,9 @@ if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) == 0)
 //usr_id wurde uebergeben, dann Kontaktdaten des Users aus der DB fischen
 $user = new User($gDb, $gProfileFields, $getUserId);
 
-// if an User ID is given, we need to check if the actual user is alowed to contact this user  
+// if an User ID is given, we need to check if the actual user is alowed to contact this user
 if (($gCurrentUser->editUsers() == false && isMember($user->getValue('usr_id')) == false)
-   || strlen($user->getValue('usr_id')) == 0 )
+   || strlen($user->getValue('usr_id')) == 0)
 {
     $gMessage->show($gL10n->get('SYS_USER_ID_NOT_FOUND'));
 }
@@ -62,38 +62,37 @@ $text = new TableText($gDb);
 //abhängig vom aufrufenden Modul Text einlesen
 if (substr_count($gNavigation->getUrl(), 'pre_notification')==1)
 {
-	$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 }
 elseif (substr_count($gNavigation->getUrl(), 'payments')==1)
 {
-	$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 }
 
 $mailSrcText = $text->getValue('txt_text');
-$mailSrcText = replace_emailparameter($mailSrcText,$user);
-     
+$mailSrcText = replace_emailparameter($mailSrcText, $user);
+
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
 {
-	$getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
+    $getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
 }
 else
 {
-	$getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
+    $getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
 }
-        
+
 if(strpos($mailSrcText, '#content#') !== false)
 {
-	$getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
+    $getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
 }
 else
 {
-	$getBody   = $mailSrcText;
-}  
+    $getBody   = $mailSrcText;
+}
 
-$getBody = preg_replace ('/\r\n/', '<BR>', $getBody);
+$getBody = preg_replace('/\r\n/', '<BR>', $getBody);
 
- 
 if (strlen($getSubject) > 0)
 {
     $headline = $gL10n->get('MAI_SUBJECT').': '.$getSubject;
@@ -117,38 +116,38 @@ $page->addHtml($messagesWriteMenu->show(false));
  //Datensatz für E-Mail-Adresse zusammensetzen
 if(strlen($user->getValue('DEBTOR')) > 0)
 {
-	if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
-	{
-		// besitzt der User eine gueltige E-Mail-Adresse
-		if (!strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
-		{
-			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
-		}
-		else 
-		{
-			$userEmail = $user->getValue('DEBTOR_EMAIL');
-		}
-	}         	
+    if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
+    {
+        // besitzt der User eine gueltige E-Mail-Adresse
+        if (!strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
+        {
+            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
+        }
+        else
+        {
+            $userEmail = $user->getValue('DEBTOR_EMAIL');
+        }
+    }
 }
-else 
+else
 {
-	if(strlen($user->getValue('EMAIL')) > 0)
-	{
-		// besitzt der User eine gueltige E-Mail-Adresse
-		if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
-		{
-			$gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
-		}
-		else 
-		{
-			$userEmail = $user->getValue('EMAIL');		
-		}
-	}         	
-}   
+    if(strlen($user->getValue('EMAIL')) > 0)
+    {
+        // besitzt der User eine gueltige E-Mail-Adresse
+        if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
+        {
+            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
+        }
+        else
+        {
+            $userEmail = $user->getValue('EMAIL');
+        }
+    }
+}
 
 // Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,
 // dann soll das Formular gefuellt werden mit den Werten aus der Session
-if (strpos($gNavigation->getUrl(),'message_send.php') > 0 && isset($_SESSION['message_request']))
+if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['message_request']))
 {
     // Das Formular wurde also schon einmal ausgef�llt,
     // da der User hier wieder gelandet ist nach der Mailversand-Seite
@@ -174,23 +173,23 @@ if (strlen($getSubject) > 0)
 {
     $formParam .= 'subject='.$getSubject.'&';
 }
-    
+
 // show form
 $form = new HtmlForm('mail_send_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_send.php?'.$formParam, $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
-    
+
 if ($getUserId > 0)
 {
     // usr_id wurde uebergeben, dann E-Mail direkt an den User schreiben
     $preload_data = '{ id: "' .$getUserId. '", text: "' .$userEmail. '", locked: true}';
 }
- 
-$form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => FIELD_DISABLED)); 
+
+$form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addLine();
 $form->addInput('name', $gL10n->get('MAI_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addInput('mailfrom', $gL10n->get('MAI_YOUR_EMAIL'), $gCurrentUser->getValue('EMAIL'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addCheckbox('carbon_copy', $gL10n->get('MAI_SEND_COPY'), $form_values['carbon_copy']);
- 
+
 if (($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation']==2) || $gPreferences['mail_delivery_confirmation']==1)
 {
     $form->addCheckbox('delivery_confirmation', $gL10n->get('MAI_DELIVERY_CONFIRMATION'), $form_values['delivery_confirmation']);
@@ -201,8 +200,10 @@ $form->closeGroupBox();
 $form->openGroupBox('gb_mail_message', $gL10n->get('SYS_MESSAGE'));
 $form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => FIELD_REQUIRED));
 
-$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true, 'multiUploadLabel' => $gL10n->get('MAI_ADD_ATTACHEMENT'), 
-        'hideUploadField' => true, 'helpTextIdLabel' => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
+$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true,
+                                                                                 'multiUploadLabel'   => $gL10n->get('MAI_ADD_ATTACHEMENT'),
+                                                                                 'hideUploadField'    => true,
+                                                                                 'helpTextIdLabel'    => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
 
 // add textfield or ckeditor to form
 if($gValidLogin == true && $gPreferences['mail_html_registered_users'] == 1)

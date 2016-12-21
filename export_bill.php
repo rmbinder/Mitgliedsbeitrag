@@ -24,12 +24,12 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
-	$gMessage->setForwardUrl($gHomepage, 3000);
+    $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
 //alle Mitglieder einlesen
-$members = list_members(array('FIRST_NAME','LAST_NAME','ADDRESS','POSTCODE','CITY','EMAIL','FEE'.$gCurrentOrganization->getValue('org_id'),'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'),'PAID'.$gCurrentOrganization->getValue('org_id'),'IBAN','DEBTOR'), 0)  ;
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'ADDRESS', 'POSTCODE', 'CITY', 'EMAIL', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0);
 
 //$rechnungs_file[]=array();
 $rechnungs_file=array();
@@ -37,85 +37,85 @@ $i=0;
 
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehörigkeiten die Beiträge bestimmen
 foreach ($members as $member => $memberdata){
-    if ( empty($memberdata['IBAN'])
-        	&&  empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
-        	&& !empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
-        	&& !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])  )
-	{
+    if (empty($memberdata['IBAN'])
+            &&  empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
+            && !empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
+            && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]))
+    {
         if (empty($memberdata['DEBTOR']))
-        {  
-            $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'] ;
+        {
+            $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'];
         }
         $rechnungs_file[$i] = array(
-                "name"           => $members[$member]['DEBTOR'],     // Name of account owner.
-                "adress"         => $members[$member]['ADDRESS'],
-                "postcode"       => $members[$member]['POSTCODE'],
-                "city"           => $members[$member]['CITY'],
-                "email"          => $members[$member]['EMAIL'],
-                "beitrag"        => $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')],
-                "beitragstext"   => $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],
+                'name'           => $members[$member]['DEBTOR'],     // Name of account owner.
+                'adress'         => $members[$member]['ADDRESS'],
+                'postcode'       => $members[$member]['POSTCODE'],
+                'city'           => $members[$member]['CITY'],
+                'email'          => $members[$member]['EMAIL'],
+                'beitrag'        => $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')],
+                'beitragstext'   => $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],
         );
         $i+=1;
     }
 }
 
-if (sizeof($rechnungs_file)>0)
+if (count($rechnungs_file)>0)
 {
-	// Dateityp, der immer abgespeichert wird
-	header("Content-Type: application/octet-stream");
+    // Dateityp, der immer abgespeichert wird
+    header('Content-Type: application/octet-stream');
 
-	// noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
-	header('Cache-Control: private');
+    // noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
+    header('Cache-Control: private');
 
-	// Im Grunde ueberfluessig, hat sich anscheinend bewährt
-	header("Content-Transfer-Encoding: binary");
+    // Im Grunde ueberfluessig, hat sich anscheinend bewährt
+    header('Content-Transfer-Encoding: binary');
 
-	// Zwischenspeichern auf Proxies verhindern
-	header("Cache-Control: post-check=0, pre-check=0");
-	header('Content-Disposition: attachment; filename="'.$pPreferences->config['Rechnungs-Export']['rechnung_dateiname'].'"');
+    // Zwischenspeichern auf Proxies verhindern
+    header('Cache-Control: post-check=0, pre-check=0');
+    header('Content-Disposition: attachment; filename="'.$pPreferences->config['Rechnungs-Export']['rechnung_dateiname'].'"');
 
-	$nr = 1;
-	$sum= 0;
+    $nr = 1;
+    $sum= 0;
 
-	//echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
-	echo($gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').";".$gL10n->get('SYS_NAME').";".$gL10n->get('SYS_ADDRESS').";".$gL10n->get('SYS_POSTCODE').";".$gL10n->get('SYS_LOCATION').";".$gL10n->get('SYS_EMAIL').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').";".$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n");
-	//print_r($rechnungs_file);
+    //echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
+    echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'.$gL10n->get('SYS_NAME').';'.$gL10n->get('SYS_ADDRESS').';'.$gL10n->get('SYS_POSTCODE').';'.$gL10n->get('SYS_LOCATION').';'.$gL10n->get('SYS_EMAIL').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n";
+    //print_r($rechnungs_file);
 
-	//for ($x = 0; $x < (count($rechnungs_file)-1); $x++){
-	for ($x = 0; $x < (count($rechnungs_file)); $x++)
-	{
-		$sum += $rechnungs_file[$x]['beitrag'];
-		echo
-         	utf8_decode($nr).";"
-        	.utf8_decode($rechnungs_file[$x]['name']).";"
-        	.utf8_decode($rechnungs_file[$x]['adress']).";"
-        	.utf8_decode($rechnungs_file[$x]['postcode']).";"
-        	.utf8_decode($rechnungs_file[$x]['city']).";"
-        	.utf8_decode($rechnungs_file[$x]['email']).";"
-        	.utf8_decode($rechnungs_file[$x]['beitrag']).";"
-        	.utf8_decode($rechnungs_file[$x]['beitragstext']).";"
-        	.utf8_decode($sum)
-        	."\n";
-    	$nr += 1;    
-	}
+    //for ($x = 0; $x < (count($rechnungs_file)-1); $x++){
+    for ($x = 0; $x < (count($rechnungs_file)); $x++)
+    {
+        $sum += $rechnungs_file[$x]['beitrag'];
+        echo
+            utf8_decode($nr).';'
+            .utf8_decode($rechnungs_file[$x]['name']).';'
+            .utf8_decode($rechnungs_file[$x]['adress']).';'
+            .utf8_decode($rechnungs_file[$x]['postcode']).';'
+            .utf8_decode($rechnungs_file[$x]['city']).';'
+            .utf8_decode($rechnungs_file[$x]['email']).';'
+            .utf8_decode($rechnungs_file[$x]['beitrag']).';'
+            .utf8_decode($rechnungs_file[$x]['beitragstext']).';'
+            .utf8_decode($sum)
+            ."\n";
+        $nr += 1;
+    }
 }
-else 
+else
 {
-	// set headline of the script
-	$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE');
+    // set headline of the script
+    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE');
 
-	$message = '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA').'</strong>';
-	$message .= '<BR><BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');	
+    $message = '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA').'</strong>';
+    $message .= '<BR><BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');
 
-	// create html page object
-	$page = new HtmlPage($headline);
+    // create html page object
+    $page = new HtmlPage($headline);
 
-	$form = new HtmlForm('export_bill_form', null, $page); 
-	$form->addDescription($message);
-	$form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => 'menue.php?show_option=statementexport', 'class' => 'btn-primary'));
+    $form = new HtmlForm('export_bill_form', null, $page);
+    $form->addDescription($message);
+    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => 'menue.php?show_option=statementexport', 'class' => 'btn-primary'));
 
-	$page->addHtml($form->show(false));
-	$page->show();
+    $page->addHtml($form->show(false));
+    $page->show();
 }
 //########################################################
-//exit;  
+//exit;
