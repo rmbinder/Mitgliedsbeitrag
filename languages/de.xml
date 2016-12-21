@@ -383,6 +383,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Alle markieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO">Das Plugin Mitgliedsbeitrag kann nur SEPA XML-Dateien erzeugen, die\n1. einen gemeinsamen Sequenztyp aufweisen\n2. dasselbe Fälligkeitsdatum besitzen.\n\n FRST=Erstlastschrift, RCUR=Folgelastschrift, FNAL=letzte Lastschrift, OOFF=Einmallastschrift</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA">Es sind nicht genügend Daten für den Export vorhanden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE">Sequenztyp</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC">Sequenztyp: leer=Erstlastschrift(FRST) R=Folgelastschrift(RCUR) F=letzte Lastschrift (FNAL) O=Einmallastschrift (OOFF)</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC">Der hier eingestellte Sequenztyp wird gleichzeitig mit dem Setzen eines Fälligkeitsdatum gesetzt.</string>

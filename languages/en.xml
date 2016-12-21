@@ -383,6 +383,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Select all</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO">The membership fee plug-in can only create SEPA XML files which\n1. have a common sequence type\n2. have the same due date.\n\n FRST=first debit, RCUR=recurring debit, FNAL=final debit, OOFF=one-off debit</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA">There is not enough data to export.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE">Sequence type</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC">Sequence type: empty=first debit(FRST) R=recurring debit(RCUR) F=final debit(FNAL) O=one-off debit(OOFF)</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC">The value set here sequence type is set at the same time setting a due date.</string>

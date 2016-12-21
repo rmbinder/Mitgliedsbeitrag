@@ -88,7 +88,7 @@ $lst_num=count($zpflgt);                                                        
 
 if ($lst_num==0)
 {
-    $gMessage->show('Keine Daten für den Export vorhanden!');
+    $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA'));
 }
 
 $message_id=substr('Message-ID-'.replace_sepadaten($gCurrentOrganization->getValue('org_shortname')), 0, 35);   //SEPA Message-ID    (max. 35)
