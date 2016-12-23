@@ -30,7 +30,7 @@ $referenz = '';
 $message = '';
 $members = array();
 
-if($pPreferences->config['Mandatsreferenz']['data_field']!='-- User_ID --')
+if($pPreferences->config['Mandatsreferenz']['data_field'] != '-- User_ID --')
 {
     $members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN', $pPreferences->config['Mandatsreferenz']['data_field']), 0);
 }
@@ -54,7 +54,7 @@ foreach ($members as $member => $memberdata)
     $prefix = $pPreferences->config['Mandatsreferenz']['prefix_mem'];
 
     //wenn 'DEBTOR' nicht leer ist, dann gibt es einen Zahlungspflichtigen
-    if($memberdata['DEBTOR']!='')
+    if($memberdata['DEBTOR'] != '')
     {
         $prefix = $pPreferences->config['Mandatsreferenz']['prefix_pay'];
     }
@@ -66,7 +66,7 @@ foreach ($members as $member => $memberdata)
             $prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
         }
     }
-    if($pPreferences->config['Mandatsreferenz']['data_field']!='-- User_ID --')
+    if($pPreferences->config['Mandatsreferenz']['data_field'] != '-- User_ID --')
     {
         $suffix = str_replace(' ', '', replace_sepadaten($memberdata[$pPreferences->config['Mandatsreferenz']['data_field']]));
     }

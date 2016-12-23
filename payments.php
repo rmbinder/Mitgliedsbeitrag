@@ -41,7 +41,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgefuehrt wurde, die Rollen, die nicht gewaehlt wurden, loeschen
-if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]!=' ')
+if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0] != ' ')
 {
     foreach ($rols as $rol => $roldata)
     {
@@ -73,7 +73,7 @@ if($getMode == 'assign')
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId!=0)           // Bezahlt-Datum nur fuer einen einzigen User aendern
+    if($getUserId != 0)           // Bezahlt-Datum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
@@ -354,7 +354,7 @@ else
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-    if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0]!=' ')
+    if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0] != ' ')
     {
         $navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
     }

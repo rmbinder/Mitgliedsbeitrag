@@ -44,7 +44,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
     $sql = 'SELECT rol_id, rol_name, rol_cost, rol_cost_period, rol_timestamp_create, rol_description
             FROM '.TBL_ROLES.', '. TBL_CATEGORIES. '
             WHERE rol_valid  = 1
-            AND rol_cost >=0
+            AND rol_cost >= 0
             AND rol_cost_period <>\'\'
             AND rol_cat_id = cat_id
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
@@ -102,7 +102,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
         }
 
         // wenn der Rollentyp jetzt immer noch leer ist, dann kann es nur eine Fixrolle sein
-        if ($rollen[$key]['rollentyp']=='')
+        if ($rollen[$key]['rollentyp'] == '')
         {
             $rollen[$key]['rollentyp'] = 'fix';
         }
@@ -155,7 +155,7 @@ function bezugskategorie_einlesen()
     $firstpass = true;
     foreach ($pPreferences->config['Rollenpruefung']['bezugskategorie'] as $cat => $cat_id)
     {
-        if($cat_id==' ')
+        if($cat_id == ' ')
         {
             return $members;
         }
@@ -603,7 +603,7 @@ function check_rollenmitgliedschaft_pflicht()
     // in $beitragsrollen sind jetzt nur noch Pflicht-Beitragsrollen
 
     // Feature-Wunsch von joesch
-    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]!=' ')
+    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0] != ' ')
     {
         // zuerst alle Member der Bezugskategorien einlesen
         $bezugskategorieMembers = bezugskategorie_einlesen();
@@ -670,11 +670,11 @@ function check_rollenmitgliedschaft_ausschluss()
                 $members[$key]['rollen'] = array();
             }
 
-            if($roldata['rollentyp']== 'alt')
+            if($roldata['rollentyp'] == 'alt')
             {
                 $members[$key]['rollen'][]= $roldata['alterstyp'].'alt';
             }
-            elseif($roldata['rollentyp']== 'fam')
+            elseif($roldata['rollentyp'] == 'fam')
             {
                 $members[$key]['rollen'][]= 'fam';
             }
@@ -686,7 +686,7 @@ function check_rollenmitgliedschaft_ausschluss()
     }
 
     // Feature-Wunsch von joesch
-    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]!= ' ')
+    if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0] != ' ')
     {
         // zuerst alle Member der Bezugskategorien einlesen
         $bezugskategorieMembers = bezugskategorie_einlesen();
@@ -805,7 +805,7 @@ function check_rols()
         $check = array();
         foreach ($alt as $altrol => $altdata)
         {
-            if ($altdata['alterstyp']==$tokendata)
+            if ($altdata['alterstyp'] == $tokendata)
             {
                 $check[]  = array('year' => $altdata['von'], 'rol' => $altrol);
                 $check[]  = array('year' => $altdata['bis'], 'rol' => $altrol);
@@ -1048,10 +1048,10 @@ function test_iban($iban)
     }
     $pz = sprintf('%02d', 98-$rest);
 
-    if (substr($iban, 2, 2)=='00')
+    if (substr($iban, 2, 2) == '00')
         return substr_replace($iban, $pz, 2, 2);
     else
-        return ($rest==1) ? true : false;
+        return ($rest == 1) ? true : false;
 }
 
 /**
@@ -1401,11 +1401,11 @@ function expand_rollentyp($rollentyp='')
 {
     global $gL10n;
 
-    if ($rollentyp=='fix')
+    if ($rollentyp == 'fix')
     {
         $ret = $gL10n->get('PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES');
     }
-    elseif($rollentyp=='fam')
+    elseif($rollentyp == 'fam')
     {
         $ret = $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES');
     }

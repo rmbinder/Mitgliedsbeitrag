@@ -102,7 +102,7 @@ foreach ($stack as $key => $stackdata)
     {
         if (($stackdata['alter'] <= $roldata['bis'])
         && ($stackdata['alter'] >= $roldata['von'])
-        && ($stackdata['alterstyp']==$roldata['alterstyp'])
+        && ($stackdata['alterstyp'] == $roldata['alterstyp'])
         && !array_key_exists($stackdata['user_id'], $roldata['members']))
         {
             // das Mitglied passt in das Altersschema der Rolle und das Kennzeichen dieser Altersstaffelung passt auch

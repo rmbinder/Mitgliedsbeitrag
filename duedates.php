@@ -42,7 +42,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgefuehrt wurde, dann die Rollen, die nicht gewaehlt wurden, loeschen
-if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]!=' ')
+if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0] != ' ')
 {
     foreach ($rols as $rol => $roldata)
     {
@@ -75,7 +75,7 @@ if($getMode == 'assign')
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId!=0)           // Faelligkeitsdatum nur fuer einen einzigen User aendern
+    if($getUserId != 0)           // Faelligkeitsdatum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
@@ -96,11 +96,11 @@ if($getMode == 'assign')
                 //er hat noch kein Faelligkeitsdatum, deshalb ein neues eintragen
                 $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
 
-                if ($getSequenceType=='FRST')
+                if ($getSequenceType == 'FRST')
                 {
                     $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
                 }
-                elseif ($getSequenceType!='')
+                elseif ($getSequenceType != '')
                 {
                     $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), $getSequenceType);
                 }
@@ -277,16 +277,16 @@ else
                             $("input[type=checkbox]#member_"+userid).prop("checked", true);
                             $("#duedate_"+userid).text(datum);
 
-                            if(sequencetype=="FRST") {
+                            if(sequencetype == "FRST") {
                                 $("#lastschrifttyp_"+userid).text("");
                             }
-                            else if(sequencetype=="RCUR") {
+                            else if(sequencetype == "RCUR") {
                                 $("#lastschrifttyp_"+userid).text("R");
                             }
-                            else if(sequencetype=="FNAL") {
+                            else if(sequencetype == "FNAL") {
                                 $("#lastschrifttyp_"+userid).text("F");
                             }
-                            else if(sequencetype=="OOFF") {
+                            else if(sequencetype == "OOFF") {
                                 $("#lastschrifttyp_"+userid).text("O");
                             }
                         }
@@ -332,7 +332,7 @@ else
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_DUEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_DUEDATE'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-    if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]!=' ')
+    if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0] != ' ')
     {
         $navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_ACTIV').'</strong>');
     }

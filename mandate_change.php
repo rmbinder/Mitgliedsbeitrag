@@ -113,14 +113,14 @@ if($getMode == 'assign')
         }
     }
 
-    if($ret_txt=='success')
+    if($ret_txt == 'success')
     {
-        if($iban_change=='true')
+        if($iban_change == 'true')
         {
             $user->setValue('IBAN', $getIBAN);
             $user->setValue('ORIG_IBAN', $getOrigIBAN);
         }
-        if($bank_change=='true')
+        if($bank_change == 'true')
         {
             $user->setValue('IBAN', $getIBAN);
             $user->setValue('BIC', $getBIC);
@@ -131,7 +131,7 @@ if($getMode == 'assign')
             // wenn die Bank gewechselt wurde, braucht die neue Bank die urspruengliche IBAN nicht zu kennen
             $user->setValue('ORIG_IBAN', '');
         }
-        if($mandateid_change=='true')
+        if($mandateid_change == 'true')
         {
             $user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $getMandateID);
             $user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), $getOrigMandateID);

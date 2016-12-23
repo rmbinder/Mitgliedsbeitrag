@@ -58,7 +58,7 @@ if($getMode == 'assign')
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId!=0)           // Mandatsdatum nur fuer einen einzigen User aendern
+    if($getUserId != 0)           // Mandatsdatum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
@@ -332,7 +332,7 @@ else
     $table->setDatatablesAlternativeOrderColumns(7, 8);
     $table->setDatatablesAlternativeOrderColumns(9, 10);
     $table->setDatatablesColumnsHide(array(8, 10));
-    if($getFullScreen == false || ($getFullScreen && $getMandateScreen==false))
+    if($getFullScreen == false || ($getFullScreen && $getMandateScreen == false))
     {
          $table->setDatatablesColumnsHide(array(11, 12, 13));
     }

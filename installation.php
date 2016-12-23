@@ -1191,7 +1191,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = $arr['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'];
     }
 
-    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type']!=$arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'])
+    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type'] != $arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'])
     {
         $columnValues[] = '<strong>'.$arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_type'].'</strong>';
         $columnValues[] = '<strong>'.$arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'].'</strong>';
@@ -1202,7 +1202,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = $arr['IST']['TBL_USER_FIELDS'][$field]['usf_type'];
     }
 
-    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden']==1)
+    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
           $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
     }
@@ -1211,7 +1211,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
     }
 
-    if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_hidden']==1)
+    if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
         $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
     }
@@ -1220,7 +1220,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
     }
 
-    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_disabled']==1)
+    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
         $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
     }
@@ -1229,7 +1229,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
     }
 
-    if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_disabled']==1)
+    if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
         $columnValues[] =  '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
     }
@@ -1238,7 +1238,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
     }
 
-    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_mandatory']==1)
+    if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_mandatory'] == 1)
     {
         $columnValues[] =  '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
     }
@@ -1247,7 +1247,7 @@ function SollIstProfilfeld($arr, $field)
         $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
     }
 
-    if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_mandatory']==1)
+    if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_mandatory'] == 1)
     {
         $columnValues[] =  '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
     }

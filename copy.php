@@ -212,7 +212,7 @@ else
     {
         $table->setDatatablesColumnsHide(array(2));
     }
-    if($getTargetUserid ==0)
+    if($getTargetUserid == 0)
     {
         $table->setDatatablesColumnsHide(array(4));
     }

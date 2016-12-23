@@ -250,7 +250,7 @@ class ConfigTablePMB
             $array = explode('__', $row['plp_name']);
 
             // wenn plp_value von ((  )) eingeschlossen ist, dann ist es als Array einzulesen
-            if ((substr($row['plp_value'], 0, 2)=='((') && (substr($row['plp_value'], -2)=='))'))
+            if ((substr($row['plp_value'], 0, 2) == '((') && (substr($row['plp_value'], -2) == '))'))
             {
                 $row['plp_value'] = substr($row['plp_value'], 2, -2);
                 $this->config[$array[1]] [$array[2]] = explode(self::$dbtoken, $row['plp_value']);
@@ -292,7 +292,7 @@ class ConfigTablePMB
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: version)
-            if(!isset($row->plp_value) || strlen($row->plp_value) === 0 || $row->plp_value!=self::$version)
+            if(!isset($row->plp_value) || strlen($row->plp_value) === 0 || $row->plp_value != self::$version)
             {
                 $ret = 1;
             }
@@ -308,7 +308,7 @@ class ConfigTablePMB
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: stand)
-            if(!isset($row->plp_value) || strlen($row->plp_value) === 0 || $row->plp_value!=self::$stand)
+            if(!isset($row->plp_value) || strlen($row->plp_value) === 0 || $row->plp_value != self::$stand)
             {
                 $ret = 1;
             }
@@ -376,14 +376,14 @@ class ConfigTablePMB
         $result_data=false;
         $result_db = false;
 
-        if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org loeschen
+        if($deinst_org_select == 0)                    //0 = Daten nur in aktueller Org loeschen
         {
             $sql = 'DELETE FROM '.$this->table_name.'
                     WHERE plp_name LIKE \''.self::$shortcut.'__%\'
                     AND plp_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
             $result_data = $gDb->query($sql);
         }
-        elseif ($deinst_org_select==1)              //1 = Daten in allen Org loeschen
+        elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
             $sql = 'DELETE FROM '.$this->table_name.'
                     WHERE plp_name LIKE \''.self::$shortcut.'__%\' ';
@@ -394,7 +394,7 @@ class ConfigTablePMB
         $sql = 'SELECT * FROM '.$this->table_name.' ';
         $statement = $gDb->query($sql);
 
-        if($statement->rowCount() ==0)
+        if($statement->rowCount() == 0)
         {
             $sql = 'DROP TABLE '.$this->table_name.' ';
             $result_db = $gDb->query($sql);
@@ -408,7 +408,7 @@ class ConfigTablePMB
 
     /**
      * Loescht die Nutzerdaten in der Datenbank
-     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Orgs loeschen, !=0 oder !=1) = Daten loeschen, die in allen Orgs sichtbar sind
+     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Orgs loeschen, != 0 oder != 1) = Daten loeschen, die in allen Orgs sichtbar sind
      * @param   string  $dataField          usf_name_intern des zu loeschenden Datenfeldes
      * @param   string  $dataDesc           Ueberschrift eines Blocks der Meldung
      * @return  string  $result             Meldung
@@ -420,11 +420,11 @@ class ConfigTablePMB
         $result = '';
         $usfIDs=array();
 
-        if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org loeschen
+        if($deinst_org_select == 0)                   //0 = Daten nur in aktueller Org loeschen
         {
             $orgSelector = $gCurrentOrganization->getValue('org_id');
         }
-        elseif ($deinst_org_select==1)              //1 = Daten in allen Org loeschen
+        elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
             $orgSelector = '%';
             //$orgSelector = '_';
@@ -459,7 +459,7 @@ class ConfigTablePMB
             WHERE usd_usf_id = '.$data['usf_id'];
             $statement = $gDb->query($sql);
 
-            if($statement->rowCount() !=0)
+            if($statement->rowCount() != 0)
             {
                 $sql = 'DELETE FROM '.TBL_USER_DATA.'
                         WHERE usd_usf_id = '.$data['usf_id'];
@@ -472,7 +472,7 @@ class ConfigTablePMB
             WHERE usl_usf_id = '.$data['usf_id'];
             $statement = $gDb->query($sql);
 
-            if($statement->rowCount() !=0)
+            if($statement->rowCount() != 0)
             {
                 $sql = 'DELETE FROM '.TBL_USER_LOG.'
                     WHERE usl_usf_id = '.$data['usf_id'];
@@ -485,7 +485,7 @@ class ConfigTablePMB
                 WHERE lsc_usf_id = '.$data['usf_id'];
             $statement = $gDb->query($sql);
 
-            if($statement->rowCount() !=0)
+            if($statement->rowCount() != 0)
             {
                 $sql = 'DELETE FROM '.TBL_LIST_COLUMNS.'
                     WHERE lsc_usf_id = '.$data['usf_id'];
@@ -503,7 +503,7 @@ class ConfigTablePMB
             $sql = 'SELECT * FROM '.TBL_USER_FIELDS.'
                     WHERE usf_cat_id = '.$data['usf_cat_id'];
             $statement = $gDb->query($sql);
-            if($statement->rowCount() ==0)
+            if($statement->rowCount() == 0)
             {
                     $sql = 'DELETE FROM '.TBL_CATEGORIES.'
                         WHERE cat_id = '.$data['usf_cat_id'];
@@ -529,14 +529,14 @@ class ConfigTablePMB
         $result = '';
         $result_data=false;
 
-        if($deinst_org_select==0)                    //0 = Daten nur in aktueller Org loeschen
+        if($deinst_org_select == 0)                    //0 = Daten nur in aktueller Org loeschen
         {
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                     WHERE txt_name LIKE \'PMBMAIL_%\'
                     AND txt_org_id = '.$gCurrentOrganization->getValue('org_id').' ';
             $result_data = $gDb->query($sql);
         }
-        elseif ($deinst_org_select==1)              //1 = Daten in allen Org loeschen
+        elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                     WHERE txt_name LIKE \'PMBMAIL_%\' ';

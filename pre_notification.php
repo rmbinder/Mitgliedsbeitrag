@@ -173,7 +173,7 @@ else
             AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
                 OR cat_org_id IS NULL ) ';
 
-    if($getDueDate !=0)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
+    if($getDueDate != 0)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
     {
         $memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
     }
@@ -252,14 +252,14 @@ else
     if($getMode == 'prepare')
     {
         $ret_text = 'ERROR';
-        if($getUserId!=0)           // ein einzelner User wurde selektiert
+        if($getUserId != 0)           // ein einzelner User wurde selektiert
         {
-            if($getChecked=='false')            // der Haken wurde geloescht
+            if($getChecked == 'false')            // der Haken wurde geloescht
             {
                 unset($_SESSION['checkedArray'][$getUserId]);
                 $ret_text = 'success';
             }
-            elseif ($getChecked=='true')        // der Haken wurde gesetzt
+            elseif ($getChecked == 'true')        // der Haken wurde gesetzt
             {
                 $_SESSION['checkedArray'][$getUserId]=$getUserId;
                 $ret_text = 'success';
@@ -309,7 +309,7 @@ else
                 $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/pre_notification.php?mode=csv_export&full_screen='.$getFullScreen.'",
                     function(data){
                         // check if error occurs
-                        if(data=="marker_empty") {
+                        if(data == "marker_empty") {
                             alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
                             return false;
                         }
@@ -334,7 +334,7 @@ else
                 $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/pre_notification.php?mode=mail_export&full_screen='.$getFullScreen.'",
                     function(data){
                         // check if error occurs
-                        if(data=="marker_empty") {
+                        if(data == "marker_empty") {
                             alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY').'");
                             return false;
                         }

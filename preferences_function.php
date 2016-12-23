@@ -68,7 +68,7 @@ try
             }
             //diese Zeile ist nur zur Sicherheit, falls ein Nutzer einen Refresh (F5) des Browsers ausfuehrt
             //und dadurch nicht durch das Plugin kontrollierte Loeschungen oder Hinzufuegungen ausfuehrt
-            if($altersrollen_anzahl==0)
+            if($altersrollen_anzahl == 0)
             {
                 $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG'));
             }
@@ -249,11 +249,11 @@ catch(AdmException $e)
 
 $pPreferences->save();
 
-if ($echomarker==0)
+if ($echomarker == 0)
 {
     echo 'success';
 }
-elseif($echomarker==1)
+elseif($echomarker == 1)
 {
     echo 'convert_error';
 }

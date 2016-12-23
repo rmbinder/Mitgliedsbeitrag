@@ -56,15 +56,15 @@ foreach ($members as $member => $memberdata)
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FRST']=0;
         }
 
-        if($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]=='FNAL')
+        if($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'FNAL')
         {
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FNAL']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]=='RCUR')
+        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'RCUR')
         {
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['RCUR']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]=='OOFF')
+        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'OOFF')
         {
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['OOFF']++;
         }
@@ -554,11 +554,11 @@ if(count($rols)>0)
                                             <tr>
                                                 <td style="text-align: center;">'.$datumtemp->format($gPreferences['system_date']).'</td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype" ';
-                                                    if ($duedatedata['FRST']==0)
+                                                    if ($duedatedata['FRST'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                    elseif ($duedatedata['FRST']!=0 && $checked_marker)
+                                                    elseif ($duedatedata['FRST'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;
@@ -566,11 +566,11 @@ if(count($rols)>0)
                                                     $htmlTable .= 'value="'.$duedate.'FRST" /><small> ('.$duedatedata['FRST'].')</small>
                                                 </td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype" ';
-                                                    if ($duedatedata['RCUR']==0)
+                                                    if ($duedatedata['RCUR'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                     elseif ($duedatedata['RCUR']!=0 && $checked_marker)
+                                                     elseif ($duedatedata['RCUR'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;
@@ -578,11 +578,11 @@ if(count($rols)>0)
                                                     $htmlTable .= 'value="'.$duedate.'RCUR" /><small> ('.$duedatedata['RCUR'].')</small>
                                                 </td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype"  ';
-                                                    if ($duedatedata['FNAL']==0)
+                                                    if ($duedatedata['FNAL'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                     elseif ($duedatedata['FNAL']!=0 && $checked_marker)
+                                                     elseif ($duedatedata['FNAL'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;
@@ -590,11 +590,11 @@ if(count($rols)>0)
                                                     $htmlTable .= 'value="'.$duedate.'FNAL" /><small> ('.$duedatedata['FNAL'].')</small>
                                                 </td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype"  ';
-                                                    if ($duedatedata['OOFF']==0)
+                                                    if ($duedatedata['OOFF'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                    elseif ($duedatedata['OOFF']!=0 && $checked_marker)
+                                                    elseif ($duedatedata['OOFF'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;

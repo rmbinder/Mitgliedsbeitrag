@@ -57,9 +57,9 @@ foreach ($members as $member => $memberdata)
         && empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
         && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
         && !empty($memberdata['IBAN'])
-        && ($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]==$postDueDate)
-        && (($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==$postSepaType)
-            || (($postSepaType=='FRST') && ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]==''))))
+        && ($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')] == $postDueDate)
+        && (($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == $postSepaType)
+            || (($postSepaType == 'FRST') && ($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == ''))))
     {
         if (empty($memberdata['DEBTOR']))
         {
@@ -86,7 +86,7 @@ foreach ($members as $member => $memberdata)
 
 $lst_num=count($zpflgt);                                                                                        //SEPA Anzahl der Lastschriften
 
-if ($lst_num==0)
+if ($lst_num == 0)
 {
     $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA'));
 }
