@@ -218,28 +218,28 @@ if (isset($_POST['btn_xml_file']))
                             $xmlfile.='<MndtId>'.$zpflgtdata['mandat_id']."</MndtId>\n";            //eindeutige Mandatsreferenz
                             $xmlfile.='<DtOfSgntr>'.$zpflgtdata['mandat_datum']."</DtOfSgntr>\n";   //Datum, zu dem das Mandat unterschrieben wurde
 
-                            if((strlen($zempf['orig_cdtr_name'])!=0)
-                                || (strlen($zempf['orig_cdtr_id'])!=0)
-                                || (strlen($zpflgtdata['orig_mandat_id'])!=0)
-                                || (strlen($zpflgtdata['orig_iban'])!=0)
-                                || (strlen($zpflgtdata['orig_dbtr_agent'])!=0)) //Kennzeichnet, ob das Mandat veraendert wurde,
+                            if((strlen($zempf['orig_cdtr_name']) !== 0)
+                                || (strlen($zempf['orig_cdtr_id']) !== 0)
+                                || (strlen($zpflgtdata['orig_mandat_id']) !== 0)
+                                || (strlen($zpflgtdata['orig_iban']) !== 0)
+                                || (strlen($zpflgtdata['orig_dbtr_agent']) !== 0)) //Kennzeichnet, ob das Mandat veraendert wurde,
                             {
                                 $xmlfile.="<AmdmntInd>true</AmdmntInd>\n";  //AmendmentIndicator "true"
                                 $xmlfile.="<AmdmntInfDtls>\n";              //AmendmentInformationDetails, Pflichtfeld, falls <AmdmntInd>=true
 
-                                if(strlen($zpflgtdata['orig_mandat_id'])!=0)        //Kennzeichnet, ob das Mandat veraendert wurde,
+                                if(strlen($zpflgtdata['orig_mandat_id']) !== 0)        //Kennzeichnet, ob das Mandat veraendert wurde,
                                 {
                                     $xmlfile.='<OrgnlMndtId>'.$zpflgtdata['orig_mandat_id']."</OrgnlMndtId>\n";
                                 }
 
-                                if((strlen($zempf['orig_cdtr_name'])!=0) || (strlen($zempf['orig_cdtr_id'])!=0))                //Kennzeichnet, ob das Mandat veraendert wurde,
+                                if((strlen($zempf['orig_cdtr_name']) !== 0) || (strlen($zempf['orig_cdtr_id']) !== 0))                //Kennzeichnet, ob das Mandat veraendert wurde,
                                 {
                                     $xmlfile.="<OrgnlCdtrSchmeId>\n";       //Identifikation des Zahlungsempfaengers
-                                    if(strlen($zempf['orig_cdtr_name'])!=0) //Kennzeichnet, ob das Mandat veraendert wurde,
+                                    if(strlen($zempf['orig_cdtr_name']) !== 0) //Kennzeichnet, ob das Mandat veraendert wurde,
                                     {
                                         $xmlfile.='<Nm>'.$zempf['orig_cdtr_name']."</Nm>\n";
                                     }
-                                    if(strlen($zempf['orig_cdtr_id'])!=0)
+                                    if(strlen($zempf['orig_cdtr_id']) !== 0)
                                     {
                                         $xmlfile.="<Id>\n";
                                             $xmlfile.="<PrvtId>\n";
@@ -255,7 +255,7 @@ if (isset($_POST['btn_xml_file']))
                                     $xmlfile.="</OrgnlCdtrSchmeId>\n";
                                 }
 
-                                if(strlen($zpflgtdata['orig_iban'])!=0)             //Kennzeichnet, ob das Mandat veraendert wurde,
+                                if(strlen($zpflgtdata['orig_iban']) !== 0)             //Kennzeichnet, ob das Mandat veraendert wurde,
                                 {
                                     $xmlfile.="<OrgnlDbtrAcct>\n";
                                         $xmlfile.="<Id>\n";
@@ -264,7 +264,7 @@ if (isset($_POST['btn_xml_file']))
                                     $xmlfile.="</OrgnlDbtrAcct>\n";
                                 }
 
-                                if(strlen($zpflgtdata['orig_dbtr_agent'])!=0)       //Kennzeichnet, ob das Mandat veraendert wurde,
+                                if(strlen($zpflgtdata['orig_dbtr_agent']) !== 0)       //Kennzeichnet, ob das Mandat veraendert wurde,
                                 {
                                     $xmlfile.="<OrgnlDbtrAgt>\n";
                                         $xmlfile.="<FinInstnId>\n";
@@ -288,7 +288,7 @@ if (isset($_POST['btn_xml_file']))
                     // BIC ist Pflicht bis Feb 2014!
                         $xmlfile.="<DbtrAgt>\n";                                //DebtorAgent, Kreditinstitut des Zahlers (Zahlungspflichtigen)
                             $xmlfile.="<FinInstnId>\n";                         //FinancialInstitutionIdentification
-                            if(strlen($zpflgtdata['bic'])!=0)       //ist ein BIC vorhanden?
+                            if(strlen($zpflgtdata['bic']) !== 0)       //ist ein BIC vorhanden?
                             {
                                 $xmlfile.='<BIC>'.$zpflgtdata['bic']."</BIC>\n";
                             }

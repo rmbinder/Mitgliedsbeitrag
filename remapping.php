@@ -50,7 +50,7 @@ foreach ($altersrollen as $roleId => $roldata)
 {
     foreach($altersrollen[$roleId]['members'] as $member => $memberdata)
     {
-        if(strlen($memberdata['BIRTHDAY']) == 0)
+        if(strlen($memberdata['BIRTHDAY']) === 0)
         {
             $gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO1').' '.$memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO2'));
         }
@@ -81,7 +81,7 @@ foreach ($altersrollen as $roleId => $roldata)
     }
 }
 
-if (count($stack)==0)
+if (count($stack) === 0)
 {
     $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
 }

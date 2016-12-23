@@ -41,7 +41,7 @@ if ($gPreferences['enable_mail_module'] != 1)
 }
 
 // check if user has email address for sending a email
-if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) == 0)
+if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) === 0)
 {
     $gMessage->show($gL10n->get('SYS_CURRENT_USER_NO_EMAIL', '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php">', '</a>'));
 }
@@ -51,7 +51,7 @@ $user = new User($gDb, $gProfileFields, $getUserId);
 
 // if an User ID is given, we need to check if the actual user is alowed to contact this user
 if (($gCurrentUser->editUsers() == false && isMember($user->getValue('usr_id')) == false)
-   || strlen($user->getValue('usr_id')) == 0)
+   || strlen($user->getValue('usr_id')) === 0)
 {
     $gMessage->show($gL10n->get('SYS_USER_ID_NOT_FOUND'));
 }
@@ -60,11 +60,11 @@ if (($gCurrentUser->editUsers() == false && isMember($user->getValue('usr_id')) 
 $text = new TableText($gDb);
 
 //abhaengig vom aufrufenden Modul Text einlesen
-if (substr_count($gNavigation->getUrl(), 'pre_notification')==1)
+if (substr_count($gNavigation->getUrl(), 'pre_notification') === 1)
 {
     $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 }
-elseif (substr_count($gNavigation->getUrl(), 'payments')==1)
+elseif (substr_count($gNavigation->getUrl(), 'payments') === 1)
 {
     $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
 }

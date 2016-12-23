@@ -91,7 +91,7 @@ if($getMode == 'assign')
             $user = new User($gDb, $gProfileFields, $data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein Faelligkeitsdatum vorhanden ist
-            if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0)
+            if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) === 0)
             {
                 //er hat noch kein Faelligkeitsdatum, deshalb ein neues eintragen
                 $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);

@@ -63,7 +63,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
         foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $altkey => $altdata)
         {
             // ist es eine altersgestaffelte Rolle?
-            if (substr_count($data['rolle'], $pPreferences->config['Altersrollen']['altersrollen_token'][$altkey]) == 4)
+            if (substr_count($data['rolle'], $pPreferences->config['Altersrollen']['altersrollen_token'][$altkey]) === 4)
             {
                 $v1 = strpos($data['rolle'], $pPreferences->config['Altersrollen']['altersrollen_token'][$altkey], 0);
                 $v2 = strpos($data['rolle'], $pPreferences->config['Altersrollen']['altersrollen_token'][$altkey], $v1+1);
@@ -554,7 +554,7 @@ function check_rollenmitgliedschaft_altersrolle()
         }
     }
 
-    if (count($ret) == 0)
+    if (count($ret) === 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
@@ -635,7 +635,7 @@ function check_rollenmitgliedschaft_pflicht()
         }
     }
 
-    if (count($ret) == 0)
+    if (count($ret) === 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_OK'));
     }
@@ -762,7 +762,7 @@ function check_rollenmitgliedschaft_ausschluss()
         }
     }
 
-    if (count($ret) == 0)
+    if (count($ret) === 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK'));
     }
@@ -829,7 +829,7 @@ function check_rols()
         }
     }
 
-    if (count($ret) == 0)
+    if (count($ret) === 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
@@ -900,7 +900,7 @@ function check_family_roles()
     }
 
     // Leerzeile einfuegen
-    if (count($ret_error) != 0)
+    if (count($ret_error) !== 0)
     {
         $ret_error[] = '';
     }
@@ -939,7 +939,7 @@ function check_family_roles()
                         $ret_temp[] = '&#160&#160&#160&#183<small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'].':'.$pruefdata['anz'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SATISFIED').'.</small>';
                     }
                 }
-                if (count($ret_temp) != 0)
+                if (count($ret_temp) !== 0)
                 {
                     $ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
                         <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_URL . '/icons/list.png"
@@ -950,7 +950,7 @@ function check_family_roles()
         }
     }
 
-    if (count($ret) == 0)
+    if (count($ret) === 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK'));
     }
@@ -960,7 +960,7 @@ function check_family_roles()
     }
 
     // eine evtl. vorhandene Fehlermeldung davorsetzen
-    if (count($ret_error) != 0)
+    if (count($ret_error) !== 0)
     {
         $ret = array_merge($ret_error, $ret);
     }
@@ -980,13 +980,13 @@ function check_mandate_management()
 
     foreach ($members as $member => $memberdata)
     {
-        if ((strlen($memberdata['DEBTOR'])!=0) && ((strlen($memberdata['DEBTOR_POSTCODE'])==0) || (strlen($memberdata['DEBTOR_CITY'])==0) || (strlen($memberdata['DEBTOR_ADDRESS'])==0)))
+        if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_ADDRESS']) === 0)))
         {
             $ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
-    if (count($ret) == 0)
+    if (count($ret) === 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK'));
     }
@@ -1010,13 +1010,13 @@ function check_iban()
 
     foreach ($members as $member => $memberdata)
     {
-        if ((strlen($memberdata['IBAN'])==1) || ((strlen($memberdata['IBAN'])>1) && !test_iban($memberdata['IBAN'])))
+        if ((strlen($memberdata['IBAN']) === 1) || ((strlen($memberdata['IBAN']) > 1) && !test_iban($memberdata['IBAN'])))
         {
             $ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
-    if (count($ret) == 0)
+    if (count($ret) === 0)
     {
         $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK'));
     }

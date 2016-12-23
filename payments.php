@@ -89,7 +89,7 @@ if($getMode == 'assign')
             $user = new User($gDb, $gProfileFields, $data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein BEZAHLT-Datum vorhanden ist
-            if (strlen($user->getValue('PAID'.$gCurrentOrganization->getValue('org_id'))) == 0)
+            if (strlen($user->getValue('PAID'.$gCurrentOrganization->getValue('org_id'))) === 0)
             {
                 //er hat noch kein BEZAHLT-Datum, deshalb ein neues eintragen
                 $user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
@@ -98,27 +98,27 @@ if($getMode == 'assign')
                 // BEZAHLT bedeutet, es hat bereits eine Zahlung stattgefunden
                 // die naechste Zahlung kann nur eine Folgelastschrift sein
                 // Lastschrifttyp darf aber nur geaendert werden, wenn der Einzug per SEPA stattfand, also ein Faelligkeitsdatum vorhanden ist
-                if (strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) == 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0)
+                if (strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) === 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) !== 0)
                 {
                     $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'RCUR');
                 }
 
                 //falls Daten von einer Mandatsaenderung vorhanden sind, diese loeschen
-                if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) != 0)
+                if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) !== 0)
                 {
                     $user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), '');
                 }
-                if (strlen($user->getValue('ORIG_IBAN')) != 0)
+                if (strlen($user->getValue('ORIG_IBAN')) !== 0)
                 {
                     $user->setValue('ORIG_IBAN', '');
                 }
-                if (strlen($user->getValue('ORIG_DEBTOR_AGENT')) != 0)
+                if (strlen($user->getValue('ORIG_DEBTOR_AGENT')) !== 0)
                 {
                     $user->setValue('ORIG_DEBTOR_AGENT', '');
                 }
 
                 //das Faelligkeitsdatum loeschen (wird nicht mehr gebraucht, da ja bezahlt)
-                if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) != 0)
+                if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) !== 0)
                 {
                     $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
                 }

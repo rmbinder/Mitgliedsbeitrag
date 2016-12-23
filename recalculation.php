@@ -63,7 +63,7 @@ foreach ($rols as $rol => $roldata)
         {
             $rols[$rol]['has_to_pay'] = $key;
 
-            if(strlen($data['IBAN'])!=0)
+            if(strlen($data['IBAN']) !== 0)
             {
                 $rols[$rol]['has_to_pay'] = $key;
                 break;

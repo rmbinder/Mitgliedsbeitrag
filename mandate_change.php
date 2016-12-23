@@ -73,7 +73,7 @@ if($getMode == 'assign')
         if ($getIBAN != $user->getValue('IBAN'))
         {
             //ja, dann muss origIBAN befuellt sein
-            if (strlen($getOrigIBAN) != 0)
+            if (strlen($getOrigIBAN) !== 0)
             {
                 $iban_change='true';
                 $ret_txt='success';
@@ -102,7 +102,7 @@ if($getMode == 'assign')
     if($getMandateID != $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')))
     {
         //bei einer Aenderung muss origMandateID befuellt sein
-        if (strlen($getOrigMandateID) != 0)
+        if (strlen($getOrigMandateID) !== 0)
         {
             $mandateid_change='true';
             $ret_txt='success';

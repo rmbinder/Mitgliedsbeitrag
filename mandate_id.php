@@ -61,7 +61,7 @@ foreach ($members as $member => $memberdata)
 
     foreach ($pPreferences->config['Familienrollen']['familienrollen_beschreibung'] as $famrolbesch)
     {
-        if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')], $famrolbesch)==1)
+        if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')], $famrolbesch) === 1)
         {
             $prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
         }

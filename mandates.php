@@ -74,7 +74,7 @@ if($getMode == 'assign')
             $user = new User($gDb, $gProfileFields, $data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein Mandatsdatum vorhanden ist
-            if (strlen($user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0)
+            if (strlen($user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'))) === 0)
             {
                 //er hat noch kein Mandatsdatum, deshalb ein neues eintragen
                 $user->setValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);

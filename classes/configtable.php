@@ -149,7 +149,7 @@ class ConfigTablePMB
                 }
             }
             // leere Abschnitte (=leere Arrays) loeschen
-            if ((isset($config_ist[$section]) && count($config_ist[$section])==0))
+            if ((isset($config_ist[$section]) && count($config_ist[$section]) === 0))
             {
                 unset($config_ist[$section]);
             }
@@ -171,7 +171,7 @@ class ConfigTablePMB
                 unset($this->config[$section][$key]);
             }
             // leere Abschnitte (=leere Arrays) loeschen
-            if (count($this->config[$section])==0)
+            if (count($this->config[$section]) === 0)
             {
                 unset($this->config[$section]);
             }
@@ -292,7 +292,7 @@ class ConfigTablePMB
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: version)
-            if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value!=self::$version)
+            if(!isset($row->plp_value) || strlen($row->plp_value) === 0 || $row->plp_value!=self::$version)
             {
                 $ret = 1;
             }
@@ -308,7 +308,7 @@ class ConfigTablePMB
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: stand)
-            if(!isset($row->plp_value) || strlen($row->plp_value) == 0 || $row->plp_value!=self::$stand)
+            if(!isset($row->plp_value) || strlen($row->plp_value) === 0 || $row->plp_value!=self::$stand)
             {
                 $ret = 1;
             }

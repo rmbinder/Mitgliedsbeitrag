@@ -60,7 +60,7 @@ if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
 
 if($getMode == 'csv_export')
 {
-    if (count($_SESSION['checkedArray'])!=0)
+    if (count($_SESSION['checkedArray']) !== 0)
     {
         $export = '';
         $export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
@@ -110,7 +110,7 @@ if($getMode == 'csv_export')
             $export .= $user->getValue('BIRTHDAY').';';
             $export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).';';
 
-            if (strlen($user->getValue('DEBTOR'))!=0)
+            if (strlen($user->getValue('DEBTOR')) !== 0)
             {
                 $export .= $user->getValue('DEBTOR').';';
                 $export .= $user->getValue('DEBTOR_ADDRESS').';';
@@ -147,7 +147,7 @@ if($getMode == 'csv_export')
 }
 elseif($getMode == 'mail_export')
 {
-    if (count($_SESSION['checkedArray'])==0)
+    if (count($_SESSION['checkedArray']) === 0)
     {
         echo 'marker_empty';
     }

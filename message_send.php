@@ -86,7 +86,7 @@ if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
 $gNavigation->addUrl(CURRENT_URL);
 
 // check if name is given
-if(strlen($postName) == 0)
+if(strlen($postName) === 0)
 {
     $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', $gL10n->get('SYS_NAME')));
 }

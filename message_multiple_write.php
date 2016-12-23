@@ -41,7 +41,7 @@ if ($gPreferences['enable_mail_module'] != 1)
 }
 
 // check if user has email address for sending a email
-if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) == 0)
+if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) === 0)
 {
     $gMessage->show($gL10n->get('SYS_CURRENT_USER_NO_EMAIL', '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php">', '</a>'));
 }
