@@ -247,7 +247,7 @@ if(count($sendMailResultSendOK) > 1)
     {
         $sendMailResultMessage .= $data.'<br/>';
     }
-    $sendMailResultMessage .=   '<br/>';
+    $sendMailResultMessage .= '<br/>';
 }
 if(count($sendMailResultMissingEmail) > 1)
 {
@@ -255,7 +255,7 @@ if(count($sendMailResultMissingEmail) > 1)
     {
         $sendMailResultMessage .= $data.'<br/>';
     }
-    $sendMailResultMessage .=   '<br/>';
+    $sendMailResultMessage .= '<br/>';
 }
 if(count($sendMailResultAnotherError) > 1)
 {

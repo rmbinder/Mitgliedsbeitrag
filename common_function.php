@@ -168,7 +168,7 @@ function bezugskategorie_einlesen()
             $sql .= ' OR ( ';
         }
 
-        $sql .=  'cat_id = '.$cat_id.' ';
+        $sql .= 'cat_id = '.$cat_id.' ';
         $sql .= ' AND mem_rol_id = rol_id
                   AND rol_valid  = 1
 
@@ -176,7 +176,7 @@ function bezugskategorie_einlesen()
                   AND mem_end >= \''.DATE_NOW.'\'
 
                   AND rol_cat_id = cat_id ';
-        $sql .=  ' ) ';
+        $sql .= ' ) ';
         $firstpass = false;
     }
 
@@ -296,7 +296,7 @@ function list_members($fields, $rols = array())
             {
                 $sql .= ' OR ( ';
             }
-            $sql .=  'mem_rol_id = '.getRole_IDPMB($rol).' ';
+            $sql .= 'mem_rol_id = '.getRole_IDPMB($rol).' ';
 
             if ($rol_switch == 0)
             {
@@ -309,7 +309,7 @@ function list_members($fields, $rols = array())
                 // nicht aktive Mitglieder  ALT: ehemalige Mitglieder
                 $sql .= ' AND ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') )';
             }
-            $sql .=  ' ) ';
+            $sql .= ' ) ';
             $firstpass = false;
         }
     }

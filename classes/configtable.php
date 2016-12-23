@@ -344,7 +344,7 @@ class ConfigTablePMB
         $fieldsString ='';
         foreach ($fieldsarray as $string)
         {
-            $fieldsString .="'".$string."',";
+            $fieldsString .= "'".$string."',";
         }
         $fieldsString = substr($fieldsString, 0, -1);
 
@@ -465,7 +465,7 @@ class ConfigTablePMB
                         WHERE usd_usf_id = '.$data['usf_id'];
                 $result_data = $gDb->query($sql);
                 $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_DATA.' - Status: '.($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-                //$result_sum .='<br/>';
+                //$result_sum .= '<br/>';
             }
 
             $sql = 'SELECT * FROM '.TBL_USER_LOG.'
@@ -478,7 +478,7 @@ class ConfigTablePMB
                     WHERE usl_usf_id = '.$data['usf_id'];
                 $result_logdata = $gDb->query($sql);
                 $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_LOG.' - Status: '.($result_logdata ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-                //$result_sum .='<br/>';
+                //$result_sum .= '<br/>';
             }
 
             $sql = 'SELECT * FROM '.TBL_LIST_COLUMNS.'
@@ -491,7 +491,7 @@ class ConfigTablePMB
                     WHERE lsc_usf_id = '.$data['usf_id'];
                 $result_listdata = $gDb->query($sql);
                 $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_LIST_COLUMNS.' - Status: '.($result_listdata ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-                //$result_sum .='<br/>';
+                //$result_sum .= '<br/>';
             }
 
             $sql = 'DELETE FROM '.TBL_USER_FIELDS.'
@@ -512,7 +512,7 @@ class ConfigTablePMB
                     $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMOVE_CATEGORY').' '.$data['cat_name_intern'].' in '.TBL_CATEGORIES.' - Status: '.($result_category ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
             }
         }
-        $result  .= '<br/>';
+        $result .= '<br/>';
 
         return $result;
     }

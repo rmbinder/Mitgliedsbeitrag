@@ -542,7 +542,7 @@ if(count($rols)>0)
                                         </tr>
                                     </thead>';
 
-                                    $htmlTable .='
+                                    $htmlTable .= '
                                     <tbody id="test">';
 
                                         $checked_marker = true;
