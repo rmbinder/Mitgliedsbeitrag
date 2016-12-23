@@ -36,7 +36,7 @@ $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DE
 //falls eine Rollenabfrage durchgefuehrt wurde, die Rollen, die nicht gewaehlt wurden, loeschen
 if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]!=' ')
 {
-    $message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><BR><BR>';
+    $message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><br/><br/>';
     foreach ($rols as $rol => $roldata)
     {
         if (!in_array($rol, $pPreferences->config['Beitrag']['beitrag_rollenwahl']))
@@ -45,10 +45,10 @@ if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]!=' ')
         }
         else
         {
-            $message .= $roldata['rolle'].'<BR>';
+            $message .= $roldata['rolle'].'<br/>';
         }
     }
-    $message .= '<BR><BR>';
+    $message .= '<br/><br/>';
 }
 
 // diese Rollen durchlaufen und bei den Familienrollen eine Zahlungspflichtigen bestimmen

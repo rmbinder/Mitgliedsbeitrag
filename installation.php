@@ -707,7 +707,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
         $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
         $form->closeButtonGroup();
-        $form->addDescription('<BR>');
+        $form->addDescription('<br/>');
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));
         $form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_2'));
     }
@@ -906,7 +906,7 @@ elseif($getMode == 'soll_ist')
 
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));
     $form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => $gHomepage, 'class' => 'btn-primary'));
-    $form->addDescription('<BR>');
+    $form->addDescription('<br/>');
     $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));
 
     $page->addHtml($form->show(false));

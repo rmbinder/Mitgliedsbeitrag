@@ -105,7 +105,7 @@ else
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE');
 
     $message = '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA').'</strong>';
-    $message .= '<BR><BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');
+    $message .= '<br/><br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');
 
     // create html page object
     $page = new HtmlPage($headline);

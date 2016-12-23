@@ -560,7 +560,7 @@ function check_rollenmitgliedschaft_altersrolle()
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -641,7 +641,7 @@ function check_rollenmitgliedschaft_pflicht()
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -768,7 +768,7 @@ function check_rollenmitgliedschaft_ausschluss()
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -835,7 +835,7 @@ function check_rols()
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -956,7 +956,7 @@ function check_family_roles()
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR').'</strong>';
     }
 
     // eine evtl. vorhandene Fehlermeldung davorsetzen
@@ -992,7 +992,7 @@ function check_mandate_management()
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -1022,7 +1022,7 @@ function check_iban()
     }
     else
     {
-        $ret[] = '<BR><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }

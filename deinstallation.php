@@ -207,12 +207,12 @@ elseif($getMode == 'delete')
     $deinstMessage = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE');
     if($deinst_config_data_message!='')
     {
-        $deinstMessage .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA').'</strong><BR>';
+        $deinstMessage .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA').'</strong><br/>';
         $deinstMessage .= $deinst_config_data_message;
     }
     if($deinst_member_data_message!='')
     {
-        $deinstMessage .= '<BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA').'</strong>';
+        $deinstMessage .= '<br/><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA').'</strong>';
         $deinstMessage .= $deinst_member_data_message;
     }
 
