@@ -41,7 +41,7 @@ if($getChoice == 'agestaggeredroles')
 {
     if($getConf == -1)
     {
-        array_push($pPreferences->config['Altersrollen']['altersrollen_token'], $pPreferences->config_default['Altersrollen']['altersrollen_token'][0]);
+        $pPreferences->config['Altersrollen']['altersrollen_token'][] = $pPreferences->config_default['Altersrollen']['altersrollen_token'][0];
     }
     else
     {
@@ -52,11 +52,11 @@ elseif($getChoice == 'familyroles')
 {
     if($getConf == -1)
     {
-        array_push($pPreferences->config['Familienrollen']['familienrollen_beitrag'], $pPreferences->config_default['Familienrollen']['familienrollen_beitrag'][0]);
-        array_push($pPreferences->config['Familienrollen']['familienrollen_zeitraum'], $pPreferences->config_default['Familienrollen']['familienrollen_zeitraum'][0]);
-        array_push($pPreferences->config['Familienrollen']['familienrollen_beschreibung'], $pPreferences->config_default['Familienrollen']['familienrollen_beschreibung'][0]);
-        array_push($pPreferences->config['Familienrollen']['familienrollen_prefix'], $pPreferences->config_default['Familienrollen']['familienrollen_prefix'][0]);
-        array_push($pPreferences->config['Familienrollen']['familienrollen_pruefung'], $pPreferences->config_default['Familienrollen']['familienrollen_pruefung'][0]);
+        $pPreferences->config['Familienrollen']['familienrollen_beitrag'][] = $pPreferences->config_default['Familienrollen']['familienrollen_beitrag'][0];
+        $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][] = $pPreferences->config_default['Familienrollen']['familienrollen_zeitraum'][0];
+        $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][] = $pPreferences->config_default['Familienrollen']['familienrollen_beschreibung'][0];
+        $pPreferences->config['Familienrollen']['familienrollen_prefix'][] = $pPreferences->config_default['Familienrollen']['familienrollen_prefix'][0];
+        $pPreferences->config['Familienrollen']['familienrollen_pruefung'][] = $pPreferences->config_default['Familienrollen']['familienrollen_pruefung'][0];
     }
     else
     {
