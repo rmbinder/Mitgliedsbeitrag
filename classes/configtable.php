@@ -43,7 +43,7 @@ class ConfigTablePMB
      */
     public function __construct()
     {
-        global  $gDb, $gCurrentOrganization, $g_tbl_praefix;
+        global $g_tbl_praefix;
 
         require_once(__DIR__ . '/../version.php');
         include(__DIR__ . '/../configdata.php');
@@ -71,9 +71,7 @@ class ConfigTablePMB
      */
     public function init()
     {
-        global $gL10n, $gDb, $gCurrentOrganization,$gProfileFields;
-
-        $config_ist = array();
+        global $gDb, $gCurrentOrganization;
 
         // pruefen, ob es die Tabelle bereits gibt
         $sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
@@ -273,7 +271,8 @@ class ConfigTablePMB
      */
     public function checkforupdate()
     {
-        global $gL10n, $gDb, $gCurrentOrganization,$gProfileFields;
+        global $gDb, $gCurrentOrganization;
+
         $ret = 0;
 
         // pruefen, ob es die Konfigurationstabelle gibt
@@ -374,7 +373,6 @@ class ConfigTablePMB
     {
         global $gDb, $gCurrentOrganization,$gL10n;
 
-        $result = '';
         $result_data=false;
         $result_db = false;
 
@@ -420,11 +418,6 @@ class ConfigTablePMB
         global $gDb, $gCurrentOrganization,$gL10n,$gProfileFields;
 
         $result = '';
-        $result_data=false;
-        $result_logdata=false;
-        $result_listdata=false;
-        $result_profilefield=false;
-        $result_category=false;
         $usfIDs=array();
 
         if($deinst_org_select==0)                   //0 = Daten nur in aktueller Org loeschen

@@ -525,7 +525,7 @@ function analyse_rol()
  */
 function check_rollenmitgliedschaft_altersrolle()
 {
-    global $pPreferences, $gL10n;
+    global $gL10n;
     $ret = array();
     $alt = beitragsrollen_einlesen('alt', array('FIRST_NAME', 'LAST_NAME'));
 
@@ -603,7 +603,6 @@ function check_rollenmitgliedschaft_pflicht()
     // in $beitragsrollen sind jetzt nur noch Pflicht-Beitragsrollen
 
     // Feature-Wunsch von joesch
-    $bezugskategorieMembers = array();
     if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]!=' ')
     {
         // zuerst alle Member der Bezugskategorien einlesen
@@ -687,7 +686,6 @@ function check_rollenmitgliedschaft_ausschluss()
     }
 
     // Feature-Wunsch von joesch
-    $bezugskategorieMembers = array();
     if ($pPreferences->config['Rollenpruefung']['bezugskategorie'][0]!= ' ')
     {
         // zuerst alle Member der Bezugskategorien einlesen
@@ -1123,7 +1121,6 @@ function erzeuge_mitgliedsnummer()
 
     $rueckgabe_mitgliedsnummer = 0;
     $mitgliedsnummern = array();
-    $id_mitgliedsnummer = 0;
 
     $sql = ' SELECT usf_id
              FROM '.TBL_USER_FIELDS.'
