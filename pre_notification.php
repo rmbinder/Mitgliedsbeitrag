@@ -431,7 +431,7 @@ else
                     OR cat_org_id IS NULL )  ';
 
         $duedateStatement = $gDb->query($sql);
-        $selectBoxEntries = array('0'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
+        $selectBoxEntries = array('0' => '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
 
         while ($row = $duedateStatement->fetch())
         {
@@ -440,7 +440,7 @@ else
         }
 
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_URL .'/icons/disk.png', 'link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
+        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
         $navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_URL .'/icons/email.png', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
         $preNotificationsMenu->addForm($navbarForm->show(false));
 

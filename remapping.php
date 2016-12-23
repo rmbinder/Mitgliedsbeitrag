@@ -61,7 +61,7 @@ foreach ($altersrollen as $roleId => $roldata)
         if (($age < $roldata['von']) || ($age > $roldata['bis']))
         {
             // wenn ja, dann Mitglied auf den Stack legen und Rollenmitgliedschaft loeschen
-            $stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
+            $stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id' => $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
 
             $sql = 'UPDATE '.TBL_MEMBERS.'
                     SET mem_end = \''.date('Y-m-d', strtotime('-1 day')).'\'

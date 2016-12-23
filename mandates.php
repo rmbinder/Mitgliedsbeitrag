@@ -298,7 +298,7 @@ else
 
     if($getFullScreen)
     {
-        $navbarForm->addCheckbox('mandate_screen', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN'), $getMandateScreen, array('class'=>'mandatescreen_checkbox', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC'));
+        $navbarForm->addCheckbox('mandate_screen', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN'), $getMandateScreen, array('class' => 'mandatescreen_checkbox', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC'));
     }
     $mandatesMenu->addForm($navbarForm->show(false));
 
