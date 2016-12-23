@@ -587,7 +587,7 @@ $page->addHtml('
                         // show form
                         $form = new HtmlForm('plugin_control_preferences_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/preferences_function.php?form=plugin_control', $page, array('class' => 'form-preferences'));
                         $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
-                                FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
+                                FROM '.TBL_CATEGORIES.' AS cat, '.TBL_ROLES.' AS rol
                                 WHERE cat.cat_id = rol.rol_cat_id
                                 AND (  cat.cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                                 OR cat.cat_org_id IS NULL )';

@@ -183,62 +183,62 @@ else
             AND usd_value IS NOT NULL )';
     }
 
-    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value as last_name, first_name.usd_value as first_name, birthday.usd_value as birthday,
-               city.usd_value as city, address.usd_value as address, zip_code.usd_value as zip_code, country.usd_value as country,
-               bezahlt.usd_value as bezahlt,beitrag.usd_value as beitrag,duedate.usd_value as duedate,lastschrifttyp.usd_value as lastschrifttyp,
-               debtor.usd_value as debtor, debtoraddress.usd_value as debtoraddress,
-               debtorpostcode.usd_value as debtorpostcode, debtorcity.usd_value as debtorcity, debtoremail.usd_value as debtoremail,
-               email.usd_value as email
+    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
+               city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
+               bezahlt.usd_value AS bezahlt,beitrag.usd_value AS beitrag,duedate.usd_value AS duedate,lastschrifttyp.usd_value AS lastschrifttyp,
+               debtor.usd_value AS debtor, debtoraddress.usd_value AS debtoraddress,
+               debtorpostcode.usd_value AS debtorpostcode, debtorcity.usd_value AS debtorcity, debtoremail.usd_value AS debtoremail,
+               email.usd_value AS email
         FROM '. TBL_USERS. '
-        LEFT JOIN '. TBL_USER_DATA. ' as last_name
+        LEFT JOIN '. TBL_USER_DATA. ' AS last_name
           ON last_name.usd_usr_id = usr_id
          AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as first_name
+        LEFT JOIN '. TBL_USER_DATA. ' AS first_name
           ON first_name.usd_usr_id = usr_id
          AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as birthday
+        LEFT JOIN '. TBL_USER_DATA. ' AS birthday
           ON birthday.usd_usr_id = usr_id
          AND birthday.usd_usf_id = '. $gProfileFields->getProperty('BIRTHDAY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as city
+        LEFT JOIN '. TBL_USER_DATA. ' AS city
           ON city.usd_usr_id = usr_id
          AND city.usd_usf_id = '. $gProfileFields->getProperty('CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as address
+        LEFT JOIN '. TBL_USER_DATA. ' AS address
           ON address.usd_usr_id = usr_id
          AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as bezahlt
+        LEFT JOIN '. TBL_USER_DATA. ' AS bezahlt
           ON bezahlt.usd_usr_id = usr_id
          AND bezahlt.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as beitrag
+        LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
           ON beitrag.usd_usr_id = usr_id
          AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as lastschrifttyp
+        LEFT JOIN '. TBL_USER_DATA. ' AS lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
          AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as duedate
+        LEFT JOIN '. TBL_USER_DATA. ' AS duedate
           ON duedate.usd_usr_id = usr_id
          AND duedate.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' as zip_code
+         LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtor
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtor
           ON debtor.usd_usr_id = usr_id
          AND debtor.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtoraddress
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtoraddress
           ON debtoraddress.usd_usr_id = usr_id
          AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_ADDRESS', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtoremail
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtoremail
           ON debtoremail.usd_usr_id = usr_id
          AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as email
+        LEFT JOIN '. TBL_USER_DATA. ' AS email
           ON email.usd_usr_id = usr_id
          AND email.usd_usf_id = '. $gProfileFields->getProperty('EMAIL', 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' as debtorpostcode
+         LEFT JOIN '. TBL_USER_DATA. ' AS debtorpostcode
           ON debtorpostcode.usd_usr_id = usr_id
          AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtorcity
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtorcity
           ON debtorcity.usd_usr_id = usr_id
          AND debtorcity.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as country
+        LEFT JOIN '. TBL_USER_DATA. ' AS country
           ON country.usd_usr_id = usr_id
          AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '
 
