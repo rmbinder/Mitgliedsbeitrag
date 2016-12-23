@@ -55,7 +55,7 @@ $getDueDate     = admFuncVariableIsValid($_GET, 'duedate', 'string', array('defa
 // add current url to navigation stack if last url was not the same page
 if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
 {
-    $_SESSION['checkedArray']= array();
+    $_SESSION['checkedArray'] = array();
 }
 
 if($getMode == 'csv_export')
@@ -261,7 +261,7 @@ else
             }
             elseif ($getChecked == 'true')        // der Haken wurde gesetzt
             {
-                $_SESSION['checkedArray'][$getUserId]=$getUserId;
+                $_SESSION['checkedArray'][$getUserId] = $getUserId;
                 $ret_text = 'success';
 
             }
@@ -276,7 +276,7 @@ else
                 }
                 else
                 {
-                    $_SESSION['checkedArray'][$user['usr_id']]=$user['usr_id'];
+                    $_SESSION['checkedArray'][$user['usr_id']] = $user['usr_id'];
                 }
 
             }
@@ -436,7 +436,7 @@ else
         while ($row = $duedateStatement->fetch())
         {
             $DueDate = new DateTimeExtended($row['usd_value'], 'Y-m-d');
-            $selectBoxEntries[$row['usd_value']]=$DueDate->format($gPreferences['system_date']);
+            $selectBoxEntries[$row['usd_value']] = $DueDate->format($gPreferences['system_date']);
         }
 
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
@@ -600,7 +600,7 @@ else
                  {
                     $mail_link = ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_write.php?usr_id='. $user['usr_id'];
                  }
-                 $htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
+                 $htmlMail = '<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
                     alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
             }
 

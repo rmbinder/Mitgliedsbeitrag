@@ -178,7 +178,7 @@ else
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
 
-    $membersSelectString='';
+    $membersSelectString = '';
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'), 0);
     foreach ($members as $member => $memberdata)
     {

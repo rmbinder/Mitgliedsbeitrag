@@ -112,13 +112,13 @@ if($getMode == 'start')     //Default
 }
 elseif($getMode == 'delete')
 {
-    $deinst_config_data_message='';
+    $deinst_config_data_message = '';
     if(isset($_POST['configurationdata']))
     {
         $deinst_config_data_message = $pPreferences->delete_config_data($_POST['deinst_org_select']);
     }
 
-    $deinst_member_data_message='';
+    $deinst_member_data_message = '';
     if (isset($_POST['membernumber']))
     {
         $deinst_member_data_message .= $pPreferences->delete_member_data(3, 'MEMBERNUMBER', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'));

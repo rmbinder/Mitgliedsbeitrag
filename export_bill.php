@@ -31,9 +31,9 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 //alle Mitglieder einlesen
 $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'ADDRESS', 'POSTCODE', 'CITY', 'EMAIL', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0);
 
-//$rechnungs_file[]=array();
-$rechnungs_file=array();
-$i=0;
+//$rechnungs_file[] = array();
+$rechnungs_file = array();
+$i = 0;
 
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 foreach ($members as $member => $memberdata){
@@ -55,11 +55,11 @@ foreach ($members as $member => $memberdata){
                 'beitrag'        => $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')],
                 'beitragstext'   => $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],
         );
-        $i+=1;
+        $i += 1;
     }
 }
 
-if (count($rechnungs_file)>0)
+if (count($rechnungs_file) > 0)
 {
     // Dateityp, der immer abgespeichert wird
     header('Content-Type: application/octet-stream');
@@ -75,7 +75,7 @@ if (count($rechnungs_file)>0)
     header('Content-Disposition: attachment; filename="'.$pPreferences->config['Rechnungs-Export']['rechnung_dateiname'].'"');
 
     $nr = 1;
-    $sum= 0;
+    $sum = 0;
 
     //echo("name;adress;plz;ort;email;beitrag;beitragstext;summe\n");
     echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'.$gL10n->get('SYS_NAME').';'.$gL10n->get('SYS_ADDRESS').';'.$gL10n->get('SYS_POSTCODE').';'.$gL10n->get('SYS_LOCATION').';'.$gL10n->get('SYS_EMAIL').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n";

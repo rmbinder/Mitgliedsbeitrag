@@ -59,10 +59,10 @@ $user = new User($gDb, $gProfileFields, $getUserId);
 
 if($getMode == 'assign')
 {
-    $ret_txt='error_nothing_changed';
-    $iban_change='false';
-    $bank_change='false';
-    $mandateid_change='false';
+    $ret_txt = 'error_nothing_changed';
+    $iban_change = 'false';
+    $bank_change = 'false';
+    $mandateid_change = 'false';
 
     $gMessage->showTextOnly(true);
 
@@ -75,12 +75,12 @@ if($getMode == 'assign')
             //ja, dann muss origIBAN befuellt sein
             if (strlen($getOrigIBAN) !== 0)
             {
-                $iban_change='true';
-                $ret_txt='success';
+                $iban_change = 'true';
+                $ret_txt = 'success';
             }
             else
             {
-                $ret_txt='error_origiban_missing';
+                $ret_txt = 'error_origiban_missing';
             }
         }
     }
@@ -89,12 +89,12 @@ if($getMode == 'assign')
         //bei einer Aenderung der Bank muss es eine andere IBAN geben
         if ($getIBAN != $user->getValue('IBAN'))
         {
-            $bank_change='true';
-            $ret_txt='success';
+            $bank_change = 'true';
+            $ret_txt = 'success';
         }
         else
         {
-            $ret_txt='error_bank_changed';
+            $ret_txt = 'error_bank_changed';
         }
     }
 
@@ -104,12 +104,12 @@ if($getMode == 'assign')
         //bei einer Aenderung muss origMandateID befuellt sein
         if (strlen($getOrigMandateID) !== 0)
         {
-            $mandateid_change='true';
-            $ret_txt='success';
+            $mandateid_change = 'true';
+            $ret_txt = 'success';
         }
         else
         {
-            $ret_txt='error_origmandateid_missing';
+            $ret_txt = 'error_origmandateid_missing';
         }
     }
 

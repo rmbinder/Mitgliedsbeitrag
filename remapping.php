@@ -120,7 +120,7 @@ if (!$marker)
     $message .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7');
 }
 
-if (count($stack)>0)
+if (count($stack) > 0)
 {
     $message .= '<br/><br/><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><br/><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><br/>';
     foreach ($stack as $stackdata)

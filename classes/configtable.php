@@ -36,7 +36,7 @@ class ConfigTablePMB
     protected static $stand;
     protected static $dbtoken;
 
-    public $config_default= array();
+    public $config_default = array();
 
     /**
      * ConfigTablePMB constructor
@@ -145,7 +145,7 @@ class ConfigTablePMB
                 else
                 {
                     // wenn nicht, diese Sektion in der config anlegen und mit den Standardwerten aus der Soll-config befuellen
-                    $this->config[$section][$key]=$value;
+                    $this->config[$section][$key] = $value;
                 }
             }
             // leere Abschnitte (=leere Arrays) loeschen
@@ -373,7 +373,7 @@ class ConfigTablePMB
     {
         global $gDb, $gCurrentOrganization,$gL10n;
 
-        $result_data=false;
+        $result_data = false;
         $result_db = false;
 
         if($deinst_org_select == 0)                    //0 = Daten nur in aktueller Org loeschen
@@ -413,12 +413,12 @@ class ConfigTablePMB
      * @param   string  $dataDesc           Ueberschrift eines Blocks der Meldung
      * @return  string  $result             Meldung
      */
-    public function delete_member_data($deinst_org_select, $dataField, $dataDesc='')
+    public function delete_member_data($deinst_org_select, $dataField, $dataDesc = '')
     {
         global $gDb, $gCurrentOrganization,$gL10n,$gProfileFields;
 
         $result = '';
-        $usfIDs=array();
+        $usfIDs = array();
 
         if($deinst_org_select == 0)                   //0 = Daten nur in aktueller Org loeschen
         {
@@ -527,7 +527,7 @@ class ConfigTablePMB
         global $gDb, $gCurrentOrganization,$gL10n;
 
         $result = '';
-        $result_data=false;
+        $result_data = false;
 
         if($deinst_org_select == 0)                    //0 = Daten nur in aktueller Org loeschen
         {

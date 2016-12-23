@@ -126,7 +126,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
         }
         else
         {
-            if (is_array($with_members) && count($with_members)>0)
+            if (is_array($with_members) && count($with_members) > 0)
             {
                 $rollen[$key]['members'] = list_members($with_members, array($data['rolle'] => 0));
             }
@@ -328,8 +328,8 @@ function list_members($fields, $rols = array())
 
         // mem_begin und mem_end werden nur in der recalculation.php ausgewertet,
         // wird fuer anteilige Beitragsberechnung verwendet
-        $members[$row['mem_usr_id']]['mem_begin']=$row['mem_begin'];
-        $members[$row['mem_usr_id']]['mem_end']=$row['mem_end'];
+        $members[$row['mem_usr_id']]['mem_begin'] = $row['mem_begin'];
+        $members[$row['mem_usr_id']]['mem_end'] = $row['mem_end'];
     }
     foreach ($members as $member => $key)
     {
@@ -427,14 +427,14 @@ function getCostPeriod($my_rol_cost_period)
 /**
  * Erzeugt Array mit Daten fuer die Analyse
  * @return  array $ret   Array im Format:<br/>
- *                       $ret['BEITRAG_kto']        =Gesamtsumme der Beitraege mit Kto-Verbindung<br/>
- *                       $ret['BEITRAG_kto_anzahl'] =Anzahl mit Kto-Verbindung<br/>
- *                       $ret['BEZAHLT_kto']        =Gesamtsumme mit Bezahlt und mit Kto-Verbindung<br/>
- *                       $ret['BEZAHLT_kto_anzahl'] =Anzahl mit Bezahlt und mit Kto-Verbindung<br/>
- *                       $ret['BEITRAG_rech']       =Gesamtsumme der Beitraege ohne Kto-Verbindung<br/>
- *                       $ret['BEITRAG_rech_anzahl']=Anzahl ohne Kto-Verbindung<br/>
- *                       $ret['BEZAHLT_rech']       =Gesamtsumme mit Bezahlt und ohne Kto-Verbindung<br/>
- *                       $ret['BEZAHLT_rech_anzahl']=Anzahl mit Bezahlt und ohne Kto-Verbindung
+ *                       $ret['BEITRAG_kto']         = Gesamtsumme der Beitraege mit Kto-Verbindung<br/>
+ *                       $ret['BEITRAG_kto_anzahl']  = Anzahl mit Kto-Verbindung<br/>
+ *                       $ret['BEZAHLT_kto']         = Gesamtsumme mit Bezahlt und mit Kto-Verbindung<br/>
+ *                       $ret['BEZAHLT_kto_anzahl']  = Anzahl mit Bezahlt und mit Kto-Verbindung<br/>
+ *                       $ret['BEITRAG_rech']        = Gesamtsumme der Beitraege ohne Kto-Verbindung<br/>
+ *                       $ret['BEITRAG_rech_anzahl'] = Anzahl ohne Kto-Verbindung<br/>
+ *                       $ret['BEZAHLT_rech']        = Gesamtsumme mit Bezahlt und ohne Kto-Verbindung<br/>
+ *                       $ret['BEZAHLT_rech_anzahl'] = Anzahl mit Bezahlt und ohne Kto-Verbindung
  */
 function analyse_mem()
 {
@@ -460,24 +460,24 @@ function analyse_mem()
         if (!empty($memberdata['IBAN']))
         {
             $ret['BEITRAG_kto'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
-            $ret['BEITRAG_kto_anzahl']+=1;
+            $ret['BEITRAG_kto_anzahl'] += 1;
         }
         if ((!empty($memberdata['IBAN']))
             && !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]))
         {
             $ret['BEZAHLT_kto'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
-            $ret['BEZAHLT_kto_anzahl']+=1;
+            $ret['BEZAHLT_kto_anzahl'] += 1;
         }
         if (empty($memberdata['IBAN']))
         {
             $ret['BEITRAG_rech'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
-            $ret['BEITRAG_rech_anzahl']+=1;
+            $ret['BEITRAG_rech_anzahl'] += 1;
         }
         if (empty($memberdata['IBAN'])
             && !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]))
         {
             $ret['BEZAHLT_rech'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
-            $ret['BEZAHLT_rech_anzahl']+=1;
+            $ret['BEZAHLT_rech_anzahl'] += 1;
         }
     }
     return $ret;
@@ -510,7 +510,7 @@ function analyse_rol()
         {
             if (substr($data['rolle'], 0, strlen($pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey])) == $pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey])
             {
-                $arr[]=$key;
+                $arr[] = $key;
             }
         }
         $ret[$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey]] = array('rolle' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE').' '.$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey], 'rol_cost' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$famkey], 'rol_cost_period' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$famkey], 'members' =>$arr, 'rollentyp' => 'fam');
@@ -534,7 +534,7 @@ function check_rollenmitgliedschaft_altersrolle()
     {
         foreach($altdata['members'] as $member => $memberdata)
         {
-            $check[$member]['alterstyp'][]= $altdata['alterstyp'];
+            $check[$member]['alterstyp'][] = $altdata['alterstyp'];
             $check[$member]['FIRST_NAME'] = $memberdata['FIRST_NAME'];
             $check[$member]['LAST_NAME'] = $memberdata['LAST_NAME'];
         }
@@ -543,7 +543,7 @@ function check_rollenmitgliedschaft_altersrolle()
     // jetzt $check durchlaufen und nur die Eintraege bearbeiten, bei denen mehr als 1 Alterstyp vorhanden ist
     foreach($check as $member => $memberdata)
     {
-        if(count($memberdata['alterstyp'])>1)
+        if(count($memberdata['alterstyp']) > 1)
         {
             $alterstypen = '';
             foreach($memberdata['alterstyp'] as $alterstyp)
@@ -672,15 +672,15 @@ function check_rollenmitgliedschaft_ausschluss()
 
             if($roldata['rollentyp'] == 'alt')
             {
-                $members[$key]['rollen'][]= $roldata['alterstyp'].'alt';
+                $members[$key]['rollen'][] = $roldata['alterstyp'].'alt';
             }
             elseif($roldata['rollentyp'] == 'fam')
             {
-                $members[$key]['rollen'][]= 'fam';
+                $members[$key]['rollen'][] = 'fam';
             }
             else
             {
-                $members[$key]['rollen'][]= $rol;
+                $members[$key]['rollen'][] = $rol;
             }
         }
     }
@@ -892,7 +892,7 @@ function check_family_roles()
         }
 
         // Meldung bei fehlerhaften Pruefbedingungen
-        if($ret_marker && strlen($pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key])>0)
+        if($ret_marker && strlen($pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key]) > 0)
         {
             $ret_error[] = '<small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key].' ('.$prefix.') '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INVALID').'.</small>';
         }
@@ -1041,8 +1041,8 @@ function test_iban($iban)
         . strval(ord($iban{1})-55)
         . substr($iban, 2, 2);
 
-    $rest=0;
-    for ($pos=0; $pos<strlen($iban1); $pos+=7) {
+    $rest = 0;
+    for ($pos = 0; $pos<strlen($iban1); $pos += 7) {
         $part = strval($rest) . substr($iban1, $pos, 7);
         $rest = intval($part) % 97;
     }
@@ -1142,7 +1142,7 @@ function erzeuge_mitgliedsnummer()
     sort($mitgliedsnummern);
 
     //Ueberpruefung auf doppelte Mitgliedsnummern
-    for ($i=0; $i < count($mitgliedsnummern)-1; $i++)
+    for ($i = 0; $i < count($mitgliedsnummern)-1; $i++)
     {
         if ($mitgliedsnummern[$i] == $mitgliedsnummern[$i+1])
         {
@@ -1252,13 +1252,13 @@ function umlaute($tmptext)
     // angepasst wegen einem Fehler bei der Umsetzung von ß
 
     $tmptext = htmlentities($tmptext);
-    $tmptext=str_replace('&uuml;', 'ue', $tmptext);
-    $tmptext=str_replace('&auml;', 'ae', $tmptext);
-    $tmptext=str_replace('&ouml;', 'oe', $tmptext);
-    $tmptext=str_replace('&szlig;', 'ss', $tmptext);
-    $tmptext=str_replace('&Uuml;', 'Ue', $tmptext);
-    $tmptext=str_replace('&Auml;', 'Ae', $tmptext);
-    $tmptext=str_replace('&Ouml;', 'Oe', $tmptext);
+    $tmptext = str_replace('&uuml;', 'ue', $tmptext);
+    $tmptext = str_replace('&auml;', 'ae', $tmptext);
+    $tmptext = str_replace('&ouml;', 'oe', $tmptext);
+    $tmptext = str_replace('&szlig;', 'ss', $tmptext);
+    $tmptext = str_replace('&Uuml;', 'Ue', $tmptext);
+    $tmptext = str_replace('&Auml;', 'Ae', $tmptext);
+    $tmptext = str_replace('&Ouml;', 'Oe', $tmptext);
     return $tmptext;
 }
 
@@ -1354,9 +1354,9 @@ Schraegstrich           |  /        | X'2F
         '€' => 'EUR',
         '&' => 'und');
 
-    $ret=str_replace(array_keys($charMap), array_values($charMap), $tmptext);
+    $ret = str_replace(array_keys($charMap), array_values($charMap), $tmptext);
 
-    for ($i=0; $i<strlen($ret); $i++)
+    for ($i = 0; $i < strlen($ret); $i++)
     {
         if (preg_match('/[^A-Za-z0-9\'\:\?\,\-\s\(\+\)\/]/', substr($ret, $i, 1)))
         {
@@ -1397,7 +1397,7 @@ function replace_emailparameter($text, $user)
  * @param   string  $rollentyp  Rollentyp in Kurzform ('fix' oder 'fam')
  * @return  string  $ret        Rollentyp in Langform (z.B. 'Familienrollen')
  */
-function expand_rollentyp($rollentyp='')
+function expand_rollentyp($rollentyp = '')
 {
     global $gL10n;
 

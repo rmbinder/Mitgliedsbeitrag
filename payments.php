@@ -398,7 +398,7 @@ else
     // show rows with all organization users
     while($user = $statement->fetch())
     {
-        if(($getMembersShow == 2) && (strlen($user['beitrag'])>0) && (strlen($user['bezahlt'])>0))
+        if(($getMembersShow == 2) && (strlen($user['beitrag']) > 0) && (strlen($user['bezahlt']) > 0))
         {
             continue;
         }
@@ -530,7 +530,7 @@ else
             {
                 $mail_link = ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_write.php?usr_id='. $user['usr_id'];
             }
-            $htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
+            $htmlMail = '<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
                     alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
         }
 
@@ -541,7 +541,7 @@ else
         {
             $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
-            $birthdayDateSort=$birthdayDate->format('Ymd');
+            $birthdayDateSort = $birthdayDate->format('Ymd');
         }
 
         //14. Spalte ($birthdayDateSort)

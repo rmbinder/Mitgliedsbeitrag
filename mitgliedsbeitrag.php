@@ -33,7 +33,7 @@ $pPreferences = new ConfigTablePMB();
 if(!isset($_SESSION['pmbDeinst']))
 {
     $checked = $pPreferences->checkforupdate();
-    $startprog='menue.php';
+    $startprog = 'menue.php';
 
     if ($checked == 1)        //Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
     {
@@ -41,7 +41,7 @@ if(!isset($_SESSION['pmbDeinst']))
     }
     elseif ($checked == 2)        //Installationsroutine durchlaufen
     {
-        $startprog='installation.php';
+        $startprog = 'installation.php';
         $pPreferences->init();
     }
 

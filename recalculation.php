@@ -88,8 +88,8 @@ $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganiza
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 foreach ($members as $member => $memberdata)
 {
-    $members[$member]['BEITRAG-NEU']='';
-    $members[$member]['BEITRAGSTEXT-NEU']='';
+    $members[$member]['BEITRAG-NEU'] = '';
+    $members[$member]['BEITRAGSTEXT-NEU'] = '';
 
     foreach ($rols as $rol => $roldata)
     {
@@ -191,7 +191,7 @@ foreach ($members as $member => $memberdata)
 foreach ($rols as $rol => $roldata)
 {
     // nur Rollen mit dem Praefix einer Familie && die Familienrolle muß Mitglieder aufweisen
-    if (($roldata['rollentyp'] == 'fam') && (count($roldata['members'])>0))
+    if (($roldata['rollentyp'] == 'fam') && (count($roldata['members']) > 0))
     {
         // wenn definiert: Beitragstext mit allen Familienmitgliedern
         if($pPreferences->config['Beitrag']['beitrag_textmitfam'] == true)

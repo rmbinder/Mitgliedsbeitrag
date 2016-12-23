@@ -71,7 +71,7 @@ try
                 }
                 $user->save();
             }
-            $ret_message= 'delete';
+            $ret_message = 'delete';
             break;
 
         case 'recalculation':
