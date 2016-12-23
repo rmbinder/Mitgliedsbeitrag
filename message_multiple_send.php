@@ -245,23 +245,23 @@ if(count($sendMailResultSendOK) > 1)
 {
     foreach ($sendMailResultSendOK as $data)
     {
-        $sendMailResultMessage .= $data.'<br>';
+        $sendMailResultMessage .= $data.'<br/>';
     }
-    $sendMailResultMessage .=   '<br>';
+    $sendMailResultMessage .=   '<br/>';
 }
 if(count($sendMailResultMissingEmail) > 1)
 {
     foreach ($sendMailResultMissingEmail as $data)
     {
-        $sendMailResultMessage .= $data.'<br>';
+        $sendMailResultMessage .= $data.'<br/>';
     }
-    $sendMailResultMessage .=   '<br>';
+    $sendMailResultMessage .=   '<br/>';
 }
 if(count($sendMailResultAnotherError) > 1)
 {
     foreach ($sendMailResultAnotherError as $data)
     {
-        $sendMailResultMessage .= $data.'<br>';
+        $sendMailResultMessage .= $data.'<br/>';
     }
 }
 

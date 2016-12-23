@@ -264,9 +264,9 @@ class ConfigTablePMB
 
     /**
      * Vergleicht die Daten in der version.php mit den Daten in der DB
-     * @return int  $ret<br>
-     *              0 = kein Update erforderlich<br>
-     *              1 = Versionen von Stand und Datum sind unterschiedlich: Init-Routine durchlaufen<br>
+     * @return int  $ret<br/>
+     *              0 = kein Update erforderlich<br/>
+     *              1 = Versionen von Stand und Datum sind unterschiedlich: Init-Routine durchlaufen<br/>
      *              2 = Struktur der DB unterschiedlich: Install-Routine durchlaufen
      */
     public function checkforupdate()

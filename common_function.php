@@ -24,15 +24,15 @@ $plugin_folder = '/'.substr(__DIR__, strrpos(__DIR__, DIRECTORY_SEPARATOR)+1);
  *                                            ein Array mit den einzulesenden usf_name_intern anzugeben,
  *                                            z.B. array('FIRST_NAME','LAST_NAME');
  *                                            ohne uebergebenen Parameter werden die Rollen ohne Mitglieder eingelesen
- * @return  array   $rollen         Array mit Rollennamen im Format:<br>
- *                                  $rollen[rol_id]['rolle']                  =Rollenname ('rol_name')<br>
- *                                  $rollen[rol_id]['rol_cost']               =Beitrag der Rollen ('rol_cost')<br>
- *                                  $rollen[rol_id]['rol_cost_period']        =Beitragszeitraum ('rol_cost_period')<br>
- *                                  $rollen[rol_id]['rol_timestamp_create']   =Erzeugungsdatum der Rolle ('rol_timestamp_create')<br>
- *                                  $rollen[rol_id]['rol_description']        =Beschreibung ('rol_description')<br>
- *                                  $rollen[rol_id]['von']                    =nur bei altersgestaffelnten Rollen 'von'<br>
- *                                  $rollen[rol_id]['bis']                    =nur bei altersgestaffelnten Rollen 'bis'<br>
- *                                  $rollen[rol_id]['alterstyp']              =nur bei altersgestaffelnten Rollen 'Trennzeichen'<br>
+ * @return  array   $rollen         Array mit Rollennamen im Format:<br/>
+ *                                  $rollen[rol_id]['rolle']                  =Rollenname ('rol_name')<br/>
+ *                                  $rollen[rol_id]['rol_cost']               =Beitrag der Rollen ('rol_cost')<br/>
+ *                                  $rollen[rol_id]['rol_cost_period']        =Beitragszeitraum ('rol_cost_period')<br/>
+ *                                  $rollen[rol_id]['rol_timestamp_create']   =Erzeugungsdatum der Rolle ('rol_timestamp_create')<br/>
+ *                                  $rollen[rol_id]['rol_description']        =Beschreibung ('rol_description')<br/>
+ *                                  $rollen[rol_id]['von']                    =nur bei altersgestaffelnten Rollen 'von'<br/>
+ *                                  $rollen[rol_id]['bis']                    =nur bei altersgestaffelnten Rollen 'bis'<br/>
+ *                                  $rollen[rol_id]['alterstyp']              =nur bei altersgestaffelnten Rollen 'Trennzeichen'<br/>
  *                                  $rollen[rol_id]['rollentyp']              =Rollentyp ('alt', 'fam' oder 'fix')
  */
 function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
@@ -241,21 +241,21 @@ function hasRole_IDPMB($role_id, $user_id = 0)
 }
 
 /**
- * Diese Funktion liefert als Rueckgabe die usr_ids von Rollenangehoerigen.<br>
- * moegliche Aufrufe:<br>
- *         list_members(array('usf_name_intern1','usf_name_intern2'),array('Rollenname1' => Schalter aktiv/ehem) )<br>
- *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), 'Rollenname' )<br>
- *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), Schalter aktiv/ehem )<br>
+ * Diese Funktion liefert als Rueckgabe die usr_ids von Rollenangehoerigen.<br/>
+ * moegliche Aufrufe:<br/>
+ *         list_members(array('usf_name_intern1','usf_name_intern2'),array('Rollenname1' => Schalter aktiv/ehem) )<br/>
+ *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), 'Rollenname' )<br/>
+ *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), Schalter aktiv/ehem )<br/>
  *
- * Schalter aktiv/ehem: 0 = aktive Mitglieder, 1 = ehemalige Mitglieder, ungleich 1 oder 0: alle Mitglieder <br>
+ * Schalter aktiv/ehem: 0 = aktive Mitglieder, 1 = ehemalige Mitglieder, ungleich 1 oder 0: alle Mitglieder <br/>
  *
  * Aufruf: z.B. list_members(array('FIRST_NAME','LAST_NAME'), array('Mitglied' => 0,'Webmaster' => 0));
  *
  * @param   array               $fields  Array mit usf_name_intern, z.B. array('FIRST_NAME','LAST_NAME')
- * @param   array/string/bool   $rols    Array mit Rollen, z.B. <br>
- *                                            array('Rollenname1' => Schalter aktiv/ehem) )<br>
- *                                       oder 'Rollenname' <br>
- *                                       oder Schalter aktiv/ehem  <br>
+ * @param   array/string/bool   $rols    Array mit Rollen, z.B. <br/>
+ *                                            array('Rollenname1' => Schalter aktiv/ehem) )<br/>
+ *                                       oder 'Rollenname' <br/>
+ *                                       oder Schalter aktiv/ehem  <br/>
  * @return  array   $members
  */
 function list_members($fields, $rols = array())
@@ -426,14 +426,14 @@ function getCostPeriod($my_rol_cost_period)
 
 /**
  * Erzeugt Array mit Daten fuer die Analyse
- * @return  array $ret   Array im Format:<br>
- *                       $ret['BEITRAG_kto']        =Gesamtsumme der Beitraege mit Kto-Verbindung<br>
- *                       $ret['BEITRAG_kto_anzahl'] =Anzahl mit Kto-Verbindung<br>
- *                       $ret['BEZAHLT_kto']        =Gesamtsumme mit Bezahlt und mit Kto-Verbindung<br>
- *                       $ret['BEZAHLT_kto_anzahl'] =Anzahl mit Bezahlt und mit Kto-Verbindung<br>
- *                       $ret['BEITRAG_rech']       =Gesamtsumme der Beitraege ohne Kto-Verbindung<br>
- *                       $ret['BEITRAG_rech_anzahl']=Anzahl ohne Kto-Verbindung<br>
- *                       $ret['BEZAHLT_rech']       =Gesamtsumme mit Bezahlt und ohne Kto-Verbindung<br>
+ * @return  array $ret   Array im Format:<br/>
+ *                       $ret['BEITRAG_kto']        =Gesamtsumme der Beitraege mit Kto-Verbindung<br/>
+ *                       $ret['BEITRAG_kto_anzahl'] =Anzahl mit Kto-Verbindung<br/>
+ *                       $ret['BEZAHLT_kto']        =Gesamtsumme mit Bezahlt und mit Kto-Verbindung<br/>
+ *                       $ret['BEZAHLT_kto_anzahl'] =Anzahl mit Bezahlt und mit Kto-Verbindung<br/>
+ *                       $ret['BEITRAG_rech']       =Gesamtsumme der Beitraege ohne Kto-Verbindung<br/>
+ *                       $ret['BEITRAG_rech_anzahl']=Anzahl ohne Kto-Verbindung<br/>
+ *                       $ret['BEZAHLT_rech']       =Gesamtsumme mit Bezahlt und ohne Kto-Verbindung<br/>
  *                       $ret['BEZAHLT_rech_anzahl']=Anzahl mit Bezahlt und ohne Kto-Verbindung
  */
 function analyse_mem()
