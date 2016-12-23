@@ -36,7 +36,7 @@ $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' 
 
 if($getMode == 'anlegen')
 {
-    $arr = Check_DB();
+    $arr = check_DB();
 
     // pruefen, ob es die Kategorie Mitgliedschaft gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_id']))
@@ -497,7 +497,7 @@ if($getMode == 'anlegen')
 
 if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 {
-    $arr = Check_DB();
+    $arr = check_DB();
 
     // create html page object
     $page = new HtmlPage();
@@ -716,7 +716,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 }
 elseif($getMode == 'soll_ist')
 {
-    $arr = Check_DB();
+    $arr = check_DB();
 
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
 
