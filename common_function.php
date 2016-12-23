@@ -271,14 +271,14 @@ function list_members($fields, $rols = array())
     {
         $sql .= ' WHERE mem_rol_id = '.getRole_IDPMB($rols).' ';
     }
-    elseif  (is_integer($rols) && ($rols == 0))
+    elseif  (is_int($rols) && ($rols == 0))
     {
         // nur aktive Mitglieder
         $sql .= ' WHERE mem_begin <= \''.DATE_NOW.'\' ';
         $sql .= ' AND mem_end >= \''.DATE_NOW.'\' ';
 
     }
-    elseif  (is_integer($rols) && ($rols == 1))
+    elseif  (is_int($rols) && ($rols == 1))
     {
         // nicht-aktive Mitglieder    ALT:nur ehemalige Mitglieder
         $sql .= ' WHERE ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') )';
