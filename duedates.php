@@ -166,8 +166,8 @@ else
 
     $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
                city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
-               iban.usd_value AS iban,lastschrifttyp.usd_value AS lastschrifttyp,
-               mandatsdatum.usd_value AS mandatsdatum, faelligkeitsdatum.usd_value AS faelligkeitsdatum,beitrag.usd_value AS beitrag
+               iban.usd_value AS iban, lastschrifttyp.usd_value AS lastschrifttyp,
+               mandatsdatum.usd_value AS mandatsdatum, faelligkeitsdatum.usd_value AS faelligkeitsdatum, beitrag.usd_value AS beitrag
         FROM '. TBL_USERS. '
         LEFT JOIN '. TBL_USER_DATA. ' AS last_name
           ON last_name.usd_usr_id = usr_id

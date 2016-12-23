@@ -243,7 +243,7 @@ function hasRole_IDPMB($role_id, $user_id = 0)
 /**
  * Diese Funktion liefert als Rueckgabe die usr_ids von Rollenangehoerigen.<br/>
  * moegliche Aufrufe:<br/>
- *         list_members(array('usf_name_intern1','usf_name_intern2'),array('Rollenname1' => Schalter aktiv/ehem) )<br/>
+ *         list_members(array('usf_name_intern1','usf_name_intern2'), array('Rollenname1' => Schalter aktiv/ehem) )<br/>
  *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), 'Rollenname' )<br/>
  *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), Schalter aktiv/ehem )<br/>
  *
@@ -777,7 +777,7 @@ function check_rollenmitgliedschaft_ausschluss()
  * Vergleichsfunktion erforderlich fuer usort()
  * @param  $wert_a
  * @param  $wert_b
- * @return int 0,1 oder -1
+ * @return int 0, 1 oder -1
  */
 function vergleich($wert_a, $wert_b)
 {

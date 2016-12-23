@@ -435,7 +435,7 @@ class ConfigTablePMB
         }
 
         // alle usf_id´s des uebergebenen $dataField einlesen
-        $sql = 'SELECT usf_id, usf_name, usf_name_intern,usf_cat_id, cat_name,cat_name_intern FROM '.TBL_USER_FIELDS.', '.TBL_CATEGORIES.'
+        $sql = 'SELECT usf_id, usf_name, usf_name_intern, usf_cat_id, cat_name, cat_name_intern FROM '.TBL_USER_FIELDS.', '.TBL_CATEGORIES.'
                 WHERE usf_name_intern LIKE  \''.$dataField.$orgSelector.'\'
                 AND  usf_cat_id=cat_id  ';
         $statement = $gDb->query($sql);

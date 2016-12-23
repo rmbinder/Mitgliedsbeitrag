@@ -43,7 +43,7 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name_intern'].'\' ,
@@ -102,7 +102,7 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name_intern'].'\' ,
@@ -216,7 +216,7 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_name_intern'].'\' ,
@@ -292,7 +292,7 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence,cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_name_intern'].'\' ,
@@ -930,7 +930,7 @@ function check_DB()
     //Hier wird deshalb ueberprueft, ob es eine Kategorie kontodaten gibt.
     //Falls von dieser Kategorie der usf_name_intern leer ist, wird er mit KONTODATEN beschrieben.
 
-    $sql = ' SELECT cat_name,cat_name_intern
+    $sql = ' SELECT cat_name, cat_name_intern
             FROM '. TBL_CATEGORIES. '
             WHERE cat_name = \'Kontodaten\'
             AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'

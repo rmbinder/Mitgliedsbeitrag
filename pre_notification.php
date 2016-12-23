@@ -184,8 +184,8 @@ else
 
     $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
                city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
-               faelligkeitsdatum.usd_value AS faelligkeitsdatum,beitrag.usd_value AS beitrag,lastschrifttyp.usd_value AS lastschrifttyp,
-               mandatsreferenz.usd_value AS mandatsreferenz,debtor.usd_value AS debtor, debtoraddress.usd_value AS debtoraddress,
+               faelligkeitsdatum.usd_value AS faelligkeitsdatum, beitrag.usd_value AS beitrag, lastschrifttyp.usd_value AS lastschrifttyp,
+               mandatsreferenz.usd_value AS mandatsreferenz, debtor.usd_value AS debtor, debtoraddress.usd_value AS debtoraddress,
                debtorpostcode.usd_value AS debtorpostcode, debtorcity.usd_value AS debtorcity, debtoremail.usd_value AS debtoremail,
                email.usd_value AS email
         FROM '. TBL_USERS. '
