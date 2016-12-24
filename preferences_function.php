@@ -54,7 +54,7 @@ try
 
         case 'agestaggeredroles':
             unset($pPreferences->config['Altersrollen']);
-            $altersrollen_anzahl=0;
+            $altersrollen_anzahl = 0;
             $pPreferences->config['Altersrollen']['altersrollen_stichtag'] = $_POST['altersrollen_stichtag'];
 
             for($conf = 0; isset($_POST['altersrollen_token'. $conf]); $conf++)
@@ -68,7 +68,7 @@ try
             }
             //diese Zeile ist nur zur Sicherheit, falls ein Nutzer einen Refresh (F5) des Browsers ausfuehrt
             //und dadurch nicht durch das Plugin kontrollierte Loeschungen oder Hinzufuegungen ausfuehrt
-            if($altersrollen_anzahl==0)
+            if($altersrollen_anzahl == 0)
             {
                 $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG'));
             }
@@ -203,11 +203,11 @@ try
                 }
             }
 
-            if ((count($pPreferences->config['Altersrollen']['altersrollen_token'])>1))
+            if ((count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1))
             {
-                for ($x=0; $x<count($pPreferences->config['Altersrollen']['altersrollen_token'])-1; $x++)
+                for ($x = 0; $x < count($pPreferences->config['Altersrollen']['altersrollen_token'])-1; $x++)
                 {
-                    for ($y=$x+1; $y<count($pPreferences->config['Altersrollen']['altersrollen_token']); $y++)
+                    for ($y = $x+1; $y < count($pPreferences->config['Altersrollen']['altersrollen_token']); $y++)
                     {
                         if(isset($_POST['altersrollenaltersrollen'.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].$pPreferences->config['Altersrollen']['altersrollen_token'][$y]]))
                         {
@@ -249,11 +249,11 @@ catch(AdmException $e)
 
 $pPreferences->save();
 
-if ($echomarker==0)
+if ($echomarker == 0)
 {
     echo 'success';
 }
-elseif($echomarker==1)
+elseif($echomarker == 1)
 {
     echo 'convert_error';
 }

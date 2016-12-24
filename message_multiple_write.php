@@ -41,7 +41,7 @@ if ($gPreferences['enable_mail_module'] != 1)
 }
 
 // check if user has email address for sending a email
-if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) == 0)
+if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) === 0)
 {
     $gMessage->show($gL10n->get('SYS_CURRENT_USER_NO_EMAIL', '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php">', '</a>'));
 }
@@ -72,7 +72,7 @@ else
     $getBody   = $mailSrcText;
 }
 
-$getBody = preg_replace('/\r\n/', '<BR>', $getBody);
+$getBody = preg_replace('/\r\n/', '<br/>', $getBody);
 
 if (strlen($getSubject) > 0)
 {
@@ -124,7 +124,7 @@ $form->addInput('name', $gL10n->get('MAI_YOUR_NAME'), $gCurrentUser->getValue('F
 $form->addInput('mailfrom', $gL10n->get('MAI_YOUR_EMAIL'), $gCurrentUser->getValue('EMAIL'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addCheckbox('carbon_copy', $gL10n->get('MAI_SEND_COPY'), $form_values['carbon_copy']);
 
-if (($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation']==2) || $gPreferences['mail_delivery_confirmation']==1)
+if (($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation'] == 2) || $gPreferences['mail_delivery_confirmation'] == 1)
 {
     $form->addCheckbox('delivery_confirmation', $gL10n->get('MAI_DELIVERY_CONFIRMATION'), $form_values['delivery_confirmation']);
 }

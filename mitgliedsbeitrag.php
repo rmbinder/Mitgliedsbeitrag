@@ -33,19 +33,19 @@ $pPreferences = new ConfigTablePMB();
 if(!isset($_SESSION['pmbDeinst']))
 {
     $checked = $pPreferences->checkforupdate();
-    $startprog='menue.php';
+    $startprog = 'menue.php';
 
-    if ($checked==1)        //Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
+    if ($checked == 1)        //Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
     {
         $pPreferences->init();
     }
-    elseif ($checked==2)        //Installationsroutine durchlaufen
+    elseif ($checked == 2)        //Installationsroutine durchlaufen
     {
-        $startprog='installation.php';
+        $startprog = 'installation.php';
         $pPreferences->init();
     }
 
-    $pPreferences->read();            // (checked ==0) : nur Einlesen der Konfigurationsdaten
+    $pPreferences->read();            // (checked == 0) : nur Einlesen der Konfigurationsdaten
 
     // Zeige Link zum Plugin
     if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))

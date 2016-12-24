@@ -40,7 +40,7 @@ $message = '';
 $tablemember = new TableMembers($gDb);
 $sql = '';
 
-$message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO3').'</strong><BR>';
+$message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO3').'</strong><br/>';
 
 // alle Altersrollen einlesen
 $altersrollen = beitragsrollen_einlesen('alt', array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'));
@@ -50,7 +50,7 @@ foreach ($altersrollen as $roleId => $roldata)
 {
     foreach($altersrollen[$roleId]['members'] as $member => $memberdata)
     {
-        if(strlen($memberdata['BIRTHDAY']) == 0)
+        if(strlen($memberdata['BIRTHDAY']) === 0)
         {
             $gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO1').' '.$memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO2'));
         }
@@ -61,7 +61,7 @@ foreach ($altersrollen as $roleId => $roldata)
         if (($age < $roldata['von']) || ($age > $roldata['bis']))
         {
             // wenn ja, dann Mitglied auf den Stack legen und Rollenmitgliedschaft loeschen
-            $stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id'=> $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
+            $stack[] = array('last_name' => $memberdata['LAST_NAME'], 'first_name' => $memberdata['FIRST_NAME'], 'user_id' => $member, 'alter' => $age, 'alterstyp' => $roldata['alterstyp']);
 
             $sql = 'UPDATE '.TBL_MEMBERS.'
                     SET mem_end = \''.date('Y-m-d', strtotime('-1 day')).'\'
@@ -76,14 +76,14 @@ foreach ($altersrollen as $roleId => $roldata)
             //      and the actual date must be before the end date
             //$tablemember->stopMembership( $roleId, $member);
 
-            $message .= '<BR>'.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
+            $message .= '<br/>'.$memberdata['LAST_NAME'].' '.$memberdata['FIRST_NAME'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
         }
     }
 }
 
-if (count($stack)==0)
+if (count($stack) === 0)
 {
-    $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
+    $message .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO5');
 }
 
 // wenn ein Mitglied Angehoeriger mehrerer Rollen war (duerfte eigentlich gar nicht vorkommen),
@@ -91,7 +91,7 @@ if (count($stack)==0)
 // --> doppelte Vorkommen loeschen
 $stack = array_map('unserialize', array_unique(array_map('serialize', $stack)));
 
-$message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO6').'</strong><BR>';
+$message .= '<br/><br/><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO6').'</strong><br/>';
 
 // den Stack abarbeiten
 $marker = false;
@@ -102,12 +102,12 @@ foreach ($stack as $key => $stackdata)
     {
         if (($stackdata['alter'] <= $roldata['bis'])
         && ($stackdata['alter'] >= $roldata['von'])
-        && ($stackdata['alterstyp']==$roldata['alterstyp'])
+        && ($stackdata['alterstyp'] == $roldata['alterstyp'])
         && !array_key_exists($stackdata['user_id'], $roldata['members']))
         {
             // das Mitglied passt in das Altersschema der Rolle und das Kennzeichen dieser Altersstaffelung passt auch
             $tablemember->startMembership($roleId, $stackdata['user_id']);
-            $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
+            $message .= '<br/>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO4').' '.$roldata['rolle'];
 
             unset($stack[$key]);
             $marker = true;
@@ -117,15 +117,15 @@ foreach ($stack as $key => $stackdata)
 
 if (!$marker)
 {
-    $message .= '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7');
+    $message .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO7');
 }
 
-if (count($stack)>0)
+if (count($stack) > 0)
 {
-    $message .= '<BR><BR><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><BR><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><BR>';
+    $message .= '<br/><br/><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO8').'</strong><br/><small>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO9').'</small><br/>';
     foreach ($stack as $stackdata)
     {
-        $message .= '<BR>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO10').' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING').' '.$stackdata['alterstyp'];
+        $message .= '<br/>'.$stackdata['last_name'].' '.$stackdata['first_name'].' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_INFO10').' '.$gL10n->get('PLG_MITGLIEDSBEITRAG_STAGGERING').' '.$stackdata['alterstyp'];
     }
 }
 

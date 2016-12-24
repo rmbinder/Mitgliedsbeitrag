@@ -67,7 +67,7 @@ if (empty($_POST))
 }
 
 // if no User is set, he is not able to ask for delivery confirmation
-if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirmation']==2) && $gPreferences['mail_delivery_confirmation']!=1)
+if(!($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation'] == 2) && $gPreferences['mail_delivery_confirmation'] != 1)
 {
     $postDeliveryConfirmation = 0;
 }
@@ -85,7 +85,7 @@ foreach ($user_array as $userId)
     $postTo = '';
 
     // check if name is given
-    if(strlen($postName) == 0)
+    if(strlen($postName) === 0)
     {
         $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', $gL10n->get('SYS_NAME')));
     }
@@ -245,23 +245,23 @@ if(count($sendMailResultSendOK) > 1)
 {
     foreach ($sendMailResultSendOK as $data)
     {
-        $sendMailResultMessage .= $data.'<br>';
+        $sendMailResultMessage .= $data.'<br/>';
     }
-    $sendMailResultMessage .=   '<br>';
+    $sendMailResultMessage .= '<br/>';
 }
 if(count($sendMailResultMissingEmail) > 1)
 {
     foreach ($sendMailResultMissingEmail as $data)
     {
-        $sendMailResultMessage .= $data.'<br>';
+        $sendMailResultMessage .= $data.'<br/>';
     }
-    $sendMailResultMessage .=   '<br>';
+    $sendMailResultMessage .= '<br/>';
 }
 if(count($sendMailResultAnotherError) > 1)
 {
     foreach ($sendMailResultAnotherError as $data)
     {
-        $sendMailResultMessage .= $data.'<br>';
+        $sendMailResultMessage .= $data.'<br/>';
     }
 }
 

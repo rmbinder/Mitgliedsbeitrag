@@ -31,7 +31,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 }
 
 $duedates = array();
-$directdebittype=false;
+$directdebittype = false;
 $duedatecount = 0;
 $paidcount = 0;
 
@@ -45,26 +45,26 @@ foreach ($members as $member => $memberdata)
     if (!empty($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]))
     {
         $duedatecount++;
-        $directdebittype=true;
+        $directdebittype = true;
 
         if(!isset($duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]))
         {
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]] = array();
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FNAL']=0;
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['RCUR']=0;
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['OOFF']=0;
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FRST']=0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FNAL'] = 0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['RCUR'] = 0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['OOFF'] = 0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FRST'] = 0;
         }
 
-        if($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]=='FNAL')
+        if($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'FNAL')
         {
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FNAL']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]=='RCUR')
+        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'RCUR')
         {
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['RCUR']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')]=='OOFF')
+        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'OOFF')
         {
             $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['OOFF']++;
         }
@@ -84,13 +84,13 @@ $beitrag = analyse_mem();
 $sum = 0;
 
 $rols = beitragsrollen_einlesen();
-$sortArray=array();
-$selectBoxEntriesBeitragsrollen=array();
+$sortArray = array();
+$selectBoxEntriesBeitragsrollen = array();
 
 foreach ($rols as $key => $data)
 {
-    $selectBoxEntriesBeitragsrollen[$key]=array($key, $data['rolle'], expand_rollentyp($data['rollentyp']));
-    $sortArray[$key]=expand_rollentyp($data['rollentyp']);
+    $selectBoxEntriesBeitragsrollen[$key] = array($key, $data['rolle'], expand_rollentyp($data['rollentyp']));
+    $sortArray[$key] = expand_rollentyp($data['rollentyp']);
 }
 
 array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen);
@@ -212,7 +212,7 @@ if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config'
 
 $page->addHtml($headerMenu->show(false));
 
-if(count($rols)>0)
+if(count($rols) > 0)
 {
     $page->addHtml('
     <ul class="nav nav-tabs" id="preferences_tabs">
@@ -238,7 +238,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('configurations_form', null, $page);
                             $form->addButton('btn_remapping_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'remapping.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -301,7 +301,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue_function.php?form=recalculation', $page, array('class' => 'form-preferences'));
                             $form->addButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'recalculation.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC'));
                             $form->addLine();
                             $form->addSelectBox('beitrag_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_rollenwahl'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_DESC', 'multiselect' => true));
                             $radioButtonEntries = array('standard'  => $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DEFAULT'),
@@ -327,7 +327,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue_function.php?form=payments', $page, array('class' => 'form-preferences'));
                             $form->addButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'payments.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC'));
                             $form->addLine();
                             $form->addSelectBox('zahlungen_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['Beitrag']['zahlungen_rollenwahl'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC', 'multiselect' => true));
                             $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
@@ -368,43 +368,43 @@ if(count($rols)>0)
                                     $table->setColumnAlignByArray($columnAlign);
 
                                     $columnValues = array();
-                                    $columnValues[]='';
-                                    $columnValues[]=$gL10n->get('SYS_CONTRIBUTION');
-                                    $columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
-                                    $columnValues[]=$gL10n->get('SYS_CONTRIBUTION');
-                                    $columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
-                                    $columnValues[]=$gL10n->get('SYS_CONTRIBUTION');
-                                    $columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
+                                    $columnValues[] = '';
+                                    $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
+                                    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
+                                    $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
+                                    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
+                                    $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
+                                    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
                                     $table->addRowByArray($columnValues);
 
                                     $columnValues = array();
-                                    $columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_DUES');
-                                    $columnValues[]=$beitrag['BEITRAG_kto'].' '.$gPreferences['system_currency'];
-                                    $columnValues[]=$beitrag['BEITRAG_kto_anzahl'];
-                                    $columnValues[]=$beitrag['BEITRAG_rech'].' '.$gPreferences['system_currency'];
-                                    $columnValues[]=$beitrag['BEITRAG_rech_anzahl'];
-                                    $columnValues[]=($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gPreferences['system_currency'];
-                                    $columnValues[]=($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']);
+                                    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUES');
+                                    $columnValues[] = $beitrag['BEITRAG_kto'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEITRAG_kto_anzahl'];
+                                    $columnValues[] = $beitrag['BEITRAG_rech'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEITRAG_rech_anzahl'];
+                                    $columnValues[] = ($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']);
                                     $table->addRowByArray($columnValues);
 
                                     $columnValues = array();
-                                    $columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID');
-                                    $columnValues[]=$beitrag['BEZAHLT_kto'].' '.$gPreferences['system_currency'];
-                                    $columnValues[]=$beitrag['BEZAHLT_kto_anzahl'];
-                                    $columnValues[]=$beitrag['BEZAHLT_rech'].' '.$gPreferences['system_currency'];
-                                    $columnValues[]=$beitrag['BEZAHLT_rech_anzahl'];
-                                    $columnValues[]=($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'];
-                                    $columnValues[]=($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']);
+                                    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID');
+                                    $columnValues[] = $beitrag['BEZAHLT_kto'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEZAHLT_kto_anzahl'];
+                                    $columnValues[] = $beitrag['BEZAHLT_rech'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEZAHLT_rech_anzahl'];
+                                    $columnValues[] = ($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']);
                                     $table->addRowByArray($columnValues);
 
                                     $columnValues = array();
-                                    $columnValues[]=$gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING');
-                                    $columnValues[]=($beitrag['BEITRAG_kto']-$beitrag['BEZAHLT_kto']).' '.$gPreferences['system_currency'];
-                                    $columnValues[]=($beitrag['BEITRAG_kto_anzahl']-$beitrag['BEZAHLT_kto_anzahl']);
-                                    $columnValues[]=($beitrag['BEITRAG_rech']-$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'];
-                                    $columnValues[]=($beitrag['BEITRAG_rech_anzahl']-$beitrag['BEZAHLT_rech_anzahl']);
-                                    $columnValues[]=(($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gPreferences['system_currency'];
-                                    $columnValues[]=(($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']));
+                                    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING');
+                                    $columnValues[] = ($beitrag['BEITRAG_kto']-$beitrag['BEZAHLT_kto']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']-$beitrag['BEZAHLT_kto_anzahl']);
+                                    $columnValues[] = ($beitrag['BEITRAG_rech']-$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEITRAG_rech_anzahl']-$beitrag['BEZAHLT_rech_anzahl']);
+                                    $columnValues[] = (($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']));
                                     $table->addRowByArray($columnValues);
 
                                     $table->setDatatablesRowsPerPage(10);
@@ -432,11 +432,11 @@ if(count($rols)>0)
                                     foreach ($rollen as $rol => $roldata)
                                     {
                                         $columnValues = array();
-                                        $columnValues[]=$roldata['rolle'];
-                                        $columnValues[]=expand_rollentyp($roldata['rollentyp']);
-                                        $columnValues[]=$roldata['rol_cost'].' '.$gPreferences['system_currency'];
-                                        $columnValues[]=count($roldata['members']);
-                                        $columnValues[]=($roldata['rol_cost']*count($roldata['members'])).' '.$gPreferences['system_currency'];
+                                        $columnValues[] = $roldata['rolle'];
+                                        $columnValues[] = expand_rollentyp($roldata['rollentyp']);
+                                        $columnValues[] = $roldata['rol_cost'].' '.$gPreferences['system_currency'];
+                                        $columnValues[] = count($roldata['members']);
+                                        $columnValues[] = ($roldata['rol_cost']*count($roldata['members'])).' '.$gPreferences['system_currency'];
 
                                         $sum += ($roldata['rol_cost']*count($roldata['members']));
                                         $table->addRowByArray($columnValues);
@@ -472,7 +472,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('mandategenerate_form', null, $page);
                             $form->addButton('btn_mandategenerate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'mandate_id.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -490,7 +490,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('configurations_form', null, $page);
                             $form->addButton('btn_mandates', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'mandates.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -515,7 +515,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('duedate_rollenwahl_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue_function.php?form=sepa', $page, array('class' => 'form-preferences'));
                             $form->addButton('btn_duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'duedates.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC'));
                             $form->addLine();
                             $form->addSelectBox('duedate_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['SEPA']['duedate_rollenwahl'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_DESC', 'multiselect' => true));
                             $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
@@ -542,7 +542,7 @@ if(count($rols)>0)
                                         </tr>
                                     </thead>';
 
-                                    $htmlTable .='
+                                    $htmlTable .= '
                                     <tbody id="test">';
 
                                         $checked_marker = true;
@@ -554,11 +554,11 @@ if(count($rols)>0)
                                             <tr>
                                                 <td style="text-align: center;">'.$datumtemp->format($gPreferences['system_date']).'</td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype" ';
-                                                    if ($duedatedata['FRST']==0)
+                                                    if ($duedatedata['FRST'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                    elseif ($duedatedata['FRST']!=0 && $checked_marker)
+                                                    elseif ($duedatedata['FRST'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;
@@ -566,11 +566,11 @@ if(count($rols)>0)
                                                     $htmlTable .= 'value="'.$duedate.'FRST" /><small> ('.$duedatedata['FRST'].')</small>
                                                 </td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype" ';
-                                                    if ($duedatedata['RCUR']==0)
+                                                    if ($duedatedata['RCUR'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                     elseif ($duedatedata['RCUR']!=0 && $checked_marker)
+                                                     elseif ($duedatedata['RCUR'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;
@@ -578,11 +578,11 @@ if(count($rols)>0)
                                                     $htmlTable .= 'value="'.$duedate.'RCUR" /><small> ('.$duedatedata['RCUR'].')</small>
                                                 </td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype"  ';
-                                                    if ($duedatedata['FNAL']==0)
+                                                    if ($duedatedata['FNAL'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                     elseif ($duedatedata['FNAL']!=0 && $checked_marker)
+                                                     elseif ($duedatedata['FNAL'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;
@@ -590,11 +590,11 @@ if(count($rols)>0)
                                                     $htmlTable .= 'value="'.$duedate.'FNAL" /><small> ('.$duedatedata['FNAL'].')</small>
                                                 </td>
                                                 <td style="text-align: center;"><input type="radio" name="duedatesepatype"  ';
-                                                    if ($duedatedata['OOFF']==0)
+                                                    if ($duedatedata['OOFF'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                    elseif ($duedatedata['OOFF']!=0 && $checked_marker)
+                                                    elseif ($duedatedata['OOFF'] != 0 && $checked_marker)
                                                     {
                                                         $htmlTable .= ' checked="checked" ';
                                                         $checked_marker = false;
@@ -623,7 +623,7 @@ if(count($rols)>0)
 
                                 $form->addLine();
                                 $form->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => THEME_URL .'/icons/download.png', 'link' => 'pre_notification.php', 'class' => 'btn-primary col-sm-offset-3'));
-                                $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
+                                $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
                             }
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
@@ -642,7 +642,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('rechnung_export_form', null, $page, array('class' => 'form-preferences'));
                             $form->addButton('btn_rechnung_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), array('icon' => THEME_URL .'/icons/download.png', 'link' => 'export_bill.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -667,7 +667,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('producemembernumber_form', null, $page);
                             $form->addButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => 'membernumber.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC').$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2', $gL10n->get('SYS_NOTE').':'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC').$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2', $gL10n->get('SYS_NOTE').':'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -685,7 +685,7 @@ if(count($rols)>0)
                             // show form
                             $form = new HtmlForm('copy_form', null, $page);
                             $form->addButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'copy.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<BR>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_DESC'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
@@ -712,7 +712,7 @@ if(count($rols)>0)
                             $form->closeGroupBox();
 
                             // Pruefung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
-                            if (count($pPreferences->config['Altersrollen']['altersrollen_token'])>1)
+                            if (count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1)
                             {
                                 $form->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
                                 $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
@@ -796,9 +796,9 @@ if(count($rols)>0)
                             foreach ($rollen as $rol_id => $data)
                             {
                                 $columnValues = array();
-                                $columnValues[]='<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php?rol_id='. $rol_id. '">'.$data['rolle']. '</a>';
-                                $columnValues[]=expand_rollentyp($data['rollentyp']);
-                                $columnValues[]=count($data['members']);
+                                $columnValues[] = '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php?rol_id='. $rol_id. '">'.$data['rolle']. '</a>';
+                                $columnValues[] = expand_rollentyp($data['rollentyp']);
+                                $columnValues[] = count($data['members']);
                                 $table->addRowByArray($columnValues);
                             }
                             $table->setDatatablesGroupColumn(2);

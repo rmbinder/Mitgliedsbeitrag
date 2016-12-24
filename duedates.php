@@ -42,7 +42,7 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgefuehrt wurde, dann die Rollen, die nicht gewaehlt wurden, loeschen
-if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]!=' ')
+if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0] != ' ')
 {
     foreach ($rols as $rol => $roldata)
     {
@@ -63,19 +63,19 @@ if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 }
 
 // Initialize and check the parameters
-$getMode        = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'assign')));
-$getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
-$getDatumNeu    = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
-$getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
-$getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
-$getSequenceType= admFuncVariableIsValid($_GET, 'sequencetype', 'string');
+$getMode         = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'assign')));
+$getUserId       = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
+$getDatumNeu     = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
+$getMembersShow  = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
+$getFullScreen   = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
+$getSequenceType = admFuncVariableIsValid($_GET, 'sequencetype', 'string');
 
 if($getMode == 'assign')
 {
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId!=0)           // Faelligkeitsdatum nur fuer einen einzigen User aendern
+    if($getUserId != 0)           // Faelligkeitsdatum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
@@ -91,16 +91,16 @@ if($getMode == 'assign')
             $user = new User($gDb, $gProfileFields, $data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein Faelligkeitsdatum vorhanden ist
-            if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) == 0)
+            if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) === 0)
             {
                 //er hat noch kein Faelligkeitsdatum, deshalb ein neues eintragen
                 $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
 
-                if ($getSequenceType=='FRST')
+                if ($getSequenceType == 'FRST')
                 {
                     $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
                 }
-                elseif ($getSequenceType!='')
+                elseif ($getSequenceType != '')
                 {
                     $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), $getSequenceType);
                 }
@@ -164,48 +164,48 @@ else
             AND usd_value IS NOT NULL )';
     }
 
-    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value as last_name, first_name.usd_value as first_name, birthday.usd_value as birthday,
-               city.usd_value as city, address.usd_value as address, zip_code.usd_value as zip_code, country.usd_value as country,
-               iban.usd_value as iban,lastschrifttyp.usd_value as lastschrifttyp,
-               mandatsdatum.usd_value as mandatsdatum, faelligkeitsdatum.usd_value as faelligkeitsdatum,beitrag.usd_value as beitrag
+    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
+               city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
+               iban.usd_value AS iban, lastschrifttyp.usd_value AS lastschrifttyp,
+               mandatsdatum.usd_value AS mandatsdatum, faelligkeitsdatum.usd_value AS faelligkeitsdatum, beitrag.usd_value AS beitrag
         FROM '. TBL_USERS. '
-        LEFT JOIN '. TBL_USER_DATA. ' as last_name
+        LEFT JOIN '. TBL_USER_DATA. ' AS last_name
           ON last_name.usd_usr_id = usr_id
          AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as first_name
+        LEFT JOIN '. TBL_USER_DATA. ' AS first_name
           ON first_name.usd_usr_id = usr_id
          AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as birthday
+        LEFT JOIN '. TBL_USER_DATA. ' AS birthday
           ON birthday.usd_usr_id = usr_id
          AND birthday.usd_usf_id = '. $gProfileFields->getProperty('BIRTHDAY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as city
+        LEFT JOIN '. TBL_USER_DATA. ' AS city
           ON city.usd_usr_id = usr_id
          AND city.usd_usf_id = '. $gProfileFields->getProperty('CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as address
+        LEFT JOIN '. TBL_USER_DATA. ' AS address
           ON address.usd_usr_id = usr_id
          AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as mandatsdatum
+        LEFT JOIN '. TBL_USER_DATA. ' AS mandatsdatum
           ON mandatsdatum.usd_usr_id = usr_id
          AND mandatsdatum.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as faelligkeitsdatum
+        LEFT JOIN '. TBL_USER_DATA. ' AS faelligkeitsdatum
           ON faelligkeitsdatum.usd_usr_id = usr_id
          AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as lastschrifttyp
+        LEFT JOIN '. TBL_USER_DATA. ' AS lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
          AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' as bezahlt
+         LEFT JOIN '. TBL_USER_DATA. ' AS bezahlt
           ON bezahlt.usd_usr_id = usr_id
          AND bezahlt.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' as beitrag
+         LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
           ON beitrag.usd_usr_id = usr_id
          AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as zip_code
+        LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as iban
+        LEFT JOIN '. TBL_USER_DATA. ' AS iban
           ON iban.usd_usr_id = usr_id
          AND iban.usd_usf_id = '. $gProfileFields->getProperty('IBAN', 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' as country
+         LEFT JOIN '. TBL_USER_DATA. ' AS country
           ON country.usd_usr_id = usr_id
          AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '
 
@@ -277,16 +277,16 @@ else
                             $("input[type=checkbox]#member_"+userid).prop("checked", true);
                             $("#duedate_"+userid).text(datum);
 
-                            if(sequencetype=="FRST") {
+                            if(sequencetype == "FRST") {
                                 $("#lastschrifttyp_"+userid).text("");
                             }
-                            else if(sequencetype=="RCUR") {
+                            else if(sequencetype == "RCUR") {
                                 $("#lastschrifttyp_"+userid).text("R");
                             }
-                            else if(sequencetype=="FNAL") {
+                            else if(sequencetype == "FNAL") {
                                 $("#lastschrifttyp_"+userid).text("F");
                             }
-                            else if(sequencetype=="OOFF") {
+                            else if(sequencetype == "OOFF") {
                                 $("#lastschrifttyp_"+userid).text("O");
                             }
                         }
@@ -328,11 +328,11 @@ else
 
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_DESC'));
     $selectBoxEntries = array('RCUR' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FOLLOW_DIRECT_DEBIT'), 'FNAL' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT'), 'OOFF' => $gL10n->get('PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT'), 'FRST' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FIRST_DIRECT_DEBIT'));
-    $navbarForm->addSelectBox('lastschrifttyp', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), $selectBoxEntries, array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC', 'showContextDependentFirstEntry' => false, 'firstEntry'=>$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_CHANGE')));
+    $navbarForm->addSelectBox('lastschrifttyp', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), $selectBoxEntries, array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC', 'showContextDependentFirstEntry' => false, 'firstEntry' => $gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_CHANGE')));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_DUEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_DUEDATE'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-    if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0]!=' ')
+    if ($pPreferences->config['SEPA']['duedate_rollenwahl'][0] != ' ')
     {
         $navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_ACTIV').'</strong>');
     }
@@ -369,7 +369,7 @@ else
     // show rows with all organization users
     while($user = $statement->fetch())
     {
-        if(($getMembersShow == 2) && (strlen($user['faelligkeitsdatum'])>0) && (strlen($user['mandatsdatum'])>0))
+        if(($getMembersShow == 2) && (strlen($user['faelligkeitsdatum']) > 0) && (strlen($user['mandatsdatum']) > 0))
         {
             continue;
         }
@@ -448,7 +448,7 @@ else
         {
             $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
             $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
-            $birthdayDateSort=$birthdayDate->format('Ymd');
+            $birthdayDateSort = $birthdayDate->format('Ymd');
         }
 
         //10. Spalte ($birthdayDateSort)

@@ -27,16 +27,16 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 }
 
 // anstelle eines Leerzeichens ist ein # in der $pPreferences->config gespeichert; # wird hier wieder ersetzt
-$text_token = ($pPreferences->config['Beitrag']['beitrag_text_token']=='#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'];
+$text_token = ($pPreferences->config['Beitrag']['beitrag_text_token'] == '#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'];
 $message = '';
 
 //alle Beitragsrollen einlesen
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
 //falls eine Rollenabfrage durchgefuehrt wurde, die Rollen, die nicht gewaehlt wurden, loeschen
-if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]!=' ')
+if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0] != ' ')
 {
-    $message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><BR><BR>';
+    $message .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO').'</strong><br/><br/>';
     foreach ($rols as $rol => $roldata)
     {
         if (!in_array($rol, $pPreferences->config['Beitrag']['beitrag_rollenwahl']))
@@ -45,17 +45,17 @@ if ($pPreferences->config['Beitrag']['beitrag_rollenwahl'][0]!=' ')
         }
         else
         {
-            $message .= $roldata['rolle'].'<BR>';
+            $message .= $roldata['rolle'].'<br/>';
         }
     }
-    $message .= '<BR><BR>';
+    $message .= '<br/><br/>';
 }
 
 // diese Rollen durchlaufen und bei den Familienrollen eine Zahlungspflichtigen bestimmen
 foreach ($rols as $rol => $roldata)
 {
     // nur Familien
-    if ($roldata['rollentyp']== 'fam')
+    if ($roldata['rollentyp'] == 'fam')
     {
         // alle Mitglieder dieser Rolle durchlaufen und einen Zahlungspflichtigen bestimmen
         // 1. Durchlauf: hierbei das erste Mitglied bei dem (Kontonummer UND BLZ) oder IBAN belegt sind bestimmen
@@ -63,7 +63,7 @@ foreach ($rols as $rol => $roldata)
         {
             $rols[$rol]['has_to_pay'] = $key;
 
-            if(strlen($data['IBAN'])!=0)
+            if(strlen($data['IBAN']) !== 0)
             {
                 $rols[$rol]['has_to_pay'] = $key;
                 break;
@@ -88,13 +88,13 @@ $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganiza
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 foreach ($members as $member => $memberdata)
 {
-    $members[$member]['BEITRAG-NEU']='';
-    $members[$member]['BEITRAGSTEXT-NEU']='';
+    $members[$member]['BEITRAG-NEU'] = '';
+    $members[$member]['BEITRAGSTEXT-NEU'] = '';
 
     foreach ($rols as $rol => $roldata)
     {
         // alle Rollen, außer Familienrollen
-        if (($roldata['rollentyp']!= 'fam') && (array_key_exists($member, $roldata['members'])))
+        if (($roldata['rollentyp'] != 'fam') && (array_key_exists($member, $roldata['members'])))
         {
             if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
             {
@@ -124,8 +124,8 @@ foreach ($members as $member => $memberdata)
             // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
             // && Beitragszeitraum (cost_period) darf nicht "Jaehrlich" (1) sein
             if ((strtotime(date('Y').'-01-01') < $time_begin || $time_end < strtotime(date('Y').'-12-31'))
-                && ($roldata['rol_cost_period']!=-1)
-                && ($roldata['rol_cost_period']!=1))
+                && ($roldata['rol_cost_period'] != -1)
+                && ($roldata['rol_cost_period'] != 1))
             {
 
                 if (strtotime(date('Y').'-01-01') <  $time_begin)
@@ -149,11 +149,11 @@ foreach ($members as $member => $memberdata)
                 $segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
 
                 $members[$member]['BEITRAG-NEU'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
-                if ($roldata['rol_description']!='')
+                if ($roldata['rol_description'] != '')
                 {
                     $members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$roldata['rol_description'].' ';
                 }
-                if ($pPreferences->config['Beitrag']['beitrag_suffix']!='')
+                if ($pPreferences->config['Beitrag']['beitrag_suffix'] != '')
                 {
                     $members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' ';
                 }
@@ -167,7 +167,7 @@ foreach ($members as $member => $memberdata)
             else                             //keine anteilige Berechnung
             {
                 $members[$member]['BEITRAG-NEU'] += $roldata['rol_cost'];
-                if ($roldata['rol_description']!='')
+                if ($roldata['rol_description'] != '')
                 {
                     $members[$member]['BEITRAGSTEXT-NEU'] .= ' '.$roldata['rol_description'].' ';
                 }
@@ -177,9 +177,9 @@ foreach ($members as $member => $memberdata)
 
     // wenn definiert: Beitragstext mit dem Namen des Benutzers
     if(($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
-        &&  ($members[$member]['BEITRAG-NEU']!='')
-        &&  !(($members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME']==$members[$member]['DEBTOR'])
-           || ($members[$member]['FIRST_NAME'].' '.$members[$member]['LAST_NAME']==$members[$member]['DEBTOR'])
+        &&  ($members[$member]['BEITRAG-NEU'] != '')
+        &&  !(($members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME'] == $members[$member]['DEBTOR'])
+           || ($members[$member]['FIRST_NAME'].' '.$members[$member]['LAST_NAME'] == $members[$member]['DEBTOR'])
            || (empty($members[$member]['DEBTOR']))))
     {
         $members[$member]['BEITRAGSTEXT-NEU'] .= $text_token.$members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME'].$text_token;
@@ -191,7 +191,7 @@ foreach ($members as $member => $memberdata)
 foreach ($rols as $rol => $roldata)
 {
     // nur Rollen mit dem Praefix einer Familie && die Familienrolle muß Mitglieder aufweisen
-    if (($roldata['rollentyp']== 'fam') && (count($roldata['members'])>0))
+    if (($roldata['rollentyp'] == 'fam') && (count($roldata['members']) > 0))
     {
         // wenn definiert: Beitragstext mit allen Familienmitgliedern
         if($pPreferences->config['Beitrag']['beitrag_textmitfam'] == true)
@@ -226,7 +226,7 @@ foreach ($rols as $rol => $roldata)
         // anteiligen Beitrag berechnen, falls die Familie erst im aktuellen Jahr angelegt wurde
         // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
         // && Beitragszeitraum (cost_period) darf nicht "Jaehrlich" (1) sein
-        if ((date('Y') == date('Y', strtotime($roldata['rol_timestamp_create']))) && ($roldata['rol_cost_period']!=-1) && ($roldata['rol_cost_period']!=1))
+        if ((date('Y') == date('Y', strtotime($roldata['rol_timestamp_create']))) && ($roldata['rol_cost_period'] != -1) && ($roldata['rol_cost_period'] != 1))
         {
             $beitrittsmonat = date('n', strtotime($roldata['rol_timestamp_create']));
             $members[$roldata['has_to_pay']]['BEITRAG-NEU'] +=  (($roldata['rol_cost_period']+1)-ceil($beitrittsmonat/(12/$roldata['rol_cost_period'])))*($roldata['rol_cost']/$roldata['rol_cost_period']);
@@ -247,7 +247,7 @@ foreach ($members as $member => $memberdata)
             ||  (!(is_null($members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')]))
                 && (($pPreferences->config['Beitrag']['beitrag_modus'] == 'overwrite')
                     ||($pPreferences->config['Beitrag']['beitrag_modus'] == 'summation'))))
-        && ($members[$member]['BEITRAG-NEU']>$pPreferences->config['Beitrag']['beitrag_mindestbetrag']))
+        && ($members[$member]['BEITRAG-NEU'] > $pPreferences->config['Beitrag']['beitrag_mindestbetrag']))
     {
         $members[$member]['BEITRAGSTEXT-NEU'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['BEITRAGSTEXT-NEU'].' ';
 

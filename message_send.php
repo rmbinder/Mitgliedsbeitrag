@@ -54,7 +54,7 @@ if ($gCurrentUser->getValue('usr_id') > 0)
 }
 
 // if no User is set, he is not able to ask for delivery confirmation
-if(!($gCurrentUser->getValue('usr_id')>0 && $gPreferences['mail_delivery_confirmation']==2) && $gPreferences['mail_delivery_confirmation']!=1)
+if(!($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation'] == 2) && $gPreferences['mail_delivery_confirmation'] != 1)
 {
     $postDeliveryConfirmation = 0;
 }
@@ -86,7 +86,7 @@ if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
 $gNavigation->addUrl(CURRENT_URL);
 
 // check if name is given
-if(strlen($postName) == 0)
+if(strlen($postName) === 0)
 {
     $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', $gL10n->get('SYS_NAME')));
 }

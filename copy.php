@@ -178,7 +178,7 @@ else
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
 
-    $membersSelectString='';
+    $membersSelectString = '';
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'), 0);
     foreach ($members as $member => $memberdata)
     {
@@ -190,8 +190,8 @@ else
 
     $navbarForm = new HtmlForm('navbar_copy_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
     $navbarForm->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
-    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
-    $navbarForm->addSelectBox('ziel', $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property'=> FIELD_REQUIRED));
+    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => FIELD_REQUIRED));
+    $navbarForm->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => FIELD_REQUIRED));
     $copyMenu->addForm($navbarForm->show(false));
 
     // create table object
@@ -212,7 +212,7 @@ else
     {
         $table->setDatatablesColumnsHide(array(2));
     }
-    if($getTargetUserid ==0)
+    if($getTargetUserid == 0)
     {
         $table->setDatatablesColumnsHide(array(4));
     }

@@ -55,12 +55,12 @@ $getDueDate     = admFuncVariableIsValid($_GET, 'duedate', 'string', array('defa
 // add current url to navigation stack if last url was not the same page
 if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
 {
-    $_SESSION['checkedArray']= array();
+    $_SESSION['checkedArray'] = array();
 }
 
 if($getMode == 'csv_export')
 {
-    if (count($_SESSION['checkedArray'])!=0)
+    if (count($_SESSION['checkedArray']) !== 0)
     {
         $export = '';
         $export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
@@ -110,7 +110,7 @@ if($getMode == 'csv_export')
             $export .= $user->getValue('BIRTHDAY').';';
             $export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).';';
 
-            if (strlen($user->getValue('DEBTOR'))!=0)
+            if (strlen($user->getValue('DEBTOR')) !== 0)
             {
                 $export .= $user->getValue('DEBTOR').';';
                 $export .= $user->getValue('DEBTOR_ADDRESS').';';
@@ -147,7 +147,7 @@ if($getMode == 'csv_export')
 }
 elseif($getMode == 'mail_export')
 {
-    if (count($_SESSION['checkedArray'])==0)
+    if (count($_SESSION['checkedArray']) === 0)
     {
         echo 'marker_empty';
     }
@@ -173,7 +173,7 @@ else
             AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
                 OR cat_org_id IS NULL ) ';
 
-    if($getDueDate !=0)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
+    if($getDueDate != 0)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
     {
         $memberCondition .= 'AND usd_value = \''.$getDueDate.'\'   )';
     }
@@ -182,62 +182,62 @@ else
         $memberCondition .= 'AND usd_value IS NOT NULL )';
     }
 
-    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value as last_name, first_name.usd_value as first_name, birthday.usd_value as birthday,
-               city.usd_value as city, address.usd_value as address, zip_code.usd_value as zip_code, country.usd_value as country,
-               faelligkeitsdatum.usd_value as faelligkeitsdatum,beitrag.usd_value as beitrag,lastschrifttyp.usd_value as lastschrifttyp,
-               mandatsreferenz.usd_value as mandatsreferenz,debtor.usd_value as debtor, debtoraddress.usd_value as debtoraddress,
-               debtorpostcode.usd_value as debtorpostcode, debtorcity.usd_value as debtorcity, debtoremail.usd_value as debtoremail,
-               email.usd_value as email
+    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
+               city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
+               faelligkeitsdatum.usd_value AS faelligkeitsdatum, beitrag.usd_value AS beitrag, lastschrifttyp.usd_value AS lastschrifttyp,
+               mandatsreferenz.usd_value AS mandatsreferenz, debtor.usd_value AS debtor, debtoraddress.usd_value AS debtoraddress,
+               debtorpostcode.usd_value AS debtorpostcode, debtorcity.usd_value AS debtorcity, debtoremail.usd_value AS debtoremail,
+               email.usd_value AS email
         FROM '. TBL_USERS. '
-        LEFT JOIN '. TBL_USER_DATA. ' as last_name
+        LEFT JOIN '. TBL_USER_DATA. ' AS last_name
           ON last_name.usd_usr_id = usr_id
          AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as first_name
+        LEFT JOIN '. TBL_USER_DATA. ' AS first_name
           ON first_name.usd_usr_id = usr_id
          AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as birthday
+        LEFT JOIN '. TBL_USER_DATA. ' AS birthday
           ON birthday.usd_usr_id = usr_id
          AND birthday.usd_usf_id = '. $gProfileFields->getProperty('BIRTHDAY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as city
+        LEFT JOIN '. TBL_USER_DATA. ' AS city
           ON city.usd_usr_id = usr_id
          AND city.usd_usf_id = '. $gProfileFields->getProperty('CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as address
+        LEFT JOIN '. TBL_USER_DATA. ' AS address
           ON address.usd_usr_id = usr_id
          AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as mandatsreferenz
+        LEFT JOIN '. TBL_USER_DATA. ' AS mandatsreferenz
           ON mandatsreferenz.usd_usr_id = usr_id
          AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as faelligkeitsdatum
+        LEFT JOIN '. TBL_USER_DATA. ' AS faelligkeitsdatum
           ON faelligkeitsdatum.usd_usr_id = usr_id
          AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as lastschrifttyp
+        LEFT JOIN '. TBL_USER_DATA. ' AS lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
          AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as beitrag
+        LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
           ON beitrag.usd_usr_id = usr_id
          AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as zip_code
+        LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtor
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtor
           ON debtor.usd_usr_id = usr_id
          AND debtor.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtoraddress
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtoraddress
           ON debtoraddress.usd_usr_id = usr_id
          AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_ADDRESS', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtoremail
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtoremail
           ON debtoremail.usd_usr_id = usr_id
          AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as email
+        LEFT JOIN '. TBL_USER_DATA. ' AS email
           ON email.usd_usr_id = usr_id
          AND email.usd_usf_id = '. $gProfileFields->getProperty('EMAIL', 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' as debtorpostcode
+         LEFT JOIN '. TBL_USER_DATA. ' AS debtorpostcode
           ON debtorpostcode.usd_usr_id = usr_id
          AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as debtorcity
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtorcity
           ON debtorcity.usd_usr_id = usr_id
          AND debtorcity.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' as country
+        LEFT JOIN '. TBL_USER_DATA. ' AS country
           ON country.usd_usr_id = usr_id
          AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '
 
@@ -252,16 +252,16 @@ else
     if($getMode == 'prepare')
     {
         $ret_text = 'ERROR';
-        if($getUserId!=0)           // ein einzelner User wurde selektiert
+        if($getUserId != 0)           // ein einzelner User wurde selektiert
         {
-            if($getChecked=='false')            // der Haken wurde geloescht
+            if($getChecked == 'false')            // der Haken wurde geloescht
             {
                 unset($_SESSION['checkedArray'][$getUserId]);
                 $ret_text = 'success';
             }
-            elseif ($getChecked=='true')        // der Haken wurde gesetzt
+            elseif ($getChecked == 'true')        // der Haken wurde gesetzt
             {
-                $_SESSION['checkedArray'][$getUserId]=$getUserId;
+                $_SESSION['checkedArray'][$getUserId] = $getUserId;
                 $ret_text = 'success';
 
             }
@@ -276,7 +276,7 @@ else
                 }
                 else
                 {
-                    $_SESSION['checkedArray'][$user['usr_id']]=$user['usr_id'];
+                    $_SESSION['checkedArray'][$user['usr_id']] = $user['usr_id'];
                 }
 
             }
@@ -309,7 +309,7 @@ else
                 $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/pre_notification.php?mode=csv_export&full_screen='.$getFullScreen.'",
                     function(data){
                         // check if error occurs
-                        if(data=="marker_empty") {
+                        if(data == "marker_empty") {
                             alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
                             return false;
                         }
@@ -334,7 +334,7 @@ else
                 $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/pre_notification.php?mode=mail_export&full_screen='.$getFullScreen.'",
                     function(data){
                         // check if error occurs
-                        if(data=="marker_empty") {
+                        if(data == "marker_empty") {
                             alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY').'");
                             return false;
                         }
@@ -431,16 +431,16 @@ else
                     OR cat_org_id IS NULL )  ';
 
         $duedateStatement = $gDb->query($sql);
-        $selectBoxEntries = array('0'=> '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
+        $selectBoxEntries = array('0' => '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
 
         while ($row = $duedateStatement->fetch())
         {
             $DueDate = new DateTimeExtended($row['usd_value'], 'Y-m-d');
-            $selectBoxEntries[$row['usd_value']]=$DueDate->format($gPreferences['system_date']);
+            $selectBoxEntries[$row['usd_value']] = $DueDate->format($gPreferences['system_date']);
         }
 
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_URL .'/icons/disk.png', 'link'=> 'javascript:prenotexport()', 'class' => 'btn-primary'));
+        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
         $navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_URL .'/icons/email.png', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
         $preNotificationsMenu->addForm($navbarForm->show(false));
 
@@ -600,7 +600,7 @@ else
                  {
                     $mail_link = ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_write.php?usr_id='. $user['usr_id'];
                  }
-                 $htmlMail='<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
+                 $htmlMail = '<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
                     alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
             }
 
