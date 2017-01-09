@@ -47,6 +47,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC">Hiermit können Beitrag, Beitragstext, Bezahlt-Datum und Fälligkeitsdatum gelöscht werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DOT">Punkt</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HYPHEN">Trennstrich</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY">Beitragshistorie</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW">Beitragshistorie anzeigen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC">Hier kann eine Historie der Beitragszahlungen angezeigt werden. Als Grundlage dient ein gesetztes Bezahlt-Datum und die zu diesem Zeitpunkt vorhandenen Einträge von Beitrag, Beitragstext und Fälligkeitsdatum.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC">Mindestberechnungsbetrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC_DESC">Hier kann ein Mindestberechnungsbetrag eingegeben werden. Errechnete Beiträge, die kleiner als dieser Mindestberechnungsbeitrag sind, werden herausgefiltert und nicht in die Datenbank geschrieben.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_DESC">Einstellungen für den Berechnungsmodus. Folgende Optionen sind wählbar:\n- Standard: Ein vorhandener Beitrag (außer 0 €) wird nicht verändert.\n- Überschreiben: Existierende Einträge werden gelöscht und durch neue Einträge ersetzt.\n- Aufsummieren: Beiträge werden aufsummiert und ein Beitragstext wird ergänzt.</string>

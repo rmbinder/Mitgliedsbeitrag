@@ -47,6 +47,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC">With this contributions, contributions text, paid-date and duedate can be deleted.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DOT">Point</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HYPHEN">Hyphen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY">Contribution history</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW">View contribution history</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC">Here a history of the contributions can be displayed. The basis is a set payment date and the entries of the contribution, the contribution text and the due date.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC">Minimum calculated amount</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC_DESC">Here, a minimum calculated amount can be entered. Calculated membership fees that are lower than this amount are filtered out and not written into the database.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_DESC">Settings for the calculation mode. The following options are available:\n- Standard: An actual contribution (except for 0 €) is not changed.\n- Overwrite: Existing entries are deleted and replaced by new entries.\n- Add up: Contributions are summed and contribute text is supplemented.</string>

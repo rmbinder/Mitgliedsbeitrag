@@ -453,7 +453,25 @@ if(count($rols) > 0)
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>        		
+                <div class="panel panel-default" id="panel_history">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_history">
+                                <img src="'. THEME_URL .'/icons/list.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY').'
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse_history" class="panel-collapse collapse">
+                        <div class="panel-body">');
+                            // show form
+                            $form = new HtmlForm('history_form', null, $page);
+                            $form->addButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => THEME_URL .'/icons/list.png', 'link' => 'history.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC'));
+                            $page->addHtml($form->show(false));
+                        $page->addHtml('</div>
+                    </div>
+                </div>	      		
             </div>
         </div>
 
