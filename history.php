@@ -16,6 +16,8 @@
  *             			if no date information is delivered
  * filter_date_to: 		is set to 31.12.9999,
  *             			if no date information is delivered
+ * filter_last_name:	Lastname for filter
+ * filter_first_name:	Firstname for filter
  * full_screen:     	false - (Default) show sidebar, head and page bottom of html page
  *                  	true  - Only show the list without any other html unnecessary elements
  ***********************************************************************************************
@@ -40,17 +42,16 @@ $filterDateFrom = DateTime::createFromFormat('Y-m-d', DATE_NOW);
 $filterDateFrom->modify('-'.$gPreferences['members_days_field_history'].' day');
 
 // Initialize and check the parameters
-$getDateFrom   = admFuncVariableIsValid($_GET, 'filter_date_from', 'date',  array('defaultValue'  => $filterDateFrom->format($gPreferences['system_date'])));
-$getDateTo     = admFuncVariableIsValid($_GET, 'filter_date_to',   'date',  array('defaultValue'  => DATE_NOW));
-$getMode       = admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl')));
-$getFullScreen = admFuncVariableIsValid($_GET, 'full_screen',      'bool');
+$getDateFrom   	= admFuncVariableIsValid($_GET, 'filter_date_from', 'date',  array('defaultValue'  => $filterDateFrom->format($gPreferences['system_date'])));
+$getDateTo     	= admFuncVariableIsValid($_GET, 'filter_date_to',   'date',  array('defaultValue'  => DATE_NOW));
+$getLastName 	= admFuncVariableIsValid($_GET, 'filter_last_name', 'string');
+$getFirstName 	= admFuncVariableIsValid($_GET, 'filter_first_name','string');
+$getMode       	= admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl')));
+$getFullScreen 	= admFuncVariableIsValid($_GET, 'full_screen',      'bool');
+
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 $filename = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
-
-// Initialize local parameteres
-$sqlConditions 	= '';
-$csvStr 		= ''; // CSV file as string
 
 // add page to navigation history
 $gNavigation->addUrl(CURRENT_URL, $headline);
@@ -97,6 +98,7 @@ $valueQuotes = '';
 $charset     = '';
 $classTable  = '';
 $orientation = '';
+$csvStr 	 = ''; // CSV file as string
 
 switch ($getMode)
 {
@@ -132,6 +134,16 @@ switch ($getMode)
 		break;
 }
 
+$sqlConditions = 'WHERE TRUE ';
+if ($getLastName !== '' )
+{
+	$sqlConditions .= 'AND last_name.usd_value = \''. $getLastName.'\' ';
+}
+if ( $getFirstName !== '')
+{
+	$sqlConditions .= 'AND first_name.usd_value = \''. $getFirstName.'\' ';
+}
+
 // create select statement with all necessary data
 $sql = 'SELECT usl_id, usl_usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, usl_usf_id, usl_value_new, usl_timestamp_create
           FROM '.TBL_USER_LOG.'
@@ -141,6 +153,7 @@ $sql = 'SELECT usl_id, usl_usr_id, last_name.usd_value AS last_name, first_name.
     INNER JOIN '.TBL_USER_DATA.' AS first_name
             ON first_name.usd_usr_id = usl_usr_id
            AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id').'
+			'. $sqlConditions.'
     ORDER BY usl_id ASC';      
 
 $fieldHistoryStatement = $gDb->query($sql);
@@ -230,6 +243,15 @@ if ($getMode !== 'csv')
 		$form = new HtmlForm('navbar_filter_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder . '/history.php', $page, array('type' => 'navbar', 'setFocus' => false));
 		$form->addInput('filter_date_from', $gL10n->get('SYS_START'), $dateFromHtml, array('type' => 'date', 'maxLength' => 10));
 		$form->addInput('filter_date_to', $gL10n->get('SYS_END'), $dateToHtml, array('type' => 'date', 'maxLength' => 10));
+		$form->addInput('filter_last_name', $gL10n->get('SYS_LASTNAME'), $getLastName);
+		if ($getFullScreen)
+		{
+			$form->addInput('filter_first_name', $gL10n->get('SYS_FIRSTNAME'), $getFirstName);
+		}
+		else 
+		{
+			$form->addInput('filter_first_name', '', $getFirstName, array('property' => FIELD_HIDDEN));
+		}
 		$form->addInput('full_screen', '', $getFullScreen, array('property' => FIELD_HIDDEN));
 		$form->addSubmitButton('btn_send', $gL10n->get('SYS_OK'));
 		$FilterNavbar->addForm($form->show(false));
@@ -241,12 +263,13 @@ if ($getMode !== 'csv')
                     var result = $(this).val();
                     $(this).prop("selectedIndex",0);
                     self.location.href = "'.ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?" +
-                        "mode=" + result + "&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'";
+                        "mode=" + result + "&filter_last_name='.$getLastName.'&filter_first_name='.$getFirstName.'&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'";
                 }
             });
 
             $("#menu_item_print_view").click(function () {
-                window.open("'.ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?mode=print&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'", "_blank");
+                window.open("'.ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?" +
+					"mode=print&filter_last_name='.$getLastName.'&filter_first_name='.$getFirstName.'&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'", "_blank");
             });', true);
 
 		// get module menu
@@ -255,12 +278,12 @@ if ($getMode !== 'csv')
 
 		if ($getFullScreen)
 		{
-			$listsMenu->addItem('menu_item_normal_picture', ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?mode=html&amp;full_screen=false&amp;filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'',
+			$listsMenu->addItem('menu_item_normal_picture', ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?mode=html&amp;full_screen=false&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
 					$gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
 		}
 		else
 		{
-			$listsMenu->addItem('menu_item_full_screen', ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?mode=html&amp;full_screen=true&amp;filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'',
+			$listsMenu->addItem('menu_item_full_screen', ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?mode=html&amp;full_screen=true&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
 					$gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
 		}
 
