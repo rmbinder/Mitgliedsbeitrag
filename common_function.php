@@ -324,7 +324,7 @@ function list_members($fields, $rols = array())
     $statement = $gDb->query($sql);
     while ($row = $statement->fetch())
     {
-        $members[$row['mem_usr_id']] = '';
+        $members[$row['mem_usr_id']] = array();
 
         // mem_begin und mem_end werden nur in der recalculation.php ausgewertet,
         // wird fuer anteilige Beitragsberechnung verwendet
