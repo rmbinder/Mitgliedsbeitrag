@@ -249,7 +249,7 @@ function hasRole_IDPMB($role_id, $user_id = 0)
  *
  * Schalter aktiv/ehem: 0 = aktive Mitglieder, 1 = ehemalige Mitglieder, ungleich 1 oder 0: alle Mitglieder <br/>
  *
- * Aufruf: z.B. list_members(array('FIRST_NAME','LAST_NAME'), array('Mitglied' => 0,'Webmaster' => 0));
+ * Aufruf: z.B. list_members(array('FIRST_NAME','LAST_NAME'), array('Mitglied' => 0,'Administrator' => 0));
  *
  * @param   array               $fields  Array mit usf_name_intern, z.B. array('FIRST_NAME','LAST_NAME')
  * @param   array/string/bool   $rols    Array mit Rollen, z.B. <br/>
