@@ -1109,60 +1109,6 @@ function ageCalculator($geburtstag, $stichtag)
         return $calc_year;
 }
 
-/**
- * Funktion erzeugt eine Mitgliedsnummer
- * @return  int     Mitgliedsnummeer
- */
-function erzeuge_mitgliedsnummer()
-{
-    global $gDb,$gMessage,$gL10n;
-
-    $rueckgabe_mitgliedsnummer = 0;
-    $mitgliedsnummern = array();
-
-    $sql = ' SELECT usf_id
-             FROM '.TBL_USER_FIELDS.'
-             WHERE usf_name = \'PMB_MEMBERNUMBER\' ';
-    $statement = $gDb->query($sql);
-    $row = $statement->fetchObject();
-    $id_mitgliedsnummer = $row->usf_id;
-
-    $sql = 'SELECT usd_value
-            FROM '.TBL_USER_DATA.'
-            WHERE usd_usf_id = \''.$id_mitgliedsnummer.'\' ';
-    $statement = $gDb->query($sql);
-
-    while($row = $statement->fetch())
-    {
-        $mitgliedsnummern[] = $row['usd_value'];
-    }
-
-    sort($mitgliedsnummern);
-
-    //Ueberpruefung auf doppelte Mitgliedsnummern
-    for ($i = 0; $i < count($mitgliedsnummern)-1; $i++)
-    {
-        if ($mitgliedsnummern[$i] == $mitgliedsnummern[$i+1])
-        {
-            $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR', $mitgliedsnummern[$i]));
-            break;
-        }
-    }
-
-    $hoechste_mitgliedsnummer = end($mitgliedsnummern);
-
-    $i = 1;
-    while ($i < $hoechste_mitgliedsnummer)
-    {
-        if (!in_array($i, $mitgliedsnummern))
-        {
-            $rueckgabe_mitgliedsnummer = $i;
-            break;
-        }
-        $i++;
-    }
-    return ($rueckgabe_mitgliedsnummer == 0) ? $hoechste_mitgliedsnummer+1 : $rueckgabe_mitgliedsnummer;
-}
 
 /**
  * Callbackfunktion fuer array_filter

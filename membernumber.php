@@ -34,57 +34,49 @@ $members = array();
 $message = '';
 
 //pruefen, ob doppelte Mitgliedsnummern bestehen
-$nummer = erzeuge_mitgliedsnummer();
+create_membernumber();
 
-// alle Mitglieder abfragen
-$sql = ' SELECT mem_usr_id
-         FROM '.TBL_MEMBERS.' ';
+// Name und Vorname aller Mitglieder einlesen
+$sql = 'SELECT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name
+          FROM '.TBL_USERS.'
+    RIGHT JOIN '.TBL_USER_DATA.' AS last_name
+            ON last_name.usd_usr_id = usr_id
+           AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
+    RIGHT JOIN '.TBL_USER_DATA.' AS first_name
+            ON first_name.usd_usr_id = usr_id
+           AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
+         WHERE usr_valid = 1  ';
 $statement = $gDb->query($sql);
 
 while($row = $statement->fetch())
 {
-    $members[$row['mem_usr_id']] = array();
+	$members[$row['usr_id']] = array('last_name' => $row['last_name'], 'first_name' => $row['first_name'], 'membernumber' => '');
 }
 
-// die IDs der Attribute aus der Datenbank herausssuchen
-$attributes = array('SYS_LASTNAME' => 0, 'SYS_FIRSTNAME' => 0, 'PMB_MEMBERNUMBER' => 0);
-foreach($attributes as $attribute => $dummy)
+//im zweiten Schritt evtl. vorhandene Mitgliedsnummern einlesen
+$sql = 'SELECT usd_usr_id, usd_value
+        FROM '.TBL_USER_DATA.'
+        WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'). ' ';
+$statement = $gDb->query($sql);
+
+while($row = $statement->fetch())
 {
-    $sql = ' SELECT usf_id
-             FROM '.TBL_USER_FIELDS.'
-             WHERE usf_name = \''.$attribute.'\' ';
-    $statement = $gDb->query($sql);
-    $row = $statement->fetch();
-    $attributes[$attribute] = $row['usf_id'];
+	$members[$row['usd_usr_id']]['membernumber'] = $row['usd_value'];
 }
 
-// Die Daten jedes Mitglieds abfragen und in das Array schreiben
-foreach ($members as $member => $key)
+//alle Mitglieder durchlaufen und pruefen, ob eine Mitgliedsnummer vorhanden ist; wenn nicht, eine neue erzeugen
+$user = new User($gDb, $gProfileFields);
+foreach ($members as $usrID => $data)
 {
-    foreach ($attributes as $attribute => $usf_id)
+    if (($data['membernumber'] == '') || ($data['membernumber'] < 1))
     {
-        $sql = 'SELECT usd_value
-                FROM '.TBL_USER_DATA.'
-                WHERE usd_usr_id = \''.$member.'\'
-                AND usd_usf_id = \''.$usf_id.'\' ';
-        $statement = $gDb->query($sql);
-        $row = $statement->fetch();
-        $members[$member][$attribute] = $row['usd_value'];
-    }
-}
+        $newMembernumber = create_membernumber();
 
-//alle Mitglieder durchlaufen und pruefen, ob eine Mitgliedsnummer existiert
- foreach ($members as $member => $key)
-{
-    if (($members[$member]['PMB_MEMBERNUMBER'] == '') || ($members[$member]['PMB_MEMBERNUMBER'] < 1))
-    {
-        $nummer = erzeuge_mitgliedsnummer();
-
-        $user = new User($gDb, $gProfileFields, $member);
-        $user->setValue('MEMBERNUMBER', $nummer);
+        $user->readDataById($usrID);
+        $user->setValue('MEMBERNUMBER', $newMembernumber);
         $user->save();
 
-        $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $members[$member]['SYS_FIRSTNAME'], $members[$member]['SYS_LASTNAME'], $nummer);
+        $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $data['first_name'], $data['last_name'], $newMembernumber);
     }
 }
 
@@ -110,3 +102,52 @@ $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL
 
 $page->addHtml($form->show(false));
 $page->show();
+
+// Functions used only in this script
+/**
+ * Function creates a membernumber
+ * @return  int     membernumer
+ */
+function create_membernumber()
+{
+	global $gDb, $gMessage, $gL10n, $gProfileFields;
+
+	$rueckgabe_mitgliedsnummer = 0;
+	$mitgliedsnummern = array();
+	 
+	$sql = 'SELECT usd_value
+            FROM '.TBL_USER_DATA.'
+            WHERE usd_usf_id = \''.$gProfileFields->getProperty('MEMBERNUMBER', 'usf_id').'\' ';
+	$statement = $gDb->query($sql);
+	while($row = $statement->fetch())
+	{
+		$mitgliedsnummern[] = $row['usd_value'];
+	}
+
+	sort($mitgliedsnummern);
+
+	//Ueberpruefung auf doppelte Mitgliedsnummern
+	for ($i = 0; $i < count($mitgliedsnummern)-1; $i++)
+	{
+		if ($mitgliedsnummern[$i] == $mitgliedsnummern[$i+1])
+		{
+			$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR', $mitgliedsnummern[$i]));
+			// --> EXIT
+		}
+	}
+
+	$hoechste_mitgliedsnummer = end($mitgliedsnummern);
+
+	$i = 1;
+	while ($i < $hoechste_mitgliedsnummer)
+	{
+		if (!in_array($i, $mitgliedsnummern))
+		{
+			$rueckgabe_mitgliedsnummer = $i;
+			break;
+		}
+		$i++;
+	}
+	return ($rueckgabe_mitgliedsnummer == 0) ? $hoechste_mitgliedsnummer+1 : $rueckgabe_mitgliedsnummer;
+}
+
