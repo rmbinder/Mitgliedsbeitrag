@@ -327,7 +327,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Pre-notification e-mail message</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER">Generate membership number(s)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Creates simple, numerical and cross-organisational membership numbers for active and former members.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Generates numeric membership numbers for active members in the current organization.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">\n#VAR1_BOLD# They are created upon clicking the button.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profile field</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Recalculation</string>

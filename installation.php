@@ -55,12 +55,31 @@ if($getMode == 'anlegen')
         $gDb->query($sql);
     }
 
+    $cat_id_mitgliedschaft = getCat_IDPMB('MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'));
+    $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft);
+    
+    // pruefen, ob es das Profilfeld Mitgliedsnummer gibt, wenn nicht: anlegen
+    if (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
+    {
+    	$sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
+                VALUES (\''.$cat_id_mitgliedschaft.'\' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_type'].'\' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'].'\' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name_intern'].'\' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_description'].'\' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_system'].' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_disabled'].' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_hidden'].' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_mandatory'].' ,
+                        '.$nextFieldSequence.',
+                        '.$gCurrentUser->getValue('usr_id').' )';
+    	$gDb->query($sql);
+    	$nextFieldSequence++;
+    }
+    
     // pruefen, ob es das Profilfeld Beitritt gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
     {
-        $cat_id_mitgliedschaft = getCat_IDPMB('MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'));
-        $nextFieldSequence = getNextFieldSequence($cat_id_mitgliedschaft);
-
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
                 VALUES (\''.$cat_id_mitgliedschaft.'\' ,
                         \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_type'].'\' ,
@@ -71,27 +90,6 @@ if($getMode == 'anlegen')
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_disabled'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_hidden'].' ,
                         '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' )';
-        $gDb->query($sql);
-    }
-
-    // pruefen, ob es das Profilfeld Mitgliedsnummer gibt, wenn nicht: anlegen
-    if (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
-    {
-        $cat_id_stammdaten = getCat_IDPMB('MASTER_DATA');
-        $nextFieldSequence = getNextFieldSequence($cat_id_stammdaten);
-
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
-                VALUES (\''.$cat_id_stammdaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
                         '.$gCurrentUser->getValue('usr_id').' )';
         $gDb->query($sql);
@@ -525,21 +523,16 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATUS');
     $table->addRowHeadingByArray($columnValues);
 
-    $columnValues = array();
-    $columnValues[] = $gL10n->get('SYS_MASTER_DATA');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues   = array();
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
+    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
     $table->addRowByArray($columnValues, null, null, 1, 2);
-
+    
     $columnValues   = array();
     $columnValues[] = $leer;
     $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
     $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
     $table->addRowByArray($columnValues);
-
-    $columnValues   = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
-    $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 1, 2);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -758,21 +751,17 @@ elseif($getMode == 'soll_ist')
         $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_IS'), $columnAttributes, 'th');
     }
 
-    $columnValues = array();
-    $columnValues[] = $gL10n->get('SYS_MASTER_DATA');
-    $table->addRowByArray($columnValues, null, null, 1, 13);
-
+    $columnValues   = array();
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
+    $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedschaft'));
+    $table->addRowByArray($columnValues, null, null, 5, 8);
+    
     $columnValues   = array();
     $columnValues[] = $leer;
     $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Mitgliedsnummer'));
     $table->addRowByArray($columnValues);
-
-    $columnValues   = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
-    $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedschaft'));
-    $table->addRowByArray($columnValues, null, null, 5, 8);
-
+ 
     $columnValues   = array();
     $columnValues[] = $leer;
     $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION');
@@ -921,7 +910,7 @@ elseif($getMode == 'soll_ist')
  */
 function check_DB()
 {
-    global $gDb,$gCurrentOrganization,$gL10n;
+    global $gDb, $gCurrentOrganization, $gL10n, $gProfileFields, $pPreferences;
 
     //Mit der Version 3.3.0 wurde die Installationsroutine umprogrammiert.
     //Frueher wurde auf usf_name geprueft, jetzt auf usf_name_intern.
@@ -954,15 +943,15 @@ function check_DB()
     // mit Version 4.1.2 wird die Struktur der DB-Eintraege an Admidio angepasst
     // deutsche Bezeichnungen werden durch englische Bezeichnungen ersetzt
     $update_array = array();
-    $update_array[] = array('alt_cat_name'          => 'Mitgliedschaft',
+    $update_array[] = array('alt_cat_name'        => 'Mitgliedschaft',
                             'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrganization->getValue('org_id'),
                             'neu_cat_name'        => 'PMB_MEMBERSHIP',
                             'neu_cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[] = array('alt_cat_name'          => 'Mitgliedsbeitrag',
+    $update_array[] = array('alt_cat_name'        => 'Mitgliedsbeitrag',
                             'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$gCurrentOrganization->getValue('org_id'),
                             'neu_cat_name'        => 'PMB_MEMBERSHIP_FEE',
                             'neu_cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'));
-    $update_array[] = array('alt_cat_name'          => 'Kontodaten',
+    $update_array[] = array('alt_cat_name'        => 'Kontodaten',
                             'alt_cat_name_intern' => 'KONTODATEN',
                             'neu_cat_name'        => 'PMB_ACCOUNT_DATA',
                             'neu_cat_name_intern' => 'ACCOUNT_DATA');
@@ -1077,6 +1066,97 @@ function check_DB()
                 $gDb->query($sql);
         }
     }
+    
+    //Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.1
+  
+    // => Membernumber org-abhaengig
+    //pruefen, ob es das Profilfeld 'MEMBERNUMBER' noch gibt
+    //wenn noch nicht konvertiert wurde, dann ist das Profilfeld 'MEMBERNUMBER' noch vorhanden und die usf_id ist groesser als 0
+    if ($gProfileFields->getProperty('MEMBERNUMBER', 'usf_id') > 0)
+    {
+    	// zuerst mal alle org_ids einlesen in denen das Plugin installiert ist (=bei denen die Inst-Routine durchlaufen wurde)
+    	$orgsArray = array();
+    	$sql = 'SELECT cat_id, cat_org_id
+        		  FROM '. TBL_CATEGORIES. '
+        		 WHERE (cat_name = \'Mitgliedschaft\'
+        			OR cat_name = \'PMB_MEMBERSHIP\')
+        		   AND cat_type = \'USF\'  ';
+    
+    	$statement = $gDb->query($sql);
+    	while($row = $statement->fetch())
+    	{
+    		$orgsArray[$row['cat_org_id']] = array('cat_id' => $row['cat_id'], 'usf_id' => 0);
+    	}
+    	 
+    	// fuer alle gefundenen orgs eine neues Profilfeld, jetzt org-abhaengig, anlegen
+    	$defaultFields = array('usf_name'        => 'PMB_MEMBERNUMBER',
+    						   'usf_type'        => 'TEXT',
+    			               'usf_system'      => 0,
+    			               'usf_disabled'    => 1,
+    			               'usf_hidden'      => 1,
+    						   'usf_mandatory'   => 0,
+    						   'usf_description' => 'ACHTUNG: Mitgliedsnummern nicht selbständig vergeben. Zum Löschen einer Mitgliedsnummer entweder 0 oder eine negative Zahl eingeben.');
+    	 
+    	foreach ($orgsArray as $orgID => $data)
+    	{
+    		$userField = new TableUserField($gDb);
+    		foreach ($defaultFields as $key => $value)
+    		{
+    			$userField->setValue($key, $value);
+    		}
+    		$userField->setValue('usf_cat_id', $data['cat_id']);
+    		$userField->save();
+    
+    		//usf_name_intern wird beim Anlegen eines neuen Profilfeldes automatisch befuellt,
+    		//ein uebergebener Wert wird aber ignoriert, deshalb nachtraeglich veraendern
+    		$orgsArray[$orgID]['usf_id'] = $userField->getvalue('usf_id');
+    		$userField = new TableUserField($gDb, $orgsArray[$orgID]['usf_id']);
+    		$userField->setValue('usf_name_intern', 'MEMBERNUMBER'.$orgID);
+    		$userField->save();
+    	}
+    	 
+    	//jetzt zu jeder user_id die aktuelle Mitgliedsnummer und die dazugehoerige org_id auslesen
+    	$membernumberArray = array();
+    	$sql = 'SELECT DISTINCT mem_usr_id, usd_value, cat_org_id
+        	               FROM '.TBL_USER_DATA.', '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
+        	              WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id').'
+        	                AND usd_value  IS NOT NULL
+                            AND usd_usr_id = mem_usr_id
+        	                AND mem_rol_id = rol_id
+        	                AND rol_cat_id = cat_id
+        	                AND cat_org_id IN  ('. implode(',', array_keys($orgsArray)).')  ';
+    	 
+    	$statement = $gDb->query($sql);
+    	while($row = $statement->fetch())
+    	{
+    		$membernumberArray[$row['mem_usr_id']][] = array('org_id' => $row['cat_org_id'], 'membernumer' => $row['usd_value']);
+    	}
+    	 
+    	//jetzt die neuen Mitgliedsnummern org-abhaengig in die db schreiben
+    	if (count($membernumberArray) > 0)
+    	{
+    		foreach ($membernumberArray as $userID => $data)
+    		{
+    			foreach ($data as $dataValue)
+    			{
+    				$sql = 'INSERT INTO '.TBL_USER_DATA.' (usd_usr_id, usd_usf_id, usd_value)
+                            VALUES (\''.$userID.'\' ,
+                            		\''.$orgsArray[$dataValue['org_id']]['usf_id'].'\' ,
+                            		\''.$dataValue['membernumer'].'\')   ';
+    				$gDb->query($sql);
+    			}
+    		}
+    	}
+
+        //das alte, org-uebergreifende Profilfeld umbenennen in "Mitgliedsnummer-alt" (als Kontrollmoeglichkeit)
+        $userField = new TableUserField($gDb, $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));
+    	$userField->setValue('usf_name', 'Mitgliedsnummer-alt');
+    	$userField->setValue('usf_name_intern', 'MEMBERNUMBER_OLD');
+    	$userField->save();
+    	//anstatt umbenennen waere auch loeschen moeglich
+    	//$pPreferences->delete_member_data(3, 'MEMBERNUMBER');
+    }
+
     // Ende Update/Konvertierungsroutine
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
@@ -1095,7 +1175,7 @@ function check_DB()
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']      = array('usf_name' => 'PMB_DEBTOR_CITY',       'usf_name_intern' => 'DEBTOR_CITY',                                                 'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']    = array('usf_name' => 'PMB_DEBTOR_EMAIL',      'usf_name_intern' => 'DEBTOR_EMAIL',                                                'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
 
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']      = array('usf_name' => 'PMB_MEMBERNUMBER',      'usf_name_intern' => 'MEMBERNUMBER',                                                'usf_type' => 'DECIMAL', 'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 0, 'usf_mandatory' => 0, 'usf_description' => 'ACHTUNG: Mitgliedsnummern nicht selbständig vergeben. Zum Löschen einer Mitgliedsnummer entweder 0 oder eine negative Zahl eingeben.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']      = array('usf_name' => 'PMB_MEMBERNUMBER',      'usf_name_intern' => 'MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'),      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'ACHTUNG: Mitgliedsnummern nicht selbständig vergeben. Zum Löschen einer Mitgliedsnummer entweder 0 oder eine negative Zahl eingeben.');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Beitritt']             = array('usf_name' => 'PMB_ACCESSION',         'usf_name_intern' => 'ACCESSION'.$gCurrentOrganization->getValue('org_id'),         'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Das Beitrittsdatum zum Verein');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Bezahlt']              = array('usf_name' => 'PMB_PAID',              'usf_name_intern' => 'PAID'.$gCurrentOrganization->getValue('org_id'),              'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Datumsangabe, ob und wann der Beitrag bezahlt wurde');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Beitrag']              = array('usf_name' => 'PMB_FEE',               'usf_name_intern' => 'FEE'.$gCurrentOrganization->getValue('org_id'),               'usf_type' => 'DECIMAL', 'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Der errechnete Mitgliedsbeitrag');

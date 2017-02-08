@@ -24,7 +24,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 // only authorized user are allowed to start this module
-if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+if (!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
     $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
@@ -36,48 +36,49 @@ $message = '';
 //pruefen, ob doppelte Mitgliedsnummern bestehen
 create_membernumber();
 
-// Name und Vorname aller Mitglieder einlesen
-$sql = 'SELECT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name
+// Name, Vorname von Mitgliedern einlesen, die 1. keine Mitgliedsnummer besitzen oder 2. eine Mitgliedsnummer < 1 besitzen
+$sql = 'SELECT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, membernumber.usd_value AS membernumber
           FROM '.TBL_USERS.'
-    RIGHT JOIN '.TBL_USER_DATA.' AS last_name
+     LEFT JOIN '.TBL_USER_DATA.' AS last_name
             ON last_name.usd_usr_id = usr_id
            AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
-    RIGHT JOIN '.TBL_USER_DATA.' AS first_name
+     LEFT JOIN '.TBL_USER_DATA.' AS first_name
             ON first_name.usd_usr_id = usr_id
            AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
-         WHERE usr_valid = 1  ';
+     LEFT JOIN '.TBL_USER_DATA.' AS membernumber
+            ON membernumber.usd_usr_id = usr_id
+           AND membernumber.usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '         		
+         WHERE usr_valid = 1 
+           AND (membernumber.usd_value < 1
+           	OR membernumber.usd_value IS NULL)
+           AND EXISTS (SELECT 1
+          FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES.  ','. TBL_USER_DATA. '
+         WHERE mem_usr_id = usr_id
+           AND mem_rol_id = rol_id
+           AND mem_begin <= \''.DATE_NOW.'\'
+           AND mem_end    > \''.DATE_NOW.'\'
+           AND rol_valid  = 1
+           AND rol_cat_id = cat_id
+           AND cat_org_id = '. $gCurrentOrganization->getValue('org_id'). ') ';
+           
 $statement = $gDb->query($sql);
-
-while($row = $statement->fetch())
+while ($row = $statement->fetch())
 {
-	$members[$row['usr_id']] = array('last_name' => $row['last_name'], 'first_name' => $row['first_name'], 'membernumber' => '');
+	$members[$row['usr_id']] = array('last_name'    => $row['last_name'], 
+									 'first_name'   => $row['first_name'],
+									 'membernumber' => $row['membernumber']);
 }
 
-//im zweiten Schritt evtl. vorhandene Mitgliedsnummern einlesen
-$sql = 'SELECT usd_usr_id, usd_value
-        FROM '.TBL_USER_DATA.'
-        WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'). ' ';
-$statement = $gDb->query($sql);
-
-while($row = $statement->fetch())
-{
-	$members[$row['usd_usr_id']]['membernumber'] = $row['usd_value'];
-}
-
-//alle Mitglieder durchlaufen und pruefen, ob eine Mitgliedsnummer vorhanden ist; wenn nicht, eine neue erzeugen
 $user = new User($gDb, $gProfileFields);
 foreach ($members as $usrID => $data)
 {
-    if (($data['membernumber'] == '') || ($data['membernumber'] < 1))
-    {
-        $newMembernumber = create_membernumber();
+	$newMembernumber = create_membernumber();
 
-        $user->readDataById($usrID);
-        $user->setValue('MEMBERNUMBER', $newMembernumber);
-        $user->save();
+    $user->readDataById($usrID);
+    $user->setValue('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), $newMembernumber);
+    $user->save();
 
-        $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $data['first_name'], $data['last_name'], $newMembernumber);
-    }
+    $message .= $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1', $data['first_name'], $data['last_name'], $newMembernumber);
 }
 
 // set headline of the script
@@ -110,16 +111,26 @@ $page->show();
  */
 function create_membernumber()
 {
-	global $gDb, $gMessage, $gL10n, $gProfileFields;
+	global $gDb, $gMessage, $gL10n, $gProfileFields, $gCurrentOrganization;
 
 	$rueckgabe_mitgliedsnummer = 0;
-	$mitgliedsnummern = array();
+	$mitgliedsnummern = array('0');
 	 
 	$sql = 'SELECT usd_value
-            FROM '.TBL_USER_DATA.'
-            WHERE usd_usf_id = \''.$gProfileFields->getProperty('MEMBERNUMBER', 'usf_id').'\' ';
+              FROM '. TBL_USER_DATA .'
+             WHERE usd_usf_id = \''.$gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), 'usf_id').'\'
+       		   AND EXISTS (SELECT 1
+              FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES.  ','. TBL_USER_DATA. '
+             WHERE mem_usr_id = usd_usr_id
+               AND mem_rol_id = rol_id
+               AND mem_begin <= \''.DATE_NOW.'\'
+               AND mem_end    > \''.DATE_NOW.'\'
+               AND rol_valid  = 1
+               AND rol_cat_id = cat_id
+               AND cat_org_id = '. $gCurrentOrganization->getValue('org_id'). ') ';
+	
 	$statement = $gDb->query($sql);
-	while($row = $statement->fetch())
+	while ($row = $statement->fetch())
 	{
 		$mitgliedsnummern[] = $row['usd_value'];
 	}
@@ -129,7 +140,7 @@ function create_membernumber()
 	//Ueberpruefung auf doppelte Mitgliedsnummern
 	for ($i = 0; $i < count($mitgliedsnummern)-1; $i++)
 	{
-		if ($mitgliedsnummern[$i] == $mitgliedsnummern[$i+1])
+		if ($mitgliedsnummern[$i] === $mitgliedsnummern[$i+1])
 		{
 			$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR', $mitgliedsnummern[$i]));
 			// --> EXIT

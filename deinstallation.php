@@ -36,7 +36,7 @@ $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION');
 // create html page object
 $page = new HtmlPage($headline);
 
-if($getMode == 'start')     //Default
+if ($getMode == 'start')     //Default
 {
     // get module menu
     $headerMenu = $page->getMenu();
@@ -66,11 +66,6 @@ if($getMode == 'start')     //Default
     $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA_ALERT_DESC').'</div>';
     $form->addDescription($html);
 
-    $form->openGroupBox('masterdata', $headline = $gL10n->get('SYS_MASTER_DATA'));
-    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS'));
-    $form->addCheckbox('membernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'), 0);
-    $form->closeGroupBox();
-
     $form->openGroupBox('accountdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS'));
     $form->addCheckbox('accountholder', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'), 0);
@@ -86,6 +81,7 @@ if($getMode == 'start')     //Default
     $form->closeGroupBox();
 
     $form->openGroupBox('membership', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP'));
+    $form->addCheckbox('membernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'), 0);
     $form->addCheckbox('accession', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION'), 0);
     $form->closeGroupBox();
 
@@ -110,19 +106,15 @@ if($getMode == 'start')     //Default
 
     $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_URL .'/icons/delete.png', 'class' => ' col-sm-offset-3'));
 }
-elseif($getMode == 'delete')
+elseif ($getMode == 'delete')
 {
     $deinst_config_data_message = '';
-    if(isset($_POST['configurationdata']))
+    if (isset($_POST['configurationdata']))
     {
         $deinst_config_data_message = $pPreferences->delete_config_data($_POST['deinst_org_select']);
     }
 
     $deinst_member_data_message = '';
-    if (isset($_POST['membernumber']))
-    {
-        $deinst_member_data_message .= $pPreferences->delete_member_data(3, 'MEMBERNUMBER', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'));
-    }
     if (isset($_POST['accountholder']))
     {
         $deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER'));
@@ -162,6 +154,10 @@ elseif($getMode == 'delete')
     if (isset($_POST['email']))
     {
         $deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR_EMAIL', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL'));
+    }
+    if (isset($_POST['membernumber']))
+    {
+    	$deinst_member_data_message .= $pPreferences->delete_member_data($_POST['deinst_org_select'], 'MEMBERNUMBER', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER'));
     }
     if (isset($_POST['accession']))
     {
@@ -205,19 +201,19 @@ elseif($getMode == 'delete')
     }
 
     $deinstMessage = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE');
-    if($deinst_config_data_message != '')
+    if ($deinst_config_data_message != '')
     {
         $deinstMessage .= '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA').'</strong><br/>';
         $deinstMessage .= $deinst_config_data_message;
     }
-    if($deinst_member_data_message != '')
+    if ($deinst_member_data_message != '')
     {
         $deinstMessage .= '<br/><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA').'</strong>';
         $deinstMessage .= $deinst_member_data_message;
     }
 
     $form = new HtmlForm('deinstallations_form', null, $page);
-    if($deinstMessage != $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE'))
+    if ($deinstMessage != $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE'))
     {
         $form->addDescription($deinstMessage);
         $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE').'</div>';

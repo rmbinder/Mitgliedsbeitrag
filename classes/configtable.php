@@ -115,11 +115,11 @@ class ConfigTablePMB
         //  3 = Daten loeschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
 
         //Update/Konvertierungsroutine 4.1.x -> 4.1.2
-        if(isset($this->config['Rollenpruefung']['altersrollenfamilienrollen']) && !is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
+        if (isset($this->config['Rollenpruefung']['altersrollenfamilienrollen']) && !is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
         {
             unset($this->config['Rollenpruefung']['altersrollenfamilienrollen']);
         }
-        if(isset($this->config['Rollenpruefung']['altersrollenpflicht']) && !is_array($this->config['Rollenpruefung']['altersrollenpflicht']))
+        if (isset($this->config['Rollenpruefung']['altersrollenpflicht']) && !is_array($this->config['Rollenpruefung']['altersrollenpflicht']))
         {
             unset($this->config['Rollenpruefung']['altersrollenpflicht']);
         }
@@ -320,7 +320,7 @@ class ConfigTablePMB
 
         // einen Suchstring fuer die SQL-Abfrage aufbereiten
         $fieldsarray = array();
-        $fieldsarray[] = 'MEMBERNUMBER';
+        $fieldsarray[] = 'MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id');
         $fieldsarray[] = 'ACCESSION'.$gCurrentOrganization->getValue('org_id');
         $fieldsarray[] = 'FEE'.$gCurrentOrganization->getValue('org_id');
         $fieldsarray[] = 'PAID'.$gCurrentOrganization->getValue('org_id');

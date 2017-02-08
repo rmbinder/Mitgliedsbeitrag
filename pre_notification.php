@@ -98,7 +98,7 @@ if($getMode == 'csv_export')
             $user = new User($gDb, $gProfileFields, $UserId);
 
             $export .= $nr.';';
-            $export .= $user->getValue('MEMBERNUMBER').';';
+            $export .= $user->getValue('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id')).';';
             $export .= $user->getValue('FIRST_NAME').';';
             $export .= $user->getValue('LAST_NAME').';';
             $export .= $user->getValue('ADDRESS').';';

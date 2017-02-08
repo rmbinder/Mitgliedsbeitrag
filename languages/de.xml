@@ -327,7 +327,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Vorabinformation E-Mail-Text</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER">Mitgliedsnummer(n) erzeugen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Erzeugt einfache, numerische und organisationsübergreifende Mitgliedsnummern für aktive und ehemalige Mitglieder.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Erzeugt numerische Mitgliedsnummern für aktive Mitglieder der aktuellen Organisation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">\n#VAR1_BOLD# Die Erzeugung erfolgt mit Betätigung des Buttons.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profilfeld</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Neuberechnung</string>
