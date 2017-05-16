@@ -209,7 +209,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist die IBAN fehlerhaft.</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK">Keine IBAN weist einen Fehler auf.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">Die Setuproutine von Mitgliedsbeitrag hat festgestellt, daß ein Versionsupdate stattgefunden hat und überprüft deshalb die Struktur.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">beendet diese Setuproutine (Nach Abschluss der Installation sollte Admidio neu gestartet werden). </string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">beendet diese Setuproutine (Wenn Änderungen an der Datenbank durchgeführt wurden, wird dringend empfohlen, Admidio neu zu starten). </string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1. Durchgang</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE">2. Durchgang</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_TITLE">Installation Mitgliedsbeitrag</string>
