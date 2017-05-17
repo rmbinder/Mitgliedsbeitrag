@@ -32,7 +32,8 @@ $gL10n->addLanguagePath(ADMIDIO_PATH . FOLDER_PLUGINS . $plugin_folder . '/langu
 $pPreferences = new ConfigTablePMB();
 
 // eine Deinstallation hat stattgefunden, deshalb keine Installationsroutine durchlaufen und auch keinen Link anzeigen
-if(!isset($_SESSION['pmbDeinst']))
+// Zweite Voraussetzung: Ein User muss erfolgreich eingeloggt sein
+if(!isset($_SESSION['pmbDeinst']) && $gValidLogin)
 {
     $checked = $pPreferences->checkforupdate();
     $startprog = 'menue.php';
