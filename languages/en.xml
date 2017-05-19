@@ -253,8 +253,11 @@
     <string name="PLG_MITGLIEDSBEITRAG_MAX">Max</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER">Membership number</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR">Program has been aborted due to duplicate membership number #VAR1_BOLD#.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1">Membership number #VAR3_BOLD# has been assigned to member #VAR1_BOLD# #VAR2_BOLD#.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES2">No new membership numbers have been assigned as all members already have one.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW">new Membership number</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN">No new member numbers can be assigned because all members, or all members of the selected roles, already have a member number.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW">The new membership numbers have only been calculated, but have not yet been saved.</string>
+   	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">The new member numbers are saved.</string>
+	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">New Membership numbers</string>   	
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Membership</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Membership fee</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION">Members&apos; fees</string>
@@ -328,7 +331,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER">Generate membership number(s)</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Generates numeric membership numbers for active members in the current organization.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">\n#VAR1_BOLD# They are created upon clicking the button.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">By default, membership numbers are created for all active members of the current organization. About this role selection a generation may be performed only for the selected roles. If you do not want to restrict certain roles, leave this field blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profile field</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Recalculation</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC">Via this option, the fees are recalculated and written into the database.</string>

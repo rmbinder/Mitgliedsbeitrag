@@ -253,8 +253,11 @@
     <string name="PLG_MITGLIEDSBEITRAG_MAX">Max</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER">Mitgliedsnummer</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR">Programmabbruch - Die Mitgliedsnummer #VAR1_BOLD# ist doppelt vorhanden.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES1">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# wurde die Mitgliedsnummer #VAR3_BOLD# zugewiesen.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_RES2">Es wurden keine neuen Mitgliedsnummern zugeweisen, alle Mitglieder besitzen eine Mitgliedsnummer.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW">neue Mitgliedsnummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN">Es können keine neuen Mitgliedsnummern zugewiesen werden, da alle Mitglieder bzw. alle Mitglieder der ausgewählten Rollen, bereits eine Mitgliedsnummer besitzen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW">Die neuen Mitgliedsnummern wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>
+   	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Die neuen Mitgliedsnummern sind gespeichert.</string>
+	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string>   	
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Mitgliedschaft</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Mitgliedsbeitrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION">Beiträge der Mitglieder</string>
@@ -328,7 +331,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER">Mitgliedsnummer(n) erzeugen</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Erzeugt numerische Mitgliedsnummern für aktive Mitglieder der aktuellen Organisation.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">\n#VAR1_BOLD# Die Erzeugung erfolgt mit Betätigung des Buttons.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">Standardmäßig werden Mitgliedsnummern für alle aktiven Mitglieder der aktuellen Organisation erzeugt. Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profilfeld</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Neuberechnung</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC">Hiermit werden die Beiträge neu berechnet und in die Datenbank geschrieben.</string>
