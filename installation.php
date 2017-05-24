@@ -1095,7 +1095,7 @@ function check_DB()
     			               'usf_disabled'    => 1,
     			               'usf_hidden'      => 1,
     						   'usf_mandatory'   => 0,
-    						   'usf_description' => 'ACHTUNG: Mitgliedsnummern nicht selbständig vergeben. Zum Löschen einer Mitgliedsnummer entweder 0 oder eine negative Zahl eingeben.');
+    						   'usf_description' => '');
     	 
     	foreach ($orgsArray as $orgID => $data)
     	{
@@ -1175,7 +1175,7 @@ function check_DB()
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']      = array('usf_name' => 'PMB_DEBTOR_CITY',       'usf_name_intern' => 'DEBTOR_CITY',                                                 'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']    = array('usf_name' => 'PMB_DEBTOR_EMAIL',      'usf_name_intern' => 'DEBTOR_EMAIL',                                                'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
 
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']      = array('usf_name' => 'PMB_MEMBERNUMBER',      'usf_name_intern' => 'MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'),      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'ACHTUNG: Mitgliedsnummern nicht selbständig vergeben. Zum Löschen einer Mitgliedsnummer entweder 0 oder eine negative Zahl eingeben.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']      = array('usf_name' => 'PMB_MEMBERNUMBER',      'usf_name_intern' => 'MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'),      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Beitritt']             = array('usf_name' => 'PMB_ACCESSION',         'usf_name_intern' => 'ACCESSION'.$gCurrentOrganization->getValue('org_id'),         'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Das Beitrittsdatum zum Verein');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Bezahlt']              = array('usf_name' => 'PMB_PAID',              'usf_name_intern' => 'PAID'.$gCurrentOrganization->getValue('org_id'),              'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Datumsangabe, ob und wann der Beitrag bezahlt wurde');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Beitrag']              = array('usf_name' => 'PMB_FEE',               'usf_name_intern' => 'FEE'.$gCurrentOrganization->getValue('org_id'),               'usf_type' => 'DECIMAL', 'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Der errechnete Mitgliedsbeitrag');
