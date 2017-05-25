@@ -1,15 +1,12 @@
 <?php
 /**
  ***********************************************************************************************
- * Dieses Plugin generiert fuer jedes aktive und ehemalige Mitglied eine Mitgliedsnummer.
+ * Dieses Plugin generiert fuer aktive Mitglieder der aktuellen Organisation eine Mitgliedsnummer.
  *
  * @copyright 2004-2017 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  * 
- * Hinweis:   Die erzeugten Mitgliedsnummern sind numerisch.
- *            Begonnen wird bei der Zahl 1.
- *            Freie Nummern von geloeschten Mitgliedern werden wiederverwendet.
  ***********************************************************************************************
  */
 
@@ -57,8 +54,12 @@ if ($getMode == 'preview')     //Default
 	}
 
 	$membernumbers->readUserWithoutMembernumber($_POST['producemembernumber_roleselection']);
+	$membernumbers->separateFormatSegment($_POST['producemembernumber_format']);
 	$membernumbers->getMembernumber();
-
+	
+	$_SESSION['membernumber_rol_sel'] = $_POST['producemembernumber_roleselection'];
+	$_SESSION['membernumber_format'] = $_POST['producemembernumber_format'];
+	
 	$headerMenu = $page->getMenu();
 	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
 	
@@ -67,7 +68,7 @@ if ($getMode == 'preview')     //Default
 	if ($membernumbers->userWithoutMembernumberExist)
 	{
 		// save new membernumbers in session (for mode write and mode print)
-		$_SESSION['produce_membernumber'] = $membernumbers->mUserWithoutMembernumber;
+		$_SESSION['membernumber_user'] = $membernumbers->mUserWithoutMembernumber;
 	
 		$datatable = true;
 		$hoverRows = true;
@@ -124,7 +125,7 @@ elseif ($getMode == 'write')
 	
 	$user = new User($gDb, $gProfileFields);
 	
-	foreach ($_SESSION['produce_membernumber'] as $data)
+	foreach ($_SESSION['membernumber_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['last_name'];
@@ -160,7 +161,7 @@ elseif ($getMode == 'print')
 	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
-	foreach ($_SESSION['produce_membernumber'] as $data)
+	foreach ($_SESSION['membernumber_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['last_name'];

@@ -18,6 +18,9 @@ class Membernumbers
 	public $mUserWithoutMembernumber = array();   	///< Array with users without membernumbers
 	
 	protected $doubleNumber;          				///< if false, no double membernumbers exist
+	protected $preFormatSegment;          			///< Pre-segment of the new member number
+	protected $postFormatSegment;          			///< Post-segment of the new member number
+	protected $lengthSerialNumber;          		///< The length of the numerical part of the new member number
     public $userWithoutMembernumberExist;          	///< if true, user without membernumber exist
    
     /**
@@ -31,6 +34,9 @@ class Membernumbers
         $this->readNumbers();
         $this->doubleNumber = false;
         $this->checkDoubleNumbers();
+        $this->preFormatSegment = '';
+        $this->postFormatSegment = '';
+        $this->lengthSerialNumber = 0;
     }
 
     /**
@@ -117,9 +123,9 @@ class Membernumbers
      		$sqlRoleCond =  'AND rol_id IN ('.implode(', ', $roleselection).')';
      	}
      	
-     	// usr_id, Name und Vorname von Mitgliedern einlesen, 
-     	//die 1. keine Mitgliedsnummer besitzen 
-     	//oder 2. eine Mitgliedsnummer < 1 besitzen
+     	// usr_id, Name, Vorname und Mitgliedsnummer einlesen von Mitgliedern, 
+     	// die 1. keine Mitgliedsnummer besitzen 
+     	// oder 2. eine Mitgliedsnummer < 1 besitzen
      	$sql = 'SELECT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, membernumber.usd_value AS membernumber
                   FROM '.TBL_USERS.'
              LEFT JOIN '.TBL_USER_DATA.' AS last_name
@@ -132,8 +138,7 @@ class Membernumbers
                     ON membernumber.usd_usr_id = usr_id
                    AND membernumber.usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
                  WHERE usr_valid = 1
-                   AND (membernumber.usd_value < 1
-           	        OR membernumber.usd_value IS NULL)
+                   AND membernumber.usd_value IS NULL
             AND EXISTS (SELECT 1
                   FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES.  ','. TBL_USER_DATA. '
                  WHERE mem_usr_id = usr_id
@@ -144,7 +149,7 @@ class Membernumbers
                    '.$sqlRoleCond.'
                    AND rol_cat_id = cat_id
                    AND cat_org_id = '. $gCurrentOrganization->getValue('org_id'). ') ';
-     	 
+
      	$statement = $this->mDb->query($sql);
 
      	while ($row = $statement->fetch())
@@ -169,17 +174,61 @@ class Membernumbers
 	{
     	if ($this->userWithoutMembernumberExist)
     	{
-    		$newMembernumber = 1;
+    		$membernumberCounter = 1;
     		$memberCounter = 0;
     		while (sizeof($this->mUserWithoutMembernumber) > $memberCounter)
     		{
-    			if (!in_array($newMembernumber, $this->mNumbers))
+    			$newMembernumber = $this->preFormatSegment.str_pad($membernumberCounter, $this->lengthSerialNumber, '0', STR_PAD_LEFT);
+
+    			$foundMarker = false;
+    			foreach ($this->mNumbers as $data)
     			{
-    				$this->mUserWithoutMembernumber[$memberCounter]['membernumber'] = $newMembernumber;
+    				if (empty($this->preFormatSegment))
+    				{
+    					if ((int) $data == (int) $newMembernumber )
+    					{
+    						$foundMarker = true;
+    					}
+    				}
+    				else
+    				{
+    					if (substr($data, 0, strlen($newMembernumber)) == $newMembernumber )
+    					{
+    						$foundMarker = true;
+    					}
+    				}
+    			}
+    			if (!$foundMarker)
+    			{
+    				$this->mUserWithoutMembernumber[$memberCounter]['membernumber'] = $newMembernumber.$this->postFormatSegment;
     				$memberCounter++;
     			}
-    			$newMembernumber++;
+    			$membernumberCounter++;
     		}
     	}
     }
+    
+    
+    /**
+     * Separates the formatting text into @b preFormatSegment, @b postFormatSegment and @b lengthSerialNumber
+     */
+    public function separateFormatSegment($formatText = '')
+    {
+    	//$formatText darf nicht leer sein und muss Zeichen fuer lfd. Nummer enthalten 
+    	if ($formatText != '' && strstr($formatText, '#') != false)
+    	{
+    		$firstHash = strpos($formatText, '#'); 
+    		$lastHash  = strrpos($formatText, '#');
+    		
+    		$this->lengthSerialNumber = $lastHash - $firstHash + 1;
+    		if (substr_count($formatText, '#', $firstHash, $this->lengthSerialNumber) != $this->lengthSerialNumber)
+    		{
+    			$this->lengthSerialNumber = 0;
+    			return;
+    		}
+    		
+    		$this->preFormatSegment = substr($formatText, 0, $firstHash);
+    		$this->postFormatSegment = substr($formatText, $lastHash + 1);
+    	}
+    } 
 }

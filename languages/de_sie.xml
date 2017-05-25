@@ -203,6 +203,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT">Letzte Lastschrift (FNAL)</string>
     <string name="PLG_MITGLIEDSBEITRAG_FIRST_DIRECT_DEBIT">Erstlastschrift (FRST)</string>
     <string name="PLG_MITGLIEDSBEITRAG_FOLLOW_DIRECT_DEBIT">Folgelastschrift (RCUR)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FORMAT">Formatierung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FORMAT_DESC">Hier kann eine Formatierung angegeben werden, anhand derer eine Mitgliedsnummer erstellt wird.\n\nEine Formatierung kann bis zu drei Segmente enthalten: Vorsegment, laufende Nummer, Nachsegment, Beispiel: DEU####GYMN. Jede Änderung im Vorsegment bewirkt einen Neubeginn der laufenden Nummer. Die laufende Nummer wird mit dem Zeichen # markiert. Das Nachsegment wird nur an die durch Vorsegment und laufende Nummer erzeugte Mitgliedsnummer angehängt.\n\nDEU###GYMN erzeugt z. B. folgende Mitgliedsnummern: DEU001GYMN, DEU002GYMN, DEU999GYMN, DEU1023GYMN. AUT###GYMN erzeugt z. B. folgende Mitgliedsnummern: AUT001GYMN, AUT002GYMN, AUT999GYMN, AUT1023GYMN.</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBAN">IBAN</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK">IBAN-Test</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC">Überprüfung auf korrekte IBAN (Hinweis: Geprüft wird die IBAN-Prüfziffer an der dritten und vierten Stelle der IBAN anhand der Standard IBAN-Regel.).</string>
@@ -256,7 +258,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW">neue Mitgliedsnummer</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN">Es können keine neuen Mitgliedsnummern zugewiesen werden, da alle Mitglieder bzw. alle Mitglieder der ausgewählten Rollen, bereits eine Mitgliedsnummer besitzen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW">Die neuen Mitgliedsnummern wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>
-   	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Die neuen Mitgliedsnummern sind gespeichert.</string>
+   	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Die neuen Mitgliedsnummern wurden gespeichert.</string>
 	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string>   	
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Mitgliedschaft</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Mitgliedsbeitrag</string>
@@ -330,7 +332,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Vorabinformation E-Mail-Text</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER">Mitgliedsnummer(n) erzeugen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Erzeugt numerische Mitgliedsnummern für aktive Mitglieder der aktuellen Organisation.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Erzeugt Mitgliedsnummern für aktive Mitglieder der aktuellen Organisation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">Standardmäßig werden Mitgliedsnummern für alle aktiven Mitglieder der aktuellen Organisation erzeugt. Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profilfeld</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Neuberechnung</string>
