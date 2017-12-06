@@ -116,19 +116,12 @@ if (isset($_POST['btn_xml_file']))
     $xmlfile = '';
     $xmlfile .= "<?xml version='1.0' encoding='UTF-8'?>\n";
 
-    // DFÜ-Abkommen Version 2.7
-    // Pain 008.003.002
-    // fuer COR1 und IBAN only Unterstuetzung notwendig
-    $xmlfile .= "<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.003.02'
-          xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-          xsi:schemaLocation='urn:iso:std:iso:20022:tech:xsd:pain.008.003.02 pain.008.003.02.xsd'>\n";
-
-    // DFÜ-Abkommen Version 2.6
-    // Pain 008.002.002
-    //$xmlfile .= "<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.002.02'
-    //      xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    //      xsi:schemaLocation='urn:iso:std:iso:20022:tech:xsd:pain.008.002.02 pain.008.002.02.xsd'>\n";
-
+    // DFÜ-Abkommen Version 3.1
+    // Pain 008.001.002
+    $xmlfile .=  "<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.001.02' 
+    		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+    		xsi:schemaLocation='urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd'>\n";
+    
         // ########## Customer Direct Debit Initiation ###########
         $xmlfile .= "<CstmrDrctDbtInitn>\n";
 
@@ -137,6 +130,7 @@ if (isset($_POST['btn_xml_file']))
             $xmlfile .= "<MsgId>$message_id</MsgId>\n";                       //MessageIdentification
             $xmlfile .= "<CreDtTm>$message_datum</CreDtTm>\n";                //Datum & Zeit
             $xmlfile .= "<NbOfTxs>$lst_num</NbOfTxs>\n";                      //NumberOfTransactions
+            $xmlfile .= "<CtrlSum>$lst_euro_sum</CtrlSum>\n";                 //Control Summe
             $xmlfile .= "<InitgPty>\n";
                 $xmlfile .= "<Nm>$message_initiator_name</Nm>\n";
             $xmlfile .= "</InitgPty>\n";
