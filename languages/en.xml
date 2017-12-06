@@ -91,8 +91,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Copying</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">This profile data of a member can be copied to another Member.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">First pick from a source and then a destination copying. Then you determine about "choice" which profile field of "source" to "target" is copied. The copying process is done automatically by setting the hook of the target range.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_COR1_MARKER">Direct Debit Express</string>
-    <string name="PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC">SEPA Direct Debit Express (COR1) create with shorter lead times.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS">Creates missing profile fields.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Payee</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Data field for sequence number</string>

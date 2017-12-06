@@ -35,7 +35,6 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 
 // Initialize and check the parameters
 $postDueDateSepaType    = admFuncVariableIsValid($_POST, 'duedatesepatype', 'string');
-$postCOR1Marker         = admFuncVariableIsValid($_POST, 'eillastschrift', 'boolean');
 
 // $postDueDateSepaType splitten in DueDate und SepaType
 $postDueDate = substr($postDueDateSepaType, 0, 10);
@@ -148,14 +147,7 @@ if (isset($_POST['btn_xml_file']))
                     $xmlfile .= "<Cd>SEPA</Cd>\n";                            //Code, immer SEPA
                 $xmlfile .= "</SvcLvl>\n";
                 $xmlfile .= "<LclInstrm>\n";                                  //LocalInstrument, Lastschriftart
-                if($postCOR1Marker)
-                {
-                    $xmlfile .= "<Cd>COR1</Cd>\n";                            //COR1 (Eil-Lastschrift)
-                }
-                else
-                {
-                    $xmlfile .= "<Cd>CORE</Cd>\n";                            //CORE (Basislastschrift oder B2B (Firmenlastschrift)
-                }
+                	$xmlfile .= "<Cd>CORE</Cd>\n";                            //CORE (Basislastschrift oder B2B (Firmenlastschrift)
                 $xmlfile .= "</LclInstrm>\n";
                 $xmlfile .= "<SeqTp>$payment_seqtp</SeqTp>\n";                //SequenceType
                                                                             //Der SequenceType gibt an, ob es sich um eine Erst-, Folge-,
@@ -332,7 +324,7 @@ if (isset($_POST['btn_xml_file']))
     header('Cache-Control: private'); // noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
     header('Content-Transfer-Encoding: binary'); // Im Grunde ueberfluessig, hat sich anscheinend bewaehrt
     header('Cache-Control: post-check=0, pre-check=0'); // Zwischenspeichern auf Proxies verhindern
-    header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.xml"');
+    header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['dateiname'].'-'.$postDueDate.'-'.$postSepaType.'.xml"');
 
     echo $xmlfile;
 
@@ -351,12 +343,12 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 
     // Zwischenspeichern auf Proxies verhindern
     header('Cache-Control: post-check=0, pre-check=0');
-    header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.csv"');
+    header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.$postDueDate.'-'.$postSepaType.'.csv"');
 
     $datumtemp = new DateTimeExtended($payment_datum, 'Y-m-d');
 
     echo 'SEPA-'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')."\n\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').';'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.($postCOR1Marker ? 'COR1-' : '').$postDueDate.'-'.$postSepaType.'.csv'."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').';'.$pPreferences->config['SEPA']['kontroll_dateiname'].'-'.$postDueDate.'-'.$postSepaType.'.csv'."\n"
         ."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID').';'.utf8_decode($message_id)."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE').';'.utf8_decode($message_datum)."\n"

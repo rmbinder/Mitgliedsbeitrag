@@ -628,8 +628,6 @@ if(count($rols) > 0)
                                 $form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION'), $htmlTable);
                                 $form->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC'));
 
-                                $form->addCheckbox('eillastschrift', $gL10n->get('PLG_MITGLIEDSBEITRAG_COR1_MARKER'), 0, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC'));
-
                                 $form->addSubmitButton('btn_xml_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'), array('icon' => THEME_URL .'/icons/download.png', 'class' => 'btn-primary col-sm-offset-3'));
                                 $form->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_DESC'));
 

@@ -91,8 +91,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Kopieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Wähle zuerst eine Quelle und ein Ziel des Kopiervorgangs aus. Danach bestimmst Du über "Auswahl" welches Profilfeld von "Quelle" zu "Ziel" kopiert wird. Der Kopiervorgang erfolgt automatisch mit Setzen des Hakens der Ziel-Auswahl.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_COR1_MARKER">Eil-Lastschrift</string>
-    <string name="PLG_MITGLIEDSBEITRAG_COR1_MARKER_DESC">SEPA Eil-Lastschrift (COR1) mit verkürzten Vorlauffristen erstellen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS">Legt die fehlenden Profilfelder an.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Zahlungsempfänger</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Datenfeld für die laufende Nummer</string>
