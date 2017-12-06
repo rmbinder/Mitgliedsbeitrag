@@ -68,14 +68,14 @@ foreach ($members as $member => $memberdata)
 
         $zpflgt[$member]['name'] = substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);                                                     // Name of account owner.
         $zpflgt[$member]['alt_name'] = '';                                                                                                            // Array SEPA Zahlungspflichtiger abweichender Name
-        $zpflgt[$member]['iban'] = str_replace(' ', '', $members[$member]['IBAN']);                                                                   // IBAN
+        $zpflgt[$member]['iban'] = strtoupper(str_replace(' ', '', $members[$member]['IBAN']));                                                                   // IBAN
         $zpflgt[$member]['bic'] = $members[$member]['BIC'];                                                                                           // BIC
         $zpflgt[$member]['mandat_id'] = $members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];                                     // Mandats-ID
         $zpflgt[$member]['mandat_datum'] = $members[$member]['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')];                                // Mandats-Datum
         $zpflgt[$member]['betrag'] = $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')];                                              // Amount of money
         $zpflgt[$member]['text'] = substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]), 0, 140);   // Description of the transaction ("Verwendungszweck").
         $zpflgt[$member]['orig_mandat_id'] = $members[$member]['ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id')];                           // urspruengliche Mandats-ID
-        $zpflgt[$member]['orig_iban'] = str_replace(' ', '', $members[$member]['ORIG_IBAN']);                                                         // urspruengliche IBAN
+        $zpflgt[$member]['orig_iban'] = strtoupper(str_replace(' ', '', $members[$member]['ORIG_IBAN']));                                                         // urspruengliche IBAN
         $zpflgt[$member]['orig_dbtr_agent'] = $members[$member]['ORIG_DEBTOR_AGENT'];                                                                 // urspruengliches Kreditinstitut, nur "SMNDA" moeglich
 
         $lst_euro_sum += $zpflgt[$member]['betrag'];
