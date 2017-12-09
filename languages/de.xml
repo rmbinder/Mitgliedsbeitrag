@@ -24,6 +24,11 @@
     <string name="PLG_MITGLIEDSBEITRAG_BANK">Bank</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK_CHANGED">Neue Kontoverbindung bei einer anderen Bank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BIC">BIC</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK">BIC-Test</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_DESC">Überprüft das Vorhandensein eines BIC. Bei Zahlungen außerhalb EU/EWR ist weiterhin die Angabe eines BIC erforderlich (Aktuell folgende Länder: Schweiz, Monaco, San Marino, Jersey, Guernsey, Isle of Man, St. Pierre und Miquelon).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_ERROR">Bei den aufgeführten Mitgliedern oder bei den Kontodaten des Vereins fehlt der BIC.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_OK">Alle benötigten BIC sind vorhanden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BIC_MISSING">Die Erstellung der SEPA XML-Datei/Kontrolldatei wurde abgebrochen. Beim Konto #VAR1_BOLD# ist ein BIC erforderlich, da es sich um eine Kontoverbindung außerhalb EU/EWR handelt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL">Rechnung</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Bankleitzahlendatei</string>
     <string name="PLG_MITGLIEDSBEITRAG_CATEGORIE">Kategorie</string>

@@ -780,6 +780,14 @@ if(count($rols) > 0)
                                 $form->addDescription($data);
                             }
                             $form->closeGroupBox();
+                            
+                            $form->openGroupBox('bic_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK'));
+                            $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_DESC').'</strong>');
+                            foreach (check_bic() as $data)
+                            {
+                            	$form->addDescription($data);
+                            }
+                            $form->closeGroupBox();
 
                             //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
                             $form->addStaticControl('', '', '');

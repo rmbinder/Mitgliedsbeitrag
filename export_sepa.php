@@ -39,7 +39,7 @@ $postDueDateSepaType    = admFuncVariableIsValid($_POST, 'duedatesepatype', 'str
 $postDueDate = substr($postDueDateSepaType, 0, 10);
 $postSepaType = substr($postDueDateSepaType, 10);
 
-$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'DEBTOR', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0);
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'ADDRESS', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_ADDRESS', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0);
 
 $zempf = array();
 $zpflgt = array();
@@ -62,11 +62,25 @@ foreach ($members as $member => $memberdata)
         if (empty($memberdata['DEBTOR']))
         {
             $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'];
+            $members[$member]['DEBTOR_ADDRESS'] = $memberdata['ADDRESS'];
+            $members[$member]['DEBTOR_CITY'] = $memberdata['CITY'];
         }
 
         $zpflgt[$member]['name'] = substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);                                                     // Name of account owner.
-        $zpflgt[$member]['alt_name'] = '';                                                                                                            // Array SEPA Zahlungspflichtiger abweichender Name
-        $zpflgt[$member]['iban'] = strtoupper(str_replace(' ', '', $members[$member]['IBAN']));                                                                   // IBAN
+        $zpflgt[$member]['alt_name'] = '';                                                                                                            // Zahlungspflichtiger abweichender Name
+
+        if (isIbanNOT_EU_EWR($members[$member]['IBAN']))
+        {
+        	if (empty($members[$member]['BIC']))
+        	{
+        		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$zpflgt[$member]['name']. '</a>'), $gL10n->get('SYS_ERROR'));
+        	}
+        	$zpflgt[$member]['land'] = strtoupper(substr(str_replace(' ', '', $members[$member]['IBAN']), 0,2));
+        	$zpflgt[$member]['adresse'] = substr(replace_sepadaten($members[$member]['DEBTOR_ADDRESS']), 0, 70);    
+        	$zpflgt[$member]['ort'] = substr(replace_sepadaten($members[$member]['DEBTOR_CITY']), 0, 70);    
+        }
+        
+        $zpflgt[$member]['iban'] = strtoupper(str_replace(' ', '', $members[$member]['IBAN']));                                                       // IBAN
         $zpflgt[$member]['bic'] = $members[$member]['BIC'];                                                                                           // BIC
         $zpflgt[$member]['mandat_id'] = $members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];                                     // Mandats-ID
         $zpflgt[$member]['mandat_datum'] = $members[$member]['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')];                                // Mandats-Datum
@@ -100,6 +114,12 @@ $payment_seqtp = $postSepaType;
 
 $zempf['name'] = substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);                //SEPA  Zahlungsempfaenger Kontoinhaber
 $zempf['ci'] = $pPreferences->config['Kontodaten']['ci'];                                                         //Organisation SEPA_ID (Glaeubiger-ID Bundesdbank)
+
+if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPreferences->config['Kontodaten']['bic']))
+{
+	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', $zempf['name']), $gL10n->get('SYS_ERROR'));
+}
+
 $zempf['iban'] = str_replace(' ', '', $pPreferences->config['Kontodaten']['iban']);                               //SEPA  Zahlungsempfaenger IBAN
 $zempf['bic'] = $pPreferences->config['Kontodaten']['bic'];                                                       //SEPA  Zahlungsempfaenger BIC
 $zempf['orig_cdtr_name'] = $pPreferences->config['Kontodaten']['origcreditor'];                                   //urspruenglicher Creditor
@@ -166,7 +186,16 @@ if (isset($_POST['btn_xml_file']))
             $xmlfile .= "</CdtrAcct>\n";
             $xmlfile .= "<CdtrAgt>\n";                                        //CreditorAgent, Creditor-Bank
                 $xmlfile .= "<FinInstnId>\n";                                 //FinancialInstitutionIdentification
-                    $xmlfile .= '<BIC>'.$zempf['bic']."</BIC>\n";             //Business Identifier Code
+                if(strlen($zempf['bic']) !== 0)       						  //ist ein BIC vorhanden?
+                {
+                	$xmlfile .= '<BIC>'.$zempf['bic']."</BIC>\n";
+                }
+                else
+                {
+                	$xmlfile .= "<Othr>\n";
+                		$xmlfile .= "<Id>NOTPROVIDED</Id>\n";
+                	$xmlfile .= "</Othr>\n";
+                }
                 $xmlfile .= "</FinInstnId>\n";
             $xmlfile .= "</CdtrAgt>\n";
             $xmlfile .= "<ChrgBr>SLEV</ChrgBr>\n";                            //ChargeBearer, Entgeltverrechnungsart, immer SLEV
@@ -288,6 +317,14 @@ if (isset($_POST['btn_xml_file']))
 
                     $xmlfile .= "<Dbtr>\n";                                       //Zahlungspflichtiger
                         $xmlfile .= '<Nm>'.$zpflgtdata['name']."</Nm>\n";         //Name (70)
+                        if (!empty($zpflgtdata['land']))
+                        {
+                        	$xmlfile .= "<PstlAdr>\n";
+                        		$xmlfile .= '<Ctry>'.$zpflgtdata['land']."</Ctry>\n";              //Zahlungspflichtigen-Adresse ist Pflicht
+                        		$xmlfile .= '<AdrLine>'.$zpflgtdata['adresse']."</AdrLine>\n";     // bei Lastschriften ausserhalb EU/EWR
+                        		$xmlfile .= '<AdrLine>'.$zpflgtdata['ort']."</AdrLine>\n";          
+                        	$xmlfile .= "</PstlAdr>\n";
+                        }
                     $xmlfile .= "</Dbtr>\n";
                     $xmlfile .= "<DbtrAcct>\n";
                         $xmlfile .= "<Id>\n";
@@ -378,7 +415,10 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR').';'
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID').';'
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')."\n";
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT').';'
+        .$gL10n->get('SYS_COUNTRY').';'
+        .$gL10n->get('SYS_ADDRESS').';'
+        .$gL10n->get('SYS_CITY')."\n";
 
     $nr = 1;
     foreach ($zpflgt as $dummy => $zpflgtdata)
@@ -397,7 +437,10 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
             .utf8_decode($zpflgtdata['alt_name']).';'
             .utf8_decode($zpflgtdata['orig_mandat_id']).';'
             .utf8_decode($zpflgtdata['orig_iban']).';'
-            .utf8_decode($zpflgtdata['orig_dbtr_agent'])
+            .utf8_decode($zpflgtdata['orig_dbtr_agent']).';'
+            .utf8_decode($zpflgtdata['land']).';'            		
+            .utf8_decode($zpflgtdata['adresse']).';'            		
+            .utf8_decode($zpflgtdata['ort'])
             ."\n";
         $nr += 1;
     }

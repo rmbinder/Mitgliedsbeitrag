@@ -24,6 +24,11 @@
     <string name="PLG_MITGLIEDSBEITRAG_BANK">Bank</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK_CHANGED">New account with another bank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BIC">BIC</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK">BIC test</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_DESC">Checks for the presence of a BIC. Payments outside the EU / EEA continue to require a BIC (Currently the following countries: Switzerland, Monaco, San Marino, Jersey, Guernsey, Isle of Man, St. Pierre and Miquelon).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_ERROR">The listed members or the account details of the association are missing the BIC.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_OK">All required BIC are available.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BIC_MISSING">The creation of the SEPA XML file / control file was aborted. Account #VAR1_BOLD# requires a BIC because it is not an EU / EEA account.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_BILL">Invoice</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Bank code file</string>
     <string name="PLG_MITGLIEDSBEITRAG_CATEGORIE">Category</string>

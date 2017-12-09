@@ -1068,6 +1068,71 @@ function test_iban($iban)
 }
 
 /**
+ * Durchlaeuft alle Mitglieder und prueft ob ein BIC vorhanden ist, falls das Mitglied aus 
+ * einem Land außerhalb EU/EWR stammt
+ * Prueft die Kontodaten des Vereins ob ein BIC vorhanden ist, falls der Verein 
+ * aus einem Land außerhalb EU/EWR stammt
+ * @return  array $ret
+ */
+function check_bic()
+{
+	global $gL10n, $pPreferences, $gCurrentOrganization;
+	$ret = array();
+	
+	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'BIC'), 0);
+	
+	foreach ($members as $member => $memberdata)
+	{
+		if (isIbanNOT_EU_EWR($memberdata['IBAN']) && empty($memberdata['BIC']))
+		{ 
+			$ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+		}
+	}
+
+	if (count($ret) === 0)
+	{
+		$ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_OK'));
+	}
+	else
+	{
+		if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPreferences->config['Kontodaten']['bic']))
+		{
+			$ret[] = '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').' '.$gCurrentOrganization->getValue('org_longname');
+		}
+		$ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_ERROR').'</strong>';
+	}
+	return $ret;
+}
+
+/**
+ * Prueft, ob die uebergebene IBAN zu einem Land außerhalb EU/EWR gehoert
+ * @param string $iban
+ * @return  bool
+ */
+function isIbanNOT_EU_EWR($iban)
+{
+	$iban_land = strtoupper(substr(str_replace(' ', '', $iban), 0,2));                  
+	
+	$countries = array( 'CH',			//Schweiz
+						'MC', 			//Monaco
+						'SM', 			//San Marino
+						'JE', 			//Jersey
+						'GG', 			//Guernsey
+						'IM',			//Isle of Man
+//						'GB',			//Großbritannien (je nach Brexit-Vereinbarung)
+						'PM' );			//St. Pierre und Miquelon
+	
+	if (in_array($iban_land, $countries))
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+/**
  * Funktion prueft, ob der Nutzer, aufgrund seiner Rollenzugehoerigkeit, berechtigt ist das Plugin aufzurufen
  * @param   array  $array   Array mit Rollen-IDs:   entweder $pPreferences->config['Pluginfreigabe']['freigabe']
  *                                                  oder $pPreferences->config['Pluginfreigabe']['freigabe_config']
