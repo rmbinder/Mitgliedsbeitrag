@@ -213,6 +213,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC">Check for correct IBAN (Note: The IBAN check digit at the third and fourth digits of the IBAN is checked on the basis standard IBAN rule.).</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR">For the members listed, the IBAN is wrong.</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK">No IBAN indicates an error.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED">AccHolder&apos;s obfuscated IBAN</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">The setup routine for the membership fee has detected that a version update has been performed and therefore checks the structure.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">terminates this setup routine (If changes to the database have been made, it is highly recommended to restart Admidio).</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1st run</string>

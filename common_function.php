@@ -1412,6 +1412,7 @@ function replace_emailparameter($text, $user)
     $text = preg_replace('/#bic#/',   $user->getValue('BIC'), $text);
     $text = preg_replace('/#debtor#/',   $user->getValue('DEBTOR'), $text);
     $text = preg_replace('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')),   $text);
+    $text = preg_replace('/#iban_obfuscated#/', obfuscate_iban($user->getValue('IBAN')), $text);
 
     return $text;
 }
@@ -1439,3 +1440,21 @@ function expand_rollentyp($rollentyp = '')
     }
     return $ret;
 }
+
+/**
+ * Verschleiert die IBAN für den Versand durch Aus-X-en der 8. bis 17. Ziffer
+ * @param   string  $iban  IBAN des Users
+ * @return  string         verschleierte IBAN (z.B. 'DE1234567xxxxxxxxxx123', 'DE12 3456 7xxx xxxx xxx1 23', ...)
+ */
+function obfuscate_iban($iban) {
+	$pos = 0;
+	return preg_replace_callback('/\d/', function($matches) use (&$pos) {
+		$pos++;
+		if($pos > 7)
+		{
+			return 'x';
+		}
+		return $matches[0];
+	}, $iban, 17);
+}
+
