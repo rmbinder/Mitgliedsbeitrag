@@ -563,7 +563,6 @@ if(count($rols) > 0)
                                     $htmlTable .= '
                                     <tbody id="test">';
 
-                                        $checked_marker = true;
                                         foreach($duedates as $duedate => $duedatedata)
                                         {
                                             $datumtemp = new DateTimeExtended($duedate, 'Y-m-d');
@@ -571,51 +570,31 @@ if(count($rols) > 0)
                                             $htmlTable .= '
                                             <tr>
                                                 <td style="text-align: center;">'.$datumtemp->format($gPreferences['system_date']).'</td>
-                                                <td style="text-align: center;"><input type="radio" name="duedatesepatype" ';
+                                                <td style="text-align: center;"><input type="checkbox" name="duedatesepatype[]" ';
                                                     if ($duedatedata['FRST'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                    elseif ($duedatedata['FRST'] != 0 && $checked_marker)
-                                                    {
-                                                        $htmlTable .= ' checked="checked" ';
-                                                        $checked_marker = false;
-                                                    }
                                                     $htmlTable .= 'value="'.$duedate.'FRST" /><small> ('.$duedatedata['FRST'].')</small>
                                                 </td>
-                                                <td style="text-align: center;"><input type="radio" name="duedatesepatype" ';
+                                                <td style="text-align: center;"><input type="checkbox" name="duedatesepatype[]" ';
                                                     if ($duedatedata['RCUR'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                     elseif ($duedatedata['RCUR'] != 0 && $checked_marker)
-                                                    {
-                                                        $htmlTable .= ' checked="checked" ';
-                                                        $checked_marker = false;
-                                                    }
                                                     $htmlTable .= 'value="'.$duedate.'RCUR" /><small> ('.$duedatedata['RCUR'].')</small>
                                                 </td>
-                                                <td style="text-align: center;"><input type="radio" name="duedatesepatype"  ';
+                                                <td style="text-align: center;"><input type="checkbox" name="duedatesepatype[]"  ';
                                                     if ($duedatedata['FNAL'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
                                                     }
-                                                     elseif ($duedatedata['FNAL'] != 0 && $checked_marker)
-                                                    {
-                                                        $htmlTable .= ' checked="checked" ';
-                                                        $checked_marker = false;
-                                                    }
                                                     $htmlTable .= 'value="'.$duedate.'FNAL" /><small> ('.$duedatedata['FNAL'].')</small>
                                                 </td>
-                                                <td style="text-align: center;"><input type="radio" name="duedatesepatype"  ';
+                                                <td style="text-align: center;"><input type="checkbox" name="duedatesepatype[]"  ';
                                                     if ($duedatedata['OOFF'] == 0)
                                                     {
                                                         $htmlTable .= ' disabled="disabled" ';
-                                                    }
-                                                    elseif ($duedatedata['OOFF'] != 0 && $checked_marker)
-                                                    {
-                                                        $htmlTable .= ' checked="checked" ';
-                                                        $checked_marker = false;
                                                     }
                                                     $htmlTable .= 'value="'.$duedate.'OOFF" /><small> ('.$duedatedata['OOFF'].')</small>
                                                 </td>

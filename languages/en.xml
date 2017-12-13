@@ -162,7 +162,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_NOROLL">No rolls were selected.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_SELECTION_DESC">Choose the roles for which the due date to be processed. Selection of more than one role is possible by pressing the Ctrl button.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION">Due Date/Sequence Type</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Select a combination of due date/sequence type for which the XML file or the control file is to be created.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Select one or more combinations of due date and sequence type to create the XML or control file.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUE_ON">Due on</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">AccHolder&apos;s e-mail</string>
@@ -394,7 +394,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO">The displayed data is for information purposes only. No changes will be made to the database. Should there be any differences (DESIRED / ACTUAL), the plug-in may not function correctly.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Select all</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>
-    <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO">The membership fee plug-in can only create SEPA XML files which\n1. have a common sequence type\n2. have the same due date.\n\n FRST=first debit, RCUR=recurring debit, FNAL=final debit, OOFF=one-off debit</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO">The plugin membership fee generates a single SEPA XML file based on the selected parameters. However, the file may not be accepted by the bank / home banking program if it has multiple due dates. It is therefore recommended to create an XML file with only one due date.\n\n FRST=first debit, RCUR=recurring debit, FNAL=final debit, OOFF=one-off debit</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA">There is not enough data to export.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE">Sequence type</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC">Sequence type: empty=first debit(FRST) R=recurring debit(RCUR) F=final debit(FNAL) O=one-off debit(OOFF)</string>

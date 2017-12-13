@@ -162,7 +162,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_NOROLL">Es wurden keine Rollen ausgewählt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_SELECTION_DESC">Wählen Sie die Rollen aus, für die das Fälligkeitsdatum bearbeitet werden soll. Eine Mehrfachauswahl ist über die STRG-Taste möglich.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION">Fälligkeitsdatum/Sequenztyp</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Wählen Sie eine Kombination Fälligkeitsdatum/Sequenztyp aus, für den die XML- oder die Kontrolldatei erstellt werden soll.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Wählen Sie zum Erstellen der XML- bzw. der Kontrolldatei eine oder mehrere Kombinationen aus Fälligkeitsdatum und Sequenztyp aus.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Beiträge</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUE_ON">Fällig am</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">KtoInh-E-Mail</string>
@@ -394,7 +394,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO">Die angezeigten Daten dienen nur zur Information. Es werden keine Änderungen an der Datenbank vorgenommen. Sollten jedoch Unterschiede (SOLL/IST) vorhanden sein, kann das Plugin unter Umständen nicht richtig funktionieren.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Alle markieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>
-    <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO">Das Plugin Mitgliedsbeitrag kann nur SEPA XML-Dateien erzeugen, die\n1. einen gemeinsamen Sequenztyp aufweisen\n2. dasselbe Fälligkeitsdatum besitzen.\n\n FRST=Erstlastschrift, RCUR=Folgelastschrift, FNAL=letzte Lastschrift, OOFF=Einmallastschrift</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO">Das Plugin Mitgliedsbeitrag erzeugt anhand der gewählten Einstellungen eine einzige SEPA XML-Datei. Unter Umständen wird die Datei aber von der Bank/einem Homebanking Programm nicht akzeptiert, wenn sie mehrere Fälligkeitsdaten aufweist. Es wird deshalb empfohlen eine XML-Datei mit nur jeweils einem Fälligkeitsdatum zu erstellen.\n\n FRST=Erstlastschrift, RCUR=Folgelastschrift, FNAL=letzte Lastschrift, OOFF=Einmallastschrift</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA">Es sind nicht genügend Daten für den Export vorhanden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE">Sequenztyp</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC">Sequenztyp: leer=Erstlastschrift(FRST) R=Folgelastschrift(RCUR) F=letzte Lastschrift (FNAL) O=Einmallastschrift (OOFF)</string>
