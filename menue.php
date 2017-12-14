@@ -36,13 +36,17 @@ $duedatecount = 0;
 $paidcount = 0;
 
 //alle Mitglieder einlesen
-$members = list_members(array('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'BIC'), 0);
+$members = list_members(array('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'BIC'), 0);
 
 //jetzt wird gezaehlt
 foreach ($members as $member => $memberdata)
 {
     //alle Faelligkeitsdaten einlesen
-    if (!empty($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]))
+    if (!empty($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')])
+    	&& !empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
+        && empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
+        && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
+        && !empty($memberdata['IBAN']))
     {
         $duedatecount++;
         $directdebittype = true;
