@@ -99,6 +99,16 @@ foreach ($rols as $key => $data)
 
 array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen);
 
+$selectBoxEntriesAlleRollen = 'SELECT rol_id, rol_name, cat_name
+          						 FROM '.TBL_ROLES.'
+    					   INNER JOIN '.TBL_CATEGORIES.'
+                                   ON cat_id = rol_cat_id
+                                WHERE rol_valid   = 1
+                                  AND rol_visible = 1
+                                  AND (  cat_org_id  = '. $gCurrentOrganization->getValue('org_id'). '
+                                   OR cat_org_id IS NULL )
+                             ORDER BY cat_sequence, rol_name';
+
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
 $gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php', $headline);
@@ -108,7 +118,7 @@ $page = new HtmlPage($headline);
 
 if($showOption != '')
 {
-    if(in_array($showOption, array('mandategenerate', 'mandates')) == true)
+    if(in_array($showOption, array('mandategenerate', 'mandates', 'createmandateid')) == true)
     {
         $navOption = 'mandatemanagement';
     }
@@ -480,25 +490,27 @@ if(count($rols) > 0)
         </div>
 
         <div class="tab-pane" id="tabs-mandatemanagement">
-            <div class="panel-group" id="accordion_mandatemanagement">
-                <div class="panel panel-default" id="panel_mandategenerate">
+            <div class="panel-group" id="accordion_mandatemanagement">	
+                 <div class="panel panel-default" id="panel_createmandateid">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_mandatemanagement" href="#collapse_mandategenerate">
-                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE').'
+                            <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_options" href="#collapse_createmandateid">
+                                <img src="'. THEME_URL .'/icons/disk.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID').'
                             </a>
                         </h4>
                     </div>
-                    <div id="collapse_mandategenerate" class="panel-collapse collapse">
+                    <div id="collapse_createmandateid" class="panel-collapse collapse">
                         <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('mandategenerate_form', null, $page);
-                            $form->addButton('btn_mandategenerate', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'mandate_id.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE_DESC'));
+                            unset($_SESSION['createmandateid_user']);
+                            $form = new HtmlForm('createmandateid_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/create_mandate_id.php', $page);                            
+                            $form->addSelectBoxFromSql('createmandateid_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $selectBoxEntriesAlleRollen, array('defaultValue' => $_SESSION['createmandateid_rol_sel'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC', 'multiselect' => true));
+                            $form->addSubmitButton('btn_createmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), array('icon' => THEME_URL .'/icons/disk.png',  'class' => 'btn-primary col-sm-offset-3'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
                 </div>
+                        		
                 <div class="panel panel-default" id="panel_mandates">
                     <div class="panel-heading">
                         <h4 class="panel-title">

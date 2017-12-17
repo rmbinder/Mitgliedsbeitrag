@@ -96,6 +96,14 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Kopieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Wähle zuerst eine Quelle und ein Ziel des Kopiervorgangs aus. Danach bestimmst Du über "Auswahl" welches Profilfeld von "Quelle" zu "Ziel" kopiert wird. Der Kopiervorgang erfolgt automatisch mit Setzen des Hakens der Ziel-Auswahl.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Mandatsreferenzen erzeugen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">FEHLER: keine laufende Nummer gefunden!</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NEW">neue Mandatsreferenz</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NO_ASSIGN">Es können keine neuen Mandatsreferenzen zugewiesen werden, da alle betroffenen Mitglieder bzw. alle betroffenen Mitglieder der ausgewählten Rollen, bereits eine Mandatsreferenz besitzen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_PREVIEW">Die neuen Mandatsreferenzen wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_SAVED">Die neuen Mandatsreferenzen wurden gespeichert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_IDS_NEW">Neue Mandatsreferenzen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">Standardmäßig werden Mandatsreferenzen für Mitglieder erzeugt,\n  - falls sie noch keine besitzen\n  - und für die eine IBAN hinterlegt ist.\n\n Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS">Legt die fehlenden Profilfelder an.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Zahlungsempfänger</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Datenfeld für die laufende Nummer</string>
@@ -237,9 +245,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_EXIST">Ein einmal gesetztes Mandatsdatum kann nur über "Profil bearbeiten"" wieder geändert werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_SET">Mandatsdatum setzen</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandatsreferenz</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES1">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# wurde die Mandatsreferenz #VAR3_BOLD# zugewiesen.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES2">Es wurden keine neuen Mandatsreferenzen zugewiesen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES3">Dem Mitglied #VAR1_BOLD# #VAR2_BOLD# konnte keine eindeutige Mandatsreferenz (#VAR3#) zugewiesen werden.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandate</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE">Mandatsänderung</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO">Hier sind Eingaben erforderlich, sofern sich Mandatsdaten gegenüber dem letzten Einzug geändert haben. Ein neues Mandat ist nicht erforderlich. Dem XML-Datensatz müssen lediglich die ursprünglichen Werte mitgegeben werden. Vor einem neuen Einzug müssen die hier eingegebenen Ursprungsdaten manuell gelöscht werden.</string>
@@ -247,8 +252,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC">Hiermit kann eine Mandatsänderung von Zahlungsempfänger und/oder Gläubiger-Identifikationsnummer durchgeführt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_EDIT">Mandate bearbeiten</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_EDIT_DESC">Hiermit können Mandatsdaten bearbeitet werden.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE">Mandatsreferenzen erzeugen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE_DESC">Erzeugt Mandatsreferenzen für Mitglieder,\n  - falls sie noch keine besitzen\n  - für die ein Mitgliedsbeitrag berechnet wurde\n  - für die eine IBAN hinterlegt ist.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT">Mandatsverwaltung</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC">Anhand der oben aufgeführten Felder können die Parameter für die Zusammensetzung der Mandatsreferenz eingestellt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2">Überprüfung auf Vollständigkeit der Daten in der Mandatsverwaltung.</string>

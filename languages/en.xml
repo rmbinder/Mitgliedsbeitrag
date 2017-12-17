@@ -96,6 +96,14 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Copying</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">This profile data of a member can be copied to another Member.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">First pick from a source and then a destination copying. Then you determine about "choice" which profile field of "source" to "target" is copied. The copying process is done automatically by setting the hook of the target range.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Create mandate references</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">ERROR: no consecutive number found!</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NEW">new mandate reference</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NO_ASSIGN">No new mandate references can be assigned because all affected members or all affected members of the selected roles already have a mandate reference.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_PREVIEW">The new mandate references have only been calculated but not yet saved.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_SAVED">The new mandate references have been saved.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_IDS_NEW">New mandate references</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">By default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS">Creates missing profile fields.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Payee</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Data field for sequence number</string>
@@ -237,9 +245,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_EXIST">An already set mandate date can only be changed via &quot;Edit profile&quot;.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_SET">Set mandate date</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandate reference</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES1">Mandate reference #VAR3_BOLD# has been assigned to member #VAR1_BOLD# #VAR2_BOLD#.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES2">No new mandate references have been assigned.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATEID_RES3">The member #VAR1_BOLD# #VAR2_BOLD# was no unique mandate reference (#VAR3#) assigned to it.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandates</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE">Change of mandate</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO">Entries have to be made here if mandate data has changed since the last collection. No new mandate is required. Only the original values have to be included into the XML data record. Prior to a new collection, the original data entered here has to be deleted manually.</string>
@@ -247,8 +252,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC">Herewith, a change of mandate of the payee and/or Creditor Identifier can be performed.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_EDIT">Edit mandate</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_EDIT_DESC">With this option, mandate data can be edited.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE">Create mandate references</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_GENERATE_DESC">Creates mandate references for members\n - if they still do not have such references\n - for which a membership fee has been calculated\n - for which an IBAN has been created.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT">Mandate Management</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC">Via the fields described above, the parameters for compiling the mandate reference can be configured.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2">Checking of completeness of data for mandate management purposes.</string>
