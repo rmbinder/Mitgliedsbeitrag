@@ -678,7 +678,7 @@ if(count($rols) > 0)
                             // show form
                             unset($_SESSION['membernumber_user']);
                             $form = new HtmlForm('producemembernumber_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/membernumber.php', $page);                            
-                            $form->addSelectBox('producemembernumber_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $_SESSION['membernumber_rol_sel'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2', 'multiselect' => true));
+                            $form->addSelectBoxFromSql('producemembernumber_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $selectBoxEntriesAlleRollen, array('defaultValue' => $_SESSION['membernumber_rol_sel'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2', 'multiselect' => true));
                             $form->addInput('producemembernumber_format', $gL10n->get('PLG_MITGLIEDSBEITRAG_FORMAT'), $_SESSION['membernumber_format'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FORMAT_DESC'));
                             $form->addSubmitButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => THEME_URL .'/icons/disk.png',  'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC'));
