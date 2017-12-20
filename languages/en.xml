@@ -48,7 +48,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK">Space</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_CALCULATION">Determination of membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA">Comma</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DEFAULT">Standard</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC">With this contributions, contributions text, paid-date and duedate can be deleted.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DOT">Point</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HYPHEN">Hyphen</string>
@@ -57,9 +56,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC">Here a history of the contributions can be displayed. The basis is a set payment date and the entries of the contribution, the contribution text and the due date.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC">Minimum calculated amount</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC_DESC">Here, a minimum calculated amount can be entered. Calculated membership fees that are lower than this amount are filtered out and not written into the database.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_DESC">Settings for the calculation mode. The following options are available:\n- Standard: An actual contribution (except for 0 €) is not changed.\n- Overwrite: Existing entries are deleted and replaced by new entries.\n- Add up: Contributions are summed and contribute text is supplemented.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_NOTE">If on the role selection the calculation limited to certain roles, so also the calculation mode affects only for those roles. Existing posts which are not covered by these roles remain unchanged.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_OVERWRITE">Overwrite</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS">Paid membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC">Via this option, a &quot;payment received&quot; date can be written into the database.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT">Process membership payments</string>
@@ -70,8 +66,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">The membership fee text can be preceded by a prefix.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA">Calculation of proportional membership fee</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">The respective checkbox has to be activated if the proportional membership fee is to be calculated on the basis of the beginning of the role membership (if the checkbox is deactivated, the admission date is used).</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_DESC">By default, all contribution roles are considered at a recalculation. About this role selection a recalculation may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO">For this role/these roles, a new contribution calculation was performed:</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_NOROLL">No rolls were selected.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN">Round off membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN_DESC">The respective checkbox has to be activated if all fees are to be rounded off for the benefit of the member.</string>
@@ -79,7 +73,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SLASH">Slash</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX">Suffix</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX_DESC">Proportional membership fees can be followed by a suffix.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUMMATION">Add up</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES">Membership fee text including names (families)</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES_DESC">The respective checkbox has to be activated if the names of all family members are to appear in the membership fee text.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_MEMNAMES">Membership fee text including name</string>
@@ -88,6 +81,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN_DESC">Separator used to mark the user name / names of the family members in the membership fee text Separators marked with (*) are not permissible in EU bank transfers.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TIMES">Multiplication sign</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT">Membership fee text</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW">new membership fee text</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS">previous membership fee text</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Control file</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Creates a control file in the CSV format.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Control file name</string>
@@ -119,6 +114,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEADLINE">Deadline</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEADLINE_DESC">The entered date serves as a deadline for determining age-graded roles.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Payer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Standard</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION">Uninstall</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC">About the uninstall generated by the plugin entries can be deleted from the database.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC">*** This routine deletes only the entries in the Admidio database. Program files and the link in the menu will not be deleted! ***</string>
@@ -207,6 +203,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR">In the listed families at least one member does not meet the test conditions.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">All families follow the test conditions.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Membership fee</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">new membership fee</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS">previous membership fee</string> 
     <string name="PLG_MITGLIEDSBEITRAG_FEES">Fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED">Do you want to create the missing fields and categories?</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER">Filter</string>
@@ -312,6 +310,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Original mandate reference</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Others</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Other membership roles</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Overwrite</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Paid</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Payment received on</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Paid-date only</string>
@@ -343,7 +342,14 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">By default, membership numbers are created for all active members of the current organization. About this role selection a generation may be performed only for the selected roles. If you do not want to restrict certain roles, leave this field blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profile field</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Recalculation</string>
-    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC">Via this option, the fees are recalculated and written into the database.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC">Settings for the calculation mode. The following options are available:\n- Standard: An actual contribution (except for 0 €) is not changed.\n- Overwrite: Existing entries are deleted and replaced by new entries.\n- Add up: Contributions are summed and contribute text is supplemented.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">If on the role selection the calculation limited to certain roles, so also the calculation mode affects only for those roles. Existing posts which are not covered by these roles remain unchanged.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW">The new contributions have only been calculated but not yet saved.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_DESC">By default, all contribution roles are considered at a recalculation. About this role selection a recalculation may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_INFO">Due to entries in the role selection, only the following role(s) was considered for the contribution calculation:</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_SAVED">The new contributions have been saved.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NEW">The new contributions and contribution texts</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA">No new contributions could be calculated.</string>
     <string name="PLG_MITGLIEDSBEITRAG_REMAPPING">Remapping</string>
     <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES">Reassignment of age-graded roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC">Via this option, all members of age-graded roles are reassigned.</string>
@@ -418,6 +424,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Invoice file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Sum</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SUMMATION">Add up</string>
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">General</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET">Target</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">This selected here Member is the target of the copy action.</string>

@@ -313,21 +313,20 @@ if(count($rols) > 0)
                     <div id="collapse_recalculation" class="panel-collapse collapse">
                         <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue_function.php?form=recalculation', $page, array('class' => 'form-preferences'));
-                            $form->addButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'recalculation.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC'));
-                            $form->addLine();
-                            $form->addSelectBox('beitrag_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_rollenwahl'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_DESC', 'multiselect' => true));
-                            $radioButtonEntries = array('standard'  => $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DEFAULT'),
-                                                        'overwrite' => $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_OVERWRITE'),
-                                                        'summation' => $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUMMATION'));
-                            $form->addRadioButton('beitrag_modus', '', $radioButtonEntries, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_modus'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_DESC'));
-                            $form->addCustomContent('', '<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_NOTE'));
-                            $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        	unset($_SESSION['recalculation_user']);
+                            $form = new HtmlForm('recalculation_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/recalculation.php', $page);
+                            $form->addSelectBox('recalculation_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $_SESSION['recalculation_rol_sel'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_DESC', 'multiselect' => true));
+                            $radioButtonEntries = array('standard'  => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEFAULT'),
+                                                        'overwrite' => $gL10n->get('PLG_MITGLIEDSBEITRAG_OVERWRITE'),
+                                                        'summation' => $gL10n->get('PLG_MITGLIEDSBEITRAG_SUMMATION'));
+                            $form->addRadioButton('recalculation_modus', '', $radioButtonEntries, array('defaultValue' => 'standard', 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC'));
+                            $form->addSubmitButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                            $form->addCustomContent('', '<br/><strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
                 </div>
+                        		
                 <div class="panel panel-default" id="panel_payments">
                     <div class="panel-heading">
                         <h4 class="panel-title">

@@ -74,12 +74,6 @@ try
             $ret_message = 'delete';
             break;
 
-        case 'recalculation':
-            $pPreferences->config['Beitrag']['beitrag_rollenwahl'] = isset($_POST['beitrag_rollenwahl']) ? $_POST['beitrag_rollenwahl'] : array(' ');
-            $pPreferences->config['Beitrag']['beitrag_modus'] = $_POST['beitrag_modus'];
-            $pPreferences->save();
-            break;
-
         case 'payments':
             $pPreferences->config['Beitrag']['zahlungen_rollenwahl'] = isset($_POST['zahlungen_rollenwahl']) ? $_POST['zahlungen_rollenwahl'] : array(' ');
             $pPreferences->save();

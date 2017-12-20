@@ -48,7 +48,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK">Leerzeichen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_CALCULATION">Beitragsberechnung</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA">Komma</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DEFAULT">Standard</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC">Hiermit können Beitrag, Beitragstext, Bezahlt-Datum und Fälligkeitsdatum gelöscht werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DOT">Punkt</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HYPHEN">Trennstrich</string>
@@ -57,9 +56,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC">Hier kann eine Historie der Beitragszahlungen angezeigt werden. Als Grundlage dient ein gesetztes Bezahlt-Datum und die zu diesem Zeitpunkt vorhandenen Einträge von Beitrag, Beitragstext und Fälligkeitsdatum.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC">Mindestberechnungsbetrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MINCALC_DESC">Hier kann ein Mindestberechnungsbetrag eingegeben werden. Errechnete Beiträge, die kleiner als dieser Mindestberechnungsbeitrag sind, werden herausgefiltert und nicht in die Datenbank geschrieben.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_DESC">Einstellungen für den Berechnungsmodus. Folgende Optionen sind wählbar:\n- Standard: Ein vorhandener Beitrag (außer 0 €) wird nicht verändert.\n- Überschreiben: Existierende Einträge werden gelöscht und durch neue Einträge ersetzt.\n- Aufsummieren: Beiträge werden aufsummiert und ein Beitragstext wird ergänzt.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_MODUS_NOTE">Wird über die Rollenauswahl die Beitragsberechnung auf bestimmte Rollen beschränkt, so wirkt sich auch der Berechnungsmodus nur für diese Rollen aus. Vorhandene Beiträge, die nicht über diese Rollen abgedeckt sind, bleiben unverändert bestehen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_OVERWRITE">Überschreiben</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS">Beitragszahlungen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC">Hierüber kann nach erfolgter Beitragszahlung ein Bezahlt-Datum in die Datenbank geschrieben werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT">Beitragszahlungen bearbeiten</string>
@@ -70,8 +66,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">Dem Beitragstext kann ein Präfix vorangestellt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA">Anteilige Beitragsberechnung</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">Soll die anteilige Beitragsberechnung anhand des Beginns einer Rollenzugehörigkeit ermittelt werden, so ist der Haken zu setzen (ohne Haken wird das Beitrittsdatum verwendet).</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_DESC">Standardmäßig werden bei einer Neuberechnung alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Neuberechnung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_INFO">Für diese Rolle(n) wurde eine neue Beitragsberechnung durchgeführt:</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_NOROLL">Es wurden keine Rollen ausgewählt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN">Beiträge abrunden</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN_DESC">Sollen alle Beiträge zugunsten des Mitglieds abgerundet werden, so ist der Haken zu setzen.</string>
@@ -79,7 +73,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SLASH">Schrägstrich</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX">Suffix</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX_DESC">Anteiligen Beiträgen kann ein Suffix angehängt werden.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUMMATION">Aufsummieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES">Beitragstext mit Namen (Familien)</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES_DESC">Sollen im Beitragstext die Namen aller Familienmitglieder aufgeführt werden, so ist der Haken zu setzen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_MEMNAMES">Beitragstext mit Namen</string>
@@ -88,6 +81,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN_DESC">Trennzeichen, mit dem der Benutzername / die Namen der Familienmitglieder im Beitragstext hervorgehoben werden. Mit (*) markierte Trennzeichen sind bei EU-Überweisungen nicht zulässig.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TIMES">Malzeichen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT">Beitragstext</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW">neuer Beitragstext</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS">bisheriger Beitragstext</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Kontrolldatei</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Erstellt eine Kontrolldatei im CSV-Format.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Kontrolldateiname</string>
@@ -119,6 +114,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEADLINE">Stichtag</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEADLINE_DESC">Das eingetragene Datum dient als Stichtag für die Einteilung in die altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Zahlungspflichtiger</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Standard</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION">Deinstallation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC">Über die Deinstallation können vom Plugin erzeugte Einträge in der Datenbank gelöscht werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC">*** Diese Routine löscht nur Einträge in der Admidio-Datenbank. Programmdateien und der Link im Menü werden nicht gelöscht! ***</string>
@@ -207,6 +203,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR">In den aufgeführten Familien erfüllt mindestens ein Mitglied nicht die Prüfbedingungen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Alle Familien entsprechen den Prüfbedingungen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Beitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">neuer Beitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS">bisheriger Beitrag</string> 
     <string name="PLG_MITGLIEDSBEITRAG_FEES">Beiträge</string>
     <string name="PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED">Sollen die fehlenden Felder und Kategorien angelegt werden?</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER">Filter</string>
@@ -312,6 +310,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Ursprüngliche Mandatsreferenz</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Sonstiges</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Sonstige Beitragsrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Überschreiben</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Bezahlt</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Bezahlt am</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Nur Bezahlt-Datum</string>
@@ -343,7 +342,14 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">Standardmäßig werden Mitgliedsnummern für alle aktiven Mitglieder der aktuellen Organisation erzeugt. Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profilfeld</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Neuberechnung</string>
-    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_DESC">Hiermit werden die Beiträge neu berechnet und in die Datenbank geschrieben.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC">Einstellungen für den Berechnungsmodus. Folgende Optionen sind wählbar:\n- Standard: Ein vorhandener Beitrag (außer 0 €) wird nicht verändert.\n- Überschreiben: Existierende Einträge werden gelöscht und durch neue Einträge ersetzt.\n- Aufsummieren: Beiträge werden aufsummiert und ein Beitragstext wird ergänzt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">Wird über die Rollenauswahl die Beitragsberechnung auf bestimmte Rollen beschränkt, so wirkt sich auch der Berechnungsmodus nur für diese Rollen aus. Vorhandene Beiträge, die nicht über diese Rollen abgedeckt sind, bleiben unverändert bestehen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW">Die neuen Beiträge wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_DESC">Standardmäßig werden bei einer Neuberechnung alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Neuberechnung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_INFO">Aufgrund von Eintragungen in der Rollenauswahl wurde(n) für die Beitragsberechnung nur die folgende(n) Rolle(n) betrachtet:</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_SAVED">Die neuen Beiträge wurden gespeichert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NEW">Die neuen Beiträge und Beitragstexte</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA">Es konnten keine neuen Beiträge berechnet werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_REMAPPING">Neuzuordnung</string>
     <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES">Neuzuordnung altersgestaffelte Rollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC">Hiermit werden alle Mitglieder altersgestaffelter Rollen neu zugeordnet.</string>
@@ -418,6 +424,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Rechnungsdateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Summe</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUMMATION">Aufsummieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">Allgemein</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET">Ziel</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</string>

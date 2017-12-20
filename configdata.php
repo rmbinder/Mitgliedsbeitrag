@@ -32,8 +32,6 @@ $config_default['Familienrollen'] = array('familienrollen_beitrag'        => arr
 //Beitrag
 $config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2016',
                                     'beitrag_suffix'        => '(ant.)',
-                                    'beitrag_modus'         => 'standard',
-                                    'beitrag_rollenwahl'    => array(' '),
                                     'zahlungen_rollenwahl'  => array(' '),
                                     'beitrag_textmitnam'    => 1,
                                     'beitrag_textmitfam'    => '',
