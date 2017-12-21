@@ -72,8 +72,7 @@ $config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung.cs
 //SEPA
 $config_default['SEPA'] = array('dateiname'                  => 'sepa',
                                 'kontroll_dateiname'         => 'sepa',
-                                'vorabinformation_dateiname' => 'export',
-                                'duedate_rollenwahl'         => array(' '));
+                                'vorabinformation_dateiname' => 'export');
 
 // Plugininformationen
 $config_default['Plugininformationen']['version'] = '';

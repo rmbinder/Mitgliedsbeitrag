@@ -79,11 +79,6 @@ try
             $pPreferences->save();
             break;
 
-        case 'sepa':
-            $pPreferences->config['SEPA']['duedate_rollenwahl'] = isset($_POST['duedate_rollenwahl']) ? $_POST['duedate_rollenwahl'] : array(' ');
-            $pPreferences->save();
-            break;
-
         case 'plugin_control':
             unset($pPreferences->config['Pluginfreigabe']);
             $pPreferences->config['Pluginfreigabe']['freigabe'] = $_POST['freigabe'];

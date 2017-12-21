@@ -320,7 +320,7 @@ if(count($rols) > 0)
                                                         'overwrite' => $gL10n->get('PLG_MITGLIEDSBEITRAG_OVERWRITE'),
                                                         'summation' => $gL10n->get('PLG_MITGLIEDSBEITRAG_SUMMATION'));
                             $form->addRadioButton('recalculation_modus', '', $radioButtonEntries, array('defaultValue' => 'standard', 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC'));
-                            $form->addSubmitButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                            $form->addSubmitButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => THEME_URL .'/icons/edit.png', 'class' => ' col-sm-offset-3'));
                             $form->addCustomContent('', '<br/><strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
@@ -546,12 +546,10 @@ if(count($rols) > 0)
                     <div id="collapse_sepa" class="panel-collapse collapse">
                         <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('duedate_rollenwahl_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue_function.php?form=sepa', $page, array('class' => 'form-preferences'));
-                            $form->addButton('btn_duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'duedates.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form = new HtmlForm('duedates_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/duedates.php', $page);
+	                        $form->addSelectBox('duedates_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $_SESSION['duedates_rol_sel'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_DESC', 'multiselect' => true));
+                            $form->addSubmitButton('btn_duedates', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => THEME_URL .'/icons/edit.png', 'class' => ' col-sm-offset-3'));
                             $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC'));
-                            $form->addLine();
-                            $form->addSelectBox('duedate_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['SEPA']['duedate_rollenwahl'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_DESC', 'multiselect' => true));
-                            $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                             $form->addLine();
                             $page->addHtml($form->show(false));
 
@@ -679,7 +677,7 @@ if(count($rols) > 0)
                             $form = new HtmlForm('producemembernumber_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/membernumber.php', $page);                            
                             $form->addSelectBoxFromSql('producemembernumber_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $selectBoxEntriesAlleRollen, array('defaultValue' => $_SESSION['membernumber_rol_sel'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2', 'multiselect' => true));
                             $form->addInput('producemembernumber_format', $gL10n->get('PLG_MITGLIEDSBEITRAG_FORMAT'), $_SESSION['membernumber_format'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FORMAT_DESC'));
-                            $form->addSubmitButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => THEME_URL .'/icons/disk.png',  'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addSubmitButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => THEME_URL .'/icons/edit.png',  'class' => 'btn-primary col-sm-offset-3'));
                             $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
