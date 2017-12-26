@@ -74,11 +74,6 @@ try
             $ret_message = 'delete';
             break;
 
-        case 'payments':
-            $pPreferences->config['Beitrag']['zahlungen_rollenwahl'] = isset($_POST['zahlungen_rollenwahl']) ? $_POST['zahlungen_rollenwahl'] : array(' ');
-            $pPreferences->save();
-            break;
-
         case 'plugin_control':
             unset($pPreferences->config['Pluginfreigabe']);
             $pPreferences->config['Pluginfreigabe']['freigabe'] = $_POST['freigabe'];

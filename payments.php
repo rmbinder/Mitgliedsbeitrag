@@ -40,16 +40,30 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
  //alle Beitragsrollen einlesen
 $rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 
-//falls eine Rollenabfrage durchgefuehrt wurde, die Rollen, die nicht gewaehlt wurden, loeschen
-if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0] != ' ')
+// write role selection in session
+if (strpos($gNavigation->getUrl(), 'menue.php') !== false)
 {
-    foreach ($rols as $rol => $roldata)
-    {
-        if (!in_array($rol, $pPreferences->config['Beitrag']['zahlungen_rollenwahl']))
-        {
-            unset($rols[$rol]);
-        }
-    }
+	if (isset($_POST['payments_roleselection']) )
+	{
+		$_SESSION['payments_rol_sel'] = $_POST['payments_roleselection'];
+	}
+	else
+	{
+		unset($_SESSION['payments_rol_sel']);
+	}
+}
+
+//pruefen, ob Eintraege in der Rollenauswahl bestehen
+if (isset($_SESSION['payments_rol_sel']) )
+{
+	// nicht gewaehlte Beitragsrollen im Array $rols loeschen
+	foreach ($rols as $rol => $roldata)
+	{
+		if (!in_array($rol, $_SESSION['payments_rol_sel']))
+		{
+			unset($rols[$rol]);
+		}
+	}
 }
 
 //umwandeln von array nach string wg SQL-Statement
@@ -354,7 +368,7 @@ else
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-    if ($pPreferences->config['Beitrag']['zahlungen_rollenwahl'][0] != ' ')
+    if (isset($_SESSION['payments_rol_sel']))
     {
         $navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
     }

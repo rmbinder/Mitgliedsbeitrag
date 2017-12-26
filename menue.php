@@ -338,12 +338,10 @@ if(count($rols) > 0)
                     <div id="collapse_payments" class="panel-collapse collapse">
                     <div class="panel-body">');
                             // show form
-                            $form = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue_function.php?form=payments', $page, array('class' => 'form-preferences'));
-                            $form->addButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'payments.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            $form = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/payments.php', $page);
+                            $form->addSelectBox('payments_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $_SESSION['paymments_rol_sel'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC', 'multiselect' => true));
+                            $form->addSubmitButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => THEME_URL .'/icons/edit.png', 'class' => ' col-sm-offset-3'));
                             $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC'));
-                            $form->addLine();
-                            $form->addSelectBox('zahlungen_rollenwahl', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => $pPreferences->config['Beitrag']['zahlungen_rollenwahl'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC', 'multiselect' => true));
-                            $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                             $page->addHtml($form->show(false));
                         $page->addHtml('</div>
                     </div>
