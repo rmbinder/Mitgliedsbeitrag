@@ -55,12 +55,12 @@ $getDueDate     = admFuncVariableIsValid($_GET, 'duedate', 'string', array('defa
 // add current url to navigation stack if last url was not the same page
 if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
 {
-    $_SESSION['checkedArray'] = array();
+    $_SESSION['pMembershipFee']['checkedArray'] = array();
 }
 
 if($getMode == 'csv_export')
 {
-    if (count($_SESSION['checkedArray']) !== 0)
+    if (count($_SESSION['pMembershipFee']['checkedArray']) !== 0)
     {
         $export = '';
         $export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
@@ -93,7 +93,7 @@ if($getMode == 'csv_export')
 
         $nr = 1;
 
-        foreach ($_SESSION['checkedArray'] as $UserId)
+        foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId)
         {
             $user = new User($gDb, $gProfileFields, $UserId);
 
@@ -147,7 +147,7 @@ if($getMode == 'csv_export')
 }
 elseif($getMode == 'mail_export')
 {
-    if (count($_SESSION['checkedArray']) === 0)
+    if (count($_SESSION['pMembershipFee']['checkedArray']) === 0)
     {
         echo 'marker_empty';
     }
@@ -256,12 +256,12 @@ else
         {
             if($getChecked == 'false')            // der Haken wurde geloescht
             {
-                unset($_SESSION['checkedArray'][$getUserId]);
+                unset($_SESSION['pMembershipFee']['checkedArray'][$getUserId]);
                 $ret_text = 'success';
             }
             elseif ($getChecked == 'true')        // der Haken wurde gesetzt
             {
-                $_SESSION['checkedArray'][$getUserId] = $getUserId;
+                $_SESSION['pMembershipFee']['checkedArray'][$getUserId] = $getUserId;
                 $ret_text = 'success';
 
             }
@@ -270,13 +270,13 @@ else
         {
             while($user = $statement->fetch())
             {
-                if (in_array($user['usr_id'], $_SESSION['checkedArray']))
+                if (in_array($user['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
                 {
-                    unset($_SESSION['checkedArray'][$user['usr_id']]);
+                    unset($_SESSION['pMembershipFee']['checkedArray'][$user['usr_id']]);
                 }
                 else
                 {
-                    $_SESSION['checkedArray'][$user['usr_id']] = $user['usr_id'];
+                    $_SESSION['pMembershipFee']['checkedArray'][$user['usr_id']] = $user['usr_id'];
                 }
 
             }
@@ -495,7 +495,7 @@ else
             $lastschrifttyp = '';
 
             //1. Spalte ($htmlDueDateStatus)
-           if (in_array($user['usr_id'], $_SESSION['checkedArray']))
+           if (in_array($user['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
             {
                 $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
             }

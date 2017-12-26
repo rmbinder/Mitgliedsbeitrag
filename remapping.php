@@ -152,7 +152,7 @@ if ($getMode == 'preview')     //Default
 	if (sizeof($members) > 0)
 	{
 		// save members in session (for mode write and mode print)
-		$_SESSION['remapping_user'] = $members;
+		$_SESSION['pMembershipFee']['remapping_user'] = $members;
 	
 		$datatable = true;
 		$hoverRows = true;
@@ -235,7 +235,7 @@ elseif ($getMode == 'write')
 			$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
 	$table->addRowHeadingByArray($columnValues);
 	
-	foreach ($_SESSION['remapping_user'] as $data)
+	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$data['user_id'].'">'.$data['LAST_NAME'].'</a>';
@@ -302,7 +302,7 @@ elseif ($getMode == 'print')
 			$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
 	$table->addRowHeadingByArray($columnValues);
 	
-	foreach ($_SESSION['remapping_user'] as $data)
+	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['LAST_NAME'];

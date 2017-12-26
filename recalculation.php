@@ -56,7 +56,7 @@ if ($getMode == 'preview')     //Default
 	//pruefen, ob Eintraege in der Rollenauswahl bestehen
 	if (isset($_POST['recalculation_roleselection']) )
 	{
-		$_SESSION['recalculation_rol_sel'] = $_POST['recalculation_roleselection'];
+		$_SESSION['pMembershipFee']['recalculation_rol_sel'] = $_POST['recalculation_roleselection'];
 	
 		// nicht gewaehlte Beitragsrollen im Array $contributingRolls loeschen
 		$message .= '<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_INFO').'</strong><br/><br/>';
@@ -320,7 +320,7 @@ if ($getMode == 'preview')     //Default
 	if (sizeof($members) > 0)
 	{
 		// save members in session (for mode write and mode print)
-		$_SESSION['recalculation_user'] = $members;
+		$_SESSION['pMembershipFee']['recalculation_user'] = $members;
 	
 		$datatable = true;
 		$hoverRows = true;
@@ -394,7 +394,7 @@ elseif ($getMode == 'write')
 	
 	$user = new User($gDb, $gProfileFields);
 	
-	foreach ($_SESSION['recalculation_user'] as $member => $data)
+	foreach ($_SESSION['pMembershipFee']['recalculation_user'] as $member => $data)
 	{
 		$columnValues = array();
 		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['LAST_NAME'].'</a>';
@@ -435,7 +435,7 @@ elseif ($getMode == 'print')
 						  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
-	foreach ($_SESSION['recalculation_user'] as $data)
+	foreach ($_SESSION['pMembershipFee']['recalculation_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['LAST_NAME'];

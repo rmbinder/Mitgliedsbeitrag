@@ -52,7 +52,7 @@ $sendMailResultSendOK = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILS
 $sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL').'</strong>');
 $sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR').'</strong>');
 
-$user_array = $_SESSION['checkedArray'];
+$user_array = $_SESSION['pMembershipFee']['checkedArray'];
 
 // Stop if mail should be send and mail module is disabled
 if($gPreferences['enable_mail_module'] != 1)

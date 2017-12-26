@@ -57,8 +57,8 @@ if ($getMode == 'preview')     //Default
 	$membernumbers->separateFormatSegment($_POST['producemembernumber_format']);
 	$membernumbers->getMembernumber();
 	
-	$_SESSION['membernumber_rol_sel'] = $_POST['producemembernumber_roleselection'];
-	$_SESSION['membernumber_format'] = $_POST['producemembernumber_format'];
+	$_SESSION['pMembershipFee']['membernumber_rol_sel'] = $_POST['producemembernumber_roleselection'];
+	$_SESSION['pMembershipFee']['membernumber_format'] = $_POST['producemembernumber_format'];
 	
 	$headerMenu = $page->getMenu();
 	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
@@ -68,7 +68,7 @@ if ($getMode == 'preview')     //Default
 	if ($membernumbers->userWithoutMembernumberExist)
 	{
 		// save new membernumbers in session (for mode write and mode print)
-		$_SESSION['membernumber_user'] = $membernumbers->mUserWithoutMembernumber;
+		$_SESSION['pMembershipFee']['membernumber_user'] = $membernumbers->mUserWithoutMembernumber;
 	
 		$datatable = true;
 		$hoverRows = true;
@@ -125,7 +125,7 @@ elseif ($getMode == 'write')
 	
 	$user = new User($gDb, $gProfileFields);
 	
-	foreach ($_SESSION['membernumber_user'] as $data)
+	foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['last_name'];
@@ -161,7 +161,7 @@ elseif ($getMode == 'print')
 	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
-	foreach ($_SESSION['membernumber_user'] as $data)
+	foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['last_name'];

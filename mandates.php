@@ -64,7 +64,7 @@ if($getMode == 'assign')
     }
     else                        // Alle aendern wurde gewaehlt
     {
-        $userArray = $_SESSION['userArray'];
+        $userArray = $_SESSION['pMembershipFee']['mandates_user'];
     }
 
   try
@@ -440,7 +440,7 @@ else
 
     }//End While
 
-    $_SESSION['userArray'] = $userArray;
+    $_SESSION['pMembershipFee']['mandates_user'] = $userArray;
 
     $page->addHtml($table->show(false));
     $page->addHtml('<p>'.$gL10n->get('SYS_CHECKBOX_AUTOSAVE').'</p>');

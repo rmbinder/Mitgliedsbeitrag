@@ -94,7 +94,7 @@ $messagesWriteMenu = new HtmlNavbar('menu_messages_write', $headline, $page);
 $messagesWriteMenu->addItem('menu_item_back', $gNavigation->getPreviousUrl(), $gL10n->get('SYS_BACK'), 'back.png');
 $page->addHtml($messagesWriteMenu->show(false));
 
-$user_array = $_SESSION['checkedArray'];
+$user_array = $_SESSION['pMembershipFee']['checkedArray'];
 $userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', count($user_array));
 
 $form_values['name']         = '';

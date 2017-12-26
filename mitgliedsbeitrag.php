@@ -33,7 +33,7 @@ $pPreferences = new ConfigTablePMB();
 
 // eine Deinstallation hat stattgefunden, deshalb keine Installationsroutine durchlaufen und auch keinen Link anzeigen
 // Zweite Voraussetzung: Ein User muss erfolgreich eingeloggt sein
-if(!isset($_SESSION['pmbDeinst']) && $gValidLogin)
+if(!isset($_SESSION['pMembershipFee']['deinst']) && $gValidLogin)
 {
     $checked = $pPreferences->checkforupdate();
     $startprog = 'menue.php';

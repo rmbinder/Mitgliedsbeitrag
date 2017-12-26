@@ -60,21 +60,21 @@ if (strpos($gNavigation->getUrl(), 'menue.php') !== false)
 {
 	if (isset($_POST['duedates_roleselection']) )
 	{
-		$_SESSION['duedates_rol_sel'] = $_POST['duedates_roleselection'];
+		$_SESSION['pMembershipFee']['duedates_rol_sel'] = $_POST['duedates_roleselection'];
 	}
 	else 
 	{
-		unset($_SESSION['duedates_rol_sel']);
+		unset($_SESSION['pMembershipFee']['duedates_rol_sel']);
 	}
 }
 
 //pruefen, ob Eintraege in der Rollenauswahl bestehen
-if (isset($_SESSION['duedates_rol_sel']) )
+if (isset($_SESSION['pMembershipFee']['duedates_rol_sel']) )
 {
 	// nicht gewaehlte Beitragsrollen im Array $rols loeschen
 	foreach ($rols as $rol => $roldata)
 	{
-		if (!in_array($rol, $_SESSION['duedates_rol_sel']))
+		if (!in_array($rol, $_SESSION['pMembershipFee']['duedates_rol_sel']))
 		{
 			unset($rols[$rol]);
 		}
@@ -95,7 +95,7 @@ if($getMode == 'assign')
     }
     else                        // Alle aendern wurde gewaehlt
     {
-        $userArray = $_SESSION['userArray'];
+        $userArray = $_SESSION['pMembershipFee']['duedates_user'];
     }
 
     try
@@ -346,7 +346,7 @@ else
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_DUEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_DUEDATE'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-    if (isset($_SESSION['duedates_rol_sel']))
+    if (isset($_SESSION['pMembershipFee']['duedates_rol_sel']))
     {
         $navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_ACTIV').'</strong>');
     }
@@ -486,7 +486,7 @@ else
 
     }//End While
 
-    $_SESSION['userArray'] = $userArray;
+    $_SESSION['pMembershipFee']['duedates_user'] = $userArray;
 
     $page->addHtml($table->show(false));
     $page->addHtml('<p>'.$gL10n->get('SYS_CHECKBOX_AUTOSAVE').'</p>');

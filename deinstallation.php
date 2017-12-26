@@ -222,7 +222,7 @@ elseif ($getMode == 'delete')
         //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
         $form->addStaticControl('', '', '');
 
-        $_SESSION['pmbDeinst'] = true;
+        $_SESSION['pMembershipFee']['deinst'] = true;
     }
     else
     {

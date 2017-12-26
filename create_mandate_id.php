@@ -50,7 +50,7 @@ if ($getMode == 'preview')     //Default
 	
 	if (isset($_POST['createmandateid_roleselection']) )				
 	{	
-		$_SESSION['createmandateid_rol_sel'] = $_POST['createmandateid_roleselection'];
+		$_SESSION['pMembershipFee']['createmandateid_rol_sel'] = $_POST['createmandateid_roleselection'];
 		
 		// Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
 		$rols = array();
@@ -130,7 +130,7 @@ if ($getMode == 'preview')     //Default
 	if (sizeof($members) > 0)
 	{
 		// save members with new mandate id in session (for mode write and mode print)
-		$_SESSION['createmandateid_user'] = $members;
+		$_SESSION['pMembershipFee']['createmandateid_user'] = $members;
 	
 		$datatable = true;
 		$hoverRows = true;
@@ -190,7 +190,7 @@ elseif ($getMode == 'write')
 	
 	$user = new User($gDb, $gProfileFields);
 	
-	foreach ($_SESSION['createmandateid_user'] as $member => $data)
+	foreach ($_SESSION['pMembershipFee']['createmandateid_user'] as $member => $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['LAST_NAME'];
@@ -226,7 +226,7 @@ elseif ($getMode == 'print')
 	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
-	foreach ($_SESSION['createmandateid_user'] as $data)
+	foreach ($_SESSION['pMembershipFee']['createmandateid_user'] as $data)
 	{
 		$columnValues = array();
 		$columnValues[] = $data['LAST_NAME'];

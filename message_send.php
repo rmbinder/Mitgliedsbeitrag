@@ -60,7 +60,7 @@ if(!($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confi
 }
 
 // put values into SESSION
-$_SESSION['message_request'] = array(
+$_SESSION['pMembershipFee']['message_request'] = array(
     'name'                  => $postName,
     'msgfrom'               => $postFrom,
     'subject'               => $postSubject,

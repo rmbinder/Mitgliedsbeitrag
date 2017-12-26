@@ -147,12 +147,12 @@ else
 
 // Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,
 // dann soll das Formular gefuellt werden mit den Werten aus der Session
-if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['message_request']))
+if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['pMembershipFee']['message_request']))
 {
     // Das Formular wurde also schon einmal ausgef�llt,
     // da der User hier wieder gelandet ist nach der Mailversand-Seite
-    $form_values = strStripSlashesDeep($_SESSION['message_request']);
-    unset($_SESSION['message_request']);
+    $form_values = strStripSlashesDeep($_SESSION['pMembershipFee']['message_request']);
+    unset($_SESSION['pMembershipFee']['message_request']);
     $gNavigation->deleteLastUrl();
 }
 else
