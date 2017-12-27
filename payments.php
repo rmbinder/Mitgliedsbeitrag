@@ -200,7 +200,7 @@ else
     $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
                city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
                bezahlt.usd_value AS bezahlt, beitrag.usd_value AS beitrag, duedate.usd_value AS duedate, lastschrifttyp.usd_value AS lastschrifttyp,
-               debtor.usd_value AS debtor, debtoraddress.usd_value AS debtoraddress,
+               debtor.usd_value AS debtor, debtoraddress.usd_value AS debtoraddress, membernumber.usd_value AS membernumber,
                debtorpostcode.usd_value AS debtorpostcode, debtorcity.usd_value AS debtorcity, debtoremail.usd_value AS debtoremail,
                email.usd_value AS email
         FROM '. TBL_USERS. '
@@ -231,6 +231,9 @@ else
         LEFT JOIN '. TBL_USER_DATA. ' AS duedate
           ON duedate.usd_usr_id = usr_id
          AND duedate.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+       LEFT JOIN '. TBL_USER_DATA. ' AS membernumber
+          ON membernumber.usd_usr_id = usr_id
+         AND membernumber.usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
          LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
@@ -388,6 +391,8 @@ else
         $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
         $gL10n->get('SYS_LASTNAME'),
         $gL10n->get('SYS_FIRSTNAME'),
+    	'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/key.png"
+            alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').'" />',
         '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
             alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
         $gL10n->get('SYS_ADDRESS'),
@@ -400,14 +405,14 @@ else
         $gL10n->get('SYS_BIRTHDAY')
     );
 
-    $table->setColumnAlignByArray(array('left', 'left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'center', 'left', 'left', 'left'));
+    $table->setColumnAlignByArray(array('left', 'left', 'left', 'center', 'right', 'left', 'left', 'center', 'center', 'left', 'center', 'center', 'left', 'left', 'left'));
     $table->setDatatablesOrderColumns(array(6, 7));
     $table->addRowHeadingByArray($columnHeading);
-    $table->disableDatatablesColumnsSort(array(1, 8, 9, 10));
-    $table->setDatatablesAlternativeOrderColumns(8, 9);
-    $table->setDatatablesAlternativeOrderColumns(11, 12);
-    $table->setDatatablesAlternativeOrderColumns(13, 14);
-    $table->setDatatablesColumnsHide(array(9, 12, 14));
+    $table->disableDatatablesColumnsSort(array(1, 9, 10, 11));
+    $table->setDatatablesAlternativeOrderColumns(9, 10);
+    $table->setDatatablesAlternativeOrderColumns(12, 13);
+    $table->setDatatablesAlternativeOrderColumns(14, 15);
+    $table->setDatatablesColumnsHide(array(10, 13, 15));
 
     // show rows with all organization users
     while($user = $statement->fetch())
@@ -427,6 +432,7 @@ else
         $htmlDebtorText = '&nbsp;';
         $htmlDueDate  = '&nbsp;';
         $lastschrifttyp = '';
+        $membernumber = ' ';
 
         //1. Spalte ($htmlBezahltStatus)+ 2. Spalte ($htmlBezahltDate)
         if(strlen($user['bezahlt']) > 0)
@@ -484,8 +490,14 @@ else
         //6. Spalte (Nachname)
 
         //7. Spalte (Vorname)
+        
+        //8. Spalte (Mitgliedsnummer)
+        if(strlen($user['membernumber']) > 0)
+        {
+        	$membernumber = $user['membernumber'];
+        }
 
-        //8. Spalte ($htmlAddress)
+        //9. Spalte ($htmlAddress)
         // create string with user address
         if(strlen($user['zip_code']) > 0 || strlen($user['city']) > 0)
         {
@@ -499,9 +511,9 @@ else
         {
             $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
         }
-        //9. Spalte ($addressText)
+        //10. Spalte ($addressText)
 
-        //10. Spalte ($htmlDebtorText)
+        //11. Spalte ($htmlDebtorText)
         if(strlen($user['debtor']) > 0)
         {
             $debtor_text = $user['debtor'];
@@ -519,7 +531,7 @@ else
             $htmlDebtorText = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/info.png" alt="'.$debtor_text.'" title="'.$debtor_text.'" />';
         }
 
-        //11. Spalte ($htmlMail)
+        //12. Spalte ($htmlMail)
         if(strlen($user['debtor']) > 0)
         {
             if(strlen($user['debtoremail']) > 0)
@@ -548,9 +560,9 @@ else
                     alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
         }
 
-        //12. Spalte ($email)
+        //13. Spalte ($email)
 
-        //13. Spalte ($htmlBirthday)
+        //14. Spalte ($htmlBirthday)
         if(strlen($user['birthday']) > 0)
         {
             $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
@@ -558,7 +570,7 @@ else
             $birthdayDateSort = $birthdayDate->format('Ymd');
         }
 
-        //14. Spalte ($birthdayDateSort)
+        //15. Spalte ($birthdayDateSort)
 
         // create array with all column values
         $columnValues = array(
@@ -569,7 +581,8 @@ else
             $htmlBeitrag,
             '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
             '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',
-            $htmlAddress,
+            $membernumber,
+        	$htmlAddress,
             $addressText,
             $htmlDebtorText,
             $htmlMail,
