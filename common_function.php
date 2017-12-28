@@ -1310,6 +1310,7 @@ Minus                   |  -        | X'2D
 Leerzeichen             |           | X'20
 Linke Klammer           |  (        | X'28
 Pluszeichen             |  +        | X'2B
+Punkt                   |  .        | X'2E
 Rechte Klammer          |  )        | X'29
 Schraegstrich           |  /        | X'2F
 */
@@ -1376,13 +1377,16 @@ Schraegstrich           |  /        | X'2F
         'Ý' => 'Y',
         'ý' => 'y',
         '€' => 'EUR',
-        '&' => 'und');
+    	'*' => '.',
+    	'$' => '.',
+    	'%' => '.',
+        '&' => '+');
 
     $ret = str_replace(array_keys($charMap), array_values($charMap), $tmptext);
 
     for ($i = 0; $i < strlen($ret); $i++)
     {
-        if (preg_match('/[^A-Za-z0-9\'\:\?\,\-\s\(\+\)\/]/', substr($ret, $i, 1)))
+        if (preg_match('/[^A-Za-z0-9\'\:\?\,\-\(\+\.\)\/]/', substr($ret, $i, 1)))
         {
             $ret = substr_replace($ret, ' ', $i, 1);
         }

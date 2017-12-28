@@ -84,23 +84,29 @@ foreach ($members as $member => $memberdata)
 
         $zpflgt[$member]['name'] = substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);                                                     // Name of account owner.
         $zpflgt[$member]['alt_name'] = '';                                                                                                            // Zahlungspflichtiger abweichender Name
-
-        if (isIbanNOT_EU_EWR($members[$member]['IBAN']))
+        $zpflgt[$member]['iban'] = strtoupper(str_replace(' ', '', $members[$member]['IBAN']));														  // IBAN
+        
+        if (isIbanNOT_EU_EWR($zpflgt[$member]['iban']))
         {
         	if (empty($members[$member]['BIC']))
         	{
         		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$zpflgt[$member]['name']. '</a>'), $gL10n->get('SYS_ERROR'));
         	}
-        	$zpflgt[$member]['land'] = strtoupper(substr(str_replace(' ', '', $members[$member]['IBAN']), 0,2));
+        	$zpflgt[$member]['land'] = substr($zpflgt[$member]['iban'], 0, 2);
         	$zpflgt[$member]['adresse'] = substr(replace_sepadaten($members[$member]['DEBTOR_ADDRESS']), 0, 70);    
         	$zpflgt[$member]['ort'] = substr(replace_sepadaten($members[$member]['DEBTOR_CITY']), 0, 70);    
         }
-        
-        $zpflgt[$member]['iban'] = strtoupper(str_replace(' ', '', $members[$member]['IBAN']));                                                       // IBAN
-        $zpflgt[$member]['bic'] = $members[$member]['BIC'];                                                                                           // BIC
+                              
+        $zpflgt[$member]['bic'] = strtoupper($members[$member]['BIC']);                                                                                           // BIC
         $zpflgt[$member]['mandat_id'] = $members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];                                     // Mandats-ID
         $zpflgt[$member]['mandat_datum'] = $members[$member]['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')];                                // Mandats-Datum
-        $zpflgt[$member]['betrag'] = $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')];                                              // Amount of money
+
+       	$fee = str_replace(',', '.', $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')]);
+       	if (strpos($fee, '.') !== false)
+       	{
+       		$fee = substr($fee, 0, strpos($fee, '.') +3);
+       	}
+        $zpflgt[$member]['betrag'] = $fee;                                               															  // Amount of money
         $zpflgt[$member]['text'] = substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]), 0, 140);   // Description of the transaction ("Verwendungszweck").
         $zpflgt[$member]['orig_mandat_id'] = $members[$member]['ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id')];                           // urspruengliche Mandats-ID
         $zpflgt[$member]['orig_iban'] = strtoupper(str_replace(' ', '', $members[$member]['ORIG_IBAN']));                                             // urspruengliche IBAN
@@ -134,8 +140,8 @@ if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPre
 	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', $zempf['name']), $gL10n->get('SYS_ERROR'));
 }
 
-$zempf['iban'] = str_replace(' ', '', $pPreferences->config['Kontodaten']['iban']);                               //SEPA  Zahlungsempfaenger IBAN
-$zempf['bic'] = $pPreferences->config['Kontodaten']['bic'];                                                       //SEPA  Zahlungsempfaenger BIC
+$zempf['iban'] = strtoupper(str_replace(' ', '', $pPreferences->config['Kontodaten']['iban']));                   //SEPA  Zahlungsempfaenger IBAN
+$zempf['bic'] = strtoupper($pPreferences->config['Kontodaten']['bic']);                                           //SEPA  Zahlungsempfaenger BIC
 $zempf['orig_cdtr_name'] = $pPreferences->config['Kontodaten']['origcreditor'];                                   //urspruenglicher Creditor
 $zempf['orig_cdtr_id'] = $pPreferences->config['Kontodaten']['origci'];                                           //urspruengliche Mandats-ID
 
