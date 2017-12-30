@@ -64,6 +64,7 @@ if ($getMode == 'preview')     //Default
 	else 
 	{
 		$rols = 0;
+		unset($_SESSION['pMembershipFee']['createmandateid_rol_sel']);
 	}
 	
 	if ($pPreferences->config['Mandatsreferenz']['data_field'] != '-- User_ID --')

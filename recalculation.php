@@ -84,6 +84,7 @@ if ($getMode == 'preview')     //Default
 	else
 	{
 		$selectionRolls = 0;
+		unset($_SESSION['pMembershipFee']['recalculation_rol_sel']);
 	}
 	
 	// diese Rollen durchlaufen und bei den Familienrollen eine Zahlungspflichtigen bestimmen
