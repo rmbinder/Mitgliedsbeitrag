@@ -25,7 +25,11 @@ require_once(__DIR__ . '/classes/configtable.php');
 require_once(__DIR__ . '/classes/membernumbers.php');
 
 // Initialize and check the parameters
-$getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
+$getMode    = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
+$postFormat = admFuncVariableIsValid($_POST, 'producemembernumber_format', 'string');
+
+//an array can not be checked with admFuncVariableIsValid
+$postRoleselection = isset($_POST['producemembernumber_roleselection']) ? $_POST['producemembernumber_roleselection'] : '';
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -53,12 +57,12 @@ if ($getMode == 'preview')     //Default
 		// --> EXIT
 	}
 
-	$membernumbers->readUserWithoutMembernumber($_POST['producemembernumber_roleselection']);
-	$membernumbers->separateFormatSegment($_POST['producemembernumber_format']);
+	$membernumbers->readUserWithoutMembernumber($postRoleselection);
+	$membernumbers->separateFormatSegment($postFormat);
 	$membernumbers->getMembernumber();
 	
-	$_SESSION['pMembershipFee']['membernumber_rol_sel'] = $_POST['producemembernumber_roleselection'];
-	$_SESSION['pMembershipFee']['membernumber_format'] = $_POST['producemembernumber_format'];
+	$_SESSION['pMembershipFee']['membernumber_rol_sel'] = $postRoleselection;
+	$_SESSION['pMembershipFee']['membernumber_format'] = $postFormat;
 	
 	$headerMenu = $page->getMenu();
 	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
