@@ -82,6 +82,9 @@ if ($getMode == 'preview')     //Default
 	//alle Mitglieder loeschen, bei denen bereits eine Mandatsreferenz vorhanden ist
 	$members = array_filter($members, 'delete_with_MANDATEID');
 	
+	//alle Beitragsrollen einlesen
+	$contributingRolls = beitragsrollen_einlesen('fam', array('FIRST_NAME', 'LAST_NAME'));
+	
 	//alle uebriggebliebenen Mitglieder durchlaufen und eine Mandatsreferenz erzeugen
 	foreach ($members as $member => $memberdata)
 	{
@@ -93,11 +96,12 @@ if ($getMode == 'preview')     //Default
 			$prefix = $pPreferences->config['Mandatsreferenz']['prefix_pay'];
 		}
 	
-		foreach ($pPreferences->config['Familienrollen']['familienrollen_beschreibung'] as $famrolbesch)
+		foreach ($contributingRolls as $role)
 		{
-			if(substr_count($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')], $famrolbesch) === 1)
+			if (array_key_exists($member, $role['members']))
 			{
 				$prefix = $pPreferences->config['Mandatsreferenz']['prefix_fam'];
+				break;
 			}
 		}
 		
@@ -141,11 +145,11 @@ if ($getMode == 'preview')     //Default
 		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NEW'));
 		$table->addRowHeadingByArray($columnValues);
 
-		foreach ($members as $data)
+		foreach ($members as $member => $data)
 		{
 			$columnValues = array();
-			$columnValues[] = $data['LAST_NAME'];
-			$columnValues[] = $data['FIRST_NAME'];
+			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['LAST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] = $data['referenz'];
 			$table->addRowByArray($columnValues);
 		}
@@ -194,8 +198,8 @@ elseif ($getMode == 'write')
 	foreach ($_SESSION['pMembershipFee']['createmandateid_user'] as $member => $data)
 	{
 		$columnValues = array();
-		$columnValues[] = $data['LAST_NAME'];
-		$columnValues[] = $data['FIRST_NAME'];
+		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['LAST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['FIRST_NAME'].'</a>';
 		$columnValues[] = $data['referenz'];
 		$table->addRowByArray($columnValues);
 		
