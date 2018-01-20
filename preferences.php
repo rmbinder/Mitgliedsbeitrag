@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Erzeugt das Einstellungen-Menue fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2017 The Admidio Team
+ * @copyright 2004-2018 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -22,14 +22,14 @@ require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
 // Initialize and check the parameters
-$getChoice  = admFuncVariableIsValid($_GET, 'choice', 'string', array('defaultValue' => ''));
-$getConf    = admFuncVariableIsValid($_GET, 'conf', 'numeric');
+$getChoice = admFuncVariableIsValid($_GET, 'choice', 'string', array('defaultValue' => ''));
+$getConf   = admFuncVariableIsValid($_GET, 'conf', 'numeric');
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 // only authorized user are allowed to start this module
-if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config']))
+if (!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config']))
 {
     $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
@@ -37,9 +37,9 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe_config
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
-if($getChoice == 'agestaggeredroles')
+if ($getChoice == 'agestaggeredroles')
 {
-    if($getConf == -1)
+    if ($getConf == -1)
     {
         $pPreferences->config['Altersrollen']['altersrollen_token'][] = $pPreferences->config_default['Altersrollen']['altersrollen_token'][0];
     }
@@ -48,9 +48,9 @@ if($getChoice == 'agestaggeredroles')
         array_splice($pPreferences->config['Altersrollen']['altersrollen_token'], $getConf, 1);
     }
 }
-elseif($getChoice == 'familyroles')
+elseif ($getChoice == 'familyroles')
 {
-    if($getConf == -1)
+    if ($getConf == -1)
     {
         $pPreferences->config['Familienrollen']['familienrollen_beitrag'][] = $pPreferences->config_default['Familienrollen']['familienrollen_beitrag'][0];
         $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][] = $pPreferences->config_default['Familienrollen']['familienrollen_zeitraum'][0];
@@ -70,16 +70,30 @@ elseif($getChoice == 'familyroles')
 $num_agestaggeredroles = count($pPreferences->config['Altersrollen']['altersrollen_token']);
 $num_familyroles = count($pPreferences->config['Familienrollen']['familienrollen_prefix']);
 
-if($getChoice == '')
+if ($getChoice == '')
 {
     $gNavigation->addUrl(CURRENT_URL, $headline);
+}
+
+//das Array fuer die Auswahl der Profilfelder plus evtl. Zusatzfelder erzeugen
+$fieldSelectionList = array();
+$i = 1;
+foreach ($gProfileFields->mProfileFields as $field)
+{
+	if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->editUsers())
+	{
+		$fieldSelectionList[$i]['id']       = 'p'.$field->getValue('usf_id');
+		$fieldSelectionList[$i]['cat_name'] = $field->getValue('cat_name');
+		$fieldSelectionList[$i]['data']     = addslashes($field->getValue('usf_name'));
+		$i++;
+	}
 }
 
 // create html page object
 $page = new HtmlPage($headline);
 
 // open the modules tab if the options of a module should be shown
-if($getChoice != '')
+if ($getChoice != '')
 {
     $page->addJavascript('$("#tabs_nav_preferences").attr("class", "active");
         $("#tabs-preferences").attr("class", "tab-pane active");
@@ -141,7 +155,125 @@ $page->addJavascript('
             }
         });
     });
-    ', true);
+', true);
+
+$javascriptCode = 'var arr_user_fields = createProfileFieldsArray(); ';
+
+// create an array with the necessary data
+foreach($pPreferences->config['columnconfig'] as $conf => $confFields)
+{
+	$javascriptCode .= '
+        var arr_default_fields'.$conf.' = createColumnsArray'.$conf.'();
+        var fieldNumberIntern'.$conf.'  = 0;
+        		
+    	// Funktion fuegt eine neue Zeile zum Zuordnen von Spalten fuer die Liste hinzu
+    	function addColumn'.$conf.'()
+    	{
+        	var category = "";
+        	var fieldNumberShow  = fieldNumberIntern'.$conf.' + 1;
+        	var table = document.getElementById("mylist_fields_tbody'.$conf.'");
+        	var newTableRow = table.insertRow(fieldNumberIntern'.$conf.');
+        	newTableRow.setAttribute("id", "row" + (fieldNumberIntern'.$conf.' + 1))
+        	//$(newTableRow).css("display", "none"); // ausgebaut wg. Kompatibilitaetsproblemen im IE8
+        	var newCellCount = newTableRow.insertCell(-1);
+        	newCellCount.innerHTML = (fieldNumberShow) + ".&nbsp;'.$gL10n->get('LST_COLUMN').'&nbsp;:";
+        			
+        	// neue Spalte zur Auswahl des Profilfeldes
+        	var newCellField = newTableRow.insertCell(-1);
+        	htmlCboFields = "<select class=\"form-control\"  size=\"1\" id=\"column" + fieldNumberShow + "\" class=\"ListProfileField\" name=\"column'.$conf.'_" + fieldNumberShow + "\">" +
+                "<option value=\"\"></option>";
+        	for(var counter = 1; counter < arr_user_fields.length; counter++)
+        	{
+            	if(category != arr_user_fields[counter]["cat_name"])
+            	{
+                	if(category.length > 0)
+                	{
+                    	htmlCboFields += "</optgroup>";
+                	}
+                	htmlCboFields += "<optgroup label=\"" + arr_user_fields[counter]["cat_name"] + "\">";
+                	category = arr_user_fields[counter]["cat_name"];
+            	}
+        			
+            	var selected = "";
+        			
+            	// bei gespeicherten Listen das entsprechende Profilfeld selektieren
+            	// und den Feldnamen dem Listenarray hinzufuegen
+            	if(arr_default_fields'.$conf.'[fieldNumberIntern'.$conf.'])
+            	{
+                	if(arr_user_fields[counter]["id"] == arr_default_fields'.$conf.'[fieldNumberIntern'.$conf.']["id"])
+                	{
+                    	selected = " selected=\"selected\" ";
+                   	 	arr_default_fields'.$conf.'[fieldNumberIntern'.$conf.']["data"] = arr_user_fields[counter]["data"];
+                	}
+            	}
+             	htmlCboFields += "<option value=\"" + arr_user_fields[counter]["id"] + "\" " + selected + ">" + arr_user_fields[counter]["data"] + "</option>";
+        	}
+        	htmlCboFields += "</select>";
+        	newCellField.innerHTML = htmlCboFields;
+                   	 		
+        	$(newTableRow).fadeIn("slow");
+        	fieldNumberIntern'.$conf.'++;
+    	}
+        			
+    	function createColumnsArray'.$conf.'()
+    	{
+        	var default_fields = new Array(); ';
+		
+			for ($number = 0; $number < count($confFields); $number++)
+			{
+				foreach ($fieldSelectionList as $key => $data)
+				{
+					if ($confFields[$number] == $data['id'])
+					{
+						$javascriptCode .= '
+                			default_fields['. $number. '] 		  = new Object();
+                			default_fields['. $number. ']["id"]   = "'. $fieldSelectionList[$key]["id"]. '";
+                			default_fields['. $number. ']["data"] = "'. $fieldSelectionList[$key]["data"]. '";
+                		';
+					}
+				}
+			}
+			$javascriptCode .= '
+        	return default_fields;
+    	}
+    ';
+}
+
+$javascriptCode .= '
+    function createProfileFieldsArray()
+    {
+        var user_fields = new Array(); ';
+
+		// create an array for all columns with the necessary data
+		for ($i = 0; $i < count($fieldSelectionList)+1; $i++)
+		{
+			$javascriptCode .= '
+                user_fields['. $i. '] 				= new Object();
+                user_fields['. $i. ']["id"]   		= "'. $fieldSelectionList[$i]['id'] . '";
+                user_fields['. $i. ']["cat_name"] 	= "'. $fieldSelectionList[$i]['cat_name']. '";
+                user_fields['. $i. ']["data"]   	= "'. $fieldSelectionList[$i]['data'] . '";
+            ';
+		}
+
+		$javascriptCode .= '
+        return user_fields;
+    }
+';
+$page->addJavascript($javascriptCode);
+
+$javascriptCode = '$(document).ready(function() { ';
+	foreach($pPreferences->config['columnconfig'] as $conf => $confFields)
+	{
+		$javascriptCode .= '
+    		for(var counter = 0; counter < '. count($confFields). '; counter++) {
+        		addColumn'. $conf. '();
+    		}
+    	';
+	}
+	$javascriptCode .= '}); 
+';
+
+$page->addJavascript($javascriptCode, true);  
 
 // create module menu with back link
 $headerMenu = new HtmlNavbar('menu_preferences', $headline, $page);
@@ -551,6 +683,75 @@ $page->addHtml('
                                     AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
                                     OR cat_org_id IS NULL )';
                         $form->addSelectBoxFromSql('bezugskategorie', $gL10n->get('PLG_MITGLIEDSBEITRAG_CAT_SELECTION'), $gDb, $sql, array('defaultValue' => $pPreferences->config['Rollenpruefung']['bezugskategorie'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC'));
+                        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
+                        $page->addHtml($form->show(false));
+                    $page->addHtml('</div>
+                </div>
+            </div>
+
+			<div class="panel panel-default" id="panel_columnset">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_columnset">
+                            <img src="'. THEME_URL .'/icons/options.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS').'
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_columnset" class="panel-collapse collapse">
+                    <div class="panel-body">');
+                        // show form
+                        $form = new HtmlForm('colset_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/preferences_function.php?form=columnset', $page, array('class' => 'form-preferences'));
+                        $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER'));
+                        $form->addDescription('<div style="width:100%; height:550px; overflow:auto; border:20px;">');
+
+                        foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
+                        {
+                        	$groupHeader = '';
+                        	switch($conf)
+                        	{
+                        		case 'payments_fields_normal_screen':
+                        			$groupHeader= 'PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_NORMAL_SCREEN';
+                        			break;
+                        		case 'payments_fields_full_screen':
+                        			$groupHeader= 'PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_FULL_SCREEN';
+                        			break;
+                        		case 'mandates_fields_normal_screen':
+                        			$groupHeader= 'PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_NORMAL_SCREEN';
+                        			break;
+                        		case 'mandates_fields_full_screen':
+                        			$groupHeader= 'PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_FULL_SCREEN';
+                        			break;
+                        		case 'duedates_fields_normal_screen':
+                        			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_NORMAL_SCREEN';
+                        			break;
+                        		case 'duedates_fields_full_screen':
+                        			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_FULL_SCREEN';
+                        			break;
+                        	}
+                        	$form->openGroupBox('configurations_group', $gL10n->get($groupHeader));
+                        	
+                        	$html = '
+							<div class="table-responsive">
+    							<table class="table table-condensed" id="mylist_fields_table">
+        							<thead>
+            							<tr>
+                							<th style="width: 20%;">'.$gL10n->get('SYS_ABR_NO').'</th>
+                							<th style="width: 37%;">'.$gL10n->get('SYS_CONTENT').'</th>
+            							</tr>
+        							</thead>
+        							<tbody id="mylist_fields_tbody'.$conf.'">
+            							<tr id="table_row_button">
+                							<td colspan="2">
+                    							<a class="icon-text-link" href="javascript:addColumn'.$conf.'()"><img src="'. THEME_URL . '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'</a>
+                							</td>
+            							</tr>
+        							</tbody>
+    							</table>
+    						</div>';
+                        	$form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_COLUMN_SELECTION'), $html);
+                        	$form->closeGroupBox();
+                        }
+                        $form->addDescription('</div>');
                         $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>

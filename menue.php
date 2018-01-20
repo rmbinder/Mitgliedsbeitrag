@@ -711,7 +711,6 @@ if(count($rols) > 0)
                         <div class="panel-body">');
                             // show form
                             $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue_function.php?form=tests', $page, array('class' => 'form-preferences'));
-
                             $form->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
                             $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
                             foreach (check_rols() as $data)

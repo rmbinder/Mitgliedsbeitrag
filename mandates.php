@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Setzen eines Mandatsdatums fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2017 The Admidio Team
+ * @copyright 2004-2018 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -20,8 +20,6 @@
  *                    2 - Nur Benutzer anzeigen, bei denen kein Mandatsdatum vorhanden ist
  * full_screen      : 0 - Normalbildschirm
  *                    1 - Vollbildschirm
- * mandate_screen   : 0 - zusaetzliche Spalten mit Mandatsaenderungen werden nicht angezeigt
- *                    1 - zusaetzliche Spalten mit Mandatsaenderungen werden angezeigt
  ***********************************************************************************************
  */
 
@@ -33,36 +31,35 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 // only authorized user are allowed to start this module
-if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
+if (!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
 {
     $gMessage->setForwardUrl($gHomepage, 3000);
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
+if (isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
     // ajax mode then only show text if error occurs
     $gMessage->showTextOnly(true);
 }
 
 // Initialize and check the parameters
-$getMode            = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'assign')));
-$getUserId          = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
-$getDatumNeu        = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
-$getMembersShow     = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
-$getFullScreen      = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
-$getMandateScreen   = admFuncVariableIsValid($_GET, 'mandate_screen', 'numeric');
+$getMode        = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'assign')));
+$getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
+$getDatumNeu    = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
+$getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
+$getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 
-if($getMode == 'assign')
+if ($getMode == 'assign')
 {
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId != 0)           // Mandatsdatum nur fuer einen einzigen User aendern
+    if ($getUserId != 0)           // Mandatsdatum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
-    else                        // Alle aendern wurde gewaehlt
+    else                          // Alle aendern wurde gewaehlt
     {
         $userArray = $_SESSION['pMembershipFee']['mandates_user'];
     }
@@ -98,103 +95,65 @@ if($getMode == 'assign')
 else
 {
     $userArray = array();
-
-    // show html list
+    $membersList = array();
+   
+    if ($getFullScreen == true)
+    {
+    	$membersListFields = $pPreferences->config['columnconfig']['mandates_fields_full_screen'];
+    }
+    else
+    {
+    	$membersListFields = $pPreferences->config['columnconfig']['mandates_fields_normal_screen'];
+    }
+    
+    $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
+        FROM '. TBL_USERS. '
+        LEFT JOIN '. TBL_USER_DATA. ' AS mandateid
+          ON mandateid.usd_usr_id = usr_id
+         AND mandateid.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS mandatedate
+          ON mandatedate.usd_usr_id = usr_id
+         AND mandatedate.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS iban
+          ON iban.usd_usr_id = usr_id
+         AND iban.usd_usf_id = '. $gProfileFields->getProperty('IBAN', 'usf_id'). '
+         		
+        LEFT JOIN '. TBL_MEMBERS. ' AS mem
+          ON mem.mem_begin  <= \''.DATE_NOW.'\'
+         AND mem.mem_end     > \''.DATE_NOW.'\'
+         AND mem.mem_usr_id  = usr_id
+         		
+       WHERE iban.usd_value IS NOT NULL
+         AND mandateid.usd_value IS NOT NULL ';
+    
+    if ($getMembersShow == 1)                   // Nur Benutzer anzeigen, bei denen ein Mandatsdatum vorhanden ist
+    {
+    	$membersListSqlCondition .= ' AND mandatedate.usd_value IS NOT NULL ) ';
+    }
+    elseif ($getMembersShow == 2)				// Nur Benutzer anzeigen, bei denen kein Mandatsdatum vorhanden ist
+    {
+    	$membersListSqlCondition .= ' AND mandatedate.usd_value IS NULL ) ';
+    }
+    else 										// Alle Benutzer anzeigen
+    {
+    	$membersListSqlCondition .= ' ) ';
+    }
+    
+    $membersList = list_members($membersListFields, 0, $membersListSqlCondition);
 
     // set headline of the script
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATES');
 
     // add current url to navigation stack if last url was not the same page
-    if(strpos($gNavigation->getUrl(), 'mandates.php') === false)
+    if (strpos($gNavigation->getUrl(), 'mandates.php') === false)
     {
         $gNavigation->addUrl(CURRENT_URL, $headline);
     }
 
-    // create sql for all relevant users
-    $memberCondition = '';
-
-    // Filter zusammensetzen
-    $memberCondition = ' EXISTS
-        (SELECT 1
-        FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES.  ','. TBL_USER_DATA. '
-        WHERE mem_usr_id = usr_id
-        AND mem_rol_id = rol_id
-        AND mem_begin <= \''.DATE_NOW.'\'
-        AND mem_end    > \''.DATE_NOW.'\'
-        AND rol_valid  = 1
-
-        AND rol_cat_id = cat_id
-        AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
-            OR cat_org_id IS NULL ) ';
-
-    if($getMembersShow == 1)                  // nur Benutzer anzeigen mit Bezahlt-Datum wurde gewaehlt
-    {
-        $memberCondition .= ' AND usd_usr_id = usr_id
-            AND usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-            AND usd_value IS NOT NULL )';
-    }
-    else
-    {
-        $memberCondition .= ' AND usd_usr_id = usr_id
-            AND usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-            AND usd_value IS NOT NULL )';
-    }
-
-    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
-               city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
-               mandatsdatum.usd_value AS mandatsdatum, origmandatsreferenz.usd_value AS origmandatsreferenz,
-               origdebtoragent.usd_value AS origdebtoragent, origiban.usd_value AS origiban, mandatsreferenz.usd_value AS mandatsreferenz
-        FROM '. TBL_USERS. '
-        LEFT JOIN '. TBL_USER_DATA. ' AS last_name
-          ON last_name.usd_usr_id = usr_id
-         AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS first_name
-          ON first_name.usd_usr_id = usr_id
-         AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS birthday
-          ON birthday.usd_usr_id = usr_id
-         AND birthday.usd_usf_id = '. $gProfileFields->getProperty('BIRTHDAY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS city
-          ON city.usd_usr_id = usr_id
-         AND city.usd_usf_id = '. $gProfileFields->getProperty('CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS address
-          ON address.usd_usr_id = usr_id
-         AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS mandatsdatum
-          ON mandatsdatum.usd_usr_id = usr_id
-         AND mandatsdatum.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS mandatsreferenz
-          ON mandatsreferenz.usd_usr_id = usr_id
-         AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' AS origmandatsreferenz
-          ON origmandatsreferenz.usd_usr_id = usr_id
-         AND origmandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS origdebtoragent
-          ON origdebtoragent.usd_usr_id = usr_id
-         AND origdebtoragent.usd_usf_id = '. $gProfileFields->getProperty('ORIG_DEBTOR_AGENT', 'usf_id'). '
-          LEFT JOIN '. TBL_USER_DATA. ' AS origiban
-          ON origiban.usd_usr_id = usr_id
-         AND origiban.usd_usf_id = '. $gProfileFields->getProperty('ORIG_IBAN', 'usf_id'). '
-
-         LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
-          ON zip_code.usd_usr_id = usr_id
-         AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS country
-          ON country.usd_usr_id = usr_id
-         AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '
-        LEFT JOIN '. TBL_MEMBERS. ' mem
-          ON  mem.mem_begin  <= \''.DATE_NOW.'\'
-         AND mem.mem_end     > \''.DATE_NOW.'\'
-         AND mem.mem_usr_id  = usr_id
-
-        WHERE '. $memberCondition. '
-        ORDER BY last_name, first_name ';
-    $statement = $gDb->query($sql);
-
     // create html page object
     $page = new HtmlPage($headline);
 
-    if($getFullScreen == true)
+    if ($getFullScreen == true)
     {
         $page->hideThemeHtml();
     }
@@ -224,18 +183,7 @@ else
                     return true;
                 }
             );
-        });
-
-        // checkbox "Mandatsaenderungen anzeigen" wurde gewaehlt
-        $("input[type=checkbox].mandatescreen_checkbox").click(function(){
-            if( $("input[type=checkbox]#mandate_screen").prop("checked")) {
-                var mandatescreen_checked=1;
-            }
-            else {
-                var mandatescreen_checked=0;
-            }   
-            window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mandates.php?full_screen='.$getFullScreen.'&mandate_screen="+mandatescreen_checked);
-        });      
+        });   
 
         // if checkbox of user is clicked then change data
         $("input[type=checkbox].memlist_checkbox").click(function(e){
@@ -272,11 +220,10 @@ else
 
     $page->addJavascript($javascriptCode, true);
 
-    // get module menu
     $mandatesMenu = $page->getMenu();
     $mandatesMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=mandates', $gL10n->get('SYS_BACK'), 'back.png');
 
-    if($getFullScreen == true)
+    if ($getFullScreen == true)
     {
         $mandatesMenu->addItem('menu_item_normal_picture', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mandates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
@@ -296,150 +243,139 @@ else
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-    if($getFullScreen)
-    {
-        $navbarForm->addCheckbox('mandate_screen', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN'), $getMandateScreen, array('class' => 'mandatescreen_checkbox', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATE_SCREEN_DESC'));
-    }
     $mandatesMenu->addForm($navbarForm->show(false));
 
     // create table object
     $table = new HtmlTable('tbl_assign_role_membership', $page, true, true, 'table table-condensed');
     $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES_FOUND');
-
-    // create array with all column heading values
-    $columnHeading = array(
-        '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC').'"/>',
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'),
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'),
-        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/edit.png"
-            alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" />',
-        $gL10n->get('SYS_LASTNAME'),
-        $gL10n->get('SYS_FIRSTNAME'),
-        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
-            alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
-        $gL10n->get('SYS_ADDRESS'),
-        $gL10n->get('SYS_BIRTHDAY'),
-        $gL10n->get('SYS_BIRTHDAY'),
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'),
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'),
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT')
-    );
-
-    $table->setColumnAlignByArray(array('center', 'left', 'left', 'center', 'left', 'left', 'center', 'left', 'left', 'left', 'left', 'left', 'left'));
-    $table->setDatatablesOrderColumns(array(5, 6));
-    $table->addRowHeadingByArray($columnHeading);
-    $table->disableDatatablesColumnsSort(array(1, 4));
-    $table->setDatatablesAlternativeOrderColumns(7, 8);
-    $table->setDatatablesAlternativeOrderColumns(9, 10);
-    $table->setDatatablesColumnsHide(array(8, 10));
-    if($getFullScreen == false || ($getFullScreen && $getMandateScreen == false))
+    
+    $columnAlign  = array('center');
+    $columnValues = array( '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC').'"/>');
+    
+    //column mandate change
+    $columnAlign[]  = 'center';
+    $columnValues[] = '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/edit.png"
+            alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" />';
+    
+    // headlines for columns
+    foreach ($membersList as $member => $memberData)
     {
-         $table->setDatatablesColumnsHide(array(11, 12, 13));
+    	foreach ($memberData as $usfId => $dummy)
+    	{
+    		if (!is_int($usfId))
+    		{
+    			continue;
+    		}
+    		
+    		// Find name of the field
+    		$columnHeader = $gProfileFields->getPropertyById($usfId, 'usf_name');
+    		
+    		if ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX'
+    				||  $gProfileFields->getPropertyById($usfId, 'usf_name_intern') === 'GENDER')
+    		{
+    			$columnAlign[] = 'center';
+    		}
+    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'NUMBER'
+    				||   $gProfileFields->getPropertyById($usfId, 'usf_type') === 'DECIMAL')
+    		{
+    			$columnAlign[] = 'right';
+    		}
+    		else
+    		{
+    			$columnAlign[] = 'left';
+    		}
+    		$columnValues[] = $columnHeader;
+    	}  // End-Foreach
+    	break;							// Abbruch nach dem ersten Mitglied, da nur die usfIds eines Mitglieds benoetigt werden um die headlines zu erzeugen
     }
-    // show rows with all organization users
-    while($user = $statement->fetch())
+    
+    $table->setColumnAlignByArray($columnAlign);
+    $table->addRowHeadingByArray($columnValues);
+    $table->disableDatatablesColumnsSort(array(1,2));
+    
+    //user data
+    foreach ($membersList as $member => $memberData)
     {
-        if(($getMembersShow == 2) && (strlen($user['mandatsreferenz']) > 0) && (strlen($user['mandatsdatum']) > 0))
-        {
-            continue;
-        }
-
-        $addressText  = ' ';
-        $htmlAddress  = '&nbsp;';
-        $htmlBirthday = '&nbsp;';
-        $htmlMandateID = '&nbsp;';
-        $htmlOrigMandateID = '&nbsp;';
-        $htmlOrigIBAN = '&nbsp;';
-        $htmlOrigDebtorAgent = '&nbsp;';
-
-        //1. Spalte ($htmlMandatStatus)+ 2. Spalte ($htmlMandatDate)
-        if(strlen($user['mandatsdatum']) > 0)
-        {
-            $htmlMandatStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
-            $mandatDate = new DateTimeExtended($user['mandatsdatum'], 'Y-m-d');
-            $htmlMandatDate = '<div class="mandatedate_'.$user['usr_id'].'" id="mandatedate_'.$user['usr_id'].'">'.$mandatDate->format($gPreferences['system_date']).'</div>';
-        }
-        else
-        {
-            $htmlMandatStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
-            $htmlMandatDate = '<div class="mandatedate_'.$user['usr_id'].'" id="mandatedate_'.$user['usr_id'].'">&nbsp;</div>';
-        }
-
-        //3. Spalte ($htmlBeitrag)
-        if(strlen($user['mandatsreferenz']) > 0)
-        {
-            $htmlMandateID = $user['mandatsreferenz'];
-        }
-
-        //4. Spalte (Mandatsaenderung)
-
-        //5. Spalte (Nachname)
-
-        //6. Spalte (Vorname)
-
-        //7. Spalte ($htmlAddress)
-        // create string with user address
-         if(strlen($user['zip_code']) > 0 || strlen($user['city']) > 0)
-        {
-            $addressText .= $user['zip_code']. ' '. $user['city'];
-        }
-        if(strlen($user['address']) > 0)
-        {
-            $addressText .= ' - '. $user['address'];
-        }
-        if(strlen($addressText) > 1)
-        {
-            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
-        }
-        //8. Spalte ($addressText)
-
-        //9. Spalte ($htmlBirthday)
-        if(strlen($user['birthday']) > 0)
-        {
-            $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
-            $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
-            $birthdayDateSort = $birthdayDate->format('Ymd');
-        }
-
-        //10. Spalte ($birthdayDateSort)
-
-        //11. Spalte und weiter: Anzeige von Mandatsaenderungen
-        if(strlen($user['origmandatsreferenz']) > 0)
-        {
-            $htmlOrigMandateID = $user['origmandatsreferenz'];
-        }
-        if(strlen($user['origiban']) > 0)
-        {
-            $htmlOrigIBAN = $user['origiban'];
-        }
-        if(strlen($user['origdebtoragent']) > 0)
-        {
-            $htmlOrigDebtorAgent = $user['origdebtoragent'];
-        }
-
-        // create array with all column values
-        $columnValues = array(
-            $htmlMandatStatus,
-            $htmlMandatDate,
-            $htmlMandateID,
-            '<a class="admidio-icon-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mandate_change.php?user_id='. $user['usr_id']. '"><img src="'. THEME_URL . '/icons/edit.png"
-                    alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" /></a>',
-            '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
-            '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',
-            $htmlAddress,
-            $addressText,
-            $htmlBirthday,
-            $birthdayDateSort,
-            $htmlOrigMandateID,
-            $htmlOrigIBAN,
-            $htmlOrigDebtorAgent
-            );
-
-        $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
-        $userArray[] = $user['usr_id'];
-
-    }//End While
-
+    	if (strlen($memberData[$gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id')]) > 0)
+    	{
+    		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
+    	}
+    	else
+    	{
+    		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
+    	}
+    	
+    	$columnValues = array($content);
+    	
+    	$columnValues[] = '<a class="admidio-icon-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mandate_change.php?user_id='. $member. '"><img src="'. THEME_URL . '/icons/edit.png"
+                    alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" /></a>';
+                    		
+    	foreach ($memberData as $usfId => $data)
+    	{
+    		if (!is_int($usfId))
+    		{
+    			continue;
+    		}
+    		
+    		// fill content with data of database
+    		$content = $data;
+    		
+    		/*****************************************************************/
+    		// in some cases the content must have a special output format
+    		/*****************************************************************/
+    		if ($usfId === (int) $gProfileFields->getProperty('COUNTRY', 'usf_id'))
+    		{
+    			$content = $gL10n->getCountryByCode($data);
+    		}
+    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
+    		{
+    			if ($content != 1)
+    			{
+    				$content = 0;
+    			}
+    		}
+    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'DATE')
+    		{
+    			if (strlen($data) > 0)
+    			{
+    				// date must be formated
+    				$date = DateTime::createFromFormat('Y-m-d', $data);
+    				$content = $date->format($gPreferences['system_date']);
+    			}
+    		}
+    		
+    		if ($usfId == $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		{
+    			$content = '<div class="mandatedate_'.$member.'" id="mandatedate_'.$member.'">'.$content.'</div>';
+    		}
+    		
+    		// firstname and lastname get a link to the profile
+    		if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id')
+    				|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
+    		{
+    			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
+    			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$htmlValue.'</a>';
+    		}
+    		else
+    		{
+    			// checkbox must set a sorting value
+    			if ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
+    			{
+    				$columnValues[] = array('value' => $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member), 'order' => $content);
+    			}
+    			else
+    			{
+    				$columnValues[] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
+    			}
+    		}
+    	}
+    	
+    	$table->addRowByArray($columnValues, 'userid_'.$member, array('nobr' => 'true'));
+    	
+    	$userArray[] = $member;
+    	
+    }  // End-foreach User
+    
     $_SESSION['pMembershipFee']['mandates_user'] = $userArray;
 
     $page->addHtml($table->show(false));

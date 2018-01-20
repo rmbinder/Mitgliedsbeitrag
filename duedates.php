@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Setzen eines Faelligkeitsdatums fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2017 The Admidio Team
+ * @copyright 2004-2018 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -52,9 +52,6 @@ $getMembersShow  = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', a
 $getFullScreen   = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 $getSequenceType = admFuncVariableIsValid($_GET, 'sequencetype', 'string');
 
-//alle Beitragsrollen einlesen
-$rols = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
-
 // write role selection in session
 if (strpos($gNavigation->getUrl(), 'menue.php') !== false)
 {
@@ -68,28 +65,12 @@ if (strpos($gNavigation->getUrl(), 'menue.php') !== false)
 	}
 }
 
-//pruefen, ob Eintraege in der Rollenauswahl bestehen
-if (isset($_SESSION['pMembershipFee']['duedates_rol_sel']) )
-{
-	// nicht gewaehlte Beitragsrollen im Array $rols loeschen
-	foreach ($rols as $rol => $roldata)
-	{
-		if (!in_array($rol, $_SESSION['pMembershipFee']['duedates_rol_sel']))
-		{
-			unset($rols[$rol]);
-		}
-	}
-}
-
-//umwandeln von array nach string wg SQL-Statement
-$rolesString = implode(',', array_keys($rols));
-
-if($getMode == 'assign')
+if ($getMode == 'assign')
 {
     $ret_text = 'ERROR';
 
     $userArray = array();
-    if($getUserId != 0)           // Faelligkeitsdatum nur fuer einen einzigen User aendern
+    if ($getUserId != 0)           // Faelligkeitsdatum nur fuer einen einzigen User aendern
     {
         $userArray[0] = $getUserId;
     }
@@ -138,107 +119,93 @@ if($getMode == 'assign')
 else
 {
     $userArray = array();
-
+    $membersList = array();
+    
+    if (isset($_SESSION['pMembershipFee']['duedates_rol_sel']) )
+    {
+    	// Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
+    	$membersListRols = array();
+    	$role = new TableRoles($gDb);
+    	foreach ($_SESSION['pMembershipFee']['duedates_rol_sel'] as $rol_id)
+    	{
+    		$role->readDataById($rol_id);
+    		$membersListRols[$role->getValue('rol_name')] = 0;
+    	}
+    }
+    else
+    {
+    	$membersListRols = 0;
+    }
+    
+    if ($getFullScreen == true)
+    {
+    	$membersListFields = $pPreferences->config['columnconfig']['duedates_fields_full_screen'];
+    }
+    else
+    {
+    	$membersListFields = $pPreferences->config['columnconfig']['duedates_fields_normal_screen'];
+    }
+    
+    $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
+        FROM '. TBL_USERS. '
+        LEFT JOIN '. TBL_USER_DATA. ' AS mandateid
+          ON mandateid.usd_usr_id = usr_id
+         AND mandateid.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS mandatedate
+          ON mandatedate.usd_usr_id = usr_id
+         AND mandatedate.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS duedate
+          ON duedate.usd_usr_id = usr_id
+         AND duedate.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS paid
+          ON paid.usd_usr_id = usr_id
+         AND paid.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS fee
+          ON fee.usd_usr_id = usr_id
+         AND fee.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS iban
+          ON iban.usd_usr_id = usr_id
+         AND iban.usd_usf_id = '. $gProfileFields->getProperty('IBAN', 'usf_id'). '
+         		
+        LEFT JOIN '. TBL_MEMBERS. ' AS mem
+          ON mem.mem_begin  <= \''.DATE_NOW.'\'
+         AND mem.mem_end     > \''.DATE_NOW.'\'
+         AND mem.mem_usr_id  = usr_id
+         		
+       WHERE paid.usd_value IS NULL
+         AND fee.usd_value IS NOT NULL
+         AND iban.usd_value IS NOT NULL
+		 AND mandatedate.usd_value IS NOT NULL
+		 AND mandateid.usd_value IS NOT NULL ';
+    
+    if ($getMembersShow == 1)                   // Nur Benutzer anzeigen, bei denen ein Faelligkeitsdatumvorhanden ist
+    {
+    	$membersListSqlCondition .= ' AND duedate.usd_value IS NOT NULL ) ';
+    }
+    elseif ($getMembersShow == 2)				// Nur Benutzer anzeigen, bei denen kein Faelligkeitsdatum vorhanden ist
+    {
+    	$membersListSqlCondition .= ' AND duedate.usd_value IS NULL ) ';
+    }
+    else 										// Alle Benutzer anzeigen
+    {
+    	$membersListSqlCondition .= ' ) ';
+    }
+    
+    $membersList = list_members($membersListFields, $membersListRols, $membersListSqlCondition);
+    
     // set headline of the script
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
 
     // add current url to navigation stack if last url was not the same page
-    if(strpos($gNavigation->getUrl(), 'duedates.php') === false)
+    if (strpos($gNavigation->getUrl(), 'duedates.php') === false)
     {
         $gNavigation->addUrl(CURRENT_URL, $headline);
     }
 
-    // create sql for all relevant users
-    $memberCondition = '';
-
-    // Filter zusammensetzen
-    $memberCondition = ' EXISTS
-        (SELECT 1
-        FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES.  ','. TBL_USER_DATA. '
-        WHERE mem_usr_id = usr_id
-        AND mem_rol_id = rol_id
-        AND mem_begin <= \''.DATE_NOW.'\'
-        AND mem_end    > \''.DATE_NOW.'\'
-        AND rol_valid  = 1
-        AND rol_id IN ('.$rolesString.')
-        AND rol_cat_id = cat_id
-        AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
-            OR cat_org_id IS NULL ) ';
-
-    if($getMembersShow == 1)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
-    {
-        $memberCondition .= ' AND usd_usr_id = usr_id
-            AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-            AND usd_value IS NOT NULL )';
-    }
-    else
-    {
-        $memberCondition .= ' AND usd_usr_id = usr_id
-            AND usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-            AND usd_value IS NOT NULL )';
-    }
-
-    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
-               city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
-               iban.usd_value AS iban, lastschrifttyp.usd_value AS lastschrifttyp,
-               mandatsdatum.usd_value AS mandatsdatum, faelligkeitsdatum.usd_value AS faelligkeitsdatum, beitrag.usd_value AS beitrag
-        FROM '. TBL_USERS. '
-        LEFT JOIN '. TBL_USER_DATA. ' AS last_name
-          ON last_name.usd_usr_id = usr_id
-         AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS first_name
-          ON first_name.usd_usr_id = usr_id
-         AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS birthday
-          ON birthday.usd_usr_id = usr_id
-         AND birthday.usd_usf_id = '. $gProfileFields->getProperty('BIRTHDAY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS city
-          ON city.usd_usr_id = usr_id
-         AND city.usd_usf_id = '. $gProfileFields->getProperty('CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS address
-          ON address.usd_usr_id = usr_id
-         AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS mandatsdatum
-          ON mandatsdatum.usd_usr_id = usr_id
-         AND mandatsdatum.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS faelligkeitsdatum
-          ON faelligkeitsdatum.usd_usr_id = usr_id
-         AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS lastschrifttyp
-          ON lastschrifttyp.usd_usr_id = usr_id
-         AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' AS bezahlt
-          ON bezahlt.usd_usr_id = usr_id
-         AND bezahlt.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
-          ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
-          ON zip_code.usd_usr_id = usr_id
-         AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS iban
-          ON iban.usd_usr_id = usr_id
-         AND iban.usd_usf_id = '. $gProfileFields->getProperty('IBAN', 'usf_id'). '
-         LEFT JOIN '. TBL_USER_DATA. ' AS country
-          ON country.usd_usr_id = usr_id
-         AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '
-
-        LEFT JOIN '. TBL_MEMBERS. ' mem
-          ON  mem.mem_begin  <= \''.DATE_NOW.'\'
-         AND mem.mem_end     > \''.DATE_NOW.'\'
-         AND mem.mem_usr_id  = usr_id
-
-         WHERE  bezahlt.usd_value IS NULL
-         AND beitrag.usd_value IS NOT NULL
-         AND iban.usd_value IS NOT NULL
-         AND '. $memberCondition. '
-         ORDER BY last_name, first_name ';
-    $statement = $gDb->query($sql);
-
     // create html page object
     $page = new HtmlPage($headline);
 
-    if($getFullScreen == true)
+    if ($getFullScreen == true)
     {
         $page->hideThemeHtml();
     }
@@ -295,13 +262,13 @@ else
                                 $("#lastschrifttyp_"+userid).text("");
                             }
                             else if(sequencetype == "RCUR") {
-                                $("#lastschrifttyp_"+userid).text("R");
+                                $("#lastschrifttyp_"+userid).text("RCUR");
                             }
                             else if(sequencetype == "FNAL") {
-                                $("#lastschrifttyp_"+userid).text("F");
+                                $("#lastschrifttyp_"+userid).text("FNAL");
                             }
                             else if(sequencetype == "OOFF") {
-                                $("#lastschrifttyp_"+userid).text("O");
+                                $("#lastschrifttyp_"+userid).text("OOFF");
                             }
                         }
                         else {
@@ -320,11 +287,10 @@ else
 
     $page->addJavascript($javascriptCode, true);
 
-    // get module menu
     $duedatesMenu = $page->getMenu();
     $duedatesMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=sepa', $gL10n->get('SYS_BACK'), 'back.png');
 
-    if($getFullScreen == true)
+    if ($getFullScreen == true)
     {
         $duedatesMenu->addItem('menu_item_normal_picture', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/duedates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
@@ -356,136 +322,129 @@ else
     $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');
     $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES_FOUND');
 
-    // create array with all column heading values
-    $columnHeading = array(
-        '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_CHANGE_ALL_DESC').'"/>',
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_DUE_ON'),
-        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/comment.png"
-            alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'" />',
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
-        $gL10n->get('SYS_LASTNAME'),
-        $gL10n->get('SYS_FIRSTNAME'),
-        '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
-            alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
-        $gL10n->get('SYS_ADDRESS'),
-        $gL10n->get('SYS_BIRTHDAY'),
-        $gL10n->get('SYS_BIRTHDAY')
-    );
-
-    $table->setColumnAlignByArray(array('left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'left'));
-    $table->setDatatablesOrderColumns(array(5, 6));
-    $table->addRowHeadingByArray($columnHeading);
-    $table->disableDatatablesColumnsSort(array(1));
-    $table->setDatatablesAlternativeOrderColumns(7, 8);
-    $table->setDatatablesAlternativeOrderColumns(9, 10);
-    $table->setDatatablesColumnsHide(array(8, 10));
-
-    // show rows with all organization users
-    while($user = $statement->fetch())
+    $columnAlign  = array('center');
+    $columnValues = array( '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_CHANGE_ALL_DESC').'"/>');
+    
+    // headlines for columns
+    foreach ($membersList as $member => $memberData)
     {
-        if(($getMembersShow == 2) && (strlen($user['faelligkeitsdatum']) > 0) && (strlen($user['mandatsdatum']) > 0))
-        {
-            continue;
-        }
-
-        $addressText  = ' ';
-        $htmlAddress  = '&nbsp;';
-        $htmlBirthday = '&nbsp;';
-        $htmlBeitrag  = '&nbsp;';
-        $htmlDueDate  = '&nbsp;';
-        $lastschrifttyp = '';
-
-        //1. Spalte ($htmlDueDateStatus)+ 2. Spalte ($htmlDueDate)
-        if(strlen($user['faelligkeitsdatum']) > 0)
-        {
-            $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
-            $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d');
-            $htmlDueDate = '<div class="duedate_'.$user['usr_id'].'" id="duedate_'.$user['usr_id'].'">'.$DueDate->format($gPreferences['system_date']).'</div>';
-        }
-        else
-        {
-            $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
-            $htmlDueDate = '<div class="duedate_'.$user['usr_id'].'" id="duedate_'.$user['usr_id'].'">&nbsp;</div>';
-        }
-
-        //3. Spalte ($htmlLastschrifttyp)
-        switch($user['lastschrifttyp'])
-        {
-            case 'RCUR':
-                $lastschrifttyp = 'R';
-                break;
-            case 'FNAL':
-                $lastschrifttyp = 'F';
-                break;
-            case 'OOFF':
-                $lastschrifttyp = 'O';
-                break;
-        }
-
-        if(strlen($lastschrifttyp) > 0)
-        {
-            $htmlLastschrifttyp = '<div class="lastschrifttyp_'.$user['usr_id'].'" id="lastschrifttyp_'.$user['usr_id'].'">'.$lastschrifttyp.'</div>';
-        }
-        else
-        {
-            $htmlLastschrifttyp = '<div class="lastschrifttyp_'.$user['usr_id'].'" id="lastschrifttyp_'.$user['usr_id'].'">&nbsp;</div>';
-        }
-
-        //4. Spalte ($htmlBeitrag)
-        if($user['beitrag'] > 0)
-        {
-            $htmlBeitrag = $user['beitrag'].' '.$gPreferences['system_currency'];
-        }
-
-        //5. Spalte (Nachname)
-
-        //6. Spalte (Vorname)
-
-        //7. Spalte ($htmlAddress)
-        if(strlen($user['zip_code']) > 0 || strlen($user['city']) > 0)
-        {
-            $addressText .= $user['zip_code']. ' '. $user['city'];
-        }
-        if(strlen($user['address']) > 0)
-        {
-            $addressText .= ' - '. $user['address'];
-        }
-        if(strlen($addressText) > 1)
-        {
-            $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
-        }
-
-        //8. Spalte ($addressText)
-
-        //9. Spalte ($htmlBirthday)
-        if(strlen($user['birthday']) > 0)
-        {
-            $birthdayDate = new DateTimeExtended($user['birthday'], 'Y-m-d');
-            $htmlBirthday = $birthdayDate->format($gPreferences['system_date']);
-            $birthdayDateSort = $birthdayDate->format('Ymd');
-        }
-
-        //10. Spalte ($birthdayDateSort)
-
-        // create array with all column values
-        $columnValues = array(
-            $htmlDueDateStatus,
-            $htmlDueDate,
-            $htmlLastschrifttyp,
-            $htmlBeitrag,
-            '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
-            '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',
-            $htmlAddress,
-            $addressText,
-            $htmlBirthday,
-            $birthdayDateSort
-        );
-
-        $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
-        $userArray[] = $user['usr_id'];
-
-    }//End While
-
+    	foreach ($memberData as $usfId => $dummy)
+    	{
+    		if (!is_int($usfId))
+    		{
+    			continue;
+    		}
+    		
+    		// Find name of the field
+    		$columnHeader = $gProfileFields->getPropertyById($usfId, 'usf_name');
+    		
+    		if ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX'
+    				||  $gProfileFields->getPropertyById($usfId, 'usf_name_intern') === 'GENDER')
+    		{
+    			$columnAlign[] = 'center';
+    		}
+    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'NUMBER'
+    				||   $gProfileFields->getPropertyById($usfId, 'usf_type') === 'DECIMAL')
+    		{
+    			$columnAlign[] = 'right';
+    		}
+    		else
+    		{
+    			$columnAlign[] = 'left';
+    		}
+    		$columnValues[] = $columnHeader;
+    	}  // End-Foreach
+    	break;							// Abbruch nach dem ersten Mitglied, da nur die usfIds eines Mitglieds benoetigt werden um die headlines zu erzeugen
+    }
+    
+    $table->setColumnAlignByArray($columnAlign);
+    $table->addRowHeadingByArray($columnValues);
+    $table->disableDatatablesColumnsSort(array(1));
+    
+    //user data
+    foreach ($membersList as $member => $memberData)
+    {
+    	if (strlen($memberData[$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id')]) > 0)
+    	{
+    		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
+    	}
+    	else
+    	{
+    		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
+    	}
+    	
+    	$columnValues = array($content);
+    	
+    	foreach ($memberData as $usfId => $data)
+    	{
+    		if (!is_int($usfId))
+    		{
+    			continue;
+    		}
+    		
+    		// fill content with data of database
+    		$content = $data;
+    		
+    		/*****************************************************************/
+    		// in some cases the content must have a special output format
+    		/*****************************************************************/
+    		if ($usfId === (int) $gProfileFields->getProperty('COUNTRY', 'usf_id'))
+    		{
+    			$content = $gL10n->getCountryByCode($data);
+    		}
+    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
+    		{
+    			if ($content != 1)
+    			{
+    				$content = 0;
+    			}
+    		}
+    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'DATE')
+    		{
+    			if (strlen($data) > 0)
+    			{
+    				// date must be formated
+    				$date = DateTime::createFromFormat('Y-m-d', $data);
+    				$content = $date->format($gPreferences['system_date']);
+    			}
+    		}
+    		
+    		if ($usfId == $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		{
+    			$content = '<div class="lastschrifttyp_'.$member.'" id="lastschrifttyp_'.$member.'">'.$data.'</div>';
+    		}
+    		elseif ($usfId == $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		{
+    			$content = '<div class="duedate_'.$member.'" id="duedate_'.$member.'">'.$content.'</div>';
+    		}
+    		
+    		// firstname and lastname get a link to the profile
+    		if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id')
+    				|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
+    		{
+    			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
+    			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$htmlValue.'</a>';
+    		}
+    		else
+    		{
+    			// checkbox must set a sorting value
+    			if ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
+    			{
+    				$columnValues[] = array('value' => $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member), 'order' => $content);
+    			}
+    			else
+    			{
+    				$columnValues[] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
+    			}
+    		}
+    	}
+    	
+    	$table->addRowByArray($columnValues, 'userid_'.$member, array('nobr' => 'true'));
+    	
+    	$userArray[] = $member;
+    	
+    }  // End-foreach User
+    
     $_SESSION['pMembershipFee']['duedates_user'] = $userArray;
 
     $page->addHtml($table->show(false));

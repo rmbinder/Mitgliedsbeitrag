@@ -246,19 +246,21 @@ function hasRole_IDPMB($role_id, $user_id = 0)
  *         list_members(array('usf_name_intern1','usf_name_intern2'), array('Rollenname1' => Schalter aktiv/ehem) )<br/>
  *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), 'Rollenname' )<br/>
  *   oder  list_members(array('usf_name_intern1','usf_name_intern2'), Schalter aktiv/ehem )<br/>
+ *   oder  list_members(array('p1','p2'), Schalter aktiv/ehem )<br/>
  *
  * Schalter aktiv/ehem: 0 = aktive Mitglieder, 1 = ehemalige Mitglieder, ungleich 1 oder 0: alle Mitglieder <br/>
  *
  * Aufruf: z.B. list_members(array('FIRST_NAME','LAST_NAME'), array('Mitglied' => 0,'Administrator' => 0));
  *
- * @param   array               $fields  Array mit usf_name_intern, z.B. array('FIRST_NAME','LAST_NAME')
- * @param   array/string/bool   $rols    Array mit Rollen, z.B. <br/>
- *                                            array('Rollenname1' => Schalter aktiv/ehem) )<br/>
- *                                       oder 'Rollenname' <br/>
- *                                       oder Schalter aktiv/ehem  <br/>
+ * @param   array               $fields  		Array mit usf_name_intern oder p+usfID, z.B. array('FIRST_NAME','p2')
+ * @param   array/string/bool   $rols    		Array mit Rollen, z.B. <br/>
+ *                                            		array('Rollenname1' => Schalter aktiv/ehem) )<br/>
+ *                                       			oder 'Rollenname' <br/>
+ *                                       			oder Schalter aktiv/ehem  <br/>
+ * @param   string               $conditions  	SQL-String als zusaetzlicher Filter von $members, z.B. 'AND usd_usf_id = 78'
  * @return  array   $members
  */
-function list_members($fields, $rols = array())
+function list_members($fields, $rols = array(), $conditions = '')
 {
     global $gDb, $gCurrentOrganization, $gProfileFields;
 
@@ -290,7 +292,7 @@ function list_members($fields, $rols = array())
         {
             if ($firstpass)
             {
-                $sql .= ' WHERE ( ';
+                $sql .= ' WHERE (( ';
             }
             else
             {
@@ -312,8 +314,10 @@ function list_members($fields, $rols = array())
             $sql .= ' ) ';
             $firstpass = false;
         }
+        $sql .= ' ) ';
     }
 
+    $sql .= $conditions;
     $sql .= ' AND mem_rol_id = rol_id
               AND rol_valid  = 1
               AND rol_cat_id = cat_id
@@ -329,17 +333,26 @@ function list_members($fields, $rols = array())
         $members[$row['mem_usr_id']] = array('mem_begin' => $row['mem_begin'], 'mem_end' => $row['mem_end']);
     }
 
-    foreach ($members as $member => $key)
+    foreach ($members as $member => $dummy)
     {
         foreach ($fields as $field => $data)
         {
+        	$key = $data;
+        	$usfID = $gProfileFields->getProperty($data, 'usf_id');
+        	
+        	if (substr($data, 0 ,1) == 'p')
+        	{
+        		$usfID= substr($data, 1);
+        		$key = $usfID;
+        	}
+        	
             $sql = 'SELECT usd_value
-                    FROM '.TBL_USER_DATA.'
-                    WHERE usd_usr_id = '.$member.'
-                    AND usd_usf_id = '.$gProfileFields->getProperty($data, 'usf_id').' ';
+                      FROM '.TBL_USER_DATA.'
+                     WHERE usd_usr_id = '.$member.'
+                       AND usd_usf_id = '.$usfID.' ';
             $statement = $gDb->query($sql);
             $row = $statement->fetch();
-            $members[$member][$data] = $row['usd_value'];
+            $members[$member][$key] = $row['usd_value'];
         }
     }
     return $members;

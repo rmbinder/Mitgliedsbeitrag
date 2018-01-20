@@ -232,6 +232,21 @@ try
             $pPreferences->config['Rollenpruefung']['bezugskategorie'] = isset($_POST['bezugskategorie']) ? $_POST['bezugskategorie'] : array(' ');
             break;
 
+        case 'columnset':
+        	foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
+        	{ 
+        		$pPreferences->config['columnconfig'][$conf] = array();
+
+        		for ($number = 1; isset($_POST['column'.$conf.'_'.$number]); $number++)
+        		{
+        			if (strlen($_POST['column'.$conf.'_'.$number]) > 0)
+        			{		
+        				$pPreferences->config['columnconfig'][$conf][] = $_POST['column'.$conf.'_'.$number];
+        			}
+        		}
+        	}
+        	break; 
+        	
         case 'plugin_control':
             unset($pPreferences->config['Pluginfreigabe']);
             $pPreferences->config['Pluginfreigabe']['freigabe'] = isset($_POST['freigabe']) ? $_POST['freigabe'] : $pPreferences->config_default['Pluginfreigabe']['freigabe'];
