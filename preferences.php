@@ -671,6 +671,23 @@ $page->addHtml('
                                     $form->addCheckbox('familienrollenfix'.$key, $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').' ./. '.$data['rolle'], (in_array($key, $pPreferences->config['Rollenpruefung']['familienrollenfix']) ? 1 : 0));
                                 }
                             }
+                            if (count($fixrollen) > 1)
+                            {
+                            	$fixrollenL = $fixrollen;
+                            	array_pop($fixrollenL);						// das letzte Element entfernen
+                            	$fixrollenR = $fixrollen;
+                            	
+                            	foreach ($fixrollenL as $keyL => $dataL)
+                            	{
+                            		unset($fixrollenR[$keyL]);				// dasselbe Element entfernen
+                            		foreach ($fixrollenR as $keyR=> $dataR)
+                            		{
+                            			$form->addCheckbox('fixrollenfixrollen'.$keyL.'_'.$keyR, $dataL['rolle'].' ./. '.$dataR['rolle'], (in_array($keyL.'_'.$keyR, $pPreferences->config['Rollenpruefung']['fixrollenfixrollen']) ? 1 : 0));
+                            		}
+                            	}
+                            	unset($fixrollenL);
+                            	unset($fixrollenR);
+                            }
                             $form->addDescription('</div>');
                         }
                         else

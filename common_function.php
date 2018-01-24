@@ -766,6 +766,17 @@ function check_rollenmitgliedschaft_ausschluss()
                 }
             }
         }
+        if (is_array($pPreferences->config['Rollenpruefung']['fixrollenfixrollen']))
+        {
+        	foreach ($pPreferences->config['Rollenpruefung']['fixrollenfixrollen'] as $roldata)
+        	{
+        		$fixRols = explode('_', $roldata);
+        		if ((in_array($fixRols[0], $memberdata['rollen'])) && (in_array($fixRols[1], $memberdata['rollen'])))
+        		{
+        			$marker = true;
+        		}
+        	}
+        }
 
         if ($marker)
         {

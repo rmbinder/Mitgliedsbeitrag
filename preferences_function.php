@@ -233,6 +233,27 @@ try
                 }
             }
 
+            if (count($fixrollen) > 1)
+            {
+            	$fixrollenL = $fixrollen;
+            	array_pop($fixrollenL);						// das letzte Element entfernen
+            	$fixrollenR = $fixrollen;
+            	
+            	foreach ($fixrollenL as $keyL => $dataL)
+            	{
+            		unset($fixrollenR[$keyL]);				// dasselbe Element entfernen
+            		foreach ($fixrollenR as $keyR => $dataR)
+            		{
+            			if (isset($_POST['fixrollenfixrollen'.$keyL.'_'.$keyR]))
+            			{
+            				$pPreferences->config['Rollenpruefung']['fixrollenfixrollen'][] = $keyL.'_'.$keyR;
+            			}
+            		}
+            	}
+            	unset($fixrollenL);
+            	unset($fixrollenR);
+            }
+            
             if(isset($_POST['bezugskategorie']))
             {
             	$pPreferences->config['Rollenpruefung']['bezugskategorie'] = $_POST['bezugskategorie'];

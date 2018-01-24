@@ -63,7 +63,8 @@ $config_default['Rollenpruefung'] = array('altersrollenfamilienrollen' => array(
                                             'bezugskategorie'          => array(' '),
                                             'altersrollenaltersrollen' => array(' '),
                                             'familienrollenfix'        => array(' '),
-                                            'altersrollenfix'          => array(' '));
+                                            'altersrollenfix'          => array(' '),
+										    'fixrollenfixrollen'       => array(' '));
 
 //Rechnungs-Export
 $config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung.csv');
