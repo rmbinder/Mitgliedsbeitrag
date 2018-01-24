@@ -180,8 +180,11 @@ try
                 $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf] = $_POST['familienrollen_pruefung'. $conf];
             }
 
-            $pPreferences->config['Rollenpruefung']['familienrollenpflicht'] = isset($_POST['familienrollenpflicht']) ? $_POST['familienrollenpflicht'] : '';
-
+            if (isset($_POST['familienrollenpflicht']))
+            {
+            	$pPreferences->config['Rollenpruefung']['familienrollenpflicht'] = $_POST['familienrollenpflicht'];
+            }
+            
             $fixrollen = beitragsrollen_einlesen('fix');
             foreach($fixrollen as $key => $data)
             {
@@ -229,7 +232,20 @@ try
                     $pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen'][] = $token;
                 }
             }
-            $pPreferences->config['Rollenpruefung']['bezugskategorie'] = isset($_POST['bezugskategorie']) ? $_POST['bezugskategorie'] : array(' ');
+
+            if(isset($_POST['bezugskategorie']))
+            {
+            	$pPreferences->config['Rollenpruefung']['bezugskategorie'] = $_POST['bezugskategorie'];
+            	
+            }
+            
+            foreach ($pPreferences->config_default['Rollenpruefung'] as $roleTest => $dummy)
+            {
+            	if (!isset($pPreferences->config['Rollenpruefung'][$roleTest]))
+            	{
+            		$pPreferences->config['Rollenpruefung'][$roleTest] = $pPreferences->config_default['Rollenpruefung'][$roleTest];
+            	}
+            }
             break;
 
         case 'columnset':
