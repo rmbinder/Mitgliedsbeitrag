@@ -238,27 +238,31 @@ if(count($rols) > 0)
 
     <div class="tab-content">
         <div class="tab-pane" id="tabs-fees">
-            <div class="panel-group" id="accordion_fees">
-                <div class="panel panel-default" id="panel_remapping">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_remapping">
-                                <img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapse_remapping" class="panel-collapse collapse">
-                        <div class="panel-body">');
-                            // show form
-                            $form = new HtmlForm('configurations_form', null, $page);
-                            $form->addButton('btn_remapping_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'remapping.php', 'class' => 'btn-primary col-sm-offset-3'));
-                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
-                            $page->addHtml($form->show(false));
-                        $page->addHtml('</div>
-                    </div>
-                </div>
-            
-                <div class="panel panel-default" id="panel_delete">
+            <div class="panel-group" id="accordion_fees">');
+
+    			if (count(beitragsrollen_einlesen('alt')) > 0)
+    			{
+    				$page->addHtml('<div class="panel panel-default" id="panel_remapping">
+                    	<div class="panel-heading">
+                        	<h4 class="panel-title">
+                            	<a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_remapping">
+                                	<img src="'. THEME_URL .'/icons/edit.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES').'
+                            	</a>
+                        	</h4>
+                    	</div>
+                    	<div id="collapse_remapping" class="panel-collapse collapse">
+                        	<div class="panel-body">');
+                            	// show form
+                            	$form = new HtmlForm('configurations_form', null, $page);
+                            	$form->addButton('btn_remapping_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => THEME_URL .'/icons/edit.png', 'link' => 'remapping.php', 'class' => 'btn-primary col-sm-offset-3'));
+                            	$form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
+                            	$page->addHtml($form->show(false));
+                        	$page->addHtml('</div>
+                    	</div>
+                	</div>');
+     			}
+  
+    			$page->addHtml('<div class="panel panel-default" id="panel_delete">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_fees" href="#collapse_delete">
