@@ -30,7 +30,7 @@ $config_default['Familienrollen'] = array('familienrollen_beitrag'        => arr
                                             'familienrollen_pruefung'     => array(''));
 
 //Beitrag
-$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2016',
+$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2018',
                                     'beitrag_suffix'        => '(ant.)',
                                     'beitrag_textmitnam'    => 1,
                                     'beitrag_textmitfam'    => '',
