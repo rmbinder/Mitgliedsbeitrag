@@ -634,7 +634,7 @@ $page->addHtml('
                             $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES'));
                         }
                         $form->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC2'));
-                        if (((count($altersrollen) > 0) && (count($familienrollen) > 0)) || ((count($altersrollen) > 0) && (count($fixrollen) > 0)) || ((count($familienrollen) > 0) && (count($fixrollen) > 0)))
+                        if (((count($altersrollen) > 0) && (count($familienrollen) > 0)) || count($fixrollen) > 0)
                         {
                             $form->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
                             if ((count($pPreferences->config['Altersrollen']['altersrollen_token'])>1))
