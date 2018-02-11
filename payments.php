@@ -448,6 +448,11 @@ else
     			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
     			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$htmlValue.'</a>';
     		}
+    		elseif  (($usfId === (int) $gProfileFields->getProperty('EMAIL', 'usf_id')
+    				|| $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id')))
+    		{
+    			$columnValues[] = getEmailLink($data, $member);
+    		}
     		else
     		{
     			// checkbox must set a sorting value

@@ -1486,3 +1486,36 @@ function obfuscate_iban($iban) {
 	}, $iban, 17);
 }
 
+/**
+ * Returns the value with a html link to the mail module
+ * @param string $value           The value that should be formated
+ * @param int    $member          The user id
+ * @return string The formated string 
+ */
+function getEmailLink($value, $member)
+{
+	global $gPreferences, $plugin_folder;
+	
+	$htmlValue = '';
+	
+	if ($value !== '')
+	{
+		if ($gPreferences['enable_mail_module'] != 1)
+		{
+			$emailLink = 'mailto:' . $value;
+		}
+		else
+		{
+			$emailLink = ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_write.php?usr_id='.$member;
+		}
+		if (strlen($value) > 30)
+		{
+			$htmlValue = '<a href="' . $emailLink . '" title="' . $value . '">' . substr($value, 0, 30) . '...</a>';
+		}
+		else
+		{
+			$htmlValue = '<a href="' . $emailLink . '" title="' . $value . '" style="overflow: visible; display: inline;">' . $value . '</a>';
+		}
+	}
+	return $htmlValue;
+}
