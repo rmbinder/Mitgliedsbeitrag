@@ -491,6 +491,53 @@ if($getMode == 'anlegen')
                         '.$gCurrentUser->getValue('usr_id').' )';
         $gDb->query($sql);
     }
+    
+    // Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.4 NEU
+    // im ersten Schritt pruefen, ob das Profilfeld 'MEMBERNUMBER' noch vorhanden ist
+    if ($gProfileFields->getProperty('MEMBERNUMBER', 'usf_id') > 0)
+    {
+    	//wenn ja, das alte, org-uebergreifende Profilfeld umbenennen in "Mitgliedsnummer-alt"
+    	$userField = new TableUserField($gDb, $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));
+    	$userField->setValue('usf_name', 'Mitgliedsnummer-alt');
+    	$userField->setValue('usf_name_intern', 'MEMBERNUMBER_OLD');
+    	$userField->save();
+    }
+        
+    // $gProfileFields aktualisieren
+    $gProfileFields->readProfileFields($gCurrentOrganization->getValue('org_id'));
+
+    // im zweiten Schritt pruefen, ob ueberhaupt Mitgliedsnummern existieren
+    $sql = 'SELECT COUNT(*) AS count
+              FROM '.TBL_USER_DATA.'
+             WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER_OLD', 'usf_id').' ';
+    
+    $membNumOldStatement = $gDb->query($sql);
+    if ($membNumOldStatement->fetchColumn() > 0)       // ja, es gibt alte Mitgliedsnummern
+    {
+    	// im dritten Schritt pruefen, ob Mitgliedsnummern bereits uebertragen wurden
+    	$sql = 'SELECT COUNT(*) AS count
+                  FROM '.TBL_USER_DATA.'
+                 WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), 'usf_id').' ';
+                       
+    	$membNumNewStatement = $gDb->query($sql);
+        if ($membNumNewStatement->fetchColumn() == 0)       // nein, es gibt noch keine neuen Mitgliedsnummern
+        {
+        	$user = new User($gDb, $gProfileFields);
+        	
+        	$sql = 'SELECT usd_usr_id, usd_value
+        		      FROM '. TBL_USER_DATA. '
+        		     WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER_OLD', 'usf_id').' ';
+        	
+        	$statement = $gDb->query($sql);
+        	while ($row = $statement->fetch())
+        	{
+        		$user->readDataById($row['usd_usr_id']);
+        		$user->setValue('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), $row['usd_value']);
+        		$user->save();
+        	}
+        }
+    }            
+    //Ende Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.4 NEU
 }
 
 if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
@@ -1066,97 +1113,6 @@ function check_DB()
                 $gDb->query($sql);
         }
     }
-    
-    //Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.1
-  
-    // => Membernumber org-abhaengig
-    //pruefen, ob es das Profilfeld 'MEMBERNUMBER' noch gibt
-    //wenn noch nicht konvertiert wurde, dann ist das Profilfeld 'MEMBERNUMBER' noch vorhanden und die usf_id ist groesser als 0
-    if ($gProfileFields->getProperty('MEMBERNUMBER', 'usf_id') > 0)
-    {
-    	// zuerst mal alle org_ids einlesen in denen das Plugin installiert ist (=bei denen die Inst-Routine durchlaufen wurde)
-    	$orgsArray = array();
-    	$sql = 'SELECT cat_id, cat_org_id
-        		  FROM '. TBL_CATEGORIES. '
-        		 WHERE (cat_name = \'Mitgliedschaft\'
-        			OR cat_name = \'PMB_MEMBERSHIP\')
-        		   AND cat_type = \'USF\'  ';
-    
-    	$statement = $gDb->query($sql);
-    	while($row = $statement->fetch())
-    	{
-    		$orgsArray[$row['cat_org_id']] = array('cat_id' => $row['cat_id'], 'usf_id' => 0);
-    	}
-    	 
-    	// fuer alle gefundenen orgs eine neues Profilfeld, jetzt org-abhaengig, anlegen
-    	$defaultFields = array('usf_name'        => 'PMB_MEMBERNUMBER',
-    						   'usf_type'        => 'TEXT',
-    			               'usf_system'      => 0,
-    			               'usf_disabled'    => 1,
-    			               'usf_hidden'      => 1,
-    						   'usf_mandatory'   => 0,
-    						   'usf_description' => '');
-    	 
-    	foreach ($orgsArray as $orgID => $data)
-    	{
-    		$userField = new TableUserField($gDb);
-    		foreach ($defaultFields as $key => $value)
-    		{
-    			$userField->setValue($key, $value);
-    		}
-    		$userField->setValue('usf_cat_id', $data['cat_id']);
-    		$userField->save();
-    
-    		//usf_name_intern wird beim Anlegen eines neuen Profilfeldes automatisch befuellt,
-    		//ein uebergebener Wert wird aber ignoriert, deshalb nachtraeglich veraendern
-    		$orgsArray[$orgID]['usf_id'] = $userField->getvalue('usf_id');
-    		$userField = new TableUserField($gDb, $orgsArray[$orgID]['usf_id']);
-    		$userField->setValue('usf_name_intern', 'MEMBERNUMBER'.$orgID);
-    		$userField->save();
-    	}
-    	 
-    	//jetzt zu jeder user_id die aktuelle Mitgliedsnummer und die dazugehoerige org_id auslesen
-    	$membernumberArray = array();
-    	$sql = 'SELECT DISTINCT mem_usr_id, usd_value, cat_org_id
-        	               FROM '.TBL_USER_DATA.', '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
-        	              WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id').'
-        	                AND usd_value  IS NOT NULL
-                            AND usd_usr_id = mem_usr_id
-        	                AND mem_rol_id = rol_id
-        	                AND rol_cat_id = cat_id
-        	                AND cat_org_id IN  ('. implode(',', array_keys($orgsArray)).')  ';
-    	 
-    	$statement = $gDb->query($sql);
-    	while($row = $statement->fetch())
-    	{
-    		$membernumberArray[$row['mem_usr_id']][] = array('org_id' => $row['cat_org_id'], 'membernumer' => $row['usd_value']);
-    	}
-    	 
-    	//jetzt die neuen Mitgliedsnummern org-abhaengig in die db schreiben
-    	if (count($membernumberArray) > 0)
-    	{
-    		foreach ($membernumberArray as $userID => $data)
-    		{
-    			foreach ($data as $dataValue)
-    			{
-    				$sql = 'INSERT INTO '.TBL_USER_DATA.' (usd_usr_id, usd_usf_id, usd_value)
-                            VALUES (\''.$userID.'\' ,
-                            		\''.$orgsArray[$dataValue['org_id']]['usf_id'].'\' ,
-                            		\''.$dataValue['membernumer'].'\')   ';
-    				$gDb->query($sql);
-    			}
-    		}
-    	}
-
-        //das alte, org-uebergreifende Profilfeld umbenennen in "Mitgliedsnummer-alt" (als Kontrollmoeglichkeit)
-        $userField = new TableUserField($gDb, $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));
-    	$userField->setValue('usf_name', 'Mitgliedsnummer-alt');
-    	$userField->setValue('usf_name_intern', 'MEMBERNUMBER_OLD');
-    	$userField->save();
-    	//anstatt umbenennen waere auch loeschen moeglich
-    	//$pPreferences->delete_member_data(3, 'MEMBERNUMBER');
-    }
-
     // Ende Update/Konvertierungsroutine
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
