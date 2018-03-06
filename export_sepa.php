@@ -249,7 +249,7 @@ if (isset($_POST['btn_xml_file']))
                      																//Der SequenceType gibt an, ob es sich um eine Erst-, Folge-,
                      																//Einmal- oder letztmalige Lastschrift handelt.
                      																//Zulaessige Werte: FRST, RCUR, OOFF, FNAL
-                     																//Wenn <OrgnlDbtrAgt> = SMNDA und <Amdmnt-Ind> = true
+                     																//Wenn <OrgnlDbtrAcct> = SMNDA und <Amdmnt-Ind> = true
                      																//dann muss dieses Feld mit FRST belegt sein.
                      		$xmlfile .= "</PmtTpInf>\n";
                     
@@ -296,16 +296,18 @@ if (isset($_POST['btn_xml_file']))
                                     		$xmlfile .= "</OrgnlCdtrSchmeId>\n";
                                 		}
 
-                                		if(strlen($zpflgtdata['orig_iban']) !== 0)             //Kennzeichnet, ob das Mandat veraendert wurde,
+                                		if(strlen($zpflgtdata['orig_iban']) !== 0 || strlen($zpflgtdata['orig_dbtr_agent']) !== 0)             //Kennzeichnet, ob das Mandat veraendert wurde,
                                 		{
                                     		$xmlfile .= "<OrgnlDbtrAcct>\n";
                                         		$xmlfile .= "<Id>\n";
-                                            		$xmlfile .= '<IBAN>'.$zpflgtdata['orig_iban']."</IBAN>\n";
+                                        			$xmlfile .= "<Othr>\n";
+                                        				$xmlfile .= "<Id>SMNDA</Id>\n";
+                                        			$xmlfile .= "</Othr>\n";
                                         		$xmlfile .= "</Id>\n";
                                     		$xmlfile .= "</OrgnlDbtrAcct>\n";
                                 		}
 
-                                		if(strlen($zpflgtdata['orig_dbtr_agent']) !== 0)       //Kennzeichnet, ob das Mandat veraendert wurde,
+                                	/*	if(strlen($zpflgtdata['orig_dbtr_agent']) !== 0)       //Kennzeichnet, ob das Mandat veraendert wurde,
                                 		{
                                     		$xmlfile .= "<OrgnlDbtrAgt>\n";
                                         		$xmlfile .= "<FinInstnId>\n";
@@ -314,7 +316,7 @@ if (isset($_POST['btn_xml_file']))
                                             		$xmlfile .= "</Othr>\n";
                                        	 		$xmlfile .= "</FinInstnId>\n";
                                     		$xmlfile .= "</OrgnlDbtrAgt>\n";
-                                		}
+                                		}*/
 
                                 		$xmlfile .= "</AmdmntInfDtls>\n";
                             		}
