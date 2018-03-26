@@ -78,7 +78,7 @@ if ($getChoice == '')
 //das Array fuer die Auswahl der Profilfelder plus evtl. Zusatzfelder erzeugen
 $fieldSelectionList = array();
 $i = 1;
-foreach ($gProfileFields->mProfileFields as $field)
+foreach ($gProfileFields->getProfileFields() as $field)
 {
 	if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->editUsers())
 	{
@@ -560,7 +560,7 @@ $page->addHtml('
 
                         $configSelection = array();
                         $i  = 0;
-                        foreach($gProfileFields->mProfileFields as $field)
+                        foreach($gProfileFields->getProfileFields() as $field)
                         {
                             $configSelection[$i][0]   = $field->getValue('usf_name_intern');
                             $configSelection[$i][1]   = addslashes($field->getValue('usf_name'));

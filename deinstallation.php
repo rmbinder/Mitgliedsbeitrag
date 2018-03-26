@@ -221,7 +221,8 @@ elseif ($getMode == 'delete')
 
         //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
         $form->addStaticControl('', '', '');
-
+        $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => $gHomepage, 'class' => 'btn-primary'));
+        
         $_SESSION['pMembershipFee']['deinst'] = true;
     }
     else

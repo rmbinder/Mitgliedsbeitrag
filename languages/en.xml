@@ -123,7 +123,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Delete data in all organizations.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- When you delete the data, an error has occurred..\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- The created data has been cleared.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nTo completely remove the plugin now the browser must be closed and the program files and the link in the menu must be removed. The "Next" button initializes the plugin again with default values.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nTo completely remove the plugin the program files and the menu entry must be removed.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">No data has been selected for deletion.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">The following deletions were performed:\n\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- The table "adm_plugin_preferences" could not be deleted because it houses more data from other plugins.\n</string>

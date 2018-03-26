@@ -43,12 +43,11 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name_intern'].'\' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_system'].' ,
                         '.$nextCatSequence.',
                         '.$gCurrentUser->getValue('usr_id').' )';
@@ -100,12 +99,11 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name_intern'].'\' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_system'].' ,
                         '.$nextCatSequence.',
                         '.$gCurrentUser->getValue('usr_id').' )';
@@ -214,12 +212,11 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_name_intern'].'\' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_system'].' ,
                         '.$nextCatSequence.',
                         '.$gCurrentUser->getValue('usr_id').' )';
@@ -290,12 +287,11 @@ if($getMode == 'anlegen')
     {
         $nextCatSequence = getNextCatSequence('USF');
 
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_hidden, cat_system, cat_sequence, cat_usr_id_create)
+        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create)
                 VALUES (\'USF\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_name'].'\' ,
                         \''.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_name_intern'].'\' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_hidden'].' ,
                         '.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_system'].' ,
                         '.$nextCatSequence.',
                         '.$gCurrentUser->getValue('usr_id').' )';
@@ -573,7 +569,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 1, 2);
+    $table->addRowByArray($columnValues, null, null, 2, 2);
     
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -590,7 +586,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 1, 2);
+    $table->addRowByArray($columnValues, null, null, 2, 2);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -625,7 +621,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 1, 2);
+    $table->addRowByArray($columnValues, null, null, 2, 2);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -648,7 +644,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 1, 2);
+    $table->addRowByArray($columnValues, null, null, 2, 2);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -801,7 +797,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedschaft'));
-    $table->addRowByArray($columnValues, null, null, 5, 8);
+    $table->addRowByArray($columnValues, null, null, 8, 5);
     
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -818,7 +814,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedsbeitrag'));
-    $table->addRowByArray($columnValues, null, null, 5, 8);
+    $table->addRowByArray($columnValues, null, null, 8, 5);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -853,7 +849,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mandat'));
-    $table->addRowByArray($columnValues, null, null, 5, 8);
+    $table->addRowByArray($columnValues, null, null, 8, 5);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -876,7 +872,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
     $columnValues  = array_merge($columnValues, SollIstKategorie($arr, 'Kontodaten'));
-    $table->addRowByArray($columnValues, null, null, 5, 8);
+    $table->addRowByArray($columnValues, null, null, 8, 5);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -1116,10 +1112,10 @@ function check_DB()
     // Ende Update/Konvertierungsroutine
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
-    $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_id' => -1, 'cat_org_id' => 'Null',                                    'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',                                             'cat_type' => 'USF', 'cat_system' => 0, 'cat_hidden' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'), 'cat_type' => 'USF', 'cat_system' => 0, 'cat_hidden' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP',     'cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'),     'cat_type' => 'USF', 'cat_system' => 0, 'cat_hidden' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']           = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MANDATE',        'cat_name_intern' => 'MANDATE'.$gCurrentOrganization->getValue('org_id'),        'cat_type' => 'USF', 'cat_system' => 0, 'cat_hidden' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_id' => -1, 'cat_org_id' => 'Null',                                    'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',                                             'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrganization->getValue('org_id'), 'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MEMBERSHIP',     'cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrganization->getValue('org_id'),     'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']           = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrganization->getValue('org_id'), 'cat_name' => 'PMB_MANDATE',        'cat_name_intern' => 'MANDATE'.$gCurrentOrganization->getValue('org_id'),        'cat_type' => 'USF', 'cat_system' => 0);
 
     $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN']                 = array('usf_name' => 'PMB_IBAN',              'usf_name_intern' => 'IBAN',                                                        'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
     $DB_array['SOLL']['TBL_USER_FIELDS']['BIC']                  = array('usf_name' => 'PMB_BIC',               'usf_name_intern' => 'BIC',                                                         'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
@@ -1177,7 +1173,7 @@ function check_DB()
 
     foreach ($DB_array['IST']['TBL_CATEGORIES'] as $cat => $catdata)
     {
-        $sql = ' SELECT cat_id, cat_org_id, cat_name, cat_name_intern, cat_type, cat_system, cat_hidden
+        $sql = ' SELECT cat_id, cat_org_id, cat_name, cat_name_intern, cat_type, cat_system
             FROM '.TBL_CATEGORIES.'
             WHERE cat_name_intern = \''.$catdata['cat_name_intern'].'\'
             AND cat_type = \'USF\'
@@ -1193,8 +1189,7 @@ function check_DB()
             'cat_id'          => (isset($row->cat_id) ? $row->cat_id : ''),
             'cat_org_id'      => (isset($row->cat_org_id) ? $row->cat_org_id : ''),
             'cat_type'        => (isset($row->cat_type) ? $row->cat_type : ''),
-            'cat_system'      => (isset($row->cat_system) ? $row->cat_system : ''),
-            'cat_hidden'      => (isset($row->cat_hidden) ? $row->cat_hidden : '')
+            'cat_system'      => (isset($row->cat_system) ? $row->cat_system : '')
         );
 
         if ($DB_array['IST']['TBL_CATEGORIES'][$cat]['cat_name_intern'] != $DB_array['SOLL']['TBL_CATEGORIES'][$cat]['cat_name_intern'])

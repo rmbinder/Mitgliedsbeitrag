@@ -27,7 +27,7 @@ require_once(__DIR__ . '/classes/configtable.php');
 $plugin_folder = '/'.substr(__DIR__,strrpos(__DIR__,DIRECTORY_SEPARATOR)+1);
 
 // Einbinden der Sprachdatei
-$gL10n->addLanguagePath(ADMIDIO_PATH . FOLDER_PLUGINS . $plugin_folder . '/languages');
+$gL10n->addLanguageFolderPath(ADMIDIO_PATH . FOLDER_PLUGINS . $plugin_folder . '/languages');
 
 $pPreferences = new ConfigTablePMB();
 
@@ -53,18 +53,6 @@ if(!isset($_SESSION['pMembershipFee']['deinst']) && $gValidLogin)
     // Zeige Link zum Plugin
     if(check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     {
-        if (isset($pluginMenu))
-        {
-            // wenn in der my_body_bottom.php ein $pluginMenu definiert wurde,
-            // dann innerhalb dieses Menues anzeigen
-            $pluginMenu->addItem('membershipfee_show', FOLDER_PLUGINS . $plugin_folder .'/'.$startprog,
-                $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
-        }
-        else
-        {
-            // wenn nicht, dann innerhalb des (immer vorhandenen) Module-Menus anzeigen
-            $moduleMenu->addItem('membershipfee_show', FOLDER_PLUGINS . $plugin_folder .'/'.$startprog,
-                $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), '/icons/lists.png');
-        }
+    	admRedirect(ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/'.$startprog);
     }
 }

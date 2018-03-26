@@ -124,7 +124,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Daten in allen Organisationen löschen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- Beim Löschen der Daten ist ein Fehler aufgetreten.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- Die vom Plugin angelegten Daten wurden gelöscht.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nUm das Plugin vollständig zu entfernen, müssen jetzt der Browser geschlossen und die Programmdateien und der Link im Menü entfernt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nUm das Plugin vollständig zu entfernen, müssen noch die Programmdateien und der Menü-Eintrag gelöscht werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">Es wurden keine Daten zum Löschen ausgewählt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">Folgende Aktionen wurden durchgeführt:\n\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- Die Tabelle "adm_plugin_preferences" konnte nicht gelöscht werden, da sich darin noch Daten eines anderen Plugins befinden.\n</string>

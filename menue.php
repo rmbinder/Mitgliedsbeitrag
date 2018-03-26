@@ -30,6 +30,12 @@ if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
+//nur zum Testen
+if (ini_get('max_execution_time')<600)
+{
+	ini_set('max_execution_time', 600); //600 seconds = 10 minutes
+}
+
 $duedates = array();
 $directdebittype = false;
 $duedatecount = 0;
@@ -98,13 +104,11 @@ foreach ($rols as $key => $data)
 }
 
 array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen);
-
 $selectBoxEntriesAlleRollen = 'SELECT rol_id, rol_name, cat_name
           						 FROM '.TBL_ROLES.'
     					   INNER JOIN '.TBL_CATEGORIES.'
                                    ON cat_id = rol_cat_id
                                 WHERE rol_valid   = 1
-                                  AND rol_visible = 1
                                   AND (  cat_org_id  = '. $gCurrentOrganization->getValue('org_id'). '
                                    OR cat_org_id IS NULL )
                              ORDER BY cat_sequence, rol_name';
