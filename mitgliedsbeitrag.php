@@ -3,13 +3,13 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag
  *
- * Version 4.2.4
+ * Version 4.3.0
  *
  * Dieses Plugin berechnet Mitgliedsbeitraege anhand von Rollenzugehoerigkeiten.
  *
  * Author: rmb
  *
- * Compatible with Admidio version 3.2
+ * Compatible with Admidio version 3.3
  *
  * @copyright 2004-2018 The Admidio Team
  * @see https://www.admidio.org/
