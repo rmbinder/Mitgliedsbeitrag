@@ -72,7 +72,7 @@ if ($getMode == 'start')     //Default
     $form->addCheckbox('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), 0);
     $form->addCheckbox('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), 0);
     $form->addCheckbox('bank', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'), 0);
-    $form->addCheckbox('address', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'), 0);
+    $form->addCheckbox('street', $gL10n->get('PLG_MITGLIEDSBEITRAG_STREET'), 0);
     $form->addCheckbox('postcode', $gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE'), 0);
     $form->addCheckbox('city', $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY'), 0);
     $form->addCheckbox('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), 0);
@@ -131,9 +131,9 @@ elseif ($getMode == 'delete')
     {
         $deinst_member_data_message .= $pPreferences->delete_member_data(3, 'BANK', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'));
     }
-    if (isset($_POST['address']))
+    if (isset($_POST['street']))
     {
-        $deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR_ADDRESS', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS'));
+        $deinst_member_data_message .= $pPreferences->delete_member_data(3, 'DEBTOR_STREET', $gL10n->get('PLG_MITGLIEDSBEITRAG_STREET'));
     }
     if (isset($_POST['postcode']))
     {

@@ -218,7 +218,7 @@ else
     }
 
     // show rows
-    foreach($gProfileFields->mProfileFields as $field)
+    foreach($gProfileFields->getProfileFields() as $field)
     {
         $htmlSourceMarker   = '&nbsp;';
         $htmlProfileField   = '&nbsp;';

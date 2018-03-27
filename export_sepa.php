@@ -58,7 +58,7 @@ foreach ($dueDateArr as $dueDate => $dummy)      							//Erweiterung fuer die D
 	$filename_ext .= '-'.$dueDate;
 }
 	
-$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'ADDRESS', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_ADDRESS', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0);
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0);
 		
 //alle Mitglieder durchlaufen und das Array $zpflgt befuellen
 foreach ($members as $member => $memberdata)
@@ -78,7 +78,7 @@ foreach ($members as $member => $memberdata)
         if (empty($memberdata['DEBTOR']))
         {
             $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'].' '.$memberdata['LAST_NAME'];
-            $members[$member]['DEBTOR_ADDRESS'] = $memberdata['ADDRESS'];
+            $members[$member]['DEBTOR_STREET'] = $memberdata['STREET'];
             $members[$member]['DEBTOR_CITY'] = $memberdata['CITY'];
         }
 
@@ -93,7 +93,7 @@ foreach ($members as $member => $memberdata)
         		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$zpflgt[$member]['name']. '</a>'), $gL10n->get('SYS_ERROR'));
         	}
         	$zpflgt[$member]['land'] = substr($zpflgt[$member]['iban'], 0, 2);
-        	$zpflgt[$member]['adresse'] = substr(replace_sepadaten($members[$member]['DEBTOR_ADDRESS']), 0, 70);    
+        	$zpflgt[$member]['street'] = substr(replace_sepadaten($members[$member]['DEBTOR_STREET']), 0, 70);    
         	$zpflgt[$member]['ort'] = substr(replace_sepadaten($members[$member]['DEBTOR_CITY']), 0, 70);    
         }
                               
@@ -349,7 +349,7 @@ if (isset($_POST['btn_xml_file']))
                         		{
                         			$xmlfile .= "<PstlAdr>\n";
                         				$xmlfile .= '<Ctry>'.$zpflgtdata['land']."</Ctry>\n";              //Zahlungspflichtigen-Adresse ist Pflicht
-                        				$xmlfile .= '<AdrLine>'.$zpflgtdata['adresse']."</AdrLine>\n";     // bei Lastschriften ausserhalb EU/EWR
+                        				$xmlfile .= '<AdrLine>'.$zpflgtdata['street']."</AdrLine>\n";     // bei Lastschriften ausserhalb EU/EWR
                         				$xmlfile .= '<AdrLine>'.$zpflgtdata['ort']."</AdrLine>\n";          
                         			$xmlfile .= "</PstlAdr>\n";
                         		}
@@ -445,7 +445,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').';'
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT').';'
         .$gL10n->get('SYS_COUNTRY').';'
-        .$gL10n->get('SYS_ADDRESS').';'
+        .$gL10n->get('SYS_STREET').';'
         .$gL10n->get('SYS_CITY')."\n";
 
     $nr = 1;
@@ -470,7 +470,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
             .utf8_decode($zpflgtdata['orig_iban']).';'
             .utf8_decode($zpflgtdata['orig_dbtr_agent']).';'
             .utf8_decode($zpflgtdata['land']).';'            		
-            .utf8_decode($zpflgtdata['adresse']).';'            		
+            .utf8_decode($zpflgtdata['street']).';'            		
             .utf8_decode($zpflgtdata['ort'])
             ."\n";
         $nr += 1;

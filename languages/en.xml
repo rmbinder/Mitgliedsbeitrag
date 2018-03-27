@@ -8,7 +8,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Add another column</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Add further configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Additional fields</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ADDRESS">AccHolder&apos;s address</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADULT">Adults</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADULT_DESC">Here, the minimum and maximum number of adults in a family has to be entered.\nPossible values would be 1 for Min and 2 for Max, meaning that\n1. a family must have at least one adult and must not consist of children and juveniles only and that\n2. a family may have a maximum of two adults (father and mother) and not the child who has just attained full age. </string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE">Age</string>
@@ -430,6 +429,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Creates an invoice file in the CSV format.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Invoice file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STREET">AccHolder&apos;s street</string>    
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Sum</string>
     <string name="PLG_MITGLIEDSBEITRAG_SUMMATION">Add up</string>
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">General</string>
@@ -475,10 +475,10 @@
     <string name="PMB_BIC">BIC</string>
     <string name="PMB_CONTRIBUTORY_TEXT">Contributory text</string>
     <string name="PMB_DEBTOR">Account holder</string>
-    <string name="PMB_DEBTOR_ADDRESS">AccHolder&apos;s address</string>
     <string name="PMB_DEBTOR_CITY">AccHolder&apos;s location</string>
     <string name="PMB_DEBTOR_EMAIL">AccHolder&apos;s e-mail</string>
     <string name="PMB_DEBTOR_POSTCODE">AccHolder&apos;s post code</string>
+    <string name="PMB_DEBTOR_STREET">AccHolder&apos;s street</string>    
     <string name="PMB_DUEDATE">Due date</string>
     <string name="PMB_FEE">Fee</string>
     <string name="PMB_IBAN">IBAN</string>

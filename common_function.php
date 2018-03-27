@@ -990,7 +990,7 @@ function check_family_roles()
 }
 
 /**
- * Prueft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Adresse, Ort...) vorhanden sind
+ * Prueft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Strasse, Ort...) vorhanden sind
  * @return  array $ret
  */
 function check_mandate_management()
@@ -998,11 +998,11 @@ function check_mandate_management()
     global $gL10n;
     $ret = array();
 
-    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_ADDRESS'), 0);
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_STREET'), 0);
 
     foreach ($members as $member => $memberdata)
     {
-        if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_ADDRESS']) === 0)))
+        if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_STREET']) === 0)))
         {
             $ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }

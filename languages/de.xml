@@ -8,7 +8,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Weitere Spalte hinzufügen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Weitere Konfiguration hinzufügen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Zusätzliche Felder</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ADDRESS">KtoInh-Adresse</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADULT">Erwachsene</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADULT_DESC">Hier ist Min- und Max-Anzahl von Erwachsenen einer Familie einzugeben.\nMögliche Werte wären z.B. 1 für Min und 2 für Max, was bedeutet, daß\n1. eine Familie mindestens einen Erwachsenen aufweisen muß und nicht nur aus Kindern und Jugendlichen bestehen darf\n2. eine Familie maximal zwei Erwachsene aufweisen darf (Vater und Mutter) und nicht das gerade volljährig gewordene Kind.</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE">Alter</string>
@@ -430,6 +429,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Erstellt eine Rechnungsdatei im CSV-Format.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Rechnungsdateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STREET">KtoInh-Straße</string>    
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Summe</string>
     <string name="PLG_MITGLIEDSBEITRAG_SUMMATION">Aufsummieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">Allgemein</string>
@@ -475,10 +475,10 @@
     <string name="PMB_BIC">BIC</string>
     <string name="PMB_CONTRIBUTORY_TEXT">Beitragstext</string>
     <string name="PMB_DEBTOR">Kontoinhaber</string>
-    <string name="PMB_DEBTOR_ADDRESS">KtoInh-Adresse</string>
     <string name="PMB_DEBTOR_CITY">KtoInh-Ort</string>
     <string name="PMB_DEBTOR_EMAIL">KtoInh-E-Mail</string>
     <string name="PMB_DEBTOR_POSTCODE">KtoInh-PLZ</string>
+    <string name="PMB_DEBTOR_STREET">KtoInh-Straße</string>    
     <string name="PMB_DUEDATE">Fälligkeitsdatum</string>
     <string name="PMB_FEE">Beitrag</string>
     <string name="PMB_IBAN">IBAN</string>

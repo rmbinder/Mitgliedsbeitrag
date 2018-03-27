@@ -334,7 +334,7 @@ class ConfigTablePMB
         $fieldsarray[] = 'BIC';
         $fieldsarray[] = 'BANK';
         $fieldsarray[] = 'DEBTOR';
-        $fieldsarray[] = 'DEBTOR_ADDRESS';
+        $fieldsarray[] = 'DEBTOR_STREET';
         $fieldsarray[] = 'DEBTOR_POSTCODE';
         $fieldsarray[] = 'DEBTOR_CITY';
         $fieldsarray[] = 'DEBTOR_EMAIL';

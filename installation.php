@@ -376,19 +376,19 @@ if($getMode == 'anlegen')
         $nextFieldSequence++;
     }
 
-    // pruefen, ob es das Profilfeld KontoinhaberAdresse gibt, wenn nicht: anlegen
-    if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name']))
+    // pruefen, ob es das Profilfeld KontoinhaberStrasse gibt, wenn nicht: anlegen
+    if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name']))
     {
         $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create)
                 VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_mandatory'].' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_type'].'\' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name'].'\' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name_intern'].'\' ,
+                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_description'].'\' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_system'].' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_disabled'].' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_hidden'].' ,
+                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_mandatory'].' ,
                         '.$nextFieldSequence.',
                         '.$gCurrentUser->getValue('usr_id').' )';
         $gDb->query($sql);
@@ -672,8 +672,8 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 
     $columnValues   = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS');
-    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_STREET');
+    $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues   = array();
@@ -719,7 +719,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name']))
-        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberAdresse']['usf_name']))
+        || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name']))
@@ -900,8 +900,8 @@ elseif($getMode == 'soll_ist')
 
     $columnValues   = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS');
-    $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'KontoinhaberAdresse'));
+    $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_STREET');
+    $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'KontoinhaberStrasse'));
     $table->addRowByArray($columnValues);
 
     $columnValues   = array();
@@ -1109,6 +1109,39 @@ function check_DB()
                 $gDb->query($sql);
         }
     }
+    
+    //Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.3.0
+    $sql = 'SELECT usf_id
+        		FROM '.TBL_USER_FIELDS.'
+        		WHERE usf_name =  \'PMB_DEBTOR_ADDRESS\' ';
+    
+    $statement = $gDb->query($sql);
+    $row = $statement->fetchObject();
+    // Gibt es einen Datensatz mit diesen Alt-Daten? Wenn ja: UPDATE auf die neue Version
+    if (isset($row->usf_id) AND strlen($row->usf_id) > 0)
+    {
+    	$sql = 'UPDATE '.TBL_USER_FIELDS.'
+            		SET usf_name        = \'PMB_DEBTOR_STREET\' ,
+                        usf_name_intern = \'DEBTOR_STREET\'  ,
+                        usf_description = \'<p>Straße des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>\'
+            		WHERE usf_id = '.$row->usf_id;
+    	$gDb->query($sql);
+    }
+    
+    $sql = 'SELECT usf_id
+        		FROM '.TBL_USER_FIELDS.'
+        		WHERE usf_name =  \'PMB_DEBTOR\' ';
+    
+    $statement = $gDb->query($sql);
+    $row = $statement->fetchObject();
+    // Gibt es einen Datensatz mit diesen Alt-Daten? Wenn ja: UPDATE auf die neue Version
+    if (isset($row->usf_id) AND strlen($row->usf_id) > 0)
+    {
+    	$sql = 'UPDATE '.TBL_USER_FIELDS.'
+            		SET usf_description = \'<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Straße, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>\'
+            		WHERE usf_id = '.$row->usf_id;
+    	$gDb->query($sql);
+    }
     // Ende Update/Konvertierungsroutine
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
@@ -1120,9 +1153,9 @@ function check_DB()
     $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN']                 = array('usf_name' => 'PMB_IBAN',              'usf_name_intern' => 'IBAN',                                                        'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
     $DB_array['SOLL']['TBL_USER_FIELDS']['BIC']                  = array('usf_name' => 'PMB_BIC',               'usf_name_intern' => 'BIC',                                                         'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Bankname']             = array('usf_name' => 'PMB_BANK',              'usf_name_intern' => 'BANK',                                                        'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Der Name der Bank für den Bankeinzug');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']         = array('usf_name' => 'PMB_DEBTOR',            'usf_name_intern' => 'DEBTOR',                                                      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Adresse, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']         = array('usf_name' => 'PMB_DEBTOR',            'usf_name_intern' => 'DEBTOR',                                                      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Strasse, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>');
 
-    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberAdresse']  = array('usf_name' => 'PMB_DEBTOR_ADDRESS',    'usf_name_intern' => 'DEBTOR_ADDRESS',                                              'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Adresse des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']  = array('usf_name' => 'PMB_DEBTOR_STREET',     'usf_name_intern' => 'DEBTOR_STREET',                                              'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Adresse des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']      = array('usf_name' => 'PMB_DEBTOR_POSTCODE',   'usf_name_intern' => 'DEBTOR_POSTCODE',                                             'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>PLZ des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']      = array('usf_name' => 'PMB_DEBTOR_CITY',       'usf_name_intern' => 'DEBTOR_CITY',                                                 'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']    = array('usf_name' => 'PMB_DEBTOR_EMAIL',      'usf_name_intern' => 'DEBTOR_EMAIL',                                                'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');

@@ -67,7 +67,7 @@ if($getMode == 'csv_export')
                 .$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').';'
                 .$gL10n->get('SYS_FIRSTNAME').';'
                 .$gL10n->get('SYS_LASTNAME').';'
-                .$gL10n->get('SYS_ADDRESS').';'
+                .$gL10n->get('SYS_STREET').';'
                 .$gL10n->get('SYS_POSTCODE').';'
                 .$gL10n->get('SYS_CITY').';'
                 .$gL10n->get('SYS_EMAIL').';'
@@ -77,7 +77,7 @@ if($getMode == 'csv_export')
                 .$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').';'
 
                 .$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').'/'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_ADDRESS').';'
+                .$gL10n->get('PLG_MITGLIEDSBEITRAG_STREET').';'
                 .$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').';'
                 .$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').';'
                 .$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').';'
@@ -101,7 +101,7 @@ if($getMode == 'csv_export')
             $export .= $user->getValue('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id')).';';
             $export .= $user->getValue('FIRST_NAME').';';
             $export .= $user->getValue('LAST_NAME').';';
-            $export .= $user->getValue('ADDRESS').';';
+            $export .= $user->getValue('STREET').';';
             $export .= $user->getValue('POSTCODE').';';
             $export .= $user->getValue('CITY').';';
             $export .= $user->getValue('EMAIL').';';
@@ -113,7 +113,7 @@ if($getMode == 'csv_export')
             if (strlen($user->getValue('DEBTOR')) !== 0)
             {
                 $export .= $user->getValue('DEBTOR').';';
-                $export .= $user->getValue('DEBTOR_ADDRESS').';';
+                $export .= $user->getValue('DEBTOR_STREET').';';
                 $export .= $user->getValue('DEBTOR_POSTCODE').';';
                 $export .= $user->getValue('DEBTOR_CITY').';';
                 $export .= $user->getValue('DEBTOR_EMAIL').';';
@@ -121,7 +121,7 @@ if($getMode == 'csv_export')
             else
             {
                 $export .= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME').';';
-                $export .= $user->getValue('ADDRESS').';';
+                $export .= $user->getValue('STREET').';';
                 $export .= $user->getValue('POSTCODE').';';
                 $export .= $user->getValue('CITY').';';
                 $export .= $user->getValue('EMAIL').';';
@@ -183,9 +183,9 @@ else
     }
 
     $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
-               city.usd_value AS city, address.usd_value AS address, zip_code.usd_value AS zip_code, country.usd_value AS country,
+               city.usd_value AS city, street.usd_value AS street, zip_code.usd_value AS zip_code, country.usd_value AS country,
                faelligkeitsdatum.usd_value AS faelligkeitsdatum, beitrag.usd_value AS beitrag, lastschrifttyp.usd_value AS lastschrifttyp,
-               mandatsreferenz.usd_value AS mandatsreferenz, debtor.usd_value AS debtor, debtoraddress.usd_value AS debtoraddress,
+               mandatsreferenz.usd_value AS mandatsreferenz, debtor.usd_value AS debtor, debtorstreet.usd_value AS debtorstreet,
                debtorpostcode.usd_value AS debtorpostcode, debtorcity.usd_value AS debtorcity, debtoremail.usd_value AS debtoremail,
                email.usd_value AS email
         FROM '. TBL_USERS. '
@@ -201,9 +201,9 @@ else
         LEFT JOIN '. TBL_USER_DATA. ' AS city
           ON city.usd_usr_id = usr_id
          AND city.usd_usf_id = '. $gProfileFields->getProperty('CITY', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS address
-          ON address.usd_usr_id = usr_id
-         AND address.usd_usf_id = '. $gProfileFields->getProperty('ADDRESS', 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS street
+          ON street.usd_usr_id = usr_id
+         AND street.usd_usf_id = '. $gProfileFields->getProperty('STREET', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS mandatsreferenz
           ON mandatsreferenz.usd_usr_id = usr_id
          AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
@@ -222,9 +222,9 @@ else
         LEFT JOIN '. TBL_USER_DATA. ' AS debtor
           ON debtor.usd_usr_id = usr_id
          AND debtor.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR', 'usf_id'). '
-        LEFT JOIN '. TBL_USER_DATA. ' AS debtoraddress
-          ON debtoraddress.usd_usr_id = usr_id
-         AND debtoraddress.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_ADDRESS', 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS debtorstreet
+          ON debtorstreet.usd_usr_id = usr_id
+         AND debtorstreet.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_STREET', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS debtoremail
           ON debtoremail.usd_usr_id = usr_id
          AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'). '
@@ -458,8 +458,8 @@ else
             $gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
             '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
-                alt="'.$gL10n->get('SYS_ADDRESS').'" title="'.$gL10n->get('SYS_ADDRESS').'" />',
-            $gL10n->get('SYS_ADDRESS'),
+                alt="'.$gL10n->get('SYS_STREET').'" title="'.$gL10n->get('SYS_STREET').'" />',
+            $gL10n->get('SYS_STREET'),
             '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/info.png"
                 alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" />',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR'),
@@ -545,9 +545,9 @@ else
             {
                 $addressText .= $user['zip_code']. ' '. $user['city'];
             }
-            if(strlen($user['address']) > 0)
+            if(strlen($user['street']) > 0)
             {
-                $addressText .= ' - '. $user['address'];
+                $addressText .= ' - '. $user['street'];
             }
             if(strlen($addressText) > 1)
             {
@@ -561,9 +561,9 @@ else
             {
                 $debtor_text = $user['debtor'];
             }
-            if(strlen($user['debtoraddress']) > 0)
+            if(strlen($user['debtorstreet']) > 0)
             {
-                $debtor_text = $debtor_text. ' - '. $user['debtoraddress'];
+                $debtor_text = $debtor_text. ' - '. $user['debtorstreet'];
             }
             if(strlen($user['debtorpostcode']) > 0 || strlen($user['debtorcity']) > 0)
             {
