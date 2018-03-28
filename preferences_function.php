@@ -283,12 +283,6 @@ try
         		}
         	}
         	break; 
-        	
-        case 'plugin_control':
-            unset($pPreferences->config['Pluginfreigabe']);
-            $pPreferences->config['Pluginfreigabe']['freigabe'] = isset($_POST['freigabe']) ? $_POST['freigabe'] : $pPreferences->config_default['Pluginfreigabe']['freigabe'];
-            $pPreferences->config['Pluginfreigabe']['freigabe_config'] = isset($_POST['freigabe_config']) ? $_POST['freigabe_config'] : $pPreferences->config_default['Pluginfreigabe']['freigabe_config'];
-            break;
 
         default:
             $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));

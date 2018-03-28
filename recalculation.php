@@ -23,18 +23,17 @@ require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+// only authorized user are allowed to start this module
+if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
+{
+	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 // Initialize and check the parameters
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
-
-// only authorized user are allowed to start this module
-if (!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
-{
-    $gMessage->setForwardUrl($gHomepage, 3000);
-    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
-}
 
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION');
@@ -314,7 +313,7 @@ if ($getMode == 'preview')     //Default
 	}
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
 	
 	$form = new HtmlForm('recalculation_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/recalculation.php?mode=write', $page);
 	
@@ -377,7 +376,7 @@ elseif ($getMode == 'write')
 	);
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
 	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
 	
 	$form = new HtmlForm('recalculation_saved_form', null, $page);

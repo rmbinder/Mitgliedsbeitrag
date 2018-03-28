@@ -19,15 +19,14 @@ require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+// only authorized user are allowed to start this module
+if (!$gCurrentUser->isAdministrator())
+{
+	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
-
-// only authorized user are allowed to start this module
-if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
-{
-    $gMessage->setForwardUrl($gHomepage, 3000);
-    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
-}
 
 $gNavigation->addUrl(CURRENT_URL);
 

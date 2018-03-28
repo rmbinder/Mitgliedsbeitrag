@@ -13,10 +13,6 @@
 global $gL10n, $gProfileFields, $gCurrentOrganization;
 
 //Standardwerte einer Neuinstallation
-$config_default['Pluginfreigabe']['freigabe'] = array(getRole_IDPMB($gL10n->get('SYS_ADMINISTRATOR')),
-                                                       getRole_IDPMB($gL10n->get('SYS_MEMBER')));
-$config_default['Pluginfreigabe']['freigabe_config'] = array(getRole_IDPMB($gL10n->get('SYS_ADMINISTRATOR')),
-                                                            getRole_IDPMB($gL10n->get('SYS_MEMBER')));
 
 // Altersrollen
 $config_default['Altersrollen'] = array('altersrollen_token'    => array('*'),

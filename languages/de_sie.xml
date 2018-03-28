@@ -278,6 +278,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Kontodaten sowie die Einträge Beitrag und Bezahlt der zahlungspflichtigen Mitglieder.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Mitgliedschaft</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Mitgliedsbeitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR">Die Authorisierungsprüfung des Plugins ist fehlgeschlagen. Es ist mehr als ein Menüpunkt mit derselben URL definiert.\n\n=> #VAR1_BOLD#</string>        
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_DATE">Datum der Nachricht</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_ID">Nachrichten-ID</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME">Auftraggeber</string>
@@ -331,7 +332,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_NORMAL_SCREEN">Beitragszahlungen (Normalbild)</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">Standardmäßig werden beim Bearbeiten der Beitragszahlungen alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Beitragszahlung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PENDING">noch ausstehend</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL">Pluginfreigabe</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_DATE">Stand</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION">Plugininformationen</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_NAME">Name des Plugins</string>
@@ -398,9 +398,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Rollenübersicht</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rollenauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Folgende Rollen sind derzeit berechtigt</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC">Wählen Sie die Rollen aus, deren Mitglieder das Plugin aufrufen dürfen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC2">Wählen Sie die Rollen aus, deren Mitglieder die Einstellungen des Plugins aufrufen dürfen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Prüfungen</string>
+     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Prüfungen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">Die nachfolgenden Einstellungen dienen nur als Parameter für die Rollenprüfung. Sie wirken sich nicht auf die Beitragsberechnung aus.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Beiträge der Beitragsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Einträge im Setup, nicht die Einträge der einzelnen Rollen in der Datenbank. Manuelle Änderungen von Beiträgen einzelner Rollen oder anteilige Beiträge werden nicht berücksichtigt. Dies kann daher nur als Prognose angesehen werden.</string>

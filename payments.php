@@ -27,15 +27,14 @@ require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+// only authorized user are allowed to start this module
+if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
+{
+	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
-
-// only authorized user are allowed to start this module
-if (!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
-{
-    $gMessage->setForwardUrl($gHomepage, 3000);
-    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
-}
 
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
@@ -51,7 +50,7 @@ $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', ar
 $getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 
 // write role selection in session
-if (strpos($gNavigation->getUrl(), 'menue.php') !== false)
+if (strpos($gNavigation->getUrl(), 'mitgliedsbeitrag.php') !== false)
 {
 	if (isset($_POST['payments_roleselection']) )
 	{
@@ -298,7 +297,7 @@ else
     $page->addJavascript($javascriptCode, true);
 
     $paymentsMenu = $page->getMenu();
-    $paymentsMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=payments', $gL10n->get('SYS_BACK'), 'back.png');
+    $paymentsMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=payments', $gL10n->get('SYS_BACK'), 'back.png');
 
     if ($getFullScreen == true)
     {

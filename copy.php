@@ -24,15 +24,14 @@ require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+// only authorized user are allowed to start this module
+if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
+{
+	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
-
-// only authorized user are allowed to start this module
-if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
-{
-    $gMessage->setForwardUrl($gHomepage, 3000);
-    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
-}
 
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
@@ -165,7 +164,7 @@ else
 
     // get module menu
     $copyMenu = $page->getMenu();
-    $copyMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/menue.php?show_option=copy', $gL10n->get('SYS_BACK'), 'back.png');
+    $copyMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=copy', $gL10n->get('SYS_BACK'), 'back.png');
 
     if($getFullScreen == true)
     {

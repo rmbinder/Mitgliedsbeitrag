@@ -277,6 +277,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">The basis of this data are the account details and the Membership Fee and Paid entries of the members liable to pay.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Membership</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Membership fee</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR">The authorization check of the plugin failed. There is more than one menu item with the same URL defined.\n\n=> #VAR1_BOLD#</string>        
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_DATE">Date of message</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_ID">Message ID</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME">Initiator</string>
@@ -330,7 +331,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_NORMAL_SCREEN">Contribution payments (normal screen)</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">By default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PENDING">Not yet received</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_CONTROL">Plug-in release</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_DATE">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION">Plug-in information</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_NAME">Plug-in name</string>
@@ -397,8 +397,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Overview of roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Role selection</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Currently, the following roles are authorised.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC">Choose from the rollers, whose members may call the plugin.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_DESC2">Choose from the rollers, whose members may access the settings of the plugin.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Tests</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">The parameters listed below are only used for the purpose of role checking. They do not influence the calculation of membership fees.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Fees of membership roles</string>

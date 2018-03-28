@@ -1156,24 +1156,63 @@ function isIbanNOT_EU_EWR($iban)
 	}
 }
 
-/**
- * Funktion prueft, ob der Nutzer, aufgrund seiner Rollenzugehoerigkeit, berechtigt ist das Plugin aufzurufen
- * @param   array  $array   Array mit Rollen-IDs:   entweder $pPreferences->config['Pluginfreigabe']['freigabe']
- *                                                  oder $pPreferences->config['Pluginfreigabe']['freigabe_config']
- * @return  bool   $showPlugin
- */
-function check_showpluginPMB($array)
-{
-    $showPlugin = false;
 
-    foreach ($array as $i)
-    {
-        if(hasRole_IDPMB($i))
-        {
-            $showPlugin = true;
-        }
-    }
-    return $showPlugin;
+/**
+ * Funktion prueft, ob der Nutzer berechtigt ist das Plugin aufzurufen.
+ * Zur Prüfung werden die Einstellungen von 'Modulrechte' und 'Sichtbar für'
+ * verwendet, die im Modul Menü für dieses Plugin gesetzt wurden.
+ * @param   string  $scriptName   Der Scriptname des Plugins
+ * @return  bool    true, wenn der User berechtigt ist
+ */
+function isUserAuthorized($scriptName)
+{
+	global $gDb, $gCurrentUser, $gMessage, $gL10n;
+	
+	$userIsAuthorized = false;
+	$menId = 0;
+	
+	$sql = 'SELECT men_id
+              FROM '.TBL_MENU.'
+             WHERE men_url = ? -- $scriptName ';
+	
+	$menuStatement = $gDb->queryPrepared($sql, array($scriptName));
+	
+	if ( $menuStatement->rowCount() === 0 || $menuStatement->rowCount() > 1)
+	{
+		$gMessage->show($gL10n->get('PLG_FORMFILLER_MENU_URL_ERROR', $scriptName), $gL10n->get('SYS_ERROR'));
+	}
+	else
+	{
+		while ($row = $menuStatement->fetch())
+		{
+			$menId = (int) $row['men_id'];
+		}
+	}
+	
+	$sql = 'SELECT men_id, men_com_id, com_name_intern
+              FROM '.TBL_MENU.'
+         LEFT JOIN '.TBL_COMPONENTS.'
+                ON com_id = men_com_id
+             WHERE men_id = ? -- $menId
+          ORDER BY men_men_id_parent DESC, men_order';
+	
+	$menuStatement = $gDb->queryPrepared($sql, array($menId));
+	while ($row = $menuStatement->fetch())
+	{
+		if ((int) $row['men_com_id'] === 0 || Component::isVisible($row['com_name_intern']))
+		{
+			// Read current roles rights of the menu
+			$displayMenu = new RolesRights($gDb, 'menu_view', $row['men_id']);
+			$rolesDisplayRight = $displayMenu->getRolesIds();
+			
+			// check for right to show the menu
+			if (count($rolesDisplayRight) === 0 || $displayMenu->hasRight($gCurrentUser->getRoleMemberships()))
+			{
+				$userIsAuthorized = true;
+			}
+		}
+	}
+	return $userIsAuthorized;
 }
 
 /**

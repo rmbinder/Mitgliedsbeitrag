@@ -17,16 +17,15 @@
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+// only authorized user are allowed to start this module
+if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
+{
+	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 // Konfiguration einlesen
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
-
-// only authorized user are allowed to start this module
-if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
-{
-    $gMessage->setForwardUrl($gHomepage, 3000);
-    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
-}
 
 //alle Mitglieder einlesen
 $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'STREET', 'POSTCODE', 'CITY', 'EMAIL', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0);
@@ -112,7 +111,7 @@ else
 
     $form = new HtmlForm('export_bill_form', null, $page);
     $form->addDescription($message);
-    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => 'menue.php?show_option=statementexport', 'class' => 'btn-primary'));
+    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => 'mitgliedsbeitrag.php?show_option=statementexport', 'class' => 'btn-primary'));
 
     $page->addHtml($form->show(false));
     $page->show();

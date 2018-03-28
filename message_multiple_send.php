@@ -19,16 +19,15 @@ require_once(__DIR__ . '/../../adm_program/system/template.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+// only authorized user are allowed to start this module
+if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
+{
+	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
 // $pPreferences ist auch fuer die korrekte Aufloesung des Parameters #creditor_id# erforderlich
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
-
-// only authorized user are allowed to start this module
-if(!check_showpluginPMB($pPreferences->config['Pluginfreigabe']['freigabe']))
-{
-    $gMessage->setForwardUrl($gHomepage, 3000);
-    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
-}
 
 // Initialize and check the parameters
 $postFrom                   = admFuncVariableIsValid($_POST, 'mailfrom', 'string', array('defaultValue' => ''));
