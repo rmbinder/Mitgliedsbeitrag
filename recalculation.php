@@ -313,9 +313,9 @@ if ($getMode == 'preview')     //Default
 	}
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
 	
-	$form = new HtmlForm('recalculation_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/recalculation.php?mode=write', $page);
+	$form = new HtmlForm('recalculation_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/recalculation.php?mode=write', $page);
 	
 	if (sizeof($members) > 0)
 	{
@@ -370,13 +370,13 @@ elseif ($getMode == 'write')
 {
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {
-            window.open("'.ADMIDIO_URL. FOLDER_PLUGINS . $plugin_folder .'/recalculation.php?mode=print", "_blank");
+            window.open("'.ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/recalculation.php?mode=print", "_blank");
         });',
 		true
 	);
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=recalculation', $gL10n->get('SYS_BACK'), 'back.png');
 	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
 	
 	$form = new HtmlForm('recalculation_saved_form', null, $page);

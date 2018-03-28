@@ -98,14 +98,14 @@ else
         // pulldown Quelle is clicked 
         $("#quelle").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/copy.php?full_screen='.$getFullScreen.'&target_userid='.$getTargetUserid.'&source_userid="+$(this).val());
+                window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php?full_screen='.$getFullScreen.'&target_userid='.$getTargetUserid.'&source_userid="+$(this).val());
             }
         });
 
         // pulldown Ziel is clicked
         $("#ziel").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/copy.php?full_screen='.$getFullScreen.'&source_userid='.$getSourceUserid.'&target_userid="+$(this).val());
+                window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php?full_screen='.$getFullScreen.'&source_userid='.$getSourceUserid.'&target_userid="+$(this).val());
             }
         });
 
@@ -134,7 +134,7 @@ else
                 var pos = row_id.search("_");
                 var source_usfid = row_id.substring(pos+1);
                 
-                $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/copy.php?mode=assign&full_screen='.$getFullScreen.'&source_usfid="+source_usfid+"&target_usfid="+target_usfid+"&target_userid='.$getTargetUserid.'&source_userid='.$getSourceUserid.'",
+                $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php?mode=assign&full_screen='.$getFullScreen.'&source_usfid="+source_usfid+"&target_usfid="+target_usfid+"&target_userid='.$getTargetUserid.'&source_userid='.$getSourceUserid.'",
                     function(data){
                         // check if error occurs
                         if(data == "success") {
@@ -164,16 +164,16 @@ else
 
     // get module menu
     $copyMenu = $page->getMenu();
-    $copyMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=copy', $gL10n->get('SYS_BACK'), 'back.png');
+    $copyMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=copy', $gL10n->get('SYS_BACK'), 'back.png');
 
     if($getFullScreen == true)
     {
-        $copyMenu->addItem('menu_item_normal_picture', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=0',
+        $copyMenu->addItem('menu_item_normal_picture', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=0',
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
     }
     else
     {
-        $copyMenu->addItem('menu_item_full_screen', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=1',
+        $copyMenu->addItem('menu_item_full_screen', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php?source_userid='.$getSourceUserid.'&amp;target_userid='.$getTargetUserid.'&amp;full_screen=1',
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
 

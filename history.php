@@ -239,7 +239,7 @@ if ($getMode !== 'csv')
 
 		// create filter menu with input elements for Startdate and Enddate
 		$FilterNavbar = new HtmlNavbar('menu_history_filter', null, null, 'filter');
-		$form = new HtmlForm('navbar_filter_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder . '/history.php', $page, array('type' => 'navbar', 'setFocus' => false));
+		$form = new HtmlForm('navbar_filter_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/history.php', $page, array('type' => 'navbar', 'setFocus' => false));
 		$form->addInput('filter_date_from', $gL10n->get('SYS_START'), $dateFromHtml, array('type' => 'date', 'maxLength' => 10));
 		$form->addInput('filter_date_to', $gL10n->get('SYS_END'), $dateToHtml, array('type' => 'date', 'maxLength' => 10));
 		$form->addInput('filter_last_name', $gL10n->get('SYS_LASTNAME'), $getLastName);
@@ -261,13 +261,13 @@ if ($getMode !== 'csv')
                 if ($(this).val().length > 1) {
                     var result = $(this).val();
                     $(this).prop("selectedIndex",0);
-                    self.location.href = "'.ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?" +
+                    self.location.href = "'.ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?" +
                         "mode=" + result + "&filter_last_name='.$getLastName.'&filter_first_name='.$getFirstName.'&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'";
                 }
             });
 
             $("#menu_item_print_view").click(function () {
-                window.open("'.ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?" +
+                window.open("'.ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?" +
 					"mode=print&filter_last_name='.$getLastName.'&filter_first_name='.$getFirstName.'&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'", "_blank");
             });', true);
 
@@ -277,12 +277,12 @@ if ($getMode !== 'csv')
 
 		if ($getFullScreen)
 		{
-			$listsMenu->addItem('menu_item_normal_picture', ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?mode=html&amp;full_screen=false&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
+			$listsMenu->addItem('menu_item_normal_picture', ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?mode=html&amp;full_screen=false&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
 					$gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
 		}
 		else
 		{
-			$listsMenu->addItem('menu_item_full_screen', ADMIDIO_URL.FOLDER_PLUGINS. $plugin_folder .'/history.php?mode=html&amp;full_screen=true&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
+			$listsMenu->addItem('menu_item_full_screen', ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?mode=html&amp;full_screen=true&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
 					$gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
 		}
 

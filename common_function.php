@@ -12,7 +12,10 @@
 
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 
-$plugin_folder = '/'.substr(__DIR__, strrpos(__DIR__, DIRECTORY_SEPARATOR)+1);
+if(!defined('PLUGIN_FOLDER'))
+{
+	define('PLUGIN_FOLDER', '/'.substr(__DIR__,strrpos(__DIR__,DIRECTORY_SEPARATOR)+1));
+}
 
 /**
  * Funktion um alle beitragsbezogenen Rollen einzulesen
@@ -1487,7 +1490,7 @@ function obfuscate_iban($iban) {
  */
 function getEmailLink($value, $member)
 {
-	global $gPreferences, $plugin_folder;
+	global $gPreferences;
 	
 	$htmlValue = '';
 	
@@ -1499,7 +1502,7 @@ function getEmailLink($value, $member)
 		}
 		else
 		{
-			$emailLink = ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_write.php?usr_id='.$member;
+			$emailLink = ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php?usr_id='.$member;
 		}
 		if (strlen($value) > 30)
 		{

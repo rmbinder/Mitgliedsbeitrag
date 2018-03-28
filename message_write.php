@@ -174,7 +174,7 @@ if (strlen($getSubject) > 0)
 }
 
 // show form
-$form = new HtmlForm('mail_send_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/message_send.php?'.$formParam, $page);
+$form = new HtmlForm('mail_send_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php?'.$formParam, $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
 
 if ($getUserId > 0)

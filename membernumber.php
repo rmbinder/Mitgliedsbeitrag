@@ -64,9 +64,9 @@ if ($getMode == 'preview')     //Default
 	$_SESSION['pMembershipFee']['membernumber_format'] = $postFormat;
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
 	
-	$form = new HtmlForm('membernumber_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/membernumber.php?mode=write', $page);
+	$form = new HtmlForm('membernumber_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php?mode=write', $page);
 	
 	if ($membernumbers->userWithoutMembernumberExist)
 	{
@@ -107,13 +107,13 @@ elseif ($getMode == 'write')
 {
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {
-            window.open("'.ADMIDIO_URL. FOLDER_PLUGINS . $plugin_folder .'/membernumber.php?mode=print", "_blank");
+            window.open("'.ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php?mode=print", "_blank");
         });',
 		true
 	);
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . $plugin_folder .'/mitgliedsbeitrag.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
 	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
 	
 	$form = new HtmlForm('membernumber_saved_form', null, $page);
