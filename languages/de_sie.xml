@@ -76,7 +76,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SLASH">Schrägstrich</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX">Suffix</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX_DESC">Anteiligen Beiträgen kann ein Suffix angehängt werden.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUMMATION">Aufsummieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES">Beitragstext mit Namen (Familien)</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_FAMNAMES_DESC">Sollen im Beitragstext die Namen aller Familienmitglieder aufgeführt werden, so ist der Haken zu setzen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_MEMNAMES">Beitragstext mit Namen</string>
@@ -430,6 +429,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_STREET">KtoInh-Straße</string>    
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Summe</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SUMMATION">Aufsummieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">Allgemein</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET">Ziel</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</string>
