@@ -66,48 +66,48 @@ $duedatecount = 0;
 $paidcount = 0;
 
 //alle Mitglieder einlesen
-$members = list_members(array('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'BIC'), 0);
+$members = list_members(array('DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'FEE'.ORG_ID, 'MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'IBAN', 'BIC'), 0);
 
 //jetzt wird gezaehlt
 foreach ($members as $member => $memberdata)
 {
     //alle Faelligkeitsdaten einlesen
-    if (!empty($memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')])
-    	&& !empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
-        && empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
-        && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
+    if (!empty($memberdata['DUEDATE'.ORG_ID])
+    	&& !empty($memberdata['FEE'.ORG_ID])
+        && empty($memberdata['PAID'.ORG_ID])
+        && !empty($memberdata['CONTRIBUTORY_TEXT'.ORG_ID])
         && !empty($memberdata['IBAN']))
     {
         $duedatecount++;
         $directdebittype = true;
 
-        if(!isset($duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]))
+        if(!isset($duedates[$memberdata['DUEDATE'.ORG_ID]]))
         {
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]] = array();
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FNAL'] = 0;
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['RCUR'] = 0;
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['OOFF'] = 0;
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FRST'] = 0;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]] = array();
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FNAL'] = 0;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['RCUR'] = 0;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['OOFF'] = 0;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FRST'] = 0;
         }
 
-        if($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'FNAL')
+        if($memberdata['SEQUENCETYPE'.ORG_ID] == 'FNAL')
         {
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FNAL']++;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FNAL']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'RCUR')
+        elseif($memberdata['SEQUENCETYPE'.ORG_ID] == 'RCUR')
         {
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['RCUR']++;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['RCUR']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')] == 'OOFF')
+        elseif($memberdata['SEQUENCETYPE'.ORG_ID] == 'OOFF')
         {
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['OOFF']++;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['OOFF']++;
         }
         else
         {
-            $duedates[$memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')]]['FRST']++;
+            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FRST']++;
         }
     }
-    if (!empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]))
+    if (!empty($memberdata['PAID'.ORG_ID]))
     {
         $paidcount++;
     }
@@ -133,7 +133,7 @@ $selectBoxEntriesAlleRollen = 'SELECT rol_id, rol_name, cat_name
     					   INNER JOIN '.TBL_CATEGORIES.'
                                    ON cat_id = rol_cat_id
                                 WHERE rol_valid   = 1
-                                  AND (  cat_org_id  = '. $gCurrentOrganization->getValue('org_id'). '
+                                  AND (  cat_org_id  = '. ORG_ID. '
                                    OR cat_org_id IS NULL )
                              ORDER BY cat_sequence, rol_name';
 

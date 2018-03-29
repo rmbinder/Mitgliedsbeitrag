@@ -85,24 +85,24 @@ if ($getMode == 'assign')
             $user = new User($gDb, $gProfileFields, $data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein Faelligkeitsdatum vorhanden ist
-            if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) === 0)
+            if (strlen($user->getValue('DUEDATE'.ORG_ID)) === 0)
             {
                 //er hat noch kein Faelligkeitsdatum, deshalb ein neues eintragen
-                $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
+                $user->setValue('DUEDATE'.ORG_ID, $getDatumNeu);
 
                 if ($getSequenceType == 'FRST')
                 {
-                    $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
+                    $user->setValue('SEQUENCETYPE'.ORG_ID, '');
                 }
                 elseif ($getSequenceType != '')
                 {
-                    $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), $getSequenceType);
+                    $user->setValue('SEQUENCETYPE'.ORG_ID, $getSequenceType);
                 }
             }
             else
             {
                 //er hat bereits ein Faelligkeitsdatum, deshalb das vorhandene loeschen
-                $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
+                $user->setValue('DUEDATE'.ORG_ID, '');
             }
 
             $user->save();
@@ -149,19 +149,19 @@ else
         FROM '. TBL_USERS. '
         LEFT JOIN '. TBL_USER_DATA. ' AS mandateid
           ON mandateid.usd_usr_id = usr_id
-         AND mandateid.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND mandateid.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS mandatedate
           ON mandatedate.usd_usr_id = usr_id
-         AND mandatedate.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND mandatedate.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS duedate
           ON duedate.usd_usr_id = usr_id
-         AND duedate.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND duedate.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS paid
           ON paid.usd_usr_id = usr_id
-         AND paid.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND paid.usd_usf_id = '. $gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS fee
           ON fee.usd_usr_id = usr_id
-         AND fee.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND fee.usd_usf_id = '. $gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS iban
           ON iban.usd_usr_id = usr_id
          AND iban.usd_usf_id = '. $gProfileFields->getProperty('IBAN', 'usf_id'). '
@@ -363,7 +363,7 @@ else
     //user data
     foreach ($membersList as $member => $memberData)
     {
-    	if (strlen($memberData[$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id')]) > 0)
+    	if (strlen($memberData[$gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id')]) > 0)
     	{
     		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
     	}
@@ -408,11 +408,11 @@ else
     			}
     		}
     		
-    		if ($usfId == $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		if ($usfId == $gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'))
     		{
     			$content = '<div class="lastschrifttyp_'.$member.'" id="lastschrifttyp_'.$member.'">'.$data.'</div>';
     		}
-    		elseif ($usfId == $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		elseif ($usfId == $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'))
     		{
     			$content = '<div class="duedate_'.$member.'" id="duedate_'.$member.'">'.$content.'</div>';
     		}

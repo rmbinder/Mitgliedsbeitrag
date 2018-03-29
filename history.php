@@ -355,17 +355,17 @@ $presetColumnValues = array();
 
 if ($getMode === 'csv')
 {
-	$presetColumnValues[$gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '';
-	$presetColumnValues[$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '';
-	$presetColumnValues[$gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '';
-	$presetColumnValues[$gProfileFields->getProperty('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '';
+	$presetColumnValues[$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id')] =  '';
+	$presetColumnValues[$gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id')] =  '';
+	$presetColumnValues[$gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id')] =  '';
+	$presetColumnValues[$gProfileFields->getProperty('CONTRIBUTORY_TEXT'.ORG_ID, 'usf_id')] =  '';
 }
 else 
 {
-	$presetColumnValues[$gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '&nbsp;';
-	$presetColumnValues[$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '&nbsp;';
-	$presetColumnValues[$gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '&nbsp;';
-	$presetColumnValues[$gProfileFields->getProperty('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'usf_id')] =  '&nbsp;';
+	$presetColumnValues[$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id')] =  '&nbsp;';
+	$presetColumnValues[$gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id')] =  '&nbsp;';
+	$presetColumnValues[$gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id')] =  '&nbsp;';
+	$presetColumnValues[$gProfileFields->getProperty('CONTRIBUTORY_TEXT'.ORG_ID, 'usf_id')] =  '&nbsp;';
 }
 
 while($row = $fieldHistoryStatement->fetch())
@@ -382,7 +382,7 @@ while($row = $fieldHistoryStatement->fetch())
    
    	$columnValues[$row['usl_usr_id']][$row['usl_usf_id']] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById((int) $row['usl_usf_id'], 'usf_name_intern'), $row['usl_value_new']);    
    	
-   	if(	$row['usl_usf_id'] == $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id') 
+   	if(	$row['usl_usf_id'] == $gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id') 
    		&& $row['usl_value_new'] != '' 
    		&& $row['usl_value_new'] >= $dateFromIntern 
    		&& $row['usl_value_new'] <= $dateToIntern )

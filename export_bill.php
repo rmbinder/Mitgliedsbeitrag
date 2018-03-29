@@ -28,7 +28,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 //alle Mitglieder einlesen
-$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'STREET', 'POSTCODE', 'CITY', 'EMAIL', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0);
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'STREET', 'POSTCODE', 'CITY', 'EMAIL', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'IBAN', 'DEBTOR'), 0);
 
 //$rechnungs_file[] = array();
 $rechnungs_file = array();
@@ -37,9 +37,9 @@ $i = 0;
 //alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 foreach ($members as $member => $memberdata){
     if (empty($memberdata['IBAN'])
-            &&  empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
-            && !empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
-            && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]))
+            &&  empty($memberdata['PAID'.ORG_ID])
+            && !empty($memberdata['FEE'.ORG_ID])
+            && !empty($memberdata['CONTRIBUTORY_TEXT'.ORG_ID]))
     {
         if (empty($memberdata['DEBTOR']))
         {
@@ -51,8 +51,8 @@ foreach ($members as $member => $memberdata){
                 'postcode'       => $members[$member]['POSTCODE'],
                 'city'           => $members[$member]['CITY'],
                 'email'          => $members[$member]['EMAIL'],
-                'beitrag'        => $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')],
-                'beitragstext'   => $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')],
+                'beitrag'        => $members[$member]['FEE'.ORG_ID],
+                'beitragstext'   => $members[$member]['CONTRIBUTORY_TEXT'.ORG_ID],
         );
         $i += 1;
     }

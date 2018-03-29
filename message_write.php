@@ -61,11 +61,11 @@ $text = new TableText($gDb);
 //abhaengig vom aufrufenden Modul Text einlesen
 if (substr_count($gNavigation->getUrl(), 'pre_notification') === 1)
 {
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => ORG_ID));
 }
 elseif (substr_count($gNavigation->getUrl(), 'payments') === 1)
 {
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => ORG_ID));
 }
 
 $mailSrcText = $text->getValue('txt_text');

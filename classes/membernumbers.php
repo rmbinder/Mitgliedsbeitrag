@@ -65,11 +65,11 @@ class Membernumbers
      */
     public function readNumbers()
     {
-    	global $gProfileFields, $gCurrentOrganization;
+    	global $gProfileFields;
     	
     	$sql = 'SELECT usd_value
                   FROM '. TBL_USER_DATA .'
-                 WHERE usd_usf_id = \''.$gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), 'usf_id').'\' ';
+                 WHERE usd_usf_id = \''.$gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id').'\' ';
     	
     	$statement = $this->mDb->query($sql);
     	while ($row = $statement->fetch())
@@ -115,7 +115,7 @@ class Membernumbers
      */
 	public function readUserWithoutMembernumber($roleselection = '')
     {
-     	global $gProfileFields, $gCurrentOrganization;
+     	global $gProfileFields;
      	
      	$sqlRoleCond = '';
      	if (is_array($roleselection))
@@ -136,7 +136,7 @@ class Membernumbers
            		   AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
              LEFT JOIN '.TBL_USER_DATA.' AS membernumber
                     ON membernumber.usd_usr_id = usr_id
-                   AND membernumber.usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+                   AND membernumber.usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id'). '
                  WHERE usr_valid = 1
                    AND membernumber.usd_value IS NULL
             AND EXISTS (SELECT 1
@@ -148,7 +148,7 @@ class Membernumbers
                    AND rol_valid  = 1
                    '.$sqlRoleCond.'
                    AND rol_cat_id = cat_id
-                   AND cat_org_id = '. $gCurrentOrganization->getValue('org_id'). ') ';
+                   AND cat_org_id = '. ORG_ID. ') ';
 
      	$statement = $this->mDb->query($sql);
 

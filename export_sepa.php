@@ -57,17 +57,17 @@ foreach ($dueDateArr as $dueDate => $dummy)      							//Erweiterung fuer die D
 	$filename_ext .= '-'.$dueDate;
 }
 	
-$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')), 0);
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.ORG_ID, 'ORIG_MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID), 0);
 		
 //alle Mitglieder durchlaufen und das Array $zpflgt befuellen
 foreach ($members as $member => $memberdata)
 {
-	$dueDateMember = $memberdata['DUEDATE'.$gCurrentOrganization->getValue('org_id')];
-	$sequenceTypeMember = (empty($memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')])) ? 'FRST' : $memberdata['SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id')];
+	$dueDateMember = $memberdata['DUEDATE'.ORG_ID];
+	$sequenceTypeMember = (empty($memberdata['SEQUENCETYPE'.ORG_ID])) ? 'FRST' : $memberdata['SEQUENCETYPE'.ORG_ID];
 	
-    if  (!empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')])
-        && empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')])
-        && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
+    if  (!empty($memberdata['FEE'.ORG_ID])
+        && empty($memberdata['PAID'.ORG_ID])
+        && !empty($memberdata['CONTRIBUTORY_TEXT'.ORG_ID])
         && !empty($memberdata['IBAN'])
         && in_array($dueDateMember.$sequenceTypeMember, $_POST['duedatesepatype']) )
     {
@@ -97,17 +97,17 @@ foreach ($members as $member => $memberdata)
         }
                               
         $zpflgt[$member]['bic'] = strtoupper($members[$member]['BIC']);                                                                                           // BIC
-        $zpflgt[$member]['mandat_id'] = $members[$member]['MANDATEID'.$gCurrentOrganization->getValue('org_id')];                                     // Mandats-ID
-        $zpflgt[$member]['mandat_datum'] = $members[$member]['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')];                                // Mandats-Datum
+        $zpflgt[$member]['mandat_id'] = $members[$member]['MANDATEID'.ORG_ID];                                     // Mandats-ID
+        $zpflgt[$member]['mandat_datum'] = $members[$member]['MANDATEDATE'.ORG_ID];                                // Mandats-Datum
 
-       	$fee = str_replace(',', '.', $members[$member]['FEE'.$gCurrentOrganization->getValue('org_id')]);
+       	$fee = str_replace(',', '.', $members[$member]['FEE'.ORG_ID]);
        	if (strpos($fee, '.') !== false)
        	{
        		$fee = substr($fee, 0, strpos($fee, '.') +3);
        	}
         $zpflgt[$member]['betrag'] = $fee;                                               															  // Amount of money
-        $zpflgt[$member]['text'] = substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]), 0, 140);   // Description of the transaction ("Verwendungszweck").
-        $zpflgt[$member]['orig_mandat_id'] = $members[$member]['ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id')];                           // urspruengliche Mandats-ID
+        $zpflgt[$member]['text'] = substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.ORG_ID]), 0, 140);   // Description of the transaction ("Verwendungszweck").
+        $zpflgt[$member]['orig_mandat_id'] = $members[$member]['ORIG_MANDATEID'.ORG_ID];                           // urspruengliche Mandats-ID
         $zpflgt[$member]['orig_iban'] = strtoupper(str_replace(' ', '', $members[$member]['ORIG_IBAN']));                                             // urspruengliche IBAN
         $zpflgt[$member]['orig_dbtr_agent'] = $members[$member]['ORIG_DEBTOR_AGENT'];                                                                 // urspruengliches Kreditinstitut, nur "SMNDA" moeglich
 

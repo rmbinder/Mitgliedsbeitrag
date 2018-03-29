@@ -98,7 +98,7 @@ if($getMode == 'assign')
     }
 
     // wurde die Mandatsreferenz geaendert?
-    if($getMandateID != $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')))
+    if($getMandateID != $user->getValue('MANDATEID'.ORG_ID))
     {
         //bei einer Aenderung muss origMandateID befuellt sein
         if (strlen($getOrigMandateID) !== 0)
@@ -124,7 +124,7 @@ if($getMode == 'assign')
             $user->setValue('IBAN', $getIBAN);
             $user->setValue('BIC', $getBIC);
             $user->setValue('BANK', $getBank);
-            $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), '');
+            $user->setValue('SEQUENCETYPE'.ORG_ID, '');
             $user->setValue('ORIG_DEBTOR_AGENT', 'SMNDA');
 
             // wenn die Bank gewechselt wurde, braucht die neue Bank die urspruengliche IBAN nicht zu kennen
@@ -132,8 +132,8 @@ if($getMode == 'assign')
         }
         if($mandateid_change == 'true')
         {
-            $user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $getMandateID);
-            $user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), $getOrigMandateID);
+            $user->setValue('MANDATEID'.ORG_ID, $getMandateID);
+            $user->setValue('ORIG_MANDATEID'.ORG_ID, $getOrigMandateID);
         }
         $user->save();
     }
@@ -249,11 +249,11 @@ else
     $mandateChangeMenu->addItem('menu_item_back', $gNavigation->getUrl(), $gL10n->get('SYS_BACK'), 'back.png');
 
     $form = new HtmlForm('mandate_change_form', null, $page, array('class' => 'form-mandate_change'));
-    $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')), array('property' => FIELD_REQUIRED));
+    $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.ORG_ID), array('property' => FIELD_REQUIRED));
     $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()"><img 
             src="'. THEME_URL . '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'" /></a>';
     $form->addCustomContent('', $html);
-    $form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id')), array('property' => FIELD_DISABLED));
+    $form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.ORG_ID), array('property' => FIELD_DISABLED));
     $form->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $user->getValue('IBAN'), array('property' => FIELD_REQUIRED));
     $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()"><img 
             src="'. THEME_URL . '/icons/arrow_down.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'" /></a>';

@@ -68,11 +68,11 @@ if ($getMode == 'preview')     //Default
 	
 	if ($pPreferences->config['Mandatsreferenz']['data_field'] != '-- User_ID --')
 	{
-		$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN', $pPreferences->config['Mandatsreferenz']['data_field']), $rols);
+		$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.ORG_ID, 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'IBAN', $pPreferences->config['Mandatsreferenz']['data_field']), $rols);
 	}
 	else
 	{
-		$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'IBAN'), $rols);
+		$members = list_members(array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.ORG_ID, 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'IBAN'), $rols);
 	}
 	
 	//alle Mitglieder loeschen, bei denen keine IBAN vorhanden ist
@@ -203,7 +203,7 @@ elseif ($getMode == 'write')
 		$table->addRowByArray($columnValues);
 		
 		$user->readDataById($member);
-		$user->setValue('MANDATEID'.$gCurrentOrganization->getValue('org_id'), $data['referenz']);
+		$user->setValue('MANDATEID'.ORG_ID, $data['referenz']);
 		$user->save();
 	}
 	

@@ -97,7 +97,7 @@ if($getMode == 'csv_export')
             $user = new User($gDb, $gProfileFields, $UserId);
 
             $export .= $nr.';';
-            $export .= $user->getValue('MEMBERNUMBER'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= $user->getValue('MEMBERNUMBER'.ORG_ID).';';
             $export .= $user->getValue('FIRST_NAME').';';
             $export .= $user->getValue('LAST_NAME').';';
             $export .= $user->getValue('STREET').';';
@@ -107,7 +107,7 @@ if($getMode == 'csv_export')
             $export .= $user->getValue('PHONE').';';
             $export .= $user->getValue('MOBILE').';';
             $export .= $user->getValue('BIRTHDAY').';';
-            $export .= $user->getValue('ACCESSION'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= $user->getValue('ACCESSION'.ORG_ID).';';
 
             if (strlen($user->getValue('DEBTOR')) !== 0)
             {
@@ -129,10 +129,10 @@ if($getMode == 'csv_export')
             $export .= $user->getValue('BANK').';';
             $export .= $user->getValue('BIC').';';
             $export .= $user->getValue('IBAN').';';
-            $export .= $user->getValue('MANDATEDATE'.$gCurrentOrganization->getValue('org_id')).';';
-            $export .= $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')).';';
-            $export .= $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')).';';
-            $export .= $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')).';';
+            $export .= $user->getValue('MANDATEDATE'.ORG_ID).';';
+            $export .= $user->getValue('MANDATEID'.ORG_ID).';';
+            $export .= $user->getValue('DUEDATE'.ORG_ID).';';
+            $export .= $user->getValue('FEE'.ORG_ID).';';
             $export .= "\n";
 
             $nr += 1;
@@ -165,11 +165,11 @@ else
             AND mem_begin <= \''.DATE_NOW.'\'
             AND mem_end    > \''.DATE_NOW.'\'
             AND usd_usr_id = usr_id
-            AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+            AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'). '
 
             AND rol_valid  = 1
             AND rol_cat_id = cat_id
-            AND (  cat_org_id = '. $gCurrentOrganization->getValue('org_id'). '
+            AND (  cat_org_id = '. ORG_ID. '
                 OR cat_org_id IS NULL ) ';
 
     if($getDueDate != 0)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
@@ -205,16 +205,16 @@ else
          AND street.usd_usf_id = '. $gProfileFields->getProperty('STREET', 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS mandatsreferenz
           ON mandatsreferenz.usd_usr_id = usr_id
-         AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS faelligkeitsdatum
           ON faelligkeitsdatum.usd_usr_id = usr_id
-         AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
-         AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
           ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
@@ -419,14 +419,14 @@ else
         //alle Faelligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
                 FROM '.TBL_USER_DATA.','. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
-                WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id').'
+                WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id').'
                 AND   mem_begin <= \''.DATE_NOW.'\'
                 AND   mem_end >= \''.DATE_NOW.'\'
                 AND   usd_usr_id = mem_usr_id
                 AND   mem_rol_id = rol_id
                 AND   rol_valid = 1
                 AND   rol_cat_id = cat_id
-                AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+                AND (  cat_org_id = '.ORG_ID.'
                     OR cat_org_id IS NULL )  ';
 
         $duedateStatement = $gDb->query($sql);

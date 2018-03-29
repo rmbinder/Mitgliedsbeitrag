@@ -34,40 +34,40 @@ try
     {
         case 'delete':
             $members = array();
-            $members = list_members(array('PAID'.$gCurrentOrganization->getValue('org_id'), 'FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'DUEDATE'.$gCurrentOrganization->getValue('org_id')), 0);
+            $members = list_members(array('PAID'.ORG_ID, 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'DUEDATE'.ORG_ID), 0);
 
             foreach ($members as $key => $data)
             {
                 $user = new User($gDb, $gProfileFields, $key);
 
-                if (!empty($data['DUEDATE'.$gCurrentOrganization->getValue('org_id')])
+                if (!empty($data['DUEDATE'.ORG_ID])
                     &&  isset($_POST['duedate_only']))
                 {
-                    $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
+                    $user->setValue('DUEDATE'.ORG_ID, '');
                 }
 
-                if (!empty($data['PAID'.$gCurrentOrganization->getValue('org_id')])
+                if (!empty($data['PAID'.ORG_ID])
                     && (isset($_POST['with_paid'])
                         || isset($_POST['paid_only'])
                         || isset($_POST['delete_all'])))
                 {
-                    $user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
+                    $user->setValue('PAID'.ORG_ID, '');
                 }
 
-                if (!empty($data['FEE'.$gCurrentOrganization->getValue('org_id')])
-                    && ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-                        || (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+                if (!empty($data['FEE'.ORG_ID])
+                    && ((isset($_POST['with_paid']) && !empty($data['PAID'.ORG_ID]))
+                        || (isset($_POST['without_paid'])&& empty($data['PAID'.ORG_ID]))
                         || isset($_POST['delete_all'])))
                 {
-                    $user->setValue('FEE'.$gCurrentOrganization->getValue('org_id'), '');
+                    $user->setValue('FEE'.ORG_ID, '');
                 }
 
-                if (!empty($data['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')])
-                    && ((isset($_POST['with_paid']) && !empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
-                        || (isset($_POST['without_paid'])&& empty($data['PAID'.$gCurrentOrganization->getValue('org_id')]))
+                if (!empty($data['CONTRIBUTORY_TEXT'.ORG_ID])
+                    && ((isset($_POST['with_paid']) && !empty($data['PAID'.ORG_ID]))
+                        || (isset($_POST['without_paid'])&& empty($data['PAID'.ORG_ID]))
                         || isset($_POST['delete_all'])))
                 {
-                    $user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), '');
+                    $user->setValue('CONTRIBUTORY_TEXT'.ORG_ID, '');
                 }
                 $user->save();
             }

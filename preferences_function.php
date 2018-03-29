@@ -47,7 +47,7 @@ try
             $pPreferences->config['Beitrag']['beitrag_text_token'] = $_POST['beitrag_text_token'];
 
             $text = new TableText($gDb);
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => ORG_ID));
             $text->setValue('txt_text', $_POST['mail_text']);
             $text->save();
             break;
@@ -154,7 +154,7 @@ try
             $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'] = $_POST['rechnung_dateiname'];
 
             $text = new TableText($gDb);
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrganization->getValue('org_id')));
+            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => ORG_ID));
             $text->setValue('txt_text', $_POST['pre_notification_text']);
             $text->save();
             break;

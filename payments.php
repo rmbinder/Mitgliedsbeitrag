@@ -83,24 +83,24 @@ if ($getMode == 'assign')
             $user = new User($gDb, $gProfileFields, $data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein BEZAHLT-Datum vorhanden ist
-            if (strlen($user->getValue('PAID'.$gCurrentOrganization->getValue('org_id'))) === 0)
+            if (strlen($user->getValue('PAID'.ORG_ID)) === 0)
             {
                 //er hat noch kein BEZAHLT-Datum, deshalb ein neues eintragen
-                $user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), $getDatumNeu);
+                $user->setValue('PAID'.ORG_ID, $getDatumNeu);
 
                 // wenn Lastschrifttyp noch nicht gesetzt ist: als Folgelastschrift kennzeichnen
                 // BEZAHLT bedeutet, es hat bereits eine Zahlung stattgefunden
                 // die naechste Zahlung kann nur eine Folgelastschrift sein
                 // Lastschrifttyp darf aber nur geaendert werden, wenn der Einzug per SEPA stattfand, also ein Faelligkeitsdatum vorhanden ist
-                if (strlen($user->getValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'))) === 0  && strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) !== 0)
+                if (strlen($user->getValue('SEQUENCETYPE'.ORG_ID)) === 0  && strlen($user->getValue('DUEDATE'.ORG_ID)) !== 0)
                 {
-                    $user->setValue('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'RCUR');
+                    $user->setValue('SEQUENCETYPE'.ORG_ID, 'RCUR');
                 }
 
                 //falls Daten von einer Mandatsaenderung vorhanden sind, diese loeschen
-                if (strlen($user->getValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'))) !== 0)
+                if (strlen($user->getValue('ORIG_MANDATEID'.ORG_ID)) !== 0)
                 {
-                    $user->setValue('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), '');
+                    $user->setValue('ORIG_MANDATEID'.ORG_ID, '');
                 }
                 if (strlen($user->getValue('ORIG_IBAN')) !== 0)
                 {
@@ -112,15 +112,15 @@ if ($getMode == 'assign')
                 }
 
                 //das Faelligkeitsdatum loeschen (wird nicht mehr gebraucht, da ja bezahlt)
-                if (strlen($user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'))) !== 0)
+                if (strlen($user->getValue('DUEDATE'.ORG_ID)) !== 0)
                 {
-                    $user->setValue('DUEDATE'.$gCurrentOrganization->getValue('org_id'), '');
+                    $user->setValue('DUEDATE'.ORG_ID, '');
                 }
             }
             else
             {
                 //er hat bereits ein BEZAHLT-Datum, deshalb das vorhandene loeschen
-                $user->setValue('PAID'.$gCurrentOrganization->getValue('org_id'), '');
+                $user->setValue('PAID'.ORG_ID, '');
             }
             $user->save();
             $ret_text = 'success';
@@ -166,10 +166,10 @@ else
         FROM '. TBL_USERS. '
         LEFT JOIN '. TBL_USER_DATA. ' AS paid
           ON paid.usd_usr_id = usr_id
-         AND paid.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND paid.usd_usf_id = '. $gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS fee
           ON fee.usd_usr_id = usr_id
-         AND fee.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'). '
+         AND fee.usd_usf_id = '. $gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'). '
          		
         LEFT JOIN '. TBL_MEMBERS. ' AS mem
           ON mem.mem_begin  <= \''.DATE_NOW.'\'
@@ -370,7 +370,7 @@ else
  	//user data
     foreach ($membersList as $member => $memberData)
     {
-    	if (strlen($memberData[$gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id')]) > 0)
+    	if (strlen($memberData[$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id')]) > 0)
     	{
     		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
     	}
@@ -415,19 +415,19 @@ else
     			}
     		}
     			
-    		if ($usfId == $gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		if ($usfId == $gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id'))
     		{
     			$content = '<div class="bezahlt_'.$member.'" id="bezahlt_'.$member.'">'.$content.'</div>';
     		}
-    		elseif ($usfId == $gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		elseif ($usfId == $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'))
     		{
     			$content = '<div class="duedate_'.$member.'" id="duedate_'.$member.'">'.$content.'</div>';
     		}
-    		elseif ($usfId == $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		elseif ($usfId == $gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'))
     		{
     			$content = '<div class="lastschrifttyp_'.$member.'" id="lastschrifttyp_'.$member.'">'.$data.'</div>';
     		}
-    		elseif ($usfId == $gProfileFields->getProperty('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'))
+    		elseif ($usfId == $gProfileFields->getProperty('ORIG_MANDATEID'.ORG_ID, 'usf_id'))
     		{
     			$content = '<div class="orig_mandateid_'.$member.'" id="orig_mandateid_'.$member.'">'.$data.'</div>';
     		}

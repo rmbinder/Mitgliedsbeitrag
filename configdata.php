@@ -10,7 +10,7 @@
  ***********************************************************************************************
  */
 
-global $gL10n, $gProfileFields, $gCurrentOrganization;
+global $gL10n, $gProfileFields;
 
 //Standardwerte einer Neuinstallation
 
@@ -75,44 +75,44 @@ $config_default['Plugininformationen']['version'] = '';
 $config_default['Plugininformationen']['stand'] = '';
 
 //Spalten fuer die Ansichtsdefinitionen
-$config_default['columnconfig'] = array('payments_fields_normal_screen' => array('p'.$gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
+$config_default['columnconfig'] = array('payments_fields_normal_screen' => array('p'.$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')),
-										'payments_fields_full_screen' 	=> array('p'.$gProfileFields->getProperty('PAID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
+										'payments_fields_full_screen' 	=> array('p'.$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
-												                                 'p'.$gProfileFields->getProperty('ORIG_MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
+												                                 'p'.$gProfileFields->getProperty('ORIG_MANDATEID'.ORG_ID, 'usf_id'),
 												                                 'p'.$gProfileFields->getProperty('ORIG_DEBTOR_AGENT', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('DEBTOR', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id')),
-										'mandates_fields_normal_screen' => array('p'.$gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
+										'mandates_fields_normal_screen' => array('p'.$gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')),
-										'mandates_fields_full_screen' 	=> array('p'.$gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('MANDATEID'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-												                                 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
+										'mandates_fields_full_screen' 	=> array('p'.$gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'),
+												                                 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('IBAN', 'usf_id')),
-										'duedates_fields_normal_screen' => array('p'.$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
+										'duedates_fields_normal_screen' => array('p'.$gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')),
-										'duedates_fields_full_screen' 	=> array('p'.$gProfileFields->getProperty('DUEDATE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
-																				 'p'.$gProfileFields->getProperty('FEE'.$gCurrentOrganization->getValue('org_id'), 'usf_id'),
+										'duedates_fields_full_screen' 	=> array('p'.$gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'),
+																				 'p'.$gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')));

@@ -17,6 +17,11 @@ if(!defined('PLUGIN_FOLDER'))
 	define('PLUGIN_FOLDER', '/'.substr(__DIR__,strrpos(__DIR__,DIRECTORY_SEPARATOR)+1));
 }
 
+if(!defined('ORG_ID'))
+{
+	define('ORG_ID', (int) $gCurrentOrganization->getValue('org_id'));
+}
+
 /**
  * Funktion um alle beitragsbezogenen Rollen einzulesen
  * @param string $rollenwahl [optional]     'alt' fuer alle altersgestaffelte Rollen,
@@ -40,7 +45,7 @@ if(!defined('PLUGIN_FOLDER'))
  */
 function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
 {
-    global $gDb, $gCurrentOrganization, $pPreferences;
+    global $gDb, $pPreferences;
     $rollen = array();
 
     // alle Rollen einlesen
@@ -50,7 +55,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
             AND rol_cost >= 0
             AND rol_cost_period <>\'\'
             AND rol_cat_id = cat_id
-            AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+            AND (  cat_org_id = '.ORG_ID.'
                 OR cat_org_id IS NULL ) ';
 
     $statement = $gDb->query($sql);
@@ -145,7 +150,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
  */
 function bezugskategorie_einlesen()
 {
-    global $gDb, $gCurrentOrganization, $pPreferences;
+    global $gDb, $pPreferences;
 
     $members = array();
 
@@ -183,7 +188,7 @@ function bezugskategorie_einlesen()
         $firstpass = false;
     }
 
-    $sql .= ' AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+    $sql .= ' AND (  cat_org_id = '.ORG_ID.'
               OR cat_org_id IS NULL )
               ORDER BY mem_usr_id ASC ';
 
@@ -219,7 +224,7 @@ function bezugskategorie_einlesen()
  */
 function list_members($fields, $rols = array(), $conditions = '')
 {
-    global $gDb, $gCurrentOrganization, $gProfileFields;
+    global $gDb, $gProfileFields;
 
     $members = array();
 
@@ -278,7 +283,7 @@ function list_members($fields, $rols = array(), $conditions = '')
     $sql .= ' AND mem_rol_id = rol_id
               AND rol_valid  = 1
               AND rol_cat_id = cat_id
-              AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+              AND (  cat_org_id = '.ORG_ID.'
               OR cat_org_id IS NULL )
               ORDER BY mem_usr_id ASC ';
 
@@ -335,14 +340,14 @@ function delete_NULL ($wert)
  */
 function getRole_IDPMB($role_name)
 {
-    global $gDb,$gCurrentOrganization;
+    global $gDb;
 
     $sql    = 'SELECT rol_id
                  FROM '. TBL_ROLES. ', '. TBL_CATEGORIES. '
                  WHERE rol_name   = \''.$role_name.'\'
                  AND rol_valid  = 1
                  AND rol_cat_id = cat_id
-                 AND (  cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+                 AND (  cat_org_id = '.ORG_ID.'
                  OR cat_org_id IS NULL ) ';
 
     $statement = $gDb->query($sql);
@@ -406,9 +411,7 @@ function getCostPeriod($my_rol_cost_period)
  */
 function analyse_mem()
 {
-    global $gCurrentOrganization;
-
-    $members = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id'), 'IBAN', 'DEBTOR'), 0);
+    $members = list_members(array('FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'IBAN', 'DEBTOR'), 0);
     $ret = array('data' => $members, 'BEITRAG_kto' => 0, 'BEITRAG_kto_anzahl' => 0, 'BEITRAG_rech' => 0, 'BEITRAG_rech_anzahl' => 0, 'BEZAHLT_kto' => 0, 'BEZAHLT_kto_anzahl' => 0, 'BEZAHLT_rech' => 0, 'BEZAHLT_rech_anzahl' => 0);
 
     // alle Mitglieder durchlaufen und im ersten Schritt alle Mitglieder,
@@ -416,7 +419,7 @@ function analyse_mem()
     // und kein Beitragstext (=Verwendungszweck) existiert,  herausfiltern
     foreach ($members as $member => $memberdata)
     {
-        if (empty($memberdata['FEE'.$gCurrentOrganization->getValue('org_id')]) || empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')]))
+        if (empty($memberdata['FEE'.ORG_ID]) || empty($memberdata['CONTRIBUTORY_TEXT'.ORG_ID]))
         {
             unset($members[$member]);
         }
@@ -427,24 +430,24 @@ function analyse_mem()
     {
         if (!empty($memberdata['IBAN']))
         {
-            $ret['BEITRAG_kto'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
+            $ret['BEITRAG_kto'] += $memberdata['FEE'.ORG_ID];
             $ret['BEITRAG_kto_anzahl'] += 1;
         }
         if ((!empty($memberdata['IBAN']))
-            && !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]))
+            && !empty($memberdata['PAID'.ORG_ID]))
         {
-            $ret['BEZAHLT_kto'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
+            $ret['BEZAHLT_kto'] += $memberdata['FEE'.ORG_ID];
             $ret['BEZAHLT_kto_anzahl'] += 1;
         }
         if (empty($memberdata['IBAN']))
         {
-            $ret['BEITRAG_rech'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
+            $ret['BEITRAG_rech'] += $memberdata['FEE'.ORG_ID];
             $ret['BEITRAG_rech_anzahl'] += 1;
         }
         if (empty($memberdata['IBAN'])
-            && !empty($memberdata['PAID'.$gCurrentOrganization->getValue('org_id')]))
+            && !empty($memberdata['PAID'.ORG_ID]))
         {
-            $ret['BEZAHLT_rech'] += $memberdata['FEE'.$gCurrentOrganization->getValue('org_id')];
+            $ret['BEZAHLT_rech'] += $memberdata['FEE'.ORG_ID];
             $ret['BEZAHLT_rech_anzahl'] += 1;
         }
     }
@@ -457,13 +460,13 @@ function analyse_mem()
  */
 function analyse_rol()
 {
-    global $pPreferences, $gCurrentOrganization, $gL10n;
+    global $pPreferences, $gL10n;
 
     $ret = beitragsrollen_einlesen('alt');
     $ret = array_merge($ret, beitragsrollen_einlesen('fix'));
     foreach ($ret as $rol => $roldata)
     {
-        $ret[$rol]['members'] = list_members(array('FEE'.$gCurrentOrganization->getValue('org_id'), 'PAID'.$gCurrentOrganization->getValue('org_id')), array($roldata['rolle'] => 0));
+        $ret[$rol]['members'] = list_members(array('FEE'.ORG_ID, 'PAID'.ORG_ID), array($roldata['rolle'] => 0));
     }
 
     $fam = beitragsrollen_einlesen('fam');
@@ -1217,8 +1220,7 @@ function ageCalculator($geburtstag, $stichtag)
  */
 function delete_without_BEITRAG ($wert)
 {
-    global $gCurrentOrganization;
-    return  $wert['FEE'.$gCurrentOrganization->getValue('org_id')] != NULL;
+    return  $wert['FEE'.ORG_ID] != NULL;
 }
 
 /**
@@ -1248,8 +1250,7 @@ function delete_without_BIC ($wert)
  */
 function delete_with_MANDATEID ($wert)
 {
-    global $gCurrentOrganization;
-    return !($wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL);
+    return !($wert['MANDATEID'.ORG_ID] != NULL);
 }
 
 /**
@@ -1259,8 +1260,7 @@ function delete_with_MANDATEID ($wert)
  */
 function delete_with_BEZAHLT ($wert)
 {
-    global $gCurrentOrganization;
-    return !($wert['PAID'.$gCurrentOrganization->getValue('org_id')] != NULL);
+    return !($wert['PAID'.ORG_ID] != NULL);
 }
 
 /**
@@ -1270,8 +1270,7 @@ function delete_with_BEZAHLT ($wert)
  */
 function delete_without_MANDATEID ($wert)
 {
-    global $gCurrentOrganization;
-    return  $wert['MANDATEID'.$gCurrentOrganization->getValue('org_id')] != NULL;
+    return  $wert['MANDATEID'.ORG_ID] != NULL;
 }
 
 /**
@@ -1281,8 +1280,7 @@ function delete_without_MANDATEID ($wert)
  */
 function delete_without_MANDATEDATE ($wert)
 {
-    global $gCurrentOrganization;
-    return  $wert['MANDATEDATE'.$gCurrentOrganization->getValue('org_id')] != NULL;
+    return  $wert['MANDATEDATE'.ORG_ID] != NULL;
 }
 
 /**
@@ -1422,20 +1420,20 @@ Schraegstrich           |  /        | X'2F
  */
 function replace_emailparameter($text, $user)
 {
-    global $gCurrentOrganization,$pPreferences;
+    global $gCurrentOrganization, $pPreferences;
 
     // now replace all parameters in email text
     $text = preg_replace('/#user_first_name#/', $user->getValue('FIRST_NAME'),  $text);
     $text = preg_replace('/#user_last_name#/',  $user->getValue('LAST_NAME'), $text);
     $text = preg_replace('/#organization_long_name#/', $gCurrentOrganization->getValue('org_longname'), $text);
-    $text = preg_replace('/#fee#/', $user->getValue('FEE'.$gCurrentOrganization->getValue('org_id')),   $text);
-    $text = preg_replace('/#due_day#/', $user->getValue('DUEDATE'.$gCurrentOrganization->getValue('org_id')),  $text);
-    $text = preg_replace('/#mandate_id#/', $user->getValue('MANDATEID'.$gCurrentOrganization->getValue('org_id')), $text);
+    $text = preg_replace('/#fee#/', $user->getValue('FEE'.ORG_ID),   $text);
+    $text = preg_replace('/#due_day#/', $user->getValue('DUEDATE'.ORG_ID),  $text);
+    $text = preg_replace('/#mandate_id#/', $user->getValue('MANDATEID'.ORG_ID), $text);
     $text = preg_replace('/#creditor_id#/',  $pPreferences->config['Kontodaten']['ci'], $text);
     $text = preg_replace('/#iban#/',   $user->getValue('IBAN'), $text);
     $text = preg_replace('/#bic#/',   $user->getValue('BIC'), $text);
     $text = preg_replace('/#debtor#/',   $user->getValue('DEBTOR'), $text);
-    $text = preg_replace('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrganization->getValue('org_id')),   $text);
+    $text = preg_replace('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.ORG_ID),   $text);
     $text = preg_replace('/#iban_obfuscated#/', obfuscate_iban($user->getValue('IBAN')), $text);
 
     return $text;
