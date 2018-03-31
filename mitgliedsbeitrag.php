@@ -25,9 +25,6 @@ require_once(__DIR__ . '/../../adm_program/system/login_valid.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
-// Einbinden der Sprachdatei
-$gL10n->addLanguageFolderPath(ADMIDIO_PATH . FOLDER_PLUGINS . PLUGIN_FOLDER . '/languages');
-
 $_SESSION['pMembershipFee']['script_name'] = $_SERVER['SCRIPT_NAME'];
 
 // only authorized user are allowed to start this module
@@ -53,12 +50,6 @@ elseif ($checked == 2)        //Installationsroutine durchlaufen
 }
 
 $pPreferences->read();            // (checked == 0) : nur Einlesen der Konfigurationsdaten
-
-//nur zum Testen
-if (ini_get('max_execution_time')<600)
-{
-	ini_set('max_execution_time', 600); //600 seconds = 10 minutes
-}
 
 $duedates = array();
 $directdebittype = false;
