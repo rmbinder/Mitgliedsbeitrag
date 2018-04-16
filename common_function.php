@@ -1139,7 +1139,7 @@ function isUserAuthorized($scriptName)
 	
 	if ( $menuStatement->rowCount() === 0 || $menuStatement->rowCount() > 1)
 	{
-		$gMessage->show($gL10n->get('PLG_FORMFILLER_MENU_URL_ERROR', $scriptName), $gL10n->get('SYS_ERROR'));
+		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR', $scriptName), $gL10n->get('SYS_ERROR'));
 	}
 	else
 	{
