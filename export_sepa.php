@@ -408,7 +408,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
     header('Cache-Control: post-check=0, pre-check=0');
     header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['kontroll_dateiname'].$filename_ext.'.csv"');
 
-    $datumtemp = new DateTimeExtended($payment_datum, 'Y-m-d');
+    $datumtemp = \DateTime::createFromFormat('Y-m-d', $payment_datum);
 
     echo 'SEPA-'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')."\n\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').';'.$pPreferences->config['SEPA']['kontroll_dateiname'].$filename_ext.'.csv'."\n"
@@ -450,8 +450,8 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
     $nr = 1;
     foreach ($zpflgt as $dummy => $zpflgtdata)
     {
-        $datumDueDate = new DateTimeExtended($zpflgtdata['duedate'], 'Y-m-d');
-        $datumMandate = new DateTimeExtended($zpflgtdata['mandat_datum'], 'Y-m-d');
+        $datumDueDate = \DateTime::createFromFormat('Y-m-d', $zpflgtdata['duedate']);
+        $datumMandate = \DateTime::createFromFormat('Y-m-d', $zpflgtdata['mandat_datum']);
 
         echo
             utf8_decode($nr).';'

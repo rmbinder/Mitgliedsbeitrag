@@ -600,7 +600,7 @@ if(count($rols) > 0)
 
                                         foreach($duedates as $duedate => $duedatedata)
                                         {
-                                            $datumtemp = new DateTimeExtended($duedate, 'Y-m-d');
+                                        	$datumtemp = \DateTime::createFromFormat('Y-m-d', $duedate);
 
                                             $htmlTable .= '
                                             <tr>

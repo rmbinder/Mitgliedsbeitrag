@@ -434,7 +434,7 @@ else
 
         while ($row = $duedateStatement->fetch())
         {
-            $DueDate = new DateTimeExtended($row['usd_value'], 'Y-m-d');
+            $DueDate = \DateTime::createFromFormat('Y-m-d', $row['usd_value']);
             $selectBoxEntries[$row['usd_value']] = $DueDate->format($gPreferences['system_date']);
         }
 
@@ -506,7 +506,7 @@ else
             //2. Spalte ($htmlDueDate)
            if($user['faelligkeitsdatum'] > 0)
             {
-               $DueDate = new DateTimeExtended($user['faelligkeitsdatum'], 'Y-m-d');
+                $DueDate = \DateTime::createFromFormat('Y-m-d', $user['faelligkeitsdatum']);
                 $htmlDueDate = $DueDate->format($gPreferences['system_date']);
             }
 

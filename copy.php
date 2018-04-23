@@ -181,7 +181,8 @@ else
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'), 0);
     foreach ($members as $member => $memberdata)
     {
-        $datumtemp = new DateTimeExtended($memberdata['BIRTHDAY'], 'Y-m-d');
+        $datumtemp = \DateTime::createFromFormat('Y-m-d', $memberdata['BIRTHDAY']);
+        
         $members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']);
         $membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']).'</option>';
     }
