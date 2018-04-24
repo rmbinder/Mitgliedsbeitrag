@@ -123,7 +123,7 @@ if ($getMode == 'preview')     //Default
 	//alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 	foreach ($members as $member => $memberdata)
 	{
-		$members[$member]['FEE_NEW'] = '';
+		$members[$member]['FEE_NEW'] = 0;
 		$members[$member]['CONTRIBUTORY_TEXT_NEW'] = '';
 	
 		foreach ($contributingRolls as $rol => $roldata)
@@ -212,7 +212,7 @@ if ($getMode == 'preview')     //Default
 	
 		// wenn definiert: Beitragstext mit dem Namen des Benutzers
 		if(($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
-				&&  ($members[$member]['FEE_NEW'] != '')
+				&&  ($members[$member]['FEE_NEW'] != 0)
 				&&  !(($members[$member]['LAST_NAME'].' '.$members[$member]['FIRST_NAME'] == $members[$member]['DEBTOR'])
 						|| ($members[$member]['FIRST_NAME'].' '.$members[$member]['LAST_NAME'] == $members[$member]['DEBTOR'])
 						|| (empty($members[$member]['DEBTOR']))))
@@ -246,7 +246,7 @@ if ($getMode == 'preview')     //Default
 				if  (($roldata['has_to_pay'] != $member) && ($members[$member]['FEE_NEW'] > 0))
 				{
 					$members[$roldata['has_to_pay']]['FEE_NEW'] += $members[$member]['FEE_NEW'];
-					$members[$member]['FEE_NEW'] = '';
+					$members[$member]['FEE_NEW'] = 0;
 					$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] .= $members[$member]['CONTRIBUTORY_TEXT_NEW'].' ';
 	
 					// wenn nicht definiert: Beitragstext mit allen Familienmitgliedern, trotzdem Name und Vorname anfuegen
