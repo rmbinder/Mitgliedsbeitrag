@@ -48,7 +48,7 @@ $getFirstName 	= admFuncVariableIsValid($_GET, 'filter_first_name','string');
 $getMode       	= admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl')));
 $getFullScreen 	= admFuncVariableIsValid($_GET, 'full_screen',      'bool');
 
-
+$title    = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 $filename = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 
