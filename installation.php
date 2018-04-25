@@ -25,9 +25,6 @@ if (!$gCurrentUser->isAdministrator())
 	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-$pPreferences = new ConfigTablePMB();
-$pPreferences->read();
-
 $gNavigation->addUrl(CURRENT_URL);
 
 // Initialize and check the parameters
@@ -952,7 +949,7 @@ elseif($getMode == 'soll_ist')
  */
 function check_DB()
 {
-    global $gDb, $gL10n, $gProfileFields, $pPreferences;
+    global $gDb, $gL10n, $gProfileFields;
 
     //Mit der Version 3.3.0 wurde die Installationsroutine umprogrammiert.
     //Frueher wurde auf usf_name geprueft, jetzt auf usf_name_intern.
