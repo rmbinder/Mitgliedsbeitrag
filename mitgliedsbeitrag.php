@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag
  *
- * Version 4.3.0
+ * Version 4.3.1
  *
  * Dieses Plugin berechnet Mitgliedsbeitraege anhand von Rollenzugehoerigkeiten.
  *
