@@ -370,7 +370,7 @@ else
  	//user data
     foreach ($membersList as $member => $memberData)
     {
-    	if (strlen($memberData[$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id')]) > 0)
+    	if (isset($memberData[$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id')]) && strlen($memberData[$gProfileFields->getProperty('PAID'.ORG_ID, 'usf_id')]) > 0)
     	{
     		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
     	}
