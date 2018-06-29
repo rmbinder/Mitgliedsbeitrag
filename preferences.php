@@ -244,7 +244,7 @@ $javascriptCode .= '
         var user_fields = new Array(); ';
 
 		// create an array for all columns with the necessary data
-		for ($i = 0; $i < count($fieldSelectionList)+1; $i++)
+		for ($i = 1; $i < count($fieldSelectionList)+1; $i++)
 		{
 			$javascriptCode .= '
                 user_fields['. $i. '] 				= new Object();
