@@ -48,13 +48,8 @@ $filename_ext = '';
 
 foreach ($_POST['duedatesepatype'] as $dummy => $data)
 {
-	$postDueDate = substr($data, 0, 10);
-	$dueDateArr[substr($data, 0, 10)] = '';
-}
-
-foreach ($dueDateArr as $dueDate => $dummy)      							//Erweiterung fuer die Dateinamen zusammensetzen
-{
-	$filename_ext .= '-'.$dueDate;
+	$filename_ext .= '_'.substr($data, 0, 10).'-'.substr($data, 10);				// Erweiterung fuer den Dateinamen zusammensetzen
+	$dueDateArr[substr($data, 0, 10)] = '';											// je DueDate ein PmtInf-Block
 }
 	
 $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.ORG_ID, 'ORIG_MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID), 0);
