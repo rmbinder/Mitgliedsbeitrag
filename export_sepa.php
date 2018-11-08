@@ -31,10 +31,15 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 // Konfiguration einlesen
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
+$oneDueDateOnly = false;
 
 if (!is_array($_POST['duedatesepatype']))
 {
 	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA'));
+}
+elseif (sizeof($_POST['duedatesepatype']) == 1)
+{
+	$oneDueDateOnly = true;				// es gibt nur ein Fälligkeitsdatum mit einem Sequenztyp: der PmtTpInf-Block wird im PmtInf-Block plaziert (damit KSK die XML-Datei einlesen kann)
 }
 
 $dueDateArr = array();
@@ -49,7 +54,7 @@ $filename_ext = '';
 foreach ($_POST['duedatesepatype'] as $dummy => $data)
 {
 	$filename_ext .= '_'.substr($data, 0, 10).'-'.substr($data, 10);				// Erweiterung fuer den Dateinamen zusammensetzen
-	$dueDateArr[substr($data, 0, 10)] = '';											// je DueDate ein PmtInf-Block
+	$dueDateArr[substr($data, 0, 10)] = substr($data, 10);							// je DueDate ein PmtInf-Block
 }
 	
 $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.ORG_ID, 'ORIG_MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID), 0);
@@ -169,7 +174,7 @@ if (isset($_POST['btn_xml_file']))
             $xmlfile .= "</InitgPty>\n";
         $xmlfile .= "</GrpHdr>\n";
 
-        foreach ($dueDateArr as $dueDate => $dummy)      							// je DueDate ein PmtInf-Block
+        foreach ($dueDateArr as $dueDate => $sequencetype)      							// je DueDate ein PmtInf-Block
         {
         	// ########## Payment Information ###########
         	$xmlfile .= "<PmtInf>\n";
@@ -179,6 +184,24 @@ if (isset($_POST['btn_xml_file']))
             	$xmlfile .= "<NbOfTxs>$lst_num</NbOfTxs>\n";                      	//Number of Transactions
             	$xmlfile .= "<CtrlSum>$lst_euro_sum</CtrlSum>\n";                 	//Control Summe
      
+            	if ($oneDueDateOnly)												//es gibt nur ein Fälligkeitsdatum mit einem Sequenztyp: der PmtTpInf-Block wird im PmtInf-Block plaziert
+            	{
+            		$xmlfile .= "<PmtTpInf>\n";                                     //PaymentTypeInformation
+            			$xmlfile .= "<SvcLvl>\n";                                   //ServiceLevel
+            				$xmlfile .= "<Cd>SEPA</Cd>\n";                          //Code, immer SEPA
+            			$xmlfile .= "</SvcLvl>\n";
+            			$xmlfile .= "<LclInstrm>\n";                                //LocalInstrument, Lastschriftart
+            				$xmlfile .= "<Cd>CORE</Cd>\n";                          //CORE (Basislastschrift oder B2B (Firmenlastschrift)
+            			$xmlfile .= "</LclInstrm>\n";
+            			$xmlfile .= '<SeqTp>'.$sequencetype."</SeqTp>\n";           //SequenceType
+            			//Der SequenceType gibt an, ob es sich um eine Erst-, Folge-,
+            			//Einmal- oder letztmalige Lastschrift handelt.
+            			//Zulaessige Werte: FRST, RCUR, OOFF, FNAL
+            			//Wenn <OrgnlDbtrAcct> = SMNDA und <Amdmnt-Ind> = true
+            			//dann muss dieses Feld mit FRST belegt sein.
+            		$xmlfile .= "</PmtTpInf>\n";
+            	}
+            	
             	$xmlfile .= "<ReqdColltnDt>$dueDate</ReqdColltnDt>\n";      		//RequestedCollectionDate, Faelligkeitsdatum der Lastschrift
             	$xmlfile .= "<Cdtr>\n";                                           	//Creditor
                 	$xmlfile .= '<Nm>'.$zempf['name']."</Nm>\n";                  	//Name, max. 70 Zeichen
@@ -232,21 +255,24 @@ if (isset($_POST['btn_xml_file']))
                                         //muss die Konstante NOTPROVIDED benutzt werden.
                     		$xmlfile .= "</PmtId>\n";
                     		
-                     		$xmlfile .= "<PmtTpInf>\n";                                       //PaymentTypeInformation
-                     			$xmlfile .= "<SvcLvl>\n";                                     //ServiceLevel
-                     				$xmlfile .= "<Cd>SEPA</Cd>\n";                            //Code, immer SEPA
-                     			$xmlfile .= "</SvcLvl>\n";
-                     			$xmlfile .= "<LclInstrm>\n";                                  //LocalInstrument, Lastschriftart
-                     				$xmlfile .= "<Cd>CORE</Cd>\n";                            //CORE (Basislastschrift oder B2B (Firmenlastschrift)
-                     			$xmlfile .= "</LclInstrm>\n";
-                     			$xmlfile .= '<SeqTp>'.$zpflgtdata['sequencetype']."</SeqTp>\n";                //SequenceType
+                    		if (!$oneDueDateOnly)												//PmtTpInf-Block entweder hier unter DrctDbtTxInf oder unter PmtInf
+                    		{
+                     			$xmlfile .= "<PmtTpInf>\n";                                     //PaymentTypeInformation
+                     				$xmlfile .= "<SvcLvl>\n";                                   //ServiceLevel
+                     					$xmlfile .= "<Cd>SEPA</Cd>\n";                          //Code, immer SEPA
+                     				$xmlfile .= "</SvcLvl>\n";
+                     				$xmlfile .= "<LclInstrm>\n";                                //LocalInstrument, Lastschriftart
+                     					$xmlfile .= "<Cd>CORE</Cd>\n";                          //CORE (Basislastschrift oder B2B (Firmenlastschrift)
+                     				$xmlfile .= "</LclInstrm>\n";
+                     				$xmlfile .= '<SeqTp>'.$zpflgtdata['sequencetype']."</SeqTp>\n";                //SequenceType
                      																//Der SequenceType gibt an, ob es sich um eine Erst-, Folge-,
                      																//Einmal- oder letztmalige Lastschrift handelt.
                      																//Zulaessige Werte: FRST, RCUR, OOFF, FNAL
                      																//Wenn <OrgnlDbtrAcct> = SMNDA und <Amdmnt-Ind> = true
                      																//dann muss dieses Feld mit FRST belegt sein.
-                     		$xmlfile .= "</PmtTpInf>\n";
-                    
+                     			$xmlfile .= "</PmtTpInf>\n";
+                    		}
+                    		
                     		$xmlfile .= '<InstdAmt Ccy="EUR">'.$zpflgtdata['betrag']."</InstdAmt>\n";   //InstructedAmount (Dezimalpunkt)
                     		$xmlfile .= "<DrctDbtTx>\n";                              //DirectDebitTransaction, Angaben zum Lastschriftmandat
                         		$xmlfile .= "<MndtRltdInf>\n";                        //MandateRelated-Information, mandatsbezogene Informationen
