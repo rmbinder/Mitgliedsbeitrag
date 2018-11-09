@@ -45,7 +45,8 @@ elseif (sizeof($_POST['duedatesepatype']) == 1)
 $dueDateArr = array();
 $zempf = array();
 $zpflgt = array();
-$lst_euro_sum = 0;
+$nbOfTxs_Msg = 0; 																	// Anzahl der Transaktionen innerhalb der Message
+$ctrlSum_Msg = 0;																	// Kontrollsumme der Beträge innerhalb der Message
 $now = time();
 $format1 = 'Y-m-d';
 $format2 = 'H:i:s';
@@ -54,7 +55,9 @@ $filename_ext = '';
 foreach ($_POST['duedatesepatype'] as $dummy => $data)
 {
 	$filename_ext .= '_'.substr($data, 0, 10).'-'.substr($data, 10);				// Erweiterung fuer den Dateinamen zusammensetzen
-	$dueDateArr[substr($data, 0, 10)] = substr($data, 10);							// je DueDate ein PmtInf-Block
+	$dueDateArr[substr($data, 0, 10)]['sequencetype'] = substr($data, 10);			// je DueDate ein PmtInf-Block
+	$dueDateArr[substr($data, 0, 10)]['nbOfTxs_PmtInf'] = 0;						// Anzahl der Transaktionen innerhalb eines PmtInf-Blocks
+	$dueDateArr[substr($data, 0, 10)]['ctrlSum_PmtInf'] = 0;						// Kontrollsumme der Beträge innerhalb eines PmtInf-Blocks
 }
 	
 $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.ORG_ID, 'ORIG_MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID), 0);
@@ -105,21 +108,24 @@ foreach ($members as $member => $memberdata)
        	{
        		$fee = substr($fee, 0, strpos($fee, '.') +3);
        	}
+       	
         $zpflgt[$member]['betrag'] = $fee;                                               															  // Amount of money
         $zpflgt[$member]['text'] = substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.ORG_ID]), 0, 140);   // Description of the transaction ("Verwendungszweck").
         $zpflgt[$member]['orig_mandat_id'] = $members[$member]['ORIG_MANDATEID'.ORG_ID];                           // urspruengliche Mandats-ID
         $zpflgt[$member]['orig_iban'] = strtoupper(str_replace(' ', '', $members[$member]['ORIG_IBAN']));                                             // urspruengliche IBAN
         $zpflgt[$member]['orig_dbtr_agent'] = $members[$member]['ORIG_DEBTOR_AGENT'];                                                                 // urspruengliches Kreditinstitut, nur "SMNDA" moeglich
 
-        $lst_euro_sum += $zpflgt[$member]['betrag'];
+        $dueDateArr[$dueDateMember]['nbOfTxs_PmtInf']++;
+        $dueDateArr[$dueDateMember]['ctrlSum_PmtInf'] += $zpflgt[$member]['betrag'];
+        $ctrlSum_Msg += $zpflgt[$member]['betrag'];
 
         $zpflgt[$member]['end2end_id'] = substr(replace_sepadaten($gCurrentOrganization->getValue('org_shortname')).'-'.$member.'-'.date($format1, $now), 0, 35);     //SEPA End2End-ID   (max. 35)
     }
 }
 
-$lst_num = count($zpflgt);                                                                                        //SEPA Anzahl der Lastschriften
+$nbOfTxs_Msg = count($zpflgt);                                                                                        //SEPA Anzahl der Lastschriften
 
-if ($lst_num == 0)
+if ($nbOfTxs_Msg == 0)
 {
     $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA'));
 }
@@ -167,22 +173,22 @@ if (isset($_POST['btn_xml_file']))
         $xmlfile .= "<GrpHdr>\n";
             $xmlfile .= "<MsgId>$message_id</MsgId>\n";                       		//MessageIdentification
             $xmlfile .= "<CreDtTm>$message_datum</CreDtTm>\n";                		//Datum & Zeit
-            $xmlfile .= "<NbOfTxs>$lst_num</NbOfTxs>\n";                      		//NumberOfTransactions
-            $xmlfile .= "<CtrlSum>$lst_euro_sum</CtrlSum>\n";                 		//ControlSum
+            $xmlfile .= "<NbOfTxs>$nbOfTxs_Msg</NbOfTxs>\n";                      	//NumberOfTransactions
+            $xmlfile .= "<CtrlSum>$ctrlSum_Msg</CtrlSum>\n";                 		//ControlSum
             $xmlfile .= "<InitgPty>\n";
                 $xmlfile .= "<Nm>$message_initiator_name</Nm>\n";
             $xmlfile .= "</InitgPty>\n";
         $xmlfile .= "</GrpHdr>\n";
 
-        foreach ($dueDateArr as $dueDate => $sequencetype)      							// je DueDate ein PmtInf-Block
+        foreach ($dueDateArr as $dueDate => $data)      							// je DueDate ein PmtInf-Block
         {
         	// ########## Payment Information ###########
         	$xmlfile .= "<PmtInf>\n";
             	$xmlfile .= "<PmtInfId>$payment_id</PmtInfId>\n";                 	//Payment-ID
             	$xmlfile .= "<PmtMtd>DD</PmtMtd>\n";                              	//Payment-Methode, Lastschrift: DD
             	$xmlfile .= "<BtchBookg>true</BtchBookg>\n";                      	//BatchBooking, Sammelbuchung (true) oder eine Einzelbuchung handelt (false)
-            	$xmlfile .= "<NbOfTxs>$lst_num</NbOfTxs>\n";                      	//Number of Transactions
-            	$xmlfile .= "<CtrlSum>$lst_euro_sum</CtrlSum>\n";                 	//Control Summe
+            	$xmlfile .= '<NbOfTxs>'.$data['nbOfTxs_PmtInf']."</NbOfTxs>\n";     //Number of Transactions
+            	$xmlfile .= '<CtrlSum>'.$data['ctrlSum_PmtInf']."</CtrlSum>\n";     //Control Sum
      
             	if ($oneDueDateOnly)												//es gibt nur ein Fälligkeitsdatum mit einem Sequenztyp: der PmtTpInf-Block wird im PmtInf-Block plaziert
             	{
@@ -193,7 +199,7 @@ if (isset($_POST['btn_xml_file']))
             			$xmlfile .= "<LclInstrm>\n";                                //LocalInstrument, Lastschriftart
             				$xmlfile .= "<Cd>CORE</Cd>\n";                          //CORE (Basislastschrift oder B2B (Firmenlastschrift)
             			$xmlfile .= "</LclInstrm>\n";
-            			$xmlfile .= '<SeqTp>'.$sequencetype."</SeqTp>\n";           //SequenceType
+            			$xmlfile .= '<SeqTp>'.$data['sequencetype']."</SeqTp>\n";           //SequenceType
             			//Der SequenceType gibt an, ob es sich um eine Erst-, Folge-,
             			//Einmal- oder letztmalige Lastschrift handelt.
             			//Zulaessige Werte: FRST, RCUR, OOFF, FNAL
@@ -437,8 +443,8 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID').';'.utf8_decode($message_id)."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE').';'.utf8_decode($message_datum)."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME').';'.utf8_decode($message_initiator_name)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS').';'.utf8_decode($lst_num)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM').';'.utf8_decode($lst_euro_sum)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS').';'.utf8_decode($nbOfTxs_Msg)."\n"
+        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM').';'.utf8_decode($ctrlSum_Msg)."\n"
         ."\n"
         .$gL10n->get('PLG_MITGLIEDSBEITRAG_PAYMENT_ID').';'.utf8_decode($payment_id)."\n"
         ."\n"
