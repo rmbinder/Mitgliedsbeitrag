@@ -148,6 +148,10 @@ elseif ($getMode == 'write')
 	$form->addStaticControl('', '', '');
 	
 	$page->addHtml($form->show(false));
+	
+	// save the format string in database
+	$pPreferences->config['membernumber']['format'] = $_SESSION['pMembershipFee']['membernumber_format'];
+	$pPreferences->save();
 }
 elseif ($getMode == 'print')
 {

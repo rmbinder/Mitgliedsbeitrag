@@ -116,7 +116,10 @@ $config_default['columnconfig'] = array('payments_fields_normal_screen' => array
 																				 'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')));
-		
+	
+//Formatierung der Mitgliedsnummer
+$config_default['membernumber'] = array('format' => '');
+
 /*
  *  Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden,
  *  zu einem String zusammengefasst und in der Admidiodatenbank gespeichert.
