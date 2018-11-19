@@ -207,6 +207,10 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC2">Ici, tu peux spécifier une condition de contrôle pour chaque rôle de famille dans le format de*à:nombre. Plusieurs conditions doivent être séparées par des points-virgules.\nEx.: 14*17:0;18*59:2 signifie : Teste pour 0 membres âgé de 14 à 17 ans et test pour 2 membres âgés de 18 à 59 ans.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR">Dans les familles énumérées, au moins un membre ne répond pas aux exigences du test.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Toutes les familles sont conforme aux conditions du test.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Familienrollen aktualisieren</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Hier können die Einträge von Beitrag, Beitragszeitraum und Beschreibung von Familienrollen mit den Angaben in den Einstellungen abgeglichen und aktualisiert werden.</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Eine Aktualisierung ist nicht möglich, da bei allen Familienrollen die Einträge von Beitrag, Beitragszeitraum und Beschreibung mit den Angaben in den Einstellungen übereinstimmen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">Die zu aktualisierenden Familienrollen wurden bis jetzt nur identifiziert. Es wurden noch keine Daten gespeichert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">nouvelle cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS">ancienne cotisation</string>    

@@ -146,7 +146,7 @@ if($showOption != '')
     {
         $navOption = 'export';
     }
-    elseif(in_array($showOption, array('producemembernumber', 'copy')) == true)
+    elseif(in_array($showOption, array('producemembernumber', 'copy', 'familyrolesupdate')) == true)
     {
         $navOption = 'options';
     }
@@ -705,6 +705,27 @@ if(count($rols) > 0)
                         $page->addHtml('</div>
                     </div>
                 </div>
+
+                <div class="panel panel-default" id="panel_familyrolesupdate">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_options" href="#collapse_familyrolesupdate">
+                                <img src="'. THEME_URL .'/icons/group.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE').'
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapse_familyrolesupdate" class="panel-collapse collapse">
+                        <div class="panel-body">');
+                            // show form
+                            unset($_SESSION['pMembershipFee']['familyroles_update']);
+                            $form = new HtmlForm('familyrolesupdate_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/familyroles_update.php', $page);                            
+                            $form->addSubmitButton('btn_familyrolesupdate', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), array('icon' => THEME_URL .'/icons/edit.png',  'class' => 'btn-primary col-sm-offset-3'));
+                            $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC'));
+                            $page->addHtml($form->show(false));
+                        $page->addHtml('</div>
+                    </div>
+                </div>
+
                 <div class="panel panel-default" id="panel_copy">
                     <div class="panel-heading">
                         <h4 class="panel-title">
