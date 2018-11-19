@@ -93,39 +93,6 @@ try
                 $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][] = $_POST['familienrollen_beschreibung'. $conf];
                 $pPreferences->config['Familienrollen']['familienrollen_pruefung'][] = isset($familienrollen_pruefung[$conf]) ? $familienrollen_pruefung[$conf] : '';
             }
-
-            // alle Familienkonfigurationen durchlaufen
-            foreach($pPreferences->config['Familienrollen']['familienrollen_prefix'] as $key => $data)
-            {
-                // zuerst alle Familienrollen herausfinden
-                $sql = 'SELECT rol_name, rol_id, rol_cost, rol_cost_period
-                        FROM '.TBL_ROLES.'
-                        WHERE rol_name LIKE \''. $data.'%'. '\' ';
-
-                $statement = $gDb->query($sql);
-
-                // jetzt den neuen Betrag, den Beitragszeitraum und die Beschreibung in die DB schreiben
-                while ($row = $statement->fetch())
-                {
-                    $sql = 'UPDATE '.TBL_ROLES.'
-                            SET rol_cost = \''.$pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key].'\'
-                            WHERE rol_id = \''.$row['rol_id'].'\' ';
-
-                    $gDb->query($sql);
-
-                    $sql = 'UPDATE '.TBL_ROLES.'
-                            SET rol_cost_period = \''.$pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key].'\'
-                            WHERE rol_id = \''.$row['rol_id'].'\' ';
-
-                    $gDb->query($sql);
-
-                    $sql = 'UPDATE '.TBL_ROLES.'
-                            SET rol_description = \''.$pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key].'\'
-                            WHERE rol_id = \''.$row['rol_id'].'\' ';
-
-                    $gDb->query($sql);
-                }
-            }
             break;
 
         case 'accountdata':

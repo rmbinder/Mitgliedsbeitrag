@@ -198,9 +198,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK">Toutes les familles ont le nombre minimum de membres #VAR1#.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLE">Rôle familial</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES">Rôles familiaux</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">Si un nouveau montant est saisi, la nouvelle cotisation est définie dans tous les rôles familiaux avec le préfixe ci-dessus.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC">Si une nouvelle période de cotisation est saisie, la nouvelle période de cotisation est définie dans tous les rôles familiaux avec le préfixe ci-dessus.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC">Si une nouvelle description est saisie, la nouvelle description est définie dans tous les rôles familiaux avec le préfixe ci-dessus.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">Der Beitrag für Familienrollen mit diesem Präfix.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC">Der Beitragszeitraum für Familienrollen mit diesem Präfix.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC">Die Beschreibung für Familienrollen mit diesem Präfix.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_NUMBER">Nombre de rôles familiaux</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_PREFIX_DESC">Saisis ici le préfixe des rôles familiaux. Tous les rôles familiaux sont identifiés à l\'aide de cette valeur.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC">Vérifie les rôles familiaux pour le nombre de membres spécifié dans la configuration.</string>

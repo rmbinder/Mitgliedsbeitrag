@@ -198,9 +198,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK">All families have the minimum number of #VAR1# members.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLE">Family role</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES">Family roles</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">If a new amount is entered, this applies to all family roles with the above prefix.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC">If a new membership fee period is entered, this applies to all family roles with the above prefix.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC">If a new description is entered, this applies to all family roles with the above prefix.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">The contribution for family roles with this prefix.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC">The contribution period for family roles with this prefix.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC">The description for family roles with this prefix.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_NUMBER">Number of familiy roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_PREFIX_DESC">Here, the prefix for family roles is to be entered. This value identifies all family roles.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC">Review of family roles to the specified number of members in the setup.</string>

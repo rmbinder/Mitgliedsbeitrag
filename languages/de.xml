@@ -198,9 +198,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK">Alle Familien besitzen die Mindestanzahl von #VAR1# Mitgliedern.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLE">Familienrolle</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES">Familienrollen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">Wird ein neuer Betrag eingegeben, so wird in allen Familienrollen mit dem obigen Präfix der neue Beitrag gesetzt.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC">Wird ein neuer Betragszeitraum eingegeben, so wird in allen Familienrollen mit dem obigen Präfix der neue Beitragszeitraum gesetzt.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC">Wird eine neue Beschreibung eingegeben, so wird in allen Familienrollen mit dem obigen Präfix die neue Beschreibung gesetzt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">Der Beitrag für Familienrollen mit diesem Präfix.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC">Der Beitragszeitraum für Familienrollen mit diesem Präfix.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC">Die Beschreibung für Familienrollen mit diesem Präfix.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_NUMBER">Anzahl der Familienrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_PREFIX_DESC">Hier ist das Präfix für Familienrollen einzugeben. Über diesen Wert werden alle Familienrollen identifiziert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Anzahl an Mitgliedern.</string>
