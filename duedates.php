@@ -390,7 +390,7 @@ else
     		/*****************************************************************/
     		if ($usfId === (int) $gProfileFields->getProperty('COUNTRY', 'usf_id'))
     		{
-    			$content = $gL10n->getCountryByCode($data);
+    			$content = $gL10n->getCountryName($data);
     		}
     		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
     		{
