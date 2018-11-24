@@ -52,7 +52,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
     $sql = 'SELECT rol_id, rol_name, rol_cost, rol_cost_period, rol_timestamp_create, rol_description
             FROM '.TBL_ROLES.', '. TBL_CATEGORIES. '
             WHERE rol_valid  = 1
-            AND rol_cost >= 0
+            AND rol_cost IS NOT NULL
             AND rol_cost_period <>\'\'
             AND rol_cat_id = cat_id
             AND (  cat_org_id = '.ORG_ID.'
