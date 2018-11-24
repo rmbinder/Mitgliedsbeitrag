@@ -70,7 +70,6 @@ foreach ($members as $member => $memberdata)
         && !empty($memberdata['CONTRIBUTORY_TEXT'.ORG_ID])
         && !empty($memberdata['IBAN']))
     {
-        $duedatecount++;
         $directdebittype = true;
 
         if(!isset($duedates[$memberdata['DUEDATE'.ORG_ID]]))
@@ -98,6 +97,10 @@ foreach ($members as $member => $memberdata)
         {
             $duedates[$memberdata['DUEDATE'.ORG_ID]]['FRST']++;
         }
+    }
+    if (!empty($memberdata['DUEDATE'.ORG_ID]))
+    {
+    	$duedatecount++;
     }
     if (!empty($memberdata['PAID'.ORG_ID]))
     {
