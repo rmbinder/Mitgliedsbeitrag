@@ -33,11 +33,12 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 $oneDueDateOnly = false;
 
-if (!is_array($_POST['duedatesepatype']))
+if (!isset($_POST['duedatesepatype']))
 {
 	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA'));
 }
-elseif (sizeof($_POST['duedatesepatype']) == 1)
+
+if (sizeof($_POST['duedatesepatype']) == 1)
 {
 	$oneDueDateOnly = true;				// es gibt nur ein Fälligkeitsdatum mit einem Sequenztyp: der PmtTpInf-Block wird im PmtInf-Block plaziert (damit KSK die XML-Datei einlesen kann)
 }
