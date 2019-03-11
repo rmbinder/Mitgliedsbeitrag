@@ -719,7 +719,7 @@ function check_rollenmitgliedschaft_ausschluss()
             {
                 foreach ($pPreferences->config['Rollenpruefung']['altersrollenfix'] as $rol => $roldata)
                 {
-                    if((in_array(substr($roldata, strlen($token)), $memberdata['rollen'])) && (in_array($token.'alt', $memberdata['rollen'])))
+                    if ((in_array(substr($roldata, strlen($token)), $memberdata['rollen'])) && (in_array(substr($roldata, 0,strlen($token)).'alt', $memberdata['rollen'])))
                     {
                         $marker = true;
                     }
