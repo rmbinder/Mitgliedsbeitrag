@@ -227,14 +227,17 @@ function list_members($fields, $rols = array(), $conditions = '')
     global $gDb, $gProfileFields;
     
     $members = array();
-    $rowArray = array('mem_begin','mem_end');
+    $rowArray = array();
     $selectString = '';
     $joinString = '';
     $nameRow = '';
     $nameIntern = '';
     $inString = '';
-    
-    $sql = 'SELECT DISTINCT mem_usr_id, mem_begin, mem_end ';
+    $timeString = '';
+    $startString = 'SELECT DISTINCT mem_usr_id ';
+    $mainString = '';
+    $addString = '';
+    $sql = '';
     
     foreach ($fields as $field => $data)
     {
@@ -256,74 +259,100 @@ function list_members($fields, $rols = array(), $conditions = '')
                               AND '.$nameIntern.'.usd_usf_id = '. $gProfileFields->getProperty($nameIntern, 'usf_id'). '  ';
     }
     
-    $sql .= $selectString;
-    $sql .= ' FROM '. TBL_MEMBERS. ' ';
-    $sql .= $joinString;
+    $mainString .= $selectString;
+    $mainString .= ' FROM '. TBL_MEMBERS. ' ';
+    $mainString .= $joinString;
     
-    $sql .= 'WHERE mem_usr_id IN (SELECT DISTINCT mem_usr_id
-              FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ' ';
+    $inString .= 'WHERE mem_usr_id IN (SELECT DISTINCT mem_usr_id
+                   FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ' ';
     
     if (is_string($rols))
     {
-        $inString .= ' WHERE mem_rol_id = '.getRole_IDPMB($rols).' ';
+        $inString .= ' WHERE mem_rol_id = '.getRole_IDPMB($rols).' AND ';
     }
     elseif (is_int($rols) && ($rols == 0))
     {
-        // nur aktive Mitglieder
+        // aktive Mitglieder
         $inString .= ' WHERE mem_begin <= \''.DATE_NOW.'\' ';
-        $inString .= ' AND mem_end >= \''.DATE_NOW.'\' ';
+        $inString .= ' AND mem_end >= \''.DATE_NOW.'\' AND ';
         
     }
     elseif (is_int($rols) && ($rols == 1))
     {
-        // nicht-aktive Mitglieder    ALT:nur ehemalige Mitglieder
-        $inString .= ' WHERE ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') )';
+        // nicht-aktive Mitglieder (ehemalige Mitglieder)
+        $inString .= ' WHERE ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') ) AND ';
     }
+    elseif (is_int($rols) && ($rols > 1 || $rols < 0))
+    {
+        // alle Mitglieder (aktiv und nicht-aktiv)
+        $inString .= ' WHERE ';
+    } 
     elseif (is_array($rols))
     {
-        $firstpass = true;
-        foreach ($rols as $rol => $rol_switch)
+        if (sizeof($rols) == 1)
         {
-            if ($firstpass)
-            {
-                $inString .= ' WHERE (( ';
-            }
-            else
-            {
-                $inString .= ' OR ( ';
-            }
-            $inString .= 'mem_rol_id = '.getRole_IDPMB($rol).' ';
+            $timeString = ', mem_begin, mem_end ';
+            $rowArray[] = 'mem_begin';
+            $rowArray[] = 'mem_end';
             
-            if ($rol_switch == 0)
+            $werte = each($rols);
+       
+            $addString .= ' ) AND mem_rol_id = '.getRole_IDPMB($werte['key']).' ';
+            if ($werte['value'] == 0)
             {
                 // aktive Mitglieder
-                $inString .= ' AND mem_begin <= \''.DATE_NOW.'\' ';
-                $inString .= ' AND mem_end >= \''.DATE_NOW.'\' ';
+                $addString .= ' AND mem_begin <= \''.DATE_NOW.'\' ';
+                $addString .= ' AND mem_end >= \''.DATE_NOW.'\'  ';
             }
-            elseif ($rol_switch == 1)
+            elseif ($werte['value'] == 1)
             {
-                // nicht aktive Mitglieder  ALT: ehemalige Mitglieder
-                $inString .= ' AND ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') )';
+                // nicht aktive Mitglieder (ehemalige Mitglieder)
+                $addString .= ' AND ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') ) ';
             }
-            $inString .= ' ) ';
-            $firstpass = false;
+            $inString .= ' WHERE (';
         }
-        $inString .= ' ) ';
+        else
+        {
+            $firstpass = true;
+            foreach ($rols as $rol => $rol_switch)
+            {
+                if ($firstpass)
+                {
+                    $inString .= ' WHERE (( ';
+                }
+                else
+                {
+                    $inString .= ' OR ( ';
+                }
+                $inString .= 'mem_rol_id = '.getRole_IDPMB($rol).' ';
+            
+                if ($rol_switch == 0)
+                {
+                    // aktive Mitglieder
+                    $inString .= ' AND mem_begin <= \''.DATE_NOW.'\' ';
+                    $inString .= ' AND mem_end >= \''.DATE_NOW.'\' ';
+                }
+                elseif ($rol_switch == 1)
+                {
+                    // nicht aktive Mitglieder  (ehemalige Mitglieder)
+                    $inString .= ' AND ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') )';
+                }
+                $inString .= ' ) ';
+                $firstpass = false;
+            }
+            $inString .= ' ) AND ';
+        }
     }
     
-    $inString .= ' AND mem_rol_id = rol_id
+    $inString .= '  mem_rol_id = rol_id
                    AND rol_valid  = 1
                    AND rol_cat_id = cat_id
                    AND ( cat_org_id = '.ORG_ID.'
-                    OR cat_org_id IS NULL ) ';
-    $inString .= ' ) ';
+                    OR cat_org_id IS NULL ) ) ';
     
-    $sql .= $inString;
-    $sql .= 'AND mem_rol_id IN (SELECT DISTINCT mem_rol_id
-            FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ' ';
-    $sql .= $inString;
+    $mainString .= $inString;
     
-    $sql .= $conditions;
+    $sql .= $startString.$timeString.$mainString.$addString.$conditions;
     $sql .= ' ORDER BY mem_usr_id ASC ';
     
     $statement = $gDb->query($sql);
