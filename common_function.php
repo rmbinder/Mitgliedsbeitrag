@@ -295,16 +295,18 @@ function list_members($fields, $rols = array(), $conditions = '')
             $rowArray[] = 'mem_begin';
             $rowArray[] = 'mem_end';
             
-            $werte = each($rols);
+            reset($rols);                           // nur zur Sicherheit, falls eine Funktion vorher den Array-Zeiger verändert hat
+            $roleKey = key($rols);
+            $roleValue = current($rols);
        
-            $addString .= ' ) AND mem_rol_id = '.getRole_IDPMB($werte['key']).' ';
-            if ($werte['value'] == 0)
+            $addString .= ' ) AND mem_rol_id = '.getRole_IDPMB($roleKey).' ';
+            if ($roleValue == 0)
             {
                 // aktive Mitglieder
                 $addString .= ' AND mem_begin <= \''.DATE_NOW.'\' ';
                 $addString .= ' AND mem_end >= \''.DATE_NOW.'\'  ';
             }
-            elseif ($werte['value'] == 1)
+            elseif ($roleValue == 1)
             {
                 // nicht aktive Mitglieder (ehemalige Mitglieder)
                 $addString .= ' AND ( (mem_begin > \''.DATE_NOW.'\') OR (mem_end < \''.DATE_NOW.'\') ) ';
