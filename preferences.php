@@ -21,18 +21,18 @@ require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
+
 // only authorized user are allowed to start this module
-if (!$gCurrentUser->isAdministrator())
+if (!isUserAuthorizedForPreferences())
 {
-	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+    $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
 // Initialize and check the parameters
 $getChoice = admFuncVariableIsValid($_GET, 'choice', 'string', array('defaultValue' => ''));
 $getConf   = admFuncVariableIsValid($_GET, 'conf', 'numeric');
-
-$pPreferences = new ConfigTablePMB();
-$pPreferences->read();
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
@@ -788,6 +788,30 @@ $page->addHtml('
                         $form = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=deinstallation', $page, array('class' => 'form-preferences'));
                         $form->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => 'deinstallation.php', 'class' => 'btn-primary col-sm-offset-3'));
                         $form->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
+                        $page->addHtml($form->show(false));
+                    $page->addHtml('</div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" id="panel_access_preferences">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="icon-text-link" data-toggle="collapse" data-parent="#accordion_preferences" href="#collapse_access_preferences">
+                            <img src="'. THEME_URL .'/icons/lock.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES').'" />'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES').'
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse_access_preferences" class="panel-collapse collapse">
+                    <div class="panel-body">');
+                        // show form
+                    $form = new HtmlForm('access_preferences_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=access_preferences', $page, array('class' => 'form-preferences'));
+                        $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
+                                FROM '.TBL_CATEGORIES.' AS cat, '.TBL_ROLES.' AS rol
+                                WHERE cat.cat_id = rol.rol_cat_id
+                                AND (  cat.cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+                                OR cat.cat_org_id IS NULL )';
+                        $form->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true, 'property' => FIELD_REQUIRED));
+                        $form->addSubmitButton('btn_save_access_preferences', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => ' col-sm-offset-3'));
                         $page->addHtml($form->show(false));
                     $page->addHtml('</div>
                 </div>

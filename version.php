@@ -11,4 +11,4 @@
  */
 
 $plugin_version = '4.3.3-Beta1';
-$plugin_stand = '20.03.2019';
+$plugin_stand = '02.04.2019';

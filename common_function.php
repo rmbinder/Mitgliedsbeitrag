@@ -1227,6 +1227,36 @@ function isUserAuthorized($scriptName)
 }
 
 /**
+ * Funktion prueft, ob der Nutzer berechtigt ist, das Modul Preferences aufzurufen.
+ * @param   none
+ * @return  bool    true, wenn der User berechtigt ist
+ */
+function isUserAuthorizedForPreferences()
+{
+    global $gCurrentUser, $pPreferences;
+    
+    $userIsAuthorized = false;
+    
+    if ($gCurrentUser->isAdministrator())                   // Mitglieder der Rolle Administrator dürfen "Preferences" immer aufrufen
+    {
+        $userIsAuthorized = true;
+    }
+    else
+    {
+        foreach ($pPreferences->config['access']['preferences'] as $roleId)
+        {
+            if ($gCurrentUser->isMemberOfRole((int) $roleId))
+            {
+                $userIsAuthorized = true;
+                continue;
+            }
+        }
+    }
+    
+    return $userIsAuthorized;
+}
+
+/**
  * Formatiert den uebergebenen Datumsstring fuer MySQL,
  * date_format2mysql ersetzt date_german2mysql (erstellt von eiseli)
  * @param   string  $date       Datumsstring
@@ -1564,3 +1594,4 @@ function getEmailLink($value, $member)
 	}
 	return $htmlValue;
 }
+

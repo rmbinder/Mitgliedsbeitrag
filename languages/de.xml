@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES">Zugriffsberechtigung für Einstellungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Hier kann man, zusätzlich zur Rolle "Administrator", weitere Rollen für den Zugriff auf das Modul "Einstellungen" berechtigen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Beitritt</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Konto</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Kontodaten</string>

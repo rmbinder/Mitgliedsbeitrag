@@ -250,7 +250,12 @@ try
         		}
         	}
         	break; 
-
+        	
+        case 'access_preferences':
+            unset($pPreferences->config['access']);
+            $pPreferences->config['access']['preferences'] = isset($_POST['access_preferences']) ? array_unique(array_merge($_POST['access_preferences'], $pPreferences->config_default['access']['preferences'])) : $pPreferences->config_default['access']['preferences'];
+            break;
+            
         default:
             $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }

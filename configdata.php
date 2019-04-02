@@ -120,6 +120,9 @@ $config_default['columnconfig'] = array('payments_fields_normal_screen' => array
 //Formatierung der Mitgliedsnummer
 $config_default['membernumber'] = array('format' => '');
 
+//Zugriffsberechtigung für das Modul preferences
+$config_default['access']['preferences'] = array(getRole_IDPMB($gL10n->get('SYS_ADMINISTRATOR')));
+
 /*
  *  Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden,
  *  zu einem String zusammengefasst und in der Admidiodatenbank gespeichert.

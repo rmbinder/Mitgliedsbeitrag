@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES">Autorisation d'accès pour les paramétrages</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Ici, en plus du rôle "Administrateur", vous pouvez autoriser d'autres rôles pour accéder au module "Paramétrages".</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Admission</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Compte</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Données du compte</string>

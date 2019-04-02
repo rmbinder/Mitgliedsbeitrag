@@ -240,7 +240,7 @@ $form->addCustomContent('', '<table class="table table-condensed">
 
 $headerMenu->addForm($form->show(false));
 
-if ($gCurrentUser->isAdministrator())
+if (isUserAuthorizedForPreferences())
 {
     // show link to pluginpreferences
     $headerMenu->addItem('admMenuItemPreferencesLists', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php',
