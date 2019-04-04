@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Konfigurationsdaten fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2018 The Admidio Team
+ * @copyright 2004-2019 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -26,7 +26,7 @@ $config_default['Familienrollen'] = array('familienrollen_beitrag'        => arr
                                             'familienrollen_pruefung'     => array(''));
 
 //Beitrag
-$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2018',
+$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2019',
                                     'beitrag_suffix'        => '(ant.)',
                                     'beitrag_textmitnam'    => 1,
                                     'beitrag_textmitfam'    => '',
