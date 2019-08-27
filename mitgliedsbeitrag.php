@@ -46,8 +46,8 @@ if ($checked == 1)        //Update (Konfigurationdaten sind vorhanden, der Stand
 }
 elseif ($checked == 2)        //Installationsroutine durchlaufen
 {
+    $pPreferences->init();      //Konfigurationstabelle anlegen (vor dem weiteren Installationsprozedere)
 	admRedirect(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/'.'installation.php');
-	$pPreferences->init();
 }
 
 $pPreferences->read();            // (checked == 0) : nur Einlesen der Konfigurationsdaten
