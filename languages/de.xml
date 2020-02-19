@@ -91,7 +91,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Kontrolldatei</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Erstellt eine Kontrolldatei im CSV-Format.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Kontrolldateiname</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Kontroll-Datei" wird zu "Kontroll-Datei-2013-04-01-RCUR.csv"</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Kontroll-Datei" wird zu "Kontroll-Datei-2013-04-01-RCUR.csv"</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_SUM">Kontrollsumme</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Kopieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
@@ -218,6 +218,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS">bisheriger Beitrag</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FEES">Beiträge</string>
     <string name="PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED">Sollen die fehlenden Felder und Kategorien angelegt werden?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS">Lücken auffüllen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS_DESC">Lücken in Mitgliedsnummern werden aufgefüllt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER">Filter</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER_DESC">Filterauswahl für die Anzeige.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT">Letzte Lastschrift (FNAL)</string>

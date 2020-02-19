@@ -218,6 +218,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS">ancienne cotisation</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FEES">Cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED">Faut-il créer les champs et les catégories manquantes ?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS">Combler les lacunes</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS_DESC">Les lacunes dans le nombre de membres sont comblées.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FILTER">Filtre</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER_DESC">Sélection du filtre pour l\'affichage.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT">Dernière note de débit (FNAL)</string>

@@ -117,8 +117,9 @@ $config_default['columnconfig'] = array('payments_fields_normal_screen' => array
 																				 'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																				 'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')));
 	
-//Formatierung der Mitgliedsnummer
-$config_default['membernumber'] = array('format' => '');
+//Mitgliedsnummer
+$config_default['membernumber'] = array('format'    => '',
+                                        'fill_gaps' => 1);
 
 //Zugriffsberechtigung für das Modul preferences
 $config_default['access']['preferences'] = array(getRole_IDPMB($gL10n->get('SYS_ADMINISTRATOR')));

@@ -36,6 +36,7 @@ $postFormat = admFuncVariableIsValid($_POST, 'producemembernumber_format', 'stri
 
 //an array can not be checked with admFuncVariableIsValid
 $postRoleselection = isset($_POST['producemembernumber_roleselection']) ? $_POST['producemembernumber_roleselection'] : '';
+$postFillGaps      = isset($_POST['producemembernumber_fill_gaps']) ? $_POST['producemembernumber_fill_gaps'] : '';
 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
@@ -58,10 +59,11 @@ if ($getMode == 'preview')     //Default
 
 	$membernumbers->readUserWithoutMembernumber($postRoleselection);
 	$membernumbers->separateFormatSegment($postFormat);
-	$membernumbers->getMembernumber();
+	$membernumbers->getMembernumber($postFillGaps);
 	
 	$_SESSION['pMembershipFee']['membernumber_rol_sel'] = $postRoleselection;
 	$_SESSION['pMembershipFee']['membernumber_format'] = $postFormat;
+	$_SESSION['pMembershipFee']['membernumber_fill_gaps'] = $postFillGaps;
 	
 	$headerMenu = $page->getMenu();
 	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
@@ -151,6 +153,7 @@ elseif ($getMode == 'write')
 	
 	// save the format string in database
 	$pPreferences->config['membernumber']['format'] = $_SESSION['pMembershipFee']['membernumber_format'];
+	$pPreferences->config['membernumber']['fill_gaps'] = $_SESSION['pMembershipFee']['membernumber_fill_gaps'];
 	$pPreferences->save();
 }
 elseif ($getMode == 'print')

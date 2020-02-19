@@ -218,6 +218,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS">bisheriger Beitrag</string> 
     <string name="PLG_MITGLIEDSBEITRAG_FEES">Beiträge</string>
     <string name="PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED">Sollen die fehlenden Felder und Kategorien angelegt werden?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS">Lücken auffüllen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS_DESC">Lücken in Mitgliedsnummern werden aufgefüllt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER">Filter</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER_DESC">Filterauswahl für die Anzeige.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT">Letzte Lastschrift (FNAL)</string>

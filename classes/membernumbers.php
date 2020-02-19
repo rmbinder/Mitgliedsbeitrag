@@ -169,13 +169,43 @@ class Membernumbers
        
     /**
      * generates new membernumbers and stores the values in @b mUserWithoutMembernumber
+     * @param int|bool $fillGaps 1/true if gaps in membernumbers should be filled
      */
-    public function getMembernumber()
+    public function getMembernumber($fillGaps = '')
 	{
     	if ($this->userWithoutMembernumberExist)
     	{
     		$membernumberCounter = 1;
     		$memberCounter = 0;
+    		
+    		if (!$fillGaps)                       //Lücken in den Mitgliedsnummern nicht auffüllen 
+    		{
+    		    //wenn die Lücken in den Mitgliedsnumern nicht aufgefüllt werden sollen, dann muss die höchste bereits vergebene Mitgliedsnummer ausgelesen werden
+    		    
+    		    // Arbeitsarray erzeugen
+    		    $workmNumbers = array();
+    		    
+    		    foreach ($this->mNumbers as $data)
+    		    {
+                    if (!empty($this->preFormatSegment))
+    		        {
+                        if (substr($data, 0, strlen($this->preFormatSegment)) == $this->preFormatSegment)
+    		            {
+    		                $workmNumbers[] = intval(substr($data, strlen($this->preFormatSegment)));
+    		            }
+    		        }
+    		        else
+    		        {
+    		            if (is_numeric(substr($data, 0 ,1)))
+    		            {
+    		                $workmNumbers[] = intval($data);
+    		            }
+    		        }
+    		    }
+    		    // Startindex für Mitgliedsnummern bestimmen
+    		    $membernumberCounter = max($workmNumbers)+1;
+    		}
+    		
     		while (sizeof($this->mUserWithoutMembernumber) > $memberCounter)
     		{
     			$newMembernumber = $this->preFormatSegment.str_pad($membernumberCounter, $this->lengthSerialNumber, '0', STR_PAD_LEFT);

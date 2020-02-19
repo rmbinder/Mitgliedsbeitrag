@@ -218,6 +218,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS">previous membership fee</string> 
     <string name="PLG_MITGLIEDSBEITRAG_FEES">Fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED">Do you want to create the missing fields and categories?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS">Fill in gaps</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FILL_GAPS_DESC">Gaps in membership numbers are filled.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER">Filter</string>
     <string name="PLG_MITGLIEDSBEITRAG_FILTER_DESC">Filter selection for display.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT">Final debit (FNAL)</string>
