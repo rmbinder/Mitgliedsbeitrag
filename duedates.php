@@ -304,7 +304,7 @@ else
 
     $datumtemp =  \DateTime::createFromFormat('Y-m-d', DATE_NOW);
     
-    $datum = $datumtemp->format($gPreferences['system_date']);
+    $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
 
     $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_DESC'));
     $selectBoxEntries = array('RCUR' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FOLLOW_DIRECT_DEBIT'), 'FNAL' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT'), 'OOFF' => $gL10n->get('PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT'), 'FRST' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FIRST_DIRECT_DEBIT'));
@@ -405,7 +405,7 @@ else
     			{
     				// date must be formated
     				$date = DateTime::createFromFormat('Y-m-d', $data);
-    				$content = $date->format($gPreferences['system_date']);
+    				$content = $date->format($gSettingsManager->getString('system_date'));
     			}
     		}
     		

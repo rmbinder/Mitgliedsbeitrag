@@ -38,10 +38,10 @@ $pPreferences->read();
 
 // calculate default date from which the contribution history should be shown
 $filterDateFrom = DateTime::createFromFormat('Y-m-d', DATE_NOW);
-$filterDateFrom->modify('-'.$gPreferences['members_days_field_history'].' day');
+$filterDateFrom->modify('-'.$gSettingsManager->getString('members_days_field_history').' day');
 
 // Initialize and check the parameters
-$getDateFrom   	= admFuncVariableIsValid($_GET, 'filter_date_from', 'date',  array('defaultValue'  => $filterDateFrom->format($gPreferences['system_date'])));
+$getDateFrom   	= admFuncVariableIsValid($_GET, 'filter_date_from', 'date',  array('defaultValue'  => $filterDateFrom->format($gSettingsManager->getString('system_date'))));
 $getDateTo     	= admFuncVariableIsValid($_GET, 'filter_date_to',   'date',  array('defaultValue'  => DATE_NOW));
 $getLastName 	= admFuncVariableIsValid($_GET, 'filter_last_name', 'string');
 $getFirstName 	= admFuncVariableIsValid($_GET, 'filter_first_name','string');
@@ -61,10 +61,10 @@ $objDateFrom = DateTime::createFromFormat('Y-m-d', $getDateFrom);
 if($objDateFrom === false)
 {
     // check if date has system format
-    $objDateFrom = DateTime::createFromFormat($gPreferences['system_date'], $getDateFrom);
+    $objDateFrom = DateTime::createFromFormat($gSettingsManager->getString('system_date'), $getDateFrom);
     if($objDateFrom === false)
     {
-        $objDateFrom = DateTime::createFromFormat($gPreferences['system_date'], '1970-01-01');
+        $objDateFrom = DateTime::createFromFormat($gSettingsManager->getString('system_date'), '1970-01-01');
     }
 }
 
@@ -72,10 +72,10 @@ $objDateTo = DateTime::createFromFormat('Y-m-d', $getDateTo);
 if($objDateTo === false)
 {
     // check if date has system format
-    $objDateTo = DateTime::createFromFormat($gPreferences['system_date'], $getDateTo);
+    $objDateTo = DateTime::createFromFormat($gSettingsManager->getString('system_date'), $getDateTo);
     if($objDateTo === false)
     {
-        $objDateTo = DateTime::createFromFormat($gPreferences['system_date'], '1970-01-01');
+        $objDateTo = DateTime::createFromFormat($gSettingsManager->getString('system_date'), '1970-01-01');
     }
 }
 
@@ -87,9 +87,9 @@ if($objDateFrom > $objDateTo)
 }
 
 $dateFromIntern = $objDateFrom->format('Y-m-d');
-$dateFromHtml   = $objDateFrom->format($gPreferences['system_date']);
+$dateFromHtml   = $objDateFrom->format($gSettingsManager->getString('system_date'));
 $dateToIntern   = $objDateTo->format('Y-m-d');
-$dateToHtml     = $objDateTo->format($gPreferences['system_date']);
+$dateToHtml     = $objDateTo->format($gSettingsManager->getString('system_date'));
 
 // initialize some special mode parameters
 $separator   = '';
@@ -301,7 +301,7 @@ if ($getMode !== 'csv')
 		$listsMenu->addForm($form->show(false));
 
 		$table = new HtmlTable('history_table', $page, $hoverRows, $datatable, $classTable);
-		$table->setDatatablesRowsPerPage($gPreferences['lists_members_per_page']);
+		$table->setDatatablesRowsPerPage($gSettingsManager->getString('lists_members_per_page'));
 	}
 	else
 	{

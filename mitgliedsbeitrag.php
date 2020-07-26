@@ -218,13 +218,13 @@ $form = new HtmlForm('navbar_static_display', '', $page, array('type' => 'navbar
 $form->addCustomContent('', '<table class="table table-condensed">
     <tr>
         <td style="text-align: right;">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL').':</td>
-        <td style="text-align: right;">'.($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gPreferences['system_currency'].'</td>
+        <td style="text-align: right;">'.($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gSettingsManager->getString('system_currency').'</td>
         <td>&#160;&#160;&#160;&#160;</td>
         <td align = "right">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID').':</td>
-        <td style="text-align: right;">'.($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'].'</td>
+        <td style="text-align: right;">'.($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency').'</td>
         <td>&#160;&#160;&#160;&#160;</td>
         <td style="text-align: right;">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING').':</td>
-        <td style="text-align: right;">'.(($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gPreferences['system_currency'].'</td>
+        <td style="text-align: right;">'.(($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gSettingsManager->getString('system_currency').'</td>
     </tr>
     <tr>
         <td style="text-align: right;">#</td>
@@ -417,31 +417,31 @@ if(count($rols) > 0)
 
                                     $columnValues = array();
                                     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUES');
-                                    $columnValues[] = $beitrag['BEITRAG_kto'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEITRAG_kto'].' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = $beitrag['BEITRAG_kto_anzahl'];
-                                    $columnValues[] = $beitrag['BEITRAG_rech'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEITRAG_rech'].' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = $beitrag['BEITRAG_rech_anzahl'];
-                                    $columnValues[] = ($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']);
                                     $table->addRowByArray($columnValues);
 
                                     $columnValues = array();
                                     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID');
-                                    $columnValues[] = $beitrag['BEZAHLT_kto'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEZAHLT_kto'].' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = $beitrag['BEZAHLT_kto_anzahl'];
-                                    $columnValues[] = $beitrag['BEZAHLT_rech'].' '.$gPreferences['system_currency'];
+                                    $columnValues[] = $beitrag['BEZAHLT_rech'].' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = $beitrag['BEZAHLT_rech_anzahl'];
-                                    $columnValues[] = ($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']);
                                     $table->addRowByArray($columnValues);
 
                                     $columnValues = array();
                                     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING');
-                                    $columnValues[] = ($beitrag['BEITRAG_kto']-$beitrag['BEZAHLT_kto']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEITRAG_kto']-$beitrag['BEZAHLT_kto']).' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']-$beitrag['BEZAHLT_kto_anzahl']);
-                                    $columnValues[] = ($beitrag['BEITRAG_rech']-$beitrag['BEZAHLT_rech']).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = ($beitrag['BEITRAG_rech']-$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = ($beitrag['BEITRAG_rech_anzahl']-$beitrag['BEZAHLT_rech_anzahl']);
-                                    $columnValues[] = (($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gPreferences['system_currency'];
+                                    $columnValues[] = (($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gSettingsManager->getString('system_currency');
                                     $columnValues[] = (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']));
                                     $table->addRowByArray($columnValues);
 
@@ -472,15 +472,15 @@ if(count($rols) > 0)
                                         $columnValues = array();
                                         $columnValues[] = $roldata['rolle'];
                                         $columnValues[] = expand_rollentyp($roldata['rollentyp']);
-                                        $columnValues[] = $roldata['rol_cost'].' '.$gPreferences['system_currency'];
+                                        $columnValues[] = $roldata['rol_cost'].' '.$gSettingsManager->getString('system_currency');
                                         $columnValues[] = count($roldata['members']);
-                                        $columnValues[] = ($roldata['rol_cost']*count($roldata['members'])).' '.$gPreferences['system_currency'];
+                                        $columnValues[] = ($roldata['rol_cost']*count($roldata['members'])).' '.$gSettingsManager->getString('system_currency');
 
                                         $sum += ($roldata['rol_cost']*count($roldata['members']));
                                         $table->addRowByArray($columnValues);
                                     }
 
-                                    $columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL'), '', '', '', $sum.' '.$gPreferences['system_currency']);
+                                    $columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL'), '', '', '', $sum.' '.$gSettingsManager->getString('system_currency'));
                                     $table->addRowByArray($columnValues);
                                     $table->setDatatablesGroupColumn(2);
                                     $table->setDatatablesRowsPerPage(10);
@@ -607,7 +607,7 @@ if(count($rols) > 0)
 
                                             $htmlTable .= '
                                             <tr>
-                                                <td style="text-align: center;">'.$datumtemp->format($gPreferences['system_date']).'</td>
+                                                <td style="text-align: center;">'.$datumtemp->format($gSettingsManager->getString('system_date')).'</td>
                                                 <td style="text-align: center;"><input type="checkbox" name="duedatesepatype[]" ';
                                                     if ($duedatedata['FRST'] == 0)
                                                     {

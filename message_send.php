@@ -35,7 +35,7 @@ $postCarbonCopy             = admFuncVariableIsValid($_POST, 'carbon_copy', 'boo
 $getMsgType      = 'EMAIL';
 
 // Stop if mail should be send and mail module is disabled
-if($gPreferences['enable_mail_module'] != 1)
+if($gSettingsManager->getString('enable_mail_module') != 1)
 {
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
 }
@@ -54,7 +54,7 @@ if ($gCurrentUser->getValue('usr_id') > 0)
 }
 
 // if no User is set, he is not able to ask for delivery confirmation
-if(!($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation'] == 2) && $gPreferences['mail_delivery_confirmation'] != 1)
+if(!($gCurrentUser->getValue('usr_id') > 0 && $gSettingsManager->getString('mail_delivery_confirmation') == 2) && $gSettingsManager->getString('mail_delivery_confirmation') != 1)
 {
     $postDeliveryConfirmation = 0;
 }
@@ -162,7 +162,7 @@ else
 }
 
 // if possible send html mail
-if($gValidLogin == true && $gPreferences['mail_html_registered_users'] == 1)
+if($gValidLogin == true && $gSettingsManager->getString('mail_html_registered_users') == 1)
 {
     $email->sendDataAsHtml();
 }

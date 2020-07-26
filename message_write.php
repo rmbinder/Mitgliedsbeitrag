@@ -33,7 +33,7 @@ $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defa
 $getSubject = '';
 
 // check if the call of the page was allowed by settings
-if ($gPreferences['enable_mail_module'] != 1)
+if ($gSettingsManager->getString('enable_mail_module') != 1)
 {
     // message if the sending of PM is not allowed
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
@@ -189,7 +189,7 @@ $form->addInput('name', $gL10n->get('MAI_YOUR_NAME'), $gCurrentUser->getValue('F
 $form->addInput('mailfrom', $gL10n->get('MAI_YOUR_EMAIL'), $gCurrentUser->getValue('EMAIL'), array('maxLength' => 50, 'property' => FIELD_DISABLED));
 $form->addCheckbox('carbon_copy', $gL10n->get('MAI_SEND_COPY'), $form_values['carbon_copy']);
 
-if (($gCurrentUser->getValue('usr_id') > 0 && $gPreferences['mail_delivery_confirmation'] == 2) || $gPreferences['mail_delivery_confirmation'] == 1)
+if (($gCurrentUser->getValue('usr_id') > 0 && $gSettingsManager->getString('mail_delivery_confirmation') == 2) || $gSettingsManager->getString('mail_delivery_confirmation') == 1)
 {
     $form->addCheckbox('delivery_confirmation', $gL10n->get('MAI_DELIVERY_CONFIRMATION'), $form_values['delivery_confirmation']);
 }
@@ -205,7 +205,7 @@ $form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array
                                                                                  'helpTextIdLabel'    => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
 
 // add textfield or ckeditor to form
-if($gValidLogin == true && $gPreferences['mail_html_registered_users'] == 1)
+if($gValidLogin == true && $gSettingsManager->getString('mail_html_registered_users') == 1)
 {
     $form->addEditor('msg_body', null, $form_values['msg_body']);
 }

@@ -435,7 +435,7 @@ else
         while ($row = $duedateStatement->fetch())
         {
             $DueDate = \DateTime::createFromFormat('Y-m-d', $row['usd_value']);
-            $selectBoxEntries[$row['usd_value']] = $DueDate->format($gPreferences['system_date']);
+            $selectBoxEntries[$row['usd_value']] = $DueDate->format($gSettingsManager->getString('system_date'));
         }
 
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
@@ -507,7 +507,7 @@ else
            if($user['faelligkeitsdatum'] > 0)
             {
                 $DueDate = \DateTime::createFromFormat('Y-m-d', $user['faelligkeitsdatum']);
-                $htmlDueDate = $DueDate->format($gPreferences['system_date']);
+                $htmlDueDate = $DueDate->format($gSettingsManager->getString('system_date'));
             }
 
             //3. Spalte ($htmlLastschrifttyp)
@@ -532,7 +532,7 @@ else
             //4. Spalte ($htmlBeitrag)
             if($user['beitrag'] > 0)
             {
-                $htmlBeitrag = $user['beitrag'].' '.$gPreferences['system_currency'];
+                $htmlBeitrag = $user['beitrag'].' '.$gSettingsManager->getString('system_currency');
             }
 
             //5. Spalte (Nachname)
@@ -591,7 +591,7 @@ else
             }
             if(strlen($email) > 0)
             {
-                 if($gPreferences['enable_mail_module'] != 1)
+                 if($gSettingsManager->getString('enable_mail_module') != 1)
                  {
                     $mail_link = 'mailto:'. $email;
                  }

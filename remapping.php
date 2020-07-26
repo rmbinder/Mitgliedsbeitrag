@@ -280,7 +280,7 @@ elseif ($getMode == 'print')
 {
 	// date must be formated
 	$dateUnformat = DateTime::createFromFormat('Y-m-d', DATE_NOW);
-	$date = $dateUnformat->format($gPreferences['system_date']);
+	$date = $dateUnformat->format($gSettingsManager->getString('system_date'));
 	
 	// create html page object without the custom theme files
 	$hoverRows = false;

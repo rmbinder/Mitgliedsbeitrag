@@ -183,8 +183,8 @@ else
     {
         $datumtemp = \DateTime::createFromFormat('Y-m-d', $memberdata['BIRTHDAY']);
         
-        $members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']);
-        $membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gPreferences['system_date']).'</option>';
+        $members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gSettingsManager->getString('system_date'));
+        $membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gSettingsManager->getString('system_date')).'</option>';
     }
     asort($members);
 
