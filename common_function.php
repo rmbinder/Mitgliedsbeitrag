@@ -1595,3 +1595,111 @@ function getEmailLink($value, $member)
 	return $htmlValue;
 }
 
+/**
+ * @param string $group
+ * @param string $id
+ * @param string $title
+ * @param string $icon
+ * @param string $body
+ * @return string
+ */
+function getMenuePanel($group, $id, $title, $icon, $body)
+{
+    $html = '
+        <div class="card" id="panel_' . $id . '">
+            <div class="card-header">
+                <a type="button" data-toggle="collapse" data-target="#collapse_' . $id . '">
+                    <i class="' . $icon . ' fa-fw"></i>' . $title . '
+                </a>
+            </div>
+            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#accordion_preferences">
+                <div class="card-body">
+                    ' . $body . '
+                </div>
+            </div>
+        </div>
+    ';
+    return $html;
+}
+
+/**
+ * @param string $group
+ * @param string $id
+ * @param string $title
+ * @param string $icon
+ * @return string
+ */
+function getMenuePanelHeaderOnly($group, $id, $title, $icon)
+{
+    $html = '
+        <div class="card" id="panel_' . $id . '">
+            <div class="card-header">
+                <a type="button" data-toggle="collapse" data-target="#collapse_' . $id . '">
+                    <i class="' . $icon . ' fa-fw"></i>' . $title . '
+                </a>
+            </div>
+            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#accordion_preferences">
+                <div class="card-body">
+    ';
+    return $html;
+}
+
+/**
+ * @param none
+ * @return string
+ */
+function getMenuePanelFooterOnly()
+{
+    return '</div></div></div>';
+}
+
+/**
+ * @param string $group
+ * @return string
+ */
+function openMenueTab($group)
+{
+    $html = '
+        <div class="tab-pane fade" id="tabs-' . $group . '" role="tabpanel">
+            <div class="accordion" id="accordion_preferences">
+    ';
+    return $html;
+}
+
+/**
+ * @param none
+ * @return string
+ */
+function closeMenueTab()
+{
+    return '</div></div>';
+}
+
+/**
+ * Add a new groupbox to the page. This could be used to group some elements
+ * together. There is also the option to set a headline to this group box.
+ * @param string $id       Id the the groupbox.
+ * @param string $headline (optional) A headline that will be shown to the user.
+ * @param string $class    (optional) An additional css classname for the row. The class **admFieldRow**
+ *                         is set as default and need not set with this parameter.
+ */
+function openGroupBox($id, $headline = null, $class = '')
+{
+    $html = '<div id="' . $id . '" class="card admidio-field-group ' . $class . '">';
+    // add headline to groupbox
+    if ($headline !== null)
+    {
+        $html .= '<div class="card-header">' . $headline . '</div>';
+    }
+    $html .= '<div class="card-body">';
+    return $html;
+}
+
+/**
+ * Close the groupbox that was created before.
+ */
+function closeGroupBox()
+{
+    return '</div></div>';
+}
+
