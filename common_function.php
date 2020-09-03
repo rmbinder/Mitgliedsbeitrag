@@ -570,7 +570,7 @@ function check_rollenmitgliedschaft_altersrolle()
             {
                 $alterstypen .= ' ('.$alterstyp.')';
             }
-            $ret[] .= '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$alterstypen. '</a>';
+            $ret[] .= '- <a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$alterstypen. '</a>';
         }
     }
 
@@ -651,7 +651,7 @@ function check_rollenmitgliedschaft_pflicht()
         }
         if (!$marker)
         {
-            $ret[] .= '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $ret[] .= '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -789,7 +789,7 @@ function check_rollenmitgliedschaft_ausschluss()
 
         if ($marker)
         {
-            $ret[] .= '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $ret[] .= '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -972,8 +972,8 @@ function check_family_roles()
                 }
                 if (count($ret_temp) !== 0)
                 {
-                    $ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php?rol_id='. $famkey. '">'.$famdata['rolle']. '</a>
-                        <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/lists/lists_show.php?mode=html&rol_ids='. $famkey. '"><img src="'. THEME_URL . '/icons/list.png"
+                    $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php', array('rol_id' => $famkey)). '">'.$famdata['rolle']. '</a>
+                        <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/lists/lists_show.php', array('mode' => 'html', 'rol_ids' => $famkey)). '"><img src="'. THEME_URL . '/icons/list.png"
                         alt="'.$gL10n->get('ROL_SHOW_MEMBERS').'" title="'.$gL10n->get('ROL_SHOW_MEMBERS').'" /></a>';
                     $ret = array_merge($ret, $ret_temp);
                 }
@@ -1013,7 +1013,7 @@ function check_mandate_management()
     {
         if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_STREET']) === 0)))
         {
-            $ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -1043,7 +1043,7 @@ function check_iban()
     {
         if ((strlen($memberdata['IBAN']) === 1) || ((strlen($memberdata['IBAN']) > 1) && !test_iban($memberdata['IBAN'])))
         {
-            $ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -1118,7 +1118,7 @@ function check_bic()
 	{
 		if (isIbanNOT_EU_EWR($memberdata['IBAN']) && empty($memberdata['BIC']))
 		{ 
-			$ret[] = '- <a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $member. '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+			$ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
 	}
 
@@ -1581,7 +1581,7 @@ function getEmailLink($value, $member)
 		}
 		else
 		{
-			$emailLink = ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php?usr_id='.$member;
+			$emailLink = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('usr_id' => $member));
 		}
 		if (strlen($value) > 30)
 		{

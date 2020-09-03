@@ -161,19 +161,19 @@ else
         // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
                 if($(this).val().length > 0) {
-                    window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php?full_screen='.$getFullScreen.'&mem_show_choice="+$(this).val());
+                    window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('full_screen' => $getFullScreen)). '&mem_show_choice=" + $(this).val());
                 }
         });
 
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
             var datum = $("#datum").val();
-            $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php?mode=assign&full_screen='.$getFullScreen.'&datum_neu="+datum,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('mode' => 'assign', 'full_screen' => $getFullScreen)) .'&datum_neu=" + datum,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
                     var mem_show = $("#mem_show").val();
-                        window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php?full_screen='.$getFullScreen.'&mem_show_choice="+mem_show);
+                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('full_screen' => $getFullScreen)).' &mem_show_choice="  + mem_show);
                     }
                     else {
                         alert(data);
@@ -195,7 +195,7 @@ else
             var member_checked = $("input[type=checkbox]#member_"+userid).prop("checked");
 
             // change data in database
-            $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php?full_screen='.$getFullScreen.'&datum_neu="+datum+"&mode=assign&usr_id="+userid,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('full_screen' => $getFullScreen, 'mode' => 'assign')) .'&datum_neu=" + datum + "&usr_id=" + userid,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
@@ -220,16 +220,16 @@ else
     $page->addJavascript($javascriptCode, true);
 
     $mandatesMenu = $page->getMenu();
-    $mandatesMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=mandates', $gL10n->get('SYS_BACK'), 'back.png');
+    $mandatesMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', arraqy('show_option' => 'mandates')), $gL10n->get('SYS_BACK'), 'back.png');
 
     if ($getFullScreen == true)
     {
-        $mandatesMenu->addItem('menu_item_normal_picture', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=0',
+        $mandatesMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('mem_show_choice' => $getMembersShow. 'full_screen' => 0)),
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
     }
     else
     {
-        $mandatesMenu->addItem('menu_item_full_screen', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php?mem_show_choice='.$getMembersShow.'&amp;full_screen=1',
+        $mandatesMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('mem_show_choice' => $getMembersShow. 'full_screen' => 1)),
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
     }
 
@@ -306,7 +306,7 @@ else
     	
     	$columnValues = array($content);
     	
-    	$columnValues[] = '<a class="admidio-icon-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php?user_id='. $member. '"><img src="'. THEME_URL . '/icons/edit.png"
+    	$columnValues[] = '<a class="admidio-icon-info" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $member)). '"><img src="'. THEME_URL . '/icons/edit.png"
                     alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" /></a>';
                     		
     	foreach ($memberData as $usfId => $data)
@@ -353,7 +353,7 @@ else
     				|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
     		{
     			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
-    			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$htmlValue.'</a>';
+    			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$htmlValue.'</a>';
     		}
     		else
     		{

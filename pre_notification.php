@@ -305,7 +305,7 @@ else
         $page->addJavascript('
             function prenotexport(){ 
                 //var duedate = $("#duedate").val(); 
-                $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?mode=csv_export&full_screen='.$getFullScreen.'",
+                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'csv_export', 'full_screen' => $getFullScreen)) .'",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
@@ -330,7 +330,7 @@ else
             
             function massmail(){ 
             //var duedate = $("#duedate").val(); 
-                $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?mode=mail_export&full_screen='.$getFullScreen.'",
+                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'mail_export', 'full_screen' => $getFullScreen)) .'",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
@@ -352,11 +352,11 @@ else
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
             var duedate = $("#duedate").val(); 
-            $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?mode=prepare&full_screen='.$getFullScreen.'&duedate="+duedate,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', arraa('mode' => 'prepare', 'full_screen' => $getFullScreen)) .'&duedate=" + duedate,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
-                        window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?full_screen='.$getFullScreen.'&duedate="+duedate);
+                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('full_screen' => $getFullScreen)).' &duedate=" + duedate);
                     }
                     else {
                         alert(data);
@@ -369,7 +369,7 @@ else
 
         $("#duedate").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?full_screen='.$getFullScreen.'&duedate="+$(this).val());
+                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', aray('full_screen' => $getFullScreen)).' &duedate=" + $(this).val());
             }
         });
 
@@ -384,7 +384,7 @@ else
             var duedate = $("#duedate").val();
 
             // change data in checkedArray
-            $.post("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?mode=prepare&usr_id="+userid+"&full_screen='.$getFullScreen.'&checked="+member_checked+"&duedate="+duedate,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'prepare', 'full_screen' => $getFullScreen)) .'&checked=" + member_checked + "&usr_id=" + userid + "&duedate=" + duedate,
                 function(data){
                     // check if error occurs
                    if(data != "success") {
@@ -401,16 +401,16 @@ else
 
         // get module menu
         $preNotificationsMenu = $page->getMenu();
-        $preNotificationsMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=sepa', $gL10n->get('SYS_BACK'), 'back.png');
+        $preNotificationsMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'sepa')), $gL10n->get('SYS_BACK'), 'back.png');
 
         if($getFullScreen == true)
         {
-           $preNotificationsMenu->addItem('menu_item_normal_picture', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?full_screen=0',
+           $preNotificationsMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('full_screen' => 0)),
                 $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
         }
         else
         {
-            $preNotificationsMenu->addItem('menu_item_full_screen', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php?full_screen=1',
+            $preNotificationsMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('full_screen' => 1)),
                 $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
         }
 
@@ -597,7 +597,7 @@ else
                  }
                  else
                  {
-                    $mail_link = ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php?usr_id='. $user['usr_id'];
+                    $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('usr_id' => $user['usr_id']));
                  }
                  $htmlMail = '<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
                     alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
@@ -616,8 +616,8 @@ else
                 $htmlDueDate,
                 $htmlLastschrifttyp,
                 $htmlBeitrag,
-                '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['last_name'].'</a>',
-                '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='.$user['usr_id'].'">'.$user['first_name'].'</a>',
+                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $user['usr_id'])) .'">'.$user['last_name'].'</a>',
+                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $user['usr_id'])) .'">'.$user['first_name'].'</a>',
                 $htmlAddress,
                 $addressText,
                 $htmlDebtorText,

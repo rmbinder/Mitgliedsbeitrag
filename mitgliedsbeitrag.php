@@ -208,7 +208,7 @@ $page->addJavascript('
                     formAlert.html("<i class=\"fas fa-exclamation-circle\"></i>" + data);
                 }
                 if(replace == true) {
-                   window.location.replace("'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=delete");
+                   window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'delete')).'");
                 }
             }
         });
@@ -221,7 +221,7 @@ if (isUserAuthorizedForPreferences())
 {  
 	// show link to pluginpreferences
 	$page->addPageFunctionsMenuItem('admMenuItemPreferencesLists', $gL10n->get('SYS_SETTINGS'),
-	    SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php'),  'fa-cog');
+	    ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php',  'fa-cog');
 }
 
 //show Static Display in Header
@@ -290,7 +290,7 @@ if(count($rols) > 0)
     
     // PANEL: DELETE
                             
-    $formDelete = new HtmlForm('delete_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag_function.php?form=delete', $page, array('class' => 'form-preferences'));
+    $formDelete = new HtmlForm('delete_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
     
     $formDelete->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC').'</strong>');
     $formDelete->addInput('delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_ALL'), ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC'));                             //HtmlForm::FIELD_DISABLED
@@ -634,7 +634,7 @@ if(count($rols) > 0)
                             
     // PANEL: TESTS
     
-    $formTests = new HtmlForm('tests_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag_function.php?form=tests', $page, array('class' => 'form-preferences'));
+    $formTests = new HtmlForm('tests_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag_function.php', array('form' => 'tests')), $page, array('class' => 'form-preferences'));
     
     $formTests->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
@@ -727,7 +727,7 @@ if(count($rols) > 0)
     foreach ($rollen as $rol_id => $data)
     {
         $columnValues = array();
-        $columnValues[] = '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php?rol_id='. $rol_id. '">'.$data['rolle']. '</a>';
+        $columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php', array('rol_id' => $rol_id)). '">'.$data['rolle']. '</a>';
         $columnValues[] = expand_rollentyp($data['rollentyp']);
         $columnValues[] = count($data['members']);
         $table->addRowByArray($columnValues);

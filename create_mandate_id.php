@@ -127,9 +127,9 @@ if ($getMode == 'preview')     //Default
 	}	
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=createmandateid', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'createmandateid')), $gL10n->get('SYS_BACK'), 'back.png');
 	
-	$form = new HtmlForm('createmandateid_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/create_mandate_id.php?mode=write', $page);
+	$form = new HtmlForm('createmandateid_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/create_mandate_id.php', array('mode' => 'write')), $page);
 	
 	if (sizeof($members) > 0)
 	{
@@ -147,8 +147,8 @@ if ($getMode == 'preview')     //Default
 		foreach ($members as $member => $data)
 		{
 			$columnValues = array();
-			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['LAST_NAME'].'</a>';
-			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['FIRST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['LAST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] = $data['referenz'];
 			$table->addRowByArray($columnValues);
 		}
@@ -173,13 +173,13 @@ elseif ($getMode == 'write')
 {
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {
-            window.open("'.ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/create_mandate_id.php?mode=print", "_blank");
+            window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/create_mandate_id.php', array('mode' => 'print')). '", "_blank");
         });',
 		true
 	);
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=createmandateid', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'createmandateid')), $gL10n->get('SYS_BACK'), 'back.png');
 	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
 	
 	$form = new HtmlForm('createmandateid_saved_form', null, $page);
@@ -197,8 +197,8 @@ elseif ($getMode == 'write')
 	foreach ($_SESSION['pMembershipFee']['createmandateid_user'] as $member => $data)
 	{
 		$columnValues = array();
-		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['LAST_NAME'].'</a>';
-		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$data['FIRST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['LAST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['FIRST_NAME'].'</a>';
 		$columnValues[] = $data['referenz'];
 		$table->addRowByArray($columnValues);
 		

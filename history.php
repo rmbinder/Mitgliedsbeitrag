@@ -261,14 +261,16 @@ if ($getMode !== 'csv')
                 if ($(this).val().length > 1) {
                     var result = $(this).val();
                     $(this).prop("selectedIndex",0);
-                    self.location.href = "'.ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?" +
-                        "mode=" + result + "&filter_last_name='.$getLastName.'&filter_first_name='.$getFirstName.'&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'";
+                    self.location.href = "'. SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', 
+                        array('filter_last_name' => $getLastName,
+                             'filter_first_name' => $getFirstName,
+                             'filter_date_from'  => $getDateFrom,
+                             'filter_date_to'    => $getDateTo))    . '&mode=" + result;
                 }
             });
 
             $("#menu_item_print_view").click(function () {
-                window.open("'.ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?" +
-					"mode=print&filter_last_name='.$getLastName.'&filter_first_name='.$getFirstName.'&filter_date_from='.$getDateFrom.'&filter_date_to='.$getDateTo.'", "_blank");
+                window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', array('mode' => 'print', 'filter_last_name' => $getLastName, 'filter_first_name' => $getFirstName, 'filter_date_from' => $getDateFrom, 'filter_date_to' => $getDateTo)). '", "_blank");
             });', true);
 
 		// get module menu
@@ -277,12 +279,12 @@ if ($getMode !== 'csv')
 
 		if ($getFullScreen)
 		{
-			$listsMenu->addItem('menu_item_normal_picture', ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?mode=html&amp;full_screen=false&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
+			$listsMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', array('mode' => 'html', 'full_screen' => 'false', 'filter_last_name' => $getLastName, 'filter_first_name' => $getFirstName, 'filter_date_from' => $getDateFrom, 'filter_date_to' => $getDateTo)),
 					$gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
 		}
 		else
 		{
-			$listsMenu->addItem('menu_item_full_screen', ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php?mode=html&amp;full_screen=true&amp;filter_last_name='.$getLastName.'&amp;filter_first_name='.$getFirstName.'&amp;filter_date_from='.$getDateFrom.'&amp;filter_date_to='.$getDateTo.'',
+			$listsMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', array('mode' => 'html', 'full_screen' => 'true', 'filter_last_name' => $getLastName, 'filter_first_name' => $getFirstName, 'filter_date_from' => $getDateFrom, 'filter_date_to' => $getDateTo)),
 					$gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
 		}
 
@@ -406,7 +408,7 @@ while($row = $fieldHistoryStatement->fetch())
    		}
    		else
    		{
-   			$table->addRowByArray($columnValues[$row['usl_usr_id']], null, array('style' => 'cursor: pointer', 'onclick' => 'window.location.href=\''. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php?user_id='. $row['usl_usr_id']. '\''));
+   			$table->addRowByArray($columnValues[$row['usl_usr_id']], null, array('style' => 'cursor: pointer', 'onclick' => 'window.location.href=\''. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $row['usl_usr_id'])). '\''));
    		}
    		unset($columnValues[$row['usl_usr_id']]);
    	}

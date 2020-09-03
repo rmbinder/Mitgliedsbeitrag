@@ -66,9 +66,9 @@ if ($getMode == 'preview')     //Default
 	$_SESSION['pMembershipFee']['membernumber_fill_gaps'] = $postFillGaps;
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'producemembernumber')), $gL10n->get('SYS_BACK'), 'back.png');
 	
-	$form = new HtmlForm('membernumber_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php?mode=write', $page);
+	$form = new HtmlForm('membernumber_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php', array('mode' => 'write')), $page);
 	
 	if ($membernumbers->userWithoutMembernumberExist)
 	{
@@ -109,13 +109,13 @@ elseif ($getMode == 'write')
 {
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {
-            window.open("'.ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php?mode=print", "_blank");
+            window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php', array('mode' => 'print')). '", "_blank");
         });',
 		true
 	);
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=producemembernumber', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php'. array('show_option' => 'producemembernumber')), $gL10n->get('SYS_BACK'), 'back.png');
 	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
 	
 	$form = new HtmlForm('membernumber_saved_form', null, $page);

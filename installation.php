@@ -726,8 +726,8 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     {
         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));
         $form->openButtonGroup();
-        $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php?mode=anlegen', 'class' => 'btn-primary'));
-        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
+        $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'anlegen')), 'class' => 'btn-primary'));
+        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL .'/adm_program/system/back.php'), 'class' => 'btn-primary'));
         $form->closeButtonGroup();
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));
         $form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_1'));
@@ -736,8 +736,8 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     {
         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));
         $form->openButtonGroup();
-        $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php?mode=soll_ist', 'class' => 'btn-primary'));
-        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => ADMIDIO_URL .'/adm_program/system/back.php', 'class' => 'btn-primary'));
+        $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'soll_ist')), 'class' => 'btn-primary'));
+        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL .'/adm_program/system/back.php'), 'class' => 'btn-primary'));
         $form->closeButtonGroup();
         $form->addDescription('<br/>');
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));

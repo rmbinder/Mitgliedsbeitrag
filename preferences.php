@@ -301,7 +301,7 @@ $page->addHtml('
                             
 // PANEL: CONTRIBUTION_SETTINGS                   
                     
-$formContributionSettings = new HtmlForm('contributionsettings_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=contributionsettings', $page, array('class' => 'form-preferences'));
+$formContributionSettings = new HtmlForm('contributionsettings_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'contributionsettings')), $page, array('class' => 'form-preferences'));
 $formContributionSettings->addInput('beitrag_prefix', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX'), $pPreferences->config['Beitrag']['beitrag_prefix'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC'));
 $formContributionSettings->addInput('beitrag_suffix', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX'), $pPreferences->config['Beitrag']['beitrag_suffix'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SUFFIX_DESC'));
 $formContributionSettings->addCheckbox('beitrag_anteilig', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA'), $pPreferences->config['Beitrag']['beitrag_anteilig'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC'));
@@ -352,7 +352,7 @@ $page->addHtml(getMenuePanel('preferences', 'contributionsettings', $gL10n->get(
                     
 // PANEL: AGE_STAGGERED_ROLES                    
                     
-$formAgeStaggeredRoles = new HtmlForm('agestaggeredroles_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=agestaggeredroles', $page, array('class' => 'form-preferences'));
+$formAgeStaggeredRoles = new HtmlForm('agestaggeredroles_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'agestaggeredroles')), $page, array('class' => 'form-preferences'));
 $formAgeStaggeredRoles->addInput('altersrollen_stichtag', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEADLINE'), $pPreferences->config['Altersrollen']['altersrollen_stichtag'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DEADLINE_DESC', 'type' => 'date'));
 $formAgeStaggeredRoles->addLine();
 $formAgeStaggeredRoles->addStaticControl('descd', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELIMITER'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELIMITER_DESC'));
@@ -367,7 +367,7 @@ for ($conf = 0; $conf < $num_agestaggeredroles; $conf++)
     $formAgeStaggeredRoles->addInput('altersrollen_token'.$conf, '', $pPreferences->config['Altersrollen']['altersrollen_token'][$conf], array('maxLength' => 1, 'property' => HtmlForm::FIELD_REQUIRED));
     if($num_agestaggeredroles != 1)
     {
-        $html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php?choice=agestaggeredroles&conf='.$conf.'">
+        $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'agestaggeredroles', 'conf' => $conf)).'">
             <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
         $formAgeStaggeredRoles->addCustomContent('', $html);
     }
@@ -375,7 +375,7 @@ for ($conf = 0; $conf < $num_agestaggeredroles; $conf++)
 }
 $formAgeStaggeredRoles->addDescription('</div>');
 
-$html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php?choice=agestaggeredroles&conf=-1">
+$html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'agestaggeredroles', 'conf' => -1)).'">
     <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
 $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
 $formAgeStaggeredRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
@@ -385,7 +385,7 @@ $page->addHtml(getMenuePanel('preferences', 'agestaggeredroles', $gL10n->get('PL
                     
 // PANEL: FAMILY_ROLES                    
 
-$formFamilyRoles = new HtmlForm('familyroles_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=familyroles', $page, array('class' => 'form-preferences'));
+$formFamilyRoles = new HtmlForm('familyroles_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'familyroles')), $page, array('class' => 'form-preferences'));
 $formFamilyRoles->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 500 : 650).'px; overflow:auto; border:20px;">');
 for ($conf = 0; $conf < $num_familyroles; $conf++)
 {
@@ -399,14 +399,14 @@ for ($conf = 0; $conf < $num_familyroles; $conf++)
     $formFamilyRoles->addInput('familienrollen_beschreibung'.$conf, $gL10n->get('SYS_DESCRIPTION'), $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC'));
     if($num_familyroles != 1)
     {
-        $html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php?choice=familyroles&conf='.$conf.'">
+        $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'familyroles', 'conf' => $conf)).'">
             <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
         $formFamilyRoles->addCustomContent('', $html);
     }
     $formFamilyRoles->closeGroupBox();
 }
 $formFamilyRoles->addDescription('</div>');
-$html = '<a id="add_config" class="icon-text-link" href="'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php?choice=familyroles&conf=-1">
+$html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'familyroles', 'conf' => -1)).'">
     <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
 $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
 $formFamilyRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
@@ -416,7 +416,7 @@ $page->addHtml(getMenuePanel('preferences', 'familyroles', $gL10n->get('PLG_MITG
               
 // PANEL: ACCOUNT_DATA                    
 
-$formAccountData = new HtmlForm('accountdata_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=accountdata', $page, array('class' => 'form-preferences'));
+$formAccountData = new HtmlForm('accountdata_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'accountdata')), $page, array('class' => 'form-preferences'));
 $formAccountData->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_INFO'));
 $formAccountData->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $pPreferences->config['Kontodaten']['iban'], array('property' => HtmlForm::FIELD_REQUIRED));
 $formAccountData->addInput('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $pPreferences->config['Kontodaten']['bic']);
@@ -452,7 +452,7 @@ else
         $formAccountData->addInput('origci', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $pPreferences->config['Kontodaten']['origci']);
     }
 
-    $html = '<a class="icon-text-info" href="'. ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php?choice=accountdata">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'</a>';
+    $html = '<a class="icon-text-info" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'accountdata')).'">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'</a>';
     $formAccountData->addCustomContent('', $html, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC'));
 }
 $formAccountData->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
@@ -461,7 +461,7 @@ $page->addHtml(getMenuePanel('preferences', 'accountdata', $gL10n->get('PLG_MITG
                                      
 // PANEL: EXPORT                    
 
-$formExport = new HtmlForm('configurations_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=export', $page, array('class' => 'form-preferences'));
+$formExport = new HtmlForm('configurations_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'export')), $page, array('class' => 'form-preferences'));
 $formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'));
 $formExport->addInput('dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_NAME'), $pPreferences->config['SEPA']['dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addInput('kontroll_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
@@ -502,7 +502,7 @@ $page->addHtml(getMenuePanel('preferences', 'export', $gL10n->get('PLG_MITGLIEDS
                                    
 // PANEL: MANDATE_MANAGEMENT
                     
-$formMandateManagement = new HtmlForm('mandatemanagement_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=mandatemanagement', $page, array('class' => 'form-preferences'));
+$formMandateManagement = new HtmlForm('mandatemanagement_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'mandatemanagement')), $page, array('class' => 'form-preferences'));
 $formMandateManagement->addInput('prefix_fam', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX_FAM'), $pPreferences->config['Mandatsreferenz']['prefix_fam']);
 $formMandateManagement->addInput('prefix_mem', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX_MEM'), $pPreferences->config['Mandatsreferenz']['prefix_mem']);
 $formMandateManagement->addInput('prefix_pay', $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX_PAY'), $pPreferences->config['Mandatsreferenz']['prefix_pay']);
@@ -528,7 +528,7 @@ $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', $gL10n->get('PL
                                        
 // PANEL: ROLE_TEST
                     
-$formTestsSetup = new HtmlForm('testssetup_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=testssetup', $page, array('class' => 'form-preferences'));
+$formTestsSetup = new HtmlForm('testssetup_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'testssetup')), $page, array('class' => 'form-preferences'));
 $formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO'));
 $formTestsSetup->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'</strong>');
 $formTestsSetup->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 140 : 160).'px; overflow:auto; border:20px;">');
@@ -646,7 +646,7 @@ $page->addHtml(getMenuePanel('preferences', 'testssetup', $gL10n->get('PLG_MITGL
                              
 // PANEL: VIEW_DEFINITIONS
 
-$formColumnSet = new HtmlForm('columnset_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=columnset', $page, array('class' => 'form-preferences'));
+$formColumnSet = new HtmlForm('columnset_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'columnset')), $page, array('class' => 'form-preferences'));
 $formColumnSet->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER'));
 $formColumnSet->addDescription('<div style="width:100%; height:550px; overflow:auto; border:20px;">');
 
@@ -705,7 +705,7 @@ $page->addHtml(getMenuePanel('preferences', 'columnset', $gL10n->get('PLG_MITGLI
                                 
 //PANEL: DEINSTALLATION
                     
-$formDeinstallation = new HtmlForm('deinstallation_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=deinstallation', $page, array('class' => 'form-preferences'));
+$formDeinstallation = new HtmlForm('deinstallation_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'deinstallation')), $page, array('class' => 'form-preferences'));
 $formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
 $formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
 
@@ -713,7 +713,7 @@ $page->addHtml(getMenuePanel('preferences', 'deinstallation', $gL10n->get('PLG_M
    
 // PANEL: ACCESS_PREFERENCES
                     
-$formAccessPreferences = new HtmlForm('access_preferences_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php?form=access_preferences', $page, array('class' => 'form-preferences'));
+$formAccessPreferences = new HtmlForm('access_preferences_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'access_preferences')), $page, array('class' => 'form-preferences'));
 
 $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
           FROM '.TBL_CATEGORIES.' AS cat, '.TBL_ROLES.' AS rol

@@ -65,8 +65,8 @@ if ($getMode == 'preview')     //Default
 			if(strlen($memberdata['BIRTHDAY']) === 0)
 			{
 				$gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_MISSING_BIRTHDAY',
-						'<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$memberdata['FIRST_NAME'].'</a>',
-						'<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$member.'">'.$memberdata['LAST_NAME'].'</a>' ));
+						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$memberdata['FIRST_NAME'].'</a>',
+						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$memberdata['LAST_NAME'].'</a>' ));
 			}
 	
 			$age = ageCalculator(strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag']));
@@ -144,9 +144,9 @@ if ($getMode == 'preview')     //Default
 	}
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=remapping', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')), $gL10n->get('SYS_BACK'), 'back.png');
 	
-	$form = new HtmlForm('createmandateid_preview_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php?mode=write', $page);
+	$form = new HtmlForm('createmandateid_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php', array('mode' => 'write')), $page);
 	
 	if (sizeof($members) > 0)
 	{
@@ -174,13 +174,13 @@ if ($getMode == 'preview')     //Default
 		foreach ($members as $data)
 		{
 			$columnValues = array();
-			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$data['user_id'].'">'.$data['LAST_NAME'].'</a>';
-			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$data['user_id'].'">'.$data['FIRST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['LAST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] = $data['age'];
 			$columnValues[] = $data['icon_role_old'];
 			$columnValues[] = $data['icon_role_new'];
 			$columnValues[] = $data['icon_role_not_exist'];
-			$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/roles/roles_new.php?rol_id='.$data['role_id'].'">'.$data['role'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/roles/roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
 			$table->addRowByArray($columnValues);
 		}
 
@@ -205,13 +205,13 @@ elseif ($getMode == 'write')
 	
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {
-            window.open("'.ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php?mode=print", "_blank");
+            window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php', array('mode' => 'print')). '", "_blank");
         });',
 		true
 	);
 	
 	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php?show_option=remapping', $gL10n->get('SYS_BACK'), 'back.png');
+	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')), $gL10n->get('SYS_BACK'), 'back.png');
 	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
 	
 	$form = new HtmlForm('remapping_saved_form', null, $page);
@@ -237,13 +237,13 @@ elseif ($getMode == 'write')
 	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
 	{
 		$columnValues = array();
-		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$data['user_id'].'">'.$data['LAST_NAME'].'</a>';
-		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php?user_id='.$data['user_id'].'">'.$data['FIRST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['LAST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['FIRST_NAME'].'</a>';
 		$columnValues[] = $data['age'];
 		$columnValues[] = $data['icon_role_old'];
 		$columnValues[] = $data['icon_role_new'];
 		$columnValues[] = $data['icon_role_not_exist'];
-		$columnValues[] = '<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/roles/roles_new.php?rol_id='.$data['role_id'].'">'.$data['role'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/roles/roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
 		$table->addRowByArray($columnValues);
 		
 		if ($data['toDo'] == 'delete')
