@@ -39,7 +39,7 @@ $pPreferences->read();
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION');
 
 // create html page object
-$page = new HtmlPage($headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-recalculation', $headline);
 
 if ($getMode == 'preview')     //Default
 {

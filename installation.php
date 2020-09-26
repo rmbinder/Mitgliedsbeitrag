@@ -537,7 +537,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     $arr = check_DB();
 
     // create html page object
-    $page = new HtmlPage();
+    $page = new HtmlPage('plg-mitgliedsbeitrag-installation-start');
 
     // add headline and title of module
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
@@ -753,7 +753,7 @@ elseif($getMode == 'soll_ist')
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
 
     // create html page object
-    $page = new HtmlPage($headline);
+    $page = new HtmlPage('plg-mitgliedsbeitrag-installation-soll-ist', $headline);
 
     $form = new HtmlForm('configurations_form', null, $page);
 

@@ -39,7 +39,7 @@ $pPreferences->read();
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES');
 
 // create html page object
-$page = new HtmlPage($headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-remapping', $headline);
 
 if ($getMode == 'preview')     //Default
 {

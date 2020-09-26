@@ -87,7 +87,7 @@ else
     }
 
     // create html page object
-    $page = new HtmlPage($headline);
+    $page = new HtmlPage('plg-mitgliedsbeitrag-copy', $headline);
 
     if($getFullScreen == true)
     {

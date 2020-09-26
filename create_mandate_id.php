@@ -39,7 +39,7 @@ $pPreferences->read();
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID');
 
 // create html page object
-$page = new HtmlPage($headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-create-mandate-id', $headline);
 
 if ($getMode == 'preview')     //Default
 {

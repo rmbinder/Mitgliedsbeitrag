@@ -144,7 +144,7 @@ else
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
 
     // create html page object
-    $page = new HtmlPage($headline);
+    $page = new HtmlPage('plg-mitgliedsbeitrag-mandate-change', $headline);
 
     $page->addJavascript('
         function ibanschieben(){

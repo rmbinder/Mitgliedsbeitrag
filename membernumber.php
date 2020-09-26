@@ -45,7 +45,7 @@ $pPreferences->read();
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER');
 
 // create html page object
-$page = new HtmlPage($headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-membernumber', $headline);
 
 if ($getMode == 'preview')     //Default
 {

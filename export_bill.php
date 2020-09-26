@@ -107,7 +107,7 @@ else
     $message .= '<br/><br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2');
 
     // create html page object
-    $page = new HtmlPage($headline);
+    $page = new HtmlPage('plg-mitgliedsbeitrag-export-bill', $headline);
 
     $form = new HtmlForm('export_bill_form', null, $page);
     $form->addDescription($message);

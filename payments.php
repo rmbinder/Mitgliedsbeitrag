@@ -203,7 +203,7 @@ else
     }
 
     // create html page object
-    $page = new HtmlPage($headline);
+    $page = new HtmlPage('plg-mitgliedsbeitrag-payments', $headline);
 
     if ($getFullScreen == true)
     {

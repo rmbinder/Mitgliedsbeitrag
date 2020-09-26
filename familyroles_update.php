@@ -42,7 +42,7 @@ $role = new TableRoles($gDb);
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE');
 
 // create html page object
-$page = new HtmlPage($headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-familyroles-update', $headline);
 
 if ($getMode == 'preview')     //Default
 {

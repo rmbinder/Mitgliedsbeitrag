@@ -83,7 +83,7 @@ else
 }
 
 // create html page object
-$page = new HtmlPage($headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-message-multiple-write', $headline);
 
 // add current url to navigation stack
 $gNavigation->addUrl(CURRENT_URL, $headline);

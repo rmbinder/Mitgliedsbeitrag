@@ -33,7 +33,7 @@ $pPreferences->read();
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION');
 
 // create html page object
-$page = new HtmlPage($headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-deinstallation', $headline);
 
 if ($getMode == 'start')     //Default
 {
