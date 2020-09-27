@@ -280,9 +280,9 @@ if(count($rols) > 0)
                 
     if (count(beitragsrollen_einlesen('alt')) > 0)
     {
-        $formRemapping = new HtmlForm('remapping_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php', $page, array('class' => 'form-preferences'));
+        $formRemapping = new HtmlForm('remapping_form', null, $page, array('class' => 'form-preferences'));
     
-        $formRemapping->addSubmitButton('btn_remapping_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => 'fa-random', 'class' => 'offset-sm-3'));
+        $formRemapping->addButton('btn_remapping_age_staggered_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => 'fa-random', 'link' => 'remapping.php', 'class' => 'btn-primary offset-sm-3'));
         $formRemapping->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
     
         $page->addHtml(getMenuePanel('fees', 'remapping', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES'), 'fas fa-random', $formRemapping->show()));

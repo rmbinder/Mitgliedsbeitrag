@@ -38,11 +38,11 @@ $pPreferences->read();
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES');
 
-// create html page object
-$page = new HtmlPage('plg-mitgliedsbeitrag-remapping', $headline);
-
 if ($getMode == 'preview')     //Default
 {
+    $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-preview', $headline);
+    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')));
+    
 	//Vor der Neuzuordnung die altersgestaffelten Rollen auf Luecken oder Ueberlappungen pruefen
 	$arr = check_rols();
 	if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'), $arr))
@@ -88,8 +88,8 @@ if ($getMode == 'preview')     //Default
 						                'toDo' => 'delete',
 					     'icon_role_not_exist' => '&nbsp;',
 				    	       'icon_role_new' => '&nbsp;',
-					           'icon_role_old' => '<img src="'. THEME_URL . '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'"  />' );
-			}
+		                       'icon_role_old' => '<i class="fas fa-minus" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'"></i>'  );
+        	}
 		}
 	}
 	
@@ -118,8 +118,8 @@ if ($getMode == 'preview')     //Default
 						                 'age' => $stackdata['alter'],
 						                'toDo' => 'set',
 				         'icon_role_not_exist' => '&nbsp;',
-						       'icon_role_new' => '<img src="'. THEME_URL . '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'"  />',
-						       'icon_role_old' => '&nbsp;');
+					           'icon_role_new' => '<i class="fas fa-plus" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'"></i>',	     
+                               'icon_role_old' => '&nbsp;');
 						
 				unset($stack[$key]);
 			}
@@ -137,19 +137,16 @@ if ($getMode == 'preview')     //Default
 					                'role' => '',
 					                 'age' => $stackdata['alter'],
 					                'toDo' => '',
-			         'icon_role_not_exist' => '<img src="'. THEME_URL .'/icons/warning.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'" />',
-					       'icon_role_new' => '&nbsp;',
+        			 'icon_role_not_exist' => '<i class="fas fa-exclamation" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'"></i>',		    
+                           'icon_role_new' => '&nbsp;',
 					       'icon_role_old' => '&nbsp;');
 		}
 	}
-	
-	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')), $gL10n->get('SYS_BACK'), 'back.png');
-	
-	$form = new HtmlForm('createmandateid_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php', array('mode' => 'write')), $page);
-	
+			
 	if (sizeof($members) > 0)
 	{
+	    $form = new HtmlForm('createmandateid_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php', array('mode' => 'write')), $page);
+	    
 		// save members in session (for mode write and mode print)
 		$_SESSION['pMembershipFee']['remapping_user'] = $members;
 	
@@ -159,16 +156,12 @@ if ($getMode == 'preview')     //Default
 		$table = new HtmlTable('table_new_remapping', $page, $hoverRows, $datatable, $classTable);
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'),
-				$gL10n->get('SYS_FIRSTNAME'),
-				'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/calendar.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'" />',
-				'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/delete.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'" />',
-				'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/add.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'" />',
-				'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/warning.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'" />',
-				$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
+            $gL10n->get('SYS_FIRSTNAME'),
+            '<i class="fas fa-birthday-cake" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
+		    '<i class="fas fa-minus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
+		    '<i class="fas fa-plus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
+		    '<i class="fas fa-exclamation" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
+            $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
 		$table->addRowHeadingByArray($columnValues);
 
 		foreach ($members as $data)
@@ -186,20 +179,21 @@ if ($getMode == 'preview')     //Default
 
 		$page->addHtml($table->show(false));
 
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => 'btn-primary'));
-		$form->addDescription('<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_PREVIEW'));
+		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'),  array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
+		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_PREVIEW'));
+		
+		$page->addHtml($form->show(false));
 	}
 	else 
 	{
-		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_NO_ASSIGN'));
-		
-		//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-		$form->addStaticControl('', '', '');
+		$page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_NO_ASSIGN').'<br/><br/>');
 	}
-	$page->addHtml($form->show(false));
 }
 elseif ($getMode == 'write')
 {
+    $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-write', $headline);
+    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')));
+    
 	$tablemember = new TableMembers($gDb);
 	$sql = '';
 	
@@ -209,12 +203,8 @@ elseif ($getMode == 'write')
         });',
 		true
 	);
-	
-	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')), $gL10n->get('SYS_BACK'), 'back.png');
-	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
-	
-	$form = new HtmlForm('remapping_saved_form', null, $page);
+
+	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
 	
 	$datatable = true;
 	$hoverRows = true;
@@ -222,16 +212,12 @@ elseif ($getMode == 'write')
 	$table = new HtmlTable('table_saved_remapping', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
-			$gL10n->get('SYS_FIRSTNAME'),
-			'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/calendar.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'" />',
-			'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/delete.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'" />',
-			'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/add.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'" />',
-			'<img class="admidio-icon-help" src="'. THEME_URL . '/icons/warning.png"
-            			alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'" />',
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
+		$gL10n->get('SYS_FIRSTNAME'),
+	    '<i class="fas fa-birthday-cake" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
+	    '<i class="fas fa-minus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
+	    '<i class="fas fa-plus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
+	    '<i class="fas fa-exclamation" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
+		$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
@@ -269,12 +255,7 @@ elseif ($getMode == 'write')
 	}
 	
 	$page->addHtml($table->show(false));
-	$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SAVED').'</strong>');
-	
-	//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-	$form->addStaticControl('', '', '');
-	
-	$page->addHtml($form->show(false));
+	$page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SAVED').'</strong><br/><br/>');
 }
 elseif ($getMode == 'print')
 {
@@ -282,23 +263,22 @@ elseif ($getMode == 'print')
 	$dateUnformat = DateTime::createFromFormat('Y-m-d', DATE_NOW);
 	$date = $dateUnformat->format($gSettingsManager->getString('system_date'));
 	
-	// create html page object without the custom theme files
 	$hoverRows = false;
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
-	$page->hideThemeHtml();
-	$page->hideMenu();
+	
+	$page = new HtmlPage('plg-mitgliedsbeitrag-remapping-preview', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SUMMARY', array($date)));
 	$page->setPrintMode();
-	$page->setHeadline($gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SUMMARY', $date));
+	
 	$table = new HtmlTable('table_print_remapping', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
-			$gL10n->get('SYS_FIRSTNAME'),
-			'<img src="'. THEME_URL . '/icons/calendar.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE').'"  />',
-			'<img src="'. THEME_URL . '/icons/delete.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'" />',
-			'<img src="'. THEME_URL . '/icons/add.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'" />',
-			'<img src="'. THEME_URL . '/icons/warning.png" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'"  />',
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
+		$gL10n->get('SYS_FIRSTNAME'),
+	    '<i class="fas fa-birthday-cake" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE').'"></i>',
+	    '<i class="fas fa-minus" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'"></i>',
+	    '<i class="fas fa-plus" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'"></i>',
+	    '<i class="fas fa-exclamation" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'"></i>',
+		$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
