@@ -1,7 +1,7 @@
 <?php
 /**
  ***********************************************************************************************
- * Verarbeiten der Menueeinstellungen des Admidio-Plugins Mitgliedsbeitrag
+ * Funktionen der Deleteroutine
  *
  * @copyright 2004-2020 The Admidio Team
  * @see https://www.admidio.org/
@@ -9,17 +9,13 @@
  *
  * Parameters:
  *
- * form         : The name of the form preferences that were submitted.
+ * form         : The name of the form that were submitted.
  *
  ***********************************************************************************************
  */
 
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/classes/configtable.php');
-
-$pPreferences = new ConfigTablePMB();
-$pPreferences->read();
 
 // Initialize and check the parameters
 $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
