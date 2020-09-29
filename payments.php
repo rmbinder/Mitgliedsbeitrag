@@ -18,8 +18,6 @@
  * mem_show_choice  : 0 - (Default) Alle Benutzer anzeigen
  *                    1 - Nur Benutzer anzeigen, bei denen ein Bezahlt-Datum vorhanden ist
  *                    2 - Nur Benutzer anzeigen, bei denen kein Bezahlt-Datum vorhanden ist
- * full_screen      : 0 - Normalbildschirm
- *                    1 - Vollbildschirm
  ***********************************************************************************************
  */
 
@@ -47,7 +45,6 @@ $getMode        = admFuncVariableIsValid($_GET, 'mode', 'string', array('default
 $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
 $getDatumNeu    = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
 $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
-$getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 
 // write role selection in session
 if (strpos($gNavigation->getUrl(), 'mitgliedsbeitrag.php') !== false)
@@ -153,15 +150,9 @@ else
     	$membersListRols = 0;
     }
     
-    if ($getFullScreen == true)
-    {
-    	$membersListFields = $pPreferences->config['columnconfig']['payments_fields_full_screen'];
-    }
-    else 
-    {
-    	$membersListFields = $pPreferences->config['columnconfig']['payments_fields_normal_screen'];
-    }
-    
+    //$membersListFields = $pPreferences->config['columnconfig']['payments_fields_full_screen'];
+    $membersListFields = $pPreferences->config['columnconfig']['payments_fields_normal_screen'];
+
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
         LEFT JOIN '. TBL_USER_DATA. ' AS paid
@@ -204,29 +195,25 @@ else
 
     // create html page object
     $page = new HtmlPage('plg-mitgliedsbeitrag-payments', $headline);
-
-    if ($getFullScreen == true)
-    {
-        $page->hideThemeHtml();
-    }
+    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'payments')));
 
     $javascriptCode = '
         // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('full_screen' => $getFullScreen)).' &mem_show_choice=" + $(this).val());
+                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php').' &mem_show_choice="+$(this).val());
             }
         });
-
+                    
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
             var datum = $("#datum").val();
-            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('mode' => 'assign', 'full_screen' => $getFullScreen)) .'&datum_neu=" + datum,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('mode' => 'assign')) .'&datum_neu=" + datum,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
                     var mem_show = $("#mem_show").val();
-                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('full_screen' => $getFullScreen)).' &mem_show_choice=" + mem_show);
+                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php').' &mem_show_choice=" + mem_show);
                     }
                     else {
                         alert(data);
@@ -236,7 +223,7 @@ else
                 }
             );
         });
-
+                            
         // if checkbox of user is clicked then change data
         $("input[type=checkbox].memlist_checkbox").click(function(e){
             e.stopPropagation();
@@ -246,35 +233,35 @@ else
             var userid = row_id.substring(pos+1);
             var datum = $("#datum").val();
             var member_checked = $("input[type=checkbox]#member_"+userid).prop("checked");
-
+                            
             // change data in database
-            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', arraya('full_screen' => $getFullScreen, 'mode' => 'assign')) .'&datum_neu=" + datum + "&usr_id=" + userid,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('mode' => 'assign')) .'&datum_neu=" + datum + "&usr_id=" + userid,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
                         if(member_checked){
                             $("input[type=checkbox]#member_"+userid).prop("checked", true);
                             $("#bezahlt_"+userid).text(datum);
-
+                
                             var lastschrifttyp  = $("#lastschrifttyp_"+userid).text();
                             lastschrifttyp      = lastschrifttyp.trim();
-
+                
                             var duedate         = $("#duedate_"+userid).text();
                             duedate             = duedate.trim();
                             $("#duedate_"+userid).text("");
-
+                
 							var orig_mandateid  = $("#orig_mandateid_"+userid).text();
                             orig_mandateid      = orig_mandateid.trim();
                             $("#orig_mandateid_"+userid).text("");
-
+                
 							var orig_iban       = $("#orig_iban_"+userid).text();
                             orig_iban           = orig_iban.trim();
                             $("#orig_iban_"+userid).text("");
-
+                
 							var orig_debtor_agent = $("#orig_debtor_agent_"+userid).text();
                             orig_debtor_agent     = orig_debtor_agent.trim();
                             $("#orig_debtor_agent_"+userid).text("");
-
+                
                             if(lastschrifttyp.length == 0 && duedate.length != 0){
                                 $("#lastschrifttyp_"+userid).text("RCUR");
                             }
@@ -293,36 +280,22 @@ else
             );
         });
     ';
-    
+ 
     $page->addJavascript($javascriptCode, true);
 
-    $paymentsMenu = $page->getMenu();
-    $paymentsMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'payments')), $gL10n->get('SYS_BACK'), 'back.png');
-
-    if ($getFullScreen == true)
-    {
-        $paymentsMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('mem_show_choice' => $getMembersShow, 'full_screen' => 0)),
-                $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
-    }
-    else
-    {
-        $paymentsMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('mem_show_choice' => $getMembersShow, 'full_screen' => 1)),
-                $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-    }
-
-    $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+    $form = new HtmlForm('header_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
     $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
     $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
 
-    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
+    $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
-    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
     if (isset($_SESSION['pMembershipFee']['payments_rol_sel']))
     {
-        $navbarForm->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
     }
-    $paymentsMenu->addForm($navbarForm->show(false));
+    $page->addHtml($form->show(false));
 
     // create table object
     $table = new HtmlTable('tbl_assign_role_membership', $page, true, true, 'table table-condensed');

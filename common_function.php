@@ -1569,13 +1569,13 @@ function obfuscate_iban($iban) {
  */
 function getEmailLink($value, $member)
 {
-	//global $gPreferences;
+    global $gSettingsManager;
 	
 	$htmlValue = '';
 	
 	if ($value !== '')
 	{
-		if ($gSettingsManager->getString('enable_mail_module') != 1)
+	    if (!$gSettingsManager->getBool('enable_mail_module'))
 		{
 			$emailLink = 'mailto:' . $value;
 		}
