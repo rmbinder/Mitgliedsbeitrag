@@ -185,6 +185,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING">Die IBAN wurde bei derselben Bank geändert. Das Feld Ursprüngliche IBAN muss deshalb befüllt sein.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">Die Mandatsreferenz wurde geändert. Das Feld Ursprüngliche Mandatsreferenz muss befüllt sein.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export und Filter</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Es sind keine Daten zum Exportieren ausgewählt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER">Anzahl der Erwachsenen in Familien</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Min- bzw. Max-Anzahl an Erwachsenen.</string>

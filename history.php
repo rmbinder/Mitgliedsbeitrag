@@ -12,14 +12,11 @@
  * Parameters:
  *
  * mode:				Output(html, print, csv-ms, csv-oo, pdf, pdfl)
- * filter_date_from: 	is set to actual date,
- *             			if no date information is delivered
- * filter_date_to: 		is set to 31.12.9999,
- *             			if no date information is delivered
+ * filter_date_from: 	is set to actual date, if no date information is delivered
+ * filter_date_to: 		is set to 31.12.9999, if no date information is delivered
  * filter_last_name:	Lastname for filter
  * filter_first_name:	Firstname for filter
- * full_screen:     	false - (Default) show sidebar, head and page bottom of html page
- *                  	true  - Only show the list without any other html unnecessary elements
+ * export_and_filter:   additional menu for export and filter
  ***********************************************************************************************
  */
 
@@ -41,12 +38,12 @@ $filterDateFrom = DateTime::createFromFormat('Y-m-d', DATE_NOW);
 $filterDateFrom->modify('-'.$gSettingsManager->getString('members_days_field_history').' day');
 
 // Initialize and check the parameters
-$getDateFrom   	= admFuncVariableIsValid($_GET, 'filter_date_from', 'date',  array('defaultValue'  => $filterDateFrom->format($gSettingsManager->getString('system_date'))));
-$getDateTo     	= admFuncVariableIsValid($_GET, 'filter_date_to',   'date',  array('defaultValue'  => DATE_NOW));
-$getLastName 	= admFuncVariableIsValid($_GET, 'filter_last_name', 'string');
-$getFirstName 	= admFuncVariableIsValid($_GET, 'filter_first_name','string');
-$getMode       	= admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl')));
-$getFullScreen 	= admFuncVariableIsValid($_GET, 'full_screen',      'bool');
+$getDateFrom   	    = admFuncVariableIsValid($_GET, 'filter_date_from', 'date',  array('defaultValue'  => $filterDateFrom->format($gSettingsManager->getString('system_date'))));
+$getDateTo     	    = admFuncVariableIsValid($_GET, 'filter_date_to',   'date',  array('defaultValue'  => DATE_NOW));
+$getLastName 	    = admFuncVariableIsValid($_GET, 'filter_last_name', 'string');
+$getFirstName 	    = admFuncVariableIsValid($_GET, 'filter_first_name','string');
+$getMode       	    = admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl')));
+$getExportAndFilter = admFuncVariableIsValid($_GET, 'export_and_filter', 'bool', array('defaultValue' => false));
 
 $title    = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
@@ -174,12 +171,9 @@ if ($getMode !== 'csv')
 	if ($getMode === 'print')
 	{
 		// create html page object without the custom theme files
-		$page = new HtmlPage('plg-mitgliedsbeitrag-history-print', );
-		$page->hideThemeHtml();
-		$page->hideMenu();
+		$page = new HtmlPage('plg-mitgliedsbeitrag-history-print', $headline);
 		$page->setPrintMode();
 		$page->setTitle($title);
-		$page->setHeadline($headline);
 		$table = new HtmlTable('history_table', $page, $hoverRows, $datatable, $classTable);
 	}
 	elseif ($getMode === 'pdf')
@@ -223,85 +217,119 @@ if ($getMode !== 'csv')
 	}
 	elseif ($getMode === 'html')
 	{
-		$datatable = true;
+		if ($getExportAndFilter)
+        {
+            $datatable = false;
+        }
+        else
+        {
+            $datatable = true;
+        }
 		$hoverRows = true;
 
 		// create html page object
-		$page = new HtmlPage('plg-mitgliedsbeitrag-history-html', );
-
-		if ($getFullScreen)
-		{
-			$page->hideThemeHtml();
-		}
+		$page = new HtmlPage('plg-mitgliedsbeitrag-history-html', $headline);
+        $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'history')));
 
 		$page->setTitle($title);
-		$page->setHeadline($headline);
 
-		// create filter menu with input elements for Startdate and Enddate
-		$FilterNavbar = new HtmlNavbar('menu_history_filter', null, null, 'filter');
-		$form = new HtmlForm('navbar_filter_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/history.php', $page, array('type' => 'navbar', 'setFocus' => false));
-		$form->addInput('filter_date_from', $gL10n->get('SYS_START'), $dateFromHtml, array('type' => 'date', 'maxLength' => 10));
-		$form->addInput('filter_date_to', $gL10n->get('SYS_END'), $dateToHtml, array('type' => 'date', 'maxLength' => 10));
-		$form->addInput('filter_last_name', $gL10n->get('SYS_LASTNAME'), $getLastName);
-		if ($getFullScreen)
-		{
-			$form->addInput('filter_first_name', $gL10n->get('SYS_FIRSTNAME'), $getFirstName);
-		}
-		else 
-		{
-			$form->addInput('filter_first_name', '', $getFirstName, array('property' => FIELD_HIDDEN));
-		}
-		$form->addInput('full_screen', '', $getFullScreen, array('property' => FIELD_HIDDEN));
-		$form->addSubmitButton('btn_send', $gL10n->get('SYS_OK'));
-		$FilterNavbar->addForm($form->show(false));
-		$page->addHtml($FilterNavbar->show());
-		
-		$page->addJavascript('
-            $("#export_list_to").change(function () {
-                if ($(this).val().length > 1) {
-                    var result = $(this).val();
-                    $(this).prop("selectedIndex",0);
-                    self.location.href = "'. SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', 
-                        array('filter_last_name' => $getLastName,
-                             'filter_first_name' => $getFirstName,
-                             'filter_date_from'  => $getDateFrom,
-                             'filter_date_to'    => $getDateTo))    . '&mode=" + result;
-                }
+        $page->addJavascript('
+            $("#menu_item_lists_print_view").click(function() {
+                window.open("'.SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
+                    'filter_date_from'  => $getDateFrom,
+                    'filter_date_to'    => $getDateTo,              
+                    'filter_last_name'  => $getLastName,
+                    'filter_first_name' => $getFirstName,
+                    'export_and_filter' => $getExportAndFilter, 
+                    'mode'              => 'print'
+                )) . '", "_blank");
             });
+            $("#export_and_filter").change(function() {
+                $("#navbar_checkbox_form").submit();
+            });
+            $("#filter_date_from").change(function() {
+                $("#navbar_filter_form").submit();
+            });
+            $("#filter_date_to").change(function() {
+                $("#navbar_filter_form").submit();
+            });
+             $("#filter_last_name").change(function() {
+                $("#navbar_filter_form").submit();
+            });
+            $("#filter_first_name").change(function() {
+                $("#navbar_filter_form").submit();
+            });
+        ', true);             
+        
+        if ($getExportAndFilter)
+        {
+            // links to print and exports
+            $page->addPageFunctionsMenuItem('menu_item_lists_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+        
+            // dropdown menu item with all export possibilities
+            $page->addPageFunctionsMenuItem('menu_item_lists_export', $gL10n->get('LST_EXPORT_TO'), '#', 'fa-file-download');
+            $page->addPageFunctionsMenuItem('menu_item_lists_csv_ms', $gL10n->get('LST_MICROSOFT_EXCEL'),
+                SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
+                    'filter_date_from'  => $getDateFrom,
+                    'filter_date_to'    => $getDateTo,              
+                    'filter_last_name'  => $getLastName,
+                    'filter_first_name' => $getFirstName,
+                    'export_and_filter' => $getExportAndFilter,
+                    'mode'              => 'csv-ms')),
+                'fa-file-excel', 'menu_item_lists_export');
+            $page->addPageFunctionsMenuItem('menu_item_lists_pdf', $gL10n->get('SYS_PDF').' ('.$gL10n->get('SYS_PORTRAIT').')',
+                SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
+                    'filter_date_from'  => $getDateFrom,
+                    'filter_date_to'    => $getDateTo,              
+                    'filter_last_name'  => $getLastName,
+                    'filter_first_name' => $getFirstName,
+                    'export_and_filter' => $getExportAndFilter,
+                    'mode'              => 'pdf')),
+                'fa-file-pdf', 'menu_item_lists_export');
+            $page->addPageFunctionsMenuItem('menu_item_lists_pdfl', $gL10n->get('SYS_PDF').' ('.$gL10n->get('SYS_LANDSCAPE').')',
+                SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
+                    'filter_date_from'  => $getDateFrom,
+                    'filter_date_to'    => $getDateTo,              
+                    'filter_last_name'  => $getLastName,
+                    'filter_first_name' => $getFirstName,
+                    'export_and_filter' => $getExportAndFilter,
+                    'mode'              => 'pdfl')),
+                'fa-file-pdf', 'menu_item_lists_export');
+            $page->addPageFunctionsMenuItem('menu_item_lists_csv', $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')',
+                SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
+                    'filter_date_from'  => $getDateFrom,
+                    'filter_date_to'    => $getDateTo,              
+                    'filter_last_name'  => $getLastName,
+                    'filter_first_name' => $getFirstName,
+                    'export_and_filter' => $getExportAndFilter,
+                    'mode'              => 'csv-oo')),
+                'fa-file-csv', 'menu_item_lists_export');
+        }
 
-            $("#menu_item_print_view").click(function () {
-                window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', array('mode' => 'print', 'filter_last_name' => $getLastName, 'filter_first_name' => $getFirstName, 'filter_date_from' => $getDateFrom, 'filter_date_to' => $getDateTo)). '", "_blank");
-            });', true);
+        $CheckboxNavbar = new HtmlNavbar('navbar_checkbox');
+        
+        $form = new HtmlForm('navbar_checkbox_form', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php'),  $page, array('type' => 'navbar', 'setFocus' => false));
+        $form->addCheckbox('export_and_filter', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER'), $getExportAndFilter);
+        
+        $CheckboxNavbar->addForm($form->show(false));
+        $page->addHtml($CheckboxNavbar->show());
+ 
+        if ($getExportAndFilter)
+        {
+            //$FilterNavbar = new HtmlNavbar('navbar_filter');
+            $FilterNavbar = new HtmlNavbar('navbar_filter', null, null, 'filter');
+            
+            $form = new HtmlForm('navbar_filter_form', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php'),  $page, array('type' => 'navbar', 'setFocus' => false));
+            $form->addInput('filter_date_from', $gL10n->get('SYS_START'), $dateFromHtml, array('type' => 'date', 'maxLength' => 10));
+            $form->addInput('filter_date_to', $gL10n->get('SYS_END'), $dateToHtml, array('type' => 'date', 'maxLength' => 10));
+            $form->addInput('filter_last_name', $gL10n->get('SYS_LASTNAME'), $getLastName) ;
+            //$form->addInput('filter_first_name', $gL10n->get('SYS_FIRSTNAME'), $getFirstName);
+            $form->addInput('export_and_filter', '', $getExportAndFilter, array('property' => HtmlForm::FIELD_HIDDEN));
 
-		// get module menu
-		$listsMenu = $page->getMenu();
-		$listsMenu->addItem('menu_item_back', $gNavigation->getPreviousUrl(), $gL10n->get('SYS_BACK'), 'back.png');
-
-		if ($getFullScreen)
-		{
-			$listsMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', array('mode' => 'html', 'full_screen' => 'false', 'filter_last_name' => $getLastName, 'filter_first_name' => $getFirstName, 'filter_date_from' => $getDateFrom, 'filter_date_to' => $getDateTo)),
-					$gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
-		}
-		else
-		{
-			$listsMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS. PLUGIN_FOLDER .'/history.php', array('mode' => 'html', 'full_screen' => 'true', 'filter_last_name' => $getLastName, 'filter_first_name' => $getFirstName, 'filter_date_from' => $getDateFrom, 'filter_date_to' => $getDateTo)),
-					$gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-		}
-
-		// link to print overlay and exports
-		$listsMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
-
-		$form = new HtmlForm('navbar_export_to_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
-		$selectBoxEntries = array(
-				''       => $gL10n->get('LST_EXPORT_TO').' ...',
-				'csv-ms' => $gL10n->get('LST_MICROSOFT_EXCEL').' ('.$gL10n->get('SYS_ISO_8859_1').')',
-				'pdf'    => $gL10n->get('SYS_PDF').' ('.$gL10n->get('SYS_PORTRAIT').')',
-				'pdfl'   => $gL10n->get('SYS_PDF').' ('.$gL10n->get('SYS_LANDSCAPE').')',
-				'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')'
-		);
-		$form->addSelectBox('export_list_to', null, $selectBoxEntries, array('showContextDependentFirstEntry' => false));
-		$listsMenu->addForm($form->show(false));
-
+            $FilterNavbar->addForm($form->show(false));
+            $page->addHtml($FilterNavbar->show());
+        }
+        
 		$table = new HtmlTable('history_table', $page, $hoverRows, $datatable, $classTable);
 		$table->setDatatablesRowsPerPage($gSettingsManager->getString('lists_members_per_page'));
 	}

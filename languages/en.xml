@@ -185,6 +185,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING">The IBAN has been changed at the same bank. The original IBAN field must therefore be filled.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">The mandate reference was changed. The original mandate reference field must be filled.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export and filter</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">There is no data to be exported.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER">Number of adults in families</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_DESC">Checking of family roles against the min. or max. number of adults stated in the setup</string>

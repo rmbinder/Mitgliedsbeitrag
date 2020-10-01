@@ -185,6 +185,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING">L\'IBAN a été changé à la même banque. La zone IBAN d\'origine doit donc être renseignée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">La référence du mandat a été modifiée. Le champ référence du mandat original doit être renseignée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Exporter et filtrer</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Aucune donnée n\'est sélectionnée pour l\'exportation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER">Nombre d\'adultes dans les familles</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_DESC">Vérifie les rôles familiaux pour le nombre minimum et maximum d\'adultes spécifiés dans la configuration.</string>
