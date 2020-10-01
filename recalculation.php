@@ -368,21 +368,21 @@ elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-recalculation-write', $headline);
     $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'recalculation')));
-    
+ 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+        
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {
             window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/recalculation.php', array('mode' => 'print')). '", "_blank");
         });',
 		true
 	);
-	
-	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
 		
 	$form = new HtmlForm('recalculation_saved_form', null, $page);
 	
-	$datatable = true;
+	$datatable = false;
 	$hoverRows = true;
 	$classTable  = 'table table-condensed';
+    
 	$table = new HtmlTable('table_saved_recalculation', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),

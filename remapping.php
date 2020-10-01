@@ -193,7 +193,8 @@ elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-write', $headline);
     $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')));
-    
+ 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+        
 	$tablemember = new TableMembers($gDb);
 	$sql = '';
 	
@@ -204,11 +205,10 @@ elseif ($getMode == 'write')
 		true
 	);
 
-	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
-	
-	$datatable = true;
+	$datatable = false;
 	$hoverRows = true;
 	$classTable  = 'table table-condensed';
+    
 	$table = new HtmlTable('table_saved_remapping', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
@@ -267,7 +267,7 @@ elseif ($getMode == 'print')
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
 	
-	$page = new HtmlPage('plg-mitgliedsbeitrag-remapping-preview', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SUMMARY', array($date)));
+	$page = new HtmlPage('plg-mitgliedsbeitrag-remapping-print', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SUMMARY', array($date)));
 	$page->setPrintMode();
 	
 	$table = new HtmlTable('table_print_remapping', $page, $hoverRows, $datatable, $classTable);
