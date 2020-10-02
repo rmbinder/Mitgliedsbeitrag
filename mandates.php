@@ -18,8 +18,6 @@
  * mem_show_choice  : 0 - (Default) Alle Benutzer anzeigen
  *                    1 - Nur Benutzer anzeigen, bei denen ein Mandatsdatum vorhanden ist
  *                    2 - Nur Benutzer anzeigen, bei denen kein Mandatsdatum vorhanden ist
- * full_screen      : 0 - Normalbildschirm
- *                    1 - Vollbildschirm
  ***********************************************************************************************
  */
 
@@ -47,7 +45,6 @@ $getMode        = admFuncVariableIsValid($_GET, 'mode', 'string', array('default
 $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
 $getDatumNeu    = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
 $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
-$getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 
 if ($getMode == 'assign')
 {
@@ -96,14 +93,8 @@ else
     $userArray = array();
     $membersList = array();
    
-    if ($getFullScreen == true)
-    {
-    	$membersListFields = $pPreferences->config['columnconfig']['mandates_fields_full_screen'];
-    }
-    else
-    {
-    	$membersListFields = $pPreferences->config['columnconfig']['mandates_fields_normal_screen'];
-    }
+  //$membersListFields = $pPreferences->config['columnconfig']['mandates_fields_full_screen'];
+    $membersListFields = $pPreferences->config['columnconfig']['mandates_fields_normal_screen'];
     
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
@@ -151,29 +142,25 @@ else
 
     // create html page object
     $page = new HtmlPage('plg-mitgliedsbeitrag-mandates', $headline);
-
-    if ($getFullScreen == true)
-    {
-        $page->hideThemeHtml();
-    }
+    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'mandates')));
 
     $javascriptCode = '
         // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
                 if($(this).val().length > 0) {
-                    window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('full_screen' => $getFullScreen)). '&mem_show_choice=" + $(this).val());
+                    window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php'). '?mem_show_choice=" + $(this).val());
                 }
         });
 
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
             var datum = $("#datum").val();
-            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('mode' => 'assign', 'full_screen' => $getFullScreen)) .'&datum_neu=" + datum,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('mode' => 'assign')) .'&datum_neu=" + datum,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
                     var mem_show = $("#mem_show").val();
-                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('full_screen' => $getFullScreen)).' &mem_show_choice="  + mem_show);
+                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php').'?mem_show_choice="  + mem_show);
                     }
                     else {
                         alert(data);
@@ -195,7 +182,7 @@ else
             var member_checked = $("input[type=checkbox]#member_"+userid).prop("checked");
 
             // change data in database
-            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('full_screen' => $getFullScreen, 'mode' => 'assign')) .'&datum_neu=" + datum + "&usr_id=" + userid,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array( 'mode' => 'assign')) .'&datum_neu=" + datum + "&usr_id=" + userid,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
@@ -219,21 +206,8 @@ else
 
     $page->addJavascript($javascriptCode, true);
 
-    $mandatesMenu = $page->getMenu();
-    $mandatesMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', arraqy('show_option' => 'mandates')), $gL10n->get('SYS_BACK'), 'back.png');
-
-    if ($getFullScreen == true)
-    {
-        $mandatesMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('mem_show_choice' => $getMembersShow. 'full_screen' => 0)),
-                $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
-    }
-    else
-    {
-        $mandatesMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', array('mem_show_choice' => $getMembersShow. 'full_screen' => 1)),
-                $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-    }
-
-    $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+    $mandatesNavbar = new HtmlNavbar('navbar_mandates');
+    $navbarForm = new HtmlForm('navbar_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
     $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
     $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
@@ -242,10 +216,11 @@ else
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE'));
     $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-    $mandatesMenu->addForm($navbarForm->show(false));
+    $mandatesNavbar->addForm($navbarForm->show(false));
+    $page->addHtml($mandatesNavbar->show());
 
     // create table object
-    $table = new HtmlTable('tbl_assign_role_membership', $page, true, true, 'table table-condensed');
+    $table = new HtmlTable('tbl_mandates', $page, true, true, 'table table-condensed');
     $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES_FOUND');
     
     $columnAlign  = array('center');
@@ -253,8 +228,7 @@ else
     
     //column mandate change
     $columnAlign[]  = 'center';
-    $columnValues[] = '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/edit.png"
-            alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" />';
+    $columnValues[] = '<i class="fas fa-edit"  title="' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE') . '"></i>';
     
     // headlines for columns
     foreach ($membersList as $member => $memberData)
@@ -305,10 +279,9 @@ else
     	}
     	
     	$columnValues = array($content);
-    	
-    	$columnValues[] = '<a class="admidio-icon-info" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $member)). '"><img src="'. THEME_URL . '/icons/edit.png"
-                    alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'" /></a>';
-                    		
+        $columnValues[] = '<a class="admidio-icon-info" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $member)). '">
+            <i class="fas fa-edit" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'"></i>';
+      		
     	foreach ($memberData as $usfId => $data)
     	{
     		if (!is_int($usfId))
