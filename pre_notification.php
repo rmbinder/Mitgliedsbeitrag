@@ -17,8 +17,6 @@
  *                    mail_export- nur zur Pruefung, ob user im CheckedArray markiert sind
  * usr_id           : <>0        - Id des Benutzers, fuer der im CheckedArray gesetzt/geloescht wird
  *                    leer       - alle user im CheckedArray aendern von gesetzt->geloescht bzw geloescht->gesetzt
- * full_screen      : 0 - Normalbildschirm
- *                    1 - Vollbildschirm
  * checked         : true  - Der Haken beim Benutzer wurde gesetzt
  *                   false - Der Haken beim Benutzer wurde entfernt
  * duedate         : Das uebergebene Faelligkeitsdatum zur Filterung
@@ -47,7 +45,6 @@ if(isset($_GET['mode']) && ($_GET['mode'] == 'csv_export' || $_GET['mode'] == 'm
 // Initialize and check the parameters
 $getMode        = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'csv_export', 'mail_export', 'prepare')));
 $getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
-$getFullScreen  = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 $getChecked     = admFuncVariableIsValid($_GET, 'checked', 'string');
 $getDueDate     = admFuncVariableIsValid($_GET, 'duedate', 'string', array('defaultValue' => 0));
 
@@ -296,16 +293,12 @@ else
 
         // create html page object
         $page = new HtmlPage('plg-mitgliedsbeitrag-pre-notification', $headline);
-
-        if($getFullScreen == true)
-        {
-            $page->hideThemeHtml();
-        }
+        $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'sepa')));
 
         $page->addJavascript('
             function prenotexport(){ 
                 //var duedate = $("#duedate").val(); 
-                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'csv_export', 'full_screen' => $getFullScreen)) .'",
+                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'csv_export')) .'",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
@@ -330,7 +323,7 @@ else
             
             function massmail(){ 
             //var duedate = $("#duedate").val(); 
-                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'mail_export', 'full_screen' => $getFullScreen)) .'",
+                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'mail_export')) .'",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
@@ -352,11 +345,11 @@ else
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
             var duedate = $("#duedate").val(); 
-            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', arraa('mode' => 'prepare', 'full_screen' => $getFullScreen)) .'&duedate=" + duedate,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'prepare')) .'&duedate=" + duedate,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
-                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('full_screen' => $getFullScreen)).' &duedate=" + duedate);
+                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php').'?duedate=" + duedate);
                     }
                     else {
                         alert(data);
@@ -369,7 +362,7 @@ else
 
         $("#duedate").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', aray('full_screen' => $getFullScreen)).' &duedate=" + $(this).val());
+                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php').'?duedate=" + $(this).val());
             }
         });
 
@@ -384,7 +377,7 @@ else
             var duedate = $("#duedate").val();
 
             // change data in checkedArray
-            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'prepare', 'full_screen' => $getFullScreen)) .'&checked=" + member_checked + "&usr_id=" + userid + "&duedate=" + duedate,
+            $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'prepare')) .'&checked=" + member_checked + "&usr_id=" + userid + "&duedate=" + duedate,
                 function(data){
                     // check if error occurs
                    if(data != "success") {
@@ -399,22 +392,8 @@ else
 
         $page->addJavascript($javascriptCode, true);
 
-        // get module menu
-        $preNotificationsMenu = $page->getMenu();
-        $preNotificationsMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'sepa')), $gL10n->get('SYS_BACK'), 'back.png');
-
-        if($getFullScreen == true)
-        {
-           $preNotificationsMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('full_screen' => 0)),
-                $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
-        }
-        else
-        {
-            $preNotificationsMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('full_screen' => 1)),
-                $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-        }
-
-        $navbarForm = new HtmlForm('navbar_show_all_users_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+        $preNotificationNavbar = new HtmlNavbar('navbar_prenotification');
+        $navbarForm = new HtmlForm('navbar_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
         //alle Faelligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
@@ -427,7 +406,7 @@ else
                 AND   rol_valid = 1
                 AND   rol_cat_id = cat_id
                 AND (  cat_org_id = '.ORG_ID.'
-                    OR cat_org_id IS NULL )  ';
+                 OR cat_org_id IS NULL )  ';
 
         $duedateStatement = $gDb->query($sql);
         $selectBoxEntries = array('0' => '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
@@ -439,10 +418,11 @@ else
         }
 
         $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
-        $navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => THEME_URL .'/icons/email.png', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
-        $preNotificationsMenu->addForm($navbarForm->show(false));
-
+        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'fa-file-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
+        $navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'fa-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
+        $preNotificationNavbar->addForm($navbarForm->show(false));
+        $page->addHtml($preNotificationNavbar->show());
+    
         // create table object
         $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');
         $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES_FOUND');
@@ -451,19 +431,15 @@ else
         $columnHeading = array(
             '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_ALL').'"/>',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'),
-            '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/comment.png"
-                alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'" />',
+            '<i class="fas fa-comment admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'"></i>',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
             $gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
-            '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/map.png"
-                alt="'.$gL10n->get('SYS_STREET').'" title="'.$gL10n->get('SYS_STREET').'" />',
+            '<i class="fas fa-map-marked-alt admidio-info-icon" title="'.$gL10n->get('SYS_ADDRESS').'"></i>',
             $gL10n->get('SYS_STREET'),
-            '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/info.png"
-                alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'" />',
+            '<i class="fas fa-info-circle admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'"></i>',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR'),
-            '<img class="admidio-icon-help" src="'. THEME_URL . '/icons/email.png"
-                alt="'.$gL10n->get('SYS_EMAIL').'" title="'.$gL10n->get('SYS_EMAIL').'" />',
+            '<i class="fas fa-envelope admidio-info-icon" title="'.$gL10n->get('SYS_EMAIL').'"></i>',
             $gL10n->get('SYS_EMAIL'),
             $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID')
         );
@@ -550,7 +526,7 @@ else
             }
             if(strlen($addressText) > 1)
             {
-                $htmlAddress = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/map.png" alt="'.$addressText.'" title="'.$addressText.'" />';
+                $htmlAddress = '<i class="fas fa-map-marked-alt admidio-info-icon" title="'.$addressText.'"></i>';
             }
 
             //8. Spalte ($addressText)
@@ -571,7 +547,7 @@ else
 
             if(strlen($debtor_text) > 1)
             {
-                $htmlDebtorText = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/info.png" alt="'.$debtor_text.'" title="'.$debtor_text.'" />';
+                $htmlDebtorText = '<i class="fas fa-info-circle admidio-info-icon" title="'.$debtor_text.'"></i>';
             }
 
             //11. Spalte ($htmlMail)
@@ -599,8 +575,7 @@ else
                  {
                     $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('usr_id' => $user['usr_id']));
                  }
-                 $htmlMail = '<a class="admidio-icon-info" href="'.$mail_link.'"><img src="'. THEME_URL . '/icons/email.png"
-                    alt="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', $email).'" /></a>';
+                 $htmlMail = '<a class="admidio-icon-info" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($email)).'"></i>';
             }
 
             //12. Spalte ($email)
