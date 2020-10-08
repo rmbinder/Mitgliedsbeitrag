@@ -282,19 +282,21 @@ else
     ';
  
     $page->addJavascript($javascriptCode, true);
-
-    $form = new HtmlForm('header_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
-
-    $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
-    $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
-
-    $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
-    $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
-    $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    
     if (isset($_SESSION['pMembershipFee']['payments_rol_sel']))
     {
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
+        $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
     }
+
+    $form = new HtmlForm('header_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+    
+    $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
+    $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
+    $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATE_PAID'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC'));
+
+    $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
+    $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+
     $page->addHtml($form->show(false));
 
     // create table object

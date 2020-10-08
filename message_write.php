@@ -101,16 +101,12 @@ else
     $headline = $gL10n->get('MAI_SEND_EMAIL');
 }
 
-// create html page object
-$page = new HtmlPage('plg-mitgliedsbeitrag-message-write', $headline);
-
 // add current url to navigation stack
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
-// create module menu with back link
-$messagesWriteMenu = new HtmlNavbar('menu_messages_write', $headline, $page);
-$messagesWriteMenu->addItem('menu_item_back', $gNavigation->getPreviousUrl(), $gL10n->get('SYS_BACK'), 'back.png');
-$page->addHtml($messagesWriteMenu->show(false));
+// create html page object
+$page = new HtmlPage('plg-mitgliedsbeitrag-message-write', $headline);
+$page->setUrlPreviousPage($gNavigation->getPreviousUrl());
 
  //Datensatz fuer E-Mail-Adresse zusammensetzen
 if(strlen($user->getValue('DEBTOR')) > 0)
@@ -118,7 +114,7 @@ if(strlen($user->getValue('DEBTOR')) > 0)
     if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
     {
         // besitzt der User eine gueltige E-Mail-Adresse
-        if (!strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
+        if (!StringUtils::strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
         {
             $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
         }
@@ -133,7 +129,7 @@ else
     if(strlen($user->getValue('EMAIL')) > 0)
     {
         // besitzt der User eine gueltige E-Mail-Adresse
-        if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
+        if (!StringUtils::strValidCharacters($user->getValue('EMAIL'), 'email'))
         {
             $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
         }
@@ -165,16 +161,16 @@ else
     $form_values['delivery_confirmation']  = 0;
 }
 
-$formParam = 'usr_id='.$getUserId.'&';
+$formParams = array('usr_id' => $getUserId);
 
 // if subject was set as param then send this subject to next script
 if (strlen($getSubject) > 0)
 {
-    $formParam .= 'subject='.$getSubject.'&';
+    $formParams['subject'] = $getSubject;
 }
 
 // show form
-$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', $formParam), $page);
+$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', $formParams), $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
 
 if ($getUserId > 0)
@@ -197,12 +193,12 @@ if (($gCurrentUser->getValue('usr_id') > 0 && $gSettingsManager->getString('mail
 $form->closeGroupBox();
 
 $form->openGroupBox('gb_mail_message', $gL10n->get('SYS_MESSAGE'));
-$form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => FIELD_REQUIRED));
+$form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => HtmlForm::FIELD_REQUIRED));
 
 $form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true,
                                                                                  'multiUploadLabel'   => $gL10n->get('MAI_ADD_ATTACHEMENT'),
                                                                                  'hideUploadField'    => true,
-                                                                                 'helpTextIdLabel'    => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
+                                                                                 'helpTextIdLabel'    => $gL10n->get('MAI_MAX_ATTACHMENT_SIZE', array(Email::getMaxAttachmentSize(Email::SIZE_UNIT_MEBIBYTE)))));
 
 // add textfield or ckeditor to form
 if($gValidLogin == true && $gSettingsManager->getString('mail_html_registered_users') == 1)
@@ -216,7 +212,7 @@ else
 
 $form->closeGroupBox();
 
-$form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => THEME_URL .'/icons/email.png', 'class' => ' col-sm-offset-3'));
+$form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => 'fa-envelope'));
 
 // add form to html page and show page
 $page->addHtml($form->show(false));

@@ -11,8 +11,6 @@
  *
  * mode             : html   - Standardmodus zun Anzeigen einer html-Liste
  *                    assign - Kopieren der Daten
- * full_screen      : 0      - Normalbildschirm
- *                    1      - Vollbildschirm
  * source_userid    : die UserID des Quelle-Mitglieds
  * target_userid    : die UserID des Ziel-Mitglieds
  * source_usfid     : die UsfID der Quelle
@@ -41,7 +39,6 @@ if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 
 // Initialize and check the parameters
 $getMode            = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'assign')));
-$getFullScreen      = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 $getSourceUserid    = admFuncVariableIsValid($_GET, 'source_userid', 'numeric', array('defaultValue' => 0));
 $getTargetUserid    = admFuncVariableIsValid($_GET, 'target_userid', 'numeric', array('defaultValue' => 0));
 $getSourceUsfid     = admFuncVariableIsValid($_GET, 'source_usfid', 'numeric');
@@ -75,8 +72,6 @@ if($getMode == 'assign')
 }
 else
 {
-    // show html list
-
     // set headline of the script
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY');
 
@@ -88,24 +83,20 @@ else
 
     // create html page object
     $page = new HtmlPage('plg-mitgliedsbeitrag-copy', $headline);
-
-    if($getFullScreen == true)
-    {
-        $page->hideThemeHtml();
-    }
+    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'copy')));
 
     $javascriptCode = '
         // pulldown Quelle is clicked 
         $("#quelle").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('full_screen' => $getFullScreen, 'target_userid' => $getTargetUserid)) . '&source_userid=" + $(this).val());
+                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('target_userid' => $getTargetUserid)) . '&source_userid=" + $(this).val());
             }
         });
 
         // pulldown Ziel is clicked
         $("#ziel").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('full_screen' => $getFullScreen, 'source_userid' => $getSourceUserid)).' &target_userid=" + $(this).val());
+                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('source_userid' => $getSourceUserid)).' &target_userid=" + $(this).val());
             }
         });
 
@@ -120,7 +111,7 @@ else
             $("input[type=checkbox]#sourcefield_"+source_usfid).prop("checked", true);
         });
 
-         // target-checkbox of user is clicked --> change data
+        // target-checkbox of user is clicked --> change data
         $("input[type=checkbox].targetlist_checkbox").click(function(){
             var targetcheckbox = $(this);
             var row_id = targetcheckbox.attr("id");
@@ -128,13 +119,13 @@ else
             var target_usfid = row_id.substring(pos+1);
        
             var sourcecheckbox = $("input[type=checkbox].sourcelist_checkbox:checked");
-             
-            if(sourcecheckbox.size() == 1) {
+            
+            if(sourcecheckbox.length == 1) {
                 var row_id = sourcecheckbox.attr("id");
                 var pos = row_id.search("_");
                 var source_usfid = row_id.substring(pos+1);
-                
-                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('mode' => 'assign', 'full_screen' => $getFullScreen, 'target_userid' => $getTargetUserid, 'source_userid' => $getSourceUserid)) .'&source_usfid=" + source_usfid + "&target_usfid=" + target_usfid,
+                               
+                 $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('mode' => 'assign', 'target_userid' => $getTargetUserid, 'source_userid' => $getSourceUserid)) .'&source_usfid=" + source_usfid + "&target_usfid=" + target_usfid,
                     function(data){
                         // check if error occurs
                         if(data == "success") {
@@ -162,21 +153,6 @@ else
 
     $page->addJavascript($javascriptCode, true);
 
-    // get module menu
-    $copyMenu = $page->getMenu();
-    $copyMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'copy')), $gL10n->get('SYS_BACK'), 'back.png');
-
-    if($getFullScreen == true)
-    {
-        $copyMenu->addItem('menu_item_normal_picture', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('source_userid' => $getSourceUserid, 'target_userid' => $getTargetUserid, 'full_screen' => 0)),
-                $gL10n->get('SYS_NORMAL_PICTURE'), 'arrow_in.png');
-    }
-    else
-    {
-        $copyMenu->addItem('menu_item_full_screen', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('source_userid' => $getSourceUserid, 'target_userid' => $getTargetUserid, 'full_screen' => 1)),
-                $gL10n->get('SYS_FULL_SCREEN'), 'arrow_out.png');
-    }
-
     $membersSelectString = '';
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'), 0);
     foreach ($members as $member => $memberdata)
@@ -188,11 +164,13 @@ else
     }
     asort($members);
 
+    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
+ 
     $navbarForm = new HtmlForm('navbar_copy_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
-    $navbarForm->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
-    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => FIELD_REQUIRED));
-    $navbarForm->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => FIELD_REQUIRED));
-    $copyMenu->addForm($navbarForm->show(false));
+    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+    $navbarForm->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+
+    $page->addHtml($navbarForm->show(false));
 
     // create table object
     $table = new HtmlTable('tbl_copy', $page, true, true, 'table table-condensed');

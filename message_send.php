@@ -77,7 +77,7 @@ $email = new Email();
 $user = new User($gDb, $gProfileFields, $getUserId);
 
 // error if no valid Email for given user ID
-if (!strValidCharacters($user->getValue('EMAIL'), 'email'))
+if (!StringUtils::strValidCharacters($user->getValue('EMAIL'), 'email'))
 {
     $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
 }

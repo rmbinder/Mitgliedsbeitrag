@@ -44,11 +44,11 @@ $pPreferences->read();
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER');
 
-// create html page object
-$page = new HtmlPage('plg-mitgliedsbeitrag-membernumber', $headline);
-
 if ($getMode == 'preview')     //Default
 {
+    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-preview', $headline);
+    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'producemembernumber')));
+    
 	$membernumbers = new Membernumbers($gDb);
 
 	if ($membernumbers->isDoubleNumber())
@@ -64,14 +64,11 @@ if ($getMode == 'preview')     //Default
 	$_SESSION['pMembershipFee']['membernumber_rol_sel'] = $postRoleselection;
 	$_SESSION['pMembershipFee']['membernumber_format'] = $postFormat;
 	$_SESSION['pMembershipFee']['membernumber_fill_gaps'] = $postFillGaps;
-	
-	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'producemembernumber')), $gL10n->get('SYS_BACK'), 'back.png');
-	
-	$form = new HtmlForm('membernumber_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php', array('mode' => 'write')), $page);
-	
+
 	if ($membernumbers->userWithoutMembernumberExist)
 	{
+    	$form = new HtmlForm('membernumber_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php', array('mode' => 'write')), $page);
+        
 		// save new membernumbers in session (for mode write and mode print)
 		$_SESSION['pMembershipFee']['membernumber_user'] = $membernumbers->mUserWithoutMembernumber;
 	
@@ -93,20 +90,23 @@ if ($getMode == 'preview')     //Default
 		}
 
 		$page->addHtml($table->show(false));
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => THEME_URL .'/icons/disk.png', 'class' => 'btn-primary'));
+        
+		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
 		$form->addDescription('<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW'));
+        
+        $page->addHtml($form->show(false));
 	}
 	else 
 	{
-		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN'));
-		
-		//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-		$form->addStaticControl('', '', '');
+        $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN').'<br/><br/>');
 	}
-	$page->addHtml($form->show(false));
 }
 elseif ($getMode == 'write')
 {
+    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-write', $headline);
+    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'producemembernumber')));
+ 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+    
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {
             window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php', array('mode' => 'print')). '", "_blank");
@@ -114,15 +114,10 @@ elseif ($getMode == 'write')
 		true
 	);
 	
-	$headerMenu = $page->getMenu();
-	$headerMenu->addItem('menu_item_back', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php'. array('show_option' => 'producemembernumber')), $gL10n->get('SYS_BACK'), 'back.png');
-	$headerMenu->addItem('menu_item_print_view', '#', $gL10n->get('LST_PRINT_PREVIEW'), 'print.png');
-	
-	$form = new HtmlForm('membernumber_saved_form', null, $page);
-	
-	$datatable = true;
+	$datatable = false;
 	$hoverRows = true;
 	$classTable  = 'table table-condensed';
+    
 	$table = new HtmlTable('table_saved_membernumbers', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));
@@ -144,12 +139,7 @@ elseif ($getMode == 'write')
 	}
 	
 	$page->addHtml($table->show(false));
-	$form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED').'</strong>');
-	
-	//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-	$form->addStaticControl('', '', '');
-	
-	$page->addHtml($form->show(false));
+    $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED').'</strong><br/><br/>');
 	
 	// save the format string in database
 	$pPreferences->config['membernumber']['format'] = $_SESSION['pMembershipFee']['membernumber_format'];
@@ -158,14 +148,13 @@ elseif ($getMode == 'write')
 }
 elseif ($getMode == 'print')
 {
-	// create html page object without the custom theme files
 	$hoverRows = false;
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
-	$page->hideThemeHtml();
-	$page->hideMenu();
+    
+    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-print', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW'));
 	$page->setPrintMode();
-	$page->setHeadline($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW'));
+
 	$table = new HtmlTable('table_print_membernumbers', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));

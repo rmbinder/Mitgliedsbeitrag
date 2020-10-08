@@ -153,6 +153,7 @@ if ($getMode == 'preview')     //Default
 		$datatable = true;
 		$hoverRows = true;
 		$classTable  = 'table table-condensed';
+        
 		$table = new HtmlTable('table_new_remapping', $page, $hoverRows, $datatable, $classTable);
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'),

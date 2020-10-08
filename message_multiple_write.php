@@ -82,19 +82,15 @@ else
     $headline = $gL10n->get('MAI_SEND_EMAIL');
 }
 
-// create html page object
-$page = new HtmlPage('plg-mitgliedsbeitrag-message-multiple-write', $headline);
-
 // add current url to navigation stack
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
-// create module menu with back link
-$messagesWriteMenu = new HtmlNavbar('menu_messages_write', $headline, $page);
-$messagesWriteMenu->addItem('menu_item_back', $gNavigation->getPreviousUrl(), $gL10n->get('SYS_BACK'), 'back.png');
-$page->addHtml($messagesWriteMenu->show(false));
+// create html page object
+$page = new HtmlPage('plg-mitgliedsbeitrag-message-multiple-write', $headline);
+$page->setUrlPreviousPage($gNavigation->getPreviousUrl());
 
 $user_array = $_SESSION['pMembershipFee']['checkedArray'];
-$userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', count($user_array));
+$userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', array(count($user_array)));
 
 $form_values['name']         = '';
 $form_values['mailfrom']     = '';
@@ -104,16 +100,16 @@ $form_values['msg_to']       = 0;
 $form_values['carbon_copy']  = 1;
 $form_values['delivery_confirmation']  = 0;
 
-$formParam = '';
-
+ $formParams = array();
+ 
 // if subject was set as param then send this subject to next script
 if (strlen($getSubject) > 0)
 {
-    $formParam .= 'subject='.$getSubject.'&';
+     $formParams['subject'] = $getSubject;
 }
 
 // show form
-$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_multiple_send.php', $formParam), $page);
+$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_multiple_send.php', $formParams), $page);
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
 
 $preload_data = '';
@@ -131,12 +127,12 @@ if (($gCurrentUser->getValue('usr_id') > 0 && $gSettingsManager->getString('mail
 $form->closeGroupBox();
 
 $form->openGroupBox('gb_mail_message', $gL10n->get('SYS_MESSAGE'));
-$form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => FIELD_REQUIRED));
+$form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => HtmlForm::FIELD_REQUIRED));
 
 $form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true,
                                                                                  'multiUploadLabel'   => $gL10n->get('MAI_ADD_ATTACHEMENT'),
                                                                                  'hideUploadField'    => true,
-                                                                                 'helpTextIdLabel'    => array('MAI_MAX_ATTACHMENT_SIZE', Email::getMaxAttachementSize('mb'))));
+                                                                                 'helpTextIdLabel'    => $gL10n->get('MAI_MAX_ATTACHMENT_SIZE', array(Email::getMaxAttachmentSize(Email::SIZE_UNIT_MEBIBYTE)))));
 
 // add textfield or ckeditor to form
 if($gValidLogin == true && $gSettingsManager->getString('mail_html_registered_users') == 1)
@@ -150,7 +146,7 @@ else
 
 $form->closeGroupBox();
 
-$form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => THEME_URL .'/icons/email.png', 'class' => ' col-sm-offset-3'));
+$form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => 'fa-envelope'));
 
 // add form to html page and show page
 $page->addHtml($form->show(false));

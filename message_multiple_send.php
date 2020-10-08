@@ -117,7 +117,7 @@ foreach ($user_array as $userId)
 
     }
 
-    if (!strValidCharacters($postTo, 'email'))
+    if (!StringUtils::strValidCharacters($postTo, 'email'))
     {
         $sendMailResultMissingEmail[] = $empfaenger;
         continue;
