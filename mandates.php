@@ -93,8 +93,7 @@ else
     $userArray = array();
     $membersList = array();
    
-  //$membersListFields = $pPreferences->config['columnconfig']['mandates_fields_full_screen'];
-    $membersListFields = $pPreferences->config['columnconfig']['mandates_fields_normal_screen'];
+    $membersListFields = $pPreferences->config['columnconfig']['mandates_fields'];
     
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
@@ -206,18 +205,16 @@ else
 
     $page->addJavascript($javascriptCode, true);
 
-    $mandatesNavbar = new HtmlNavbar('navbar_mandates');
-    $navbarForm = new HtmlForm('navbar_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+    $form = new HtmlForm('mandates_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
     $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
     $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
+    $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC'));
 
-    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC'));
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE'));
-    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-    $mandatesNavbar->addForm($navbarForm->show(false));
-    $page->addHtml($mandatesNavbar->show());
+    $page->addHtml($form->show());
 
     // create table object
     $table = new HtmlTable('tbl_mandates', $page, true, true, 'table table-condensed');
@@ -279,7 +276,7 @@ else
     	}
     	
     	$columnValues = array($content);
-        $columnValues[] = '<a class="admidio-icon-info" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $member)). '">
+        $columnValues[] = '<a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $member)). '">
             <i class="fas fa-edit" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'"></i>';
       		
     	foreach ($memberData as $usfId => $data)

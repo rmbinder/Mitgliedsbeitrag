@@ -43,15 +43,15 @@ if (sizeof($_POST['duedatesepatype']) == 1)
 	$oneDueDateOnly = true;				// es gibt nur ein Fälligkeitsdatum mit einem Sequenztyp: der PmtTpInf-Block wird im PmtInf-Block plaziert (damit KSK die XML-Datei einlesen kann)
 }
 
-$dueDateArr = array();
-$zempf = array();
-$zpflgt = array();
-$nbOfTxs_Msg = 0; 																	// Anzahl der Transaktionen innerhalb der Message
-$ctrlSum_Msg = 0;																	// Kontrollsumme der Beträge innerhalb der Message
-$now = time();
-$format1 = 'Y-m-d';
-$format2 = 'H:i:s';
-$filename_ext = '';
+$dueDateArr     = array();
+$zempf          = array();
+$zpflgt         = array();
+$nbOfTxs_Msg    = 0; 																	// Anzahl der Transaktionen innerhalb der Message
+$ctrlSum_Msg    = 0;																	// Kontrollsumme der Beträge innerhalb der Message
+$now            = time();
+$format1        = 'Y-m-d';
+$format2        = 'H:i:s';
+$filename_ext   = '';
 
 foreach ($_POST['duedatesepatype'] as $dummy => $data)
 {

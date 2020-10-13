@@ -166,11 +166,11 @@ else
 
     $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
  
-    $navbarForm = new HtmlForm('navbar_copy_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
-    $navbarForm->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
-    $navbarForm->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+    $form = new HtmlForm('copy_selection_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+    $form->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+    $form->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
 
-    $page->addHtml($navbarForm->show(false));
+    $page->addHtml($form->show(false));
 
     // create table object
     $table = new HtmlTable('tbl_copy', $page, true, true, 'table table-condensed');
@@ -186,6 +186,7 @@ else
     );
     $table->setColumnAlignByArray(array('center', 'center', 'center', 'center', 'center'));
     $table->addRowHeadingByArray($columnHeading);
+    
     if($getSourceUserid == 0)
     {
         $table->setDatatablesColumnsHide(array(2));

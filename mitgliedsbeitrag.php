@@ -444,7 +444,7 @@ if(count($rols) > 0)
     $formSepa = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/export_sepa.php', $page);
     if (!$directdebittype)
     {
-        $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST').'</div>';
+        $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST').'</div>';
         $formSepa->addCustomContent('', $html);
     }
     else
@@ -514,7 +514,7 @@ if(count($rols) > 0)
         $formSepa->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => 'fa-file-csv', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
     
-        $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
+        $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
         $formSepa->addStaticControl('', '', $html);
     
         $formSepa->addLine();
@@ -683,17 +683,10 @@ if(count($rols) > 0)
     $page->addHtml(closeMenueTab());
 
     $page->addHtml('</div>');               //end div class="tab-content"
-
-    $page->show();
 }
 else
-{
-    $form = new HtmlForm('no_roles_defined_form', null, $page);
-    $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED').'</div>';
-    $form->addDescription($html);
-    //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-    $form->addStaticControl('', '', '');
-    $page->addHtml($form->show(false));
-
-    $page->show();
+{   
+    $page->addHtml('<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED').'</div>');
 }
+
+$page->show();

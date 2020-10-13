@@ -145,8 +145,6 @@ if ($getMode == 'preview')     //Default
 			
 	if (sizeof($members) > 0)
 	{
-	    $form = new HtmlForm('createmandateid_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php', array('mode' => 'write')), $page);
-	    
 		// save members in session (for mode write and mode print)
 		$_SESSION['pMembershipFee']['remapping_user'] = $members;
 	
@@ -180,7 +178,8 @@ if ($getMode == 'preview')     //Default
 
 		$page->addHtml($table->show(false));
 
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'),  array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
+        $form = new HtmlForm('createmandateid_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/remapping.php', array('mode' => 'write')), $page);
+		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'),  array('icon' => 'fa-check'));
 		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_PREVIEW'));
 		
 		$page->addHtml($form->show(false));

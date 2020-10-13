@@ -377,7 +377,7 @@ $formAgeStaggeredRoles->addDescription('</div>');
 
 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'agestaggeredroles', 'conf' => -1)).'">
     <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
-$htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
+$htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
 $formAgeStaggeredRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
 $formAgeStaggeredRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
@@ -408,7 +408,7 @@ for ($conf = 0; $conf < $num_familyroles; $conf++)
 $formFamilyRoles->addDescription('</div>');
 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'familyroles', 'conf' => -1)).'">
     <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
-$htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
+$htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
 $formFamilyRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
 $formFamilyRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
@@ -436,7 +436,7 @@ if($getChoice == 'accountdata')
        <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'"></i></a>';
     $formAccountData->addCustomContent('', $html);
     $formAccountData->addInput('origci', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $pPreferences->config['Kontodaten']['origci']);
-    $html = '<div class="alert alert-warning alert-small" role="alert"><span class="glyphicon glyphicon-warning-sign"></span>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO').'</div>';
+    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO').'</div>';
     $formAccountData->addCustomContent('', $html);
 }
 else
@@ -531,7 +531,7 @@ $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', $gL10n->get('PL
 $formTestsSetup = new HtmlForm('testssetup_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'testssetup')), $page, array('class' => 'form-preferences'));
 $formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO'));
 $formTestsSetup->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'</strong>');
-$formTestsSetup->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 140 : 160).'px; overflow:auto; border:20px;">');
+$formTestsSetup->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 140 : 250).'px; overflow:auto; border:20px;">');
 for ($conf = 0; $conf < $num_familyroles; $conf++)
 {
     $formTestsSetup->openGroupBox('familyroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE'));
@@ -655,23 +655,14 @@ foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
 	$groupHeader = '';
 	switch($conf)
 	{
-		case 'payments_fields_normal_screen':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_NORMAL_SCREEN';
+		case 'payments_fields':
+			$groupHeader= 'PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS';
 			break;
-		case 'payments_fields_full_screen':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_FULL_SCREEN';
+		case 'mandates_fields':
+			$groupHeader= 'PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS';
 			break;
-		case 'mandates_fields_normal_screen':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_NORMAL_SCREEN';
-			break;
-		case 'mandates_fields_full_screen':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_FULL_SCREEN';
-			break;
-		case 'duedates_fields_normal_screen':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_NORMAL_SCREEN';
-			break;
-		case 'duedates_fields_full_screen':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_FULL_SCREEN';
+		case 'duedates_fields':
+			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS';
 			break;
 	}
 	$formColumnSet->openGroupBox('configurations_group', $gL10n->get($groupHeader));

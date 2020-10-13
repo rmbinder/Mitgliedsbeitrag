@@ -173,8 +173,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_SELECTION_DESC">Choose the roles for which the due date to be processed. Selection of more than one role is possible by pressing the Ctrl button.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION">Due Date/Sequence Type</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Select one or more combinations of due date and sequence type to create the XML or control file.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_FULL_SCREEN">Due Date (full screen)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_NORMAL_SCREEN">Due Date (normal screen)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS">Due Date</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">AccHolder&apos;s e-mail</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">There are no data selected for an e-mail delivery.</string>
@@ -269,8 +268,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_SET">Set mandate date</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandate reference</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandates</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_FULL_SCREEN">Mandate management (full screen)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_NORMAL_SCREEN">Mandate management (normal screen)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS">Mandate management</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAX">Max</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT">Number of members</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_DATA">User data</string>
@@ -303,8 +301,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">new role of the member</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING">new role is missing</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC">A corresponding new age role is missing or the member is already a member of this age role. </string>              
-    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_1">Does not perform any modification to the database. But the plug-in cannot be started.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_2">Does not perform any modification to the database. However, under certain circumstances, the plug-in may not be started.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES">Does not perform any modification to the database. But the plug-in cannot be started.</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_COMBINATION_ROLES">No corresponding role combinations exist.</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES">No membership roles exist.</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED">There are no contribution roles available!\n\nDefine at least one role a 'contribution' and a 'contribution period'.</string>
@@ -335,9 +332,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Paid-date only</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">'Paid-date only' deletes only the paid-date.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAPERLESS_DATA_EXCHANGE">Voucherless data carrier exchange</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Reference ID</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_FULL_SCREEN">Contribution payments (full screen)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_NORMAL_SCREEN">Contribution payments (normal screen)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Reference ID</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS">Contribution payments</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">By default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PENDING">Not yet received</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_DATE">Status</string>

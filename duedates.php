@@ -46,7 +46,6 @@ $getMode         = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaul
 $getUserId       = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
 $getDatumNeu     = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
 $getMembersShow  = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
-//$getFullScreen   = admFuncVariableIsValid($_GET, 'full_screen', 'numeric');
 $getSequenceType = admFuncVariableIsValid($_GET, 'sequencetype', 'string');
 
 // write role selection in session
@@ -134,8 +133,7 @@ else
     	$membersListRols = 0;
     }
     
-//  $membersListFields = $pPreferences->config['columnconfig']['duedates_fields_full_screen'];
-	$membersListFields = $pPreferences->config['columnconfig']['duedates_fields_normal_screen'];
+	$membersListFields = $pPreferences->config['columnconfig']['duedates_fields'];
    
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
@@ -279,19 +277,19 @@ else
         $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_ACTIV').'</strong>');
     }
 
-    $navbarForm = new HtmlForm('navbar_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+    $form = new HtmlForm('duedates_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
     
     $datumtemp =  \DateTime::createFromFormat('Y-m-d', DATE_NOW);
     $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
-    $navbarForm->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_DESC'));
+    $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_DESC'));
 
     $selectBoxEntries = array('RCUR' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FOLLOW_DIRECT_DEBIT'), 'FNAL' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FINAL_DIRECT_DEBIT'), 'OOFF' => $gL10n->get('PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT'), 'FRST' => $gL10n->get('PLG_MITGLIEDSBEITRAG_FIRST_DIRECT_DEBIT'));
-    $navbarForm->addSelectBox('lastschrifttyp', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), $selectBoxEntries, array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC', 'showContextDependentFirstEntry' => false, 'firstEntry' => $gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_CHANGE')));
+    $form->addSelectBox('lastschrifttyp', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE'), $selectBoxEntries, array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_SELECT_DESC', 'showContextDependentFirstEntry' => false, 'firstEntry' => $gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_CHANGE')));
 
     $selectBoxEntries = array('0' => $gL10n->get('MEM_SHOW_ALL_USERS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_DUEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_DUEDATE'));
-    $navbarForm->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-    $page->addHtml($navbarForm->show(false));
+    $page->addHtml($form->show(false));
 
     // create table object
     $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');

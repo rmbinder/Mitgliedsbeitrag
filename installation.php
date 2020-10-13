@@ -532,22 +532,22 @@ if($getMode == 'anlegen')
     //Ende Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.4 NEU
 }
 
+$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
+
+$page = new HtmlPage('plg-mitgliedsbeitrag-installation', $headline);
+
+$page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
+$page->addHtml('<br/><br/>');
+
 if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 {
     $arr = check_DB();
 
-    // create html page object
-    $page = new HtmlPage('plg-mitgliedsbeitrag-installation-start');
-
-    // add headline and title of module
-    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
-    $page->setHeadline($headline);
-
-    $form = new HtmlForm('configurations_form', null, $page);
-    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
-    $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').':  ==> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS').'</strong>');
-    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON'));
-
+    $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').':  ==> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS').'</strong>');
+    $page->addHtml('<br/>');
+    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON'));
+    $page->addHtml('<br/><br/>');
+    
     $datatable = false;
     $hoverRows = true;
     $classTable  = 'table table-condensed';
@@ -701,8 +701,12 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     $columnValues[] = $strich.$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
     $columnValues[] = !(isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
     $table->addRowByArray($columnValues);
-    $form->addDescription($table->show(false));
 
+    $page->addHtml($table->show(false));
+
+    $form = new HtmlForm('installation_start_form', null, $page, array('setFocus' => false));
+    
+    
     if ((!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
@@ -725,42 +729,33 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         || (!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])))
     {
         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));
+        
         $form->openButtonGroup();
-        $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'anlegen')), 'class' => 'btn-primary'));
-        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL .'/adm_program/system/back.php'), 'class' => 'btn-primary'));
+        $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'anlegen')), 'class' => 'btn-primary'));
+        $form->addDescription('&nbsp');
+        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => 'fa-times', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL .'/adm_program/system/back.php'), 'class' => 'btn-primary' ));
         $form->closeButtonGroup();
+        
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));
-        $form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_1'));
+        $form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES'));
     }
     else
     {
-        $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));
-        $form->openButtonGroup();
-        $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'soll_ist')), 'class' => 'btn-primary'));
-        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => THEME_URL .'/icons/delete.png', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL .'/adm_program/system/back.php'), 'class' => 'btn-primary'));
-        $form->closeButtonGroup();
-        $form->addDescription('<br/>');
+        $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));        
+        $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'soll_ist')), 'class' => 'btn-primary'));
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));
-        $form->addDescription('<strong>'.$gL10n->get('SYS_ABORT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES_2'));
     }
     $page->addHtml($form->show(false));
-    $page->show();
 }
 elseif($getMode == 'soll_ist')
 {
     $arr = check_DB();
 
-    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
-
-    // create html page object
-    $page = new HtmlPage('plg-mitgliedsbeitrag-installation-soll-ist', $headline);
-
-    $form = new HtmlForm('configurations_form', null, $page);
-
-    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
-    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS'));
-    $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE').':  ==> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON').'</strong>');
-
+    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS'));
+    $page->addHtml('<br/>');
+    $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE').':  ==> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON').'</strong>');
+    $page->addHtml('<br/><br/>');
+    
     $datatable = false;
     $hoverRows = true;
     $classTable  = 'table table-condensed';
@@ -778,9 +773,9 @@ elseif($getMode == 'soll_ist')
     $columnAttributes['colspan'] = 2;
     $table->addColumn($gL10n->get('SYS_INTERNAL_NAME'), $columnAttributes, 'th');
     $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_DATA_TYPE'), $columnAttributes, 'th');
-    $table->addColumn('<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />', $columnAttributes, 'th');
-    $table->addColumn('<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />', $columnAttributes, 'th');
-    $table->addColumn('<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />', $columnAttributes, 'th');
+    $table->addColumn('<i class="fas fa-eye" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'"></i>/<i class="fas fa-eye admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'"></i>', $columnAttributes, 'th');
+    $table->addColumn('<i class="fas fa-key" data-toggle="tooltip" data-html="true" title="'.$gL10n->get('ORG_FIELD_DISABLED', array($gL10n->get('SYS_RIGHT_EDIT_USER'))).'"></i>/<i class="fas fa-key admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'"></i>', $columnAttributes, 'th');
+    $table->addColumn('<i class="fas fa-asterisk" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'"></i>/<i class="fas fa-asterisk admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'"></i>', $columnAttributes, 'th');
 
     $table->addRow('', null, 'th');
     $columnAttributes['colspan'] = 1;
@@ -930,16 +925,17 @@ elseif($getMode == 'soll_ist')
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Orig_IBAN'));
     $table->addRowByArray($columnValues);
 
-    $form->addDescription($table->show(false));
-
-    $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));
-    $form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/disk.png', 'link' => $gHomepage, 'class' => 'btn-primary'));
-    $form->addDescription('<br/>');
-    $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));
-
+    $page->addHtml($table->show(false));
+    
+    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));
+    
+    $form = new HtmlForm('installation_soll_ist_form', null, $page);
+    $form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => $gHomepage, 'class' => 'btn-primary'));
     $page->addHtml($form->show(false));
-    $page->show();
+    
+    $page->addHtml('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));
 }
+$page->show();
 
 // Funktionen, die nur in diesem Script benoetigt werden
 
@@ -1264,56 +1260,56 @@ function SollIstProfilfeld($arr, $field)
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
-          $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
-    }
+        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'"></i>';
+    }                       
     else
     {
-        $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
+        $columnValues[] =  '<i class="fas fa-eye" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
-        $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye_gray.png" alt="'.$gL10n->get('ORG_FIELD_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'" />';
+        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'"></i>';
     }
     else
     {
-        $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/eye.png" alt="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'" />';
+        $columnValues[] = '<i class="fas fa-eye" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
     }
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
-        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
+        $columnValues[] = '<i class="fas fa-key" data-toggle="tooltip" data-html="true" title="'.$gL10n->get('ORG_FIELD_DISABLED', array($gL10n->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
     }
     else
     {
-        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
+        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
-        $columnValues[] =  '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield_key.png" alt="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" title="'.$gL10n->get('ORG_FIELD_DISABLED', $gL10n->get('ROL_RIGHT_EDIT_USER')).'" />';
+        $columnValues[] = '<i class="fas fa-key" data-toggle="tooltip" data-html="true" title="'.$gL10n->get('ORG_FIELD_DISABLED', array($gL10n->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
     }
     else
     {
-        $columnValues[] = '<img class="admidio-icon-info" data-html="true" src="'. THEME_URL .'/icons/textfield.png" alt="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'" />';
+        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'"></i>';
     }
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_mandatory'] == 1)
     {
-        $columnValues[] =  '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
+        $columnValues[] = '<i class="fas fa-asterisk" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'"></i>';
     }
     else
     {
-        $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
+        $columnValues[] = '<i class="fas fa-asterisk admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_mandatory'] == 1)
-    {
-        $columnValues[] =  '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_yellow.png" alt="'.$gL10n->get('ORG_FIELD_REQUIRED').'" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'" />';
+    { 
+        $columnValues[] =  '<i class="fas fa-asterisk" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'"></i>' ;
     }
     else
     {
-        $columnValues[] = '<img class="admidio-icon-info" src="'. THEME_URL .'/icons/asterisk_gray.png" alt="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'" />';
+        $columnValues[] ='<i class="fas fa-asterisk admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'"></i>';
     }
 
     return $columnValues;

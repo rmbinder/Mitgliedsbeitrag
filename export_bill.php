@@ -80,7 +80,6 @@ if (count($rechnungs_file) > 0)
     echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'.$gL10n->get('SYS_NAME').';'.$gL10n->get('SYS_STREET').';'.$gL10n->get('SYS_POSTCODE').';'.$gL10n->get('SYS_LOCATION').';'.$gL10n->get('SYS_EMAIL').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').';'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SUM')."\n";
     //print_r($rechnungs_file);
 
-    //for ($x = 0; $x < (count($rechnungs_file)-1); $x++){
     for ($x = 0; $x < (count($rechnungs_file)); $x++)
     {
         $sum += $rechnungs_file[$x]['beitrag'];
@@ -111,7 +110,7 @@ else
 
     $form = new HtmlForm('export_bill_form', null, $page);
     $form->addDescription($message);
-    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => THEME_URL .'/icons/forward.png', 'link' => 'mitgliedsbeitrag.php?show_option=statementexport', 'class' => 'btn-primary'));
+    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => 'mitgliedsbeitrag.php?show_option=statementexport'));
 
     $page->addHtml($form->show(false));
     $page->show();

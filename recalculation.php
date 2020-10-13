@@ -312,8 +312,6 @@ if ($getMode == 'preview')     //Default
 			unset($members[$member]);        //wenn kein neuer Beitrag errechnet wurde, dann dieses Mitglied in der Liste loeschen
 		}
 	}
-		
-	$form = new HtmlForm('recalculation_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/recalculation.php', array('mode' => 'write')), $page);
 	
 	if (sizeof($members) > 0)
 	{
@@ -347,22 +345,21 @@ if ($getMode == 'preview')     //Default
 
 		$page->addHtml($table->show(false));
 
+        $form = new HtmlForm('recalculation_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/recalculation.php', array('mode' => 'write')), $page);
 		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
 		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW'));
+        
+        $page->addHtml($form->show(false));
 	}
 	else 
 	{
-		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA'));
-		
-		//seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-		$form->addStaticControl('', '', '');
+        $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA').'<br/>');
 	}
 	
 	if (!empty($message))
 	{
-		$form->addDescription($message);
+        $page->addHtml($message);
 	}
-	$page->addHtml($form->show(false));
 }
 elseif ($getMode == 'write')
 {
@@ -376,8 +373,6 @@ elseif ($getMode == 'write')
         });',
 		true
 	);
-		
-	$form = new HtmlForm('recalculation_saved_form', null, $page);
 	
 	$datatable = false;
 	$hoverRows = true;

@@ -173,8 +173,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_SELECTION_DESC">Sélectionne les rôles pour lesquels tu souhaite éditer la date d\'échéance. Une sélection multiple est possible à l\'aide de la touche CTRL.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION">Date d\'échéance/type de séquence</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Pour créer le fichier XML ou de contrôle, sélectionne une ou plusieurs combinaisons de date d\'échéance et de type de séquence.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_FULL_SCREEN">Date d\'échéance  (plein écran)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_NORMAL_SCREEN">Date d\'échéance (écran standard)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS">Date d\'échéance</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">Couriel titcpte</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">Aucune donnée n\'est sélectionnée pour l\'envoi par courriel.</string>
@@ -269,8 +268,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_SET">Définir la date du mandat</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Référence du mandat</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandats</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_FULL_SCREEN">Gestion des mandats (plein écran)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_NORMAL_SCREEN">Gestion des mandats (écran standard)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS">Gestion des mandats</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAX">Max</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT">Nombre de membres</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_DATA">Données de l\'utilisateur</string>
@@ -303,8 +301,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">nouveau rôle du membre</string> 
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING">manque nouveau rôle</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC">Un rôle correspondant au nouvel âge est manquant ou le membre est déjà membre de ce rôle d\'âge.  </string>       
-    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_1">n\'apporte aucune modification à la base de données. Cependant, le plug-in ne peut pas être démarré.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_2">n\'apporte aucune modification à la base de données. Cependant, il se peut que le plug-in ne peut pas être démarré pas.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES">n\'apporte aucune modification à la base de données. Cependant, le plug-in ne peut pas être démarré.</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_COMBINATION_ROLES">aucune combinaison de rôles correspondante n\'est disponible.</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES">aucun rôle de cotisation n\'est disponible</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED"> Il n\'y a pas de rôles de cotisation !\n\nDéfinis une " cotisation " et une " période de cotisation " pour au moins un rôle.</string>
@@ -336,8 +333,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">L\'option \'Date payée seulement\' supprime uniquement la date payée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAPERLESS_DATA_EXCHANGE">Echange de données sur support de données sans documents.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">ID de référence</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_FULL_SCREEN">Paiements de cotisations (plein écran)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_NORMAL_SCREEN">Paiements de cotisations (écran standard)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS">Paiements de cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">Par défaut, tous les rôles de cotisation sont pris en compte lors du traitement des paiements de cotisation. Tu peux utiliser cette sélection de rôles pour effectuer le payement les cotisations uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PENDING">encore impayé</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_DATE">État</string>

@@ -130,7 +130,7 @@ if ($getMode == 'preview')     //Default
 
 		$page->addHtml($table->show(false));
         
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
+		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check'));
 		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW'));
         
         $page->addHtml($form->show(false));
@@ -139,7 +139,6 @@ if ($getMode == 'preview')     //Default
 	{
         $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN').'<br/><br/>');
 	}
-
 }
 elseif ($getMode == 'write')
 {

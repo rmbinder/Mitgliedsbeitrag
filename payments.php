@@ -150,8 +150,7 @@ else
     	$membersListRols = 0;
     }
     
-    //$membersListFields = $pPreferences->config['columnconfig']['payments_fields_full_screen'];
-    $membersListFields = $pPreferences->config['columnconfig']['payments_fields_normal_screen'];
+    $membersListFields = $pPreferences->config['columnconfig']['payments_fields'];
 
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
@@ -288,7 +287,7 @@ else
         $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
     }
 
-    $form = new HtmlForm('header_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+    $form = new HtmlForm('payments_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
     
     $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
     $datum = $datumtemp->format($gSettingsManager->getString('system_date'));

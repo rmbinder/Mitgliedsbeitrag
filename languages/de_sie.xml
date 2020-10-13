@@ -173,8 +173,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_SELECTION_DESC">Wählen Sie die Rollen aus, für die das Fälligkeitsdatum bearbeitet werden soll. Eine Mehrfachauswahl ist über die STRG-Taste möglich.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION">Fälligkeitsdatum/Sequenztyp</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC">Wählen Sie zum Erstellen der XML- bzw. der Kontrolldatei eine oder mehrere Kombinationen aus Fälligkeitsdatum und Sequenztyp aus.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_FULL_SCREEN">Fälligkeitsdatum  (Vollbild)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS_NORMAL_SCREEN">Fälligkeitsdatum (Normalbild)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS">Fälligkeitsdatum</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Beiträge</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">KtoInh-E-Mail</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">Es sind keine Daten für einen E-Mail-Versand ausgewählt.</string>
@@ -268,9 +267,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_EXIST">Ein einmal gesetztes Mandatsdatum kann nur über "Profil bearbeiten"" wieder geändert werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_SET">Mandatsdatum setzen</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandatsreferenz</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandate</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_FULL_SCREEN">Mandatsverwaltung  (Vollbild)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS_NORMAL_SCREEN">Mandatsverwaltung (Normalbild)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandate</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS">Mandatsverwaltung</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAX">Max</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT">Anzahl der Mitglieder</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_DATA">Benutzerdaten</string>
@@ -303,8 +301,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">neue Rolle des Mitglieds</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING">neue Rolle fehlt</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC">Eine entsprechende neue Altersrolle fehlt oder das Mitglied ist bereits Angehöriger dieser Altersrolle. </string>           
-    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_1">führt keine Veränderungen an der Datenbank durch. Das Plugin kann aber auch nicht gestartet werden.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES_2">führt keine Veränderungen an der Datenbank durch. Das Plugin kann aber unter Umständen nicht gestartet werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NO_CHANGES">führt keine Veränderungen an der Datenbank durch. Das Plugin kann aber auch nicht gestartet werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_COMBINATION_ROLES">keine entprechenden Rollenkombinationen vorhanden</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES">keine Beitragsrollen vorhanden</string>
     <string name="PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED">Es sind keine Beitragsrollen vorhanden!\n\nDefiniere bei mindestens einer Rolle einen 'Beitrag' und einen 'Beitragszeitraum'.</string>
@@ -335,9 +332,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Nur Bezahlt-Datum</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">'Nur Bezahlt-Datum' löscht nur das Bezahlt-Datum.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAPERLESS_DATA_EXCHANGE">Belegloser Datenträgeraustausch</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Referenz-ID</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_FULL_SCREEN">Beitragszahlungen (Vollbild)</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS_NORMAL_SCREEN">Beitragszahlungen (Normalbild)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Referenz-ID</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS">Beitragszahlungen</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">Standardmäßig werden beim Bearbeiten der Beitragszahlungen alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Beitragszahlung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PENDING">noch ausstehend</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_DATE">Stand</string>

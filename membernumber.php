@@ -67,14 +67,13 @@ if ($getMode == 'preview')     //Default
 
 	if ($membernumbers->userWithoutMembernumberExist)
 	{
-    	$form = new HtmlForm('membernumber_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php', array('mode' => 'write')), $page);
-        
 		// save new membernumbers in session (for mode write and mode print)
 		$_SESSION['pMembershipFee']['membernumber_user'] = $membernumbers->mUserWithoutMembernumber;
 	
 		$datatable = true;
 		$hoverRows = true;
 		$classTable  = 'table table-condensed';
+        
 		$table = new HtmlTable('table_new_membernumbers', $page, $hoverRows, $datatable, $classTable);
 		$table->setColumnAlignByArray(array('left', 'left', 'center'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));
@@ -91,7 +90,8 @@ if ($getMode == 'preview')     //Default
 
 		$page->addHtml($table->show(false));
         
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
+    	$form = new HtmlForm('membernumber_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membernumber.php', array('mode' => 'write')), $page);       
+		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check'));
 		$form->addDescription('<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW'));
         
         $page->addHtml($form->show(false));

@@ -305,20 +305,14 @@ if ($getMode !== 'csv')
                     'mode'              => 'csv-oo')),
                 'fa-file-csv', 'menu_item_lists_export');
         }
-
-        $CheckboxNavbar = new HtmlNavbar('navbar_checkbox');
-        
+  
         $form = new HtmlForm('navbar_checkbox_form', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php'),  $page, array('type' => 'navbar', 'setFocus' => false));
         $form->addCheckbox('export_and_filter', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER'), $getExportAndFilter);
         
-        $CheckboxNavbar->addForm($form->show(false));
-        $page->addHtml($CheckboxNavbar->show());
+        $page->addHtml($form->show());
  
         if ($getExportAndFilter)
-        {
-            //$FilterNavbar = new HtmlNavbar('navbar_filter');
-            $FilterNavbar = new HtmlNavbar('navbar_filter', null, null, 'filter');
-            
+        {    
             $form = new HtmlForm('navbar_filter_form', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php'),  $page, array('type' => 'navbar', 'setFocus' => false));
             $form->addInput('filter_date_from', $gL10n->get('SYS_START'), $dateFromHtml, array('type' => 'date', 'maxLength' => 10));
             $form->addInput('filter_date_to', $gL10n->get('SYS_END'), $dateToHtml, array('type' => 'date', 'maxLength' => 10));
@@ -326,8 +320,7 @@ if ($getMode !== 'csv')
             //$form->addInput('filter_first_name', $gL10n->get('SYS_FIRSTNAME'), $getFirstName);
             $form->addInput('export_and_filter', '', $getExportAndFilter, array('property' => HtmlForm::FIELD_HIDDEN));
 
-            $FilterNavbar->addForm($form->show(false));
-            $page->addHtml($FilterNavbar->show());
+            $page->addHtml($form->show());
         }
         
 		$table = new HtmlTable('history_table', $page, $hoverRows, $datatable, $classTable);

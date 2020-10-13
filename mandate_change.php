@@ -264,7 +264,7 @@ else
     $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO').'</div>';
     $form->addCustomContent('', $html);
 
-    $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' col-sm-offset-3'));
+    $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
     $page->addHtml($form->show(false));
 

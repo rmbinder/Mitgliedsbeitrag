@@ -154,7 +154,7 @@ if ($getMode == 'preview')     //Default
 		$page->addHtml($table->show(false));
 		if (!$errorMarker)
 		{
-			$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
+			$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check'));
 			$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_PREVIEW'));
 		}
         $page->addHtml($form->show(false)); 

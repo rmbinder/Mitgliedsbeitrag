@@ -392,8 +392,7 @@ else
 
         $page->addJavascript($javascriptCode, true);
 
-        $preNotificationNavbar = new HtmlNavbar('navbar_prenotification');
-        $navbarForm = new HtmlForm('navbar_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
+        $form = new HtmlForm('pre_notification_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
         //alle Faelligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
@@ -407,21 +406,20 @@ else
                 AND   rol_cat_id = cat_id
                 AND (  cat_org_id = '.ORG_ID.'
                  OR cat_org_id IS NULL )  ';
-
         $duedateStatement = $gDb->query($sql);
         $selectBoxEntries = array('0' => '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
-
         while ($row = $duedateStatement->fetch())
         {
             $DueDate = \DateTime::createFromFormat('Y-m-d', $row['usd_value']);
             $selectBoxEntries[$row['usd_value']] = $DueDate->format($gSettingsManager->getString('system_date'));
         }
+        $form->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-        $navbarForm->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
-        $navbarForm->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'fa-file-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
-        $navbarForm->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'fa-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
-        $preNotificationNavbar->addForm($navbarForm->show(false));
-        $page->addHtml($preNotificationNavbar->show());
+        $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'fa-file-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
+ 	    $form->addDescription('&nbsp');
+        $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'fa-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
+ 
+        $page->addHtml($form->show());
     
         // create table object
         $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');
@@ -575,7 +573,7 @@ else
                  {
                     $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('usr_id' => $user['usr_id']));
                  }
-                 $htmlMail = '<a class="admidio-icon-info" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($email)).'"></i>';
+                 $htmlMail = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($email)).'"></i>';
             }
 
             //12. Spalte ($email)

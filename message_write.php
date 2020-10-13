@@ -214,8 +214,6 @@ $form->closeGroupBox();
 
 $form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => 'fa-envelope'));
 
-// add form to html page and show page
 $page->addHtml($form->show(false));
 
-// show page
 $page->show();
