@@ -2,6 +2,8 @@
 <resources>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES">Zugriffsberechtigung für Einstellungen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Hier kann man, zusätzlich zur Rolle "Administrator", weitere Rollen für den Zugriff auf das Modul "Einstellungen" berechtigen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Zugriff auf das Modul "Individualbeiträge"</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC">Das Modul kann über diese Einstellung komplett deaktiviert werden. (Standard: Deaktiviert)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Beitritt</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Konto</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Kontodaten</string>
@@ -23,6 +25,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK">Es bestehen keine Lücken oder Überlappungen in den altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE">Alle notwendigen Profilfelder sind vorhanden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ALREADY_PAID">bereits bezahlt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AMOUNT">Grund- oder Verbrauchsbetrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AMOUNT_DESC">Hier kann entweder ein Grund- oder ein Verbrauchsbetrag angegeben werden. Wird ein Verbrauchsbetrag angegeben, so muss auch ein dazugehöriges Profilfeld ausgewählt sein. Mathematisch betrachtet wird der Wert von "Grund- oder Verbrauchsbetrag" mit dem Wert des ausgewählten Profilfeldes multipliziert. Ist kein Profilfeld angegeben, so wird mit 1 multipliziert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_AND">und</string>
     <string name="PLG_MITGLIEDSBEITRAG_AVAILABLE">vorhanden</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK">Bank</string>
@@ -46,6 +50,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COLLECTION_ORDER">Sammeleinziehungsauftrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_COLUMN_SELECTION">Spaltenauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONDITION">Prüfbedingung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION">Konfiguration</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA">Konfigurationsdaten</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC">Sie werden nach dem Löschen und anschließendem Neustart des Plugins wieder mit Standardwerten befüllt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC">Konfigurationsdaten sind die Daten, die über das Menü "Einstellungen" gesetzt werden.</string>
@@ -152,6 +157,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO1">Beispiel für einen Rollennamen mit dem Trennzeichen *:</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO2">Mitglieder zwischen *14* und *18* Jahren</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO3">\n --> In diesem Fall wird der Beitrag für Mitglieder im Alter zwischen 14 und 18 Jahren berechnet.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION">Bezeichnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC">Hier ist eine Bezeichnung für diese Konfiguration eines Individualbeitrages anzugeben.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION">Dokumentation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN">Dokumentation öffnen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC">Hiermit kann die Dokumentation zum Plugin geöffnet werden (Eine bestehende Internetverbindung wird vorausgesetzt, da sich die Daten auf admidio.org befinden).</string>
@@ -233,6 +240,12 @@
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC">Überprüfung auf korrekte IBAN (Hinweis: Geprüft wird die IBAN-Prüfziffer an der dritten und vierten Stelle der IBAN anhand der Standard IBAN-Regel.).</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist die IBAN fehlerhaft.</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK">Keine IBAN weist einen Fehler auf.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS">Individualbeiträge</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC">Mithilfe des Moduls Individualbeiträge kann eine Berechnung individueller Beiträge, wie z.B. Strom- oder Wasserverbrauch, durchgeführt werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NEW">Die neuen Beiträge und Beitragstexte</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NO_DATA">Es konnten keine neuen Individualbeiträge berechnet werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_PREVIEW">Die neuen Individualbeiträge wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_SAVED">Die neuen Individualbeiträge wurden gespeichert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">Die Setuproutine von Mitgliedsbeitrag hat festgestellt, daß ein Versionsupdate stattgefunden hat und überprüft deshalb die Struktur.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">beendet diese Setuproutine (Wenn Änderungen an der Datenbank durchgeführt wurden, wird dringend empfohlen, Admidio neu zu starten). </string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1. Durchgang</string>
@@ -357,6 +370,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Erzeugt Mitgliedsnummern für aktive Mitglieder der aktuellen Organisation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">Standardmäßig werden Mitgliedsnummern für alle aktiven Mitglieder der aktuellen Organisation erzeugt. Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profilfeld</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD_DESC">Ist ein Verbrauchsbetrag angegeben, so muss hier ein Profilfeld (mit der Angabe des Verbrauchs) ausgewählt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Neuberechnung</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC">Einstellungen für den Berechnungsmodus. Folgende Optionen sind wählbar:\n- Standard: Ein vorhandener Beitrag (außer 0 €) wird nicht verändert.\n- Überschreiben: Existierende Einträge werden gelöscht und durch neue Einträge ersetzt.\n- Aufsummieren: Beiträge werden aufsummiert und ein Beitragstext wird ergänzt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">Wird über die Rollenauswahl die Beitragsberechnung auf bestimmte Rollen beschränkt, so wirkt sich auch der Berechnungsmodus nur für diese Rollen aus. Vorhandene Beiträge, die nicht über diese Rollen abgedeckt sind, bleiben unverändert bestehen.</string>
@@ -384,6 +398,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD">Entferne Profilfeld</string>
     <string name="PLG_MITGLIEDSBEITRAG_RESET">Löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE">Rolle</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Hier muss eine Rolle gewählt werden, für die dieser Individualbeitrag berechnet wird.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Rollenmitgliedschaft (Altersgestaffelte Rollen)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Überprüfung auf mehrfache Mitgliedschaften in altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">Die aufgeführten Mitglieder befinden sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</string>
@@ -402,7 +417,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Rollenübersicht</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rollenauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Folgende Rollen sind derzeit berechtigt</string>
-     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Prüfungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Prüfungen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">Die nachfolgenden Einstellungen dienen nur als Parameter für die Rollenprüfung. Sie wirken sich nicht auf die Beitragsberechnung aus.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Beiträge der Beitragsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Einträge im Setup, nicht die Einträge der einzelnen Rollen in der Datenbank. Manuelle Änderungen von Beiträgen einzelner Rollen oder anteilige Beiträge werden nicht berücksichtigt. Dies kann daher nur als Prognose angesehen werden.</string>
@@ -420,6 +435,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER">Lfd. Nummer</string>
     <string name="PLG_MITGLIEDSBEITRAG_SETUP">Einstellungen</string>
     <string name="PLG_MITGLIEDSBEITRAG_SHALL">SOLL</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION">Kurzbezeichnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION_DESC">Hier ist eine Kurzbezeichnung einzutragen. Nach einer durchgeführten Beitragsberechnung erscheint diese Kurzbezeichnung im Beitragstext.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SHOW_ALL">alle anzeigen</string>
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE">Quelle</string>
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE_DESC">Dieses hier ausgewählte Mitglied ist die Quelle der Kopieraktion.</string>
@@ -464,6 +481,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE">Ohne Mandatsdatum</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID">Ohne Bezahlt-Datum</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC">'Ohne Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen kein Bezahlt-Datum vorhanden ist.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION">Fehlerhafte Individualkonfiguraton\n\nBei mindestens einer Konfiguration sind falsche Angaben vorhanden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">XML-Datei</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_DESC">Erstellt eine XML-Datei.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML-Dateiname</string>

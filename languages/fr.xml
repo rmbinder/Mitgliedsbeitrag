@@ -2,6 +2,8 @@
 <resources>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES">Autorisation d'accès pour les paramétrages</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Ici, en plus du rôle "Administrateur", vous pouvez autoriser d'autres rôles pour accéder au module "Paramétrages".</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Accès au module «Contributions individuelles»</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC">Le module peut être complètement désactivé à l'aide de ce paramètre. (Par défaut: Désactivé)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Admission</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Compte</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Données du compte</string>
@@ -23,6 +25,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK">Il n\'y a pas de décalage ou de chevauchement dans les rôles échelonnés selon l\'âge.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE">Tous les champs de profil nécessaires sont disponibles.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ALREADY_PAID">déjà payé</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AMOUNT">Montant de base ou de consommation</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AMOUNT_DESC">Un montant de base ou un montant de consommation peut être spécifié ici. Si un montant de consommation est spécifié, un champ de profil associé doit également être sélectionné. D'un point de vue mathématique, la valeur de "Montant de base ou de consommation" est multipliée par la valeur du champ de profil sélectionné. Si aucun champ de profil n'est spécifié, il est multiplié par 1.</string>
     <string name="PLG_MITGLIEDSBEITRAG_AND">et</string>
     <string name="PLG_MITGLIEDSBEITRAG_AVAILABLE">disponible</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK">Banque</string>
@@ -46,6 +50,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COLLECTION_ORDER">Ordre de recouvrement collectif</string>
     <string name="PLG_MITGLIEDSBEITRAG_COLUMN_SELECTION">Sélection de colonne</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONDITION">Condition de contrôle</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION">Configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA">Données de configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC">Après avoir supprimé et redémarré le plug-in, ils sont à nouveau remplis avec les valeurs par défaut.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC">Les données de configuration sont les données définies dans le menu "Configurations".</string>
@@ -152,6 +157,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO1">Exemple d\'un nom de rôle avec le délimiteur * :</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO2">Membres entre *14* et *18* ans</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO3">\n --> Dans ce cas, la cotisation est calculée pour les membres âgés de 14 à 18 ans.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION">Description</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC">Entrez un nom pour cette configuration d'une contribution individuelle.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION">Documentation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN">Ouvrir la documentation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC">Cela ouvre la documentation pour le plug-in (une connexion Internet existante est nécessaire, car les données se trouvent sur admidio.org).</string>
@@ -233,6 +240,12 @@
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC">Vérification de l\'IBAN (Remarque : le chiffre de contrôle IBAN en troisième et quatrième positions de l\'IBAN est vérifié à l\'aide de la règle IBAN standard).</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR">L\'IBAN est incorrect pour les membres listés.</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK">Aucun IBAN n\'a d\'erreur.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS">Contributions individuelles</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC">À l'aide du module des contributions individuelles, un calcul des contributions individuelles, comme Consommation d'électricité ou d'eau.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NEW">Les nouveaux articles et textes d'articles</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NO_DATA">Aucune nouvelle contribution individuelle n'a pu être calculée.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_PREVIEW">Les nouvelles contributions individuelles n'ont été calculées que jusqu'à présent, mais pas encore enregistrées.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_SAVED">Les nouvelles contributions individuelles ont été enregistrées.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">La routine d\'installation des cotisations des membres a déterminé qu\'une mise à jour de la version a eu lieu et vérifie donc la structure.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">termine cette routine d\'installation (si des modifications ont été apportées à la base de données, il est fortement recommandé de redémarrer Admidio). </string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1ère passe</string>
@@ -357,6 +370,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Crée des numéros de membres pour les membres actifs de l\'organisation actuelle.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">Par défaut, les numéros de membre sont générés pour tous les membres actifs de l\'organisation actuelle. Tu peux utiliser cette sélection de rôles pour générer uniquement les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse cette zone vide.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Champ de profil</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD_DESC">Si un montant de consommation est spécifié, un champ de profil (avec la spécification de la consommation) doit être sélectionné ici.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Recalcul</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC">Réglages pour le mode de calcul. Les options suivantes sont disponibles:\n- Par défaut : Une cotisation existante (sauf 0 CHF) n\'est pas modifié.\n- Remplacé : Les entrées existantes sont supprimées et remplacées par de nouvelles entrées.\n- Additionner: Les cotisations sont additionnées et un texte de cotisation est ajouté.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">Si le calcul des cotisations est limité à certains rôles à l\'aide de la sélection des rôles, le mode de calcul n\'affecte que ces rôles. Les cotisations existantes qui ne sont pas couvertes par ces rôles restent inchangés.</string>
@@ -384,6 +398,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD">Supprime champ du profil</string>
     <string name="PLG_MITGLIEDSBEITRAG_RESET">Supprimer</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE">Rôle</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Ici, un rôle doit être sélectionné pour lequel cette contribution individuelle est calculée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Rôle de membre (rôles échelonnés en fonction de l\'âge)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Vérifie s\'il y a plusieurs membres dans les rôles échelonnées en fonction de l\'âge.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">Les membres énumérés sont plusieurs fois dans différents échelons des rôles classés selon l\'âge.</string>
@@ -402,7 +417,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Aperçu des rôles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Sélection des rôles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Les rôles suivants sont actuellement autorisés</string>
-     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Tests</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Tests</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">Les réglages suivants servent uniquement de paramètres pour le contrôle des rôles. Ils n\'affectent pas le calcul de la cotisation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Cotisations des rôles de cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Ces données sont basées sur les entrées dans la configuration, et non sur les entrées des rôles individuels dans la base de données. Les modifications manuelles des cotisations des rôles individuels ou des cotisations proportionnelles ne sont pas prises en compte. Ceci ne peut donc être considéré que comme une prévision.</string>
@@ -420,6 +435,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER">Numéro courant</string>
     <string name="PLG_MITGLIEDSBEITRAG_SETUP">Paramétrages</string>
     <string name="PLG_MITGLIEDSBEITRAG_SHALL">Cible</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION">Nom court</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION_DESC">Entrez un nom court ici. Une fois le calcul de la contribution effectué, ce nom court apparaît dans le texte de la contribution.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SHOW_ALL">tout afficher</string>
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE">Source</string>
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE_DESC">Ce membre sélectionné ici est la source de l\'action de copie.</string>
@@ -464,6 +481,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE">Sans date de mandat</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID">Sans date payée</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC">\'Sans date payée\' supprime uniquement les cotisations (y compris le texte de la cotisation et la date payée) pour lesquelles il n\'existe aucune date payée.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION">Configuration individuelle incorrecte\n\nDes informations erronées sont disponibles dans au moins une configuration.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">Fichier XML</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_DESC">Crée un fichier XML.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">Nom de fichier XML</string>

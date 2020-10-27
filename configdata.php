@@ -101,6 +101,16 @@ $config_default['membernumber'] = array('format'    => '',
 //Zugriffsberechtigung für das Modul preferences
 $config_default['access']['preferences'] = array(getRole_IDPMB($gL10n->get('SYS_ADMINISTRATOR')));
 
+//Individualbeiträge
+$config_default['individual_contributions'] = array('access_to_module'  => '0',
+                                                    'desc'              => array(' '),
+                                                    'short_desc'        => array(' '),
+                                                    'role'              => array(' '),
+                                                    'amount'            => array(' '),
+                                                    'profilefield'      => array(' ')
+                                                );
+
+
 /*
  *  Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden,
  *  zu einem String zusammengefasst und in der Admidiodatenbank gespeichert.

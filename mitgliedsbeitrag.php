@@ -271,6 +271,18 @@ if(count($rols) > 0)
     $formRecalculation->addCustomContent('', '<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE'));
  
     $page->addHtml(getMenuePanel('fees', 'recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), 'fas fa-calculator', $formRecalculation->show()));
+ 
+    // PANEL: INDIVIDUAL_CONTRIBUTIONS
+    
+    if ( $pPreferences->config['individual_contributions']['access_to_module'] )
+    {   
+        $formIndividualContributions = new HtmlForm('individual_contributions_form', null, $page, array('class' => 'form-preferences'));
+            
+        $formIndividualContributions->addButton('btn_individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), array('icon' => 'fa-calculator', 'link' => 'individualcontributions.php', 'class' => 'btn-primary offset-sm-3'));
+        $formIndividualContributions->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC'));
+            
+        $page->addHtml(getMenuePanel('fees', 'individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-calculator', $formIndividualContributions->show()));
+    }
     
     // PANEL: PAYMENTS
     

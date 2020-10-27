@@ -66,8 +66,29 @@ elseif ($getChoice == 'familyroles')
         array_splice($pPreferences->config['Familienrollen']['familienrollen_pruefung'], $getConf, 1);
     }
 }
+elseif ($getChoice == 'individualcontributions')
+{
+    if ($getConf == -1)
+    {
+        $pPreferences->config['individual_contributions']['desc'][] = $pPreferences->config_default['individual_contributions']['desc'][0];
+        $pPreferences->config['individual_contributions']['short_desc'][] = $pPreferences->config_default['individual_contributions']['short_desc'][0];
+        $pPreferences->config['individual_contributions']['role'][] = $pPreferences->config_default['individual_contributions']['role'][0];
+        $pPreferences->config['individual_contributions']['amount'][] = $pPreferences->config_default['individual_contributions']['amount'][0];
+        $pPreferences->config['individual_contributions']['profilefield'][] = $pPreferences->config_default['individual_contributions']['profilefield'][0];
+    }
+    else
+    {
+        array_splice($pPreferences->config['individual_contributions']['desc'], $getConf, 1);
+        array_splice($pPreferences->config['individual_contributions']['short_desc'], $getConf, 1);
+        array_splice($pPreferences->config['individual_contributions']['role'], $getConf, 1);
+        array_splice($pPreferences->config['individual_contributions']['amount'], $getConf, 1);
+        array_splice($pPreferences->config['individual_contributions']['profilefield'], $getConf, 1);
+    }
+}
+
 $num_agestaggeredroles = count($pPreferences->config['Altersrollen']['altersrollen_token']);
 $num_familyroles = count($pPreferences->config['Familienrollen']['familienrollen_prefix']);
+$num_individualcontributions = count($pPreferences->config['individual_contributions']['desc']);
 
 if ($getChoice == '')
 {
@@ -716,6 +737,69 @@ $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('
 
 $page->addHtml(getMenuePanel('preferences', 'access_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'fas fa-key', $formAccessPreferences->show()));
 
+// PANEL: INDIVIDUAL_CONTRIBUTIONS
+
+$formIndividualContributionsSetup = new HtmlForm('individual_contributions_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'individualcontributions')), $page, array('class' => 'form-preferences'));
+
+$selectBoxEntries = array(
+    '0' => $gL10n->get('SYS_DEACTIVATED'),
+    '1' => $gL10n->get('SYS_ACTIVATED'));
+$formIndividualContributionsSetup->addSelectBox(
+    'enable_individual_contributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS'), $selectBoxEntries,
+    array('defaultValue' => $pPreferences->config['individual_contributions']['access_to_module'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC'));
+
+$html = '<a class="admidio-icon-link openPopup" href="javascript:void(0);"
+            data-href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/individualcontributions_popup.php').'">'.
+            '<i class="fas fa-info" data-toggle="tooltip" title="' . $gL10n->get('SYS_HELP') . '"></i> '.$gL10n->get('SYS_HELP').'</a>';
+$formIndividualContributionsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC').' '.$html);
+$formIndividualContributionsSetup->addLine();
+
+$formIndividualContributionsSetup->addDescription('<div style="width:100%; height:'.($num_individualcontributions<2 ? 500 : 650).'px; overflow:auto; border:20px;">');
+for ($conf = 0; $conf < $num_individualcontributions; $conf++)
+{
+    $formIndividualContributionsSetup->openGroupBox('individualcontributions_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION'));
+    $formIndividualContributionsSetup->addInput('individual_contributions_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_DESCRIPTION'), $pPreferences->config['individual_contributions']['desc'][$conf], array( 'property' => HtmlForm::FIELD_REQUIRED));
+    $formIndividualContributionsSetup->addInput('individual_contributions_short_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION'), $pPreferences->config['individual_contributions']['short_desc'][$conf]);
+
+    $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
+              FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
+             WHERE cat.cat_id = rol.rol_cat_id
+               AND ( cat.cat_org_id = '.ORG_ID.'
+                OR cat.cat_org_id IS NULL )
+          ORDER BY cat.cat_name DESC';
+    $formIndividualContributionsSetup->addSelectBoxFromSql('individual_contributions_role'.$conf,  $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), $gDb, $sql, array('defaultValue' => $pPreferences->config['individual_contributions']['role'][$conf],  'multiselect' => false));
+    
+    $formIndividualContributionsSetup->addInput('individual_contributions_amount'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT'), $pPreferences->config['individual_contributions']['amount'][$conf]);
+
+    $fieldSelectionList2 = array();
+
+    foreach ($gProfileFields->getProfileFields() as $field)
+    {
+        if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->editUsers())
+        {
+            $fieldSelectionList2[] = array($field->getValue('usf_id'), addslashes($field->getValue('usf_name')), $field->getValue('cat_name') );
+        }
+    }
+    
+    $formIndividualContributionsSetup->addSelectBox('individual_contributions_profilefield'.$conf, $gL10n->get('MEM_PROFILE_FIELD'), $fieldSelectionList2, array('firstEntry' => '', 'defaultValue' => $pPreferences->config['individual_contributions']['profilefield'][$conf], 'showContextDependentFirstEntry' => true));
+    
+    if($num_individualcontributions != 1)
+    {
+        $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'individualcontributions', 'conf' => $conf)).'">
+        <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
+        $formIndividualContributionsSetup->addCustomContent('', $html);
+    }
+    $formIndividualContributionsSetup->closeGroupBox();
+}
+$formIndividualContributionsSetup->addDescription('</div>');
+$html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'individualcontributions', 'conf' => -1)).'">
+    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
+$htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
+$formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
+$formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+$page->addHtml(getMenuePanel('preferences', 'individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-euro-sign', $formIndividualContributionsSetup->show()));
+    
 //PANEL: PLUGIN_INFORMATION                     
 
 $formPluginInformations = new HtmlForm('plugin_informations_form', null, $page);

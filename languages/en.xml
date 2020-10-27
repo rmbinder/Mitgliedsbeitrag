@@ -2,6 +2,8 @@
 <resources>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES">Access permission for preferences</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Here, in addition to the role "Administrator", you can authorize additional roles for access to the "Preferences" module.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Access to the "Individual Contributions" module</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC">The module can be completely deactivated using this setting. (Default: Deactivated)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Admission</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Account</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Account details</string>
@@ -23,6 +25,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK">There are no loopholes or overlapping in the roles graded by age.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE">All required profile fields exist.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ALREADY_PAID">Already paid</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AMOUNT">Basic or consumption amount</string>
+    <string name="PLG_MITGLIEDSBEITRAG_AMOUNT_DESC">Either a basic amount or a consumption amount can be specified here. If a consumption amount is specified, an associated profile field must also be selected. From a mathematical point of view, the value of "Basic or Consumption Amount" is multiplied by the value of the selected profile field. If no profile field is specified, it is multiplied by 1.</string>
     <string name="PLG_MITGLIEDSBEITRAG_AND">and</string>
     <string name="PLG_MITGLIEDSBEITRAG_AVAILABLE">Existing</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK">Bank</string>
@@ -46,6 +50,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COLLECTION_ORDER">Bulk collection order</string>
     <string name="PLG_MITGLIEDSBEITRAG_COLUMN_SELECTION">Column selection</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONDITION">Condition</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION">Configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA">Configuration data</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC">They are refilled after the plugin Delete and then restart with default values.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC">Configuration data is the data that are set via the "Settings" menu.</string>
@@ -152,6 +157,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO1">Sample role name with separator *:</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO2">Members aged between *14* and *18*</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELIMITER_INFO3">\n --&gt; In this case, the membership fee of members aged between 14 and 18 is calculated.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION">Description</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC">Enter a name for this configuration of an individual contribution.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION">Documentation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN">Open documentation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC">Allows the documentation of the plugin can be opened (An existing Internet connection is required because the data is located on admidio.org).</string>
@@ -233,6 +240,12 @@
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC">Check for correct IBAN (Note: The IBAN check digit at the third and fourth digits of the IBAN is checked on the basis standard IBAN rule.).</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR">For the members listed, the IBAN is wrong.</string>
     <string name="PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK">No IBAN indicates an error.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS">Individual contributions</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC">With the help of the individual contributions module, a calculation of individual contributions, such as Electricity or water consumption.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NEW">The new posts and post texts</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NO_DATA">No new individual contributions could be calculated.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_PREVIEW">The new individual contributions have only been calculated so far, but not yet saved.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_SAVED">The new individual contributions have been saved.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">The setup routine for the membership fee has detected that a version update has been performed and therefore checks the structure.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">terminates this setup routine (If changes to the database have been made, it is highly recommended to restart Admidio).</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1st run</string>
@@ -357,6 +370,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC">Generates membership numbers for active members in the current organization.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2">By default, membership numbers are created for all active members of the current organization. About this role selection a generation may be performed only for the selected roles. If you do not want to restrict certain roles, leave this field blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD">Profile field</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PROFILE_FIELD_DESC">If a consumption amount is specified, a profile field (with the specification of the consumption) must be selected here.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION">Recalculation</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC">Settings for the calculation mode. The following options are available:\n- Standard: An actual contribution (except for 0 €) is not changed.\n- Overwrite: Existing entries are deleted and replaced by new entries.\n- Add up: Contributions are summed and contribute text is supplemented.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">If on the role selection the calculation limited to certain roles, so also the calculation mode affects only for those roles. Existing posts which are not covered by these roles remain unchanged.</string>
@@ -384,6 +398,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD">Remove profile field</string>
     <string name="PLG_MITGLIEDSBEITRAG_RESET">Delete</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE">Role</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Here a role must be selected for which this individual contribution is calculated.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Role membership (age staggered roles)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Checking for multiple memberships in age staggered roles.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">The members are listed multiple times in different echelons of the age staggered roles.</string>
@@ -420,6 +435,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER">Seq. number</string>
     <string name="PLG_MITGLIEDSBEITRAG_SETUP">Settings</string>
     <string name="PLG_MITGLIEDSBEITRAG_SHALL">DESIRED</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION">Short name</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION_DESC">Enter a short name here. After the contribution calculation has been carried out, this short name appears in the contribution text.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SHOW_ALL">show all</string>
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE">Source</string>
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE_DESC">This selected here Member is the source of the copy action.</string>
@@ -464,6 +481,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE">Without mandate date</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID">Without paid-date</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC">'Without paid-date' deletes only the contributions (including contributions text and paid-date) for which no paid-date is available.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION">Incorrect individual configuration\n\nWrong information is available in at least one configuration.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">XML file</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_DESC">Creates an XML file.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML file name</string>

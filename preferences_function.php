@@ -251,6 +251,30 @@ try
         	}
         	break; 
         	
+        case 'individualcontributions':
+            $pPreferences->config['individual_contributions']['access_to_module'] = $_POST['enable_individual_contributions'];
+            
+            unset($pPreferences->config['individual_contributions']['desc']);
+            unset($pPreferences->config['individual_contributions']['short_desc']);
+            unset($pPreferences->config['individual_contributions']['role']);
+            unset($pPreferences->config['individual_contributions']['amount']);
+            unset($pPreferences->config['individual_contributions']['profilefield']);
+            
+            for($conf = 0; isset($_POST['individual_contributions_desc'. $conf]); $conf++)
+            {
+                if (empty($_POST['individual_contributions_desc'. $conf]))
+                {
+                    continue;
+                }
+          
+                $pPreferences->config['individual_contributions']['desc'][] = $_POST['individual_contributions_desc'. $conf];
+                $pPreferences->config['individual_contributions']['short_desc'][] = $_POST['individual_contributions_short_desc'. $conf];
+                $pPreferences->config['individual_contributions']['role'][] = $_POST['individual_contributions_role'. $conf];
+                $pPreferences->config['individual_contributions']['amount'][] = $_POST['individual_contributions_amount'. $conf];
+                $pPreferences->config['individual_contributions']['profilefield'][] = $_POST['individual_contributions_profilefield'. $conf];
+            }
+            break; 
+        	
         case 'access_preferences':
             unset($pPreferences->config['access']);
             $pPreferences->config['access']['preferences'] = isset($_POST['access_preferences']) ? array_unique(array_merge($_POST['access_preferences'], $pPreferences->config_default['access']['preferences'])) : $pPreferences->config_default['access']['preferences'];
