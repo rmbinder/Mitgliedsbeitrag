@@ -172,7 +172,7 @@ if ($getMode == 'preview')     //Default
 			$columnValues[] = $data['icon_role_old'];
 			$columnValues[] = $data['icon_role_new'];
 			$columnValues[] = $data['icon_role_not_exist'];
-			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/roles/roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
 			$table->addRowByArray($columnValues);
 		}
 
@@ -229,7 +229,7 @@ elseif ($getMode == 'write')
 		$columnValues[] = $data['icon_role_old'];
 		$columnValues[] = $data['icon_role_new'];
 		$columnValues[] = $data['icon_role_not_exist'];
-		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/roles/roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
 		$table->addRowByArray($columnValues);
 		
 		if ($data['toDo'] == 'delete')
@@ -253,8 +253,10 @@ elseif ($getMode == 'write')
 			$tablemember->startMembership($data['role_id'], $data['user_id']);
 		}
 	}
-	
+
+	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
+	$page->addHtml('</div><br/>');
 	$page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SAVED').'</strong><br/><br/>');
 }
 elseif ($getMode == 'print')

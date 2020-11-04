@@ -481,12 +481,18 @@ elseif($getMode === 'pdf')						// send the PDF-File to the User
 	ignore_user_abort(true);
 	unlink(ADMIDIO_PATH . FOLDER_DATA . '/'.$filename);
 }
-elseif($getMode === 'html' || $getMode === 'print')
+elseif ($getMode == 'html' && $getExportAndFilter)
 {
-	// add table list to the page
-	$page->addHtml($table->show(false));
-
-	// show complete html page
-	$page->show();
+    $page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
+    $page->addHtml($table->show(false));
+    $page->addHtml('</div><br/>');
+    
+    $page->show();
+}
+elseif (($getMode == 'html' && !$getExportAndFilter) || $getMode == 'print')
+{
+    $page->addHtml($table->show(false));
+    
+    $page->show();
 }
 

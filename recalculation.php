@@ -403,7 +403,9 @@ elseif ($getMode == 'write')
 		$user->save();         
 	}
 	
+	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
+	$page->addHtml('</div><br/>');
 	$page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_SAVED').'</strong><br/><br/>');
 }
 elseif ($getMode == 'print')

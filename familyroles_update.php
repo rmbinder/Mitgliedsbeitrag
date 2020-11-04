@@ -118,7 +118,7 @@ if ($getMode == 'preview')     //Default
 			$rol_cost_period_shall = $data['rol_cost_period_shall'] !== null ? TableRoles::getCostPeriods($data['rol_cost_period_shall']) : '';
 			
 			$columnValues = array();
-			$columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php', array('rol_id' => $rol_id)). '">'.$data['rol_name']. '</a>';
+			$columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('rol_id' => $rol_id)). '">'.$data['rol_name']. '</a>';
 			$columnValues[] = ($data['rol_cost_update'] ? '<strong>'.$data['rol_cost_is'].'</strong>': $data['rol_cost_is']);
 			$columnValues[] = ($data['rol_cost_update'] ? '<strong>'.$data['rol_cost_shall'].'</strong>': $data['rol_cost_shall']);
 			$columnValues[] = ($data['rol_cost_period_update'] ? '<strong>'.$rol_cost_period_is.'</strong>': $rol_cost_period_is);
@@ -185,14 +185,16 @@ elseif ($getMode == 'write')
 		$role->save();
 
 		$columnValues = array(
-			'<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php', array('rol_id' => $rol_id)). '">'.$data['rol_name']. '</a>',
+			'<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('rol_id' => $rol_id)). '">'.$data['rol_name']. '</a>',
 			$role->getValue('rol_cost'),
 			($role->getValue('rol_cost_period') !== null ? TableRoles::getCostPeriods($role->getValue('rol_cost_period')) : ''),
 			$role->getValue('rol_description') );
 		$table->addRowByArray($columnValues);
 	}
 	
+	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
+	$page->addHtml('</div><br/>');
     $page->addHtml('<strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong><br/><br/>');
 }
 elseif ($getMode == 'print')

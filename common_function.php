@@ -972,9 +972,11 @@ function check_family_roles()
                 }
                 if (count($ret_temp) !== 0)
                 {
-                    $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/roles/roles_new.php', array('rol_id' => $famkey)). '">'.$famdata['rolle']. '</a>
-                        <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/lists/lists_show.php', array('mode' => 'html', 'rol_ids' => $famkey)). '"><img src="'. THEME_URL . '/icons/list.png"
-                        alt="'.$gL10n->get('ROL_SHOW_MEMBERS').'" title="'.$gL10n->get('ROL_SHOW_MEMBERS').'" /></a>';
+                    $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('rol_id' => $famkey)). '">'.$famdata['rolle']. '</a>
+                        <a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/lists_show.php', array('mode' => 'html', 'rol_ids' => $famkey)). '">
+                            <i class="fas fa-users" alt="'.$gL10n->get('SYS_SHOW_MEMBER_LIST').'" title="'.$gL10n->get('SYS_SHOW_MEMBER_LIST').'"></i>
+                        </a>';
+
                     $ret = array_merge($ret, $ret_temp);
                 }
             }

@@ -138,7 +138,9 @@ elseif ($getMode == 'write')
 		$user->save();
 	}
 	
+	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
+	$page->addHtml('</div><br/>');
     $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED').'</strong><br/><br/>');
 	
 	// save the format string in database
