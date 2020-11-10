@@ -1710,3 +1710,29 @@ function closeGroupBox()
     return '</div></div>';
 }
 
+/**
+ * Shows a test result and, depending an the size, a scroll bar
+ * @param array $testResult       array with test result
+ * @return string
+ */
+function showTestResultWithScrollbar($testResult)
+{
+    $size = sizeof($testResult);
+    $html = '';
+    
+    if ($size > 8)
+    {
+        $html .= '<div style="width:100%; height:200px; overflow:auto; border:20px;">';
+    }
+    foreach ($testResult as $data)
+    {
+        $html .= $data.'<br />';
+    }
+    if ($size > 8)
+    {
+        $html .= '</div>';
+    }
+    return $html;
+}
+
+

@@ -592,10 +592,7 @@ if(count($rols) > 0)
     
     $formTests->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
-    foreach (check_rols() as $data)
-    {
-        $formTests->addDescription($data);
-    }
+    $formTests->addDescription(showTestResultWithScrollbar(check_rols()));
     $formTests->closeGroupBox();
     
     // Pruefung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
@@ -603,58 +600,37 @@ if(count($rols) > 0)
     {
         $formTests->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
         $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
-        foreach (check_rollenmitgliedschaft_altersrolle() as $data)
-        {
-            $formTests->addDescription($data);
-        }
+        $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_altersrolle()));
         $formTests->closeGroupBox();
     }
     $formTests->openGroupBox('role_membership_duty', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC').'</strong>');
-    foreach (check_rollenmitgliedschaft_pflicht() as $data)
-    {
-        $formTests->addDescription($data);
-    }
+    $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_pflicht()));
     $formTests->closeGroupBox();
 
     $formTests->openGroupBox('role_membership_exclusion', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC').'</strong>');
-    foreach (check_rollenmitgliedschaft_ausschluss() as $data)
-    {
-        $formTests->addDescription($data);
-    }
+    $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_ausschluss()));
     $formTests->closeGroupBox();
     
     $formTests->openGroupBox('family_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
-    foreach (check_family_roles() as $data)
-    {
-        $formTests->addDescription($data);
-    }
+    $formTests->addDescription(showTestResultWithScrollbar(check_family_roles()));
     $formTests->closeGroupBox();
     
     $formTests->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
-    foreach (check_mandate_management() as $data)
-    {
-        $formTests->addDescription($data);
-    }
+    $formTests->addDescription(showTestResultWithScrollbar(check_mandate_management()));
     $formTests->closeGroupBox();
     
     $formTests->openGroupBox('iban_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC').'</strong>');
-    foreach (check_iban() as $data)
-    {
-        $formTests->addDescription($data);
-    }
+    $formTests->addDescription(showTestResultWithScrollbar(check_iban()));
     $formTests->closeGroupBox();
     
     $formTests->openGroupBox('bic_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_DESC').'</strong>');
-    foreach (check_bic() as $data)
-    {
-    	$formTests->addDescription($data);
-    }
+    $formTests->addDescription(showTestResultWithScrollbar(check_bic()));
     $formTests->closeGroupBox();
     
     //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
