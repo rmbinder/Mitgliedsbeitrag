@@ -187,63 +187,86 @@ else
         FROM '. TBL_USERS. '
         LEFT JOIN '. TBL_USER_DATA. ' AS last_name
           ON last_name.usd_usr_id = usr_id
-         AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
+         AND last_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'LAST_NAME\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS first_name
           ON first_name.usd_usr_id = usr_id
-         AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
+         AND first_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'FIRST_NAME\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS birthday
           ON birthday.usd_usr_id = usr_id
-         AND birthday.usd_usf_id = '. $gProfileFields->getProperty('BIRTHDAY', 'usf_id'). '
+         AND birthday.usd_usf_id = ? -- $gProfileFields->getProperty(\'BIRTHDAY\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS city
           ON city.usd_usr_id = usr_id
-         AND city.usd_usf_id = '. $gProfileFields->getProperty('CITY', 'usf_id'). '
+         AND city.usd_usf_id = ? -- $gProfileFields->getProperty(\'CITY\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS street
           ON street.usd_usr_id = usr_id
-         AND street.usd_usf_id = '. $gProfileFields->getProperty('STREET', 'usf_id'). '
+         AND street.usd_usf_id = ? -- $gProfileFields->getProperty(\'STREET\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS mandatsreferenz
           ON mandatsreferenz.usd_usr_id = usr_id
-         AND mandatsreferenz.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'). '
+         AND mandatsreferenz.usd_usf_id = ? -- $gProfileFields->getProperty(\'MANDATEID\'.ORG_ID, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS faelligkeitsdatum
           ON faelligkeitsdatum.usd_usr_id = usr_id
-         AND faelligkeitsdatum.usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'). '
+         AND faelligkeitsdatum.usd_usf_id = ? -- $gProfileFields->getProperty(\'DUEDATE\'.ORG_ID, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
-         AND lastschrifttyp.usd_usf_id = '. $gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'). '
+         AND lastschrifttyp.usd_usf_id = ? -- $gProfileFields->getProperty(\'SEQUENCETYPE\'.ORG_ID, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
           ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = '. $gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'). '
+         AND beitrag.usd_usf_id = ? -- $gProfileFields->getProperty(\'FEE\'.ORG_ID, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
           ON zip_code.usd_usr_id = usr_id
-         AND zip_code.usd_usf_id = '. $gProfileFields->getProperty('POSTCODE', 'usf_id'). '
+         AND zip_code.usd_usf_id = ? -- $gProfileFields->getProperty(\'POSTCODE\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS debtor
           ON debtor.usd_usr_id = usr_id
-         AND debtor.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR', 'usf_id'). '
+         AND debtor.usd_usf_id = ? -- $gProfileFields->getProperty(\'DEBTOR\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS debtorstreet
           ON debtorstreet.usd_usr_id = usr_id
-         AND debtorstreet.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_STREET', 'usf_id'). '
+         AND debtorstreet.usd_usf_id = ? -- $gProfileFields->getProperty(\'DEBTOR_STREET\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS debtoremail
           ON debtoremail.usd_usr_id = usr_id
-         AND debtoremail.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'). '
+         AND debtoremail.usd_usf_id = ? -- $gProfileFields->getProperty(\'DEBTOR_EMAIL\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS email
           ON email.usd_usr_id = usr_id
-         AND email.usd_usf_id = '. $gProfileFields->getProperty('EMAIL', 'usf_id'). '
+         AND email.usd_usf_id = ? -- $gProfileFields->getProperty(\'EMAIL\', \'usf_id\')
          LEFT JOIN '. TBL_USER_DATA. ' AS debtorpostcode
           ON debtorpostcode.usd_usr_id = usr_id
-         AND debtorpostcode.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'). '
+         AND debtorpostcode.usd_usf_id = ? -- $gProfileFields->getProperty(\'DEBTOR_POSTCODE\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS debtorcity
           ON debtorcity.usd_usr_id = usr_id
-         AND debtorcity.usd_usf_id = '. $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'). '
+         AND debtorcity.usd_usf_id = ? -- $gProfileFields->getProperty(\'DEBTOR_CITY\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS country
           ON country.usd_usr_id = usr_id
-         AND country.usd_usf_id = '. $gProfileFields->getProperty('COUNTRY', 'usf_id'). '
+         AND country.usd_usf_id = ? -- $gProfileFields->getProperty(\'COUNTRY\', \'usf_id\')
 
         LEFT JOIN '. TBL_MEMBERS. ' mem
-          ON  mem.mem_begin  <= \''.DATE_NOW.'\'
-         AND mem.mem_end     > \''.DATE_NOW.'\'
+          ON  mem.mem_begin  <= ? -- DATE_NOW
+         AND mem.mem_end     > ? -- DATE_NOW
          AND mem.mem_usr_id  = usr_id
-         WHERE  '. $memberCondition. '
-            ORDER BY last_name, first_name ';
-    $statement = $gDb->query($sql);
+       WHERE  '. $memberCondition. '
+    ORDER BY last_name, first_name ';
+            
+    $queryParams = array(
+        $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
+        $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
+        $gProfileFields->getProperty('BIRTHDAY', 'usf_id'),
+        $gProfileFields->getProperty('CITY', 'usf_id'),
+        $gProfileFields->getProperty('STREET', 'usf_id'),
+        $gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'),
+        $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
+        $gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'),
+        $gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'),
+        $gProfileFields->getProperty('POSTCODE', 'usf_id'),
+        $gProfileFields->getProperty('DEBTOR', 'usf_id'),
+        $gProfileFields->getProperty('DEBTOR_STREET', 'usf_id'),
+        $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'),
+        $gProfileFields->getProperty('EMAIL', 'usf_id'),
+        $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'),
+        $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'),
+        $gProfileFields->getProperty('COUNTRY', 'usf_id'),
+        DATE_NOW,
+        DATE_NOW
+    );
+        
+    $statement = $gDb->queryPrepared($sql, $queryParams);
 
     if($getMode == 'prepare')
     {
@@ -397,16 +420,25 @@ else
         //alle Faelligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
                 FROM '.TBL_USER_DATA.','. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
-                WHERE usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id').'
-                AND   mem_begin <= \''.DATE_NOW.'\'
-                AND   mem_end >= \''.DATE_NOW.'\'
+                WHERE usd_usf_id =  ? -- $gProfileFields->getProperty(\'DUEDATE\'.ORG_ID, \'usf_id\')
+                AND   mem_begin <= ? -- DATE_NOW
+                AND   mem_end >= ? -- DATE_NOW
                 AND   usd_usr_id = mem_usr_id
                 AND   mem_rol_id = rol_id
                 AND   rol_valid = 1
                 AND   rol_cat_id = cat_id
-                AND (  cat_org_id = '.ORG_ID.'
-                 OR cat_org_id IS NULL )  ';
-        $duedateStatement = $gDb->query($sql);
+                AND (  cat_org_id = ? -- ORG_ID
+                 OR cat_org_id IS NULL ) ';
+                 
+        $queryParams = array(
+            $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
+            DATE_NOW,
+            DATE_NOW,
+            ORG_ID
+        );
+
+        $duedateStatement = $gDb->queryPrepared($sql, $queryParams);
+
         $selectBoxEntries = array('0' => '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
         while ($row = $duedateStatement->fetch())
         {

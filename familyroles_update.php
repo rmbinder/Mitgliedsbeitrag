@@ -55,12 +55,12 @@ if ($getMode == 'preview')     //Default
 		$sql = 'SELECT rol_id, rol_name, rol_cost, rol_cost_period, rol_description
                 FROM '.TBL_ROLES.', '. TBL_CATEGORIES. '
 				WHERE rol_valid  = 1
-                AND rol_name LIKE \''. $data.'%'. '\'
+                AND rol_name LIKE ?
 				AND rol_cat_id = cat_id
-            	AND ( cat_org_id = '.ORG_ID.'
+            	AND ( cat_org_id = ?
                 OR cat_org_id IS NULL ) '; 		
 		
-		$statement = $gDb->query($sql);
+	   $statement = $gDb->queryPrepared($sql, array($data.'%', ORG_ID));
 		
 		// die Einträge von Beitrag, Beitragszeitraum und Beschreibung auslesen und mit den Einträgen im Setup vergleichen
 		while ($row = $statement->fetch())

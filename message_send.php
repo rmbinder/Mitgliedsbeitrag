@@ -200,16 +200,17 @@ $sendResult = $email->sendEmail();
 // message if send/save is OK
 if ($sendResult === TRUE)
 {
-    $sql = 'INSERT INTO '. TBL_MESSAGES. " (msg_type, msg_subject, msg_usr_id_sender, msg_usr_id_receiver, msg_timestamp, msg_read)
-            VALUES ('".$getMsgType."', '".$postSubjectSQL."', ".$gCurrentUser->getValue('usr_id').', '.$user->getValue('usr_id').', CURRENT_TIMESTAMP, 0)';
+    $sql = 'INSERT INTO '. TBL_MESSAGES. '
+                (msg_type, msg_subject, msg_usr_id_sender, msg_usr_id_receiver, msg_timestamp, msg_read)
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, 0) -- $getMsgType, $postSubjectSQL, $gCurrentUser->getValue(\'usr_id\'), $user->getValue(\'usr_id\') ';
+    $gDb->queryPrepared($sql, array($getMsgType, $postSubjectSQL, (int) $gCurrentUser->getValue('usr_id'), (int) $user->getValue('usr_id')));
 
-    $gDb->query($sql);
     $getMsgId = $gDb->lastInsertId();
-
-    $sql = 'INSERT INTO '. TBL_MESSAGES_CONTENT. ' (msc_msg_id, msc_part_id, msc_usr_id, msc_message, msc_timestamp)
-            VALUES ('.$getMsgId.', 1, '.$gCurrentUser->getValue('usr_id').", '".$postBodySQL."', CURRENT_TIMESTAMP)";
-
-    $gDb->query($sql);
+    
+    $sql = 'INSERT INTO '. TBL_MESSAGES_CONTENT. '
+                (msc_msg_id, msc_part_id, msc_usr_id, msc_message, msc_timestamp)
+                VALUES (?, 1, ?, ?, CURRENT_TIMESTAMP) -- $getMsgId, $gCurrentUser->getValue(\'usr_id\'), $postBodySQL';
+    $gDb->queryPrepared($sql, array($getMsgId, (int) $gCurrentUser->getValue('usr_id'), $postBodySQL));
 
     // after sending remove the actual Page from the NaviObject and remove also the send-page
     $gNavigation->deleteLastUrl();

@@ -145,14 +145,19 @@ $sql = 'SELECT usl_id, usl_usr_id, last_name.usd_value AS last_name, first_name.
           FROM '.TBL_USER_LOG.'
     INNER JOIN '.TBL_USER_DATA.' AS last_name
             ON last_name.usd_usr_id = usl_usr_id
-           AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id').'
+           AND last_name.usd_usf_id =  ? -- $gProfileFields->getProperty(\'LAST_NAME\', \'usf_id\')
     INNER JOIN '.TBL_USER_DATA.' AS first_name
             ON first_name.usd_usr_id = usl_usr_id
-           AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id').'
+           AND first_name.usd_usf_id =  ? -- $gProfileFields->getProperty(\'FIRST_NAME\', \'usf_id\')
 			'. $sqlConditions.'
-    ORDER BY usl_id ASC';      
+      ORDER BY usl_id ASC ';      
 
-$fieldHistoryStatement = $gDb->query($sql);
+$queryParams = array(
+	   $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
+	   $gProfileFields->getProperty('FIRST_NAME', 'usf_id')
+    );
+       
+$fieldHistoryStatement = $gDb->queryPrepared($sql, $queryParams);
 
 if($fieldHistoryStatement->rowCount() === 0)
 {

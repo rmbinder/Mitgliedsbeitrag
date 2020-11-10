@@ -50,15 +50,15 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
 
     // alle Rollen einlesen
     $sql = 'SELECT rol_id, rol_name, rol_cost, rol_cost_period, rol_timestamp_create, rol_description
-            FROM '.TBL_ROLES.', '. TBL_CATEGORIES. '
-            WHERE rol_valid  = 1
-            AND rol_cost IS NOT NULL
-            AND rol_cost_period <>\'\'
-            AND rol_cat_id = cat_id
-            AND (  cat_org_id = '.ORG_ID.'
+              FROM '.TBL_ROLES.', '. TBL_CATEGORIES. '
+             WHERE rol_valid  = 1
+               AND rol_cost IS NOT NULL
+               AND rol_cost_period <> \'\'
+               AND rol_cat_id = cat_id
+               AND ( cat_org_id = ?
                 OR cat_org_id IS NULL ) ';
 
-    $statement = $gDb->query($sql);
+    $statement = $gDb->queryPrepared($sql, array(ORG_ID));
 
     while ($row = $statement->fetch())
     {
@@ -188,11 +188,11 @@ function bezugskategorie_einlesen()
         $firstpass = false;
     }
 
-    $sql .= ' AND (  cat_org_id = '.ORG_ID.'
+    $sql .= ' AND (  cat_org_id = ? -- ORG_ID
               OR cat_org_id IS NULL )
               ORDER BY mem_usr_id ASC ';
 
-    $statement = $gDb->query($sql);
+    $statement = $gDb->queryPrepared($sql, array(ORG_ID));
     while ($row = $statement->fetch())
     {
        $members[] = $row['mem_usr_id'];
@@ -357,7 +357,7 @@ function list_members($fields, $rols = array(), $conditions = '')
     $sql .= $startString.$timeString.$mainString.$addString.$conditions;
     $sql .= ' ORDER BY mem_usr_id ASC ';
     
-    $statement = $gDb->query($sql);
+    $statement = $gDb->queryPrepared($sql);
     while ($row = $statement->fetch())
     {
         $members[$row['mem_usr_id']] = array();
@@ -391,15 +391,20 @@ function getRole_IDPMB($role_name)
 {
     global $gDb;
 
-    $sql    = 'SELECT rol_id
-                 FROM '. TBL_ROLES. ', '. TBL_CATEGORIES. '
-                 WHERE rol_name   = \''.$role_name.'\'
-                 AND rol_valid  = 1
-                 AND rol_cat_id = cat_id
-                 AND (  cat_org_id = '.ORG_ID.'
-                 OR cat_org_id IS NULL ) ';
+    $sql = 'SELECT rol_id
+              FROM '. TBL_ROLES. ', '. TBL_CATEGORIES. '
+             WHERE rol_name  = ? -- $role_name
+               AND rol_valid  = 1
+               AND rol_cat_id = cat_id
+               AND ( cat_org_id = ? -- ORG_ID
+                OR cat_org_id IS NULL ) ';
 
-    $statement = $gDb->query($sql);
+    $queryParams = array(
+	   $role_name,
+	   ORG_ID);
+       
+	$statement = $gDb->queryPrepared($sql, $queryParams);
+                    
     $row = $statement->fetchObject();
     if(isset($row->rol_id) && strlen($row->rol_id) > 0)
     {

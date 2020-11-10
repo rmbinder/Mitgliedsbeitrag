@@ -69,9 +69,10 @@ class Membernumbers
     	
     	$sql = 'SELECT usd_value
                   FROM '. TBL_USER_DATA .'
-                 WHERE usd_usf_id = \''.$gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id').'\' ';
+                 WHERE usd_usf_id = ? ';
     	
-    	$statement = $this->mDb->query($sql);
+    	$statement = $this->mDb->queryPrepared($sql, array($gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id')));
+
     	while ($row = $statement->fetch())
     	{
     		$this->mNumbers[] = $row['usd_value'];
@@ -130,27 +131,37 @@ class Membernumbers
                   FROM '.TBL_USERS.'
              LEFT JOIN '.TBL_USER_DATA.' AS last_name
                     ON last_name.usd_usr_id = usr_id
-                   AND last_name.usd_usf_id = '. $gProfileFields->getProperty('LAST_NAME', 'usf_id'). '
+                   AND last_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'LAST_NAME\', \'usf_id\')
              LEFT JOIN '.TBL_USER_DATA.' AS first_name
                     ON first_name.usd_usr_id = usr_id
-           		   AND first_name.usd_usf_id = '. $gProfileFields->getProperty('FIRST_NAME', 'usf_id'). '
+           		   AND first_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'FIRST_NAME\', \'usf_id\')
              LEFT JOIN '.TBL_USER_DATA.' AS membernumber
                     ON membernumber.usd_usr_id = usr_id
-                   AND membernumber.usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id'). '
+                   AND membernumber.usd_usf_id = ? -- $gProfileFields->getProperty(\'MEMBERNUMBER\'.ORG_ID, \'usf_id\')
                  WHERE usr_valid = 1
                    AND membernumber.usd_value IS NULL
             AND EXISTS (SELECT 1
                   FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES.  ','. TBL_USER_DATA. '
                  WHERE mem_usr_id = usr_id
                    AND mem_rol_id = rol_id
-                   AND mem_begin <= \''.DATE_NOW.'\'
-                   AND mem_end    > \''.DATE_NOW.'\'
+                   AND mem_begin <= ? -- DATE_NOW
+                   AND mem_end    > ? -- DATE_NOW
                    AND rol_valid  = 1
                    '.$sqlRoleCond.'
                    AND rol_cat_id = cat_id
-                   AND cat_org_id = '. ORG_ID. ') ';
+                   AND cat_org_id = ? -- ORG_ID
+              ) ';
+     	
+        $queryParams = array(
+            $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
+            $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
+            $gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id'),
+            DATE_NOW,
+            DATE_NOW,
+            ORG_ID
+        );
 
-     	$statement = $this->mDb->query($sql);
+    	$statement = $this->mDb->queryPrepared($sql, $queryParams);
 
      	while ($row = $statement->fetch())
      	{

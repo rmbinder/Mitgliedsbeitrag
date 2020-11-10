@@ -234,12 +234,20 @@ elseif ($getMode == 'write')
 		
 		if ($data['toDo'] == 'delete')
 		{
+            $value = date('Y-m-d', strtotime('-1 day')) ;
 			$sql = 'UPDATE '.TBL_MEMBERS.'
-			 		   SET mem_end = \''.date('Y-m-d', strtotime('-1 day')).'\'
-			 	     WHERE mem_usr_id = '.$data['user_id'].'
-				       AND mem_rol_id = '.$data['role_id'];
-			$gDb->query($sql);
-			
+			 		   SET mem_end = ? -- $value
+			 	     WHERE mem_usr_id = ? -- $data[\'user_id\']
+				       AND mem_rol_id = ? -- $data[\'role_id\'] ';
+                       
+            $queryParams = array(
+                $value,
+                $data['user_id'],
+                $data['role_id']
+            );
+                      
+			$gDb->queryPrepared($sql, $queryParams);
+            
 			// stopMembership() kann nicht verwendet werden, da es unter best. Umstaenden Mitgliedschaften nicht loescht
 			// Beschreibung von stopMembership()
 			//      only stop membership if there is an actual membership
