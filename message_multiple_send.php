@@ -15,9 +15,10 @@
  */
 
 require_once(__DIR__ . '/../../adm_program/system/common.php');
-require_once(__DIR__ . '/../../adm_program/system/template.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
+
+use PHPMailer\PHPMailer\Exception;
 
 // only authorized user are allowed to start this module
 if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
@@ -155,7 +156,7 @@ foreach ($user_array as $userId)
                     {
                         // check the size of the attachment
                         $attachmentSize = $attachmentSize + $_FILES['userfile']['size'][$currentAttachmentNo];
-                        if($attachmentSize > $email->getMaxAttachementSize('b'))
+                        if($attachmentSize > $email->getMaxAttachmentSize('b'))
                         {
                             $gMessage->show($gL10n->get('MAI_ATTACHMENT_TO_LARGE'));
                         }
@@ -192,7 +193,7 @@ foreach ($user_array as $userId)
     // if possible send html mail
     if($gValidLogin == true && $gSettingsManager->getString('mail_html_registered_users') == 1)
     {
-        $email->sendDataAsHtml();
+        $email->setHtmlMail();
     }
 
     // set flag if copy should be send to sender
@@ -217,7 +218,7 @@ foreach ($user_array as $userId)
     }
 
     // load the template and set the new email body with template
-    $emailTemplate = admReadTemplateFile('template.html');
+    $emailTemplate = FileSystemUtils::readFile(ADMIDIO_PATH . FOLDER_DATA . '/mail_templates/template.html');
     $emailTemplate = str_replace('#message#', $postBody, $emailTemplate);
 
     // set Text
