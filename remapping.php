@@ -193,7 +193,7 @@ elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-write', $headline);
     $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')));
- 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+ 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
         
 	$tablemember = new TableMembers($gDb);
 	$sql = '';
