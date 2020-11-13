@@ -85,9 +85,7 @@ else
 // add current url to navigation stack
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
-// create html page object
 $page = new HtmlPage('plg-mitgliedsbeitrag-message-multiple-write', $headline);
-$page->setUrlPreviousPage($gNavigation->getPreviousUrl());
 
 $user_array = $_SESSION['pMembershipFee']['checkedArray'];
 $userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', array(count($user_array)));

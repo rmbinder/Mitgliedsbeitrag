@@ -32,12 +32,12 @@ $pPreferences->read();
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION');
 
-// create html page object
 $page = new HtmlPage('plg-mitgliedsbeitrag-deinstallation', $headline);
   
 if ($getMode == 'start')     //Default
 {
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'deinstallation')));
+    $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'deinstallation')));
+    $gNavigation->addUrl(CURRENT_URL);
     
     $form = new HtmlForm('deinstallation_start_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/deinstallation.php', array('mode' => 'delete')), $page);
 

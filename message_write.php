@@ -104,9 +104,7 @@ else
 // add current url to navigation stack
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
-// create html page object
 $page = new HtmlPage('plg-mitgliedsbeitrag-message-write', $headline);
-$page->setUrlPreviousPage($gNavigation->getPreviousUrl());
 
  //Datensatz fuer E-Mail-Adresse zusammensetzen
 if(strlen($user->getValue('DEBTOR')) > 0)

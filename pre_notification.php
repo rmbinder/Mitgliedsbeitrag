@@ -311,12 +311,11 @@ else
         // add current url to navigation stack if last url was not the same page
         if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
         {
-            $gNavigation->addUrl(CURRENT_URL, $headline);
+            $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'sepa')));
+            $gNavigation->addUrl(CURRENT_URL);
         }
 
-        // create html page object
         $page = new HtmlPage('plg-mitgliedsbeitrag-pre-notification', $headline);
-        $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'sepa')));
 
         $page->addJavascript('
             function prenotexport(){ 

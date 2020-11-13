@@ -143,9 +143,10 @@ else
 {
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
 
-    // create html page object
+    $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php'));
+    $gNavigation->addUrl(CURRENT_URL);
+    
     $page = new HtmlPage('plg-mitgliedsbeitrag-mandate-change', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php'));
   
     $page->addJavascript('
         function ibanschieben(){

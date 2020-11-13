@@ -109,9 +109,7 @@ foreach ($gProfileFields->getProfileFields() as $field)
 	}
 }
 
-// create html page object
 $page = new HtmlPage('plg-mitgliedsbeitrag-preferences', $headline);
-$page->setUrlPreviousPage($gNavigation->getPreviousUrl());
 
 // open the modules tab if the options of a module should be shown
 if ($getChoice != '')

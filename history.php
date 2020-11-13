@@ -49,9 +49,6 @@ $title    = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 $filename = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
 
-// add page to navigation history
-$gNavigation->addUrl(CURRENT_URL, $headline);
-
 // filter_date_from and filter_date_to can have different formats
 // now we try to get a default format for intern use and html output
 $objDateFrom = DateTime::createFromFormat('Y-m-d', $getDateFrom);
@@ -161,9 +158,6 @@ $fieldHistoryStatement = $gDb->queryPrepared($sql, $queryParams);
 
 if($fieldHistoryStatement->rowCount() === 0)
 {
-    // message is shown, so delete this page from navigation stack
-    $gNavigation->deleteLastUrl();
-
     $gMessage->show($gL10n->get('MEM_NO_CHANGES'));
     // => EXIT
 }
@@ -232,9 +226,10 @@ if ($getMode !== 'csv')
         }
 		$hoverRows = true;
 
-		// create html page object
+		$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'history')));
+		$gNavigation->addUrl(CURRENT_URL);
+		
 		$page = new HtmlPage('plg-mitgliedsbeitrag-history-html', $headline);
-        $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'history')));
 
 		$page->setTitle($title);
 

@@ -41,10 +41,12 @@ $role = new TableRoles($gDb);
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE');
 
+$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'familyrolesupdate')));
+$gNavigation->addUrl(CURRENT_URL);
+
 if ($getMode == 'preview')     //Default
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-preview', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'familyrolesupdate')));
     
 	$familyRolesToUpdate = array();
 	
@@ -143,7 +145,7 @@ if ($getMode == 'preview')     //Default
 elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-write', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'familyrolesupdate')));
+
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
     
 	$page->addJavascript('

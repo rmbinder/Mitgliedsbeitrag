@@ -78,12 +78,11 @@ else
     // add current url to navigation stack if last url was not the same page
     if(strpos($gNavigation->getUrl(), 'copy.php') === false)
     {
-        $gNavigation->addUrl(CURRENT_URL, $headline);
+        $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'copy')));
+        $gNavigation->addUrl(CURRENT_URL);
     }
-
-    // create html page object
+    
     $page = new HtmlPage('plg-mitgliedsbeitrag-copy', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'copy')));
 
     $javascriptCode = '
         // pulldown Quelle is clicked 

@@ -38,10 +38,12 @@ $pPreferences->read();
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES');
 
+$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')));
+$gNavigation->addUrl(CURRENT_URL);
+
 if ($getMode == 'preview')     //Default
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-preview', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')));
     
 	//Vor der Neuzuordnung die altersgestaffelten Rollen auf Luecken oder Ueberlappungen pruefen
 	$arr = check_rols();
@@ -192,7 +194,6 @@ if ($getMode == 'preview')     //Default
 elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-write', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'remapping')));
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
         
 	$tablemember = new TableMembers($gDb);

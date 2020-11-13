@@ -189,12 +189,11 @@ else
     // add current url to navigation stack if last url was not the same page
     if (strpos($gNavigation->getUrl(), 'payments.php') === false)
     {
-        $gNavigation->addUrl(CURRENT_URL, $headline);
+        $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'payments')));
+        $gNavigation->addUrl(CURRENT_URL);
     }
 
-    // create html page object
     $page = new HtmlPage('plg-mitgliedsbeitrag-payments', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'payments')));
 
     $javascriptCode = '
         // Anzeige abhaengig vom gewaehlten Filter

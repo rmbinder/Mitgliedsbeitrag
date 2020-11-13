@@ -45,9 +45,10 @@ $beitrag = analyse_mem();
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE');
 
-// create html page object
+$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'delete')));
+$gNavigation->addUrl(CURRENT_URL);
+
 $page = new HtmlPage('plg-mitgliedsbeitrag-delete', $headline);
-$page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'delete')));
 
 $page->addJavascript('
     $(".form-preferences").submit(function(event) {

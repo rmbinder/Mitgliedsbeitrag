@@ -38,19 +38,20 @@ $pPreferences->read();
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS');
 
+$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'individualcontributions')));
+$gNavigation->addUrl(CURRENT_URL);
 
 for ($i = 0; $i < count($pPreferences->config['individual_contributions']['desc']); $i++)
 {
     if (($pPreferences->config['individual_contributions']['role'][$i] == 0) || ($pPreferences->config['individual_contributions']['amount'][$i] == ''))
     {
-     	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION'));
+     	$getMode = 'error';
     }      
 } 
 
 if ($getMode == 'preview')     //Default
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-preview', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'individualcontributions')));
 
 	$members = array();
 	$message = '';
@@ -172,7 +173,7 @@ if ($getMode == 'preview')     //Default
 elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-write', $headline);
-    $page->setUrlPreviousPage(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'individualcontributions')));
+
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('LST_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
         
 	$page->addJavascript('
@@ -242,6 +243,11 @@ elseif ($getMode == 'print')
 		$table->addRowByArray($columnValues);
 	}
 	$page->addHtml($table->show(false));
+}
+else          // $getMode = error
+{
+    $page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-error', $headline);
+    $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION').'</strong><br/><br/>');
 }
 
 $page->show();

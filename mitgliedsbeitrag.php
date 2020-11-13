@@ -173,7 +173,6 @@ else
         $("#tabs-fees").attr("class", "tab-pane fade show active");',
         true
     );
-
 }
 
 if (isUserAuthorizedForPreferences())
