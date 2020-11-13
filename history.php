@@ -324,7 +324,7 @@ if ($getMode !== 'csv')
         }
         
 		$table = new HtmlTable('history_table', $page, $hoverRows, $datatable, $classTable);
-		$table->setDatatablesRowsPerPage($gSettingsManager->getString('lists_members_per_page'));
+		$table->setDatatablesRowsPerPage($gSettingsManager->getString('groups_roles_members_per_page'));
 	}
 	else
 	{
