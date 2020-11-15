@@ -367,7 +367,7 @@ if ($text->getValue('txt_text') == '')
 $formContributionSettings->addMultilineTextInput('mail_text', '', $text->getValue('txt_text'), 7);
 $formContributionSettings->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'contributionsettings', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS'), 'fas fa-edit', $formContributionSettings->show()));
+$page->addHtml(getMenuePanel('preferences', 'contributionsettings', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS'), 'fas fa-edit', $formContributionSettings->show()));
                     
 // PANEL: AGE_STAGGERED_ROLES                    
                     
@@ -400,7 +400,7 @@ $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class=
 $formAgeStaggeredRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
 $formAgeStaggeredRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'agestaggeredroles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'), 'fas fa-user-clock', $formAgeStaggeredRoles->show()));
+$page->addHtml(getMenuePanel('preferences', 'agestaggeredroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'), 'fas fa-user-clock', $formAgeStaggeredRoles->show()));
                     
 // PANEL: FAMILY_ROLES                    
 
@@ -431,7 +431,7 @@ $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class=
 $formFamilyRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
 $formFamilyRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'familyroles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), 'fas fa-user-friends', $formFamilyRoles->show()));
+$page->addHtml(getMenuePanel('preferences', 'familyroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), 'fas fa-user-friends', $formFamilyRoles->show()));
               
 // PANEL: ACCOUNT_DATA                    
 
@@ -476,7 +476,7 @@ else
 }
 $formAccountData->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'accountdata', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'), 'fas fa-money-check', $formAccountData->show()));
+$page->addHtml(getMenuePanel('preferences', 'accountdata', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'), 'fas fa-money-check', $formAccountData->show()));
                                      
 // PANEL: EXPORT                    
 
@@ -517,7 +517,7 @@ $formExport->closeGroupBox();
 $formExport->addDescription('');
 $formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'export', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), 'fas fa-file-export', $formExport->show()));
+$page->addHtml(getMenuePanel('preferences', 'export', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), 'fas fa-file-export', $formExport->show()));
                                    
 // PANEL: MANDATE_MANAGEMENT
                     
@@ -543,7 +543,7 @@ $formMandateManagement->addSelectBox('data_field', $gL10n->get('PLG_MITGLIEDSBEI
 $formMandateManagement->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC'));
 $formMandateManagement->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'mandatemanagement', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'), 'fas fa-puzzle-piece', $formMandateManagement->show()));
+$page->addHtml(getMenuePanel('preferences', 'mandatemanagement', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'), 'fas fa-puzzle-piece', $formMandateManagement->show()));
                                        
 // PANEL: ROLE_TEST
                     
@@ -661,7 +661,7 @@ $sql = 'SELECT cat_id, cat_name
 $formTestsSetup->addSelectBoxFromSql('bezugskategorie', $gL10n->get('PLG_MITGLIEDSBEITRAG_CAT_SELECTION'), $gDb, $sql, array('defaultValue' => $pPreferences->config['Rollenpruefung']['bezugskategorie'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC'));
 $formTestsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'testssetup', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST'), 'fas fa-check-double', $formTestsSetup->show()));
+$page->addHtml(getMenuePanel('preferences', 'testssetup', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST'), 'fas fa-check-double', $formTestsSetup->show()));
                              
 // PANEL: VIEW_DEFINITIONS
 
@@ -711,7 +711,7 @@ foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
 $formColumnSet->addDescription('</div>');
 $formColumnSet->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'columnset', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'fas fa-binoculars', $formColumnSet->show()));
+$page->addHtml(getMenuePanel('preferences', 'columnset', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'fas fa-binoculars', $formColumnSet->show()));
                                 
 //PANEL: DEINSTALLATION
                     
@@ -719,7 +719,7 @@ $formDeinstallation = new HtmlForm('deinstallation_form', SecurityUtils::encodeU
 $formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
 $formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
 
-$page->addHtml(getMenuePanel('preferences', 'deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'fas fa-trash-alt', $formDeinstallation->show()));
+$page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'fas fa-trash-alt', $formDeinstallation->show()));
    
 // PANEL: ACCESS_PREFERENCES
                     
@@ -733,7 +733,7 @@ $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
 $formAccessPreferences->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true, 'property' => HtmlForm::FIELD_REQUIRED));
 $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'access_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'fas fa-key', $formAccessPreferences->show()));
+$page->addHtml(getMenuePanel('preferences', 'access_preferences', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'fas fa-key', $formAccessPreferences->show()));
 
 // PANEL: INDIVIDUAL_CONTRIBUTIONS
 
@@ -796,7 +796,7 @@ $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class=
 $formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
 $formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-euro-sign', $formIndividualContributionsSetup->show()));
+$page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-euro-sign', $formIndividualContributionsSetup->show()));
     
 //PANEL: PLUGIN_INFORMATION                     
 
@@ -810,7 +810,7 @@ $html = '<a class="icon-text-link" href="https://www.admidio.org/dokuwiki/doku.p
 
 $formPluginInformations->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION'), $html, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC'));
   
-$page->addHtml(getMenuePanel('preferences', 'plugin_informations', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'fas fa-info', $formPluginInformations->show()));
+$page->addHtml(getMenuePanel('preferences', 'plugin_informations', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'fas fa-info', $formPluginInformations->show()));
                         
 
 $page->addHtml('

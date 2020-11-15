@@ -1610,7 +1610,7 @@ function getEmailLink($value, $member)
  * @param string $body
  * @return string
  */
-function getMenuePanel($group, $id, $title, $icon, $body)
+function getMenuePanel($group, $id, $parentId, $title, $icon, $body)
 {
     $html = '
         <div class="card" id="panel_' . $id . '">
@@ -1619,7 +1619,7 @@ function getMenuePanel($group, $id, $title, $icon, $body)
                     <i class="' . $icon . ' fa-fw"></i>' . $title . '
                 </a>
             </div>
-            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#accordion_preferences">
+            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#' . $parentId . '">
                 <div class="card-body">
                     ' . $body . '
                 </div>
@@ -1636,7 +1636,7 @@ function getMenuePanel($group, $id, $title, $icon, $body)
  * @param string $icon
  * @return string
  */
-function getMenuePanelHeaderOnly($group, $id, $title, $icon)
+function getMenuePanelHeaderOnly($group, $id, $parentId, $title, $icon)
 {
     $html = '
         <div class="card" id="panel_' . $id . '">
@@ -1645,7 +1645,7 @@ function getMenuePanelHeaderOnly($group, $id, $title, $icon)
                     <i class="' . $icon . ' fa-fw"></i>' . $title . '
                 </a>
             </div>
-            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#accordion_preferences">
+            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#' . $parentId . '">
                 <div class="card-body">
     ';
     return $html;
@@ -1664,11 +1664,11 @@ function getMenuePanelFooterOnly()
  * @param string $group
  * @return string
  */
-function openMenueTab($group)
+function openMenueTab($group, $parentId)
 {
     $html = '
         <div class="tab-pane fade" id="tabs-' . $group . '" role="tabpanel">
-            <div class="accordion" id="accordion_preferences">
+            <div class="accordion" id="' . $parentId . '">
     ';
     return $html;
 }
