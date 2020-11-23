@@ -25,7 +25,7 @@ if (!$gCurrentUser->isAdministrator())
 	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-$gNavigation->addUrl(CURRENT_URL);
+$gNavigation->addStartUrl(CURRENT_URL);
 
 // Initialize and check the parameters
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start', 'anlegen', 'soll_ist')));
@@ -733,7 +733,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         $form->openButtonGroup();
         $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'anlegen')), 'class' => 'btn-primary'));
         $form->addDescription('&nbsp');
-        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => 'fa-times', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL .'/adm_program/system/back.php'), 'class' => 'btn-primary' ));
+        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => 'fa-times', 'link' => $gHomepage, 'class' => 'btn-primary' ));
         $form->closeButtonGroup();
         
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));

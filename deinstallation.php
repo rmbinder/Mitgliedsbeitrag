@@ -222,6 +222,7 @@ elseif ($getMode == 'delete')
     }
     
     $form = new HtmlForm('deinstallation_delete_form', null, $page);
+    $gNavigation->clear();
     $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => $gHomepage, 'class' => 'btn-primary'));
 }
 
