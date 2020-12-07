@@ -110,7 +110,7 @@ else
 
     $form = new HtmlForm('export_bill_form', null, $page);
     $form->addDescription($message);
-    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => 'mitgliedsbeitrag.php?show_option=statementexport'));
+    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => SecurityUtils::encodeUrl('mitgliedsbeitrag.php', array('show_option' => 'statementexport')), 'class' => 'btn-primary'));
 
     $page->addHtml($form->show(false));
     $page->show();
