@@ -156,10 +156,15 @@ else
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'BIRTHDAY'), 0);
     foreach ($members as $member => $memberdata)
     {
-        $datumtemp = \DateTime::createFromFormat('Y-m-d', $memberdata['BIRTHDAY']);
+        $birthday = '';
+        $objBirthday = \DateTime::createFromFormat('Y-m-d', $memberdata['BIRTHDAY']);
+        if ($objBirthday !== false)
+        {
+            $birthday = ', '.$objBirthday->format($gSettingsManager->getString('system_date'));
+        }
         
-        $members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gSettingsManager->getString('system_date'));
-        $membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].', '.$datumtemp->format($gSettingsManager->getString('system_date')).'</option>';
+        $members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$birthday;
+        $membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$birthday.'</option>';
     }
     asort($members);
 
