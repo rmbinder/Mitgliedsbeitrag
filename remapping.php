@@ -66,9 +66,9 @@ if ($getMode == 'preview')     //Default
 		{
 			if(strlen($memberdata['BIRTHDAY']) === 0)
 			{
-				$gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_MISSING_BIRTHDAY',
+				$gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_MISSING_BIRTHDAY',array(
 						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$memberdata['FIRST_NAME'].'</a>',
-						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$memberdata['LAST_NAME'].'</a>' ));
+						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$memberdata['LAST_NAME'].'</a>' )));
 			}
 	
 			$age = ageCalculator(strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag']));
