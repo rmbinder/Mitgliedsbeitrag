@@ -3,9 +3,9 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag
  *
- * Version 5.0.0
+ * Version 5.0.1
  *
- * Dieses Plugin berechnet Mitgliedsbeitraege anhand von Rollenzugehoerigkeiten.
+ * This plugin calculates membership fees based on role assignments.
  *
  * Author: rmb
  *
