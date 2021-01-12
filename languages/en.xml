@@ -12,8 +12,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Add another column</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Add further configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Additional fields</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ADULT">Adults</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ADULT_DESC">Here, the minimum and maximum number of adults in a family has to be entered.\nPossible values would be 1 for Min and 2 for Max, meaning that\n1. a family must have at least one adult and must not consist of children and juveniles only and that\n2. a family may have a maximum of two adults (father and mother) and not the child who has just attained full age. </string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE">Age</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_DESC">Age to the deadline</string> 
     <string name="PLG_MITGLIEDSBEITRAG_AGE_LIMIT">Age limit</string>
@@ -193,18 +191,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export and filter</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">There is no data to be exported.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER">Number of adults in families</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_DESC">Checking of family roles against the min. or max. number of adults stated in the setup</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_ERROR">The listed families do not have the min. or max. number of adults.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_OK">All families have the min. or max. number of adults.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER">Number of seniors in families</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_DESC">Checking of family roles against the number of seniors stated in the setup</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_ERROR">The listed families have at least one member who has exceeded the age limit of #VAR1# years stated in the setup.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_OK">No family has a member older than #VAR1# years.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER">Minimum number of family members</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_DESC">Checking of family roles against the minimum number of members stated in the setup</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_ERROR">The listed families do not have the minimum number of #VAR1# members.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK">All families have the minimum number of #VAR1# members.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLE">Family role</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES">Family roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">The contribution for family roles with this prefix.</string>

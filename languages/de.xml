@@ -12,8 +12,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Weitere Spalte hinzufügen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Weitere Konfiguration hinzufügen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Zusätzliche Felder</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ADULT">Erwachsene</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ADULT_DESC">Hier ist Min- und Max-Anzahl von Erwachsenen einer Familie einzugeben.\nMögliche Werte wären z.B. 1 für Min und 2 für Max, was bedeutet, daß\n1. eine Familie mindestens einen Erwachsenen aufweisen muß und nicht nur aus Kindern und Jugendlichen bestehen darf\n2. eine Familie maximal zwei Erwachsene aufweisen darf (Vater und Mutter) und nicht das gerade volljährig gewordene Kind.</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE">Alter</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_DESC">Alter zum Stichtag</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_LIMIT">Altersgrenze</string>
@@ -193,18 +191,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export und Filter</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Es sind keine Daten zum Exportieren ausgewählt.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER">Anzahl der Erwachsenen in Familien</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Min- bzw. Max-Anzahl an Erwachsenen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_ERROR">Die aufgeführten Familien besitzen nicht die Min- bzw. Max-Anzahl an Erwachsenen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ADULT_NUMBER_RESULT_OK">Alle Familien besitzen die Min- bzw. Max-Anzahl von Erwachsenen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER">Anzahl der Senioren in Familien</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Anzahl an Senioren.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_ERROR">Die aufgeführten Familien besitzen mindestens ein Mitglied, das die im Setup angegebene Altersgrenze von #VAR1# Jahren überschritten hat.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_ELDERLY_NUMBER_RESULT_OK">Keine Familie besitzt ein Mitglied älter als #VAR1# Jahre.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER">Mindestanzahl von Familienmitgliedern</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_DESC">Überprüfung der Familienrollen auf die im Setup angegebene Mindestanzahl an Mitgliedern.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_ERROR">Die aufgeführten Familien besitzen nicht die Mindestanzahl von #VAR1# Mitgliedern.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILIY_MEMBERS_MINIMUM_NUMBER_RESULT_OK">Alle Familien besitzen die Mindestanzahl von #VAR1# Mitgliedern.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLE">Familienrolle</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES">Familienrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC">Der Beitrag für Familienrollen mit diesem Präfix.</string>
