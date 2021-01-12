@@ -55,7 +55,7 @@ if ($getMode == 'preview')     //Default
 
 	if ($membernumbers->isDoubleNumber())
 	{
-		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR', $membernumbers->isDoubleNumber()));
+		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR', array($membernumbers->isDoubleNumber())));
 		// --> EXIT
 	}
 

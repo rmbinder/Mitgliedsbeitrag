@@ -93,7 +93,7 @@ foreach ($members as $member => $memberdata)
         {
         	if (empty($members[$member]['BIC']))
         	{
-        		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$zpflgt[$member]['name']. '</a>'), $gL10n->get('SYS_ERROR'));
+        		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', array('<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$zpflgt[$member]['name']. '</a>')), $gL10n->get('SYS_ERROR'));
         	}
         	$zpflgt[$member]['land'] = substr($zpflgt[$member]['iban'], 0, 2);
         	$zpflgt[$member]['street'] = substr(replace_sepadaten($members[$member]['DEBTOR_STREET']), 0, 70);    
@@ -143,7 +143,7 @@ $zempf['ci'] = $pPreferences->config['Kontodaten']['ci'];                       
 
 if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPreferences->config['Kontodaten']['bic']))
 {
-	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', $zempf['name']), $gL10n->get('SYS_ERROR'));
+	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', array($zempf['name'])), $gL10n->get('SYS_ERROR'));
 }
 
 $zempf['iban'] = strtoupper(str_replace(' ', '', $pPreferences->config['Kontodaten']['iban']));                   //SEPA  Zahlungsempfaenger IBAN
