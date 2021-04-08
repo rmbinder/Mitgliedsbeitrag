@@ -12,6 +12,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Add another column</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Add further configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Additional fields</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING">Advanced role editing</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING_DESC">Here you have the option of directly editing the entries "Contribution", "Contribution period" and "Description" in all contribution roles (except for family roles).</string>        
     <string name="PLG_MITGLIEDSBEITRAG_AGE">Age</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_DESC">Age to the deadline</string> 
     <string name="PLG_MITGLIEDSBEITRAG_AGE_LIMIT">Age limit</string>

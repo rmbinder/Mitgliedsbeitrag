@@ -90,6 +90,11 @@ $num_agestaggeredroles = count($pPreferences->config['Altersrollen']['altersroll
 $num_familyroles = count($pPreferences->config['Familienrollen']['familienrollen_prefix']);
 $num_individualcontributions = count($pPreferences->config['individual_contributions']['desc']);
 
+$familienrollen = beitragsrollen_einlesen('fam');
+$altersrollen = beitragsrollen_einlesen('alt');
+$fixrollen = beitragsrollen_einlesen('fix');
+$alt_fix_rollen = $altersrollen + $fixrollen;
+
 if ($getChoice == '')
 {
     $gNavigation->addUrl(CURRENT_URL, $headline);
@@ -432,7 +437,30 @@ $formFamilyRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlD
 $formFamilyRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
 $page->addHtml(getMenuePanel('preferences', 'familyroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), 'fas fa-user-friends', $formFamilyRoles->show()));
-              
+
+// PANEL: ADVANCED_ROLE_EDITING
+
+$formAdvancedRoleEditing = new HtmlForm('advancedroleediting_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'advancedroleediting')), $page, array('class' => 'form-preferences'));
+$formAdvancedRoleEditing->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING_DESC'));
+
+$formAdvancedRoleEditing->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
+
+foreach($alt_fix_rollen as $key => $data)
+{
+    $formAdvancedRoleEditing->openGroupBox('advancedroleediting_group', $data['rolle']);
+    
+    $formAdvancedRoleEditing->addInput('rol_cost'.$key, $gL10n->get('SYS_CONTRIBUTION').' '.$gSettingsManager->getString('system_currency'), $data['rol_cost'], array('type' => 'number', 'minNumber' => -99999, 'maxNumber' => 99999, 'step' => 0.01));
+    $formAdvancedRoleEditing->addSelectBox('rol_cost_period'.$key, $gL10n->get('SYS_CONTRIBUTION_PERIOD'), TableRoles::getCostPeriods(), array('defaultValue' => $data['rol_cost_period']));
+    $formAdvancedRoleEditing->addInput('rol_description'.$key, $gL10n->get('SYS_DESCRIPTION'), $data['rol_description']);
+    
+    $formAdvancedRoleEditing->closeGroupBox();
+}
+
+$formAdvancedRoleEditing->addDescription('</div>');
+$formAdvancedRoleEditing->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+$page->addHtml(getMenuePanel('preferences', 'advancedroleediting', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING'), 'fas fa-users-cog', $formAdvancedRoleEditing->show()));
+
 // PANEL: ACCOUNT_DATA                    
 
 $formAccountData = new HtmlForm('accountdata_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'accountdata')), $page, array('class' => 'form-preferences'));
@@ -560,9 +588,6 @@ for ($conf = 0; $conf < $num_familyroles; $conf++)
 $formTestsSetup->addDescription('</div>');
 $formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC2'));
 $formTestsSetup->addLine();
-$familienrollen = beitragsrollen_einlesen('fam');
-$altersrollen = beitragsrollen_einlesen('alt');
-$fixrollen = beitragsrollen_einlesen('fix');
 $formTestsSetup->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC2'));
 if ((count($altersrollen) > 0) || (count($familienrollen) > 0) || (count($fixrollen) > 0))
 {

@@ -12,6 +12,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Weitere Spalte hinzufügen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Weitere Konfiguration hinzufügen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Zusätzliche Felder</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING">Erweiterte Rollenbearbeitung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING_DESC">Hier besteht die Möglichkeit, in allen Beitragsrollen (ausgenommen Familienrollen) direkt die Einträge "Beitrag", "Beitragszeitraum" und "Beschreibung" zu editieren.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_AGE">Alter</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_DESC">Alter zum Stichtag</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_LIMIT">Altersgrenze</string>

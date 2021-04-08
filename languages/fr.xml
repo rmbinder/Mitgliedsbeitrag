@@ -12,6 +12,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Ajouter une autre colonne</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Ajouter une configuration supplémentaire</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS">Champs supplémentaires</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING">Modification de rôle avancée</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING_DESC">Ici, vous avez la possibilité d'éditer directement les entrées «Contribution», «Période de cotisation» et «Description» dans tous les rôles de contribution (à l'exception des rôles familiaux).</string>        
     <string name="PLG_MITGLIEDSBEITRAG_AGE">Âge</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_DESC">Âge à la date du bilan</string>
     <string name="PLG_MITGLIEDSBEITRAG_AGE_LIMIT">Limite d\'âge</string>

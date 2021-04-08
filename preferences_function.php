@@ -95,6 +95,25 @@ try
             }
             break;
 
+        case 'advancedroleediting':
+            $altersrollen = beitragsrollen_einlesen('alt');
+            $fixrollen = beitragsrollen_einlesen('fix');
+            $alt_fix_rollen = $altersrollen + $fixrollen;
+            unset($altersrollen);
+            unset($fixrollen);
+            
+            $role = new TableRoles($gDb);
+            
+            foreach($alt_fix_rollen as $rol_id => $dummy)
+            {
+                $role->readDataById((int) $rol_id);
+                $role->setvalue('rol_cost', $_POST['rol_cost'. $rol_id]);
+                $role->setvalue('rol_cost_period', $_POST['rol_cost_period'. $rol_id]);
+                $role->setvalue('rol_description', $_POST['rol_description'. $rol_id]);
+                $role->save();
+            }
+            break;
+            
         case 'accountdata':
             unset($pPreferences->config['Kontodaten']);
 
