@@ -804,7 +804,7 @@ for ($conf = 0; $conf < $num_individualcontributions; $conf++)
         }
     }
     
-    $formIndividualContributionsSetup->addSelectBox('individual_contributions_profilefield'.$conf, $gL10n->get('MEM_PROFILE_FIELD'), $fieldSelectionList2, array('firstEntry' => '', 'defaultValue' => $pPreferences->config['individual_contributions']['profilefield'][$conf], 'showContextDependentFirstEntry' => true));
+    $formIndividualContributionsSetup->addSelectBox('individual_contributions_profilefield'.$conf, $gL10n->get('SYS_PROFILE_FIELD'), $fieldSelectionList2, array('firstEntry' => '', 'defaultValue' => $pPreferences->config['individual_contributions']['profilefield'][$conf], 'showContextDependentFirstEntry' => true));
     
     if($num_individualcontributions != 1)
     {

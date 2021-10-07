@@ -184,7 +184,7 @@ else
     $columnHeading = array(
         $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'),
         $gL10n->get('PLG_MITGLIEDSBEITRAG_CHOICE'),
-        $gL10n->get('MEM_PROFILE_FIELD'),
+        $gL10n->get('SYS_PROFILE_FIELD'),
         $gL10n->get('PLG_MITGLIEDSBEITRAG_CHOICE'),
         $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET')
     );

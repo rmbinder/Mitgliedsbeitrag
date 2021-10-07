@@ -158,7 +158,7 @@ $fieldHistoryStatement = $gDb->queryPrepared($sql, $queryParams);
 
 if($fieldHistoryStatement->rowCount() === 0)
 {
-    $gMessage->show($gL10n->get('MEM_NO_CHANGES'));
+    $gMessage->show($gL10n->get('SYS_NO_CHANGES_LOGGED'));
     // => EXIT
 }
 

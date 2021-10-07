@@ -37,6 +37,6 @@ echo '
 	'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_DESC').'<br/><br/>
     <strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT').'</strong><br/>
 	'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT_DESC').'<br/><br/>	
-    <strong>'.$gL10n->get('MEM_PROFILE_FIELD').'</strong><br/>
+    <strong>'.$gL10n->get('SYS_PROFILE_FIELD').'</strong><br/>
 	'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PROFILE_FIELD_DESC').'
 </div>';
