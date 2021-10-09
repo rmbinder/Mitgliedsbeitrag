@@ -31,7 +31,9 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 // Konfiguration einlesen
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
+
 $oneDueDateOnly = false;
+$user = new User($gDb, $gProfileFields);
 
 if (!isset($_POST['duedatesepatype']))
 {
@@ -93,7 +95,8 @@ foreach ($members as $member => $memberdata)
         {
         	if (empty($members[$member]['BIC']))
         	{
-        		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', array('<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$zpflgt[$member]['name']. '</a>')), $gL10n->get('SYS_ERROR'));
+                $user->readDataById($member);
+        		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', array('<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$zpflgt[$member]['name']. '</a>')), $gL10n->get('SYS_ERROR'));
         	}
         	$zpflgt[$member]['land'] = substr($zpflgt[$member]['iban'], 0, 2);
         	$zpflgt[$member]['street'] = substr(replace_sepadaten($members[$member]['DEBTOR_STREET']), 0, 70);    

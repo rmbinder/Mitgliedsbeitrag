@@ -35,6 +35,8 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
+$user = new User($gDb, $gProfileFields);
+
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
     // ajax mode then only show text if error occurs
@@ -78,8 +80,8 @@ if ($getMode == 'assign')
     try
     {
         foreach ($userArray as $dummy => $data)
-        {
-            $user = new User($gDb, $gProfileFields, $data);
+        {   
+            $user->readDataById($data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein Faelligkeitsdatum vorhanden ist
             if (strlen($user->getValue('DUEDATE'.ORG_ID)) === 0)
@@ -395,7 +397,8 @@ else
     				|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
     		{
     			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
-    			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$htmlValue.'</a>';
+                $user->readDataById($member);
+    			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
     		}
     		else
     		{
