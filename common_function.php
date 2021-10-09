@@ -550,9 +550,10 @@ function analyse_rol()
  */
 function check_rollenmitgliedschaft_altersrolle()
 {
-    global $gL10n;
+    global $gL10n, $gDb, $gProfileFields;
     $ret = array();
     $alt = beitragsrollen_einlesen('alt', array('FIRST_NAME', 'LAST_NAME'));
+    $user = new User($gDb, $gProfileFields);
 
     $check = array();
     foreach ($alt as $altrol => $altdata)
@@ -575,7 +576,9 @@ function check_rollenmitgliedschaft_altersrolle()
             {
                 $alterstypen .= ' ('.$alterstyp.')';
             }
-            $ret[] .= '- <a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$alterstypen. '</a>';
+            $user->readDataById($member);
+
+            $ret[] .= '- <a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$alterstypen. '</a>';
         }
     }
 
@@ -596,8 +599,10 @@ function check_rollenmitgliedschaft_altersrolle()
  */
 function check_rollenmitgliedschaft_pflicht()
 {
-    global $pPreferences, $gL10n;
+    global $pPreferences, $gL10n, $gDb, $gProfileFields;
     $ret = array();
+    $user = new User($gDb, $gProfileFields);
+
 
     // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benoetigt, ist aber notwendig,
     // damit die Rollenmitglieder eingelesen werden)
@@ -656,7 +661,8 @@ function check_rollenmitgliedschaft_pflicht()
         }
         if (!$marker)
         {
-            $ret[] .= '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $user->readDataById($member);
+            $ret[] .= '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -677,8 +683,9 @@ function check_rollenmitgliedschaft_pflicht()
  */
 function check_rollenmitgliedschaft_ausschluss()
 {
-    global $pPreferences, $gL10n;
+    global $pPreferences, $gL10n, $gDb, $gProfileFields;
     $ret = array();
+    $user = new User($gDb, $gProfileFields);
 
     // alle Beitragsrollen einlesen ('FIRST_NAME' wird zwar in der Funktion nicht benoetigt, ist aber notwendig,
     // damit die Rollenmitglieder eingelesen werden)
@@ -794,7 +801,8 @@ function check_rollenmitgliedschaft_ausschluss()
 
         if ($marker)
         {
-            $ret[] .= '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $user->readDataById($member);
+            $ret[] .= '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -882,7 +890,7 @@ function check_rols()
  */
 function check_family_roles()
 {
-    global $pPreferences, $gL10n;
+    global $pPreferences, $gL10n, $gDb;
     $ret = array();
     $ret_error = array();
     $temp_arr  = array();
@@ -890,6 +898,8 @@ function check_family_roles()
     $ret_marker = false;
     $fam = beitragsrollen_einlesen('fam', array('LAST_NAME', 'FIRST_NAME', 'BIRTHDAY'));
     $check = $pPreferences->config['Familienrollen'];
+    $role = new TableRoles($gDb);
+
 
     // alle Pruefbedingungen einlesen
     foreach($check['familienrollen_prefix'] as $key => $prefix)
@@ -977,7 +987,8 @@ function check_family_roles()
                 }
                 if (count($ret_temp) !== 0)
                 {
-                    $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('rol_id' => $famkey)). '">'.$famdata['rolle']. '</a>
+                    $test = $role->readDataById($famkey);
+                    $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$famdata['rolle']. '</a>
                         <a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/lists_show.php', array('mode' => 'html', 'rol_ids' => $famkey)). '">
                             <i class="fas fa-users" alt="'.$gL10n->get('SYS_SHOW_MEMBER_LIST').'" title="'.$gL10n->get('SYS_SHOW_MEMBER_LIST').'"></i>
                         </a>';
@@ -1011,8 +1022,9 @@ function check_family_roles()
  */
 function check_mandate_management()
 {
-    global $gL10n;
+    global $gL10n, $gDb, $gProfileFields;
     $ret = array();
+    $user = new User($gDb, $gProfileFields);
 
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_STREET'), 0);
 
@@ -1020,7 +1032,8 @@ function check_mandate_management()
     {
         if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_STREET']) === 0)))
         {
-            $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $user->readDataById($member);
+            $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -1041,8 +1054,9 @@ function check_mandate_management()
  */
 function check_iban()
 {
-    global $gL10n;
+    global $gL10n, $gDb, $gProfileFields;
     $ret = array();
+    $user = new User($gDb, $gProfileFields);
 
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN'), 0);
 
@@ -1050,7 +1064,8 @@ function check_iban()
     {
         if ((strlen($memberdata['IBAN']) === 1) || ((strlen($memberdata['IBAN']) > 1) && !test_iban($memberdata['IBAN'])))
         {
-            $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+            $user->readDataById($member);
+            $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
 
@@ -1116,16 +1131,18 @@ function test_iban($iban)
  */
 function check_bic()
 {
-	global $gL10n, $pPreferences, $gCurrentOrganization;
+	global $gL10n, $pPreferences, $gCurrentOrganization, $gDb, $gProfileFields;
 	$ret = array();
+    $user = new User($gDb, $gProfileFields);
 	
 	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'BIC'), 0);
 	
 	foreach ($members as $member => $memberdata)
 	{
 		if (isIbanNOT_EU_EWR($memberdata['IBAN']) && empty($memberdata['BIC']))
-		{ 
-			$ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $member)). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+		{
+            $user->readDataById($member); 
+			$ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
 	}
 
