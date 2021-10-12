@@ -82,6 +82,9 @@ if ($getMode == 'preview')     //Default
      		{
      		    $usfid = $pPreferences->config['individual_contributions']['profilefield'][$i];
      		    $multiplikator = $user->getValue($gProfileFields->getPropertyById((int) $usfid, 'usf_name_intern'));
+     		    
+     		    //wenn das Profilfeld leer ist, dann wäre $multiplikator = ""; mit "" kann aber nicht multipliziert werden
+     		    $multiplikator = ($multiplikator === "") ?  0 : $multiplikator;
      		} 
             
             $amount =   $pPreferences->config['individual_contributions']['amount'][$i] * $multiplikator;
