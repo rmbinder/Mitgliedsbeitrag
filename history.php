@@ -33,6 +33,8 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
+$user = new User($gDb, $gProfileFields);
+
 // calculate default date from which the contribution history should be shown
 $filterDateFrom = DateTime::createFromFormat('Y-m-d', DATE_NOW);
 $filterDateFrom->modify('-'.$gSettingsManager->getString('members_days_field_history').' day');
@@ -429,7 +431,8 @@ while($row = $fieldHistoryStatement->fetch())
    		}
    		else
    		{
-   			$table->addRowByArray($columnValues[$row['usl_usr_id']], null, array('style' => 'cursor: pointer', 'onclick' => 'window.location.href=\''. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $row['usl_usr_id'])). '\''));
+            $user->readDataById($row['usl_usr_id']);
+   			$table->addRowByArray($columnValues[$row['usl_usr_id']], null, array('style' => 'cursor: pointer', 'onclick' => 'window.location.href=\''. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '\''));
    		}
    		unset($columnValues[$row['usl_usr_id']]);
    	}
