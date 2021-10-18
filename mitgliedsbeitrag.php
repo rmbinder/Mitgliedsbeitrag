@@ -40,6 +40,8 @@ $showOption = admFuncVariableIsValid($_GET, 'show_option', 'string');
 $pPreferences = new ConfigTablePMB();
 $checked = $pPreferences->checkforupdate();
 
+$role = new TableRoles($gDb);
+
 if ($checked == 1)        //Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
 {
 	$pPreferences->init();
@@ -655,8 +657,10 @@ if(count($rols) > 0)
     $rollen = beitragsrollen_einlesen('', array('LAST_NAME'));
     foreach ($rollen as $rol_id => $data)
     {
+        $role->readDataById($rol_id);
+    
         $columnValues = array();
-        $columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('rol_id' => $rol_id)). '">'.$data['rolle']. '</a>';
+        $columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rolle']. '</a>';
         $columnValues[] = expand_rollentyp($data['rollentyp']);
         $columnValues[] = count($data['members']);
         $table->addRowByArray($columnValues);

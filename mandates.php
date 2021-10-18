@@ -34,6 +34,8 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
+$user = new User($gDb, $gProfileFields);
+
 if (isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
     // ajax mode then only show text if error occurs
@@ -64,7 +66,7 @@ if ($getMode == 'assign')
    {
         foreach ($userArray as $dummy => $data)
         {
-            $user = new User($gDb, $gProfileFields, $data);
+            $user->readDataById($data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein Mandatsdatum vorhanden ist
             if (strlen($user->getValue('MANDATEDATE'.ORG_ID)) === 0)
@@ -274,8 +276,10 @@ else
     		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
     	}
     	
+        $user->readDataById($member);
+        
     	$columnValues = array($content);
-        $columnValues[] = '<a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $member)). '">
+        $columnValues[] = '<a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">
             <i class="fas fa-edit" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'"></i>';
       		
     	foreach ($memberData as $usfId => $data)
@@ -322,7 +326,7 @@ else
     				|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
     		{
     			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
-    			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$htmlValue.'</a>';
+    			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
     		}
     		else
     		{

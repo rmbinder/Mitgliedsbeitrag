@@ -13,7 +13,7 @@
  *
  * mode             : html   - Standardmodus zum Anzeigen einer html-Liste
  *                    assign - Schreiben der Aenderungen in die Datenbank
- * usr_id           : Id des Benutzers, fuer den die Mandatsaenderungen durchgefuehrt werden
+ * usr_uuid         : Uuid des Benutzers, fuer den die Mandatsaenderungen durchgefuehrt werden
  * iban             : die neue IBAN des Zahlungspflichtigen
  * origiban         : die urspruengliche IBAN des Zahlungspflichtigen
  * mandateid        : die neue Mandatsreferenz des Zahlungspflichtigen
@@ -45,7 +45,7 @@ if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 
 // Initialize and check the parameters
 $getMode            = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'assign')));
-$getUserId          = admFuncVariableIsValid($_GET, 'user_id', 'numeric');
+$getUserUuid        = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
 $getIBAN            = admFuncVariableIsValid($_GET, 'iban', 'string');
 $getOrigIBAN        = admFuncVariableIsValid($_GET, 'origiban', 'string');
 $getMandateID       = admFuncVariableIsValid($_GET, 'mandateid', 'string');
@@ -54,7 +54,8 @@ $getBankChanged     = admFuncVariableIsValid($_GET, 'bankchanged', 'string');
 $getBank            = admFuncVariableIsValid($_GET, 'bank', 'string', array('defaultValue' => ''));
 $getBIC             = admFuncVariableIsValid($_GET, 'bic', 'string', array('defaultValue' => ''));
 
-$user = new User($gDb, $gProfileFields, $getUserId);
+$user = new User($gDb, $gProfileFields);
+$user->readDataByUuid($getUserUuid);
 
 if($getMode == 'assign')
 {
@@ -175,7 +176,7 @@ else
                 $("input[type=text]#origdebtoragent").val("SMNDA");
             }
             else {
-                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $getUserId)).'");
+                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_uuid' => $getUserUuid)).'");
             }
         }); 
    
@@ -189,7 +190,7 @@ else
             var bic = $("input[type=text]#bic").val();
             var bankchanged = $("input[type=checkbox]#bankchanged").prop("checked");
         
-            var action ="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_id' => $getUserId, 'mode' => 'assign')) .'&iban=" + iban + "&origiban=" + origiban + "&mandateid=" + mandateid + "&origmandateid=" + origmandateid + "&bank=" + bank + "&bic=" + bic + "&bankchanged=" + bankchanged;
+            var action ="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_uuid' => $getUserUuid, 'mode' => 'assign')) .'&iban=" + iban + "&origiban=" + origiban + "&mandateid=" + mandateid + "&origmandateid=" + origmandateid + "&bank=" + bank + "&bic=" + bic + "&bankchanged=" + bankchanged;
  
             var formAlert = $("#" + id + " .form-alert");
             formAlert.hide();
