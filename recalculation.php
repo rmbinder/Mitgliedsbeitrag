@@ -35,6 +35,8 @@ $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
+$user = new User($gDb, $gProfileFields);
+
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION');
 
@@ -335,9 +337,11 @@ if ($getMode == 'preview')     //Default
 
 		foreach ($members as $member => $data)
 		{
-			$columnValues = array();
-			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['LAST_NAME'].'</a>';
-			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['FIRST_NAME'].'</a>';
+            $user->readDataById($member);
+			
+            $columnValues = array();
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['LAST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] = $data['FEE_NEW'];
 			$columnValues[] = $data['CONTRIBUTORY_TEXT_NEW'];
 			$columnValues[] = $data['FEE'.ORG_ID];
@@ -388,18 +392,17 @@ elseif ($getMode == 'write')
 						  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
-	$user = new User($gDb, $gProfileFields);
-	
 	foreach ($_SESSION['pMembershipFee']['recalculation_user'] as $member => $data)
 	{
+        $user->readDataById($member);
+    
 		$columnValues = array();
-		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['LAST_NAME'].'</a>';
-		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$data['FIRST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['LAST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['FIRST_NAME'].'</a>';
 		$columnValues[] = $data['FEE_NEW'];
 		$columnValues[] = $data['CONTRIBUTORY_TEXT_NEW'];
 		$table->addRowByArray($columnValues);
 		
-		$user->readDataById($member);
 		$user->setValue('FEE'.ORG_ID, $data['FEE_NEW']);
 		$user->setValue('CONTRIBUTORY_TEXT'.ORG_ID, $data['CONTRIBUTORY_TEXT_NEW']);
 		$user->save();         

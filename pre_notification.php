@@ -36,6 +36,8 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
+$user = new User($gDb, $gProfileFields);
+
 if(isset($_GET['mode']) && ($_GET['mode'] == 'csv_export' || $_GET['mode'] == 'mail_export' || $_GET['mode'] == 'prepare'))
 {
     // ajax mode then only show text if error occurs
@@ -91,7 +93,7 @@ if($getMode == 'csv_export')
 
         foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId)
         {
-            $user = new User($gDb, $gProfileFields, $UserId);
+            $user->readDataById($UserId);
 
             $export .= $nr.';';
             $export .= $user->getValue('MEMBERNUMBER'.ORG_ID).';';
@@ -287,15 +289,15 @@ else
         }
         else                        // Alle aendern wurde gewaehlt
         {
-            while($user = $statement->fetch())
+            while($usr = $statement->fetch())
             {
-                if (in_array($user['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
+                if (in_array($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
                 {
-                    unset($_SESSION['pMembershipFee']['checkedArray'][$user['usr_id']]);
+                    unset($_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']]);
                 }
                 else
                 {
-                    $_SESSION['pMembershipFee']['checkedArray'][$user['usr_id']] = $user['usr_id'];
+                    $_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']] = $usr['usr_id'];
                 }
 
             }
@@ -483,7 +485,7 @@ else
         $table->setDatatablesColumnsHide(array(8, 10, 12));
 
         // show rows with all organization users
-        while($user = $statement->fetch())
+        while($usr = $statement->fetch())
         {
             $addressText  = ' ';
             $htmlAddress  = '&nbsp;';
@@ -499,24 +501,24 @@ else
             $lastschrifttyp = '';
 
             //1. Spalte ($htmlDueDateStatus)
-           if (in_array($user['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
+           if (in_array($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
             {
-                $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
+                $htmlDueDateStatus = '<input type="checkbox" id="member_'.$usr['usr_id'].'" name="member_'.$usr['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$usr['usr_id'].'"></b>';
             }
             else
             {
-                $htmlDueDateStatus = '<input type="checkbox" id="member_'.$user['usr_id'].'" name="member_'.$user['usr_id'].'" class="memlist_checkbox" /><b id="loadindicator_member_'.$user['usr_id'].'"></b>';
+                $htmlDueDateStatus = '<input type="checkbox" id="member_'.$usr['usr_id'].'" name="member_'.$usr['usr_id'].'" class="memlist_checkbox" /><b id="loadindicator_member_'.$usr['usr_id'].'"></b>';
             }
 
             //2. Spalte ($htmlDueDate)
-           if($user['faelligkeitsdatum'] > 0)
+           if($usr['faelligkeitsdatum'] > 0)
             {
-                $DueDate = \DateTime::createFromFormat('Y-m-d', $user['faelligkeitsdatum']);
+                $DueDate = \DateTime::createFromFormat('Y-m-d', $usr['faelligkeitsdatum']);
                 $htmlDueDate = $DueDate->format($gSettingsManager->getString('system_date'));
             }
 
             //3. Spalte ($htmlLastschrifttyp)
-            switch($user['lastschrifttyp'])
+            switch($usr['lastschrifttyp'])
             {
                case 'RCUR':
                   $lastschrifttyp = 'R';
@@ -535,9 +537,9 @@ else
             }
 
             //4. Spalte ($htmlBeitrag)
-            if($user['beitrag'] > 0)
+            if($usr['beitrag'] > 0)
             {
-                $htmlBeitrag = $user['beitrag'].' '.$gSettingsManager->getString('system_currency');
+                $htmlBeitrag = $usr['beitrag'].' '.$gSettingsManager->getString('system_currency');
             }
 
             //5. Spalte (Nachname)
@@ -545,13 +547,13 @@ else
             //6. Spalte (Vorname)
 
             //7. Spalte ($htmlAddress)
-            if(strlen($user['zip_code']) > 0 || strlen($user['city']) > 0)
+            if(strlen($usr['zip_code']) > 0 || strlen($usr['city']) > 0)
             {
-                $addressText .= $user['zip_code']. ' '. $user['city'];
+                $addressText .= $usr['zip_code']. ' '. $usr['city'];
             }
-            if(strlen($user['street']) > 0)
+            if(strlen($usr['street']) > 0)
             {
-                $addressText .= ' - '. $user['street'];
+                $addressText .= ' - '. $usr['street'];
             }
             if(strlen($addressText) > 1)
             {
@@ -561,17 +563,17 @@ else
             //8. Spalte ($addressText)
 
             //10. Spalte ($htmlDebtorText)
-            if(strlen($user['debtor']) > 0)
+            if(strlen($usr['debtor']) > 0)
             {
-                $debtor_text = $user['debtor'];
+                $debtor_text = $usr['debtor'];
             }
-            if(strlen($user['debtorstreet']) > 0)
+            if(strlen($usr['debtorstreet']) > 0)
             {
-                $debtor_text = $debtor_text. ' - '. $user['debtorstreet'];
+                $debtor_text = $debtor_text. ' - '. $usr['debtorstreet'];
             }
-            if(strlen($user['debtorpostcode']) > 0 || strlen($user['debtorcity']) > 0)
+            if(strlen($usr['debtorpostcode']) > 0 || strlen($usr['debtorcity']) > 0)
             {
-                $debtor_text = $debtor_text. ' - '. $user['debtorpostcode']. ' '. $user['debtorcity'];
+                $debtor_text = $debtor_text. ' - '. $usr['debtorpostcode']. ' '. $usr['debtorcity'];
             }
 
             if(strlen($debtor_text) > 1)
@@ -580,18 +582,18 @@ else
             }
 
             //11. Spalte ($htmlMail)
-            if(strlen($user['debtor']) > 0)
+            if(strlen($usr['debtor']) > 0)
             {
-                 if(strlen($user['debtoremail']) > 0)
+                 if(strlen($usr['debtoremail']) > 0)
                  {
-                    $email = $user['debtoremail'];
+                    $email = $usr['debtoremail'];
                  }
             }
             else
             {
-                 if(strlen($user['email']) > 0)
+                 if(strlen($usr['email']) > 0)
                  {
-                    $email = $user['email'];
+                    $email = $usr['email'];
                  }
             }
             if(strlen($email) > 0)
@@ -602,17 +604,19 @@ else
                  }
                  else
                  {
-                    $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('usr_id' => $user['usr_id']));
+                    $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('usr_id' => $usr['usr_id']));
                  }
                  $htmlMail = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($email)).'"></i>';
             }
 
             //12. Spalte ($email)
 
-            if(strlen($user['mandatsreferenz']) > 0)
+            if(strlen($usr['mandatsreferenz']) > 0)
             {
-                $htmlMandateID = $user['mandatsreferenz'];
+                $htmlMandateID = $usr['mandatsreferenz'];
             }
+            
+            $user->readDataById($usr['usr_id']);
 
             // create array with all column values
             $columnValues = array(
@@ -620,8 +624,8 @@ else
                 $htmlDueDate,
                 $htmlLastschrifttyp,
                 $htmlBeitrag,
-                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $user['usr_id'])) .'">'.$user['last_name'].'</a>',
-                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_id' => $user['usr_id'])) .'">'.$user['first_name'].'</a>',
+                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))) .'">'.$usr['last_name'].'</a>',
+                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))) .'">'.$usr['first_name'].'</a>',
                 $htmlAddress,
                 $addressText,
                 $htmlDebtorText,
@@ -631,7 +635,7 @@ else
                 $htmlMandateID
             );
 
-            $table->addRowByArray($columnValues, 'userid_'.$user['usr_id']);
+            $table->addRowByArray($columnValues, 'userid_'.$usr['usr_id']);
         }//End While
 
         $page->addHtml($table->show(false));

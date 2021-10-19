@@ -35,6 +35,9 @@ $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
+$user = new User($gDb, $gProfileFields);
+$role = new TableRoles($gDb);
+
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES');
 
@@ -66,9 +69,11 @@ if ($getMode == 'preview')     //Default
 		{
 			if(strlen($memberdata['BIRTHDAY']) === 0)
 			{
+                $user->readDataById($member);
+
 				$gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_MISSING_BIRTHDAY',array(
-						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$memberdata['FIRST_NAME'].'</a>',
-						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $member)).'">'.$memberdata['LAST_NAME'].'</a>' )));
+						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$memberdata['FIRST_NAME'].'</a>',
+						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$memberdata['LAST_NAME'].'</a>' )));
 			}
 	
 			$age = ageCalculator(strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag']));
@@ -167,14 +172,17 @@ if ($getMode == 'preview')     //Default
 
 		foreach ($members as $data)
 		{
+            $user->readDataById($data['user_id']);
+            $role->readDataById($data['role_id']);
+
 			$columnValues = array();
-			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['LAST_NAME'].'</a>';
-			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['FIRST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['LAST_NAME'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] = $data['age'];
 			$columnValues[] = $data['icon_role_old'];
 			$columnValues[] = $data['icon_role_new'];
 			$columnValues[] = $data['icon_role_not_exist'];
-			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))).'">'.$data['role'].'</a>';
 			$table->addRowByArray($columnValues);
 		}
 
@@ -224,14 +232,17 @@ elseif ($getMode == 'write')
 	
 	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
 	{
-		$columnValues = array();
-		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['LAST_NAME'].'</a>';
-		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_id' => $data['user_id'])).'">'.$data['FIRST_NAME'].'</a>';
+        $user->readDataById($data['user_id']);
+        $role->readDataById($data['role_id']);
+		
+        $columnValues = array();
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['LAST_NAME'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['FIRST_NAME'].'</a>';
 		$columnValues[] = $data['age'];
 		$columnValues[] = $data['icon_role_old'];
 		$columnValues[] = $data['icon_role_new'];
 		$columnValues[] = $data['icon_role_not_exist'];
-		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('rol_id' => $data['role_id'])).'">'.$data['role'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))).'">'.$data['role'].'</a>';
 		$table->addRowByArray($columnValues);
 		
 		if ($data['toDo'] == 'delete')
