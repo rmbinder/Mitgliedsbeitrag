@@ -1588,10 +1588,11 @@ function obfuscate_iban($iban) {
 /**
  * Returns the value with a html link to the mail module
  * @param string $value           The value that should be formated
- * @param int    $member          The user id
+ * @param string $user_uuid       The user uuid
+ * @param string $usf_uuid        The usf uuid
  * @return string The formated string 
  */
-function getEmailLink($value, $member)
+function getEmailLink($value, $user_uuid, $usf_uuid)
 {
     global $gSettingsManager;
 	
@@ -1605,7 +1606,7 @@ function getEmailLink($value, $member)
 		}
 		else
 		{
-			$emailLink = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('usr_id' => $member));
+		    $emailLink = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('user_uuid' => $user_uuid, 'usf_uuid' => $usf_uuid));
 		}
 		if (strlen($value) > 30)
 		{

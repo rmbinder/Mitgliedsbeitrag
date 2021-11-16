@@ -7,11 +7,10 @@
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
- * Hinweis:   message_write.php ist eine modifizierte messages_write.php
- *
  * Parameters:
- *
- * usr_id    : E-Mail an den entsprechenden Benutzer schreiben
+ * 
+ * user_uuid    : send message to the given user UUID
+ * usf_uuid     : UUID of the (email) profile field which was transferred
  ***********************************************************************************************
  */
 
@@ -28,31 +27,43 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
-$getUserId      = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0));
+$getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
+$getUsfUuid  = admFuncVariableIsValid($_GET, 'usf_uuid', 'string');
 
-$getSubject = '';
+//$getSubject = '';
+$mailSubject = '';
+$mailBody    = '';
+$currUsrId   = (int) $gCurrentUser->getValue('usr_id');
 
 // check if the call of the page was allowed by settings
-if ($gSettingsManager->getString('enable_mail_module') != 1)
+if (!$gSettingsManager->getBool('enable_mail_module'))
 {
     // message if the sending of PM is not allowed
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
+    // => EXIT
 }
 
 // check if user has email address for sending a email
-if ($gValidLogin && strlen($gCurrentUser->getValue('EMAIL')) === 0)
+if (!$gCurrentUser->hasEmail())
 {
-    $gMessage->show($gL10n->get('SYS_CURRENT_USER_NO_EMAIL', '<a href="'. ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php">', '</a>'));
+    $gMessage->show($gL10n->get('SYS_CURRENT_USER_NO_EMAIL', array('<a href="'.ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php">', '</a>')));
+    // => EXIT
 }
 
 //usr_id wurde uebergeben, dann Kontaktdaten des Users aus der DB fischen
-$user = new User($gDb, $gProfileFields, $getUserId);
+$user = new User($gDb, $gProfileFields);
+$user->readDataByUuid($getUserUuid);
 
-// if an User ID is given, we need to check if the actual user is alowed to contact this user
-if (($gCurrentUser->editUsers() == false && isMember($user->getValue('usr_id')) == false)
+//die Daten des übergebenen (EMail)Profilfeldes auslesen
+$userField = new TableUserField($gDb);
+$userField->readDataByUuid($getUsfUuid);
+
+// if an User ID is given, we need to check if the actual user is allowed to contact this user
+if ((!$gCurrentUser->editUsers() && !isMember((int) $user->getValue('usr_id')))
    || strlen($user->getValue('usr_id')) === 0)
 {
     $gMessage->show($gL10n->get('SYS_USER_ID_NOT_FOUND'));
+    // => EXIT
 }
 
 // Subject und Body erzeugen
@@ -74,31 +85,90 @@ $mailSrcText = replace_emailparameter($mailSrcText, $user);
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
 {
-    $getSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
+    $mailSubject = trim(substr($mailSrcText, strpos($mailSrcText, '#subject#') + 9, strpos($mailSrcText, '#content#') - 9));
 }
 else
 {
-    $getSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
+    $mailSubject = 'Nachricht von '. $gCurrentOrganization->getValue('org_longname');
 }
 
 if(strpos($mailSrcText, '#content#') !== false)
 {
-    $getBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
+    $mailBody   = trim(substr($mailSrcText, strpos($mailSrcText, '#content#') + 9));
 }
 else
 {
-    $getBody   = $mailSrcText;
+    $mailBody   = $mailSrcText;
 }
 
-$getBody = preg_replace('/\r\n/', '<br/>', $getBody);
+$mailBody = preg_replace('/\r\n/', '<br/>', $mailBody);
 
-if (strlen($getSubject) > 0)
+if ($mailSubject !== '')
 {
-    $headline = $gL10n->get('MAI_SUBJECT').': '.$getSubject;
+    $headline = $gL10n->get('SYS_SUBJECT').': '.$mailSubject;
 }
 else
 {
-    $headline = $gL10n->get('MAI_SEND_EMAIL');
+    $headline = $gL10n->get('SYS_SEND_EMAIL');
+}
+
+//Datensatz fuer E-Mail-Adresse zusammensetzen
+if($userField->getValue('usf_name_intern') === 'DEBTOR_EMAIL')                      // Problem: 'DEBTOR_EMAIL' ist als TEXT in der DB definiert
+{
+    if(StringUtils::strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
+    {
+        $userEmail = $user->getValue('DEBTOR').' <'.$user->getValue('DEBTOR_EMAIL').'>';
+    }
+    else 
+    {
+        $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', array($user->getValue('DEBTOR'))));
+        // => EXIT
+    }
+}
+else 
+{
+    if(StringUtils::strValidCharacters($user->getValue($userField->getValue('usf_name_intern')), 'email'))
+    {
+        $userEmail = $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME').' <'.$user->getValue($userField->getValue('usf_name_intern')).'>';
+    }
+    else
+    {
+        $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', array($user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME'))));
+        // => EXIT
+    }
+}
+
+// Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,
+// dann soll das Formular gefuellt werden mit den Werten aus der Session
+// dieser Fall tritt i.d.R. nur ein, wenn der Mailversand fehlgeschlagen ist
+if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['pMembershipFee']['message_request']))
+{
+    // Das Formular wurde also schon einmal ausgef�llt,
+    // da der User hier wieder gelandet ist nach der Mailversand-Seite
+    $formValues = $_SESSION['pMembershipFee']['message_request'];
+    unset($_SESSION['pMembershipFee']['message_request']);
+    $gNavigation->deleteLastUrl();                                  
+    if(!isset($formValues['carbon_copy']))
+    {
+        $formValues['carbon_copy'] = false;
+    }
+    if(!isset($formValues['delivery_confirmation']))
+    {
+        $formValues['delivery_confirmation'] = false;
+    }
+    if(!isset($formValues['mailfrom']))
+    {
+        $formValues['mailfrom'] = $user->getValue('EMAIL');
+    }    
+}
+else
+{
+    $formValues['msg_subject']  = $mailSubject;
+    $formValues['msg_body']     = $mailBody;
+    $formValues['namefrom']     = '';
+    $formValues['mailfrom']     = $gCurrentUser->getValue('EMAIL');
+    $formValues['carbon_copy']  = false;
+    $formValues['delivery_confirmation'] = false;
 }
 
 // add current url to navigation stack
@@ -106,112 +176,90 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-message-write', $headline);
 
- //Datensatz fuer E-Mail-Adresse zusammensetzen
-if(strlen($user->getValue('DEBTOR')) > 0)
-{
-    if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
-    {
-        // besitzt der User eine gueltige E-Mail-Adresse
-        if (!StringUtils::strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
-        {
-            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('DEBTOR')));
-        }
-        else
-        {
-            $userEmail = $user->getValue('DEBTOR_EMAIL');
-        }
-    }
-}
-else
-{
-    if(strlen($user->getValue('EMAIL')) > 0)
-    {
-        // besitzt der User eine gueltige E-Mail-Adresse
-        if (!StringUtils::strValidCharacters($user->getValue('EMAIL'), 'email'))
-        {
-            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
-        }
-        else
-        {
-            $userEmail = $user->getValue('EMAIL');
-        }
-    }
-}
-
-// Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,
-// dann soll das Formular gefuellt werden mit den Werten aus der Session
-if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['pMembershipFee']['message_request']))
-{
-    // Das Formular wurde also schon einmal ausgef�llt,
-    // da der User hier wieder gelandet ist nach der Mailversand-Seite
-    $form_values = strStripSlashesDeep($_SESSION['pMembershipFee']['message_request']);
-    unset($_SESSION['pMembershipFee']['message_request']);
-    $gNavigation->deleteLastUrl();
-}
-else
-{
-    $form_values['name']         = '';
-    $form_values['mailfrom']     = '';
-    $form_values['subject']      = $getSubject;
-    $form_values['msg_body']     = $getBody;
-    $form_values['msg_to']       = 0;
-    $form_values['carbon_copy']  = 1;
-    $form_values['delivery_confirmation']  = 0;
-}
-
-$formParams = array('usr_id' => $getUserId);
-
-// if subject was set as param then send this subject to next script
-if (strlen($getSubject) > 0)
-{
-    $formParams['subject'] = $getSubject;
-}
-
 // show form
-$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', $formParams), $page);
+$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', array('user_uuid' => $getUserUuid)), $page, array('enableFileUpload' => true)); 
+
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
-
-if ($getUserId > 0)
-{
-    // usr_id wurde uebergeben, dann E-Mail direkt an den User schreiben
-    $preload_data = '{ id: "' .$getUserId. '", text: "' .$userEmail. '", locked: true}';
-}
-
 $form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED));
 $form->addLine();
-$form->addInput('name', $gL10n->get('MAI_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'), array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED));
-$form->addInput('mailfrom', $gL10n->get('MAI_YOUR_EMAIL'), $gCurrentUser->getValue('EMAIL'), array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED));
-$form->addCheckbox('carbon_copy', $gL10n->get('MAI_SEND_COPY'), $form_values['carbon_copy']);
+$form->addInput('namefrom', $gL10n->get('SYS_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'), 
+    array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED)
+);
 
-if (($gCurrentUser->getValue('usr_id') > 0 && $gSettingsManager->getString('mail_delivery_confirmation') == 2) || $gSettingsManager->getString('mail_delivery_confirmation') == 1)
+//Auswahlmöglichkeit für Sender-EMail-Adresse (falls es mehrere gibt)
+$sql = 'SELECT COUNT(*) AS count
+          FROM '.TBL_USER_FIELDS.'
+    INNER JOIN '. TBL_USER_DATA .'
+            ON usd_usf_id = usf_id
+         WHERE usf_type = \'EMAIL\'
+           AND usd_usr_id = ? -- $currUsrId
+           AND usd_value IS NOT NULL';
+
+$pdoStatement = $gDb->queryPrepared($sql, array($currUsrId));
+$possibleEmails = $pdoStatement->fetchColumn();
+
+if($possibleEmails > 1)
 {
-    $form->addCheckbox('delivery_confirmation', $gL10n->get('MAI_DELIVERY_CONFIRMATION'), $form_values['delivery_confirmation']);
+    $sqlData = array();
+    $sqlData['query'] = 'SELECT email.usd_value AS ID, email.usd_value AS email
+                           FROM '.TBL_USERS.'
+                     INNER JOIN '.TBL_USER_DATA.' AS email
+                             ON email.usd_usr_id = usr_id
+                            AND LENGTH(email.usd_value) > 0
+                     INNER JOIN '.TBL_USER_FIELDS.' AS field
+                             ON field.usf_id = email.usd_usf_id
+                            AND field.usf_type = \'EMAIL\'
+                          WHERE usr_id = ? -- $currUsrId
+                            AND usr_valid = 1
+                       GROUP BY email.usd_value, email.usd_value';
+    $sqlData['params'] = array($currUsrId);
+
+    $form->addSelectBoxFromSql(
+        'mailfrom', $gL10n->get('SYS_YOUR_EMAIL'), $gDb, $sqlData,
+        array('maxLength' => 50, 'defaultValue' => $formValues['mailfrom'], 'showContextDependentFirstEntry' => false)
+    );
+}
+else
+{
+    $form->addInput(
+        'mailfrom', $gL10n->get('SYS_YOUR_EMAIL'), $formValues['mailfrom'],
+        array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED)
+    );
+}
+
+$form->addCheckbox('carbon_copy', $gL10n->get('SYS_SEND_COPY'), $formValues['carbon_copy']);
+
+// if preference is set then show a checkbox where the user can request a delivery confirmation for the email
+if (( (int) $gSettingsManager->get('mail_delivery_confirmation') === 2) || (int) $gSettingsManager->get('mail_delivery_confirmation') === 1)
+{
+    $form->addCheckbox('delivery_confirmation', $gL10n->get('SYS_DELIVERY_CONFIRMATION'), $formValues['delivery_confirmation']);
 }
 
 $form->closeGroupBox();
 
 $form->openGroupBox('gb_mail_message', $gL10n->get('SYS_MESSAGE'));
-$form->addInput('subject', $gL10n->get('MAI_SUBJECT'), $form_values['subject'], array('maxLength' => 77, 'property' => HtmlForm::FIELD_REQUIRED));
+$form->addInput('msg_subject', $gL10n->get('SYS_SUBJECT'), $formValues['msg_subject'], array('maxLength' => 77, 'property' => HtmlForm::FIELD_REQUIRED));
 
-$form->addFileUpload('btn_add_attachment', $gL10n->get('MAI_ATTACHEMENT'), array('enableMultiUploads' => true,
-                                                                                 'multiUploadLabel'   => $gL10n->get('MAI_ADD_ATTACHEMENT'),
-                                                                                 'hideUploadField'    => true,
-                                                                                 'helpTextIdLabel'    => $gL10n->get('MAI_MAX_ATTACHMENT_SIZE', array(Email::getMaxAttachmentSize(Email::SIZE_UNIT_MEBIBYTE)))));
-
-// add textfield or ckeditor to form
-if($gValidLogin == true && $gSettingsManager->getString('mail_html_registered_users') == 1)
+if (($gSettingsManager->getInt('max_email_attachment_size') > 0) && PhpIniUtils::isFileUploadEnabled())
 {
-    $form->addEditor('msg_body', null, $form_values['msg_body']);
-}
-else
-{
-    $form->addMultilineTextInput('msg_body', $gL10n->get('SYS_TEXT'), null, 10);
+    $form->addFileUpload(
+        'btn_add_attachment', $gL10n->get('SYS_ATTACHMENT'),
+        array(
+            'enableMultiUploads' => true,
+            'maxUploadSize'      => Email::getMaxAttachmentSize(),
+            'multiUploadLabel'   => $gL10n->get('SYS_ADD_ATTACHMENT'),
+            'hideUploadField'    => true,
+            'helpTextIdLabel'    => $gL10n->get('SYS_MAX_ATTACHMENT_SIZE', array(Email::getMaxAttachmentSize(Email::SIZE_UNIT_MEBIBYTE))),
+            'icon'               => 'fa-paperclip'
+        )
+    );
 }
 
+$form->addEditor('msg_body', '', $formValues['msg_body'], array('property' => HtmlForm::FIELD_REQUIRED));
 $form->closeGroupBox();
 
 $form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => 'fa-envelope'));
 
-$page->addHtml($form->show(false));
+$page->addHtml($form->show());
 
 $page->show();

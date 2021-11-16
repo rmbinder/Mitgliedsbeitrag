@@ -35,6 +35,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
+$userField = new TableUserField($gDb);
 
 if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
 {
@@ -341,7 +342,7 @@ else
     $table->setColumnAlignByArray($columnAlign);
     $table->addRowHeadingByArray($columnValues);
     $table->disableDatatablesColumnsSort(array(1));
-   
+    
  	//user data
     foreach ($membersList as $member => $memberData)
     {
@@ -362,6 +363,8 @@ else
     		{
     			continue;
     		}
+    		
+    		$userField->readDataById($usfId);
 
     		// fill content with data of database
     		$content = $data;
@@ -415,18 +418,20 @@ else
     			$content = '<div class="orig_debtor_agent_'.$member.'" id="orig_debtor_agent_'.$member.'">'.$data.'</div>';
     		}
 
+    		$user->readDataById($member);
+    		
     		// firstname and lastname get a link to the profile
     		if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id')
     					|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
     		{
-    			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
-                $user->readDataById($member);
+    			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content);
     			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
     		}
-    		elseif  (($usfId === (int) $gProfileFields->getProperty('EMAIL', 'usf_id')
-    				|| $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id')))
+    		elseif  ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'EMAIL' || $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'))
+    			//	elseif  (($usfId === (int) $gProfileFields->getProperty('EMAIL', 'usf_id')
+    			//	    || $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id')))
     		{
-    			$columnValues[] = getEmailLink($data, $member);
+    		    $columnValues[] = getEmailLink($data, $user->getValue('usr_uuid'), $userField->getValue('usf_uuid'));
     		}
     		else
     		{
