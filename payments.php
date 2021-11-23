@@ -428,8 +428,6 @@ else
     			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
     		}
     		elseif  ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'EMAIL' || $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'))
-    			//	elseif  (($usfId === (int) $gProfileFields->getProperty('EMAIL', 'usf_id')
-    			//	    || $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id')))
     		{
     		    $columnValues[] = getEmailLink($data, $user->getValue('usr_uuid'), $userField->getValue('usf_uuid'));
     		}

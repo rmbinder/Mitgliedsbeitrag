@@ -10,13 +10,20 @@
  * Parameters:
  *
  * user_uuid  : Send email to this user
+ * usf_uuid   : UUID of the (email) profile field which was transferred
  ***********************************************************************************************
  */
 
 require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/common_function.php');
+require_once(__DIR__ . '/classes/configtable.php');
+
+//testen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//use PHPMailer\PHPMailer\Exception;
 
 // Initialize and check the parameters
-$getUserUuid   = admFuncVariableIsValid($_GET, 'user_uuid', 'string', array('defaultValue' => $gCurrentUser->getValue('usr_uuid')));
+$getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
+$getUsfUuid  = admFuncVariableIsValid($_GET, 'usf_uuid', 'string');
 
 // Check form values
 $postFrom                  = admFuncVariableIsValid($_POST, 'mailfrom', 'string', array('defaultValue' => $gCurrentUser->getValue('EMAIL')));
@@ -29,10 +36,27 @@ $postCarbonCopy            = admFuncVariableIsValid($_POST, 'carbon_copy', 'bool
 // save form data in session for back navigation
 $_SESSION['pMembershipFee']['message_request'] = $_POST;
 
+// save page in navigation - to have a check for a navigation back.
+$gNavigation->addUrl(CURRENT_URL);
+
 // Stop if mail should be send and mail module is disabled
 if (!$gSettingsManager->getBool('enable_mail_module'))
 {
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
+    // => EXIT
+}
+
+if ($postSubject === '')
+{
+    // message when no subject is given
+    $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', array($gL10n->get('SYS_SUBJECT'))));
+    // => EXIT
+}
+
+if ($postBody === '')
+{
+    // message when no subject is given
+    $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', array($gL10n->get('SYS_MESSAGE'))));
     // => EXIT
 }
 
@@ -43,14 +67,16 @@ if (empty($_POST))
     // => EXIT
 }
 
-$sendResult = false;
-$currUsrId = (int) $gCurrentUser->getValue('usr_id');
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
 
-// if no User is set, he is not able to ask for delivery confirmation 
-if (!($currUsrId > 0 && $gSettingsManager->getInt('mail_delivery_confirmation') == 2) && $gSettingsManager->getInt('mail_delivery_confirmation') != 1)
-{
-    $postDeliveryConfirmation = false;
-}
+$sendMailResultMessage = '';
+$sendMailResultSendOK = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILSEND_OK').'</strong>');
+$sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL').'</strong>');
+$sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR').'</strong>');
+
+$sendResult  = false;
+$currUsrId   = (int) $gCurrentUser->getValue('usr_id');
 
 // object to handle the current message in the database
 $message = new TableMessage($gDb);
@@ -59,159 +85,211 @@ $message->setValue('msg_subject', $postSubject);
 $message->setValue('msg_usr_id_sender', $gCurrentUser->getValue('usr_id'));
 $message->addContent($postBody);      
 
-// Create new Email Object
-$email = new Email();
-
 $user = new User($gDb, $gProfileFields);
-$user->readDataByUuid($getUserUuid);
+$userField = new TableUserField($gDb);
 
-// error if no valid Email for given user ID
-if (!StringUtils::strValidCharacters($user->getValue('EMAIL'), 'email'))
+if ($getUserUuid !== '' && $getUsfUuid !== '')                          // ein einzelner E-Mail-Link wurde angeklickt
 {
-    $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME')));
+    $user->readDataByUuid($getUserUuid);
+    $mailToArray = array($user->getValue('usr_id') => $getUsfUuid);
 }
-
-// save page in navigation - to have a check for a navigation back.
-$gNavigation->addUrl(CURRENT_URL);
-
-// check if name is given
-if(strlen($postName) === 0)
+else                                                                    // wenn nicht, dann kann es nur eine Liste sein (erzeugt von pre_notification.php)
 {
-    $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', $gL10n->get('SYS_NAME')));
-}
-
-// set sending address
-if ($email->setSender($postFrom, $postName))
-{
-    // set subject
-    if ($email->setSubject($postSubject))
+    $mailToArray = $_SESSION['pMembershipFee']['checkedArray'];
+    foreach ($mailToArray as $userId => $usfUuid )
     {
-        // check for attachment
-        if (isset($_FILES['userfile']))
+        if ($usfUuid === '')
         {
-            // final check if user is logged in
-            if (!$gValidLogin)
+            unset($mailToArray[$userId]);
+        }
+    }
+}
+
+foreach ($mailToArray as $userId => $usfUuid )
+{
+    // Create new Email Object
+    $email = new Email();
+
+    $user->readDataById($userId);
+    $userField->readDataByUuid($usfUuid);
+    
+    // add user to the message object
+    $message->addUser((int) $user->getValue('usr_id'), $user->getValue('FIRST_NAME') . ' ' . $user->getValue('LAST_NAME'));
+    
+    //Datensatz fuer E-Mail-Adresse zusammensetzen
+    if($userField->getValue('usf_name_intern') === 'DEBTOR_EMAIL')                      // Problem: 'DEBTOR_EMAIL' ist als TEXT in der DB definiert
+    {
+        $receiverEmail = $user->getValue('DEBTOR_EMAIL');
+        $receiverName = $user->getValue('DEBTOR');
+    }
+    else 
+    {
+        $receiverEmail = $user->getValue($userField->getValue('usf_name_intern'));
+        $receiverName = $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME');
+    }
+   
+    if (!StringUtils::strValidCharacters($receiverEmail, 'email'))
+    {
+        $sendMailResultMissingEmail[] = $receiverName;
+        continue;
+    }
+    
+    // evtl. definierte Parameter ersetzen
+    $postSubject = replace_emailparameter($postSubject, $user);
+    $postBody = replace_emailparameter($postBody, $user);   
+    
+    // set sending address
+    if ($email->setSender($postFrom, $postName))
+    {
+        // set subject
+        if ($email->setSubject($postSubject))
+        {
+            // check for attachment
+            if (isset($_FILES['userfile']))
             {
-                $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
-            }
-            $attachmentSize = 0;
-            // add now every attachment
-            for ($currentAttachmentNo = 0; isset($_FILES['userfile']['name'][$currentAttachmentNo]); ++$currentAttachmentNo)
-            {
-                // check if Upload was OK
-                if (($_FILES['userfile']['error'][$currentAttachmentNo] !== UPLOAD_ERR_OK) 
-                &&  ($_FILES['userfile']['error'][$currentAttachmentNo] !== UPLOAD_ERR_NO_FILE))
+                // isat dsas norwendig ; bin ja eingeloggt
+                // final check if user is logged in
+                if (!$gValidLogin)
                 {
-                    $gMessage->show($gL10n->get('SYS_ATTACHMENT_TO_LARGE'));
-                    // => EXIT
+                    $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
                 }
-                
-                // check if a file was really uploaded
-                if(!file_exists($_FILES['userfile']['tmp_name'][$currentAttachmentNo]) || !is_uploaded_file($_FILES['userfile']['tmp_name'][$currentAttachmentNo]))
+
+                $attachmentSize = 0;
+                // add now every attachment
+                for ($currentAttachmentNo = 0; isset($_FILES['userfile']['name'][$currentAttachmentNo]); ++$currentAttachmentNo)
                 {
-                    $gMessage->show($gL10n->get('SYS_FILE_NOT_EXIST'));
-                    // => EXIT
-                }
-                    
-                if ($_FILES['userfile']['error'][$currentAttachmentNo] === UPLOAD_ERR_OK)
-                {
-                    // check the size of the attachment
-                    $attachmentSize += $_FILES['userfile']['size'][$currentAttachmentNo];
-                    if ($attachmentSize > Email::getMaxAttachmentSize())
+                    // check if Upload was OK
+                    if (($_FILES['userfile']['error'][$currentAttachmentNo] !== UPLOAD_ERR_OK) 
+                    &&  ($_FILES['userfile']['error'][$currentAttachmentNo] !== UPLOAD_ERR_NO_FILE))
                     {
                         $gMessage->show($gL10n->get('SYS_ATTACHMENT_TO_LARGE'));
                         // => EXIT
                     }
-
-                    // set filetyp to standart if not given
-                    if (strlen($_FILES['userfile']['type'][$currentAttachmentNo]) <= 0)
+                
+                    // check if a file was really uploaded
+                    if(!file_exists($_FILES['userfile']['tmp_name'][$currentAttachmentNo]) || !is_uploaded_file($_FILES['userfile']['tmp_name'][$currentAttachmentNo]))
                     {
-                        $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';                        
+                        $gMessage->show($gL10n->get('SYS_FILE_NOT_EXIST'));
+                        // => EXIT
                     }
+                    
+                    if ($_FILES['userfile']['error'][$currentAttachmentNo] === UPLOAD_ERR_OK)
+                    {
+                        // check the size of the attachment
+                        $attachmentSize += $_FILES['userfile']['size'][$currentAttachmentNo];
+                        if ($attachmentSize > Email::getMaxAttachmentSize())
+                        {
+                            $gMessage->show($gL10n->get('SYS_ATTACHMENT_TO_LARGE'));
+                            // => EXIT
+                        }
 
-                    // add the attachment to the mail
-                    try
-                    {
-                        $email->AddAttachment($_FILES['userfile']['tmp_name'][$currentAttachmentNo], $_FILES['userfile']['name'][$currentAttachmentNo], $encoding = 'base64', $_FILES['userfile']['type'][$currentAttachmentNo]);
-                        $message->addAttachment($_FILES['userfile']['tmp_name'][$currentAttachmentNo], $_FILES['userfile']['name'][$currentAttachmentNo]);
+                        // set filetyp to standart if not given
+                        if (strlen($_FILES['userfile']['type'][$currentAttachmentNo]) <= 0)
+                        {
+                            $_FILES['userfile']['type'][$currentAttachmentNo] = 'application/octet-stream';                        
+                        }
+
+                        // add the attachment to the mail
+                        try
+                        {
+                            $email->AddAttachment($_FILES['userfile']['tmp_name'][$currentAttachmentNo], $_FILES['userfile']['name'][$currentAttachmentNo], $encoding = 'base64', $_FILES['userfile']['type'][$currentAttachmentNo]);
+                            $message->addAttachment($_FILES['userfile']['tmp_name'][$currentAttachmentNo], $_FILES['userfile']['name'][$currentAttachmentNo]);
+                        }
+                        catch (phpmailerException $e)
+                        {
+                            $gMessage->show($e->errorMessage());
+                        }             
                     }
-                    catch (phpmailerException $e)
-                    {
-                        $gMessage->show($e->errorMessage());
-                    }             
                 }
             }
+        }
+        else
+        {
+            $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', $gL10n->get('MAI_SUBJECT')));
         }
     }
     else
     {
-        $gMessage->show($gL10n->get('SYS_FIELD_EMPTY', $gL10n->get('MAI_SUBJECT')));
+        $gMessage->show($gL10n->get('SYS_EMAIL_INVALID', $gL10n->get('SYS_EMAIL')));
     }
-}
-else
-{
-    $gMessage->show($gL10n->get('SYS_EMAIL_INVALID', $gL10n->get('SYS_EMAIL')));
-}
 
-// if possible send html mail
-if($gValidLogin == true && $gSettingsManager->getString('mail_html_registered_users') == 1)
-{
-    $email->setHtmlMail();
-}
-
-// set flag if copy should be send to sender
-if (isset($postCarbonCopy) && $postCarbonCopy == true)
-{
-    $email->setCopyToSenderFlag();
-}
-
-$email->addRecipient($user->getValue('EMAIL'), $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME'));
-
-// add user to the message object
-$message->addUser((int) $user->getValue('usr_id'), $user->getValue('FIRST_NAME') . ' ' . $user->getValue('LAST_NAME'));
- 
-// add confirmation mail to the sender
-if($postDeliveryConfirmation == 1)
-{
-    $email->ConfirmReadingTo = $gCurrentUser->getValue('EMAIL');
-}
-
-// load mail template and replace text
-$email->setTemplateText($postBody, $postName, $gCurrentUser->getValue('EMAIL'), $message->getRecipientsNamesString());
-    
-// finally send the mail
-$sendResult = $email->sendEmail();
-    
-// within this mode an smtp protocol will be shown and the header was still send to browser
-if ($gDebug && headers_sent())
-{
-    $email->isSMTP();
-    $gMessage->showHtmlTextOnly(true);
-}
-    
-// message if send/save is OK
-if ($sendResult === TRUE)
-{
-    // save mail to database
-    $message->save();
-	
-    // after sending remove the actual Page from the NaviObject and remove also the send-page
-    $gNavigation->deleteLastUrl();
-    $gNavigation->deleteLastUrl();
-    
-    // message if sending was OK
-    if ($gNavigation->count() > 0)
+    // if possible send html mail
+    if ($gValidLogin && $gSettingsManager->getBool('mail_html_registered_users'))
     {
-		$gMessage->setForwardUrl($gNavigation->getUrl(), 2000);
+        $email->setHtmlMail();
+    }
+
+    // set flag if copy should be send to sender
+    if (isset($postCarbonCopy) && $postCarbonCopy)
+    {
+        $email->setCopyToSenderFlag();
+    }
+
+    //den User dem Mailobjekt hinzufuegen...
+    $email->addRecipient($receiverEmail, $receiverName);
+    
+    // add confirmation mail to the sender
+    if($postDeliveryConfirmation)
+    {
+        $email->ConfirmReadingTo = $gCurrentUser->getValue('EMAIL');
+    }
+
+    // load mail template and replace text
+    $email->setTemplateText($postBody, $postName, $gCurrentUser->getValue('EMAIL'), $message->getRecipientsNamesString());
+    
+    // finally send the mail
+    $sendMailResult = $email->sendEmail();
+    
+    // within this mode an smtp protocol will be shown and the header was still send to browser
+    if ($gDebug && headers_sent())
+    {
+        $email->isSMTP();
+        $gMessage->showHtmlTextOnly(true);
+    }
+
+    if ($sendMailResult === TRUE)
+    {
+        $sendMailResultSendOK[] = $receiverName.' ('.$receiverEmail.')';
     }
     else
     {
-        $gMessage->setForwardUrl($gHomepage, 2000);
+        if(strlen($receiverEmail) > 0)
+        {
+            $sendMailResultAnotherError[] = $sendMailResult.$receiverName;
+        }
     }
-
-    $gMessage->show($gL10n->get('SYS_EMAIL_SEND'));
+    
+    // save mail to database
+    $message->save();
 }
-else
+ 
+// Erfolgsmeldung zusammensetzen
+if(count($sendMailResultSendOK) > 1)
 {
-    $gMessage->show($sendResult . '<br />' . $gL10n->get('SYS_EMAIL_NOT_SEND', array($gL10n->get('SYS_RECIPIENT'), $sendResult)));
+    foreach ($sendMailResultSendOK as $data)
+    {
+        $sendMailResultMessage .= $data.'<br/>';
+    }
+    $sendMailResultMessage .= '<br/>';
 }
+if(count($sendMailResultMissingEmail) > 1)
+{
+    foreach ($sendMailResultMissingEmail as $data)
+    {
+        $sendMailResultMessage .= $data.'<br/>';
+    }
+    $sendMailResultMessage .= '<br/>';
+}
+if(count($sendMailResultAnotherError) > 1)
+{
+    foreach ($sendMailResultAnotherError as $data)
+    {
+        $sendMailResultMessage .= $data.'<br/>';
+    }
+}
+
+$gNavigation->deleteLastUrl();
+
+// zur Ausgangsseite zurueck
+$gMessage->setForwardUrl($gNavigation->getPreviousUrl(), 0);
+$gMessage->show($sendMailResultMessage);

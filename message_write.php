@@ -18,22 +18,15 @@ require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
+$getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
+$getUsfUuid  = admFuncVariableIsValid($_GET, 'usf_uuid', 'string');
+
 // only authorized user are allowed to start this module
 if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 {
 	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+	// => EXIT
 }
-
-$pPreferences = new ConfigTablePMB();
-$pPreferences->read();
-
-$getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
-$getUsfUuid  = admFuncVariableIsValid($_GET, 'usf_uuid', 'string');
-
-//$getSubject = '';
-$mailSubject = '';
-$mailBody    = '';
-$currUsrId   = (int) $gCurrentUser->getValue('usr_id');
 
 // check if the call of the page was allowed by settings
 if (!$gSettingsManager->getBool('enable_mail_module'))
@@ -50,20 +43,47 @@ if (!$gCurrentUser->hasEmail())
     // => EXIT
 }
 
-//usr_id wurde uebergeben, dann Kontaktdaten des Users aus der DB fischen
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
+
+$mailSubject = '';
+$mailBody    = '';
+$currUsrId   = (int) $gCurrentUser->getValue('usr_id');
+$mailToArray = $_SESSION['pMembershipFee']['checkedArray'];
+
 $user = new User($gDb, $gProfileFields);
-$user->readDataByUuid($getUserUuid);
-
-//die Daten des übergebenen (EMail)Profilfeldes auslesen
 $userField = new TableUserField($gDb);
-$userField->readDataByUuid($getUsfUuid);
 
-// if an User ID is given, we need to check if the actual user is allowed to contact this user
-if ((!$gCurrentUser->editUsers() && !isMember((int) $user->getValue('usr_id')))
-   || strlen($user->getValue('usr_id')) === 0)
+foreach ($mailToArray as $userId => $usfUuid )
 {
-    $gMessage->show($gL10n->get('SYS_USER_ID_NOT_FOUND'));
+    if ($usfUuid === '')
+    {
+        unset($mailToArray[$userId]);
+    }
+}
+
+if ($getUserUuid !== '' && $getUsfUuid !== '')                          // ein E-Mail-Link wurde angeklickt
+{
+    $user->readDataByUuid($getUserUuid);
+    $userField->readDataByUuid($getUsfUuid);
+    $singleMail = true;
+}
+elseif (count($mailToArray) < 1)
+{
+    $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
     // => EXIT
+}
+elseif (count($mailToArray) === 1)                                      // der Mail-Button wurde angeklickt (aber es gibt nur eine Mail-Adresse in der Liste)
+{
+    $user->readDataById(key($mailToArray));
+    $getUserUuid = $user->getValue('usr_uuid');
+    $getUsfUuid = current($mailToArray);
+    $userField->readDataByUuid($getUsfUuid);
+    $singleMail = true;
+}
+else 
+{
+    $singleMail = false;
 }
 
 // Subject und Body erzeugen
@@ -80,7 +100,11 @@ elseif (substr_count($gNavigation->getUrl(), 'payments') === 1)
 }
 
 $mailSrcText = $text->getValue('txt_text');
-$mailSrcText = replace_emailparameter($mailSrcText, $user);
+
+if ($singleMail)
+{
+    $mailSrcText = replace_emailparameter($mailSrcText, $user);             // nur wenn eine einzige Empfängeradresse vorhanden ist, die Parameter ersetzen
+}
 
 // Betreff und Inhalt anhand von Kennzeichnungen splitten oder ggf. Default-Inhalte nehmen
 if(strpos($mailSrcText, '#subject#') !== false)
@@ -112,30 +136,37 @@ else
     $headline = $gL10n->get('SYS_SEND_EMAIL');
 }
 
-//Datensatz fuer E-Mail-Adresse zusammensetzen
-if($userField->getValue('usf_name_intern') === 'DEBTOR_EMAIL')                      // Problem: 'DEBTOR_EMAIL' ist als TEXT in der DB definiert
+if ($singleMail)
 {
-    if(StringUtils::strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
+    //Datensatz fuer E-Mail-Adresse zusammensetzen
+    if($userField->getValue('usf_name_intern') === 'DEBTOR_EMAIL')                      // Problem: 'DEBTOR_EMAIL' ist als TEXT in der DB definiert
     {
-        $userEmail = $user->getValue('DEBTOR').' <'.$user->getValue('DEBTOR_EMAIL').'>';
+        if(StringUtils::strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
+        {
+            $userEmail = $user->getValue('DEBTOR').' <'.$user->getValue('DEBTOR_EMAIL').'>';
+        }
+        else 
+        {
+            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', array($user->getValue('DEBTOR'))));
+            // => EXIT
+        }
     }
     else 
     {
-        $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', array($user->getValue('DEBTOR'))));
-        // => EXIT
+        if(StringUtils::strValidCharacters($user->getValue($userField->getValue('usf_name_intern')), 'email'))
+        {
+            $userEmail = $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME').' <'.$user->getValue($userField->getValue('usf_name_intern')).'>';
+        }
+        else
+        {
+            $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', array($user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME'))));
+            // => EXIT
+        }
     }
 }
 else 
 {
-    if(StringUtils::strValidCharacters($user->getValue($userField->getValue('usf_name_intern')), 'email'))
-    {
-        $userEmail = $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME').' <'.$user->getValue($userField->getValue('usf_name_intern')).'>';
-    }
-    else
-    {
-        $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', array($user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME'))));
-        // => EXIT
-    }
+    $userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', array(count($mailToArray)));
 }
 
 // Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,
@@ -158,7 +189,7 @@ if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['p
     }
     if(!isset($formValues['mailfrom']))
     {
-        $formValues['mailfrom'] = $user->getValue('EMAIL');
+        $formValues['mailfrom'] = $gCurrentUser->getValue('EMAIL');
     }    
 }
 else
@@ -177,7 +208,7 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 $page = new HtmlPage('plg-mitgliedsbeitrag-message-write', $headline);
 
 // show form
-$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', array('user_uuid' => $getUserUuid)), $page, array('enableFileUpload' => true)); 
+$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', array('user_uuid' => $getUserUuid, 'usf_uuid' => $getUsfUuid)), $page, array('enableFileUpload' => true)); 
 
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
 $form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED));

@@ -1598,7 +1598,7 @@ function getEmailLink($value, $user_uuid, $usf_uuid)
 	
 	$htmlValue = '';
 	
-	if ($value !== '')
+	if (StringUtils::strValidCharacters($value, 'email'))
 	{
 	    if (!$gSettingsManager->getBool('enable_mail_module'))
 		{
