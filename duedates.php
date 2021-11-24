@@ -392,12 +392,12 @@ else
     			$content = '<div class="duedate_'.$member.'" id="duedate_'.$member.'">'.$content.'</div>';
     		}
     		
+    		$user->readDataById($member);
     		// firstname and lastname get a link to the profile
     		if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id')
     				|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
     		{
     			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content);
-                $user->readDataById($member);
     			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
     		}
     		else
@@ -409,7 +409,7 @@ else
     			}
     			else
     			{
-    				$columnValues[] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
+    			    $columnValues[] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $user->getValue('usr_uuid'));
     			}
     		}
     	}

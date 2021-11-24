@@ -325,7 +325,7 @@ else
     		if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id')
     				|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
     		{
-    			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
+    			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content);
     			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
     		}
     		else
@@ -333,11 +333,11 @@ else
     			// checkbox must set a sorting value
     			if ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
     			{
-    				$columnValues[] = array('value' => $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member), 'order' => $content);
+    				$columnValues[] = array('value' => $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content), 'order' => $content);
     			}
     			else
     			{
-    				$columnValues[] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $member);
+    			    $columnValues[] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $user->getValue('usr_uuid'));
     			}
     		}
     	}
