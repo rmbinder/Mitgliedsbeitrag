@@ -95,7 +95,7 @@ else
     $userArray = array();
     $membersList = array();
    
-    $membersListFields = $pPreferences->config['columnconfig']['mandates_fields'];
+    $membersListFields = array_filter($pPreferences->config['columnconfig']['mandates_fields']);                //array_filter: löschen leerer Einträge, falls das Setup fehlgeschlagen ist 
     
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
@@ -267,7 +267,7 @@ else
     //user data
     foreach ($membersList as $member => $memberData)
     {
-    	if (strlen($memberData[$gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id')]) > 0)
+    	if (isset($memberData[$gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id')]) && strlen($memberData[$gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id')]) > 0)
     	{
     		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
     	}

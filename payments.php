@@ -153,7 +153,7 @@ else
     	$membersListRols = 0;
     }
     
-    $membersListFields = $pPreferences->config['columnconfig']['payments_fields'];
+    $membersListFields = array_filter($pPreferences->config['columnconfig']['payments_fields']);            //array_filter: löschen leerer Einträge, falls das Setup fehlgeschlagen ist 
 
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
