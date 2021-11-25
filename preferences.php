@@ -765,24 +765,21 @@ $page->addHtml(getMenuePanel('preferences', 'access_preferences', 'accordion_pre
 $formIndividualContributionsSetup = new HtmlForm('individual_contributions_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'individualcontributions')), $page, array('class' => 'form-preferences'));
 
 $selectBoxEntries = array(
-    '0' => $gL10n->get('SYS_DEACTIVATED'),
-    '1' => $gL10n->get('SYS_ACTIVATED'));
+    '0' => $gL10n->get('SYS_DISABLED'),
+    '1' => $gL10n->get('SYS_ENABLED'));
 $formIndividualContributionsSetup->addSelectBox(
     'enable_individual_contributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS'), $selectBoxEntries,
     array('defaultValue' => $pPreferences->config['individual_contributions']['access_to_module'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC'));
 
-$html = '<a class="admidio-icon-link openPopup" href="javascript:void(0);"
-            data-href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/individualcontributions_popup.php').'">'.
-            '<i class="fas fa-info" data-toggle="tooltip" title="' . $gL10n->get('SYS_HELP') . '"></i> '.$gL10n->get('SYS_HELP').'</a>';
-$formIndividualContributionsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC').' '.$html);
+$formIndividualContributionsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC'));
 $formIndividualContributionsSetup->addLine();
 
 $formIndividualContributionsSetup->addDescription('<div style="width:100%; height:'.($num_individualcontributions<2 ? 500 : 650).'px; overflow:auto; border:20px;">');
 for ($conf = 0; $conf < $num_individualcontributions; $conf++)
 {
     $formIndividualContributionsSetup->openGroupBox('individualcontributions_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION'));
-    $formIndividualContributionsSetup->addInput('individual_contributions_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_DESCRIPTION'), $pPreferences->config['individual_contributions']['desc'][$conf], array( 'property' => HtmlForm::FIELD_REQUIRED));
-    $formIndividualContributionsSetup->addInput('individual_contributions_short_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION'), $pPreferences->config['individual_contributions']['short_desc'][$conf]);
+    $formIndividualContributionsSetup->addInput('individual_contributions_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_DESCRIPTION'), $pPreferences->config['individual_contributions']['desc'][$conf], array( 'property' => HtmlForm::FIELD_REQUIRED, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC'));
+    $formIndividualContributionsSetup->addInput('individual_contributions_short_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION'), $pPreferences->config['individual_contributions']['short_desc'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION_DESC'));
 
     $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
               FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
@@ -790,9 +787,9 @@ for ($conf = 0; $conf < $num_individualcontributions; $conf++)
                AND ( cat.cat_org_id = '.ORG_ID.'
                 OR cat.cat_org_id IS NULL )
           ORDER BY cat.cat_name DESC';
-    $formIndividualContributionsSetup->addSelectBoxFromSql('individual_contributions_role'.$conf,  $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), $gDb, $sql, array('defaultValue' => $pPreferences->config['individual_contributions']['role'][$conf],  'multiselect' => false));
+    $formIndividualContributionsSetup->addSelectBoxFromSql('individual_contributions_role'.$conf,  $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), $gDb, $sql, array('defaultValue' => $pPreferences->config['individual_contributions']['role'][$conf],  'multiselect' => false, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_ROLE_DESC'));
     
-    $formIndividualContributionsSetup->addInput('individual_contributions_amount'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT'), $pPreferences->config['individual_contributions']['amount'][$conf]);
+    $formIndividualContributionsSetup->addInput('individual_contributions_amount'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT'), $pPreferences->config['individual_contributions']['amount'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_AMOUNT_DESC'));
 
     $fieldSelectionList2 = array();
 
@@ -804,7 +801,7 @@ for ($conf = 0; $conf < $num_individualcontributions; $conf++)
         }
     }
     
-    $formIndividualContributionsSetup->addSelectBox('individual_contributions_profilefield'.$conf, $gL10n->get('SYS_PROFILE_FIELD'), $fieldSelectionList2, array('firstEntry' => '', 'defaultValue' => $pPreferences->config['individual_contributions']['profilefield'][$conf], 'showContextDependentFirstEntry' => true));
+    $formIndividualContributionsSetup->addSelectBox('individual_contributions_profilefield'.$conf, $gL10n->get('SYS_PROFILE_FIELD'), $fieldSelectionList2, array('firstEntry' => '', 'defaultValue' => $pPreferences->config['individual_contributions']['profilefield'][$conf], 'showContextDependentFirstEntry' => true, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_PROFILE_FIELD_DESC'));
     
     if($num_individualcontributions != 1)
     {
@@ -821,7 +818,7 @@ $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class=
 $formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
 $formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-euro-sign', $formIndividualContributionsSetup->show()));
+$page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-coins', $formIndividualContributionsSetup->show()));
     
 //PANEL: PLUGIN_INFORMATION                     
 

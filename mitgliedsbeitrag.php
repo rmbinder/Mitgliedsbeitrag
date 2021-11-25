@@ -290,10 +290,10 @@ if(count($rols) > 0)
     $formPayments = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', $page, array('class' => 'form-preferences'));
                                 
     $formPayments->addSelectBox('payments_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['payments_rol_sel']) ? $_SESSION['pMembershipFee']['payments_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC', 'multiselect' => true));              
-    $formPayments->addSubmitButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => 'fa-euro-sign', 'class' => 'offset-sm-3'));   
+    $formPayments->addSubmitButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => 'fa-coins', 'class' => 'offset-sm-3'));   
     $formPayments->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC'));
 
-    $page->addHtml(getMenuePanel('fees', 'payments', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS'), 'fas fa-euro-sign', $formPayments->show()));                            
+    $page->addHtml(getMenuePanel('fees', 'payments', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS'), 'fas fa-coins', $formPayments->show()));                            
                             
     // PANEL: ANALYSIS 
     
