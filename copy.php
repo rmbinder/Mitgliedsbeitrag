@@ -178,7 +178,7 @@ else
 
     // create table object
     $table = new HtmlTable('tbl_copy', $page, true, true, 'table table-condensed');
-    $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES_FOUND');
+    $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
 
     // create array with all column heading values
     $columnHeading = array(

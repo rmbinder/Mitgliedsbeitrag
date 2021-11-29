@@ -766,6 +766,9 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     }
     else
     {
+        $pPreferences = new ConfigTablePMB();
+        $pPreferences->init();      //Konfigurationstabelle anlegen
+        
         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));        
         $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'soll_ist')), 'class' => 'btn-primary'));
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));

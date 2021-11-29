@@ -294,7 +294,7 @@ else
 
     // create table object
     $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');
-    $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES_FOUND');
+    $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
 
     $columnAlign  = array('center');
     $columnValues = array( '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_CHANGE_ALL_DESC').'"/>');
