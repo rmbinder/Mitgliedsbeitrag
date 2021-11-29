@@ -95,7 +95,7 @@ if($getMode == 'csv_export')
             $user->readDataById($UserId);
 
             $export .= $nr.';';
-            $export .= $user->getValue('MEMBERNUMBER'.ORG_ID).';';
+            $export .= $user->getValue('MEMBERNUMBER'.$gCurrentOrgId).';';
             $export .= $user->getValue('FIRST_NAME').';';
             $export .= $user->getValue('LAST_NAME').';';
             $export .= $user->getValue('STREET').';';
@@ -105,7 +105,7 @@ if($getMode == 'csv_export')
             $export .= $user->getValue('PHONE').';';
             $export .= $user->getValue('MOBILE').';';
             $export .= $user->getValue('BIRTHDAY').';';
-            $export .= $user->getValue('ACCESSION'.ORG_ID).';';
+            $export .= $user->getValue('ACCESSION'.$gCurrentOrgId).';';
 
             if (strlen($user->getValue('DEBTOR')) !== 0)
             {
@@ -127,10 +127,10 @@ if($getMode == 'csv_export')
             $export .= $user->getValue('BANK').';';
             $export .= $user->getValue('BIC').';';
             $export .= $user->getValue('IBAN').';';
-            $export .= $user->getValue('MANDATEDATE'.ORG_ID).';';
-            $export .= $user->getValue('MANDATEID'.ORG_ID).';';
-            $export .= $user->getValue('DUEDATE'.ORG_ID).';';
-            $export .= $user->getValue('FEE'.ORG_ID).';';
+            $export .= $user->getValue('MANDATEDATE'.$gCurrentOrgId).';';
+            $export .= $user->getValue('MANDATEID'.$gCurrentOrgId).';';
+            $export .= $user->getValue('DUEDATE'.$gCurrentOrgId).';';
+            $export .= $user->getValue('FEE'.$gCurrentOrgId).';';
             $export .= "\n";
 
             $nr += 1;
@@ -163,10 +163,10 @@ else
             AND mem_begin <= \''.DATE_NOW.'\'
             AND mem_end    > \''.DATE_NOW.'\'
             AND usd_usr_id = usr_id
-            AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'). '
+            AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'). '
             AND rol_valid  = 1
             AND rol_cat_id = cat_id
-            AND (  cat_org_id = '. ORG_ID. '
+            AND (  cat_org_id = '. $gCurrentOrgId. '
                 OR cat_org_id IS NULL ) ';
 
     if($getDueDate != 0)                  // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
@@ -202,16 +202,16 @@ else
          AND street.usd_usf_id = ? -- $gProfileFields->getProperty(\'STREET\', \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS mandatsreferenz
           ON mandatsreferenz.usd_usr_id = usr_id
-         AND mandatsreferenz.usd_usf_id = ? -- $gProfileFields->getProperty(\'MANDATEID\'.ORG_ID, \'usf_id\')
+         AND mandatsreferenz.usd_usf_id = ? -- $gProfileFields->getProperty(\'MANDATEID\'.$gCurrentOrgId, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS faelligkeitsdatum
           ON faelligkeitsdatum.usd_usr_id = usr_id
-         AND faelligkeitsdatum.usd_usf_id = ? -- $gProfileFields->getProperty(\'DUEDATE\'.ORG_ID, \'usf_id\')
+         AND faelligkeitsdatum.usd_usf_id = ? -- $gProfileFields->getProperty(\'DUEDATE\'.$gCurrentOrgId, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS lastschrifttyp
           ON lastschrifttyp.usd_usr_id = usr_id
-         AND lastschrifttyp.usd_usf_id = ? -- $gProfileFields->getProperty(\'SEQUENCETYPE\'.ORG_ID, \'usf_id\')
+         AND lastschrifttyp.usd_usf_id = ? -- $gProfileFields->getProperty(\'SEQUENCETYPE\'.$gCurrentOrgId, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
           ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = ? -- $gProfileFields->getProperty(\'FEE\'.ORG_ID, \'usf_id\')
+         AND beitrag.usd_usf_id = ? -- $gProfileFields->getProperty(\'FEE\'.$gCurrentOrgId, \'usf_id\')
         LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
           ON zip_code.usd_usr_id = usr_id
          AND zip_code.usd_usf_id = ? -- $gProfileFields->getProperty(\'POSTCODE\', \'usf_id\')
@@ -250,10 +250,10 @@ else
         $gProfileFields->getProperty('BIRTHDAY', 'usf_id'),
         $gProfileFields->getProperty('CITY', 'usf_id'),
         $gProfileFields->getProperty('STREET', 'usf_id'),
-        $gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'),
-        $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
-        $gProfileFields->getProperty('SEQUENCETYPE'.ORG_ID, 'usf_id'),
-        $gProfileFields->getProperty('FEE'.ORG_ID, 'usf_id'),
+        $gProfileFields->getProperty('MANDATEID'.$gCurrentOrgId, 'usf_id'),
+        $gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'),
+        $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrgId, 'usf_id'),
+        $gProfileFields->getProperty('FEE'.$gCurrentOrgId, 'usf_id'),
         $gProfileFields->getProperty('POSTCODE', 'usf_id'),
         $gProfileFields->getProperty('DEBTOR', 'usf_id'),
         $gProfileFields->getProperty('DEBTOR_STREET', 'usf_id'),
@@ -417,21 +417,21 @@ else
         //alle Faelligkeitsdaten einlesen
         $sql = 'SELECT DISTINCT usd_value
                 FROM '.TBL_USER_DATA.','. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. '
-                WHERE usd_usf_id =  ? -- $gProfileFields->getProperty(\'DUEDATE\'.ORG_ID, \'usf_id\')
+                WHERE usd_usf_id =  ? -- $gProfileFields->getProperty(\'DUEDATE\'.$gCurrentOrgId, \'usf_id\')
                 AND   mem_begin <= ? -- DATE_NOW
                 AND   mem_end >= ? -- DATE_NOW
                 AND   usd_usr_id = mem_usr_id
                 AND   mem_rol_id = rol_id
                 AND   rol_valid = 1
                 AND   rol_cat_id = cat_id
-                AND (  cat_org_id = ? -- ORG_ID
+                AND (  cat_org_id = ? -- $gCurrentOrgId
                  OR cat_org_id IS NULL ) ';
                  
         $queryParams = array(
-            $gProfileFields->getProperty('DUEDATE'.ORG_ID, 'usf_id'),
+            $gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'),
             DATE_NOW,
             DATE_NOW,
-            ORG_ID
+            $gCurrentOrgId
         );
 
         $duedateStatement = $gDb->queryPrepared($sql, $queryParams);

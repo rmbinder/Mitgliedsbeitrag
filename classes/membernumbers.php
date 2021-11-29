@@ -65,13 +65,13 @@ class Membernumbers
      */
     public function readNumbers()
     {
-    	global $gProfileFields;
+    	global $gProfileFields, $gCurrentOrgId;
     	
     	$sql = 'SELECT usd_value
                   FROM '. TBL_USER_DATA .'
                  WHERE usd_usf_id = ? ';
     	
-    	$statement = $this->mDb->queryPrepared($sql, array($gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id')));
+    	$statement = $this->mDb->queryPrepared($sql, array($gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrgId, 'usf_id')));
 
     	while ($row = $statement->fetch())
     	{
@@ -116,7 +116,7 @@ class Membernumbers
      */
 	public function readUserWithoutMembernumber($roleselection = '')
     {
-     	global $gProfileFields;
+     	global $gProfileFields, $gCurrentOrgId;
      	
      	$sqlRoleCond = '';
      	if (is_array($roleselection))
@@ -137,7 +137,7 @@ class Membernumbers
            		   AND first_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'FIRST_NAME\', \'usf_id\')
              LEFT JOIN '.TBL_USER_DATA.' AS membernumber
                     ON membernumber.usd_usr_id = usr_id
-                   AND membernumber.usd_usf_id = ? -- $gProfileFields->getProperty(\'MEMBERNUMBER\'.ORG_ID, \'usf_id\')
+                   AND membernumber.usd_usf_id = ? -- $gProfileFields->getProperty(\'MEMBERNUMBER\'.$gCurrentOrgId, \'usf_id\')
                  WHERE usr_valid = 1
                    AND membernumber.usd_value IS NULL
             AND EXISTS (SELECT 1
@@ -149,16 +149,16 @@ class Membernumbers
                    AND rol_valid  = 1
                    '.$sqlRoleCond.'
                    AND rol_cat_id = cat_id
-                   AND cat_org_id = ? -- ORG_ID
+                   AND cat_org_id = ? -- $gCurrentOrgId
               ) ';
      	
         $queryParams = array(
             $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
             $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
-            $gProfileFields->getProperty('MEMBERNUMBER'.ORG_ID, 'usf_id'),
+            $gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrgId, 'usf_id'),
             DATE_NOW,
             DATE_NOW,
-            ORG_ID
+            $gCurrentOrgId
         );
 
     	$statement = $this->mDb->queryPrepared($sql, $queryParams);

@@ -63,17 +63,17 @@ foreach ($_POST['duedatesepatype'] as $dummy => $data)
 	$dueDateArr[substr($data, 0, 10)]['ctrlSum_PmtInf'] = 0;						// Kontrollsumme der Beträge innerhalb eines PmtInf-Blocks
 }
 	
-$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.ORG_ID, 'ORIG_MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID), 0);
+$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrgId, 'CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'PAID'.$gCurrentOrgId, 'STREET', 'CITY', 'DEBTOR', 'DEBTOR_CITY', 'DEBTOR_STREET', 'IBAN', 'ORIG_IBAN', 'BIC', 'BANK', 'ORIG_DEBTOR_AGENT', 'MANDATEID'.$gCurrentOrgId, 'ORIG_MANDATEID'.$gCurrentOrgId, 'MANDATEDATE'.$gCurrentOrgId, 'DUEDATE'.$gCurrentOrgId, 'SEQUENCETYPE'.$gCurrentOrgId), 0);
 		
 //alle Mitglieder durchlaufen und das Array $zpflgt befuellen
 foreach ($members as $member => $memberdata)
 {
-	$dueDateMember = $memberdata['DUEDATE'.ORG_ID];
-	$sequenceTypeMember = (empty($memberdata['SEQUENCETYPE'.ORG_ID])) ? 'FRST' : $memberdata['SEQUENCETYPE'.ORG_ID];
+	$dueDateMember = $memberdata['DUEDATE'.$gCurrentOrgId];
+	$sequenceTypeMember = (empty($memberdata['SEQUENCETYPE'.$gCurrentOrgId])) ? 'FRST' : $memberdata['SEQUENCETYPE'.$gCurrentOrgId];
 	
-    if  (!empty($memberdata['FEE'.ORG_ID])
-        && empty($memberdata['PAID'.ORG_ID])
-        && !empty($memberdata['CONTRIBUTORY_TEXT'.ORG_ID])
+    if  (!empty($memberdata['FEE'.$gCurrentOrgId])
+        && empty($memberdata['PAID'.$gCurrentOrgId])
+        && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrgId])
         && !empty($memberdata['IBAN'])
         && in_array($dueDateMember.$sequenceTypeMember, $_POST['duedatesepatype']) )
     {
@@ -104,18 +104,18 @@ foreach ($members as $member => $memberdata)
         }
                               
         $zpflgt[$member]['bic'] = strtoupper($members[$member]['BIC']);                                                                                           // BIC
-        $zpflgt[$member]['mandat_id'] = $members[$member]['MANDATEID'.ORG_ID];                                     // Mandats-ID
-        $zpflgt[$member]['mandat_datum'] = $members[$member]['MANDATEDATE'.ORG_ID];                                // Mandats-Datum
+        $zpflgt[$member]['mandat_id'] = $members[$member]['MANDATEID'.$gCurrentOrgId];                                     // Mandats-ID
+        $zpflgt[$member]['mandat_datum'] = $members[$member]['MANDATEDATE'.$gCurrentOrgId];                                // Mandats-Datum
 
-       	$fee = str_replace(',', '.', $members[$member]['FEE'.ORG_ID]);
+       	$fee = str_replace(',', '.', $members[$member]['FEE'.$gCurrentOrgId]);
        	if (strpos($fee, '.') !== false)
        	{
        		$fee = substr($fee, 0, strpos($fee, '.') +3);
        	}
        	
         $zpflgt[$member]['betrag'] = $fee;                                               															  // Amount of money
-        $zpflgt[$member]['text'] = substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.ORG_ID]), 0, 140);   // Description of the transaction ("Verwendungszweck").
-        $zpflgt[$member]['orig_mandat_id'] = $members[$member]['ORIG_MANDATEID'.ORG_ID];                           // urspruengliche Mandats-ID
+        $zpflgt[$member]['text'] = substr(replace_sepadaten($members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrgId]), 0, 140);   // Description of the transaction ("Verwendungszweck").
+        $zpflgt[$member]['orig_mandat_id'] = $members[$member]['ORIG_MANDATEID'.$gCurrentOrgId];                           // urspruengliche Mandats-ID
         $zpflgt[$member]['orig_iban'] = strtoupper(str_replace(' ', '', $members[$member]['ORIG_IBAN']));                                             // urspruengliche IBAN
         $zpflgt[$member]['orig_dbtr_agent'] = $members[$member]['ORIG_DEBTOR_AGENT'];                                                                 // urspruengliches Kreditinstitut, nur "SMNDA" moeglich
 

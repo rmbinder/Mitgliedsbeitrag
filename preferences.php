@@ -359,7 +359,7 @@ $formContributionSettings->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_CO
    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
 
 $text = new TableText($gDb);
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => ORG_ID));
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
 //wenn noch nichts drin steht, dann vorbelegen
 if ($text->getValue('txt_text') == '')
 {
@@ -367,7 +367,7 @@ if ($text->getValue('txt_text') == '')
     $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS'));
     $text->setValue('txt_text', $value);
     $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => ORG_ID));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
 }
 $formContributionSettings->addMultilineTextInput('mail_text', '', $text->getValue('txt_text'), 7);
 $formContributionSettings->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
@@ -527,7 +527,7 @@ $formExport->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION
     <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
     <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
 
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => ORG_ID));
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
 //wenn noch nichts drin steht, dann vorbelegen
 if ($text->getValue('txt_text') == '')
 {
@@ -535,7 +535,7 @@ if ($text->getValue('txt_text') == '')
     $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION'));
     $text->setValue('txt_text', $value);
     $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => ORG_ID));
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
 }
 $formExport->addMultilineTextInput('pre_notification_text', '', $text->getValue('txt_text'), 7);
 $formExport->closeGroupBox();
@@ -681,7 +681,7 @@ else
 $sql = 'SELECT cat_id, cat_name
           FROM '.TBL_CATEGORIES.' , '.TBL_ROLES.'
          WHERE cat_id = rol_cat_id
-           AND ( cat_org_id = '.ORG_ID.'
+           AND ( cat_org_id = '.$gCurrentOrgId.'
             OR cat_org_id IS NULL )';
 $formTestsSetup->addSelectBoxFromSql('bezugskategorie', $gL10n->get('PLG_MITGLIEDSBEITRAG_CAT_SELECTION'), $gDb, $sql, array('defaultValue' => $pPreferences->config['Rollenpruefung']['bezugskategorie'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC'));
 $formTestsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
@@ -753,7 +753,7 @@ $formAccessPreferences = new HtmlForm('access_preferences_form', SecurityUtils::
 $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
           FROM '.TBL_CATEGORIES.' AS cat, '.TBL_ROLES.' AS rol
          WHERE cat.cat_id = rol.rol_cat_id
-           AND ( cat.cat_org_id = '.$gCurrentOrganization->getValue('org_id').'
+           AND ( cat.cat_org_id = '.$gCurrentOrgId.'
             OR cat.cat_org_id IS NULL )';
 $formAccessPreferences->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true, 'property' => HtmlForm::FIELD_REQUIRED));
 $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
@@ -784,7 +784,7 @@ for ($conf = 0; $conf < $num_individualcontributions; $conf++)
     $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
               FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
              WHERE cat.cat_id = rol.rol_cat_id
-               AND ( cat.cat_org_id = '.ORG_ID.'
+               AND ( cat.cat_org_id = '.$gCurrentOrgId.'
                 OR cat.cat_org_id IS NULL )
           ORDER BY cat.cat_name DESC';
     $formIndividualContributionsSetup->addSelectBoxFromSql('individual_contributions_role'.$conf,  $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), $gDb, $sql, array('defaultValue' => $pPreferences->config['individual_contributions']['role'][$conf],  'multiselect' => false, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_ROLE_DESC'));

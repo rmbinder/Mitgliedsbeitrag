@@ -59,7 +59,7 @@ if ($getMode == 'preview')     //Default
 	$message = '';
 
 	// alle aktiven Mitglieder einlesen
-	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID), 0);
+	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrgId, 'CONTRIBUTORY_TEXT'.$gCurrentOrgId), 0);
 
  	foreach ($members as $member => $memberdata)
 	{
@@ -111,8 +111,8 @@ if ($getMode == 'preview')     //Default
 		// letzte Datenaufbereitung
 		if ($members[$member]['FEE_NEW'] > $pPreferences->config['Beitrag']['beitrag_mindestbetrag'])
 		{
-		    $members[$member]['FEE_NEW'] += $members[$member]['FEE'.ORG_ID];
-            $members[$member]['CONTRIBUTORY_TEXT_NEW'] = $members[$member]['CONTRIBUTORY_TEXT'.ORG_ID].' '.$members[$member]['CONTRIBUTORY_TEXT_NEW'];
+		    $members[$member]['FEE_NEW'] += $members[$member]['FEE'.$gCurrentOrgId];
+            $members[$member]['CONTRIBUTORY_TEXT_NEW'] = $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrgId].' '.$members[$member]['CONTRIBUTORY_TEXT_NEW'];
 		
 		    //fuehrende und nachfolgene Leerstellen im Beitragstext loeschen
 		    $members[$member]['CONTRIBUTORY_TEXT_NEW'] = trim($members[$member]['CONTRIBUTORY_TEXT_NEW']);
@@ -152,8 +152,8 @@ if ($getMode == 'preview')     //Default
 			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] = $data['FEE_NEW'];
 			$columnValues[] = $data['CONTRIBUTORY_TEXT_NEW'];
-			$columnValues[] = $data['FEE'.ORG_ID];
-			$columnValues[] = $data['CONTRIBUTORY_TEXT'.ORG_ID];
+			$columnValues[] = $data['FEE'.$gCurrentOrgId];
+			$columnValues[] = $data['CONTRIBUTORY_TEXT'.$gCurrentOrgId];
 			$table->addRowByArray($columnValues);
 		}
 
@@ -211,8 +211,8 @@ elseif ($getMode == 'write')
 		$columnValues[] = $data['CONTRIBUTORY_TEXT_NEW'];
 		$table->addRowByArray($columnValues);
 		
-		$user->setValue('FEE'.ORG_ID, $data['FEE_NEW']);
-		$user->setValue('CONTRIBUTORY_TEXT'.ORG_ID, $data['CONTRIBUTORY_TEXT_NEW']);
+		$user->setValue('FEE'.$gCurrentOrgId, $data['FEE_NEW']);
+		$user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrgId, $data['CONTRIBUTORY_TEXT_NEW']);
 		$user->save();         
 	}
 

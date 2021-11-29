@@ -69,15 +69,15 @@ if ($getMode == 'assign')
             $user->readDataById($data);
 
             //zuerst mal sehen, ob bei diesem user bereits ein Mandatsdatum vorhanden ist
-            if (strlen($user->getValue('MANDATEDATE'.ORG_ID)) === 0)
+            if (strlen($user->getValue('MANDATEDATE'.$gCurrentOrgId)) === 0)
             {
                 //er hat noch kein Mandatsdatum, deshalb ein neues eintragen
-                $user->setValue('MANDATEDATE'.ORG_ID, $getDatumNeu);
+                $user->setValue('MANDATEDATE'.$gCurrentOrgId, $getDatumNeu);
             }
             else
             {
                 //er hat bereits ein Mandatsdatum, deshalb das vorhandene loeschen
-                $user->setValue('MANDATEDATE'.ORG_ID, '');
+                $user->setValue('MANDATEDATE'.$gCurrentOrgId, '');
             }
 
             $user->save();
@@ -101,10 +101,10 @@ else
         FROM '. TBL_USERS. '
         LEFT JOIN '. TBL_USER_DATA. ' AS mandateid
           ON mandateid.usd_usr_id = usr_id
-         AND mandateid.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.ORG_ID, 'usf_id'). '
+         AND mandateid.usd_usf_id = '. $gProfileFields->getProperty('MANDATEID'.$gCurrentOrgId, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS mandatedate
           ON mandatedate.usd_usr_id = usr_id
-         AND mandatedate.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id'). '
+         AND mandatedate.usd_usf_id = '. $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrgId, 'usf_id'). '
         LEFT JOIN '. TBL_USER_DATA. ' AS iban
           ON iban.usd_usr_id = usr_id
          AND iban.usd_usf_id = '. $gProfileFields->getProperty('IBAN', 'usf_id'). '
@@ -267,7 +267,7 @@ else
     //user data
     foreach ($membersList as $member => $memberData)
     {
-    	if (isset($memberData[$gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id')]) && strlen($memberData[$gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id')]) > 0)
+    	if (isset($memberData[$gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrgId, 'usf_id')]) && strlen($memberData[$gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrgId, 'usf_id')]) > 0)
     	{
     		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
     	}
@@ -316,7 +316,7 @@ else
     			}
     		}
     		
-    		if ($usfId == $gProfileFields->getProperty('MANDATEDATE'.ORG_ID, 'usf_id'))
+    		if ($usfId == $gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrgId, 'usf_id'))
     		{
     			$content = '<div class="mandatedate_'.$member.'" id="mandatedate_'.$member.'">'.$content.'</div>';
     		}

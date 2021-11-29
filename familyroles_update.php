@@ -62,7 +62,7 @@ if ($getMode == 'preview')     //Default
             	AND ( cat_org_id = ?
                 OR cat_org_id IS NULL ) '; 		
 		
-	   $statement = $gDb->queryPrepared($sql, array($data.'%', ORG_ID));
+	   $statement = $gDb->queryPrepared($sql, array($data.'%', $gCurrentOrgId));
 		
 		// die Einträge von Beitrag, Beitragszeitraum und Beschreibung auslesen und mit den Einträgen im Setup vergleichen
 		while ($row = $statement->fetch())

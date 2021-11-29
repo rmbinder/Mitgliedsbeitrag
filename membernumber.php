@@ -136,7 +136,7 @@ elseif ($getMode == 'write')
 		$table->addRowByArray($columnValues);
 		
 		$user->readDataById($data['usr_id']);
-		$user->setValue('MEMBERNUMBER'.ORG_ID, $data['membernumber']);
+		$user->setValue('MEMBERNUMBER'.$gCurrentOrgId, $data['membernumber']);
 		$user->save();
 	}
 	

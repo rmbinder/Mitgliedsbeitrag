@@ -71,7 +71,7 @@ class ConfigTablePMB
      */
     public function init()
     {
-        global $gDb;
+        global $gDb, $gCurrentOrgId;
 
         // pruefen, ob es die Tabelle bereits gibt
         $sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
@@ -167,7 +167,7 @@ class ConfigTablePMB
 				$sql = 'DELETE FROM '.$this->table_name.'
         				      WHERE plp_name = ? 
         				        AND plp_org_id = ? ';
-				$gDb->queryPrepared($sql, array($plp_name, ORG_ID));
+				$gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
                 
                 unset($this->config[$section][$key]);
             }
@@ -188,7 +188,7 @@ class ConfigTablePMB
      */
     public function save()
     {
-        global $gDb;
+        global $gDb, $gCurrentOrgId;
 
         foreach ($this->config as $section => $sectiondata)
         {
@@ -207,7 +207,7 @@ class ConfigTablePMB
             			  WHERE plp_name = ? 
             			    AND ( plp_org_id = ?
                  		     OR plp_org_id IS NULL ) ';
-            	$statement = $gDb->queryPrepared($sql, array($plp_name, ORG_ID));
+            	$statement = $gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
                 $row = $statement->fetchObject();
 
                 // Gibt es den Datensatz bereits?
@@ -223,8 +223,8 @@ class ConfigTablePMB
                 else
                 {
                     $sql = 'INSERT INTO '.$this->table_name.' (plp_org_id, plp_name, plp_value) 
-  							VALUES (? , ? , ?)  -- ORG_ID, self::$shortcut.\'__\'.$section.\'__\'.$key, $value '; 
-            		$gDb->queryPrepared($sql, array(ORG_ID, self::$shortcut.'__'.$section.'__'.$key, $value));
+  							VALUES (? , ? , ?)  -- $gCurrentOrgId, self::$shortcut.\'__\'.$section.\'__\'.$key, $value '; 
+            		$gDb->queryPrepared($sql, array($gCurrentOrgId, self::$shortcut.'__'.$section.'__'.$key, $value));
                 }
             }
         }
@@ -236,14 +236,14 @@ class ConfigTablePMB
      */
     public function read()
     {
-        global $gDb;
+        global $gDb, $gCurrentOrgId;
 
          $sql = 'SELECT plp_id, plp_name, plp_value
              	   FROM '.$this->table_name.'
              	  WHERE plp_name LIKE ?
              	    AND ( plp_org_id = ?
                  	 OR plp_org_id IS NULL ) ';
-		$statement = $gDb->queryPrepared($sql, array(self::$shortcut.'__%', ORG_ID)); 
+		$statement = $gDb->queryPrepared($sql, array(self::$shortcut.'__%', $gCurrentOrgId)); 
 
         while ($row = $statement->fetch())
         {
@@ -271,7 +271,7 @@ class ConfigTablePMB
      */
     public function checkforupdate()
     {
-        global $gDb;
+        global $gDb, $gCurrentOrgId;
 
         $ret = 0;
 
@@ -288,7 +288,7 @@ class ConfigTablePMB
             		 WHERE plp_name = ? 
             		   AND ( plp_org_id = ?
             	    	OR plp_org_id IS NULL ) ';
-    		$statement = $gDb->queryPrepared($sql, array($plp_name, ORG_ID));
+    		$statement = $gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: version)
@@ -304,7 +304,7 @@ class ConfigTablePMB
             		 WHERE plp_name = ?
             		   AND ( plp_org_id = ?
                  		OR plp_org_id IS NULL ) ';
-            $statement = $gDb->queryPrepared($sql, array($plp_name, ORG_ID));
+            $statement = $gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: stand)
@@ -320,16 +320,16 @@ class ConfigTablePMB
 
         // einen Suchstring fuer die SQL-Abfrage aufbereiten
         $fieldsarray = array();
-        $fieldsarray[] = 'MEMBERNUMBER'.ORG_ID;
-        $fieldsarray[] = 'ACCESSION'.ORG_ID;
-        $fieldsarray[] = 'FEE'.ORG_ID;
-        $fieldsarray[] = 'PAID'.ORG_ID;
-        $fieldsarray[] = 'CONTRIBUTORY_TEXT'.ORG_ID;
-        $fieldsarray[] = 'SEQUENCETYPE'.ORG_ID;
-        $fieldsarray[] = 'DUEDATE'.ORG_ID;
-        $fieldsarray[] = 'MANDATEID'.ORG_ID;
-        $fieldsarray[] = 'MANDATEDATE'.ORG_ID;
-        $fieldsarray[] = 'ORIG_MANDATEID'.ORG_ID;
+        $fieldsarray[] = 'MEMBERNUMBER'.$gCurrentOrgId;
+        $fieldsarray[] = 'ACCESSION'.$gCurrentOrgId;
+        $fieldsarray[] = 'FEE'.$gCurrentOrgId;
+        $fieldsarray[] = 'PAID'.$gCurrentOrgId;
+        $fieldsarray[] = 'CONTRIBUTORY_TEXT'.$gCurrentOrgId;
+        $fieldsarray[] = 'SEQUENCETYPE'.$gCurrentOrgId;
+        $fieldsarray[] = 'DUEDATE'.$gCurrentOrgId;
+        $fieldsarray[] = 'MANDATEID'.$gCurrentOrgId;
+        $fieldsarray[] = 'MANDATEDATE'.$gCurrentOrgId;
+        $fieldsarray[] = 'ORIG_MANDATEID'.$gCurrentOrgId;
         $fieldsarray[] = 'IBAN';
         $fieldsarray[] = 'BIC';
         $fieldsarray[] = 'BANK';
@@ -354,7 +354,7 @@ class ConfigTablePMB
                  WHERE usf_name_intern IN ('.$fieldsString.')
                    AND ( cat_org_id = ?
                     OR cat_org_id IS NULL ) ';
-        $statement = $gDb->queryPrepared($sql, array(ORG_ID));
+        $statement = $gDb->queryPrepared($sql, array($gCurrentOrgId));
 
         if ($statement->rowCount() != count($fieldsarray))
         {
@@ -371,7 +371,7 @@ class ConfigTablePMB
      */
     public function delete_config_data($deinst_org_select)
     {
-        global $gDb, $gL10n;
+        global $gDb, $gL10n, $gCurrentOrgId;
 
         $result_data = false;
         $result_db = false;
@@ -381,7 +381,7 @@ class ConfigTablePMB
             $sql = 'DELETE FROM '.$this->table_name.'
           			      WHERE plp_name LIKE ?
         			        AND plp_org_id = ? ';
-			$result_data = $gDb->queryPrepared($sql, array(self::$shortcut.'__%', ORG_ID));		
+			$result_data = $gDb->queryPrepared($sql, array(self::$shortcut.'__%', $gCurrentOrgId));		
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
@@ -415,14 +415,14 @@ class ConfigTablePMB
      */
     public function delete_member_data($deinst_org_select, $dataField, $dataDesc = '')
     {
-        global $gDb, $gL10n, $gProfileFields;
+        global $gDb, $gL10n, $gProfileFields, $gCurrentOrgId;
 
         $result = '';
         $usfIDs = array();
 
         if ($deinst_org_select == 0)                   //0 = Daten nur in aktueller Org loeschen
         {
-            $orgSelector = ORG_ID;
+            $orgSelector = $gCurrentOrgId;
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
@@ -528,7 +528,7 @@ class ConfigTablePMB
      */
     public function delete_mail_data($deinst_org_select)
     {
-        global $gDb, $gL10n;
+        global $gDb, $gL10n, $gCurrentOrgId;
 
         $result = '';
         $result_data = false;
@@ -538,7 +538,7 @@ class ConfigTablePMB
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                           WHERE txt_name LIKE ?
                             AND txt_org_id = ? ';
-            $result_data = $gDb->queryPrepared($sql, array('PMBMAIL_%', ORG_ID));		
+            $result_data = $gDb->queryPrepared($sql, array('PMBMAIL_%', $gCurrentOrgId));		
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {

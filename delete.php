@@ -25,16 +25,16 @@ $duedatecount = 0;
 $paidcount = 0;
 
 //alle Mitglieder einlesen
-$members = list_members(array('DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'FEE'.ORG_ID, 'MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'IBAN', 'BIC'), 0);
+$members = list_members(array('DUEDATE'.$gCurrentOrgId, 'SEQUENCETYPE'.$gCurrentOrgId, 'CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'PAID'.$gCurrentOrgId, 'FEE'.$gCurrentOrgId, 'MANDATEID'.$gCurrentOrgId, 'MANDATEDATE'.$gCurrentOrgId, 'IBAN', 'BIC'), 0);
 
 //jetzt wird gezaehlt
 foreach ($members as $member => $memberdata)
 {
-    if (!empty($memberdata['DUEDATE'.ORG_ID]))
+    if (!empty($memberdata['DUEDATE'.$gCurrentOrgId]))
     {
     	$duedatecount++;
     }
-    if (!empty($memberdata['PAID'.ORG_ID]))
+    if (!empty($memberdata['PAID'.$gCurrentOrgId]))
     {
         $paidcount++;
     }

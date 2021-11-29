@@ -99,7 +99,7 @@ if($getMode == 'assign')
     }
 
     // wurde die Mandatsreferenz geaendert?
-    if($getMandateID != $user->getValue('MANDATEID'.ORG_ID))
+    if($getMandateID != $user->getValue('MANDATEID'.$gCurrentOrgId))
     {
         //bei einer Aenderung muss origMandateID befuellt sein
         if (strlen($getOrigMandateID) !== 0)
@@ -125,7 +125,7 @@ if($getMode == 'assign')
             $user->setValue('IBAN', $getIBAN);
             $user->setValue('BIC', $getBIC);
             $user->setValue('BANK', $getBank);
-            $user->setValue('SEQUENCETYPE'.ORG_ID, '');
+            $user->setValue('SEQUENCETYPE'.$gCurrentOrgId, '');
             $user->setValue('ORIG_DEBTOR_AGENT', 'SMNDA');
 
             // wenn die Bank gewechselt wurde, braucht die neue Bank die urspruengliche IBAN nicht zu kennen
@@ -133,8 +133,8 @@ if($getMode == 'assign')
         }
         if($mandateid_change == 'true')
         {
-            $user->setValue('MANDATEID'.ORG_ID, $getMandateID);
-            $user->setValue('ORIG_MANDATEID'.ORG_ID, $getOrigMandateID);
+            $user->setValue('MANDATEID'.$gCurrentOrgId, $getMandateID);
+            $user->setValue('ORIG_MANDATEID'.$gCurrentOrgId, $getOrigMandateID);
         }
         $user->save();
     }
@@ -249,11 +249,11 @@ else
     ', true);
 
     $form = new HtmlForm('mandate_change_form', null, $page, array('class' => 'form-mandate_change'));
-    $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.ORG_ID), array('property' => HtmlForm::FIELD_REQUIRED));
+    $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_REQUIRED));
     $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()">
             <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'"></i> </a>';
     $form->addCustomContent('', $html);
-    $form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.ORG_ID), array('property' => HtmlForm::FIELD_DISABLED));
+    $form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_DISABLED));
     $form->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $user->getValue('IBAN'), array('property' => HtmlForm::FIELD_REQUIRED));
     $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()">
             <i class="fas fa-arrow-down"  title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'"></i> </a>';

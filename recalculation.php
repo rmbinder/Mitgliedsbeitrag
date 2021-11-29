@@ -122,7 +122,7 @@ if ($getMode == 'preview')     //Default
 	}
 	
 	// alle aktiven Mitglieder einlesen
-	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'ACCESSION'.ORG_ID, 'DEBTOR'), $selectionRolls);
+	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'FEE'.$gCurrentOrgId, 'CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'PAID'.$gCurrentOrgId, 'ACCESSION'.$gCurrentOrgId, 'DEBTOR'), $selectionRolls);
 	
 	//alle Mitglieder durchlaufen und aufgrund von Rollenzugehoerigkeiten die Beitraege bestimmen
 	foreach ($members as $member => $memberdata)
@@ -137,7 +137,7 @@ if ($getMode == 'preview')     //Default
 			{
 				if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
 				{
-					$members[$member]['ACCESSION'.ORG_ID] = $roldata['members'][$member]['mem_begin'];
+					$members[$member]['ACCESSION'.$gCurrentOrgId] = $roldata['members'][$member]['mem_begin'];
 				}
 	
 				if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
@@ -146,7 +146,7 @@ if ($getMode == 'preview')     //Default
 				}
 				else
 				{
-					$time_begin = strtotime($members[$member]['ACCESSION'.ORG_ID]);
+					$time_begin = strtotime($members[$member]['ACCESSION'.$gCurrentOrgId]);
 				}
 	
 				// das Standarddatum '9999-12-31' kann auf best. Systemen nicht verarbeitet werden
@@ -282,8 +282,8 @@ if ($getMode == 'preview')     //Default
 	foreach ($members as $member => $memberdata)
 	{
 		// letzte Datenaufbereitung (aussummieren, ueberschreiben, runden...)
-		if ((is_null($members[$member]['FEE'.ORG_ID])
-				||  (!(is_null($members[$member]['FEE'.ORG_ID]))
+		if ((is_null($members[$member]['FEE'.$gCurrentOrgId])
+				||  (!(is_null($members[$member]['FEE'.$gCurrentOrgId]))
 				    && (isset($_POST['recalculation_modus']) && (($_POST['recalculation_modus'] == 'overwrite') || ($_POST['recalculation_modus'] == 'summation')))
 				    )
 		    )
@@ -302,8 +302,8 @@ if ($getMode == 'preview')     //Default
 	
 			if (isset($_POST['recalculation_modus']) && $_POST['recalculation_modus'] == 'summation')
 			{
-				$members[$member]['FEE_NEW'] += $members[$member]['FEE'.ORG_ID];
-				$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$members[$member]['CONTRIBUTORY_TEXT'.ORG_ID].' ';
+				$members[$member]['FEE_NEW'] += $members[$member]['FEE'.$gCurrentOrgId];
+				$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrgId].' ';
 			}
 	
 			//fuehrende und nachfolgene Leerstellen im Beitragstext loeschen
@@ -344,8 +344,8 @@ if ($getMode == 'preview')     //Default
 			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] = $data['FEE_NEW'];
 			$columnValues[] = $data['CONTRIBUTORY_TEXT_NEW'];
-			$columnValues[] = $data['FEE'.ORG_ID];
-			$columnValues[] = $data['CONTRIBUTORY_TEXT'.ORG_ID];
+			$columnValues[] = $data['FEE'.$gCurrentOrgId];
+			$columnValues[] = $data['CONTRIBUTORY_TEXT'.$gCurrentOrgId];
 			$table->addRowByArray($columnValues);
 		}
 
@@ -403,8 +403,8 @@ elseif ($getMode == 'write')
 		$columnValues[] = $data['CONTRIBUTORY_TEXT_NEW'];
 		$table->addRowByArray($columnValues);
 		
-		$user->setValue('FEE'.ORG_ID, $data['FEE_NEW']);
-		$user->setValue('CONTRIBUTORY_TEXT'.ORG_ID, $data['CONTRIBUTORY_TEXT_NEW']);
+		$user->setValue('FEE'.$gCurrentOrgId, $data['FEE_NEW']);
+		$user->setValue('CONTRIBUTORY_TEXT'.$gCurrentOrgId, $data['CONTRIBUTORY_TEXT_NEW']);
 		$user->save();         
 	}
 	

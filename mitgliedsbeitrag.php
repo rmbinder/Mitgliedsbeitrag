@@ -60,51 +60,51 @@ $duedatecount = 0;
 $paidcount = 0;
 
 //alle Mitglieder einlesen
-$members = list_members(array('DUEDATE'.ORG_ID, 'SEQUENCETYPE'.ORG_ID, 'CONTRIBUTORY_TEXT'.ORG_ID, 'PAID'.ORG_ID, 'FEE'.ORG_ID, 'MANDATEID'.ORG_ID, 'MANDATEDATE'.ORG_ID, 'IBAN', 'BIC'), 0);
+$members = list_members(array('DUEDATE'.$gCurrentOrgId, 'SEQUENCETYPE'.$gCurrentOrgId, 'CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'PAID'.$gCurrentOrgId, 'FEE'.$gCurrentOrgId, 'MANDATEID'.$gCurrentOrgId, 'MANDATEDATE'.$gCurrentOrgId, 'IBAN', 'BIC'), 0);
 
 //jetzt wird gezaehlt
 foreach ($members as $member => $memberdata)
 {
     //alle Faelligkeitsdaten einlesen
-    if (!empty($memberdata['DUEDATE'.ORG_ID])
-    	&& !empty($memberdata['FEE'.ORG_ID])
-        && empty($memberdata['PAID'.ORG_ID])
-        && !empty($memberdata['CONTRIBUTORY_TEXT'.ORG_ID])
+    if (!empty($memberdata['DUEDATE'.$gCurrentOrgId])
+    	&& !empty($memberdata['FEE'.$gCurrentOrgId])
+        && empty($memberdata['PAID'.$gCurrentOrgId])
+        && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrgId])
         && !empty($memberdata['IBAN']))
     {
         $directdebittype = true;
 
-        if(!isset($duedates[$memberdata['DUEDATE'.ORG_ID]]))
+        if(!isset($duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]))
         {
-            $duedates[$memberdata['DUEDATE'.ORG_ID]] = array();
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FNAL'] = 0;
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['RCUR'] = 0;
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['OOFF'] = 0;
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FRST'] = 0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]] = array();
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['FNAL'] = 0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['RCUR'] = 0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['OOFF'] = 0;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['FRST'] = 0;
         }
 
-        if($memberdata['SEQUENCETYPE'.ORG_ID] == 'FNAL')
+        if($memberdata['SEQUENCETYPE'.$gCurrentOrgId] == 'FNAL')
         {
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FNAL']++;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['FNAL']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.ORG_ID] == 'RCUR')
+        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrgId] == 'RCUR')
         {
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['RCUR']++;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['RCUR']++;
         }
-        elseif($memberdata['SEQUENCETYPE'.ORG_ID] == 'OOFF')
+        elseif($memberdata['SEQUENCETYPE'.$gCurrentOrgId] == 'OOFF')
         {
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['OOFF']++;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['OOFF']++;
         }
         else
         {
-            $duedates[$memberdata['DUEDATE'.ORG_ID]]['FRST']++;
+            $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['FRST']++;
         }
     }
-    if (!empty($memberdata['DUEDATE'.ORG_ID]))
+    if (!empty($memberdata['DUEDATE'.$gCurrentOrgId]))
     {
     	$duedatecount++;
     }
-    if (!empty($memberdata['PAID'.ORG_ID]))
+    if (!empty($memberdata['PAID'.$gCurrentOrgId]))
     {
         $paidcount++;
     }
@@ -130,7 +130,7 @@ $selectBoxEntriesAlleRollen = 'SELECT rol_id, rol_name, cat_name
     					   INNER JOIN '.TBL_CATEGORIES.'
                                    ON cat_id = rol_cat_id
                                 WHERE rol_valid   = 1
-                                  AND (  cat_org_id  = '. ORG_ID. '
+                                  AND (  cat_org_id  = '. $gCurrentOrgId. '
                                    OR cat_org_id IS NULL )
                              ORDER BY cat_sequence, rol_name';
 
