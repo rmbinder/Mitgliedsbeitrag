@@ -39,17 +39,7 @@ if($getMode == 'anlegen')
     if (!isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_id']))
     {
         $nextCatSequence = getNextCatSequence('USF');
-
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create, cat_uuid)
-                VALUES (\'USF\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name_intern'].'\' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']['cat_system'].' ,
-                        '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setCategory($arr['SOLL']['TBL_CATEGORIES']['Mitgliedschaft'], $nextCatSequence);    
     }
 
     $cat_id_mitgliedschaft = getCat_IDPMB('MEMBERSHIP'.$gCurrentOrgId);
@@ -58,57 +48,21 @@ if($getMode == 'anlegen')
     // pruefen, ob es das Profilfeld Mitgliedsnummer gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name']))
     {
-    	$sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mitgliedschaft.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                         \''.Uuid::uuid4().'\' )';
-    	$gDb->query($sql);
-    	$nextFieldSequence++;
+        setUserField($cat_id_mitgliedschaft, $arr['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer'], $nextFieldSequence);    
+        $nextFieldSequence++;
     }
     
     // pruefen, ob es das Profilfeld Beitritt gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mitgliedschaft.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitritt']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                         \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mitgliedschaft, $arr['SOLL']['TBL_USER_FIELDS']['Beitritt'], $nextFieldSequence);    
     }
 
     // pruefen, ob es die Kategorie Mitgliedsbeitrag gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_id']))
     {
         $nextCatSequence = getNextCatSequence('USF');
-
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create, cat_uuid)
-                VALUES (\'USF\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name_intern'].'\' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_system'].' ,
-                        '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                         \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setCategory($arr['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'], $nextCatSequence);
     }
 
     $cat_id_mitgliedsbeitrag = getCat_IDPMB('MEMBERSHIP_FEE'.$gCurrentOrgId);
@@ -117,117 +71,42 @@ if($getMode == 'anlegen')
     // pruefen, ob es das Profilfeld Bezahlt gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mitgliedsbeitrag.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bezahlt']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                         \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mitgliedsbeitrag, $arr['SOLL']['TBL_USER_FIELDS']['Bezahlt'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Beitrag gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mitgliedsbeitrag.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitrag']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                         \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mitgliedsbeitrag, $arr['SOLL']['TBL_USER_FIELDS']['Beitrag'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Beitragstext gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mitgliedsbeitrag.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Beitragstext']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mitgliedsbeitrag, $arr['SOLL']['TBL_USER_FIELDS']['Beitragstext'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Sequenztyp gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mitgliedsbeitrag.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mitgliedsbeitrag, $arr['SOLL']['TBL_USER_FIELDS']['Sequenztyp'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Faelligkeitsdatum gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mitgliedsbeitrag.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mitgliedsbeitrag, $arr['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum'], $nextFieldSequence);
     }
 
     // pruefen, ob es die Kategorie Mandat gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_id']))
     {
         $nextCatSequence = getNextCatSequence('USF');
-
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create, cat_uuid)
-                VALUES (\'USF\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_name_intern'].'\' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Mandat']['cat_system'].' ,
-                        '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setCategory($arr['SOLL']['TBL_CATEGORIES']['Mandat'], $nextCatSequence);
     }
 
     $cat_id_mandat = getCat_IDPMB('MANDATE'.$gCurrentOrgId);
@@ -236,77 +115,28 @@ if($getMode == 'anlegen')
     // pruefen, ob es das Profilfeld Mandatsreferenz gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mandat.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mandat, $arr['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Mandatsdatum gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mandat.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mandat, $arr['SOLL']['TBL_USER_FIELDS']['Mandatsdatum'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Orig_Mandatsreferenz gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_mandat.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_mandat, $arr['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz'], $nextFieldSequence);
     }
 
     // pruefen, ob es die Kategorie Kontodaten gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_id']))
     {
         $nextCatSequence = getNextCatSequence('USF');
-
-        $sql = 'INSERT INTO '.TBL_CATEGORIES.' (cat_type, cat_name, cat_name_intern, cat_org_id, cat_system, cat_sequence, cat_usr_id_create, cat_uuid)
-                VALUES (\'USF\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_name_intern'].'\' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_org_id'].' ,
-                        '.$arr['SOLL']['TBL_CATEGORIES']['Kontodaten']['cat_system'].' ,
-                        '.$nextCatSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setCategory($arr['SOLL']['TBL_CATEGORIES']['Kontodaten'], $nextCatSequence);
     }
 
     $cat_id_kontodaten = getCat_IDPMB('ACCOUNT_DATA');
@@ -315,198 +145,68 @@ if($getMode == 'anlegen')
    // pruefen, ob es das Profilfeld IBAN gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['IBAN']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['IBAN'], $nextFieldSequence);
         $nextFieldSequence++;
     }
     // pruefen, ob es das Profilfeld BIC gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['BIC']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['BIC'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Bankname gibt, wenn nicht: anlegen
     if (!isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Bankname']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['Bankname'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Kontoinhaber gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['Kontoinhaber'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld KontoinhaberStrasse gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld KontoinhaberPLZ gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld KontoinhaberOrt gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld KontoinhaberEMail gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail'], $nextFieldSequence);
         $nextFieldSequence++;
     }
 
     // pruefen, ob es das Profilfeld Orig_Debtor_Agent gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent'], $nextFieldSequence);
         $nextFieldSequence++;
     }
     // pruefen, ob es das Profilfeld Orig_IBAN gibt, wenn nicht: anlegen
     if(!isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name']))
     {
-        $sql = 'INSERT INTO '.TBL_USER_FIELDS.' (usf_cat_id, usf_type, usf_name, usf_name_intern, usf_description, usf_system, usf_disabled, usf_hidden, usf_mandatory, usf_sequence, usf_usr_id_create, usf_uuid)
-                VALUES (\''.$cat_id_kontodaten.'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_type'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name_intern'].'\' ,
-                        \''.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_description'].'\' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_system'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_disabled'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_hidden'].' ,
-                        '.$arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']['usf_mandatory'].' ,
-                        '.$nextFieldSequence.',
-                        '.$gCurrentUser->getValue('usr_id').' ,
-                        \''.Uuid::uuid4().'\' )';
-        $gDb->query($sql);
+        setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN'], $nextFieldSequence);
     }
     
     // Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.4 NEU
@@ -589,8 +289,9 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
+    $columnValues[] = $leer;
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 2, 2);
+    $table->addRowByArray($columnValues);
     
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -606,8 +307,9 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
+    $columnValues[] = $leer;
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 2, 2);
+    $table->addRowByArray($columnValues);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -641,8 +343,9 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
+    $columnValues[] = $leer;
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 2, 2);
+    $table->addRowByArray($columnValues);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -664,8 +367,9 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
+    $columnValues[] = $leer;
     $columnValues[] = !(isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING').'</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues, null, null, 2, 2);
+    $table->addRowByArray($columnValues);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -1165,20 +869,20 @@ function check_DB()
     // Ende Update/Konvertierungsroutine
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
-    $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_id' => -1, 'cat_org_id' => 'Null',                                    'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',                                             'cat_type' => 'USF', 'cat_system' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrgId, 'cat_type' => 'USF', 'cat_system' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MEMBERSHIP',     'cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrgId,     'cat_type' => 'USF', 'cat_system' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']           = array('cat_id' => -1, 'cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MANDATE',        'cat_name_intern' => 'MANDATE'.$gCurrentOrgId,        'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_org_id' => 'Null',         'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',                  'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrgId, 'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MEMBERSHIP',     'cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrgId,     'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']           = array('cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MANDATE',        'cat_name_intern' => 'MANDATE'.$gCurrentOrgId,        'cat_type' => 'USF', 'cat_system' => 0);
 
-    $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN']                 = array('usf_name' => 'PMB_IBAN',              'usf_name_intern' => 'IBAN',                                                        'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['BIC']                  = array('usf_name' => 'PMB_BIC',               'usf_name_intern' => 'BIC',                                                         'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Bankname']             = array('usf_name' => 'PMB_BANK',              'usf_name_intern' => 'BANK',                                                        'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Der Name der Bank für den Bankeinzug');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']         = array('usf_name' => 'PMB_DEBTOR',            'usf_name_intern' => 'DEBTOR',                                                      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Strasse, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN']                 = array('usf_name' => 'PMB_IBAN',              'usf_name_intern' => 'IBAN',                             'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['BIC']                  = array('usf_name' => 'PMB_BIC',               'usf_name_intern' => 'BIC',                              'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Bankname']             = array('usf_name' => 'PMB_BANK',              'usf_name_intern' => 'BANK',                             'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Der Name der Bank für den Bankeinzug');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Kontoinhaber']         = array('usf_name' => 'PMB_DEBTOR',            'usf_name_intern' => 'DEBTOR',                           'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Strasse, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>');
 
-    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']  = array('usf_name' => 'PMB_DEBTOR_STREET',     'usf_name_intern' => 'DEBTOR_STREET',                                              'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Adresse des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']      = array('usf_name' => 'PMB_DEBTOR_POSTCODE',   'usf_name_intern' => 'DEBTOR_POSTCODE',                                             'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>PLZ des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']      = array('usf_name' => 'PMB_DEBTOR_CITY',       'usf_name_intern' => 'DEBTOR_CITY',                                                 'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']    = array('usf_name' => 'PMB_DEBTOR_EMAIL',      'usf_name_intern' => 'DEBTOR_EMAIL',                                                'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse']  = array('usf_name' => 'PMB_DEBTOR_STREET',     'usf_name_intern' => 'DEBTOR_STREET',                    'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Adresse des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ']      = array('usf_name' => 'PMB_DEBTOR_POSTCODE',   'usf_name_intern' => 'DEBTOR_POSTCODE',                  'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>PLZ des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']      = array('usf_name' => 'PMB_DEBTOR_CITY',       'usf_name_intern' => 'DEBTOR_CITY',                      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']    = array('usf_name' => 'PMB_DEBTOR_EMAIL',      'usf_name_intern' => 'DEBTOR_EMAIL',                     'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
 
     $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']      = array('usf_name' => 'PMB_MEMBERNUMBER',      'usf_name_intern' => 'MEMBERNUMBER'.$gCurrentOrgId,      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Beitritt']             = array('usf_name' => 'PMB_ACCESSION',         'usf_name_intern' => 'ACCESSION'.$gCurrentOrgId,         'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Das Beitrittsdatum zum Verein');
@@ -1190,8 +894,8 @@ function check_DB()
     $DB_array['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']    = array('usf_name' => 'PMB_DUEDATE',           'usf_name_intern' => 'DUEDATE'.$gCurrentOrgId,           'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Sequenztyp']           = array('usf_name' => 'PMB_SEQUENCETYPE',      'usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrgId,      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
 
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']    = array('usf_name' => 'PMB_ORIG_DEBTOR_AGENT', 'usf_name_intern' => 'ORIG_DEBTOR_AGENT',                                           'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']            = array('usf_name' => 'PMB_ORIG_IBAN',         'usf_name_intern' => 'ORIG_IBAN',                                                   'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']    = array('usf_name' => 'PMB_ORIG_DEBTOR_AGENT', 'usf_name_intern' => 'ORIG_DEBTOR_AGENT',                'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']            = array('usf_name' => 'PMB_ORIG_IBAN',         'usf_name_intern' => 'ORIG_IBAN',                        'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz'] = array('usf_name' => 'PMB_ORIG_MANDATEID',    'usf_name_intern' => 'ORIG_MANDATEID'.$gCurrentOrgId,    'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
 
      $DB_array['IST'] = $DB_array['SOLL'];
@@ -1441,3 +1145,47 @@ function getCat_IDPMB($cat_name_intern)
 
     return $row->cat_id;
 }
+
+/**
+ * Erzeugt eine Kategorie in der Tabelle TBL_CATEGORIES
+ * @param   array   $arr          Array mit Werten für die Spalten
+ * @param   int     $sequence     Neue Sequence der anzulegenden Kategorie
+ * @return  void
+ */
+function setCategory($arr, $sequence)
+{
+    global $gDb;
+    
+    $newCategory = new TableAccess($gDb, TBL_CATEGORIES, 'cat');
+    $newCategory->setValue('cat_sequence', $sequence);
+    
+    foreach ($arr as $key => $value)
+    {
+        $newCategory->setValue($key, $value);
+    }
+    
+    $newCategory->save();
+} 
+
+/**
+ * Erzeugt ein Profilfeld in der Tabelle TBL_USER_FIELDS
+ * @param   int     $cat_id       Cat_Id der Kategorie, in der das Profilfeld angelegt wird
+ * @param   array   $arr          Array mit Werten für die Spalten
+ * @param   int     $sequence     Neue Sequence des anzulegenden Profilfeldes
+ * @return  void
+ */
+function setUserField($cat_id, $arr, $sequence)
+{
+    global $gDb;
+    
+    $newUserField = new TableAccess($gDb, TBL_USER_FIELDS, 'usf');
+    $newUserField->setValue('usf_cat_id', $cat_id);
+    $newUserField->setValue('usf_sequence', $sequence);
+    
+    foreach ($arr as $key => $value)
+    {
+        $newUserField->setValue($key, $value);
+    }
+    
+    $newUserField->save();
+}  
