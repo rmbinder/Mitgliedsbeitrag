@@ -754,7 +754,8 @@ $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
           FROM '.TBL_CATEGORIES.' AS cat, '.TBL_ROLES.' AS rol
          WHERE cat.cat_id = rol.rol_cat_id
            AND ( cat.cat_org_id = '.$gCurrentOrgId.'
-            OR cat.cat_org_id IS NULL )';
+            OR cat.cat_org_id IS NULL )
+      ORDER BY cat_sequence, rol.rol_name ASC';
 $formAccessPreferences->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true, 'property' => HtmlForm::FIELD_REQUIRED));
 $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
