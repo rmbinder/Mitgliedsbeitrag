@@ -1014,20 +1014,21 @@ function check_family_roles()
 }
 
 /**
- * Prueft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Strasse, Ort...) vorhanden sind
+ * Prueft, ob Mandats-ID und Mandatsdatum vorhanden sind
+ * (Voraussetzung: IBAN und Mitgliedsbeitrag dürfen nicht leer)
  * @return  array $ret
  */
 function check_mandate_management()
 {
-    global $gL10n, $gDb, $gProfileFields;
+    global $gL10n, $gDb, $gProfileFields, $gCurrentOrgId;
     $ret = array();
     $user = new User($gDb, $gProfileFields);
 
-    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_STREET'), 0);
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'FEE'.$gCurrentOrgId, 'MANDATEID'.$gCurrentOrgId, 'MANDATEDATE'.$gCurrentOrgId), 0);
 
     foreach ($members as $member => $memberdata)
     {
-        if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_STREET']) === 0)))
+        if ((strlen($memberdata['IBAN']) !== 0) && (strlen($memberdata['FEE'.$gCurrentOrgId]) !== 0) && ((strlen($memberdata['MANDATEID'.$gCurrentOrgId]) === 0)  || (strlen($memberdata['MANDATEDATE'.$gCurrentOrgId]) === 0)))
         {
             $user->readDataById($member);
             $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
@@ -1041,6 +1042,38 @@ function check_mandate_management()
     else
     {
         $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR').'</strong>';
+    }
+    return $ret;
+}
+
+/**
+ * Prueft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Strasse, Ort...) vorhanden sind
+ * @return  array $ret
+ */
+function check_account_details()
+{
+    global $gL10n, $gDb, $gProfileFields;
+    $ret = array();
+    $user = new User($gDb, $gProfileFields);
+    
+    $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_STREET'), 0);
+    
+    foreach ($members as $member => $memberdata)
+    {
+        if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_STREET']) === 0)))
+        {
+            $user->readDataById($member);
+            $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
+        }
+    }
+    
+    if (count($ret) === 0)
+    {
+        $ret = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_OK'));
+    }
+    else
+    {
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }

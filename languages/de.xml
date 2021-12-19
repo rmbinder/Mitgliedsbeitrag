@@ -8,6 +8,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Konto</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Kontodaten</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_INFO">Anzugeben sind die Kontodaten des Empfängers.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC">Überprüfung auf Vollständigkeit der Kontodaten.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist das Profilfeld Kontoinhaber (=Zahlungspflichtiger) nicht leer und bei diesem Zahlungspflichtigen fehlen Adressangaben.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_OK">Alle Daten sind vollständig.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER">Kontoinhaber</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Weitere Spalte hinzufügen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Weitere Konfiguration hinzufügen</string>
@@ -260,7 +263,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT">Mandatsverwaltung</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC">Anhand der oben aufgeführten Felder können die Parameter für die Zusammensetzung der Mandatsreferenz eingestellt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2">Überprüfung auf Vollständigkeit der Daten in der Mandatsverwaltung.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist das Profilfeld Kontoinhaber (=Zahlungspflichtiger) nicht leer und bei diesem Zahlungspflichtigen fehlen Adressangaben.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">Bei den aufgeführten Mitgliedern sind IBAN und Mitgliedsbeitrag vorhanden, aber es fehlen entweder Mandatsreferenz oder Mandatsdatum (oder beides).</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK">Alle Daten sind vollständig.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE">Mandatsdatum</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig !) das Mandatsdatum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </string>

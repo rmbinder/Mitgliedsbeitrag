@@ -8,6 +8,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Compte</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Données du compte</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_INFO">Saisis les données de compte du destinataire.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC">Vérifiez l'exhaustivité des données du compte.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_ERROR">Pour les membres listés, le champ de profil Titulaire du compte (=payeur) n\'est pas vide et les détails de l\'adresse manquent pour ce payeur.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_OK">Toutes les données sont complets.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER">Titulaire du compte</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Ajouter une autre colonne</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Ajouter une configuration supplémentaire</string>
@@ -260,7 +263,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT">Gestion des mandats</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC">Les paramètres de composition de la référence du mandat peuvent être définis à l\'aide des champs spécifiés ci-dessus.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2">Vérifier l\'intégralité des données dans la gestion du mandat.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">Pour les membres listés, le champ de profil Titulaire du compte (=payeur) n\'est pas vide et les détails de l\'adresse manquent pour ce payeur.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">Les membres répertoriés ont un IBAN et des frais d'adhésion, mais la référence du mandat ou la date du mandat (ou les deux) manquent.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK">Toutes les données sont complets.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE">Date du mandat</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC">Ceci change la date du mandat pour tous les utilisateurs affichés ( ! en fonction du filtre !). -> une date inexistante est complétée -> une date existante est supprimée  </string>

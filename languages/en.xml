@@ -8,6 +8,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Account</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Account details</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_INFO">The account details of the recipient are to be entered.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC">Check for completeness of the account data.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_ERROR">For the listed members, the profile field for the account holder (=payer) is not empty and address details are missing for this payer.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_OK">All data is complete.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER">Account holder</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN">Add another column</string>
     <string name="PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG">Add further configuration</string>
@@ -260,7 +263,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT">Mandate Management</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC">Via the fields described above, the parameters for compiling the mandate reference can be configured.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2">Checking of completeness of data for mandate management purposes.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">For the listed members, the profile field for the account holder (=payer) is not empty and address details are missing for this payer.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">The listed members have IBAN and membership fee, but either mandate reference or mandate date (or both) are missing.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK">All data is complete.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE">Mandate date</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC">Herewith all displayed users (! filter-dependent !), the mandate date is changed. -> a non-existent date is set -> an existing date is removed</string>

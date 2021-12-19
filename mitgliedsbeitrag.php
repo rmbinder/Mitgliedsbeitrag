@@ -618,6 +618,11 @@ if(count($rols) > 0)
     $formTests->addDescription(showTestResultWithScrollbar(check_family_roles()));
     $formTests->closeGroupBox();
     
+    $formTests->openGroupBox('account_details', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
+    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC').'</strong>');
+    $formTests->addDescription(showTestResultWithScrollbar(check_account_details()));
+    $formTests->closeGroupBox();
+    
     $formTests->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
     $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
     $formTests->addDescription(showTestResultWithScrollbar(check_mandate_management()));
