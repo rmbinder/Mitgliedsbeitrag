@@ -48,7 +48,6 @@ $pPreferences->read();
 
 $mailSubject = '';
 $mailBody    = '';
-$currUsrId   = (int) $gCurrentUser->getValue('usr_id');
 $mailToArray = $_SESSION['pMembershipFee']['checkedArray'];
 
 $user = new User($gDb, $gProfileFields);
@@ -223,10 +222,10 @@ $sql = 'SELECT COUNT(*) AS count
     INNER JOIN '. TBL_USER_DATA .'
             ON usd_usf_id = usf_id
          WHERE usf_type = \'EMAIL\'
-           AND usd_usr_id = ? -- $currUsrId
+           AND usd_usr_id = ? -- $gCurrentUserId
            AND usd_value IS NOT NULL';
 
-$pdoStatement = $gDb->queryPrepared($sql, array($currUsrId));
+$pdoStatement = $gDb->queryPrepared($sql, array($gCurrentUserId));
 $possibleEmails = $pdoStatement->fetchColumn();
 
 if($possibleEmails > 1)
@@ -240,10 +239,10 @@ if($possibleEmails > 1)
                      INNER JOIN '.TBL_USER_FIELDS.' AS field
                              ON field.usf_id = email.usd_usf_id
                             AND field.usf_type = \'EMAIL\'
-                          WHERE usr_id = ? -- $currUsrId
+                          WHERE usr_id = ? -- $gCurrentUserId
                             AND usr_valid = 1
                        GROUP BY email.usd_value, email.usd_value';
-    $sqlData['params'] = array($currUsrId);
+    $sqlData['params'] = array($gCurrentUserId);
 
     $form->addSelectBoxFromSql(
         'mailfrom', $gL10n->get('SYS_YOUR_EMAIL'), $gDb, $sqlData,

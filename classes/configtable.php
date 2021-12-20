@@ -71,11 +71,9 @@ class ConfigTablePMB
      */
     public function init()
     {
-        global $gDb, $gCurrentOrgId;
-
         // pruefen, ob es die Tabelle bereits gibt
         $sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
-        $statement = $gDb->queryPrepared($sql);
+        $statement = $GLOBALS['gDb']->queryPrepared($sql);
 
         // Tabelle anlegen, wenn es sie noch nicht gibt
         if (!$statement->rowCount())
@@ -91,7 +89,7 @@ class ConfigTablePMB
                 auto_increment = 1
                 default character set = utf8
                 collate = utf8_unicode_ci';
-            $gDb->queryPrepared($sql);
+            $GLOBALS['gDb']->queryPrepared($sql);
         }
 
         $this->read();
@@ -167,7 +165,7 @@ class ConfigTablePMB
 				$sql = 'DELETE FROM '.$this->table_name.'
         				      WHERE plp_name = ? 
         				        AND plp_org_id = ? ';
-				$gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
+				$GLOBALS['gDb']->queryPrepared($sql, array($plp_name, $GLOBALS['gCurrentOrgId']));
                 
                 unset($this->config[$section][$key]);
             }
@@ -188,8 +186,6 @@ class ConfigTablePMB
      */
     public function save()
     {
-        global $gDb, $gCurrentOrgId;
-
         foreach ($this->config as $section => $sectiondata)
         {
             foreach ($sectiondata as $key => $value)
@@ -207,7 +203,7 @@ class ConfigTablePMB
             			  WHERE plp_name = ? 
             			    AND ( plp_org_id = ?
                  		     OR plp_org_id IS NULL ) ';
-            	$statement = $gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
+            	$statement = $GLOBALS['gDb']->queryPrepared($sql, array($plp_name, $GLOBALS['gCurrentOrgId']));
                 $row = $statement->fetchObject();
 
                 // Gibt es den Datensatz bereits?
@@ -217,14 +213,14 @@ class ConfigTablePMB
                     $sql = 'UPDATE '.$this->table_name.'
                             SET plp_value = ?
                 			 WHERE plp_id = ? ';   
-                    $gDb->queryPrepared($sql, array($value, $row->plp_id));  
+                    $GLOBALS['gDb']->queryPrepared($sql, array($value, $row->plp_id));  
                 }
                 // wenn nicht: INSERT eines neuen Datensatzes
                 else
                 {
                     $sql = 'INSERT INTO '.$this->table_name.' (plp_org_id, plp_name, plp_value) 
-  							VALUES (? , ? , ?)  -- $gCurrentOrgId, self::$shortcut.\'__\'.$section.\'__\'.$key, $value '; 
-            		$gDb->queryPrepared($sql, array($gCurrentOrgId, self::$shortcut.'__'.$section.'__'.$key, $value));
+  							VALUES (? , ? , ?)  -- $GLOBALS[\'gCurrentOrgId\'], self::$shortcut.\'__\'.$section.\'__\'.$key, $value '; 
+            		$GLOBALS['gDb']->queryPrepared($sql, array($GLOBALS['gCurrentOrgId'], self::$shortcut.'__'.$section.'__'.$key, $value));
                 }
             }
         }
@@ -236,14 +232,12 @@ class ConfigTablePMB
      */
     public function read()
     {
-        global $gDb, $gCurrentOrgId;
-
          $sql = 'SELECT plp_id, plp_name, plp_value
              	   FROM '.$this->table_name.'
              	  WHERE plp_name LIKE ?
              	    AND ( plp_org_id = ?
                  	 OR plp_org_id IS NULL ) ';
-		$statement = $gDb->queryPrepared($sql, array(self::$shortcut.'__%', $gCurrentOrgId)); 
+		$statement = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%', $GLOBALS['gCurrentOrgId'])); 
 
         while ($row = $statement->fetch())
         {
@@ -271,13 +265,11 @@ class ConfigTablePMB
      */
     public function checkforupdate()
     {
-        global $gDb, $gCurrentOrgId;
-
         $ret = 0;
 
         // pruefen, ob es die Konfigurationstabelle gibt
         $sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
-        $tableExistStatement = $gDb->queryPrepared($sql);
+        $tableExistStatement = $GLOBALS['gDb']->queryPrepared($sql);
 
         if ($tableExistStatement->rowCount())
         {
@@ -288,7 +280,7 @@ class ConfigTablePMB
             		 WHERE plp_name = ? 
             		   AND ( plp_org_id = ?
             	    	OR plp_org_id IS NULL ) ';
-    		$statement = $gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
+    		$statement = $GLOBALS['gDb']->queryPrepared($sql, array($plp_name, $GLOBALS['gCurrentOrgId']));
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: version)
@@ -304,7 +296,7 @@ class ConfigTablePMB
             		 WHERE plp_name = ?
             		   AND ( plp_org_id = ?
                  		OR plp_org_id IS NULL ) ';
-            $statement = $gDb->queryPrepared($sql, array($plp_name, $gCurrentOrgId));
+            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($plp_name, $GLOBALS['gCurrentOrgId']));
             $row = $statement->fetchObject();
 
             // Vergleich Version.php  ./. DB (hier: stand)
@@ -320,16 +312,16 @@ class ConfigTablePMB
 
         // einen Suchstring fuer die SQL-Abfrage aufbereiten
         $fieldsarray = array();
-        $fieldsarray[] = 'MEMBERNUMBER'.$gCurrentOrgId;
-        $fieldsarray[] = 'ACCESSION'.$gCurrentOrgId;
-        $fieldsarray[] = 'FEE'.$gCurrentOrgId;
-        $fieldsarray[] = 'PAID'.$gCurrentOrgId;
-        $fieldsarray[] = 'CONTRIBUTORY_TEXT'.$gCurrentOrgId;
-        $fieldsarray[] = 'SEQUENCETYPE'.$gCurrentOrgId;
-        $fieldsarray[] = 'DUEDATE'.$gCurrentOrgId;
-        $fieldsarray[] = 'MANDATEID'.$gCurrentOrgId;
-        $fieldsarray[] = 'MANDATEDATE'.$gCurrentOrgId;
-        $fieldsarray[] = 'ORIG_MANDATEID'.$gCurrentOrgId;
+        $fieldsarray[] = 'MEMBERNUMBER'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'ACCESSION'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'FEE'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'PAID'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'SEQUENCETYPE'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'DUEDATE'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'MANDATEID'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'MANDATEDATE'.$GLOBALS['gCurrentOrgId'];
+        $fieldsarray[] = 'ORIG_MANDATEID'.$GLOBALS['gCurrentOrgId'];
         $fieldsarray[] = 'IBAN';
         $fieldsarray[] = 'BIC';
         $fieldsarray[] = 'BANK';
@@ -354,7 +346,7 @@ class ConfigTablePMB
                  WHERE usf_name_intern IN ('.$fieldsString.')
                    AND ( cat_org_id = ?
                     OR cat_org_id IS NULL ) ';
-        $statement = $gDb->queryPrepared($sql, array($gCurrentOrgId));
+        $statement = $GLOBALS['gDb']->queryPrepared($sql, array($GLOBALS['gCurrentOrgId']));
 
         if ($statement->rowCount() != count($fieldsarray))
         {
@@ -371,8 +363,6 @@ class ConfigTablePMB
      */
     public function delete_config_data($deinst_org_select)
     {
-        global $gDb, $gL10n, $gCurrentOrgId;
-
         $result_data = false;
         $result_db = false;
 
@@ -381,27 +371,27 @@ class ConfigTablePMB
             $sql = 'DELETE FROM '.$this->table_name.'
           			      WHERE plp_name LIKE ?
         			        AND plp_org_id = ? ';
-			$result_data = $gDb->queryPrepared($sql, array(self::$shortcut.'__%', $gCurrentOrgId));		
+			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%', $GLOBALS['gCurrentOrgId']));		
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
             $sql = 'DELETE FROM '.$this->table_name.'
                           WHERE plp_name LIKE ? ';
-			$result_data = $gDb->queryPrepared($sql, array(self::$shortcut.'__%'));	
+			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%'));	
         }
 
         // wenn die Tabelle nur Eintraege dieses Plugins hatte, sollte sie jetzt leer sein und kann geloescht werden
         $sql = 'SELECT * FROM '.$this->table_name.' ';
-        $statement = $gDb->queryPrepared($sql);
+        $statement = $GLOBALS['gDb']->queryPrepared($sql);
 
         if ($statement->rowCount() == 0)
         {
             $sql = 'DROP TABLE '.$this->table_name.' ';
-            $result_db = $gDb->queryPrepared($sql);
+            $result_db = $GLOBALS['gDb']->queryPrepared($sql);
         }
 
-        $result  = ($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR'));
-        $result .= ($result_db ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR'));
+        $result  = ($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR'));
+        $result .= ($result_db ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_SUCCESS') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR'));
 
         return $result;
     }
@@ -415,14 +405,14 @@ class ConfigTablePMB
      */
     public function delete_member_data($deinst_org_select, $dataField, $dataDesc = '')
     {
-        global $gDb, $gL10n, $gProfileFields, $gCurrentOrgId;
+        global $gProfileFields;
 
         $result = '';
         $usfIDs = array();
 
         if ($deinst_org_select == 0)                   //0 = Daten nur in aktueller Org loeschen
         {
-            $orgSelector = $gCurrentOrgId;
+            $orgSelector = $GLOBALS['gCurrentOrgId'];
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
@@ -439,7 +429,7 @@ class ConfigTablePMB
                   FROM '.TBL_USER_FIELDS.', '.TBL_CATEGORIES.'
                  WHERE usf_name_intern LIKE ?
                    AND  usf_cat_id = cat_id  ';
-        $statement = $gDb->queryPrepared($sql, array($dataField.$orgSelector)); 
+        $statement = $GLOBALS['gDb']->queryPrepared($sql, array($dataField.$orgSelector)); 
 
         while ($row = $statement->fetch())
         {
@@ -459,61 +449,61 @@ class ConfigTablePMB
             $sql = 'SELECT * 
                       FROM '.TBL_USER_DATA.'
                      WHERE usd_usf_id = ? ';
-            $statement = $gDb->queryPrepared($sql, array($data['usf_id'])); 
+            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id'])); 
 
             if ($statement->rowCount() != 0)
             {
                 $sql = 'DELETE FROM '.TBL_USER_DATA.'
                         WHERE usd_usf_id = ? ';
-                $result_data = $gDb->queryPrepared($sql, array($data['usf_id']));	
-                $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_DATA.' - Status: '.($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
+                $result_data = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));	
+                $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_DATA.' - Status: '.($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
                 //$result_sum .= '<br/>';
             }
 
             $sql = 'SELECT * 
                       FROM '.TBL_USER_LOG.'
                      WHERE usl_usf_id = ? ';
-            $statement = $gDb->queryPrepared($sql, array($data['usf_id']));
+            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
 
             if ($statement->rowCount() != 0)
             {
                 $sql = 'DELETE FROM '.TBL_USER_LOG.'
                               WHERE usl_usf_id = ? ';
-                $result_logdata = $gDb->queryPrepared($sql, array($data['usf_id']));
-                $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_LOG.' - Status: '.($result_logdata ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
+                $result_logdata = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
+                $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_LOG.' - Status: '.($result_logdata ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
                 //$result_sum .= '<br/>';
             }
 
             $sql = 'SELECT * 
                       FROM '.TBL_LIST_COLUMNS.'
                      WHERE lsc_usf_id = ? ';
-            $statement = $gDb->queryPrepared($sql, array($data['usf_id'])); 
+            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id'])); 
 
             if ($statement->rowCount() != 0)
             {
                 $sql = 'DELETE FROM '.TBL_LIST_COLUMNS.'
                               WHERE lsc_usf_id = ? ';
-                $result_listdata = $gDb->queryPrepared($sql, array($data['usf_id']));
-                $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_LIST_COLUMNS.' - Status: '.($result_listdata ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
+                $result_listdata = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
+                $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_LIST_COLUMNS.' - Status: '.($result_listdata ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
                 //$result_sum .= '<br/>';
             }
 
             $sql = 'DELETE FROM '.TBL_USER_FIELDS.'
                           WHERE usf_id = ? ';
-            $result_profilefield = $gDb->queryPrepared($sql, array($data['usf_id']));
-            $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD').' '.$data['usf_name_intern'].' in '.TBL_USER_FIELDS.' - Status: '.($result_profilefield ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
+            $result_profilefield = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
+            $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD').' '.$data['usf_name_intern'].' in '.TBL_USER_FIELDS.' - Status: '.($result_profilefield ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
 
             $sql = 'SELECT * 
                       FROM '.TBL_USER_FIELDS.'
                      WHERE usf_cat_id = ? ';
-            $statement = $gDb->queryPrepared($sql, array($data['usf_cat_id']));
+            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_cat_id']));
             
             if ($statement->rowCount() == 0)
             {
                     $sql = 'DELETE FROM '.TBL_CATEGORIES.'
                                   WHERE cat_id = ? ';
-                    $result_category = $gDb->queryPrepared($sql, array($data['usf_cat_id']));
-                    $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMOVE_CATEGORY').' '.$data['cat_name_intern'].' in '.TBL_CATEGORIES.' - Status: '.($result_category ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
+                    $result_category = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_cat_id']));
+                    $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_REMOVE_CATEGORY').' '.$data['cat_name_intern'].' in '.TBL_CATEGORIES.' - Status: '.($result_category ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
             }
         }
         $result .= '<br/>';
@@ -528,8 +518,6 @@ class ConfigTablePMB
      */
     public function delete_mail_data($deinst_org_select)
     {
-        global $gDb, $gL10n, $gCurrentOrgId;
-
         $result = '';
         $result_data = false;
 
@@ -538,18 +526,18 @@ class ConfigTablePMB
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                           WHERE txt_name LIKE ?
                             AND txt_org_id = ? ';
-            $result_data = $gDb->queryPrepared($sql, array('PMBMAIL_%', $gCurrentOrgId));		
+            $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('PMBMAIL_%', $GLOBALS['gCurrentOrgId']));		
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                     WHERE txt_name LIKE ? ';
-            $result_data = $gDb->queryPrepared($sql, array('PMBMAIL_%'));
+            $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('PMBMAIL_%'));
         }
 
-        $result .= '<br/><em>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS').'</em>';
+        $result .= '<br/><em>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS').'</em>';
 
-        $result .= '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_MAIL_TEXTS').TBL_LIST_COLUMNS.' - Status: '.($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETED') : $gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR'));
+        $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_MAIL_TEXTS').TBL_LIST_COLUMNS.' - Status: '.($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
 
         return $result;
     }

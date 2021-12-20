@@ -677,7 +677,7 @@ $page->show();
  */
 function check_DB()
 {
-    global $gDb, $gL10n, $gProfileFields, $gCurrentOrgId;
+    global $gProfileFields;
 
     //Mit der Version 3.3.0 wurde die Installationsroutine umprogrammiert.
     //Frueher wurde auf usf_name geprueft, jetzt auf usf_name_intern.
@@ -689,10 +689,10 @@ function check_DB()
     $sql = ' SELECT cat_name, cat_name_intern
             FROM '. TBL_CATEGORIES. '
             WHERE cat_name = \'Kontodaten\'
-            AND (  cat_org_id = '.$gCurrentOrgId.'
+            AND (  cat_org_id = '. $GLOBALS['gCurrentOrgId']. '
             OR cat_org_id IS NULL ) ';
 
-    $statement = $gDb->query($sql);
+    $statement = $GLOBALS['gDb']->query($sql);
     $row = $statement->fetchObject();
 
     // Gibt es einen zutreffenden Datensatz?  Wenn ja: UPDATE
@@ -701,9 +701,9 @@ function check_DB()
         $sql = 'UPDATE '.TBL_CATEGORIES.'
                 SET cat_name_intern = \'KONTODATEN\'
                 WHERE cat_name = \'Kontodaten\'
-                AND (  cat_org_id = '.$gCurrentOrgId.'
+                AND (  cat_org_id = '. $GLOBALS['gCurrentOrgId']. '
                 OR cat_org_id IS NULL ) ';
-        $gDb->query($sql);
+        $GLOBALS['gDb']->query($sql);
     }
 
     //Update/Konvertierungsroutine 4.1.2
@@ -711,13 +711,13 @@ function check_DB()
     // deutsche Bezeichnungen werden durch englische Bezeichnungen ersetzt
     $update_array = array();
     $update_array[] = array('alt_cat_name'        => 'Mitgliedschaft',
-                            'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$gCurrentOrgId,
+                            'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$GLOBALS['gCurrentOrgId'],
                             'neu_cat_name'        => 'PMB_MEMBERSHIP',
-                            'neu_cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrgId);
+                            'neu_cat_name_intern' => 'MEMBERSHIP'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_cat_name'        => 'Mitgliedsbeitrag',
-                            'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$gCurrentOrgId,
+                            'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$GLOBALS['gCurrentOrgId'],
                             'neu_cat_name'        => 'PMB_MEMBERSHIP_FEE',
-                            'neu_cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrgId);
+                            'neu_cat_name_intern' => 'MEMBERSHIP_FEE'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_cat_name'        => 'Kontodaten',
                             'alt_cat_name_intern' => 'KONTODATEN',
                             'neu_cat_name'        => 'PMB_ACCOUNT_DATA',
@@ -733,7 +733,7 @@ function check_DB()
                  ';
                     //     AND (  cat_org_id = '.$gCurrentOrgId.'
                  // OR cat_org_id IS NULL )
-        $statement = $gDb->query($sql);
+        $statement = $GLOBALS['gDb']->query($sql);
         $row = $statement->fetchObject();
         // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version
         if(isset($row->cat_id) && strlen($row->cat_id) > 0)
@@ -742,7 +742,7 @@ function check_DB()
                     SET cat_name = \''.$data['neu_cat_name'].'\' ,
                            cat_name_intern = \''.$data['neu_cat_name_intern'].'\'
                     WHERE cat_id = '.$row->cat_id;
-                $gDb->query($sql);
+                $GLOBALS['gDb']->query($sql);
         }
     }
 
@@ -772,33 +772,33 @@ function check_DB()
                             'neu_usf_name'        => 'PMB_DEBTOR_EMAIL',
                             'neu_usf_name_intern' => 'DEBTOR_EMAIL');
     $update_array[] = array('alt_usf_name'        => 'Beitritt',
-                            'alt_usf_name_intern' => 'BEITRITT'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'BEITRITT'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_ACCESSION',
-                            'neu_usf_name_intern' => 'ACCESSION'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'ACCESSION'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_usf_name'        => 'Bezahlt',
-                            'alt_usf_name_intern' => 'BEZAHLT'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'BEZAHLT'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_PAID',
-                            'neu_usf_name_intern' => 'PAID'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'PAID'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_usf_name'        => 'Beitrag',
-                            'alt_usf_name_intern' => 'BEITRAG'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'BEITRAG'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_FEE',
-                            'neu_usf_name_intern' => 'FEE'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'FEE'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_usf_name'        => 'Beitragstext',
-                            'alt_usf_name_intern' => 'BEITRAGSTEXT'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'BEITRAGSTEXT'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_CONTRIBUTORY_TEXT',
-                            'neu_usf_name_intern' => 'CONTRIBUTORY_TEXT'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_usf_name'        => 'PMB_MANDATEDATE',
-                            'alt_usf_name_intern' => 'MANDATEDATE'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'MANDATEDATE'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_MANDATEDATE',
-                            'neu_usf_name_intern' => 'MANDATEDATE'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'MANDATEDATE'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_usf_name'        => 'PMB_DUEDATE',
-                            'alt_usf_name_intern' => 'DUEDATE'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'DUEDATE'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_DUEDATE',
-                            'neu_usf_name_intern' => 'DUEDATE'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'DUEDATE'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_usf_name'        => 'PMB_SEQUENCETYPE',
-                            'alt_usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'SEQUENCETYPE'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_SEQUENCETYPE',
-                            'neu_usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'SEQUENCETYPE'.$GLOBALS['gCurrentOrgId']);
     $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_DEBTOR_AGENT',
                             'alt_usf_name_intern' => 'ORIGDEBTORAGENT',
                             'neu_usf_name'        => 'PMB_ORIG_DEBTOR_AGENT',
@@ -808,9 +808,9 @@ function check_DB()
                             'neu_usf_name'        => 'PMB_ORIG_IBAN',
                             'neu_usf_name_intern' => 'ORIG_IBAN');
     $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_MANDATEID',
-                            'alt_usf_name_intern' => 'ORIGMANDATEID'.$gCurrentOrgId,
+                            'alt_usf_name_intern' => 'ORIGMANDATEID'.$GLOBALS['gCurrentOrgId'],
                             'neu_usf_name'        => 'PMB_ORIG_MANDATEID',
-                            'neu_usf_name_intern' => 'ORIG_MANDATEID'.$gCurrentOrgId);
+                            'neu_usf_name_intern' => 'ORIG_MANDATEID'.$GLOBALS['gCurrentOrgId']);
 
     foreach($update_array as $data)
     {
@@ -821,7 +821,7 @@ function check_DB()
                  ';
                     //     AND (  cat_org_id = '.$gCurrentOrgId.'
                 //  OR cat_org_id IS NULL )
-        $statement = $gDb->query($sql);
+        $statement = $GLOBALS['gDb']->query($sql);
         $row = $statement->fetchObject();
         // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version
         if(isset($row->usf_id) && strlen($row->usf_id) > 0)
@@ -830,7 +830,7 @@ function check_DB()
                     SET usf_name = \''.$data['neu_usf_name'].'\' ,
                         usf_name_intern = \''.$data['neu_usf_name_intern'].'\'
                     WHERE usf_id = '.$row->usf_id;
-                $gDb->query($sql);
+                $GLOBALS['gDb']->query($sql);
         }
     }
     
@@ -839,7 +839,7 @@ function check_DB()
         		FROM '.TBL_USER_FIELDS.'
         		WHERE usf_name =  \'PMB_DEBTOR_ADDRESS\' ';
     
-    $statement = $gDb->query($sql);
+    $statement = $GLOBALS['gDb']->query($sql);
     $row = $statement->fetchObject();
     // Gibt es einen Datensatz mit diesen Alt-Daten? Wenn ja: UPDATE auf die neue Version
     if (isset($row->usf_id) AND strlen($row->usf_id) > 0)
@@ -849,14 +849,14 @@ function check_DB()
                         usf_name_intern = \'DEBTOR_STREET\'  ,
                         usf_description = \'<p>Straße des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>\'
             		WHERE usf_id = '.$row->usf_id;
-    	$gDb->query($sql);
+    	$GLOBALS['gDb']->query($sql);
     }
     
     $sql = 'SELECT usf_id
         		FROM '.TBL_USER_FIELDS.'
         		WHERE usf_name =  \'PMB_DEBTOR\' ';
     
-    $statement = $gDb->query($sql);
+    $statement = $GLOBALS['gDb']->query($sql);
     $row = $statement->fetchObject();
     // Gibt es einen Datensatz mit diesen Alt-Daten? Wenn ja: UPDATE auf die neue Version
     if (isset($row->usf_id) AND strlen($row->usf_id) > 0)
@@ -864,15 +864,15 @@ function check_DB()
     	$sql = 'UPDATE '.TBL_USER_FIELDS.'
             		SET usf_description = \'<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Straße, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>\'
             		WHERE usf_id = '.$row->usf_id;
-    	$gDb->query($sql);
+    	$GLOBALS['gDb']->query($sql);
     }
     // Ende Update/Konvertierungsroutine
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
     $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_org_id' => 'Null',         'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',                  'cat_type' => 'USF', 'cat_system' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$gCurrentOrgId, 'cat_type' => 'USF', 'cat_system' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MEMBERSHIP',     'cat_name_intern' => 'MEMBERSHIP'.$gCurrentOrgId,     'cat_type' => 'USF', 'cat_system' => 0);
-    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']           = array('cat_org_id' => $gCurrentOrgId, 'cat_name' => 'PMB_MANDATE',        'cat_name_intern' => 'MANDATE'.$gCurrentOrgId,        'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedsbeitrag'] = array('cat_org_id' => $GLOBALS['gCurrentOrgId'], 'cat_name' => 'PMB_MEMBERSHIP_FEE', 'cat_name_intern' => 'MEMBERSHIP_FEE'.$GLOBALS['gCurrentOrgId'], 'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mitgliedschaft']   = array('cat_org_id' => $GLOBALS['gCurrentOrgId'], 'cat_name' => 'PMB_MEMBERSHIP',     'cat_name_intern' => 'MEMBERSHIP'.$GLOBALS['gCurrentOrgId'],     'cat_type' => 'USF', 'cat_system' => 0);
+    $DB_array['SOLL']['TBL_CATEGORIES']['Mandat']           = array('cat_org_id' => $GLOBALS['gCurrentOrgId'], 'cat_name' => 'PMB_MANDATE',        'cat_name_intern' => 'MANDATE'.$GLOBALS['gCurrentOrgId'],        'cat_type' => 'USF', 'cat_system' => 0);
 
     $DB_array['SOLL']['TBL_USER_FIELDS']['IBAN']                 = array('usf_name' => 'PMB_IBAN',              'usf_name_intern' => 'IBAN',                             'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
     $DB_array['SOLL']['TBL_USER_FIELDS']['BIC']                  = array('usf_name' => 'PMB_BIC',               'usf_name_intern' => 'BIC',                              'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
@@ -884,19 +884,19 @@ function check_DB()
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt']      = array('usf_name' => 'PMB_DEBTOR_CITY',       'usf_name_intern' => 'DEBTOR_CITY',                      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>');
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail']    = array('usf_name' => 'PMB_DEBTOR_EMAIL',      'usf_name_intern' => 'DEBTOR_EMAIL',                     'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 0, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
 
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']      = array('usf_name' => 'PMB_MEMBERNUMBER',      'usf_name_intern' => 'MEMBERNUMBER'.$gCurrentOrgId,      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitritt']             = array('usf_name' => 'PMB_ACCESSION',         'usf_name_intern' => 'ACCESSION'.$gCurrentOrgId,         'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Das Beitrittsdatum zum Verein');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Bezahlt']              = array('usf_name' => 'PMB_PAID',              'usf_name_intern' => 'PAID'.$gCurrentOrgId,              'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Datumsangabe, ob und wann der Beitrag bezahlt wurde');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitrag']              = array('usf_name' => 'PMB_FEE',               'usf_name_intern' => 'FEE'.$gCurrentOrgId,               'usf_type' => 'DECIMAL', 'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Der errechnete Mitgliedsbeitrag');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitragstext']         = array('usf_name' => 'PMB_CONTRIBUTORY_TEXT', 'usf_name_intern' => 'CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Verwendungszweck');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']      = array('usf_name' => 'PMB_MANDATEID',         'usf_name_intern' => 'MANDATEID'.$gCurrentOrgId,         'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']         = array('usf_name' => 'PMB_MANDATEDATE',       'usf_name_intern' => 'MANDATEDATE'.$gCurrentOrgId,       'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']    = array('usf_name' => 'PMB_DUEDATE',           'usf_name_intern' => 'DUEDATE'.$gCurrentOrgId,           'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Sequenztyp']           = array('usf_name' => 'PMB_SEQUENCETYPE',      'usf_name_intern' => 'SEQUENCETYPE'.$gCurrentOrgId,      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Mitgliedsnummer']      = array('usf_name' => 'PMB_MEMBERNUMBER',      'usf_name_intern' => 'MEMBERNUMBER'.$GLOBALS['gCurrentOrgId'],      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitritt']             = array('usf_name' => 'PMB_ACCESSION',         'usf_name_intern' => 'ACCESSION'.$GLOBALS['gCurrentOrgId'],         'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Das Beitrittsdatum zum Verein');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Bezahlt']              = array('usf_name' => 'PMB_PAID',              'usf_name_intern' => 'PAID'.$GLOBALS['gCurrentOrgId'],              'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Datumsangabe, ob und wann der Beitrag bezahlt wurde');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitrag']              = array('usf_name' => 'PMB_FEE',               'usf_name_intern' => 'FEE'.$GLOBALS['gCurrentOrgId'],               'usf_type' => 'DECIMAL', 'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Der errechnete Mitgliedsbeitrag');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Beitragstext']         = array('usf_name' => 'PMB_CONTRIBUTORY_TEXT', 'usf_name_intern' => 'CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId'], 'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Verwendungszweck');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz']      = array('usf_name' => 'PMB_MANDATEID',         'usf_name_intern' => 'MANDATEID'.$GLOBALS['gCurrentOrgId'],         'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsdatum']         = array('usf_name' => 'PMB_MANDATEDATE',       'usf_name_intern' => 'MANDATEDATE'.$GLOBALS['gCurrentOrgId'],       'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Faelligkeitsdatum']    = array('usf_name' => 'PMB_DUEDATE',           'usf_name_intern' => 'DUEDATE'.$GLOBALS['gCurrentOrgId'],           'usf_type' => 'DATE',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Sequenztyp']           = array('usf_name' => 'PMB_SEQUENCETYPE',      'usf_name_intern' => 'SEQUENCETYPE'.$GLOBALS['gCurrentOrgId'],      'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => '');
 
     $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Debtor_Agent']    = array('usf_name' => 'PMB_ORIG_DEBTOR_AGENT', 'usf_name_intern' => 'ORIG_DEBTOR_AGENT',                'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
     $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_IBAN']            = array('usf_name' => 'PMB_ORIG_IBAN',         'usf_name_intern' => 'ORIG_IBAN',                        'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
-    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz'] = array('usf_name' => 'PMB_ORIG_MANDATEID',    'usf_name_intern' => 'ORIG_MANDATEID'.$gCurrentOrgId,    'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
+    $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz'] = array('usf_name' => 'PMB_ORIG_MANDATEID',    'usf_name_intern' => 'ORIG_MANDATEID'.$GLOBALS['gCurrentOrgId'],    'usf_type' => 'TEXT',    'usf_system' => 0, 'usf_disabled' => 1, 'usf_hidden' => 1, 'usf_mandatory' => 0, 'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.');
 
      $DB_array['IST'] = $DB_array['SOLL'];
 
@@ -906,10 +906,10 @@ function check_DB()
             FROM '.TBL_USER_FIELDS.' , '. TBL_CATEGORIES. '
             WHERE usf_name_intern = \''.$fielddata['usf_name_intern'].'\'
             AND usf_cat_id = cat_id
-            AND (  cat_org_id = '.$gCurrentOrgId.'
+            AND (  cat_org_id = '.$GLOBALS['gCurrentOrgId'].'
             OR cat_org_id IS NULL ) ';
 
-        $statement = $gDb->query($sql);
+        $statement = $GLOBALS['gDb']->query($sql);
         $row = $statement->fetchObject();
 
         $DB_array['IST']['TBL_USER_FIELDS'][$field] = array(
@@ -934,10 +934,10 @@ function check_DB()
             FROM '.TBL_CATEGORIES.'
             WHERE cat_name_intern = \''.$catdata['cat_name_intern'].'\'
             AND cat_type = \'USF\'
-            AND (  cat_org_id = '.$gCurrentOrgId.'
+            AND (  cat_org_id = '.$GLOBALS['gCurrentOrgId'].'
                 OR cat_org_id IS NULL ) ';
 
-        $statement = $gDb->query($sql);
+        $statement = $GLOBALS['gDb']->query($sql);
         $row = $statement->fetchObject();
 
         $DB_array['IST']['TBL_CATEGORIES'][$cat] = array(
@@ -965,7 +965,6 @@ function check_DB()
  */
 function SollIstProfilfeld($arr, $field)
 {
-    global $gL10n;
     $columnValues = array();
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_name_intern'] != $arr['IST']['TBL_USER_FIELDS'][$field]['usf_name_intern'])
@@ -992,56 +991,56 @@ function SollIstProfilfeld($arr, $field)
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'"></i>';
+        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_HIDDEN').'"></i>';
     }                       
     else
     {
-        $columnValues[] =  '<i class="fas fa-eye" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
+        $columnValues[] =  '<i class="fas fa-eye" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'"></i>';
+        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_HIDDEN').'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-eye" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
+        $columnValues[] = '<i class="fas fa-eye" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
     }
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-key" data-toggle="tooltip" data-html="true" title="'.$gL10n->get('ORG_FIELD_DISABLED', array($gL10n->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
+        $columnValues[] = '<i class="fas fa-key" data-toggle="tooltip" data-html="true" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_DISABLED', array($GLOBALS['gL10n']->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'"></i>';
+        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_DISABLED').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-key" data-toggle="tooltip" data-html="true" title="'.$gL10n->get('ORG_FIELD_DISABLED', array($gL10n->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
+        $columnValues[] = '<i class="fas fa-key" data-toggle="tooltip" data-html="true" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_DISABLED', array($GLOBALS['gL10n']->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'"></i>';
+        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_DISABLED').'"></i>';
     }
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_mandatory'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-asterisk" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'"></i>';
+        $columnValues[] = '<i class="fas fa-asterisk" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_REQUIRED').'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-asterisk admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'"></i>';
+        $columnValues[] = '<i class="fas fa-asterisk admidio-opacity-reduced" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_MANDATORY').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_mandatory'] == 1)
     { 
-        $columnValues[] =  '<i class="fas fa-asterisk" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_REQUIRED').'"></i>' ;
+        $columnValues[] =  '<i class="fas fa-asterisk" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_REQUIRED').'"></i>' ;
     }
     else
     {
-        $columnValues[] ='<i class="fas fa-asterisk admidio-opacity-reduced" data-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_MANDATORY').'"></i>';
+        $columnValues[] ='<i class="fas fa-asterisk admidio-opacity-reduced" data-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_MANDATORY').'"></i>';
     }
 
     return $columnValues;
@@ -1055,7 +1054,6 @@ function SollIstProfilfeld($arr, $field)
  */
 function SollIstKategorie($arr, $field)
 {
-    global $gL10n;
     $columnValues = array();
 
     if ($arr['SOLL']['TBL_CATEGORIES'][$field]['cat_name_intern'] != $arr['IST']['TBL_CATEGORIES'][$field]['cat_name_intern'])
@@ -1082,16 +1080,14 @@ function SollIstKategorie($arr, $field)
  */
 function getNextCatSequence($cat_type)
 {
-    global $gDb, $gCurrentOrgId;
-
     $sql    = 'SELECT cat_type, cat_sequence
                 FROM '. TBL_CATEGORIES. '
                 WHERE cat_type = \''.$cat_type.'\'
-                AND (  cat_org_id  = '.$gCurrentOrgId. '
+                AND (  cat_org_id  = '. $GLOBALS['gCurrentOrgId']. '
                     OR cat_org_id IS NULL )
                 ORDER BY cat_sequence ASC';
 
-    $statement = $gDb->query($sql);
+    $statement = $GLOBALS['gDb']->query($sql);
 
     while($row = $statement->fetch())
     {
@@ -1107,7 +1103,6 @@ function getNextCatSequence($cat_type)
  */
 function getNextFieldSequence($usf_cat_id)
 {
-    global $gDb;
     $sequence = 0;
 
     $sql    = 'SELECT usf_cat_id, usf_sequence
@@ -1115,7 +1110,7 @@ function getNextFieldSequence($usf_cat_id)
                 WHERE usf_cat_id = \''.$usf_cat_id.'\'
                 ORDER BY usf_sequence ASC';
 
-    $statement = $gDb->query($sql);
+    $statement = $GLOBALS['gDb']->query($sql);
 
     while($row = $statement->fetch())
     {
@@ -1131,16 +1126,14 @@ function getNextFieldSequence($usf_cat_id)
  */
 function getCat_IDPMB($cat_name_intern)
 {
-    global $gDb, $gCurrentOrgId;
-
     $sql = ' SELECT cat_id
             FROM '.TBL_CATEGORIES.'
             WHERE cat_name_intern = \''.$cat_name_intern.'\'
             AND cat_type = \'USF\'
-            AND (  cat_org_id = '.$gCurrentOrgId.'
+            AND (  cat_org_id = '. $GLOBALS['gCurrentOrgId']. '
                 OR cat_org_id IS NULL ) ';
 
-    $statement = $gDb->query($sql);
+    $statement = $GLOBALS['gDb']->query($sql);
     $row = $statement->fetchObject();
 
     return $row->cat_id;
@@ -1154,9 +1147,7 @@ function getCat_IDPMB($cat_name_intern)
  */
 function setCategory($arr, $sequence)
 {
-    global $gDb;
-    
-    $newCategory = new TableAccess($gDb, TBL_CATEGORIES, 'cat');
+    $newCategory = new TableAccess($GLOBALS['gDb'], TBL_CATEGORIES, 'cat');
     $newCategory->setValue('cat_sequence', $sequence);
     
     foreach ($arr as $key => $value)
@@ -1176,9 +1167,7 @@ function setCategory($arr, $sequence)
  */
 function setUserField($cat_id, $arr, $sequence)
 {
-    global $gDb;
-    
-    $newUserField = new TableAccess($gDb, TBL_USER_FIELDS, 'usf');
+    $newUserField = new TableAccess($GLOBALS['gDb'], TBL_USER_FIELDS, 'usf');
     $newUserField->setValue('usf_cat_id', $cat_id);
     $newUserField->setValue('usf_sequence', $sequence);
     

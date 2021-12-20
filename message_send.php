@@ -76,13 +76,12 @@ $sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG
 $sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR').'</strong>');
 
 $sendResult  = false;
-$currUsrId   = (int) $gCurrentUser->getValue('usr_id');
 
 // object to handle the current message in the database
 $message = new TableMessage($gDb);
 $message->setValue('msg_type', TableMessage::MESSAGE_TYPE_EMAIL);
 $message->setValue('msg_subject', $postSubject);
-$message->setValue('msg_usr_id_sender', $gCurrentUser->getValue('usr_id'));
+$message->setValue('msg_usr_id_sender', $gCurrentUserId);
 $message->addContent($postBody);      
 
 $user = new User($gDb, $gProfileFields);

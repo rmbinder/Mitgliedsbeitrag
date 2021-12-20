@@ -10,7 +10,7 @@
  ***********************************************************************************************
  */
 
-global $gL10n, $gProfileFields, $gCurrentOrgId;
+global $gProfileFields;
 
 $config_default = array();
 
@@ -77,21 +77,21 @@ $config_default['Plugininformationen']['version'] = '';
 $config_default['Plugininformationen']['stand'] = '';
 
 //Spalten fuer die Ansichtsdefinitionen
-$config_default['columnconfig'] = array('payments_fields' => array( 'p'.$gProfileFields->getProperty('PAID'.$gCurrentOrgId, 'usf_id'),
-																	'p'.$gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'),
-																	'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrgId, 'usf_id'),
-																	'p'.$gProfileFields->getProperty('FEE'.$gCurrentOrgId, 'usf_id'),
+$config_default['columnconfig'] = array('payments_fields' => array( 'p'.$gProfileFields->getProperty('PAID'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+																	'p'.$gProfileFields->getProperty('DUEDATE'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+																	'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+																	'p'.$gProfileFields->getProperty('FEE'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
 																	'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																	'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																	'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')),
-										'mandates_fields' => array( 'p'.$gProfileFields->getProperty('MANDATEDATE'.$gCurrentOrgId, 'usf_id'),
-																	'p'.$gProfileFields->getProperty('MANDATEID'.$gCurrentOrgId, 'usf_id'),
+										'mandates_fields' => array( 'p'.$gProfileFields->getProperty('MANDATEDATE'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+																	'p'.$gProfileFields->getProperty('MANDATEID'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
 																	'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																	'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																	'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')),
-										'duedates_fields' => array( 'p'.$gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'),
-																	'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrgId, 'usf_id'),
-																	'p'.$gProfileFields->getProperty('FEE'.$gCurrentOrgId, 'usf_id'),
+										'duedates_fields' => array( 'p'.$gProfileFields->getProperty('DUEDATE'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+																	'p'.$gProfileFields->getProperty('SEQUENCETYPE'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+																	'p'.$gProfileFields->getProperty('FEE'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
 																	'p'.$gProfileFields->getProperty('LAST_NAME', 'usf_id'),
 																	'p'.$gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
 																	'p'.$gProfileFields->getProperty('BIRTHDAY', 'usf_id')));
@@ -101,7 +101,7 @@ $config_default['membernumber'] = array('format'    => '',
                                         'fill_gaps' => 1);
 
 //Zugriffsberechtigung für das Modul preferences
-$config_default['access']['preferences'] = array(getRole_IDPMB($gL10n->get('SYS_ADMINISTRATOR')));
+$config_default['access']['preferences'] = array(getRole_IDPMB($GLOBALS['gL10n']->get('SYS_ADMINISTRATOR')));
 
 //Individualbeiträge
 $config_default['individual_contributions'] = array('access_to_module'  => '0',
