@@ -78,7 +78,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS">Plus sign</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">The membership fee text can be preceded by a prefix.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA">Calculation of proportional membership fee</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">The respective checkbox has to be activated if the proportional membership fee is to be calculated on the basis of the beginning of the role membership (if the checkbox is deactivated, the admission date is used).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">If the pro rata contribution calculation is to be determined based on a role assignment, the checkmark must be ticked (if the checkbox is deactivated, the admission date is used).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC2">If the date of joining is selected, the pro rata calculation is always made from the date of joining to the end of the year.\n\nIf role membership is selected, the beginning and end of membership in a role are evaluated.\n\nIn the case of family roles, the data of the payer (joining date, start / end of role membership) is always used to calculate the pro rata contribution.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_NOROLL">No rolls were selected.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN">Round off membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN_DESC">The respective checkbox has to be activated if all fees are to be rounded off for the benefit of the member.</string>

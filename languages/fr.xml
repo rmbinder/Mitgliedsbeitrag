@@ -78,7 +78,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS">Signe plus</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">Le texte de la cotisation peut être précédé d\'un préfixe.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA">Calcul proportionnel de la cotisation</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">Si tu veux que le calcul de la cotisation proportionnelle soit déterminé d\'après le début d\'une affectation de rôle, active la coche (la date d\'adhésion est utilisée sans coche).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">Si le calcul de la contribution au prorata doit être déterminé sur la base d'une attribution de rôle, la coche doit être cochée (la date d\'adhésion est utilisée sans coche).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC2">Si la date d'adhésion est sélectionnée, le calcul au prorata se fait toujours à partir de la date d'adhésion jusqu'à la fin de l'année.\n\nSi l'appartenance à un rôle est sélectionnée, le début et la fin de l'appartenance à un rôle sont évalués.\n\nDans le cas des rôles familiaux, les données du payeur (date d'adhésion, début/fin d'adhésion au rôle) sont toujours utilisées pour calculer la cotisation au prorata.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_NOROLL">Aucun rôle n\'a été sélectionné.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN">Arrondir les cotisations vers le bas</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN_DESC">Si toutes les cotisations concernant le membre doivent être arrondies vers le bas, la case doit être cochée.</string>

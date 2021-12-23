@@ -78,7 +78,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS">Pluszeichen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">Dem Beitragstext kann ein Präfix vorangestellt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA">Anteilige Beitragsberechnung</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">Soll die anteilige Beitragsberechnung anhand des Beginns einer Rollenzugehörigkeit ermittelt werden, so ist der Haken zu setzen (ohne Haken wird das Beitrittsdatum verwendet).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC">Soll die anteilige Beitragsberechnung anhand einer Rollenzugehörigkeit ermittelt werden, so ist der Haken zu setzen (ohne Haken wird das Beitrittsdatum verwendet).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PRORATA_DESC2">Ist Beitrittsdatum gewählt, erfolgt die anteilige Berechnung immer von Beitrittsdatum bis Jahresende.\n\nIst Rollenzugehörigkeit gewählt, werden Beginn und Ende der Mitgliedschaft in einer Rolle ausgewertet.\n\nBei Familienrollen werden für die Berechnung des anteiligen Beitrags immer die Daten des Zahlungspflichtigen (Beitrittsdatum, Beginn/Ende einer Rollenmitgliedschaft) verwendet.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROLLQUERY_NOROLL">Es wurden keine Rollen ausgewählt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN">Beiträge abrunden</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ROUNDDOWN_DESC">Sollen alle Beiträge zugunsten des Mitglieds abgerundet werden, so ist der Haken zu setzen.</string>

@@ -33,9 +33,9 @@ if(!defined('PLUGIN_FOLDER'))
  *                                  $rollen[rol_id]['rol_cost_period']        =Beitragszeitraum ('rol_cost_period')<br/>
  *                                  $rollen[rol_id]['rol_timestamp_create']   =Erzeugungsdatum der Rolle ('rol_timestamp_create')<br/>
  *                                  $rollen[rol_id]['rol_description']        =Beschreibung ('rol_description')<br/>
- *                                  $rollen[rol_id]['von']                    =nur bei altersgestaffelnten Rollen 'von'<br/>
- *                                  $rollen[rol_id]['bis']                    =nur bei altersgestaffelnten Rollen 'bis'<br/>
- *                                  $rollen[rol_id]['alterstyp']              =nur bei altersgestaffelnten Rollen 'Trennzeichen'<br/>
+ *                                  $rollen[rol_id]['von']                    =nur bei altersgestaffelten Rollen 'von'<br/>
+ *                                  $rollen[rol_id]['bis']                    =nur bei altersgestaffelten Rollen 'bis'<br/>
+ *                                  $rollen[rol_id]['alterstyp']              =nur bei altersgestaffelten Rollen 'Trennzeichen'<br/>
  *                                  $rollen[rol_id]['rollentyp']              =Rollentyp ('alt', 'fam' oder 'fix')
  */
 function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
@@ -139,7 +139,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
 }
 
 /**
- * Liest alle Mitglieder von Rollen einer oder mehrerer Kategorie(en) ein.
+ * Liest alle Mitglieder von Rollen einer oder mehrerer Kategorie(n) ein.
  * Die cat_ids der einzulesenden Kategorien werden direkt aus der $config_ini gelesen
  * @return  array $members   Array mit den user_ids der Mitglieder
  */

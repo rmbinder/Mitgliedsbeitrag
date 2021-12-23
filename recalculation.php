@@ -13,8 +13,8 @@
 /******************************************************************************
  * Parameters:
  *
- * mode       : preview - preview of the new mandate ids
- *              write   - save the new mandate ids
+ * mode       : preview - preview of the new fees
+ *              write   - save the new fees
  *              print   - preview for printing  
  *
  *****************************************************************************/
@@ -135,26 +135,25 @@ if ($getMode == 'preview')     //Default
 			// alle Rollen, außer Familienrollen
 			if (($roldata['rollentyp'] != 'fam') && (array_key_exists($member, $roldata['members'])))
 			{
-				if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
-				{
-					$members[$member]['ACCESSION'.$gCurrentOrgId] = $roldata['members'][$member]['mem_begin'];
-				}
-	
-				if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)
+			    //anteilige Beitragsberechnung (Beginn)
+				if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)            // anhand des Beginns einer Rollenzugehörigkeit
 				{
 					$time_begin = strtotime($roldata['members'][$member]['mem_begin']);
 				}
-				else
+				else                                                                        // anhand des Beitrittsdatums
 				{
 					$time_begin = strtotime($members[$member]['ACCESSION'.$gCurrentOrgId]);
 				}
 	
-				// das Standarddatum '9999-12-31' kann auf best. Systemen nicht verarbeitet werden
-				if($roldata['members'][$member]['mem_end'] == '9999-12-31')
+				// anteilige Beitragsberechnung anhand des Endes einer Rollenzugehörigkeit
+				// Info: da es das Feld "Austrittsdatum" nicht gibt, kann nur das Ende einer Rollenzugehörigkeit verarbeitet werden
+				
+				// das Standarddatum '9999-12-31' kann auf einigen Systemen nicht verarbeitet werden
+				if($roldata['members'][$member]['mem_end'] == '9999-12-31')                 
 				{
 					$time_end = strtotime('2038-01-19');
 				}
-				else
+				else                                                                        
 				{
 					$time_end = strtotime($roldata['members'][$member]['mem_end']);
 				}
@@ -198,7 +197,7 @@ if ($getMode == 'preview')     //Default
 					}
 					// nur einmal soll beitrag_suffix angezeigt werden, wenn aber rol_description leer ist,
 					// wird es mehrfach hintereinander mit vielen Leerzeichen dazwischen angefuegt, deshalb ersetzen
-					//zuerst zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
+					// zuerst zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
 					$members[$member]['CONTRIBUTORY_TEXT_NEW'] = str_replace('  ', ' ', $members[$member]['CONTRIBUTORY_TEXT_NEW']);
 					//jetzt mehrfache beitrag_suffix loeschen
 					$members[$member]['CONTRIBUTORY_TEXT_NEW'] = str_replace($pPreferences->config['Beitrag']['beitrag_suffix'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'], $pPreferences->config['Beitrag']['beitrag_suffix'], $members[$member]['CONTRIBUTORY_TEXT_NEW']);
@@ -262,14 +261,55 @@ if ($getMode == 'preview')     //Default
 				}
 			}
 	
-			// anteiligen Beitrag berechnen, falls die Familie erst im aktuellen Jahr angelegt wurde
+			if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)            // anteilige Beitragsberechnung anhand des Beginns einer Rollenzugehörigkeit
+			{
+			    $time_begin = strtotime($roldata['members'][$roldata['has_to_pay']]['mem_begin']);
+			}
+			else                                                                        // anteilige Betragsberechnung anhand des Beitrittsdatums
+			{
+			    $time_begin = strtotime($members[$roldata['has_to_pay']]['ACCESSION'.$gCurrentOrgId]);
+			}
+			
+			// das Standarddatum '9999-12-31' kann auf einigen Systemen nicht verarbeitet werden
+			if($roldata['members'][$member]['mem_end'] == '9999-12-31')
+			{
+			    $time_end = strtotime('2038-01-19');
+			}
+			else                                                                        
+			{
+			    $time_end = strtotime($roldata['members'][$member]['mem_end']);
+			}
+			
+			// anteiligen Beitrag berechnen, falls das Mitglied (in diesem Fall der Zahlungspflichtige der Familienrolle) im aktuellen Jahr ein- oder ausgetreten ist
 			// && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
 			// && Beitragszeitraum (cost_period) darf nicht "Jaehrlich" (1) sein
-			if ((date('Y') == date('Y', strtotime($roldata['rol_timestamp_create']))) && ($roldata['rol_cost_period'] != -1) && ($roldata['rol_cost_period'] != 1))
+			if ((strtotime(date('Y').'-01-01') < $time_begin || $time_end < strtotime(date('Y').'-12-31'))
+			    && ($roldata['rol_cost_period'] != -1)
+			    && ($roldata['rol_cost_period'] != 1))
 			{
-				$beitrittsmonat = date('n', strtotime($roldata['rol_timestamp_create']));
-				$members[$roldata['has_to_pay']]['FEE_NEW'] +=  (($roldata['rol_cost_period']+1)-ceil($beitrittsmonat/(12/$roldata['rol_cost_period'])))*($roldata['rol_cost']/$roldata['rol_cost_period']);
-				$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
+			    
+			    if (strtotime(date('Y').'-01-01') <  $time_begin)
+			    {
+			        $month_begin = date('n', $time_begin);
+			    }
+			    else
+			    {
+			        $month_begin = 1;
+			    }
+			    if (strtotime(date('Y').'-12-31') >  $time_end)
+			    {
+			        $month_end   = date('n', $time_end);
+			    }
+			    else
+			    {
+			        $month_end = 12;
+			    }
+			    
+			    $segment_begin = ceil($month_begin * $roldata['rol_cost_period']/12);
+			    $segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
+			    
+			    $members[$roldata['has_to_pay']]['FEE_NEW'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
+			    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
 			}
 			else
 			{
