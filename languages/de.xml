@@ -461,7 +461,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID">Mandatsreferenz für diesen Beitragseinzug</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT">Verwendungszweck</string>
     <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS">Ansichtsdefinitionen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER">Hier können die Spalten für die Ansichten Beitragszahlungen, Mandatsverwaltung und Fälligkeitsdatum, getrennt in Normalbild und Vollbild, definiert werden.\n\n Hinweis: In den jeweiligen Ansichten sind bereits eine oder mehrere Spalten vordefiniert. Diese können in ihrer Position nicht verschoben und auch nicht gelöscht werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER">Hier können die Spalten für die Ansichten Beitragszahlungen, Mandatsverwaltung und Fälligkeitsdatum definiert werden.\n\n Hinweis: In den jeweiligen Ansichten sind bereits eine oder mehrere Spalten vordefiniert. Diese können in ihrer Position nicht verschoben und auch nicht gelöscht werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_ACCOUNT_DATA">mit Kontodaten</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_DUEDATE">Mit Fälligkeitsdatum</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE">Mit Mandatsdatum</string>

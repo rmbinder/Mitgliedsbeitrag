@@ -461,7 +461,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID">Mandate reference for this collection of contributions</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT">Intended purpose</string>
     <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS">View definitions</string>
-    <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER">Here you can define the columns for the views contribution payments, mandate management and due date, separated into normal and full screen.\n\n Note: One or more columns are already predefined in the respective views. These can not be moved in their position and can not be deleted.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER">Here you can define the columns for the views contribution payments, mandate management and due dates.\n\n Note: One or more columns are already predefined in the respective views. These can not be moved in their position and can not be deleted.</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_ACCOUNT_DATA">with account data</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_DUEDATE">With due date</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE">With mandate date</string>

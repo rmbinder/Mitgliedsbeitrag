@@ -461,7 +461,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID">Référence du mandat pour ce recouvrement de cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT">Motif de paiement</string>
     <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS">Définition d\'affichage</string>
-    <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER">Ici, tu peux définir les colonnes pour les affichages Cotisation, Gestion du mandat et Date d\'échéance, séparées en écran normal et plein écran.\n\n Notics : Une ou plusieurs colonnes sont déjà prédéfinies dans les affichages respectives. Ils ne peuvent pas être déplacés ou supprimés.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER">Les colonnes des vues Paiements de cotisations, Gestion des mandats et Date d'échéance peuvent être définies ici.\n\n Notics : Une ou plusieurs colonnes sont déjà prédéfinies dans les affichages respectives. Ils ne peuvent pas être déplacés ou supprimés.</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_ACCOUNT_DATA">avec les données du compte</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_DUEDATE">Avec date d\'échéance</string>
     <string name="PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE">Avec date de mandat</string>
