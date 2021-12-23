@@ -248,7 +248,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_INVALID">invalid</string>
     <string name="PLG_MITGLIEDSBEITRAG_IS">ACTUAL</string>
     <string name="PLG_MITGLIEDSBEITRAG_ITEM">Item</string>
-    <string name="PLG_MITGLIEDSBEITRAG_LINK_TO_DEINSTALLATION">Skip to uninstall</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAIL_TEXTS">Email Texts</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR">The following error has occurred:</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILCOUNT">  * * * #VAR1# member(s) * * *</string>

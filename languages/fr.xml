@@ -248,7 +248,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_INVALID">invalide</string>
     <string name="PLG_MITGLIEDSBEITRAG_IS">effectif</string>
     <string name="PLG_MITGLIEDSBEITRAG_ITEM">Postes</string>
-    <string name="PLG_MITGLIEDSBEITRAG_LINK_TO_DEINSTALLATION">Changer à la désinstallation</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAIL_TEXTS">Textes des courriels</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR">L\'erreur suivante s\'est produite :</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILCOUNT">  * * * #VAR1# membre(s) * * *</string>

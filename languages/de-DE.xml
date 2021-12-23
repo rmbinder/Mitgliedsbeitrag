@@ -248,7 +248,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_INVALID">ungültig</string>
     <string name="PLG_MITGLIEDSBEITRAG_IS">IST</string>
     <string name="PLG_MITGLIEDSBEITRAG_ITEM">Posten</string>
-    <string name="PLG_MITGLIEDSBEITRAG_LINK_TO_DEINSTALLATION">Zur Deinstallation wechseln</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAIL_TEXTS">E-Mail Texte</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR">Folgender Fehler ist eingetreten:</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILCOUNT">  * * * #VAR1# Mitglied(er) * * *</string>
