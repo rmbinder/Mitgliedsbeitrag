@@ -263,7 +263,7 @@ function list_members($fields, $rols = array(), $conditions = '')
     
     if (is_string($rols))
     {
-        $inString .= ' WHERE mem_rol_id = '.getRole_IDPMB($rols).' AND ';
+        $inString .= ' WHERE mem_rol_id = '.getRoleId($rols).' AND ';
     }
     elseif (is_int($rols) && ($rols == 0))
     {
@@ -294,7 +294,7 @@ function list_members($fields, $rols = array(), $conditions = '')
             $roleKey = key($rols);
             $roleValue = current($rols);
        
-            $addString .= ' ) AND mem_rol_id = '.getRole_IDPMB($roleKey).' ';
+            $addString .= ' ) AND mem_rol_id = '.getRoleId($roleKey).' ';
             if ($roleValue == 0)
             {
                 // aktive Mitglieder
@@ -321,7 +321,7 @@ function list_members($fields, $rols = array(), $conditions = '')
                 {
                     $inString .= ' OR ( ';
                 }
-                $inString .= 'mem_rol_id = '.getRole_IDPMB($rol).' ';
+                $inString .= 'mem_rol_id = '.getRoleId($rol).' ';
             
                 if ($rol_switch == 0)
                 {
@@ -378,11 +378,11 @@ function delete_NULL ($wert)
 }
 
 /**
- * Funktion liest die Role-ID einer Rolle aus
+ * Funktion liest die Rollen-ID einer Rolle aus
  * @param   string  $role_name Name der zu pruefenden Rolle
  * @return  int     rol_id  Rol_id der Rolle, 0, wenn nicht gefunden
  */
-function getRole_IDPMB($role_name)
+function getRoleId($role_name)
 {
     $sql = 'SELECT rol_id
               FROM '. TBL_ROLES. ', '. TBL_CATEGORIES. '
