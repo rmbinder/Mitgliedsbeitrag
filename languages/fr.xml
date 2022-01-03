@@ -210,7 +210,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Toutes les familles sont conforme aux conditions du test.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Mise à jour des rôles familiaux</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Vous pouvez comparer et mettre à jour les entrées pour la cotisation, la période de cotisation et la description des rôles familiaux avec les informations dans la configuration.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Une mise à jour n'est pas possible car les entrées pour la cotisation, la période de cotisation et la description de tous les rôles familiaux correspondent aux entrées dans la configuration.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Une mise à jour n'est pas nécessaire car les entrées pour la contribution, la période de contribution et la description de tous les rôles familiaux correspondent aux informations dans les paramètres.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">Les rôles familiaux à mettre à jour ont seulement été identifiés jusqu'à présent. Aucune donnée n'a encore été sauvegardée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">nouvelle cotisation</string>

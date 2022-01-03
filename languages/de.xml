@@ -210,7 +210,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Alle Familien entsprechen den Prüfbedingungen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Familienrollen aktualisieren</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Hier können die Einträge von Beitrag, Beitragszeitraum und Beschreibung von Familienrollen mit den Angaben in den Einstellungen abgeglichen und aktualisiert werden.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Eine Aktualisierung ist nicht möglich, da bei allen Familienrollen die Einträge von Beitrag, Beitragszeitraum und Beschreibung mit den Angaben in den Einstellungen übereinstimmen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Eine Aktualisierung ist nicht erforderlich, da bei allen Familienrollen die Einträge von Beitrag, Beitragszeitraum und Beschreibung mit den Angaben in den Einstellungen übereinstimmen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">Die zu aktualisierenden Familienrollen wurden bis jetzt nur identifiziert. Es wurden noch keine Daten gespeichert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Beitrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">neuer Beitrag</string>

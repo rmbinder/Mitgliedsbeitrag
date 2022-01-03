@@ -210,7 +210,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">All families follow the test conditions.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Update family roles</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Here the entries of contribution, contribution period and description of family roles can be compared with the information in the settings and updated.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">An update is not possible, as the entries of contribution, contribution period and description of all family roles match the settings in the setup.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">An update is not necessary, as the entries of contribution, contribution period and description of all family roles match the settings in the setup.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">The family roles to be updated have only been identified so far. No data has been saved yet.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Membership fee</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">new membership fee</string>
