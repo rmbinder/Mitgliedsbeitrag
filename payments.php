@@ -153,7 +153,7 @@ else
     	$membersListRols = 0;
     }
     
-    $membersListFields = array_filter($pPreferences->config['columnconfig']['payments_fields']);            //array_filter: löschen leerer Einträge, falls das Setup fehlgeschlagen ist 
+    $membersListFields = array_filter($pPreferences->config['columnconfig']['payments_fields']);            //array_filter: lï¿½schen leerer Eintrï¿½ge, falls das Setup fehlgeschlagen ist 
 
     $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
@@ -271,6 +271,10 @@ else
                             $("input[type=checkbox]#member_"+userid).prop("checked", false);
                             $("#bezahlt_"+userid).text("");
                         }
+
+                        // workaround
+                        var mem_show = $("#mem_show").val();
+                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php').'?mem_show_choice=" + mem_show);
                     }
                     else {
                         alert(data);
