@@ -148,13 +148,6 @@ elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-write', $headline);
     
-    // der originale Back-Link erzeugt eine Fehlermeldung (leerer URL-Stack), bzw. einen weißen Bildschirm
-    // Ursache liegt irgendwie am Befehl $role->save();, wenn dieser deaktivert ist, funktioniert alles
-    // Workaround: originalen Back-Link deaktiveren und über addHtml einen eigenen Back-Link einfügen 
-    $page->hideBackLink();
-    $page->addHtml('<a class="icon-text-link" href='.$gNavigation->getPreviousUrl().' ">
-        <i class="fas fa-arrow-circle-left"></i> '.$gL10n->get('SYS_BACK').'<br><br></a>');
-    
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
     
 	$page->addJavascript('
