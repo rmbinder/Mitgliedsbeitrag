@@ -101,7 +101,7 @@ $config_default['membernumber'] = array('format'    => '',
                                         'fill_gaps' => 1);
 
 //Zugriffsberechtigung für das Modul preferences
-$config_default['access']['preferences'] = array(getRoleId($GLOBALS['gL10n']->get('SYS_ADMINISTRATOR')));
+$config_default['access']['preferences'] = array();
 
 //Individualbeiträge
 $config_default['individual_contributions'] = array('access_to_module'  => '0',

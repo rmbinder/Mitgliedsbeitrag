@@ -295,8 +295,14 @@ try
             break; 
         	
         case 'access_preferences':
-            unset($pPreferences->config['access']);
-            $pPreferences->config['access']['preferences'] = isset($_POST['access_preferences']) ? array_unique(array_merge($_POST['access_preferences'], $pPreferences->config_default['access']['preferences'])) : $pPreferences->config_default['access']['preferences'];
+            if (isset($_POST['access_preferences']))
+            {
+                $pPreferences->config['access']['preferences'] = array_filter($_POST['access_preferences']);
+            }
+            else 
+            {
+                $pPreferences->config['access']['preferences'] = array();
+            }
             break;
             
         default:

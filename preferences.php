@@ -756,7 +756,7 @@ $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
            AND ( cat.cat_org_id = '.$gCurrentOrgId.'
             OR cat.cat_org_id IS NULL )
       ORDER BY cat_sequence, rol.rol_name ASC';
-$formAccessPreferences->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+$formAccessPreferences->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true));
 $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
 $page->addHtml(getMenuePanel('preferences', 'access_preferences', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'fas fa-key', $formAccessPreferences->show()));
