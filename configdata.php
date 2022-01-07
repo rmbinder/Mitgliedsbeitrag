@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Konfigurationsdaten fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2021 The Admidio Team
+ * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -65,7 +65,7 @@ $config_default['Rollenpruefung'] = array('altersrollenfamilienrollen' => array(
 										    'fixrollenfixrollen'       => array(' '));
 
 //Rechnungs-Export
-$config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung.csv');
+$config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung');
 
 //SEPA
 $config_default['SEPA'] = array('dateiname'                  => 'sepa',

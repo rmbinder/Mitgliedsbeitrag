@@ -98,7 +98,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW">new membership fee text</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS">previous membership fee text</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Control file</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Creates a control file in the CSV format.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Creates a control file (.XLSX or .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Control file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\nControl file name: &quot;Kontroll-Datei&quot; becomes &quot;Kontroll-Datei-2013-04-01-RCUR.csv&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_SUM">Control total</string>
@@ -114,6 +114,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_SAVED">The new mandate references have been saved.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_IDS_NEW">New mandate references</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS">Creates missing profile fields.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATED_WITH">created with the plug-in membership fee of the online member management Admidio</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Payee</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Data field for sequence number</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE">Data medium exchange file</string>
@@ -210,7 +211,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">All families follow the test conditions.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Update family roles</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Here the entries of contribution, contribution period and description of family roles can be compared with the information in the settings and updated.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">An update is not necessary, as the entries of contribution, contribution period and description of all family roles match the settings in the setup.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">An update is not possible, as the entries of contribution, contribution period and description of all family roles match the settings in the setup.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">The family roles to be updated have only been identified so far. No data has been saved yet.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Membership fee</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">new membership fee</string>
@@ -301,6 +302,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR">"Payee" move to "Original payee"</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_IBAN">IBAN move to original IBAN</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Mandate reference move to original mandate reference</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING">File names are to be given without the file extension.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE">new role</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">new role of the member</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING">new role is missing</string>
@@ -348,9 +350,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION">#subject# Debit subscription\n#content# Dear Member,\n\non #due_day# we book a membership fee of #fee# euros \nwith the mandate reference number #mandate_id# \nand our creditors-ID #creditor_id# \nfrom your account #iban#.\n\nPlease ensure sufficient funds.\n\nSincerely yours\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_POSTCODE">AccHolder&apos;s post code</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Advance information</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Creates a file in the CSV format with all data necessary to create serial letters for pre-notifications and enables sending of pre-notifications by e-mail.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Creates a file (.XLSX or .CSV) with all data necessary to create serial letters for pre-notifications and enables sending of pre-notifications by e-mail.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Pre-notification export file name</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\Export file name: &quot;Export-file&quot; becomes &quot;Export-file.csv&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Pre-notification e-mail message</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PREFIX">Prefix</string>
@@ -437,7 +438,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA">There are not yet enough data to create an invoice data.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2">An invoice file can only be created if at least one member for a contribution was calculated and exists at Member IBAN NO.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE">Invoice file</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Creates an invoice file in the CSV format.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Creates an invoice file (.XLSX or .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Invoice file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_STREET">AccHolder&apos;s street</string>    

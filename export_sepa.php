@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * SEPA-Export fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2021 The Admidio Team
+ * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -15,6 +15,7 @@
  *                      - Zeichen 0 bis 9: Faelligkeitsdatum 
  *                      - ab Zeichen 10: Sepatyp
  *                      - Bsp.. 2017-12-12FRST oder 2017-12-30RCUR
+ * export_mode_sepa :  Output (csv-ms, csv-oo, xlsx)
  *
  ***********************************************************************************************
  */
@@ -26,6 +27,13 @@ require_once(__DIR__ . '/classes/configtable.php');
 if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 {
 	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+}
+
+$exportMode = admFuncVariableIsValid($_POST, 'export_mode_sepa', 'string', array('defaultValue' => 'xlsx', 'validValues' => array('csv-ms', 'csv-oo', 'xlsx' )));
+
+if (isset($_POST['btn_pre_notification']))
+{
+    admRedirect(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER. '/pre_notification.php', array('export_mode_sepa' => $exportMode)));
 }
 
 // Konfiguration einlesen
@@ -45,15 +53,15 @@ if (sizeof($_POST['duedatesepatype']) == 1)
 	$oneDueDateOnly = true;				// es gibt nur ein Fälligkeitsdatum mit einem Sequenztyp: der PmtTpInf-Block wird im PmtInf-Block plaziert (damit KSK die XML-Datei einlesen kann)
 }
 
-$dueDateArr     = array();
-$zempf          = array();
-$zpflgt         = array();
-$nbOfTxs_Msg    = 0; 																	// Anzahl der Transaktionen innerhalb der Message
-$ctrlSum_Msg    = 0;																	// Kontrollsumme der Beträge innerhalb der Message
-$now            = time();
-$format1        = 'Y-m-d';
-$format2        = 'H:i:s';
-$filename_ext   = '';
+$dueDateArr   = array();
+$zempf        = array();
+$zpflgt       = array();
+$nbOfTxs_Msg  = 0; 																	// Anzahl der Transaktionen innerhalb der Message
+$ctrlSum_Msg  = 0;																	// Kontrollsumme der Beträge innerhalb der Message
+$now          = time();
+$format1      = 'Y-m-d';
+$format2      = 'H:i:s';
+$filename_ext = '';
 
 foreach ($_POST['duedatesepatype'] as $dummy => $data)
 {
@@ -77,6 +85,25 @@ foreach ($members as $member => $memberdata)
         && !empty($memberdata['IBAN'])
         && in_array($dueDateMember.$sequenceTypeMember, $_POST['duedatesepatype']) )
     {
+        $zpflgt[$member]['duedate'] = '';
+        $zpflgt[$member]['sequencetype'] = '';
+        $zpflgt[$member]['name'] = '';
+        $zpflgt[$member]['alt_name'] = '';
+        $zpflgt[$member]['iban'] = '';
+        $zpflgt[$member]['land'] = '';
+        $zpflgt[$member]['street']  = '';
+        $zpflgt[$member]['ort']  = '';
+        $zpflgt[$member]['bic']  = '';                        
+        $zpflgt[$member]['mandat_id'] = '';
+        $zpflgt[$member]['mandat_datum'] = '';
+        $zpflgt[$member]['betrag']  = '';                                          										
+        $zpflgt[$member]['text']  = '';
+        $zpflgt[$member]['orig_mandat_id']  = '';
+        $zpflgt[$member]['orig_iban']  = '';
+        $zpflgt[$member]['orig_dbtr_agent'] = '';
+        $zpflgt[$member]['end2end_id']  = '';
+        $zpflgt[$member]['betrag'] = '';
+        
     	$zpflgt[$member]['duedate'] = $dueDateMember;
     	$zpflgt[$member]['sequencetype'] = $sequenceTypeMember;
     	
@@ -88,7 +115,7 @@ foreach ($members as $member => $memberdata)
         }
 
         $zpflgt[$member]['name'] = substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70);                                                     // Name of account owner.
-        $zpflgt[$member]['alt_name'] = '';                                                                                                            // Zahlungspflichtiger abweichender Name
+       // $zpflgt[$member]['alt_name'] = '';                                                                                                            // Zahlungspflichtiger abweichender Name
         $zpflgt[$member]['iban'] = strtoupper(str_replace(' ', '', $members[$member]['IBAN']));														  // IBAN
         
         if (isIbanNOT_EU_EWR($zpflgt[$member]['iban']))
@@ -425,86 +452,181 @@ if (isset($_POST['btn_xml_file']))
     die();
 }
 elseif (isset($_POST['btn_xml_kontroll_datei']))
-{
-    // Dateityp, der immer abgespeichert wird
-    header('Content-Type: application/octet-stream');
+{    
+    // initialize some special mode parameters
+    $separator   = '';
+    $valueQuotes = '';
+    $charset     = '';
+    $csvStr      = ''; 
+    $header      = array();              //'xlsx'
+    $rows        = array();              //'xlsx'
+    $filename    = $pPreferences->config['SEPA']['kontroll_dateiname'].$filename_ext;
 
-    // noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
-    header('Cache-Control: private');
+    switch ($exportMode)
+    {
+        case 'csv-ms':
+            $separator   = ';';  // Microsoft Excel 2007 or new needs a semicolon
+            $valueQuotes = '"';  // all values should be set with quotes
+            $exportMode  = 'csv';
+            $charset     = 'iso-8859-1';
+            break;
+        case 'csv-oo':
+            $separator   = ',';   // a CSV file should have a comma
+            $valueQuotes = '"';   // all values should be set with quotes
+            $exportMode  = 'csv';
+            $charset     = 'utf-8';
+            break;
+        case 'xlsx':
+	       include_once(__DIR__ . '/libs/PHP_XLSXWriter/xlsxwriter.class.php');
+	       $exportMode   = 'xlsx';
+	       break;
+        default:
+            break;
+    }
 
-    // Im Grunde ueberfluessig, hat sich anscheinend bewaehrt
-    header('Content-Transfer-Encoding: binary');
-
-    // Zwischenspeichern auf Proxies verhindern
-    header('Cache-Control: post-check=0, pre-check=0');
-    header('Content-Disposition: attachment; filename="'.$pPreferences->config['SEPA']['kontroll_dateiname'].$filename_ext.'.csv"');
-
-    $datumtemp = \DateTime::createFromFormat('Y-m-d', $payment_datum);
-
-    echo 'SEPA-'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')."\n\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME').';'.$pPreferences->config['SEPA']['kontroll_dateiname'].$filename_ext.'.csv'."\n"
-        ."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID').';'.utf8_decode($message_id)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE').';'.utf8_decode($message_datum)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME').';'.utf8_decode($message_initiator_name)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS').';'.utf8_decode($nbOfTxs_Msg)."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM').';'.utf8_decode($ctrlSum_Msg)."\n"
-        ."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_PAYMENT_ID').';'.utf8_decode($payment_id)."\n"
-        ."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR').';'.utf8_decode($zempf['name'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CI').';'.utf8_decode($zempf['ci'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'.utf8_decode($zempf['iban'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'.utf8_decode($zempf['bic'])."\n"
-        ."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI').';'.utf8_decode($zempf['orig_cdtr_id'])."\n"
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR').';'.utf8_decode($zempf['orig_cdtr_name'])."\n\n";
-
-    echo $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE').';'        		
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN').';'
-        .$gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT').';'
-        .$gL10n->get('SYS_COUNTRY').';'
-        .$gL10n->get('SYS_STREET').';'
-        .$gL10n->get('SYS_CITY')."\n";
-
+    $filename = FileSystemUtils::getSanitizedPathEntry($filename) . '.' . $exportMode;
+    
+    $rows[] = array('SEPA-'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'));
+    $rows[] = array('');
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $filename);
+    $rows[] = array('');
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID'), $message_id);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE'), $message_datum);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME'), $message_initiator_name);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS'), $nbOfTxs_Msg);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM'), $ctrlSum_Msg);
+    $rows[] = array('');
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_PAYMENT_ID'), $payment_id);
+    $rows[] = array('');
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR'), $zempf['name']);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CI'), $zempf['ci']);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $zempf['iban']);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $zempf['bic']);
+    $rows[] = array('');
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $zempf['orig_cdtr_id']);
+    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR'), $zempf['orig_cdtr_name']);
+    $rows[] = array('');
+    
+    $columnValues = array();
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
+    $columnValues[] = $gL10n->get('SYS_COUNTRY');
+    $columnValues[] = $gL10n->get('SYS_STREET');
+    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
+    $columnValues[] = $gL10n->get('SYS_CITY');
+    $rows[] = $columnValues;
+    
+    if ($exportMode === 'csv')
+    {
+        foreach ($rows as $row => $cols)
+        {
+            for ($i = 0; $i < (sizeof($cols)); $i++)
+            {
+                if ($i !== 0)
+                {
+                    $csvStr .= $separator;
+                }
+                $csvStr .= $valueQuotes. $cols[$i]. $valueQuotes;
+            }
+            $csvStr .= "\n";
+        }
+        $csvStr .= "\n";
+    }
+    
     $nr = 1;
     foreach ($zpflgt as $dummy => $zpflgtdata)
     {
         $datumDueDate = \DateTime::createFromFormat('Y-m-d', $zpflgtdata['duedate']);
         $datumMandate = \DateTime::createFromFormat('Y-m-d', $zpflgtdata['mandat_datum']);
 
-        echo
-            utf8_decode($nr).';'
-            .utf8_decode($zpflgtdata['name']).';'
-            .utf8_decode($zpflgtdata['iban']).';'
-            .utf8_decode($zpflgtdata['bic']).';'
-            .$datumDueDate->format($gSettingsManager->getString('system_date')).';'
-            .utf8_decode($zpflgtdata['sequencetype']).';'            		
-            .utf8_decode($zpflgtdata['betrag']).';'
-            .utf8_decode($zpflgtdata['text']).';'
-            .utf8_decode($zpflgtdata['mandat_id']).';'
-            .$datumMandate->format($gSettingsManager->getString('system_date')).';'
-            .utf8_decode($zpflgtdata['alt_name']).';'
-            .utf8_decode($zpflgtdata['orig_mandat_id']).';'
-            .utf8_decode($zpflgtdata['orig_iban']).';'
-            .utf8_decode($zpflgtdata['orig_dbtr_agent']).';'
-            .utf8_decode($zpflgtdata['land']).';'            		
-            .utf8_decode($zpflgtdata['street']).';'            		
-            .utf8_decode($zpflgtdata['ort'])
-            ."\n";
+        $columnValues = array();
+        $columnValues[] = $nr;
+        $columnValues[] = $zpflgtdata['name'];
+        $columnValues[] = $zpflgtdata['iban'];
+        $columnValues[] = $zpflgtdata['bic'];
+        $columnValues[] = $datumDueDate->format($gSettingsManager->getString('system_date'));
+        $columnValues[] = $zpflgtdata['sequencetype'];
+        $columnValues[] = $zpflgtdata['betrag'];
+        $columnValues[] = $zpflgtdata['text'];
+        $columnValues[] = $zpflgtdata['mandat_id'];
+        $columnValues[] = $datumMandate->format($gSettingsManager->getString('system_date'));
+        $columnValues[] = $zpflgtdata['alt_name'];
+        $columnValues[] = $zpflgtdata['orig_mandat_id'];
+        $columnValues[] = $zpflgtdata['orig_iban'];
+        $columnValues[] = $zpflgtdata['land'];
+        $columnValues[] = $zpflgtdata['street'];
+        $columnValues[] = $zpflgtdata['ort'];
+       
+        if ($exportMode === 'csv')
+        {
+            for ($i = 0; $i < (sizeof($columnValues)); $i++)
+            {
+                if ($i !== 0)
+                {
+                    $csvStr .= $separator;
+                }
+                $csvStr .= $valueQuotes. $columnValues[$i]. $valueQuotes;
+            }
+            $csvStr .= "\n";
+        }
+        elseif ($exportMode === 'xlsx')   
+        {
+            $rows[] = $columnValues;
+        }
         $nr += 1;
     }
+    
+    header('Content-Disposition: attachment; filename="'.$filename.'"');
+    
+    // neccessary for IE6 to 8, because without it the download with SSL has problems
+    header('Cache-Control: private');
+    header('Pragma: public');
+
+    if ($exportMode === 'csv')
+    {
+        // download CSV file
+        header('Content-Type: text/comma-separated-values; charset='.$charset);
+
+        if ($charset === 'iso-8859-1')
+        {
+            echo utf8_decode($csvStr);
+        }
+        else
+        {
+            echo $csvStr;
+        }
+    } 
+    elseif ($exportMode === 'xlsx')       
+    {
+        header('Content-disposition: attachment; filename="'.XLSXWriter::sanitize_filename($filename).'"');
+        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+    
+        $writer = new XLSXWriter();
+        $writer->setAuthor($gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME'));
+        $writer->setTitle($filename);
+        $writer->setSubject($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
+        $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
+        $writer->setKeywords(array($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA')));
+        $writer->setDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATED_WITH'));
+        $writer->writeSheet($rows,'', $header);
+        $writer->writeToStdOut();
+    }   
+    
     exit;
 }
 else

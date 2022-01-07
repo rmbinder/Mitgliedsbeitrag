@@ -98,7 +98,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW">neuer Beitragstext</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS">bisheriger Beitragstext</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Kontrolldatei</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Erstellt eine Kontrolldatei im CSV-Format.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Erstellt eine Kontrolldatei (.XLSX oder .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Kontrolldateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Kontroll-Datei" wird zu "Kontroll-Datei-2013-04-01-RCUR.csv"</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_SUM">Kontrollsumme</string>
@@ -114,6 +114,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_SAVED">Die neuen Mandatsreferenzen wurden gespeichert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_IDS_NEW">Neue Mandatsreferenzen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS">Legt die fehlenden Profilfelder an.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CREATED_WITH">erstellt mit dem Plugin Mitgliedsbeitrag der Online-Mitgliederverwaltung Admidio</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Zahlungsempfänger</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Datenfeld für die laufende Nummer</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE">Datenträgeraustauschdatei</string>
@@ -210,7 +211,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Alle Familien entsprechen den Prüfbedingungen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Familienrollen aktualisieren</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Hier können die Einträge von Beitrag, Beitragszeitraum und Beschreibung von Familienrollen mit den Angaben in den Einstellungen abgeglichen und aktualisiert werden.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Eine Aktualisierung ist nicht erforderlich, da bei allen Familienrollen die Einträge von Beitrag, Beitragszeitraum und Beschreibung mit den Angaben in den Einstellungen übereinstimmen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Eine Aktualisierung ist nicht möglich, da bei allen Familienrollen die Einträge von Beitrag, Beitragszeitraum und Beschreibung mit den Angaben in den Einstellungen übereinstimmen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">Die zu aktualisierenden Familienrollen wurden bis jetzt nur identifiziert. Es wurden noch keine Daten gespeichert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Beitrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">neuer Beitrag</string>
@@ -301,6 +302,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR">Zahlungsempfänger verschieben nach Ursprünglicher Zahlungsempfänger</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_IBAN">IBAN verschieben nach Ursprüngliche IBAN</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Mandatsreferenz verschieben nach Ursprüngliche Mandatsreferenz</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING">Dateinamen sind ohne Dateiendung anzugeben.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE">neue Rolle</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">neue Rolle des Mitglieds</string> 
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING">neue Rolle fehlt</string>
@@ -348,9 +350,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION">#subject# Abbuchung Mitgliedsbeitrag\n#content# Sehr geehrtes Mitglied,\n\nam #due_day# buchen wir einen Mitgliedsbeitrag in Höhe von #fee# Euro\nmit der Mandatsreferenz-Nummer #mandate_id#\nund unserer Gläubiger-ID #creditor_id#\nvon Ihren Konto #iban# ab.\n\nBitte sorgen Sie für ausreichende Kontodeckung.\n\nMit freundlichen Grüßen\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_POSTCODE">KtoInh-PLZ</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Vorabinformation</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Erstellt eine Datei im CSV-Format mit allen erforderlichen Daten zum Erzeugen von Serienbriefen für Vorabinformationen und bietet die Möglichkeit Vorabinformationen per E-Mail zu versenden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit allen erforderlichen Daten zum Erzeugen von Serienbriefen für Vorabinformationen und bietet die Möglichkeit Vorabinformationen per E-Mail zu versenden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Vorabinformation Exportdateiname</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Export-Datei" wird zu "Export-Datei.csv"</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Vorabinformation E-Mail-Text</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
     <string name="PLG_MITGLIEDSBEITRAG_PREFIX">Präfix</string>
@@ -437,7 +438,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA">Es sind nicht genügend Daten vorhanden um eine Rechnungsdatei zu erstellen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2">Eine Rechnungsdatei kann nur erstellt werden, wenn für mindestens ein Mitglied ein Beitrag berechnet wurde und bei diesem Mitglied KEINE IBAN existiert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE">Rechnungsdatei</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Erstellt eine Rechnungsdatei im CSV-Format.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Erstellt eine Rechnungsdatei (.XLSX oder .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Rechnungsdateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_STREET">KtoInh-Straße</string>    

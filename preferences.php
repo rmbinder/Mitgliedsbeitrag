@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Erzeugt das Einstellungen-Menue fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2021 The Admidio Team
+ * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -512,7 +512,7 @@ $formExport = new HtmlForm('configurations_form', SecurityUtils::encodeUrl(ADMID
 $formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'));
 $formExport->addInput('dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_NAME'), $pPreferences->config['SEPA']['dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addInput('kontroll_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
-$formExport->addInput('vorabinformation_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME'), $pPreferences->config['SEPA']['vorabinformation_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addInput('vorabinformation_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME'), $pPreferences->config['SEPA']['vorabinformation_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT'),
     '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC').':</p><p>
     <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
@@ -540,7 +540,7 @@ if ($text->getValue('txt_text') == '')
 $formExport->addMultilineTextInput('pre_notification_text', '', $text->getValue('txt_text'), 7);
 $formExport->closeGroupBox();
 $formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT'));
-$formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname']);
+$formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->closeGroupBox();
 $formExport->addDescription('');
 $formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));

@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Modul Vorabinformation fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2021 The Admidio Team
+ * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -11,13 +11,14 @@
  *
  * mode             : html       - Standardmodus zun Anzeigen einer html-Liste
  *                    prepare    - user in einem CheckedArray setzen bzw loeschen
- *                    csv_export - erzeugt eine csv-Datei
- *                    mail_export- nur zur Pruefung, ob user im CheckedArray markiert sind
+ *                    export     - erzeugt eine Exportdatei
+ *                    mail       - nur zur Pruefung, ob user im CheckedArray markiert sind
  * usr_id           : <>0        - Id des Benutzers, fuer der im CheckedArray gesetzt/geloescht wird
  *                    leer       - alle user im CheckedArray aendern von gesetzt->geloescht bzw geloescht->gesetzt
- * checked         : true  - Der Haken beim Benutzer wurde gesetzt
- *                   false - Der Haken beim Benutzer wurde entfernt
- * duedate         : Das uebergebene Faelligkeitsdatum zur Filterung
+ * checked          : true  - Der Haken beim Benutzer wurde gesetzt
+ *                    false - Der Haken beim Benutzer wurde entfernt
+ * duedate          : Das uebergebene Faelligkeitsdatum zur Filterung
+ * export_mode_sepa : Output (csv-ms, csv-oo, xlsx)
  ***********************************************************************************************
  */
 
@@ -36,17 +37,18 @@ $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
 
-if(isset($_GET['mode']) && ($_GET['mode'] == 'csv_export' || $_GET['mode'] == 'mail_export' || $_GET['mode'] == 'prepare'))
+if(isset($_GET['mode']) && ($_GET['mode'] == 'export' || $_GET['mode'] == 'mail' || $_GET['mode'] == 'prepare'))
 {
     // ajax mode then only show text if error occurs
     $gMessage->showTextOnly(true);
 }
 
 // Initialize and check the parameters
-$getMode    = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'csv_export', 'mail_export', 'prepare')));
+$getMode    = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'export', 'mail', 'prepare')));
 $getUserId  = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
 $getChecked = admFuncVariableIsValid($_GET, 'checked', 'string');
 $getDueDate = admFuncVariableIsValid($_GET, 'duedate', 'string', array('defaultValue' => 0));
+$exportMode = admFuncVariableIsValid($_GET, 'export_mode_sepa', 'string', array('defaultValue' => 'xlsx', 'validValues' => array('csv-ms', 'csv-oo', 'xlsx' )));
 
 // add current url to navigation stack if last url was not the same page
 if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
@@ -55,94 +57,7 @@ if(strpos($gNavigation->getUrl(), 'pre_notification.php') === false)
     $_SESSION['pMembershipFee']['mailArray'] = array();
 }
 
-if($getMode == 'csv_export')
-{
-    if (count($_SESSION['pMembershipFee']['checkedArray']) !== 0)
-    {
-        $export = '';
-        $export = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').';'
-                .$gL10n->get('SYS_FIRSTNAME').';'
-                .$gL10n->get('SYS_LASTNAME').';'
-                .$gL10n->get('SYS_STREET').';'
-                .$gL10n->get('SYS_POSTCODE').';'
-                .$gL10n->get('SYS_CITY').';'
-                .$gL10n->get('SYS_EMAIL').';'
-                .$gL10n->get('SYS_PHONE').';'
-                .$gL10n->get('SYS_MOBILE').';'
-                .$gL10n->get('SYS_BIRTHDAY').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION').';'
-
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').'/'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_STREET').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_CITY').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL').';'
-
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_BANK').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_BIC').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE').';'
-                .$gL10n->get('PLG_MITGLIEDSBEITRAG_FEE').';'
-                ."\n";
-
-        $nr = 1;
-
-        foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId => $dummy)
-        {
-            $user->readDataById($UserId);
-
-            $export .= $nr.';';
-            $export .= $user->getValue('MEMBERNUMBER'.$gCurrentOrgId).';';
-            $export .= $user->getValue('FIRST_NAME').';';
-            $export .= $user->getValue('LAST_NAME').';';
-            $export .= $user->getValue('STREET').';';
-            $export .= $user->getValue('POSTCODE').';';
-            $export .= $user->getValue('CITY').';';
-            $export .= $user->getValue('EMAIL').';';
-            $export .= $user->getValue('PHONE').';';
-            $export .= $user->getValue('MOBILE').';';
-            $export .= $user->getValue('BIRTHDAY').';';
-            $export .= $user->getValue('ACCESSION'.$gCurrentOrgId).';';
-
-            if (strlen($user->getValue('DEBTOR')) !== 0)
-            {
-                $export .= $user->getValue('DEBTOR').';';
-                $export .= $user->getValue('DEBTOR_STREET').';';
-                $export .= $user->getValue('DEBTOR_POSTCODE').';';
-                $export .= $user->getValue('DEBTOR_CITY').';';
-                $export .= $user->getValue('DEBTOR_EMAIL').';';
-            }
-            else
-            {
-                $export .= $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME').';';
-                $export .= $user->getValue('STREET').';';
-                $export .= $user->getValue('POSTCODE').';';
-                $export .= $user->getValue('CITY').';';
-                $export .= $user->getValue('EMAIL').';';
-            }
-
-            $export .= $user->getValue('BANK').';';
-            $export .= $user->getValue('BIC').';';
-            $export .= $user->getValue('IBAN').';';
-            $export .= $user->getValue('MANDATEDATE'.$gCurrentOrgId).';';
-            $export .= $user->getValue('MANDATEID'.$gCurrentOrgId).';';
-            $export .= $user->getValue('DUEDATE'.$gCurrentOrgId).';';
-            $export .= $user->getValue('FEE'.$gCurrentOrgId).';';
-            $export .= "\n";
-
-            $nr += 1;
-        }
-        echo $export;
-    }
-    else
-    {
-        echo 'marker_empty';
-    }
-}
-elseif($getMode == 'mail_export')
+if($getMode == 'mail' || $getMode == 'export')
 {
     if (count($_SESSION['pMembershipFee']['checkedArray']) === 0)
     {
@@ -318,23 +233,19 @@ else
         $page->addJavascript('
             function prenotexport(){ 
                 //var duedate = $("#duedate").val(); 
-                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'csv_export')) .'",
+                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'export', 'export_mode_sepa' => $exportMode)) .'",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
                             alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
                             return false;
                         }
+                        else if(data == "success") {
+                            alert("file OK");
+                        }
                         else {
-                             // var uriContent = "data:text/csv;charset=utf-8," + encodeURIComponent(data);
-                             // var myWindow = window.open(uriContent);
-                             // myWindow.focus(); 
-                             var a = document.createElement("a");
-                             a.href =  "data:text/csv;charset=utf-8," + encodeURIComponent(data);
-                             a.target = "_blank";
-                             a.download = "'.$pPreferences->config['SEPA']['vorabinformation_dateiname'].'.csv";
-                             document.body.appendChild(a);
-                             a.click();
+                            //alert("jetzt gehts zu export");
+                            window.location.href = "'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification_export.php', array('export_mode_sepa' => $exportMode)) .'" ;
                         }
                         return true;
                     }
@@ -343,7 +254,7 @@ else
             
             function massmail(){ 
             //var duedate = $("#duedate").val(); 
-                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'mail_export')) .'",
+                $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'mail')) .'",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {

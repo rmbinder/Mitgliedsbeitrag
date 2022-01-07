@@ -3,15 +3,15 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag
  *
- * Version 5.0.2
+ * Version 5.1.0-Beta1
  *
  * This plugin calculates membership fees based on role assignments.
  *
  * Author: rmb
  *
- * Compatible with Admidio version 4
+ * Compatible with Admidio version 4.1
  *
- * @copyright 2004-2021 The Admidio Team
+ * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  ***********************************************************************************************
@@ -519,18 +519,20 @@ if(count($rols) > 0)
     
         $formSepa->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION'), $htmlTable);
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC'));
-    
+        $formSepa->addLine();
+        
         $formSepa->addSubmitButton('btn_xml_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'), array('icon' => 'fa-file-alt', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_DESC'));
-    
-        $formSepa->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => 'fa-file-csv', 'class' => 'btn-primary offset-sm-3'));
-        $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
-    
         $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
         $formSepa->addStaticControl('', '', $html);
-    
         $formSepa->addLine();
-        $formSepa->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'fa-file-csv', 'link' => 'pre_notification.php', 'class' => 'btn-primary offset-sm-3'));
+        
+        $radioButtonEntries = array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
+        $formSepa->addRadioButton('export_mode_sepa','',$radioButtonEntries, array('defaultValue' => 'xlsx'));    
+        $formSepa->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => 'fa-file', 'class' => 'btn-primary offset-sm-3'));
+        $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
+   
+        $formSepa->addSubmitButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'fa-file', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
     }
     
@@ -541,8 +543,10 @@ if(count($rols) > 0)
     // PANEL: STATEMENTEXPORT
     
     $formStatementExport = new HtmlForm('statementexport_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/export_bill.php', $page, array('class' => 'form-preferences'));
-    
-    $formStatementExport->addSubmitButton('btn_rechnung_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), array('icon' => 'fa-file-invoice',  'class' => 'offset-sm-3'));
+
+    $radioButtonEntries = array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
+    $formStatementExport->addRadioButton('export_mode_bill','',$radioButtonEntries, array('defaultValue' => 'xlsx'));
+    $formStatementExport->addSubmitButton('btn_rechnung_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), array('icon' => 'fa-file',  'class' => 'offset-sm-3'));
     $formStatementExport->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC'));
     
     $page->addHtml(getMenuePanel('export', 'statementexport', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT'), 'fas fa-file-invoice', $formStatementExport->show()));  
