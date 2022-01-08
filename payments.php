@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Setzen eines Bezahlt-Datums fuer das Admidio-Plugin Mitgliedsbeitrag
  *
- * @copyright 2004-2021 The Admidio Team
+ * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
@@ -213,7 +213,7 @@ else
                 function(data){
                     // check if error occurs
                     if(data == "success") {
-                    var mem_show = $("#mem_show").val();
+                        var mem_show = $("#mem_show").val();
                         window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php').'?mem_show_choice=" + mem_show);
                     }
                     else {
@@ -271,10 +271,6 @@ else
                             $("input[type=checkbox]#member_"+userid).prop("checked", false);
                             $("#bezahlt_"+userid).text("");
                         }
-
-                        // workaround
-                        var mem_show = $("#mem_show").val();
-                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php').'?mem_show_choice=" + mem_show);
                     }
                     else {
                         alert(data);
@@ -359,93 +355,64 @@ else
     		$content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
     	}
     	
+    	$user->readDataById($member);
+    	
     	$columnValues = array($content);
     		
-    	foreach ($memberData as $usfId => $data)
+    	foreach ($memberData as $usfId => $content)
     	{
     		if (!is_int($usfId))
     		{
     			continue;
     		}
-    		
-    		$userField->readDataById($usfId);
 
-    		// fill content with data of database
-    		$content = $data;
-    				
     		/*****************************************************************/
     		// in some cases the content must have a special output format
     		/*****************************************************************/
     		if ($usfId === (int) $gProfileFields->getProperty('COUNTRY', 'usf_id'))
     		{
-    			$content = $gL10n->getCountryByCode($data);
+    		    $content = $gL10n->getCountryByCode($content);
     		}
-    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
-    		{
-    			if ($content != 1)
-    			{
-    				$content = 0;
-    			}
-    		}
-    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'DATE')
-    		{
-    			if (strlen($data) > 0)
-    			{
-    				// date must be formated
-    				$date = DateTime::createFromFormat('Y-m-d', $data);
-    				$content = $date->format($gSettingsManager->getString('system_date'));
-    			}
-    		}
-    			
-    		if ($usfId == $gProfileFields->getProperty('PAID'.$gCurrentOrgId, 'usf_id'))
-    		{
-    			$content = '<div class="bezahlt_'.$member.'" id="bezahlt_'.$member.'">'.$content.'</div>';
-    		}
-    		elseif ($usfId == $gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'))
-    		{
-    			$content = '<div class="duedate_'.$member.'" id="duedate_'.$member.'">'.$content.'</div>';
-    		}
-    		elseif ($usfId == $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrgId, 'usf_id'))
-    		{
-    			$content = '<div class="lastschrifttyp_'.$member.'" id="lastschrifttyp_'.$member.'">'.$data.'</div>';
-    		}
-    		elseif ($usfId == $gProfileFields->getProperty('ORIG_MANDATEID'.$gCurrentOrgId, 'usf_id'))
-    		{
-    			$content = '<div class="orig_mandateid_'.$member.'" id="orig_mandateid_'.$member.'">'.$data.'</div>';
-    		}
-    		elseif ($usfId == $gProfileFields->getProperty('ORIG_IBAN', 'usf_id'))
-    		{
-    			$content = '<div class="orig_iban_'.$member.'" id="orig_iban_'.$member.'">'.$data.'</div>';
-    		}
-    		elseif ($usfId == $gProfileFields->getProperty('ORIG_DEBTOR_AGENT', 'usf_id'))
-    		{
-    			$content = '<div class="orig_debtor_agent_'.$member.'" id="orig_debtor_agent_'.$member.'">'.$data.'</div>';
-    		}
-
-    		$user->readDataById($member);
+    	
+    		$userField->readDataById($usfId);
     		
-    		// firstname and lastname get a link to the profile
-    		if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id')
-    					|| $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
+    		$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $user->getValue('usr_uuid'));
+    		
+    		if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id') || $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
     		{
-    			$htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content);
     			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
     		}
-    		elseif  ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'EMAIL' || $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'))
+    		elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'EMAIL' || $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'))
     		{
-    		    $columnValues[] = getEmailLink($data, $user->getValue('usr_uuid'), $userField->getValue('usf_uuid'));
+    		    $columnValues[] = getEmailLink($content, $user->getValue('usr_uuid'), $userField->getValue('usf_uuid'));      // hier $content, nicht $htmlValue
+    		}
+    		elseif ($usfId === $gProfileFields->getProperty('PAID'.$gCurrentOrgId, 'usf_id'))
+    		{
+    		    $columnValues[] = '<div class="bezahlt_'.$member.'" id="bezahlt_'.$member.'">'.$htmlValue.'</div>';
+    		}
+    		elseif ($usfId === $gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'))
+    		{
+    		    $columnValues[] = '<div class="duedate_'.$member.'" id="duedate_'.$member.'">'.$htmlValue.'</div>';
+    		}
+    		elseif ($usfId === $gProfileFields->getProperty('SEQUENCETYPE'.$gCurrentOrgId, 'usf_id'))
+    		{
+    		    $columnValues[] = '<div class="lastschrifttyp_'.$member.'" id="lastschrifttyp_'.$member.'">'.$htmlValue.'</div>';
+    		}
+    		elseif ($usfId === $gProfileFields->getProperty('ORIG_MANDATEID'.$gCurrentOrgId, 'usf_id'))
+    		{
+    		    $columnValues[] = '<div class="orig_mandateid_'.$member.'" id="orig_mandateid_'.$member.'">'.$htmlValue.'</div>';
+    		}
+    		elseif ($usfId === $gProfileFields->getProperty('ORIG_IBAN', 'usf_id'))
+    		{
+    		    $columnValues[] = '<div class="orig_iban_'.$member.'" id="orig_iban_'.$member.'">'.$htmlValue.'</div>';
+    		}
+    		elseif ($usfId === $gProfileFields->getProperty('ORIG_DEBTOR_AGENT', 'usf_id'))
+    		{
+    		    $columnValues[] = '<div class="orig_debtor_agent_'.$member.'" id="orig_debtor_agent_'.$member.'">'.$htmlValue.'</div>';
     		}
     		else
     		{
-    			// checkbox must set a sorting value
-    			if ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX')
-    			{
-    				$columnValues[] = array('value' => $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content), 'order' => $content);
-    			}
-    			else
-    			{
-    				$columnValues[] = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content);
-    			}
+    			$columnValues[] = $htmlValue;
     		}
     	}
     	
