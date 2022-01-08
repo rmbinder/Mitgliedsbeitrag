@@ -48,41 +48,48 @@ $pPreferences->read();
 
 $mailSubject = '';
 $mailBody    = '';
-$mailToArray = $_SESSION['pMembershipFee']['checkedArray'];
+$mailToArray = array();
 
 $user = new User($gDb, $gProfileFields);
 $userField = new TableUserField($gDb);
 
-foreach ($mailToArray as $userId => $usfUuid )
-{
-    if ($usfUuid === '')
-    {
-        unset($mailToArray[$userId]);
-    }
-}
-
+$singleMail = false;
 if ($getUserUuid !== '' && $getUsfUuid !== '')                          // ein E-Mail-Link wurde angeklickt
 {
     $user->readDataByUuid($getUserUuid);
     $userField->readDataByUuid($getUsfUuid);
     $singleMail = true;
 }
-elseif (count($mailToArray) < 1)
+elseif (isset($_SESSION['pMembershipFee']['checkedArray']))
 {
-    $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
-    // => EXIT
-}
-elseif (count($mailToArray) === 1)                                      // der Mail-Button wurde angeklickt (aber es gibt nur eine Mail-Adresse in der Liste)
-{
-    $user->readDataById(key($mailToArray));
-    $getUserUuid = $user->getValue('usr_uuid');
-    $getUsfUuid = current($mailToArray);
-    $userField->readDataByUuid($getUsfUuid);
-    $singleMail = true;
+    $mailToArray = $_SESSION['pMembershipFee']['checkedArray'];
+    
+    foreach ($mailToArray as $userId => $usfUuid )
+    {
+        if ($usfUuid === '')
+        {
+            unset($mailToArray[$userId]);
+        }
+    }
+    
+    if (count($mailToArray) < 1)
+    {
+        $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
+        // => EXIT
+    }
+    elseif (count($mailToArray) === 1)                                      // der Mail-Button wurde angeklickt (aber es gibt nur eine Mail-Adresse in der Liste)
+    {
+        $user->readDataById(key($mailToArray));
+        $getUserUuid = $user->getValue('usr_uuid');
+        $getUsfUuid = current($mailToArray);
+        $userField->readDataByUuid($getUsfUuid);
+        $singleMail = true;
+    }
 }
 else 
 {
-    $singleMail = false;
+    $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
+    // => EXIT
 }
 
 // Subject und Body erzeugen
