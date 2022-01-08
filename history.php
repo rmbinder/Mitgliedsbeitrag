@@ -11,7 +11,7 @@
  *
  * Parameters:
  *
- * mode:				Output(html, print, csv-ms, csv-oo, pdf, pdfl)
+ * mode:				Output(html, print, csv-ms, csv-oo, pdf, pdfl, xlsx)
  * filter_date_from: 	is set to actual date, if no date information is delivered
  * filter_date_to: 		is set to 31.12.9999, if no date information is delivered
  * filter_last_name:	Lastname for filter
@@ -44,7 +44,7 @@ $getDateFrom   	    = admFuncVariableIsValid($_GET, 'filter_date_from', 'date', 
 $getDateTo     	    = admFuncVariableIsValid($_GET, 'filter_date_to',   'date',  array('defaultValue'  => DATE_NOW));
 $getLastName 	    = admFuncVariableIsValid($_GET, 'filter_last_name', 'string');
 $getFirstName 	    = admFuncVariableIsValid($_GET, 'filter_first_name','string');
-$getMode       	    = admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl')));
+$getMode       	    = admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl', 'xlsx' )));
 $getExportAndFilter = admFuncVariableIsValid($_GET, 'export_and_filter', 'bool', array('defaultValue' => false));
 
 $title    = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
@@ -94,6 +94,8 @@ $charset     = '';
 $classTable  = '';
 $orientation = '';
 $csvStr 	 = ''; // CSV file as string
+$header = array();              //'xlsx'
+$rows   = array();              //'xlsx'
 
 switch ($getMode)
 {
@@ -125,6 +127,10 @@ switch ($getMode)
 	case 'print':
 		$classTable  = 'table table-condensed table-striped';
 		break;
+    case 'xlsx':
+	    include_once(__DIR__ . '/libs/PHP_XLSXWriter/xlsxwriter.class.php');
+	    $getMode     = 'xlsx';
+	    break;
 	default:
 		break;
 }
@@ -164,7 +170,7 @@ if($fieldHistoryStatement->rowCount() === 0)
     // => EXIT
 }
 
-if ($getMode !== 'csv')
+if ($getMode !== 'csv' && $getMode != 'xlsx' )
 {
 	$datatable = false;
 	$hoverRows = false;
@@ -179,7 +185,6 @@ if ($getMode !== 'csv')
 	}
 	elseif ($getMode === 'pdf')
 	{
-		require_once(ADMIDIO_PATH . FOLDER_LIBS_SERVER . '/tcpdf/tcpdf.php');
 		$pdf = new TCPDF($orientation, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 		// set document information
@@ -270,7 +275,16 @@ if ($getMode !== 'csv')
         
             // dropdown menu item with all export possibilities
             $page->addPageFunctionsMenuItem('menu_item_lists_export', $gL10n->get('SYS_EXPORT_TO'), '#', 'fa-file-download');
-            $page->addPageFunctionsMenuItem('menu_item_lists_csv_ms', $gL10n->get('SYS_MICROSOFT_EXCEL'),
+            $page->addPageFunctionsMenuItem('menu_item_lists_xlsx', $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)',
+                SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
+                    'filter_date_from'  => $getDateFrom,
+                    'filter_date_to'    => $getDateTo,              
+                    'filter_last_name'  => $getLastName,
+                    'filter_first_name' => $getFirstName,
+                    'export_and_filter' => $getExportAndFilter,
+                    'mode'              => 'xlsx')),
+                'fa-file-excel', 'menu_item_lists_export');
+            $page->addPageFunctionsMenuItem('menu_item_lists_csv_ms', $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)',
                 SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
                     'filter_date_from'  => $getDateFrom,
                     'filter_date_to'    => $getDateTo,              
@@ -342,6 +356,8 @@ $columnHeading[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
 $columnHeading[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
 $columnHeading[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
 
+$rows[] = $columnHeading;           // header for 'xlsx'
+
 foreach($columnHeading as $headerData)
 {
 	if($getMode === 'csv')
@@ -370,6 +386,10 @@ elseif( $getMode === 'print')
 	$table->setDatatablesOrderColumns(array(array(5, 'desc')));
 	$table->addRowHeadingByArray($columnHeading);
 }
+elseif ($getMode == 'xlsx')
+{
+    // nothing to do
+}
 else
 {
 	$table->addTableBody();
@@ -378,7 +398,7 @@ else
 $columnValues       = array();
 $presetColumnValues = array();
 
-if ($getMode === 'csv')
+if ($getMode === 'csv' || $getMode == 'xlsx')
 {
 	$presetColumnValues[$gProfileFields->getProperty('PAID'.$gCurrentOrgId, 'usf_id')] =  '';
 	$presetColumnValues[$gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id')] =  '';
@@ -429,6 +449,10 @@ while($row = $fieldHistoryStatement->fetch())
    			$table->setColumnAlignByArray(array('center','center','center','center','center'));
    			$table->addRowByArray($columnValues[$row['usl_usr_id']], null, array('nobr' => 'true'));
    		}
+        elseif($getMode === 'xlsx')
+   		{
+            $rows[] = $columnValues[$row['usl_usr_id']];
+        }
    		else
    		{
             $user->readDataById($row['usl_usr_id']);
@@ -439,21 +463,15 @@ while($row = $fieldHistoryStatement->fetch())
 }
 
 // Settings for export file
-if($getMode === 'csv' || $getMode === 'pdf')
+if($getMode === 'csv' || $getMode === 'pdf'|| $getMode == 'xlsx')
 {
-	$filename .= '.'.$getMode;
+	$filename = FileSystemUtils::getSanitizedPathEntry($filename) . '.' . $getMode;
 
-	// for IE the filename must have special chars in hexadecimal
-	if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false)
-	{
-		$filename = urlencode($filename);
-	}
-
-	header('Content-Disposition: attachment; filename="'.$filename.'"');
-
-	// neccessary for IE6 to 8, because without it the download with SSL has problems
-	header('Cache-Control: private');
-	header('Pragma: public');
+    header('Content-Disposition: attachment; filename="'.$filename.'"');
+    
+    // neccessary for IE6 to 8, because without it the download with SSL has problems
+    header('Cache-Control: private');
+    header('Pragma: public');
 }
 
 if($getMode === 'csv')							// send the CSV-File to the user
@@ -472,17 +490,46 @@ if($getMode === 'csv')							// send the CSV-File to the user
 elseif($getMode === 'pdf')						// send the PDF-File to the User
 {
 	// output the HTML content
-	$pdf->writeHTML($table->getHtmlTable(), true, false, true, false, '');
+    $pdf->writeHTML($table->getHtmlTable(), true, false, true);
 
-	//Save PDF to file
-	$pdf->Output(ADMIDIO_PATH . FOLDER_DATA . '/'.$filename, 'F');
+    $file = ADMIDIO_PATH . FOLDER_DATA . '/' . $filename;
 
-	//Redirect
-	header('Content-Type: application/pdf');
+    // Save PDF to file
+    $pdf->Output($file, 'F');
 
-	readfile(ADMIDIO_PATH . FOLDER_DATA . '/'.$filename);
-	ignore_user_abort(true);
-	unlink(ADMIDIO_PATH . FOLDER_DATA . '/'.$filename);
+    // Redirect
+    header('Content-Type: application/pdf');
+
+    readfile($file);
+    ignore_user_abort(true);
+
+    try
+    {
+        FileSystemUtils::deleteFileIfExists($file);
+    }
+    catch (\RuntimeException $exception)
+    {
+        $gLogger->error('Could not delete file!', array('filePath' => $file));
+        // TODO
+    }
+}
+elseif ($getMode == 'xlsx')
+{
+    header('Content-disposition: attachment; filename="'.XLSXWriter::sanitize_filename($filename).'"');
+    header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+    header('Content-Transfer-Encoding: binary');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    
+    $writer = new XLSXWriter();
+    $writer->setAuthor($gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME'));
+    $writer->setTitle($filename);
+    $writer->setSubject($gL10n->get('PLG_GEBURTSTAGSLISTE_BIRTHDAY_LIST'));
+    $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
+    $writer->setKeywords(array($gL10n->get('PLG_GEBURTSTAGSLISTE_BIRTHDAY_LIST'), $gL10n->get('PLG_GEBURTSTAGSLISTE_PATTERN')));
+    $writer->setDescription($gL10n->get('PLG_GEBURTSTAGSLISTE_CREATED_WITH'));
+    $writer->writeSheet($rows,'', $header);
+    $writer->writeToStdOut();
 }
 elseif ($getMode == 'html' && $getExportAndFilter)
 {
