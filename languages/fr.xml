@@ -302,6 +302,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR">Déplacer le destinataire du paiement vers le destinataire du paiement original</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_IBAN">Déplacer l\'IBAN vers l\'IBAN original</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Déplacer la référence du mandat à la référence du mandat original.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES">Rôles multiplicateurs</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC">Les rôles multiplicateurs sont des rôles familiaux où la valeur de contribution n'est pas ajoutée mais sert de multiplicateur. La valeur est un pourcentage (par exemple 70 correspond à 70%).</string>           
     <string name="PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING">Les noms de fichiers doivent être donnés sans l'extension de fichier.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE">nouveau rôle</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">nouveau rôle du membre</string> 

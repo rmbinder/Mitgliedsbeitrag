@@ -302,6 +302,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR">Zahlungsempfänger verschieben nach Ursprünglicher Zahlungsempfänger</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_IBAN">IBAN verschieben nach Ursprüngliche IBAN</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Mandatsreferenz verschieben nach Ursprüngliche Mandatsreferenz</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES">Multiplikatorrollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC">Multiplikatorrollen sind Familienrollen bei denen der Beitragswert nicht addiert wird, sondern als Multiplikator dient. Der Wert ist eine Prozentangabe (Bsp.: 70 entspricht 70%).</string>       
     <string name="PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING">Dateinamen sind ohne Dateiendung anzugeben.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE">neue Rolle</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">neue Rolle des Mitglieds</string> 

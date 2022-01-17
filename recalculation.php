@@ -260,61 +260,70 @@ if ($getMode == 'preview')     //Default
 					$members[$member]['CONTRIBUTORY_TEXT_NEW'] = '';
 				}
 			}
-	
-			if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)            // anteilige Beitragsberechnung anhand des Beginns einer Rollenzugehörigkeit
-			{
-			    $time_begin = strtotime($roldata['members'][$roldata['has_to_pay']]['mem_begin']);
-			}
-			else                                                                        // anteilige Betragsberechnung anhand des Beitrittsdatums
-			{
-			    $time_begin = strtotime($members[$roldata['has_to_pay']]['ACCESSION'.$gCurrentOrgId]);
-			}
 			
-			// das Standarddatum '9999-12-31' kann auf einigen Systemen nicht verarbeitet werden
-			if($roldata['members'][$member]['mem_end'] == '9999-12-31')
+			//ist diese Familienrolle als Multiplikatorrolle definiert?
+			if (in_array($rol, $pPreferences->config['multiplier']['roles']))
 			{
-			    $time_end = strtotime('2038-01-19');
+			    $members[$roldata['has_to_pay']]['FEE_NEW'] = $members[$roldata['has_to_pay']]['FEE_NEW'] * $roldata['rol_cost'] / 100;
+			    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
 			}
-			else                                                                        
+			else 
 			{
-			    $time_end = strtotime($roldata['members'][$member]['mem_end']);
-			}
+                if($pPreferences->config['Beitrag']['beitrag_anteilig'] == true)            // anteilige Beitragsberechnung anhand des Beginns einer Rollenzugehörigkeit
+                {
+                    $time_begin = strtotime($roldata['members'][$roldata['has_to_pay']]['mem_begin']);
+			    }
+                else                                                                        // anteilige Betragsberechnung anhand des Beitrittsdatums
+                {
+                    $time_begin = strtotime($members[$roldata['has_to_pay']]['ACCESSION'.$gCurrentOrgId]);
+                }
 			
-			// anteiligen Beitrag berechnen, falls das Mitglied (in diesem Fall der Zahlungspflichtige der Familienrolle) im aktuellen Jahr ein- oder ausgetreten ist
-			// && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
-			// && Beitragszeitraum (cost_period) darf nicht "Jaehrlich" (1) sein
-			if ((strtotime(date('Y').'-01-01') < $time_begin || $time_end < strtotime(date('Y').'-12-31'))
-			    && ($roldata['rol_cost_period'] != -1)
-			    && ($roldata['rol_cost_period'] != 1))
-			{
-			    
-			    if (strtotime(date('Y').'-01-01') <  $time_begin)
+                // das Standarddatum '9999-12-31' kann auf einigen Systemen nicht verarbeitet werden
+                if($roldata['members'][$member]['mem_end'] == '9999-12-31')
 			    {
-			        $month_begin = date('n', $time_begin);
+                    $time_end = strtotime('2038-01-19');
+                }
+                else                                                                        
+                {
+                    $time_end = strtotime($roldata['members'][$member]['mem_end']);
+                }
+			
+			    // anteiligen Beitrag berechnen, falls das Mitglied (in diesem Fall der Zahlungspflichtige der Familienrolle) im aktuellen Jahr ein- oder ausgetreten ist
+			    // && Beitragszeitraum (cost_period) darf nicht "Einmalig" (-1) sein
+			    // && Beitragszeitraum (cost_period) darf nicht "Jaehrlich" (1) sein
+			    if ((strtotime(date('Y').'-01-01') < $time_begin || $time_end < strtotime(date('Y').'-12-31'))
+			        && ($roldata['rol_cost_period'] != -1)
+			        && ($roldata['rol_cost_period'] != 1))
+			    {
+			    
+			        if (strtotime(date('Y').'-01-01') <  $time_begin)
+			        {
+			            $month_begin = date('n', $time_begin);
+			        }
+			        else
+			        {
+			            $month_begin = 1;
+			        }
+			        if (strtotime(date('Y').'-12-31') >  $time_end)
+			        {
+			            $month_end   = date('n', $time_end);
+			        }
+			        else
+			        {
+			            $month_end = 12;
+			        }
+			    
+			        $segment_begin = ceil($month_begin * $roldata['rol_cost_period']/12);
+			        $segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
+			    
+			        $members[$roldata['has_to_pay']]['FEE_NEW'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
+			        $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
 			    }
 			    else
 			    {
-			        $month_begin = 1;
+				    $members[$roldata['has_to_pay']]['FEE_NEW'] += $roldata['rol_cost'];
+				    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
 			    }
-			    if (strtotime(date('Y').'-12-31') >  $time_end)
-			    {
-			        $month_end   = date('n', $time_end);
-			    }
-			    else
-			    {
-			        $month_end = 12;
-			    }
-			    
-			    $segment_begin = ceil($month_begin * $roldata['rol_cost_period']/12);
-			    $segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
-			    
-			    $members[$roldata['has_to_pay']]['FEE_NEW'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
-			    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
-			}
-			else
-			{
-				$members[$roldata['has_to_pay']]['FEE_NEW'] += $roldata['rol_cost'];
-				$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
 			}
 		}
 	}

@@ -112,6 +112,8 @@ $config_default['individual_contributions'] = array('access_to_module'  => '0',
                                                     'profilefield'      => array(' ')
                                                 );
 
+//Multiplikatorrollen (nur Familienrollen)
+$config_default['multiplier']['roles'] = array();
 
 /*
  *  Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden,

@@ -820,7 +820,26 @@ $formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextId
 $formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
 $page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-coins', $formIndividualContributionsSetup->show()));
-    
+ 
+// PANEL: MULTIPLIER_ROLES
+
+if (count($familienrollen) > 0)
+{
+    $formMultiplierRoles = new HtmlForm('multiplier_roles_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'multiplier_roles')), $page, array('class' => 'form-preferences'));
+
+    $selectBoxEntries = array();
+    foreach ($familienrollen as $key => $data)
+    {
+        $selectBoxEntries[$key] = $data['rolle'];
+    }
+    asort($selectBoxEntries);
+    $formMultiplierRoles->addSelectBox('multiplier_roles', '', $selectBoxEntries, array('defaultValue' => $pPreferences->config['multiplier']['roles'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC'));
+
+    $formMultiplierRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+    $page->addHtml(getMenuePanel('preferences', 'multiplier_roles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES'), 'fas fa-percent', $formMultiplierRoles->show()));
+}
+
 //PANEL: PLUGIN_INFORMATION                     
 
 $formPluginInformations = new HtmlForm('plugin_informations_form', null, $page);

@@ -305,6 +305,16 @@ try
             }
             break;
             
+        case 'multiplier_roles':
+            if (isset($_POST['multiplier_roles']))
+            {
+                $pPreferences->config['multiplier']['roles'] = array_filter($_POST['multiplier_roles']);
+            }
+            else
+            {
+                $pPreferences->config['multiplier']['roles'] = array();
+            }
+            break;
         default:
             $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
