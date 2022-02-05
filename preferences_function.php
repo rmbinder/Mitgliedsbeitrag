@@ -55,7 +55,7 @@ try
         case 'agestaggeredroles':
             unset($pPreferences->config['Altersrollen']);
             $altersrollen_anzahl = 0;
-            $pPreferences->config['Altersrollen']['altersrollen_stichtag'] = $_POST['altersrollen_stichtag'];
+            $pPreferences->config['Altersrollen']['altersrollen_offset'] = $_POST['altersrollen_offset'];
 
             for($conf = 0; isset($_POST['altersrollen_token'. $conf]); $conf++)
             {

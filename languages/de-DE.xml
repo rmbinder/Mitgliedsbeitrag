@@ -126,8 +126,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID">Bezahlt-Datum</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_CHANGE_ALL_DESC">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig ! ) das Bezahlt-Datum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC">Das Bezahlt-Datum wird bei einem Benutzer als Kennzeichnung für eine geleistete Beitragszahlung eingetragen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEADLINE">Stichtag</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEADLINE_DESC">Das eingetragene Datum dient als Stichtag für die Einteilung in die altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Zahlungspflichtiger</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Standard</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY">Nur Daten der aktuellen Organisation löschen.</string>
@@ -319,6 +317,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST">Nach jedem Hinzufügen oder Löschen einer Konfiguration ist der Speichern-Button zu betätigen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER">Anzahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS">Anzahl der Transaktionen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Jahresversatz</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_DESC">Mit Jahresversatz kann der Referenzzeitpunkt a) für die Einteilung in die altersgestaffelten Rollen und b) für die altersbezogenen Prüfungen um x Jahre in die Zukunft oder in die Vergangenheit versetzt werden (0 entspricht keinem Versatz).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_INFO">Der Referenzzeitpunkt ist immer der 31.12. (24 Uhr) des vergangenen Jahres.\n\nBeispiel für die Einteilung in eine altersgestaffelte Rolle:\nGegeben soll eine Rolle sein mit folgenden Alterbeschränkungen:\n"Mitglieder %1% bis %2% Jahre"\nIn diesem Fall wird geprüft, ob das Mitglied am 31.12. (24 Uhr) des vergangenen Jahres noch in die Altersstruktur "1 bis 2" Jahre passte (Minimun 1 Jahr alt war, bzw. Maximum 2 Jahre und 365 Tage alt war). Wenn nicht, wird es in eine andere Rolle verschoben.\n\nMit Jahressversatz kann dieser Referenzzeitpunkt um volle Jahre in die Zukunft oder in die Vergangenheit versetzt werden.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_OLD_ROLE">alte Rolle</string>
     <string name="PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC">alte Rolle des Mitglieds</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT">Einmallastschrift (OOFF)</string>

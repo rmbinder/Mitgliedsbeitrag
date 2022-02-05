@@ -377,7 +377,7 @@ $page->addHtml(getMenuePanel('preferences', 'contributionsettings', 'accordion_p
 // PANEL: AGE_STAGGERED_ROLES                    
                     
 $formAgeStaggeredRoles = new HtmlForm('agestaggeredroles_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'agestaggeredroles')), $page, array('class' => 'form-preferences'));
-$formAgeStaggeredRoles->addInput('altersrollen_stichtag', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEADLINE'), $pPreferences->config['Altersrollen']['altersrollen_stichtag'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DEADLINE_DESC', 'type' => 'date'));
+$formAgeStaggeredRoles->addInput('altersrollen_offset', $gL10n->get('PLG_MITGLIEDSBEITRAG_OFFSET'), $pPreferences->config['Altersrollen']['altersrollen_offset'], array('type' => 'number',  'step' => 1, 'minNumber' => -99, 'maxNumber' => 99, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_OFFSET_DESC', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_OFFSET_INFO') );  
 $formAgeStaggeredRoles->addLine();
 $formAgeStaggeredRoles->addStaticControl('descd', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELIMITER'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELIMITER_DESC'));
 

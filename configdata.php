@@ -18,7 +18,7 @@ $config_default = array();
                                                                                      
 // Altersrollen
 $config_default['Altersrollen'] = array('altersrollen_token'    => array('*'),
-                                        'altersrollen_stichtag' => date('d.m.Y', strtotime((date('Y')-1).'-12-31')));
+                                        'altersrollen_offset'   => 0);
 
 // Familienrollen
 $config_default['Familienrollen'] = array('familienrollen_beitrag'        => array(0),

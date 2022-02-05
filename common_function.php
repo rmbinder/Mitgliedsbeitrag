@@ -962,7 +962,8 @@ function check_family_roles()
                     foreach($famdata['members'] as $memberID => $memberdata)
                     {
                         // das Alter des Mitglieds am Stichtag bestimmen
-                        $age = date('Y', strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag'])) - date('Y', strtotime($memberdata['BIRTHDAY']));
+                        $deadline = (date('Y')  -1  + (int) $pPreferences->config['Altersrollen']['altersrollen_offset']) . '-12-31';
+                        $age = date('Y', strtotime($deadline)) - date('Y', strtotime($memberdata['BIRTHDAY']));
 
                         // passt das Alter zu einer der Pruefbedingungen?
                         if ($age >= $pruefdata['von'] && $age <= $pruefdata['bis'])

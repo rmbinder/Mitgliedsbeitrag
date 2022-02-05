@@ -76,8 +76,10 @@ if ($getMode == 'preview')     //Default
 						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$memberdata['LAST_NAME'].'</a>' )));
 			}
 	
-			$age = ageCalculator(strtotime($memberdata['BIRTHDAY']), strtotime($pPreferences->config['Altersrollen']['altersrollen_stichtag']));
-	
+			// das Alter des Mitglieds am Stichtag bestimmen
+			$deadline = (date('Y') -1 + (int) $pPreferences->config['Altersrollen']['altersrollen_offset']  ) . '-12-31';
+			$age = date('Y', strtotime($deadline)) - date('Y', strtotime($memberdata['BIRTHDAY']));
+			
 			// ist das Alter des Mitglieds außerhalb des Altersschemas der Rolle
 			if (($age < $roldata['von']) || ($age > $roldata['bis']))
 			{
