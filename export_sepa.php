@@ -524,7 +524,6 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
     $columnValues[] = $gL10n->get('SYS_COUNTRY');
     $columnValues[] = $gL10n->get('SYS_STREET');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
     $columnValues[] = $gL10n->get('SYS_CITY');
     $rows[] = $columnValues;
     
@@ -565,6 +564,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
         $columnValues[] = $zpflgtdata['alt_name'];
         $columnValues[] = $zpflgtdata['orig_mandat_id'];
         $columnValues[] = $zpflgtdata['orig_iban'];
+        $columnValues[] = $zpflgtdata['orig_dbtr_agent'];
         $columnValues[] = $zpflgtdata['land'];
         $columnValues[] = $zpflgtdata['street'];
         $columnValues[] = $zpflgtdata['ort'];
