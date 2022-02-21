@@ -300,6 +300,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR">"Payee" move to "Original payee"</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_IBAN">IBAN move to original IBAN</string>
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Mandate reference move to original mandate reference</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES">Multiplier roles</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC">Multiplier roles are family roles where the contribution value is not added but serves as a multiplier. The value is a percentage (e.g. 70 corresponds to 70%).</string>           
     <string name="PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING">File names are to be given without the file extension.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE">new role</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">new role of the member</string>
