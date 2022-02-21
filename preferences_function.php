@@ -88,7 +88,7 @@ try
                 }
 
                 $pPreferences->config['Familienrollen']['familienrollen_prefix'][] = $_POST['familienrollen_prefix'. $conf];
-                $pPreferences->config['Familienrollen']['familienrollen_beitrag'][] = $_POST['familienrollen_beitrag'. $conf];
+                $pPreferences->config['Familienrollen']['familienrollen_beitrag'][] = str_replace(',', '.', $_POST['familienrollen_beitrag'. $conf]);
                 $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][] = $_POST['familienrollen_zeitraum'. $conf];
                 $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][] = $_POST['familienrollen_beschreibung'. $conf];
                 $pPreferences->config['Familienrollen']['familienrollen_pruefung'][] = isset($familienrollen_pruefung[$conf]) ? $familienrollen_pruefung[$conf] : '';
@@ -107,7 +107,7 @@ try
             foreach($alt_fix_rollen as $rol_id => $dummy)
             {
                 $role->readDataById((int) $rol_id);
-                $role->setvalue('rol_cost', $_POST['rol_cost'. $rol_id]);
+                $role->setvalue('rol_cost', str_replace(',', '.', $_POST['rol_cost'. $rol_id]));
                 $role->setvalue('rol_cost_period', $_POST['rol_cost_period'. $rol_id]);
                 $role->setvalue('rol_description', $_POST['rol_description'. $rol_id]);
                 $role->save();
