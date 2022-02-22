@@ -415,7 +415,7 @@ for ($conf = 0; $conf < $num_familyroles; $conf++)
 {
     $formFamilyRoles->openGroupBox('familyroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE'));
     $formFamilyRoles->addInput('familienrollen_prefix'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_PREFIX'), $pPreferences->config['Familienrollen']['familienrollen_prefix'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_PREFIX_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
-    $formFamilyRoles->addInput('familienrollen_beitrag'.$conf, $gL10n->get('SYS_CONTRIBUTION').' '.$gSettingsManager->getString('system_currency'), $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC'));
+    $formFamilyRoles->addInput('familienrollen_beitrag'.$conf, $gL10n->get('SYS_CONTRIBUTION').' '.$gSettingsManager->getString('system_currency'), $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC', 'type' => 'number', 'minNumber' => -99999, 'maxNumber' => 99999, 'step' => 0.01));
 
     $selectBoxEntries = array('--', -1, 1, 2, 4, 12);
     $role = new TableRoles($gDb);

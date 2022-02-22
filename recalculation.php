@@ -330,7 +330,7 @@ if ($getMode == 'preview')     //Default
 	
 	foreach ($members as $member => $memberdata)
 	{
-		// letzte Datenaufbereitung (aussummieren, ueberschreiben, runden...)
+		// letzte Datenaufbereitung (aufsummieren, ueberschreiben, runden...)
 		if ((is_null($members[$member]['FEE'.$gCurrentOrgId])
 				||  (!(is_null($members[$member]['FEE'.$gCurrentOrgId]))
 				    && (isset($_POST['recalculation_modus']) && (($_POST['recalculation_modus'] == 'overwrite') || ($_POST['recalculation_modus'] == 'summation')))
