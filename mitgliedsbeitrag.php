@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag
  *
- * Version 5.1.1
+ * Version 5.1.2
  *
  * This plugin calculates membership fees based on role assignments.
  *
