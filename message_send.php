@@ -234,7 +234,7 @@ foreach ($mailToArray as $userId => $usfUuid )
     }
 
     // load mail template and replace text
-    $email->setTemplateText($postBody, $postName, $gCurrentUser->getValue('EMAIL'), $message->getRecipientsNamesString());
+    $email->setTemplateText($postBody, $postName, $gCurrentUser->getValue('EMAIL'), $gCurrentUser->getValue('usr_uuid'), $message->getRecipientsNamesString());
     
     // finally send the mail
     $sendMailResult = $email->sendEmail();
