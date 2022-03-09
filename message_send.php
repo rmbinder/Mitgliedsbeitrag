@@ -18,7 +18,6 @@ require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 
-//testen !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //use PHPMailer\PHPMailer\Exception;
 
 // Initialize and check the parameters
@@ -74,15 +73,7 @@ $sendMailResultMessage = '';
 $sendMailResultSendOK = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILSEND_OK').'</strong>');
 $sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL').'</strong>');
 $sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR').'</strong>');
-
 $sendResult  = false;
-
-// object to handle the current message in the database
-$message = new TableMessage($gDb);
-$message->setValue('msg_type', TableMessage::MESSAGE_TYPE_EMAIL);
-$message->setValue('msg_subject', $postSubject);
-$message->setValue('msg_usr_id_sender', $gCurrentUserId);
-$message->addContent($postBody);      
 
 $user = new User($gDb, $gProfileFields);
 $userField = new TableUserField($gDb);
@@ -110,10 +101,7 @@ foreach ($mailToArray as $userId => $usfUuid )
     $email = new Email();
 
     $user->readDataById($userId);
-    $userField->readDataByUuid($usfUuid);
-    
-    // add user to the message object
-    $message->addUser((int) $user->getValue('usr_id'), $user->getValue('FIRST_NAME') . ' ' . $user->getValue('LAST_NAME'));
+    $userField->readDataByUuid($usfUuid); 
     
     //Datensatz fuer E-Mail-Adresse zusammensetzen
     if($userField->getValue('usf_name_intern') === 'DEBTOR_EMAIL')                      // Problem: 'DEBTOR_EMAIL' ist als TEXT in der DB definiert
@@ -134,19 +122,26 @@ foreach ($mailToArray as $userId => $usfUuid )
     }
     
     // evtl. definierte Parameter ersetzen
-    $postSubject = replace_emailparameter($postSubject, $user);
-    $postBody = replace_emailparameter($postBody, $user);   
+    $subject = replace_emailparameter($postSubject, $user);
+    $body = replace_emailparameter($postBody, $user);   
+    
+    // object to handle the current message in the database
+    $message = new TableMessage($gDb);
+    $message->setValue('msg_type', TableMessage::MESSAGE_TYPE_EMAIL);
+    $message->setValue('msg_subject', $subject);
+    $message->setValue('msg_usr_id_sender', $gCurrentUserId);
+    $message->addContent($body);
+    $message->addUser((int) $user->getValue('usr_id'), $user->getValue('FIRST_NAME') . ' ' . $user->getValue('LAST_NAME'));
     
     // set sending address
     if ($email->setSender($postFrom, $postName))
     {
         // set subject
-        if ($email->setSubject($postSubject))
+        if ($email->setSubject($subject))
         {
             // check for attachment
             if (isset($_FILES['userfile']))
             {
-                // isat dsas norwendig ; bin ja eingeloggt
                 // final check if user is logged in
                 if (!$gValidLogin)
                 {
@@ -234,7 +229,7 @@ foreach ($mailToArray as $userId => $usfUuid )
     }
 
     // load mail template and replace text
-    $email->setTemplateText($postBody, $postName, $gCurrentUser->getValue('EMAIL'), $gCurrentUser->getValue('usr_uuid'), $message->getRecipientsNamesString());
+    $email->setTemplateText($body, $postName, $gCurrentUser->getValue('EMAIL'), $gCurrentUser->getValue('usr_uuid'), $message->getRecipientsNamesString());
     
     // finally send the mail
     $sendMailResult = $email->sendEmail();
