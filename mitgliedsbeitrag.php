@@ -146,7 +146,7 @@ if($showOption != '')
     {
         $navOption = 'mandatemanagement';
     }
-    elseif(in_array($showOption, array('sepa', 'statementexport')) == true)
+    elseif(in_array($showOption, array('sepa', 'bill')) == true)
     {
         $navOption = 'export';
     }
@@ -453,7 +453,7 @@ if(count($rols) > 0)
     $formDuedates->addLine();
     $page->addHtml($formDuedates->show(false));
     
-    $formSepa = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/export_sepa.php', $page);
+    $formSepa = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/sepa_export.php', $page);
     if (!$directdebittype)
     {
         $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST').'</div>';
@@ -540,16 +540,16 @@ if(count($rols) > 0)
                             
     $page->addHtml(getMenuePanelFooterOnly());
                             
-    // PANEL: STATEMENTEXPORT
+    // PANEL: BILL
+     
+    $formBillExport = new HtmlForm('billexport_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/bill.php', $page, array('class' => 'form-preferences'));
     
-    $formStatementExport = new HtmlForm('statementexport_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/export_bill.php', $page, array('class' => 'form-preferences'));
-
     $radioButtonEntries = array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
-    $formStatementExport->addRadioButton('export_mode_bill','',$radioButtonEntries, array('defaultValue' => 'xlsx'));
-    $formStatementExport->addSubmitButton('btn_rechnung_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), array('icon' => 'fa-file',  'class' => 'offset-sm-3'));
-    $formStatementExport->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC'));
+    $formBillExport->addRadioButton('export_mode_bill','',$radioButtonEntries, array('defaultValue' => 'xlsx'));
+    $formBillExport->addSubmitButton('btn_bill', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT'), array('icon' => 'fa-file',  'class' => 'offset-sm-3'));
+    $formBillExport->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC'));
     
-    $page->addHtml(getMenuePanel('export', 'statementexport', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT'), 'fas fa-file-invoice', $formStatementExport->show()));  
+    $page->addHtml(getMenuePanel('export', 'bill', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'), 'fas fa-file-invoice', $formBillExport->show()));  
     
     $page->addHtml(closeMenueTab());
     

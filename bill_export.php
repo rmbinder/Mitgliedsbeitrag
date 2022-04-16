@@ -1,14 +1,14 @@
 <?php
 /**
  ***********************************************************************************************
- * Modul pre_notification_export fuer das Admidio-Plugin Mitgliedsbeitrag
+ * Modul bill_export fuer das Admidio-Plugin Mitgliedsbeitrag
  *
  * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
- * Parameters:   none
- * 
+ * Parameters:  none
+ *
  ***********************************************************************************************
  */
 
@@ -35,10 +35,12 @@ $separator    = '';
 $valueQuotes  = '';
 $charset      = '';
 $csvStr       = '';
+$sum          = 0;
+$nr           = 1;
 $header       = array();              //'xlsx'
 $rows         = array();              //'xlsx'
 $columnValues = array();
-$filename     = $pPreferences->config['SEPA']['vorabinformation_dateiname'];
+$filename     = $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'];
 
 switch ($exportMode)
 {
@@ -63,29 +65,14 @@ switch ($exportMode)
 }
 
 $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
-$columnValues[] = $gL10n->get('SYS_FIRSTNAME');
-$columnValues[] = $gL10n->get('SYS_LASTNAME');
+$columnValues[] = $gL10n->get('SYS_NAME');
 $columnValues[] = $gL10n->get('SYS_STREET');
 $columnValues[] = $gL10n->get('SYS_POSTCODE');
-$columnValues[] = $gL10n->get('SYS_CITY');
+$columnValues[] = $gL10n->get('SYS_LOCATION');
 $columnValues[] = $gL10n->get('SYS_EMAIL');
-$columnValues[] = $gL10n->get('SYS_PHONE');
-$columnValues[] = $gL10n->get('SYS_MOBILE');
-$columnValues[] = $gL10n->get('SYS_BIRTHDAY');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION');                             
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER').'/'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_STREET');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL');                                                          
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
 $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
+$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
+$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SUM');
 $rows[] = $columnValues;
 
 if ($exportMode === 'csv')
@@ -109,43 +96,25 @@ foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId => $dummy)
 
     $columnValues = array();
     $columnValues[] = $nr;
-    $columnValues[] = $user->getValue('MEMBERNUMBER'.$gCurrentOrgId);
-    $columnValues[] = $user->getValue('FIRST_NAME');
-    $columnValues[] = $user->getValue('LAST_NAME');
-    $columnValues[] = $user->getValue('STREET');
-    $columnValues[] = $user->getValue('POSTCODE');
-    $columnValues[] = $user->getValue('CITY');
-    $columnValues[] = $user->getValue('EMAIL');
-    $columnValues[] = $user->getValue('PHONE');
-    $columnValues[] = $user->getValue('MOBILE');
-    $columnValues[] = $user->getValue('BIRTHDAY');
-    $columnValues[] = $user->getValue('ACCESSION'.$gCurrentOrgId);
     
     if (strlen($user->getValue('DEBTOR')) !== 0)
     {
         $columnValues[] = $user->getValue('DEBTOR');
-        $columnValues[] = $user->getValue('DEBTOR_STREET');
-        $columnValues[] = $user->getValue('DEBTOR_POSTCODE');
-        $columnValues[] = $user->getValue('DEBTOR_CITY');
-        $columnValues[] = $user->getValue('DEBTOR_EMAIL');
     }
     else
     {
         $columnValues[] = $user->getValue('FIRST_NAME').' '.$user->getValue('LAST_NAME');
-        $columnValues[] = $user->getValue('STREET');
-        $columnValues[] = $user->getValue('POSTCODE');
-        $columnValues[] = $user->getValue('CITY');
-        $columnValues[] = $user->getValue('EMAIL');
     }
-    
-    $columnValues[] = $user->getValue('BANK');
-    $columnValues[] = $user->getValue('BIC');
-    $columnValues[] = $user->getValue('IBAN');
-    $columnValues[] = $user->getValue('MANDATEDATE'.$gCurrentOrgId);
-    $columnValues[] = $user->getValue('MANDATEID'.$gCurrentOrgId);
-    $columnValues[] = $user->getValue('DUEDATE'.$gCurrentOrgId);
+    $columnValues[] = $user->getValue('STREET');
+    $columnValues[] = $user->getValue('POSTCODE');
+    $columnValues[] = $user->getValue('CITY');
+    $columnValues[] = $user->getValue('EMAIL');
     $columnValues[] = $user->getValue('FEE'.$gCurrentOrgId);
-    
+    $columnValues[] = $user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrgId);
+        
+    $sum += $user->getValue('FEE'.$gCurrentOrgId);
+    $columnValues[] = $sum;       
+        
     if ($exportMode === 'csv')
     {
         for ($i = 0; $i < (sizeof($columnValues)); $i++)
@@ -158,10 +127,8 @@ foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId => $dummy)
         }
         $csvStr .= "\n";
     }
-    elseif ($exportMode === 'xlsx')
-    {
-        $rows[] = $columnValues;
-    }
+
+    $rows[] = $columnValues;
     $nr += 1;
 }
  
@@ -200,12 +167,8 @@ elseif ($exportMode === 'xlsx')
     $writer->setTitle($filename);
     $writer->setSubject($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
     $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
-    $writer->setKeywords(array($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA')));
+    $writer->setKeywords(array($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA')));
     $writer->setDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATED_WITH'));
     $writer->writeSheet($rows,'', $header);
     $writer->writeToStdOut();
 }
-
-
-
-

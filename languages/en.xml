@@ -41,6 +41,11 @@
     <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_ERROR">The listed members or the account details of the association are missing the BIC.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_OK">All required BIC are available.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL">Invoice</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT">Edit billing information</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC">Creates a file (.XLSX or .CSV) with data to generate invoices and offers the possibility to send bank transfer requests via email.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME">Invoice file name</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT">Invoice email text</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC">The text for a transfer request by e-mail can be adjusted and supplemented here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nThe following placeholders can be used in each e-mail, which are then replaced by the corresponding content at runtime.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Bank code file</string>
     <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION">Category selection</string>
     <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC">Pick the category to which a member must belong basically to be considered when examining the role membership. With no choice, this option is meaningless.</string>
@@ -340,7 +345,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Payment received on</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Paid-date only</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">'Paid-date only' deletes only the paid-date.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAPERLESS_DATA_EXCHANGE">Voucherless data carrier exchange</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Reference ID</string> 
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS">Contribution payments</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">By default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
@@ -349,11 +353,12 @@
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION">Plug-in information</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_NAME">Plug-in name</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION">Version</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL">#subject# Membership fee transfer request\n#content# Dear member,\n\nwe would like to remind you that on April 1st the annual membership fee of #fee# Euro is due.\n\nPlease transfer the contribution to our account within the next 14 days.\n\nKind regards\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS">#subject# Payment reminder\n#content# Dear Member,\n\nwe would like to remind you that on 1 April, the membership fee was due.\n\nPlease transfer the amount within the next 14 days.\n\nSincerely yours\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION">#subject# Debit subscription\n#content# Dear Member,\n\non #due_day# we book a membership fee of #fee# euros \nwith the mandate reference number #mandate_id# \nand our creditors-ID #creditor_id# \nfrom your account #iban#.\n\nPlease ensure sufficient funds.\n\nSincerely yours\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_POSTCODE">AccHolder&apos;s post code</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Advance information</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Creates a file (.XLSX or .CSV) with all data necessary to create serial letters for pre-notifications and enables sending of pre-notifications by e-mail.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Creates a file (.XLSX or .CSV) with data to create serial letters for pre-notifications and enables sending of pre-notifications by e-mail.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Pre-notification export file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Pre-notification e-mail message</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</string>
@@ -437,12 +442,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE_DESC">This selected here Member is the source of the copy action.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STAGGERING">Staggering</string>
     <string name="PLG_MITGLIEDSBEITRAG_STAGGERING_NUMBER">Number of staggering</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT">Invoice</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA">There are not yet enough data to create an invoice data.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2">An invoice file can only be created if at least one member for a contribution was calculated and exists at Member IBAN NO.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE">Invoice file</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Creates an invoice file (.XLSX or .CSV).</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Invoice file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_STREET">AccHolder&apos;s street</string>    
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Sum</string>
@@ -483,7 +482,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\XML file name: &quot;SEPA-Datei&quot; becomes &quot;SEPA-Datei-2013-04-01-RCUR.xml&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Years</string>
    	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">The new member numbers have been saved.</string>
-	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">New Membership numbers</string>   	
+	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">New Membership numbers</string>   
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Accession</string>
     <string name="PMB_ACCOUNT_DATA">Account data</string>

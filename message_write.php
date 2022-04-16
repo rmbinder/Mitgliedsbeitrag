@@ -99,10 +99,35 @@ $text = new TableText($gDb);
 if (substr_count($gNavigation->getUrl(), 'pre_notification') === 1)
 {
     $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
+    //wenn noch nichts drin steht (=> "Einstellungen" und "Sichern" wurde noch nicht aufgerufen), dann vorbelegen (aber nicht speichern)
+    if ($text->getValue('txt_text') == '')
+    {
+        // convert <br /> to a normal line feed
+        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION'));
+        $text->setValue('txt_text', $value);
+    }
 }
 elseif (substr_count($gNavigation->getUrl(), 'payments') === 1)
 {
     $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
+    //wenn noch nichts drin steht (=> "Einstellungen" und "Sichern" wurde noch nicht aufgerufen), dann vorbelegen (aber nicht speichern)
+    if ($text->getValue('txt_text') == '')
+    {
+        // convert <br /> to a normal line feed
+        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS'));
+        $text->setValue('txt_text', $value);
+    }
+}
+elseif (substr_count($gNavigation->getUrl(), 'bill') === 1)
+{
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+    //wenn noch nichts drin steht (=> "Einstellungen" und "Sichern" wurde noch nicht aufgerufen), dann vorbelegen (aber nicht speichern)
+    if ($text->getValue('txt_text') == '')
+    {
+        // convert <br /> to a normal line feed
+        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL'));
+        $text->setValue('txt_text', $value);
+    }
 }
 
 $mailSrcText = $text->getValue('txt_text');

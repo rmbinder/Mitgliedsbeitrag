@@ -539,8 +539,28 @@ if ($text->getValue('txt_text') == '')
 }
 $formExport->addMultilineTextInput('pre_notification_text', '', $text->getValue('txt_text'), 7);
 $formExport->closeGroupBox();
-$formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT'));
-$formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
+
+$formExport->openGroupBox('bill', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'));
+$formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT'),
+    '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC').':</p><p>
+    <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
+    <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
+    <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
+    <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
+    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
+
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+//wenn noch nichts drin steht, dann vorbelegen
+if ($text->getValue('txt_text') == '')
+{
+    // convert <br /> to a normal line feed
+    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL'));
+    $text->setValue('txt_text', $value);
+    $text->save();
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+}
+$formExport->addMultilineTextInput('bill_text', '', $text->getValue('txt_text'), 7);
 $formExport->closeGroupBox();
 $formExport->addDescription('');
 $formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));

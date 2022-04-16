@@ -143,6 +143,11 @@ try
             $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
             $text->setValue('txt_text', $_POST['pre_notification_text']);
             $text->save();
+            
+            $text = new TableText($gDb);
+            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+            $text->setValue('txt_text', $_POST['bill_text']);
+            $text->save();
             break;
 
         case 'mandatemanagement':

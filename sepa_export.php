@@ -33,7 +33,8 @@ $exportMode = admFuncVariableIsValid($_POST, 'export_mode_sepa', 'string', array
 
 if (isset($_POST['btn_pre_notification']))
 {
-    admRedirect(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER. '/pre_notification.php', array('export_mode_sepa' => $exportMode)));
+    $_SESSION['pMembershipFee']['export_mode'] = $exportMode;
+    admRedirect(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER. '/pre_notification.php'));
 }
 
 // Konfiguration einlesen

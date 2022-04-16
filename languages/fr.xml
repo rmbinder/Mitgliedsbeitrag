@@ -41,6 +41,11 @@
     <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_ERROR">Le BIC est manquant pour les membres listés ou pour les données de compte de l\'organisation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_OK">Tous les BIC nécessaires sont disponibles.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL">Facture</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT">Modifier les informations de facturation</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC">Crée un fichier (.XLSX ou .CSV) avec des données pour générer des factures et offre la possibilité d'envoyer des demandes de virement par e-mail.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME">Nom du fichier de facture</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT">Texte de l'e-mail de facturation</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC">Le texte d'une demande de transfert par e-mail peut être ajusté et complété ici. Le texte est divisé en 2 zones (sujet et contenu) et est identifié par les chaînes de caractères #subject# et #content#. Puis suit le contenu de la zone. Dans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont ensuite remplacés au moment de l\'exécution par le contenu correspondant.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Fichier des codes bancaires</string>
     <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION">Sélection de catégorie</string>
     <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC">Sélectionne les catégories auxquelles un membre doit en principe appartenir pour être pris en compte dans l\'examen des rôles des membres. Si aucune sélection n\'est faite, cette option n\'a pas de sens.</string>
@@ -340,7 +345,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Payé le</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Date payée seulement</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">L\'option \'Date payée seulement\' supprime uniquement la date payée.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAPERLESS_DATA_EXCHANGE">Echange de données sur support de données sans documents.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">ID de référence</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS">Paiements de cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">Par défaut, tous les rôles de cotisation sont pris en compte lors du traitement des paiements de cotisation. Tu peux utiliser cette sélection de rôles pour effectuer le payement les cotisations uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
@@ -349,11 +353,12 @@
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION">Informations sur le plug-in</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_NAME">Nom du plug-in</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION">Version</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL">#subject# Demande de transfert de cotisation\n#content# Cher membre,\n\nnous voudrions vous rappeler que le 1er avril, la cotisation annuelle de #fee# Euro est due.\n\nVeuillez transférer la contribution sur notre compte dans les 14 prochains jours.\n\nBien à vous\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS">#subject# Rappel de paiement\n#content# Cher membre, nous aimerions te rappeler que le 1er avril la cotisation annuelle de #fee# CHF était due. S\'il te plaît effectue le paiement de la cotisation sur notre compte dans les 14 jours.\n\nMeilleures salutations\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION">#subject# Débits de cotisation\n#content# Cher membre, \n\nLe #due_day# nous débitons une cotisation de #fee# CHF\navec le numéro de référence du mandat #mandate_id#\net notre ID de créancier #creditor_id#\nde de ton compte #iban#.\n\nS\'il te plaît assure-toi d\'avoir suffisamment d\'argent sur ton compte.\n\nMeilleures salutations\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_POSTCODE">NPA-TitCpte </string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Information préalable</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Crée un fichier (.XLSX ou .CSV) avec toutes les données nécessaires pour générer des lettres en série pour les informations préliminaires et offre la possibilité d\'envoyer des informations préliminaires par courriel.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Crée un fichier (.XLSX ou .CSV) avec des données pour créer des publipostages pour les préavis et offre la possibilité d'envoyer des préavis par courrier électronique.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Nom du fichier d\'exportation pour les informations préliminaires</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Texte de courriel pour les informations préliminaires</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Ici, le texte des informations préliminaires par courriel peut être adapté et complété. Le texte est divisé en 2 zones (sujet &amp; contenu) et est identifié par les chaînes de caractères #subject# et #content#. Puis suit le contenu de la zone.\n\n Dans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont ensuite remplacés à l\'exécution par le contenu correspondant.</string>
@@ -437,12 +442,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE_DESC">Ce membre sélectionné ici est la source de l\'action de copie.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STAGGERING">Échelonnement</string>
     <string name="PLG_MITGLIEDSBEITRAG_STAGGERING_NUMBER">Nombre d\'échelonnement</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT">Facture</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA">Il n\'y a pas assez de données disponibles pour créer un fichier de factures.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2">Un fichier de factures ne peut être créé que si une cotisation a été facturée pour au moins un membre et qu\'il n\'existe AUCUN IBAN pour ce membre.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE">Fichier de facturation</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Crée un fichier de facture (.XLSX ou .CSV).</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Nom du fichier de facture</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">État</string>
     <string name="PLG_MITGLIEDSBEITRAG_STREET">Rue du TitCpte</string>    
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Total</string>

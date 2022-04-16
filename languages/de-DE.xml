@@ -41,6 +41,11 @@
     <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_ERROR">Bei den aufgeführten Mitgliedern oder bei den Kontodaten des Vereins fehlt der BIC.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_OK">Alle benötigten BIC sind vorhanden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL">Rechnung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT">Rechnungsdaten bearbeiten</string>   
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit Daten zum Erzeugen von Rechnungen und bietet die Möglichkeit Überweisungsaufforderungen per E-Mail zu versenden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME">Rechnungsdateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT">Rechnung E-Mail-Text</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC">Hier kann der Text für eine Überweisungsaufforderung per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Bankleitzahlendatei</string>
     <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION">Kategorieauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC">Wähle die Kategorien aus, denen ein Mitglied grundsätzlich angehören muß, um bei der Prüfung der Rollenmitgliedschaften berücksichtigt zu werden. Bei keiner Auswahl ist diese Option bedeutungslos.</string>
@@ -340,7 +345,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Bezahlt am</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Nur Bezahlt-Datum</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">'Nur Bezahlt-Datum' löscht nur das Bezahlt-Datum.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAPERLESS_DATA_EXCHANGE">Belegloser Datenträgeraustausch</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Referenz-ID</string> 
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS">Beitragszahlungen</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC">Standardmäßig werden beim Bearbeiten der Beitragszahlungen alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Beitragszahlung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
@@ -349,11 +353,12 @@
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION">Plugininformationen</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_NAME">Name des Plugins</string>
     <string name="PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION">Version</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL">#subject# Überweisungsaufforderung Mitgliedsbeitrag\n#content# Sehr geehrtes Mitglied,\n\nwir möchten Sie höflichst daran erinnern, dass am 1. April der jährliche Mitgliedsbeitrag in Höhe von #fee# Euro fällig wird.\n\nBitte überweisen Sie innerhalb der nächsten 14 Tage den Beitrag auf unser Konto.\n\nMit freundlichen Grüßen\n#organization_long_name#</string>  
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS">#subject# Zahlungserinnerung\n#content# Sehr geehrtes Mitglied,\n\nwir möchten Sie höflichst daran erinnern, dass am 1. April der jährliche Mitgliedsbeitrag in Höhe von #fee# Euro fällig war.\n\nBitte überweisen Sie innerhalb der nächsten 14 Tage den Beitrag auf unser Konto.\n\nMit freundlichen Grüßen\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION">#subject# Abbuchung Mitgliedsbeitrag\n#content# Sehr geehrtes Mitglied,\n\nam #due_day# buchen wir einen Mitgliedsbeitrag in Höhe von #fee# Euro\nmit der Mandatsreferenz-Nummer #mandate_id#\nund unserer Gläubiger-ID #creditor_id#\nvon Ihren Konto #iban# ab.\n\nBitte sorgen Sie für ausreichende Kontodeckung.\n\nMit freundlichen Grüßen\n#organization_long_name#</string>
     <string name="PLG_MITGLIEDSBEITRAG_POSTCODE">KtoInh-PLZ</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Vorabinformation</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit allen erforderlichen Daten zum Erzeugen von Serienbriefen für Vorabinformationen und bietet die Möglichkeit Vorabinformationen per E-Mail zu versenden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit Daten zum Erzeugen von Serienbriefen für Vorabinformationen und bietet die Möglichkeit Vorabinformationen per E-Mail zu versenden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Vorabinformation Exportdateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Vorabinformation E-Mail-Text</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
@@ -437,12 +442,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_SOURCE_DESC">Dieses hier ausgewählte Mitglied ist die Quelle der Kopieraktion.</string>
     <string name="PLG_MITGLIEDSBEITRAG_STAGGERING">Staffelung</string>
     <string name="PLG_MITGLIEDSBEITRAG_STAGGERING_NUMBER">Anzahl der Staffelungen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT">Rechnung</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA">Es sind nicht genügend Daten vorhanden um eine Rechnungsdatei zu erstellen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_EXPORT_NO_DATA2">Eine Rechnungsdatei kann nur erstellt werden, wenn für mindestens ein Mitglied ein Beitrag berechnet wurde und bei diesem Mitglied KEINE IBAN existiert.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE">Rechnungsdatei</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_DESC">Erstellt eine Rechnungsdatei (.XLSX oder .CSV).</string>
-    <string name="PLG_MITGLIEDSBEITRAG_STATEMENT_FILE_NAME">Rechnungsdateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_STATUS">Status</string>
     <string name="PLG_MITGLIEDSBEITRAG_STREET">KtoInh-Straße</string>    
     <string name="PLG_MITGLIEDSBEITRAG_SUM">Summe</string>
@@ -483,7 +482,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Jahre</string>
    	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Die neuen Mitgliedsnummern wurden gespeichert.</string>
-	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string>   	
+	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string>  
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Beitritt</string>
     <string name="PMB_ACCOUNT_DATA">Kontodaten</string>
