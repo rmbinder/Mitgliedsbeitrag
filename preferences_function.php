@@ -163,9 +163,18 @@ try
         case 'testssetup':
             unset(
                 $pPreferences->config['Familienrollen']['familienrollen_pruefung'],
-                $pPreferences->config['Rollenpruefung']
+                $pPreferences->config['Rollenpruefung'],
+                $pPreferences->config['tests_enable']
             );
-
+            $pPreferences->config['tests_enable']['age_staggered_roles'] = isset($_POST['age_staggered_roles']) ? 1 : 0;
+            $pPreferences->config['tests_enable']['role_membership_age_staggered_roles'] = isset($_POST['role_membership_age_staggered_roles']) ? 1 : 0;
+            $pPreferences->config['tests_enable']['role_membership_duty_and_exclusion'] = isset($_POST['role_membership_duty_and_exclusion']) ? 1 : 0;
+            $pPreferences->config['tests_enable']['family_roles'] = isset($_POST['family_roles']) ? 1 : 0;
+            $pPreferences->config['tests_enable']['account_details'] = isset($_POST['account_details']) ? 1 : 0;
+            $pPreferences->config['tests_enable']['mandate_management'] = isset($_POST['mandate_management']) ? 1 : 0;
+            $pPreferences->config['tests_enable']['iban_check'] = isset($_POST['iban_check']) ? 1 : 0;
+            $pPreferences->config['tests_enable']['bic_check'] = isset($_POST['bic_check']) ? 1 : 0;
+            
             for($conf = 0; isset($_POST['familienrollen_pruefung'. $conf]); $conf++)
             {
                 $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf] = $_POST['familienrollen_pruefung'. $conf];

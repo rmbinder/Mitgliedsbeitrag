@@ -192,6 +192,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">AccHolder&apos;s e-mail</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">There are no data selected for an e-mail delivery.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ENABLE">activate</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR">Error</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED">It was elected with another bank new bank account, but the IBAN is the same. - That can not be.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG">ERROR: At least one configuration must be present!</string>
@@ -417,8 +418,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Overview of roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Role selection</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Currently, the following roles are authorised.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Tests</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">The parameters listed below are only used for the purpose of role checking. They do not influence the calculation of membership fees.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Fees of membership roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">The basis of this data are the entries in the setup, not the entries for the individual roles in the database. Manually changed membership fees for individual roles or proportional membership fees are not taken into account. For this reason, this can only be regarded as a forecast.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Query the contribution roles</string>
@@ -449,6 +448,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">General</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET">Target</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">This selected here Member is the target of the copy action.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TEST">Test</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS">Tests</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO">The following tests can be activated individually. Additional settings may be possible for some tests. All settings made here are only for checking, they do not affect the calculation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Total sum</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternative payer</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">This profile fields can not be copied because they have different data types (for example, date to text).</string>

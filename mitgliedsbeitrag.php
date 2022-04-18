@@ -591,62 +591,88 @@ if(count($rols) > 0)
     $page->addHtml(getMenuePanel('options', 'copy', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), 'fas fa-clone', $formCopy->show()));  
                             
     // PANEL: TESTS
-    
-    $formTests = new HtmlForm('tests_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag_function.php', array('form' => 'tests')), $page, array('class' => 'form-preferences'));
-    
-    $formTests->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_rols()));
-    $formTests->closeGroupBox();
-    
-    // Pruefung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
-    if (count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1)
-    {
-        $formTests->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
-        $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
-        $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_altersrolle()));
-        $formTests->closeGroupBox();
-    }
-    $formTests->openGroupBox('role_membership_duty', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_pflicht()));
-    $formTests->closeGroupBox();
 
-    $formTests->openGroupBox('role_membership_exclusion', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_ausschluss()));
-    $formTests->closeGroupBox();
-    
-    $formTests->openGroupBox('family_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_family_roles()));
-    $formTests->closeGroupBox();
-    
-    $formTests->openGroupBox('account_details', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_account_details()));
-    $formTests->closeGroupBox();
-    
-    $formTests->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_mandate_management()));
-    $formTests->closeGroupBox();
-    
-    $formTests->openGroupBox('iban_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_iban()));
-    $formTests->closeGroupBox();
-    
-    $formTests->openGroupBox('bic_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK'));
-    $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_DESC').'</strong>');
-    $formTests->addDescription(showTestResultWithScrollbar(check_bic()));
-    $formTests->closeGroupBox();
-    
-    //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-    $formTests->addStaticControl('', '', '');
-    
-    $page->addHtml(getMenuePanel('options', 'tests', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST'), 'fas fa-user-md', $formTests->show()));  
-                            
+    //Panel Tests nur anzeigen, wenn mindesteste ein Einzeltest aktiviert ist
+    if (in_array(1, $pPreferences->config['tests_enable']))
+    {
+        $formTests = new HtmlForm('tests_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag_function.php', array('form' => 'tests')), $page, array('class' => 'form-preferences'));
+        
+        if ($pPreferences->config['tests_enable']['age_staggered_roles'])
+        {
+            $formTests->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_rols()));
+            $formTests->closeGroupBox();
+        }
+        
+        // Pruefung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
+        if ($pPreferences->config['tests_enable']['role_membership_age_staggered_roles'] && count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1)
+        {
+            $formTests->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_altersrolle()));
+            $formTests->closeGroupBox();
+        }
+        
+        if ($pPreferences->config['tests_enable']['role_membership_duty_and_exclusion'])
+        {
+            $formTests->openGroupBox('role_membership_duty', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_pflicht()));
+            $formTests->closeGroupBox();
+            
+            $formTests->openGroupBox('role_membership_exclusion', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_ausschluss()));
+            $formTests->closeGroupBox();
+        }
+        
+        if ($pPreferences->config['tests_enable']['family_roles'])
+        {
+            $formTests->openGroupBox('family_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_family_roles()));
+            $formTests->closeGroupBox();
+        }
+        
+        if ($pPreferences->config['tests_enable']['account_details'])
+        {
+            $formTests->openGroupBox('account_details', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_account_details()));
+            $formTests->closeGroupBox();
+        }
+        
+        if ($pPreferences->config['tests_enable']['mandate_management'])
+        {
+            $formTests->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_mandate_management()));
+            $formTests->closeGroupBox();
+        }
+        
+        if ($pPreferences->config['tests_enable']['iban_check'])
+        {
+            $formTests->openGroupBox('iban_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_iban()));
+            $formTests->closeGroupBox();
+        }
+        
+        if ($pPreferences->config['tests_enable']['bic_check'])
+        {
+            $formTests->openGroupBox('bic_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK'));
+            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_DESC').'</strong>');
+            $formTests->addDescription(showTestResultWithScrollbar(check_bic()));
+            $formTests->closeGroupBox();
+        }
+        
+        //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
+        $formTests->addStaticControl('', '', '');
+        
+        $page->addHtml(getMenuePanel('options', 'tests', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'fas fa-user-md', $formTests->show()));  
+    }
+           
     // PANEL: ROLEOVERVIEW
 
     $page->addHtml(getMenuePanelHeaderOnly('options', 'roleoverview', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), 'fas fa-info'));

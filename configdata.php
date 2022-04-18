@@ -64,6 +64,15 @@ $config_default['Rollenpruefung'] = array('altersrollenfamilienrollen' => array(
                                             'altersrollenfix'          => array(' '),
 										    'fixrollenfixrollen'       => array(' '));
 
+$config_default['tests_enable'] = array('age_staggered_roles'                   => 1,
+                                        'role_membership_age_staggered_roles'   => 1,
+                                        'role_membership_duty_and_exclusion'    => 1,
+                                        'family_roles'                          => 1,
+                                        'account_details'                       => 1,
+                                        'mandate_management'                    => 1,
+                                        'iban_check'                            => 1,
+                                        'bic_check'                             => 1);
+
 //Rechnungs-Export
 $config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung');
 

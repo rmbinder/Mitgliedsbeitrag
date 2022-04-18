@@ -192,6 +192,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Beiträge</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">KtoInh-E-Mail</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">Es sind keine Daten für einen E-Mail-Versand ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ENABLE">aktivieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR">Fehler</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED">Es wurde neue Kontoverbindung bei einer anderen Bank gewählt, aber die IBAN ist dieselbe. - Das kann nicht sein.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG">FEHLER: Mindestens eine Konfiguration muss vorhanden sein!</string>
@@ -417,8 +418,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Rollenübersicht</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rollenauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Folgende Rollen sind derzeit berechtigt</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Prüfungen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">Die nachfolgenden Einstellungen dienen nur als Parameter für die Rollenprüfung. Sie wirken sich nicht auf die Beitragsberechnung aus.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Beiträge der Beitragsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Einträge im Setup, nicht die Einträge der einzelnen Rollen in der Datenbank. Manuelle Änderungen von Beiträgen einzelner Rollen oder anteilige Beiträge werden nicht berücksichtigt. Dies kann daher nur als Prognose angesehen werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Abfrage der Beitragsrollen</string>
@@ -449,6 +448,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">Allgemein</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET">Ziel</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TEST">Prüfung</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS">Prüfungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO">Die nachfolgenden Prüfungen können einzeln aktiviert werden. Bei einigen Prüfungen sind eventuell zusätzliche Einstellungen möglich. Alle hier getätigten Einstellungen dienen nur zur Prüfung, sie wirken sich nicht auf die Beitragsberechnung aus.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Gesamtsumme</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternativer Zahlungspflichtiger</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">Diese Profilfelder können nicht kopiert werden, da sie unterschiedliche Datentypen aufweisen (z.B. Datum zu Text).</string>

@@ -596,18 +596,28 @@ $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', 'accordion_pref
 // PANEL: ROLE_TEST
                     
 $formTestsSetup = new HtmlForm('testssetup_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'testssetup')), $page, array('class' => 'form-preferences'));
-$formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO'));
-$formTestsSetup->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'</strong>');
-$formTestsSetup->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 140 : 250).'px; overflow:auto; border:20px;">');
-for ($conf = 0; $conf < $num_familyroles; $conf++)
-{
-    $formTestsSetup->openGroupBox('familyroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE'));
-    $formTestsSetup->addInput('familienrollen_pruefung'.$conf, $pPreferences->config['Familienrollen']['familienrollen_prefix'][$conf], $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf]);
-    $formTestsSetup->closeGroupBox();
-}
-$formTestsSetup->addDescription('</div>');
-$formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC2'));
+
+$formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO'));
+
+$formTestsSetup->addCheckbox(
+    'age_staggered_roles',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['age_staggered_roles']
+    );
 $formTestsSetup->addLine();
+
+$formTestsSetup->addCheckbox(
+    'role_membership_age_staggered_roles',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['role_membership_age_staggered_roles']
+    );
+$formTestsSetup->addLine();
+
+$formTestsSetup->addCheckbox(
+    'role_membership_duty_and_exclusion',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_AND').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['role_membership_duty_and_exclusion']
+    );
 $formTestsSetup->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC2'));
 if ((count($altersrollen) > 0) || (count($familienrollen) > 0) || (count($fixrollen) > 0))
 {
@@ -636,6 +646,7 @@ else
 {
     $formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES'));
 }
+
 $formTestsSetup->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC2'));
 if (((count($altersrollen) > 0) && (count($familienrollen) > 0)) || count($fixrollen) > 0)
 {
@@ -676,20 +687,20 @@ if (((count($altersrollen) > 0) && (count($familienrollen) > 0)) || count($fixro
     }
     if (count($fixrollen) > 1)
     {
-    	$fixrollenL = $fixrollen;
-    	array_pop($fixrollenL);						// das letzte Element entfernen
-    	$fixrollenR = $fixrollen;
-    	
-    	foreach ($fixrollenL as $keyL => $dataL)
-    	{
-    		unset($fixrollenR[$keyL]);				// dasselbe Element entfernen
-    		foreach ($fixrollenR as $keyR=> $dataR)
-    		{
-    		    $formTestsSetup->addCheckbox('fixrollenfixrollen'.$keyL.'_'.$keyR, $dataL['rolle'].' ./. '.$dataR['rolle'], (in_array($keyL.'_'.$keyR, $pPreferences->config['Rollenpruefung']['fixrollenfixrollen']) ? 1 : 0));
-    		}
-    	}
-    	unset($fixrollenL);
-    	unset($fixrollenR);
+        $fixrollenL = $fixrollen;
+        array_pop($fixrollenL);						// das letzte Element entfernen
+        $fixrollenR = $fixrollen;
+        
+        foreach ($fixrollenL as $keyL => $dataL)
+        {
+            unset($fixrollenR[$keyL]);				// dasselbe Element entfernen
+            foreach ($fixrollenR as $keyR=> $dataR)
+            {
+                $formTestsSetup->addCheckbox('fixrollenfixrollen'.$keyL.'_'.$keyR, $dataL['rolle'].' ./. '.$dataR['rolle'], (in_array($keyL.'_'.$keyR, $pPreferences->config['Rollenpruefung']['fixrollenfixrollen']) ? 1 : 0));
+            }
+        }
+        unset($fixrollenL);
+        unset($fixrollenR);
     }
     $formTestsSetup->addDescription('</div>');
 }
@@ -697,16 +708,61 @@ else
 {
     $formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_NO_COMBINATION_ROLES'));
 }
-
 $sql = 'SELECT cat_id, cat_name
           FROM '.TBL_CATEGORIES.' , '.TBL_ROLES.'
          WHERE cat_id = rol_cat_id
            AND ( cat_org_id = '.$gCurrentOrgId.'
             OR cat_org_id IS NULL )';
 $formTestsSetup->addSelectBoxFromSql('bezugskategorie', $gL10n->get('PLG_MITGLIEDSBEITRAG_CAT_SELECTION'), $gDb, $sql, array('defaultValue' => $pPreferences->config['Rollenpruefung']['bezugskategorie'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CAT_SELECTION_DESC'));
+$formTestsSetup->addLine();
+
+$formTestsSetup->addCheckbox(
+    'family_roles',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['family_roles']
+    );
+$formTestsSetup->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), '', array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC2'));
+$formTestsSetup->addDescription('<div style="width:100%; height:'.($num_familyroles<2 ? 140 : 300).'px; overflow:auto; border:20px;">');
+for ($conf = 0; $conf < $num_familyroles; $conf++)
+{
+    $formTestsSetup->openGroupBox('familyroles_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE'));
+    $formTestsSetup->addInput('familienrollen_pruefung'.$conf, $pPreferences->config['Familienrollen']['familienrollen_prefix'][$conf], $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf]);
+    $formTestsSetup->closeGroupBox();
+}
+$formTestsSetup->addDescription('</div>');
+$formTestsSetup->addLine();
+
+$formTestsSetup->addCheckbox(
+    'account_details',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['account_details']
+    );
+$formTestsSetup->addLine();
+
+$formTestsSetup->addCheckbox(
+    'mandate_management',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['mandate_management']
+    );
+$formTestsSetup->addLine();
+
+$formTestsSetup->addCheckbox(
+    'iban_check',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['iban_check']
+    );
+$formTestsSetup->addLine();
+
+$formTestsSetup->addCheckbox(
+    'bic_check',
+    $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
+    (bool) $pPreferences->config['tests_enable']['bic_check']
+    );
+$formTestsSetup->addLine();
+
 $formTestsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-$page->addHtml(getMenuePanel('preferences', 'testssetup', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_TEST'), 'fas fa-check-double', $formTestsSetup->show()));
+$page->addHtml(getMenuePanel('preferences', 'testssetup', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'fas fa-check-double', $formTestsSetup->show()));
                              
 // PANEL: VIEW_DEFINITIONS
 

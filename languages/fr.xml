@@ -192,6 +192,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">Couriel titcpte</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">Aucune donnée n\'est sélectionnée pour l\'envoi par courriel.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ENABLE">activer</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR">Erreur</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED">Tu as choisi un nouveau compte bancaire auprès d\'une autre banque, mais l\'IBAN est le même. - C\'est impossible.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG">ERREUR : Au moins une configuration doit être présente !</string>
@@ -417,8 +418,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Aperçu des rôles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Sélection des rôles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Les rôles suivants sont actuellement autorisés</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST">Tests</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_TEST_SETUP_INFO">Les réglages suivants servent uniquement de paramètres pour le contrôle des rôles. Ils n\'affectent pas le calcul de la cotisation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Cotisations des rôles de cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Ces données sont basées sur les entrées dans la configuration, et non sur les entrées des rôles individuels dans la base de données. Les modifications manuelles des cotisations des rôles individuels ou des cotisations proportionnelles ne sont pas prises en compte. Ceci ne peut donc être considéré que comme une prévision.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Requête des rôles de cotisation</string>
@@ -449,6 +448,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_TAB_COMMON">Général</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET">Cible</string>
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">Ce membre sélectionné est la cible de l\'action de copie.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TEST">Test</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS">Essais</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO">Les tests suivants peuvent être activés individuellement. Des réglages supplémentaires peuvent être possibles pour certains tests. Tous les réglages effectués ici sont uniquement à des fins de vérification, ils n'affectent pas le calcul.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Total</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Débiteur alternatif</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">Ces champs de profil ne peuvent pas être copiées parce qu\'elles ont des types de données différents (par exemple, de date à texte).</string>
