@@ -377,6 +377,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">Si le calcul des cotisations est limité à certains rôles à l\'aide de la sélection des rôles, le mode de calcul n\'affecte que ces rôles. Les cotisations existantes qui ne sont pas couvertes par ces rôles restent inchangés.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NEW">Les nouvelles cotisations et textes de cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA">Aucune nouvelle cotisation n\'a pu être calculée.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID">impayé</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID_DESC">Si le recalcul n'est à effectuer que pour les membres qui n'ont pas encore payé (pour lesquels il n'y a pas de date de paiement), alors cochez la case.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW">Jusqu\'à présent, les nouvelles cotisations n\'ont été calculés, mais pas encore sauvegardés.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_DESC">Par défaut, tous les rôles de cotisation sont pris en compte pour un nouveau calcul. À l\'aide de cette sélection de rôle, un recalcul ne peut être effectué que pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_INFO">En raison des entrées dans la sélection des rôles, seuls les rôles suivants ont été pris en compte pour le calcul des cotisations :</string>

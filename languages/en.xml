@@ -377,6 +377,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">If on the role selection the calculation limited to certain roles, so also the calculation mode affects only for those roles. Existing posts which are not covered by these roles remain unchanged.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NEW">The new contributions and contribution texts</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA">No new contributions could be calculated.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID">not paid</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID_DESC">If the recalculation is only to be carried out for members who have not yet paid (for which there is no paid date), then check the box.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW">The new contributions have only been calculated but not yet saved.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_DESC">By default, all contribution roles are considered at a recalculation. About this role selection a recalculation may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_INFO">Due to entries in the role selection, only the following role(s) was considered for the contribution calculation:</string>

@@ -377,6 +377,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE">Wird über die Rollenauswahl die Beitragsberechnung auf bestimmte Rollen beschränkt, so wirkt sich auch der Berechnungsmodus nur für diese Rollen aus. Vorhandene Beiträge, die nicht über diese Rollen abgedeckt sind, bleiben unverändert bestehen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NEW">Die neuen Beiträge und Beitragstexte</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA">Es konnten keine neuen Beiträge berechnet werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID">nicht bezahlt</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID_DESC">Soll die Neuberechnung nur für die Mitglieder durchgeführt werden, die noch nicht bezahlt haben (bei denen kein Bezahlt-Datum vorhanden ist), dann ist der Haken zu setzen.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW">Die neuen Beiträge wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>  
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_DESC">Standardmäßig werden bei einer Neuberechnung alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Neuberechnung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_INFO">Aufgrund von Eintragungen in der Rollenauswahl wurde(n) für die Beitragsberechnung nur die folgende(n) Rolle(n) betrachtet:</string>

@@ -336,6 +336,7 @@ if ($getMode == 'preview')     //Default
 				    && (isset($_POST['recalculation_modus']) && (($_POST['recalculation_modus'] == 'overwrite') || ($_POST['recalculation_modus'] == 'summation')))
 				    )
 		    )
+		        && (!isset($_POST['recalculation_notpaid']) || (isset($_POST['recalculation_notpaid']) && $members[$member]['PAID'.$gCurrentOrgId] == ''))
 				&& ($members[$member]['FEE_NEW'] > $pPreferences->config['Beitrag']['beitrag_mindestbetrag']))
 		{
 			$members[$member]['CONTRIBUTORY_TEXT_NEW'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['CONTRIBUTORY_TEXT_NEW'].' ';

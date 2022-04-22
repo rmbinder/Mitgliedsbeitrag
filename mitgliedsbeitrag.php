@@ -263,6 +263,7 @@ if(count($rols) > 0)
     $formRecalculation = new HtmlForm('recalculation_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/recalculation.php', $page, array('class' => 'form-preferences'));
     
     $formRecalculation->addSelectBox('recalculation_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['recalculation_rol_sel']) ? $_SESSION['pMembershipFee']['recalculation_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_DESC', 'multiselect' => true));
+    $formRecalculation->addCheckbox('recalculation_notpaid', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID'), false, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_RECALCULATION_NOT_PAID_DESC'));
     $radioButtonEntries = array('standard'  => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEFAULT'),
                                 'overwrite' => $gL10n->get('PLG_MITGLIEDSBEITRAG_OVERWRITE'),
                                 'summation' => $gL10n->get('PLG_MITGLIEDSBEITRAG_SUMMATION'));
