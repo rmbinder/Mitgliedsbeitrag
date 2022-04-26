@@ -122,15 +122,10 @@
     <string name="PLG_MITGLIEDSBEITRAG_CREATED_WITH">créé avec le plug-in d'adhésion de la gestion des membres en ligne Admidio</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Bénéficiaires</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Champ de données pour le numéro courant</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE">Fichier de transfert de données sur support magnétique.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_DESC">Crée un fichier de transfert de données sur support magnétique.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_NAME">Nom de fichier DTA</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_TYPE">Type de fichier</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_ASC">Date ascendante</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_DESC">Date décroissante</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID">Date payée</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_CHANGE_ALL_DESC">Ceci modifie la date de paiement pour tous les utilisateurs affichés ( ! en fonction du filtre !). -> une date inexistante est complétée -> une date existante est supprimée </string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC">La date de paiement est saisie pour un utilisateur en tant que code pour un paiement de cotisation effectué.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Payeur</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Par défaut</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY">Supprimer uniquement les données de l\'organisation actuelle.</string>
@@ -150,6 +145,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC">\'Supprimer tout\' supprime tous les cotisations (y compris le texte de cotisation et la date de paiement).</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_CONFIG">Supprimer cette configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM">Supprimer les données de</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_DATE">Supprimer la date</string>     
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_DUEDATE">Supprimer les dates d\'échéance</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IBAN_BIC">Supprimer l\'IBAN, le BIC et le nom de la banque.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS">Les champs de profil de cette catégorie sont visibles pour plusieurs organisations et sont supprimés quel que soit le réglage dans "Sélection de l\'organisation".</string>
@@ -323,6 +319,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_NOT_CHANGE">ne pas changer</string>
     <string name="PLG_MITGLIEDSBEITRAG_NOT_SATISFIED">non remplis</string>
     <string name="PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST">Après chaque ajout ou suppression d\'une configuration, il faut appuyer sur le bouton Enregistrer.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NOTHING_SELECTED">Rien n'est sélectionné.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER">Nombre</string>
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS">Nombre de transactions</string>
     <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Compensation annuelle</string>
@@ -343,7 +340,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Autres</string>
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Remplacer</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Payé</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Payé le</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">Cette date est saisie par un utilisateur comme identifiant d'un paiement de contribution effectué.\n\nUne date existante n'est pas écrasée.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">payé le</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Date payée seulement</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">L\'option \'Date payée seulement\' supprime uniquement la date payée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">ID de référence</string>
@@ -425,6 +423,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Requête des rôles de cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV">* * * Filtre de rôles actif ! * * *</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_NOROLL">Aucun rôle n\'a été sélectionné.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SAVE_DATE">date de sauvegarde</string>  
     <string name="PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO">Les données affichées ne le sont qu\'à titre d\'information. Aucune modification n\'est apportée à la base de données. Cependant, s\'il y a des différences, le plugin peut ne pas fonctionner correctement.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Sélectionner tout</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>

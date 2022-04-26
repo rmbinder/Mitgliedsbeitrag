@@ -122,15 +122,10 @@
     <string name="PLG_MITGLIEDSBEITRAG_CREATED_WITH">created with the plug-in membership fee of the online member management Admidio</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Payee</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Data field for sequence number</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE">Data medium exchange file</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_DESC">Creates a data medium exchange file.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_NAME">DTA file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_TYPE">Data type</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_ASC">Date (ascending)</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_DESC">Date (descending)</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID">Payment received date</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_CHANGE_ALL_DESC">Herewith all displayed users (! filter-dependent !), the paid-date is changed. -> a non-existent date is set -> an existing date is removed</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC">The paid-date is entered as a user identification for a contribution received payment.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Payer</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Standard</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY">Delete only data of the current organization.</string>
@@ -150,6 +145,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC">'Delete all' deletes all contributions (including contributions text and paid-date).</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_CONFIG">Delete this configuration</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM">Delete Data from</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_DATE">Delete date</string>     
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_DUEDATE">Delete due dates</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IBAN_BIC">Delete IBAN, BIC and bank name</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS">The profile fields in this category are visible for several organizations and will be deleted regardless of the setting in "organizational choice".</string>
@@ -323,6 +319,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_NOT_CHANGE">not change</string>
     <string name="PLG_MITGLIEDSBEITRAG_NOT_SATISFIED">not satisfied</string>
     <string name="PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST">After each addition or deletion of a configuration the Save button has to be pressed.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NOTHING_SELECTED">Nothing is selected.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER">Number</string>
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS">Number of transactions</string>
     <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Annual offset</string>
@@ -343,7 +340,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Others</string>
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Overwrite</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Paid</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Payment received on</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">This date is entered by a user as an identifier for a contribution payment made.\n\nAn existing date is not overwritten.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">paid on</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Paid-date only</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">'Paid-date only' deletes only the paid-date.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Reference ID</string> 
@@ -425,6 +423,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Query the contribution roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV">* * * Role-filter active! * * *</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_NOROLL">No rolls were selected.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SAVE_DATE">save date</string>
     <string name="PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO">The displayed data is for information purposes only. No changes will be made to the database. Should there be any differences (DESIRED / ACTUAL), the plug-in may not function correctly.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Select all</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>

@@ -122,15 +122,10 @@
     <string name="PLG_MITGLIEDSBEITRAG_CREATED_WITH">erstellt mit dem Plugin Mitgliedsbeitrag der Online-Mitgliederverwaltung Admidio</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREDITOR">Zahlungsempfänger</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER">Datenfeld für die laufende Nummer</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE">Datenträgeraustauschdatei</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_DESC">Erstellt eine Datenträgeraustauschdatei.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATA_MEDIUM_EXCHANGE_FILE_NAME">DTA-Dateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATA_TYPE">Datentyp</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_ASC">Datum aufsteigend</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_DESC">Datum absteigend</string>
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID">Bezahlt-Datum</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_CHANGE_ALL_DESC">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig ! ) das Bezahlt-Datum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </string>
-    <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID_DESC">Das Bezahlt-Datum wird bei einem Benutzer als Kennzeichnung für eine geleistete Beitragszahlung eingetragen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Zahlungspflichtiger</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Standard</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY">Nur Daten der aktuellen Organisation löschen.</string>
@@ -150,6 +145,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC">'Alles löschen' löscht alle Beiträge (einschließlich Beitragstext und Bezahlt-Datum).</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_CONFIG">Diese Konfiguration löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM">Lösche Daten von</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DELETE_DATE">Datum löschen</string>    
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_DUEDATE">Fälligkeitsdaten löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IBAN_BIC">IBAN, BIC und Bankname löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS">Die Profilfelder in dieser Kategorie sind für mehrere Organisationen sichtbar und werden gelöscht unabhängig von der Einstellung in "Organisationswahl".</string>
@@ -323,6 +319,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_NOT_CHANGE">nicht ändern</string>
     <string name="PLG_MITGLIEDSBEITRAG_NOT_SATISFIED">nicht erfüllt</string>
     <string name="PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST">Nach jedem Hinzufügen oder Löschen einer Konfiguration ist der Speichern-Button zu betätigen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NOTHING_SELECTED">Es ist nichts ausgewählt.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER">Anzahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS">Anzahl der Transaktionen</string>
     <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Jahresversatz</string>
@@ -343,7 +340,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Sonstiges</string>
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Überschreiben</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Bezahlt</string>
-    <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">Bezahlt am</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">Dieses Datum wird bei einem Benutzer als Kennzeichnung für eine geleistete Beitragszahlung eingetragen.\n\nEin vorhandenes Datum wird dabei nicht überschrieben.</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_PAID_ON">bezahlt am</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY">Nur Bezahlt-Datum</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC">'Nur Bezahlt-Datum' löscht nur das Bezahlt-Datum.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAYMENT_ID">Referenz-ID</string> 
@@ -425,6 +423,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Abfrage der Beitragsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV">* * * Rollenfilter aktiv! * * *</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY_NOROLL">Es wurden keine Rollen ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_SAVE_DATE">Datum speichern</string>    
     <string name="PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO">Die angezeigten Daten dienen nur zur Information. Es werden keine Änderungen an der Datenbank vorgenommen. Sollten jedoch Unterschiede (SOLL/IST) vorhanden sein, kann das Plugin unter Umständen nicht richtig funktionieren.</string>
     <string name="PLG_MITGLIEDSBEITRAG_SELECT_ALL">Alle markieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_SEPA">SEPA</string>
