@@ -110,6 +110,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Copying</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">This profile data of a member can be copied to another Member.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">First pick from a source and then a destination copying. Then you determine about "choice" which profile field of "source" to "target" is copied. The copying process is done automatically by setting the hook of the target range.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CORRECTION">Correction</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Create mandate references</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">By default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">ERROR: no consecutive number found!</string>

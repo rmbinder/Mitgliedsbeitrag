@@ -110,6 +110,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Copier</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Copie les données de profil d\'un membre à un autre membre.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Sélectionne d\'abord une source et une destination du processus de copie. Sélectionne ensuite le champ de profil à copier de "Source" vers "Destination" en cliquant "Sélection". Le processus de copie s\'effectue automatiquement lorsque la case à cocher de la sélection cible est cochée.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CORRECTION">Correction</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Créer des références de mandat</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">Par défaut, les références de mandat sont créées pour les membres,\n - s\'ils n\'en ont pas encore\n  - et pour lesquelles un IBAN est stocké. \n\n Par la sélection de rôle, la création ne peut être effectuée uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter la création à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">ERREUR : aucun numéro courant trouvé !</string>

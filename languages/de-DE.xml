@@ -110,6 +110,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Kopieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Wählen Sie zuerst eine Quelle und ein Ziel des Kopiervorgangs aus. Danach bestimmsen Sie über "Auswahl" welches Profilfeld von "Quelle" zu "Ziel" kopiert wird. Der Kopiervorgang erfolgt automatisch mit Setzen des Hakens der Ziel-Auswahl.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CORRECTION">Korrektur</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Mandatsreferenzen erzeugen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">Standardmäßig werden Mandatsreferenzen für Mitglieder erzeugt,\n  - falls sie noch keine besitzen\n  - und für die eine IBAN hinterlegt ist.\n\n Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">FEHLER: keine laufende Nummer gefunden!</string>
