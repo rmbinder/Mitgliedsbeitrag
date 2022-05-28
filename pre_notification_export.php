@@ -27,9 +27,6 @@ $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
 
-$exportMode = $_SESSION['pMembershipFee']['export_mode'];
-unset($_SESSION['pMembershipFee']['export_mode']);
-
 // initialize some special mode parameters
 $separator    = '';
 $valueQuotes  = '';
@@ -39,6 +36,7 @@ $header       = array();              //'xlsx'
 $rows         = array();              //'xlsx'
 $columnValues = array();
 $filename     = $pPreferences->config['SEPA']['vorabinformation_dateiname'];
+$exportMode   = $pPreferences->config['SEPA']['vorabinformation_dateityp'];
 
 switch ($exportMode)
 {

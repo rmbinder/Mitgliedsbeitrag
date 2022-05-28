@@ -128,16 +128,17 @@ try
 
         case 'export':
             unset(
-                $pPreferences->config['SEPA']['dateiname'],
-                $pPreferences->config['SEPA']['kontroll_dateiname'],
-                $pPreferences->config['SEPA']['vorabinformation_dateiname'],
+                $pPreferences->config['SEPA'],
                 $pPreferences->config['Rechnungs-Export']
             );
 
             $pPreferences->config['SEPA']['dateiname'] = $_POST['dateiname'];
             $pPreferences->config['SEPA']['kontroll_dateiname'] = $_POST['kontroll_dateiname'];
+            $pPreferences->config['SEPA']['kontroll_dateityp'] = $_POST['kontroll_dateityp'];
             $pPreferences->config['SEPA']['vorabinformation_dateiname'] = $_POST['vorabinformation_dateiname'];
+            $pPreferences->config['SEPA']['vorabinformation_dateityp'] = $_POST['vorabinformation_dateityp'];
             $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'] = $_POST['rechnung_dateiname'];
+            $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'] = $_POST['rechnung_dateityp'];
 
             $text = new TableText($gDb);
             $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));

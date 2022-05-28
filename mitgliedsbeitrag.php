@@ -526,13 +526,10 @@ if(count($rols) > 0)
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_DESC'));
         $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
         $formSepa->addStaticControl('', '', $html);
-        $formSepa->addLine();
-        
-        $radioButtonEntries = array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
-        $formSepa->addRadioButton('export_mode_sepa','',$radioButtonEntries, array('defaultValue' => 'xlsx'));    
+        $formSepa->addLine();   
         $formSepa->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => 'fa-file', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
-   
+        $formSepa->addLine();
         $formSepa->addSubmitButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'fa-file', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
     }
@@ -544,9 +541,6 @@ if(count($rols) > 0)
     // PANEL: BILL
      
     $formBillExport = new HtmlForm('billexport_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/bill.php', $page, array('class' => 'form-preferences'));
-    
-    $radioButtonEntries = array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
-    $formBillExport->addRadioButton('export_mode_bill','',$radioButtonEntries, array('defaultValue' => 'xlsx'));
     $formBillExport->addSubmitButton('btn_bill', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT'), array('icon' => 'fa-file',  'class' => 'offset-sm-3'));
     $formBillExport->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC'));
     

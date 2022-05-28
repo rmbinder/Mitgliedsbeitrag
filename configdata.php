@@ -74,12 +74,15 @@ $config_default['tests_enable'] = array('age_staggered_roles'                   
                                         'bic_check'                             => 1);
 
 //Rechnungs-Export
-$config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung');
+$config_default['Rechnungs-Export'] = array('rechnung_dateiname' => 'rechnung',
+                                            'rechnung_dateityp'  => 'xlsx');
 
 //SEPA
 $config_default['SEPA'] = array('dateiname'                  => 'sepa',
                                 'kontroll_dateiname'         => 'sepa',
-                                'vorabinformation_dateiname' => 'export');
+                                'kontroll_dateityp'          => 'xlsx',
+                                'vorabinformation_dateiname' => 'export',
+                                'vorabinformation_dateityp'  => 'xlsx');
 
 // Plugininformationen
 $config_default['Plugininformationen']['version'] = '';

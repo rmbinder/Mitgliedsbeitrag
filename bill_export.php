@@ -27,9 +27,6 @@ $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
 
-$exportMode = $_SESSION['pMembershipFee']['export_mode'];
-unset($_SESSION['pMembershipFee']['export_mode']);
-
 // initialize some special mode parameters
 $separator    = '';
 $valueQuotes  = '';
@@ -41,6 +38,8 @@ $header       = array();              //'xlsx'
 $rows         = array();              //'xlsx'
 $columnValues = array();
 $filename     = $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'];
+$exportMode   = $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'];
+
 
 switch ($exportMode)
 {

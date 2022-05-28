@@ -17,7 +17,6 @@
  *                    leer       - alle user im CheckedArray aendern von gesetzt->geloescht bzw geloescht->gesetzt
  * checked          : true  - Der Haken beim Benutzer wurde gesetzt
  *                    false - Der Haken beim Benutzer wurde entfernt
- * export_mode_bill : Output (csv-ms, csv-oo, xlsx)
  ***********************************************************************************************
  */
 
@@ -46,12 +45,6 @@ if(isset($_GET['mode']) && ($_GET['mode'] == 'export' || $_GET['mode'] == 'mail'
 $getMode    = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'export', 'mail', 'prepare')));
 $getUserId  = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array('defaultValue' => 0, 'directOutput' => true));
 $getChecked = admFuncVariableIsValid($_GET, 'checked', 'string');
-
-// wenn bill.php von mitgliedsbeitrag.php aus aufgerufen wird, dann wird export_mode_bill über POST übertragen
-if (isset($_POST['export_mode_bill']))
-{
-    $_SESSION['pMembershipFee']['export_mode'] = admFuncVariableIsValid($_POST, 'export_mode_bill', 'string', array('defaultValue' => 'xlsx', 'validValues' => array('csv-ms', 'csv-oo', 'xlsx' )));
-}
 
 // add current url to navigation stack if last url was not the same page
 if(strpos($gNavigation->getUrl(), 'bill.php') === false)

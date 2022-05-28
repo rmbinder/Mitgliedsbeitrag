@@ -508,11 +508,15 @@ $page->addHtml(getMenuePanel('preferences', 'accountdata', 'accordion_preference
                                      
 // PANEL: EXPORT                    
 
+$selectBoxEntries =  array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
+
 $formExport = new HtmlForm('configurations_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'export')), $page, array('class' => 'form-preferences'));
 $formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'));
 $formExport->addInput('dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_NAME'), $pPreferences->config['SEPA']['dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addInput('kontroll_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addSelectBox('kontroll_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['kontroll_dateityp'], 'showContextDependentFirstEntry' => false));
 $formExport->addInput('vorabinformation_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME'), $pPreferences->config['SEPA']['vorabinformation_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addSelectBox('vorabinformation_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['vorabinformation_dateityp'], 'showContextDependentFirstEntry' => false));
 $formExport->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT'),
     '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC').':</p><p>
     <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
@@ -542,6 +546,7 @@ $formExport->closeGroupBox();
 
 $formExport->openGroupBox('bill', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'));
 $formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addSelectBox('rechnung_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'], 'showContextDependentFirstEntry' => false));
 $formExport->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT'),
     '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC').':</p><p>
     <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />

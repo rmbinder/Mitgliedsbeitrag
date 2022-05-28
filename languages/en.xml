@@ -44,6 +44,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT">Edit billing information</string>    
     <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC">Creates a file (.XLSX or .CSV) with data to generate invoices and offers the possibility to send bank transfer requests via email.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME">Invoice file name</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_TYPE">Invoice file type</string>    
     <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT">Invoice email text</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC">The text for a transfer request by e-mail can be adjusted and supplemented here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nThe following placeholders can be used in each e-mail, which are then replaced by the corresponding content at runtime.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Bank code file</string>
@@ -106,6 +107,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Creates a control file (.XLSX or .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Control file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\nControl file name: &quot;Kontroll-Datei&quot; becomes &quot;Kontroll-Datei-2013-04-01-RCUR.csv&quot;</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE">Control file type</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_SUM">Control total</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Copying</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">This profile data of a member can be copied to another Member.</string>
@@ -360,6 +362,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Advance information</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Creates a file (.XLSX or .CSV) with data to create serial letters for pre-notifications and enables sending of pre-notifications by e-mail.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Pre-notification export file name</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_TYPE">Pre-notification export file type</string>    
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Pre-notification e-mail message</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PREFIX">Prefix</string>

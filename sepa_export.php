@@ -15,7 +15,6 @@
  *                      - Zeichen 0 bis 9: Faelligkeitsdatum 
  *                      - ab Zeichen 10: Sepatyp
  *                      - Bsp.. 2017-12-12FRST oder 2017-12-30RCUR
- * export_mode_sepa :  Output (csv-ms, csv-oo, xlsx)
  *
  ***********************************************************************************************
  */
@@ -29,11 +28,8 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-$exportMode = admFuncVariableIsValid($_POST, 'export_mode_sepa', 'string', array('defaultValue' => 'xlsx', 'validValues' => array('csv-ms', 'csv-oo', 'xlsx' )));
-
 if (isset($_POST['btn_pre_notification']))
 {
-    $_SESSION['pMembershipFee']['export_mode'] = $exportMode;
     admRedirect(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER. '/pre_notification.php'));
 }
 
@@ -462,6 +458,7 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
     $header      = array();              //'xlsx'
     $rows        = array();              //'xlsx'
     $filename    = $pPreferences->config['SEPA']['kontroll_dateiname'].$filename_ext;
+    $exportMode  = $pPreferences->config['SEPA']['kontroll_dateityp'];
 
     switch ($exportMode)
     {

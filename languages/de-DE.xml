@@ -44,6 +44,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT">Rechnungsdaten bearbeiten</string>   
     <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit Daten zum Erzeugen von Rechnungen und bietet die Möglichkeit Überweisungsaufforderungen per E-Mail zu versenden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME">Rechnungsdateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_TYPE">Rechnungsdateityp</string>    
     <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT">Rechnung E-Mail-Text</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC">Hier kann der Text für eine Überweisungsaufforderung per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Bankleitzahlendatei</string>
@@ -106,6 +107,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Erstellt eine Kontrolldatei (.XLSX oder .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Kontrolldateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Kontroll-Datei" wird zu "Kontroll-Datei-2013-04-01-RCUR.csv"</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE">Kontrolldateityp</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_SUM">Kontrollsumme</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Kopieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
@@ -360,6 +362,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Vorabinformation</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit Daten zum Erzeugen von Serienbriefen für Vorabinformationen und bietet die Möglichkeit Vorabinformationen per E-Mail zu versenden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Vorabinformation Exportdateiname</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_TYPE">Vorabinformation Exportdateityp</string>    
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Vorabinformation E-Mail-Text</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Hier kann der Text für die Vorabinformation per E-Mail angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
     <string name="PLG_MITGLIEDSBEITRAG_PREFIX">Präfix</string>

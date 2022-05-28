@@ -44,6 +44,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT">Modifier les informations de facturation</string>    
     <string name="PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC">Crée un fichier (.XLSX ou .CSV) avec des données pour générer des factures et offre la possibilité d'envoyer des demandes de virement par e-mail.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME">Nom du fichier de facture</string>
+    <string name="PLG_MITGLIEDSBEITRAG_BILL_FILE_TYPE">Type de fichier de facture</string>    
     <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT">Texte de l'e-mail de facturation</string>
     <string name="PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC">Le texte d'une demande de transfert par e-mail peut être ajusté et complété ici. Le texte est divisé en 2 zones (sujet et contenu) et est identifié par les chaînes de caractères #subject# et #content#. Puis suit le contenu de la zone. Dans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont ensuite remplacés au moment de l\'exécution par le contenu correspondant.</string>
     <string name="PLG_MITGLIEDSBEITRAG_BLZ_FILE_NAME">Fichier des codes bancaires</string>
@@ -106,6 +107,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Crée un fichier de contrôle (.XLSX ou .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Nom du fichier de contrôle</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Les noms de fichiers doivent être spécifiés sans extension de fichier.\n\nExemple:\n"Fichier-de-contrôle" devient "Fichier-de-contrôle-2013-04-01-RCUR.csv"</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE">Contrôler le type de fichier</string>  
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_SUM">Somme de contrôle</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY">Copier</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Copie les données de profil d\'un membre à un autre membre.</string>
@@ -360,6 +362,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION">Information préalable</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC">Crée un fichier (.XLSX ou .CSV) avec des données pour créer des publipostages pour les préavis et offre la possibilité d'envoyer des préavis par courrier électronique.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME">Nom du fichier d\'exportation pour les informations préliminaires</string>
+    <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_TYPE">Informations préliminaires sur le type de fichier d'exportation</string>    
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT">Texte de courriel pour les informations préliminaires</string>
     <string name="PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC">Ici, le texte des informations préliminaires par courriel peut être adapté et complété. Le texte est divisé en 2 zones (sujet &amp; contenu) et est identifié par les chaînes de caractères #subject# et #content#. Puis suit le contenu de la zone.\n\n Dans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont ensuite remplacés à l\'exécution par le contenu correspondant.</string>
     <string name="PLG_MITGLIEDSBEITRAG_PREFIX">Préfixe</string>
