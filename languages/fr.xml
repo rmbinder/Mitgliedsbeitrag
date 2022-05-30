@@ -79,7 +79,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC">Une fois la cotisation versée, une date de paiement peut être inscrite dans la base de données.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT">Modification des paiements de cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT">Texte courriel pour le paiement des cotisations</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC">Ici, tu peux modifier et ajouter le texte d\'un courriel pour le paiement des cotisations. Le texte est divisé en 2 zones (sujet et contenu) et est identifié par les chaînes de caractères #subject# et #content#. Puis suit le contenu de la zone. Dans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont ensuite remplacés au moment de l\'exécution par le contenu correspondant.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT">Signe du pourcentage</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS">Signe plus</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">Le texte de la cotisation peut être précédé d\'un préfixe.</string>
@@ -191,6 +190,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">Couriel titcpte</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">Aucune donnée n\'est sélectionnée pour l\'envoi par courriel.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS">Notifications par email</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS_DESC">Les textes de toutes les notifications par e-mail peuvent être ajustés et complétés ici. Les textes sont divisés en 2 zones (sujet &amp; contenu) et sont identifiés par les chaînes de caractères #subject# et #content#. Puis suit le contenu respectif pour cette zone.\n\nDans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont remplacés au moment de l\'exécution par le contenu correspondant.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ENABLE">activer</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR">Erreur</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED">Tu as choisi un nouveau compte bancaire auprès d\'une autre banque, mais l\'IBAN est le même. - C\'est impossible.</string>

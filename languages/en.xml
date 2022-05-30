@@ -79,7 +79,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC">Via this option, a &quot;payment received&quot; date can be written into the database.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT">Process membership payments</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT">Contribution payments e-mail message</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC">Please individualize the e-mail message here. Texts have two paragraphs (subject &amp; content) which are identified by titles like #subject# and #content#. Content parts follow after this titles.\n\nEach message can have free space for current messages.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT">Percent sign</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS">Plus sign</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">The membership fee text can be preceded by a prefix.</string>
@@ -191,6 +190,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">AccHolder&apos;s e-mail</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">There are no data selected for an e-mail delivery.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS">Email Notifications</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS_DESC">Here you can justify the text of each email notification. The texts are divided into two parts (subject and content) and are identified by #subject# and #content#. The content for each section follows it.\n\nIn each mail the following wildcards can be used. They will be replaced with the corresponding content at runtime</string>
     <string name="PLG_MITGLIEDSBEITRAG_ENABLE">activate</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR">Error</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED">It was elected with another bank new bank account, but the IBAN is the same. - That can not be.</string>

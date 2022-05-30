@@ -342,34 +342,6 @@ $selectBoxEntries = array('#' => ' &nbsp '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CON
                           '*' => '* '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TIMES').'(*)',
                           '%' => '% '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT').'(*)');
 $formContributionSettings->addSelectBox('beitrag_text_token', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_text_token'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN_DESC', 'showContextDependentFirstEntry' => false));
-
-$formContributionSettings->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT'),
-   '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC').':</p><p>
-   <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
-   <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
-   <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
-   <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
-   <strong>#due_day#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY').'<br />
-   <strong>#mandate_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID').'<br />
-   <strong>#creditor_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID').'<br />
-   <strong>#iban#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN').'<br />
-	<strong>#iban_obfuscated#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED').'<br />
-   <strong>#bic#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BIC').'<br />
-   <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
-   <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
-
-$text = new TableText($gDb);
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
-//wenn noch nichts drin steht, dann vorbelegen
-if ($text->getValue('txt_text') == '')
-{
-    // convert <br /> to a normal line feed
-    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS'));
-    $text->setValue('txt_text', $value);
-    $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
-}
-$formContributionSettings->addMultilineTextInput('mail_text', '', $text->getValue('txt_text'), 7);
 $formContributionSettings->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
 $page->addHtml(getMenuePanel('preferences', 'contributionsettings', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS'), 'fas fa-edit', $formContributionSettings->show()));
@@ -511,62 +483,20 @@ $page->addHtml(getMenuePanel('preferences', 'accountdata', 'accordion_preference
 $selectBoxEntries =  array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
 
 $formExport = new HtmlForm('configurations_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'export')), $page, array('class' => 'form-preferences'));
+
 $formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'));
 $formExport->addInput('dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_NAME'), $pPreferences->config['SEPA']['dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addInput('kontroll_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addSelectBox('kontroll_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['kontroll_dateityp'], 'showContextDependentFirstEntry' => false));
 $formExport->addInput('vorabinformation_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME'), $pPreferences->config['SEPA']['vorabinformation_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addSelectBox('vorabinformation_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['vorabinformation_dateityp'], 'showContextDependentFirstEntry' => false));
-$formExport->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT'),
-    '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT_DESC').':</p><p>
-    <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
-    <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
-    <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
-    <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
-    <strong>#due_day#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY').'<br />
-    <strong>#mandate_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID').'<br />
-    <strong>#creditor_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID').'<br />
-    <strong>#iban#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN').'<br />
-	<strong>#iban_obfuscated#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED').'<br />
-    <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
-    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
-
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
-//wenn noch nichts drin steht, dann vorbelegen
-if ($text->getValue('txt_text') == '')
-{
-    // convert <br /> to a normal line feed
-    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION'));
-    $text->setValue('txt_text', $value);
-    $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
-}
-$formExport->addMultilineTextInput('pre_notification_text', '', $text->getValue('txt_text'), 7);
 $formExport->closeGroupBox();
 
 $formExport->openGroupBox('bill', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'));
 $formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
 $formExport->addSelectBox('rechnung_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'], 'showContextDependentFirstEntry' => false));
-$formExport->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT'),
-    '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT_DESC').':</p><p>
-    <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
-    <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
-    <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
-    <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
-    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
-
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
-//wenn noch nichts drin steht, dann vorbelegen
-if ($text->getValue('txt_text') == '')
-{
-    // convert <br /> to a normal line feed
-    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL'));
-    $text->setValue('txt_text', $value);
-    $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
-}
-$formExport->addMultilineTextInput('bill_text', '', $text->getValue('txt_text'), 7);
 $formExport->closeGroupBox();
+
 $formExport->addDescription('');
 $formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
@@ -921,6 +851,63 @@ if (count($familienrollen) > 0)
     $page->addHtml(getMenuePanel('preferences', 'multiplier_roles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES'), 'fas fa-percent', $formMultiplierRoles->show()));
 }
 
+//PANEL: EMAIL_NOTIFICATIONS
+
+$formEmailNotifications = new HtmlForm('email_notifications_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'emailnotifications')), $page, array('class' => 'form-preferences'));
+
+$formEmailNotifications->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'),
+    '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS_DESC').':</p><p>
+    <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
+    <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
+    <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
+    <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
+    <strong>#due_day#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY').'<br />
+    <strong>#mandate_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID').'<br />
+    <strong>#creditor_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID').'<br />
+    <strong>#iban#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN').'<br />
+	<strong>#iban_obfuscated#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED').'<br />
+    <strong>#bic#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BIC').'<br />
+    <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
+    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
+
+$text = new TableText($gDb);
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
+if ($text->getValue('txt_text') == '')
+{
+    // convert <br /> to a normal line feed
+    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS'));
+    $text->setValue('txt_text', $value);
+    $text->save();
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
+}
+$formEmailNotifications->addMultilineTextInput('mail_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT'), $text->getValue('txt_text'), 7);
+
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
+if ($text->getValue('txt_text') == '')
+{
+    // convert <br /> to a normal line feed
+    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION'));
+    $text->setValue('txt_text', $value);
+    $text->save();
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
+}
+$formEmailNotifications->addMultilineTextInput('pre_notification_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT'), $text->getValue('txt_text'), 7);
+
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+if ($text->getValue('txt_text') == '')
+{
+    // convert <br /> to a normal line feed
+    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL'));
+    $text->setValue('txt_text', $value);
+    $text->save();
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+}
+$formEmailNotifications->addMultilineTextInput('bill_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT'), $text->getValue('txt_text'), 7);
+
+$formEmailNotifications->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+$page->addHtml(getMenuePanel('preferences', 'email_notifications', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'), 'fas fa-envelope', $formEmailNotifications->show()));
+
 //PANEL: PLUGIN_INFORMATION                     
 
 $formPluginInformations = new HtmlForm('plugin_informations_form', null, $page);
@@ -935,7 +922,6 @@ $formPluginInformations->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DOCU
   
 $page->addHtml(getMenuePanel('preferences', 'plugin_informations', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'fas fa-info', $formPluginInformations->show()));
                         
-
 $page->addHtml('
         </div>
     </div>

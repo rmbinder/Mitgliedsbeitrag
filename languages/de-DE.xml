@@ -79,7 +79,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC">Hierüber kann nach erfolgter Beitragszahlung ein Bezahlt-Datum in die Datenbank geschrieben werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT">Beitragszahlungen bearbeiten</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT">Beitragszahlungen E-Mail-Text</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT_DESC">Hier kann der Text für eine E-Mail zur Beitragszahlung angepasst und ergänzt werden. Der Text ist in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und wird durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der Inhalt für den Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalte ersetzt werden</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT">Prozentzeichen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PLUS">Pluszeichen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PREFIX_DESC">Dem Beitragstext kann ein Präfix vorangestellt werden.</string>
@@ -191,6 +190,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_DUES">Beiträge</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL">KtoInh-E-Mail</string>
     <string name="PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY">Es sind keine Daten für einen E-Mail-Versand ausgewählt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS">E-Mail-Benachrichtigungen</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS_DESC">Hier können die Texte aller Mailbenachrichtigungen angepasst und ergänzt werden. Die Texte sind in 2 Bereiche (Betreff &amp; Inhalt) unterteilt und werden durch die Zeichenfolge #subject# und #content# identifiziert. Danach folgt dann der jeweilige Inhalt für diesen Bereich.\n\nIn jeder Mail können folgende Platzhalter benutzt werden, welche dann zur Laufzeit durch die entsprechenden Inhalt ersetzt werden</string>
     <string name="PLG_MITGLIEDSBEITRAG_ENABLE">aktivieren</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR">Fehler</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED">Es wurde neue Kontoverbindung bei einer anderen Bank gewählt, aber die IBAN ist dieselbe. - Das kann nicht sein.</string>

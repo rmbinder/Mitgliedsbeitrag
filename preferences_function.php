@@ -45,11 +45,6 @@ try
             $pPreferences->config['Beitrag']['beitrag_textmitnam'] = isset($_POST['beitrag_textmitnam']) ? 1 : 0;
             $pPreferences->config['Beitrag']['beitrag_textmitfam'] = isset($_POST['beitrag_textmitfam']) ? 1 : 0;
             $pPreferences->config['Beitrag']['beitrag_text_token'] = $_POST['beitrag_text_token'];
-
-            $text = new TableText($gDb);
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
-            $text->setValue('txt_text', $_POST['mail_text']);
-            $text->save();
             break;
 
         case 'agestaggeredroles':
@@ -139,16 +134,6 @@ try
             $pPreferences->config['SEPA']['vorabinformation_dateityp'] = $_POST['vorabinformation_dateityp'];
             $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'] = $_POST['rechnung_dateiname'];
             $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'] = $_POST['rechnung_dateityp'];
-
-            $text = new TableText($gDb);
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
-            $text->setValue('txt_text', $_POST['pre_notification_text']);
-            $text->save();
-            
-            $text = new TableText($gDb);
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
-            $text->setValue('txt_text', $_POST['bill_text']);
-            $text->save();
             break;
 
         case 'mandatemanagement':
@@ -330,6 +315,24 @@ try
                 $pPreferences->config['multiplier']['roles'] = array();
             }
             break;
+            
+        case 'emailnotifications':
+            
+            $text = new TableText($gDb);
+            
+            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
+            $text->setValue('txt_text', $_POST['mail_text']);
+            $text->save();
+            
+            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
+            $text->setValue('txt_text', $_POST['pre_notification_text']);
+            $text->save();
+            
+            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+            $text->setValue('txt_text', $_POST['bill_text']);
+            $text->save();
+            break;
+            
         default:
             $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
