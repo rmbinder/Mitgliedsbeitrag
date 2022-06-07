@@ -68,7 +68,7 @@ foreach ($members as $member => $memberdata)
     if (!empty($memberdata['DUEDATE'.$gCurrentOrgId])
     	&& !empty($memberdata['FEE'.$gCurrentOrgId])
         && empty($memberdata['PAID'.$gCurrentOrgId])
-        && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrgId])
+     //   && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrgId])
         && !empty($memberdata['IBAN']))
     {
         $directdebittype = true;

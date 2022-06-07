@@ -460,11 +460,10 @@ function analyse_mem()
     $ret = array('data' => $members, 'BEITRAG_kto' => 0, 'BEITRAG_kto_anzahl' => 0, 'BEITRAG_rech' => 0, 'BEITRAG_rech_anzahl' => 0, 'BEZAHLT_kto' => 0, 'BEZAHLT_kto_anzahl' => 0, 'BEZAHLT_rech' => 0, 'BEZAHLT_rech_anzahl' => 0);
 
     // alle Mitglieder durchlaufen und im ersten Schritt alle Mitglieder,
-    // bei denen kein Beitrag berechnet wurde,
-    // und kein Beitragstext (=Verwendungszweck) existiert,  herausfiltern
+    // bei denen kein Beitrag berechnet wurde, herausfiltern
     foreach ($members as $member => $memberdata)
     {
-        if (empty($memberdata['FEE'.$GLOBALS['gCurrentOrgId']]) || empty($memberdata['CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId']]))
+        if (empty($memberdata['FEE'.$GLOBALS['gCurrentOrgId']]) )
         {
             unset($members[$member]);
         }

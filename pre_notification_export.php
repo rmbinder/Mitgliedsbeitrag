@@ -84,6 +84,7 @@ $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
 $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
 $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
 $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
+$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
 $rows[] = $columnValues;
 
 if ($exportMode === 'csv')
@@ -143,6 +144,7 @@ foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId => $dummy)
     $columnValues[] = $user->getValue('MANDATEID'.$gCurrentOrgId);
     $columnValues[] = $user->getValue('DUEDATE'.$gCurrentOrgId);
     $columnValues[] = $user->getValue('FEE'.$gCurrentOrgId);
+    $columnValues[] = $user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrgId);
     
     if ($exportMode === 'csv')
     {

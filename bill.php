@@ -108,7 +108,7 @@ else
        WHERE iban.usd_value IS NULL
          AND paid.usd_value IS NULL
          AND beitrag.usd_value IS NOT NULL
-         AND contributory_text.usd_value IS NOT NULL
+    
          AND EXISTS
         (SELECT 1
            FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ','. TBL_USER_DATA. '

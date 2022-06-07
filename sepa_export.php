@@ -78,7 +78,6 @@ foreach ($members as $member => $memberdata)
 	
     if  (!empty($memberdata['FEE'.$gCurrentOrgId])
         && empty($memberdata['PAID'.$gCurrentOrgId])
-        && !empty($memberdata['CONTRIBUTORY_TEXT'.$gCurrentOrgId])
         && !empty($memberdata['IBAN'])
         && in_array($dueDateMember.$sequenceTypeMember, $_POST['duedatesepatype']) )
     {
@@ -422,9 +421,13 @@ if (isset($_POST['btn_xml_file']))
                         		$xmlfile .= "</UltmtDbtr>\n";
                     		}
                     		
-                    		$xmlfile .= "<RmtInf>\n";                                     // Remittance Information, Verwendungszweck
-                        		$xmlfile .= '<Ustrd>'.$zpflgtdata['text']."</Ustrd>\n";   //Unstructured, unstrukturierter Verwendungszweck(max. 140 Zeichen))
-                    		$xmlfile .= "</RmtInf>\n";
+                    		if(strlen($zpflgtdata['text']) > 0)
+                    		{
+                                $xmlfile .= "<RmtInf>\n";                                     // Remittance Information, Verwendungszweck
+                                    $xmlfile .= '<Ustrd>'.$zpflgtdata['text']."</Ustrd>\n";   //Unstructured, unstrukturierter Verwendungszweck(max. 140 Zeichen))
+                    		    $xmlfile .= "</RmtInf>\n";
+                    		}
+                    		
                 		$xmlfile .= "</DrctDbtTxInf>\n";
             		}                 							// Ende if $dueDate == $zpflgtdata['duedate']
             	}												// Ende foreach ($zpflgt as $dummy => $zpflgtdata)
