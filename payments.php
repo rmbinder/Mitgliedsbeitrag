@@ -124,6 +124,7 @@ if ($getMode == 'assign_date')
                 }
                 unset($_SESSION['pMembershipFee']['checkedArray'][$userId]);
             }
+            $_SESSION['pMembershipFee']['selectAll'] = true;
             $ret_text = 'success';
         }
         catch(AdmException $e)
@@ -159,6 +160,7 @@ elseif ($getMode == 'delete_date')
                 }
                 unset($_SESSION['pMembershipFee']['checkedArray'][$userId]);
             }
+            $_SESSION['pMembershipFee']['selectAll'] = true;
             $ret_text = 'success';
         }
         catch(AdmException $e)
@@ -348,16 +350,12 @@ else
             var pos = row_id.search("_");
             var userid = row_id.substring(pos+1);
             var member_checked = $("input[type=checkbox]#member_"+userid).prop("checked");
-                            
+      
             // change data in database
             $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', array('mode' => 'prepare')) .'&checked=" + member_checked + "&usr_id=" + userid,
                 function(data){
                     // check if error occurs
-                    if(data == "success") {
-                        var mem_show = $("#mem_show").val();
-                        window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php').'?mem_show_choice=" + mem_show);
-                    }
-                    else {
+                    if(data !== "success") {
                         alert(data);
                         return false;
                     }
@@ -397,8 +395,7 @@ else
         
         $columnValues = array();
         $columnValues[] = '<a class="icon-text-link" href="javascript:select_all()">'.$gL10n->get('SYS_ALL').'</a>';
-        $columnValues[] = '';           //order
-    
+
         // headlines for columns
    	    foreach ($membersList as $member => $memberData)
    	    {
@@ -433,8 +430,7 @@ else
    
         $table->setColumnAlignByArray($columnAlign);
         $table->addRowHeadingByArray($columnValues);
-        $table->setDatatablesAlternativeOrderColumns(1, 2);
-        $table->setDatatablesColumnsHide(array(2));
+        $table->disableDatatablesColumnsSort(array(1));
     
         //user data
         foreach ($membersList as $member => $memberData)
@@ -444,16 +440,12 @@ else
             if (array_key_exists($member, $_SESSION['pMembershipFee']['checkedArray']))
             {
                 $content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
-                $order = 'x';
             }
             else
             {
                 $content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
-                $order = '';
             }
-    	
             $columnValues[] = $content;
-            $columnValues[] = $order;
         
             $user->readDataById($member);
     	
