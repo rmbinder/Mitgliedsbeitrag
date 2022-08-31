@@ -461,6 +461,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternative payer</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">This profile fields can not be copied because they have different data types (for example, date to text).</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNSELECT_ALL">Deselect all</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BANK">AccHolder&apos;s Bank</string>     
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BIC">AccHolder&apos;s BIC</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID">Creditor&apos;s identification number</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR">AccHolder&apos;s name</string>

@@ -461,6 +461,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Débiteur alternatif</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">Ces champs de profil ne peuvent pas être copiées parce qu\'elles ont des types de données différents (par exemple, de date à texte).</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNSELECT_ALL">Désélectionner tout</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BANK">Banque du payeur</string>     
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BIC">BIC du payeur</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID">Creditor Identifier du créancier</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR">Nom du payeur</string>

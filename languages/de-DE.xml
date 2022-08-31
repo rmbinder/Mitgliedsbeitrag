@@ -461,6 +461,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternativer Zahlungspflichtiger</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">Diese Profilfelder können nicht kopiert werden, da sie unterschiedliche Datentypen aufweisen (z.B. Datum zu Text).</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNSELECT_ALL">Alle abwählen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BANK">Bank des Zahlungspflichtigen</string>     
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BIC">BIC des Zahlungspflichtigen</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID">Creditor Identifier des Zahlungsempfängers</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR">Name des Zahlungspflichtigen</string>

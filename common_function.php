@@ -1554,14 +1554,23 @@ function replace_emailparameter($text, $user)
     // now replace all parameters in email text
     $text = preg_replace('/#user_first_name#/', $user->getValue('FIRST_NAME'),  $text);
     $text = preg_replace('/#user_last_name#/',  $user->getValue('LAST_NAME'), $text);
+    $text = preg_replace('/#street#/',  $user->getValue('STREET'), $text);
+    $text = preg_replace('/#postcode#/', $user->getValue('POSTCODE'), $text);
+    $text = preg_replace('/#city#/', $user->getValue('CITY'), $text);
+    $text = preg_replace('/#email#/', $user->getValue('EMAIL'), $text);
+    $text = preg_replace('/#phone#/', $user->getValue('PHONE'), $text);
+    $text = preg_replace('/#mobile#/', $user->getValue('MOBILE'), $text);
+    $text = preg_replace('/#birthday#/', $user->getValue('BIRTHDAY'), $text);
     $text = preg_replace('/#organization_long_name#/', $GLOBALS['gCurrentOrganization']->getValue('org_longname'), $text);
     $text = preg_replace('/#fee#/', $user->getValue('FEE'.$GLOBALS['gCurrentOrgId']),   $text);
     $text = preg_replace('/#due_day#/', $user->getValue('DUEDATE'.$GLOBALS['gCurrentOrgId']),  $text);
     $text = preg_replace('/#mandate_id#/', $user->getValue('MANDATEID'.$GLOBALS['gCurrentOrgId']), $text);
-    $text = preg_replace('/#creditor_id#/',  $pPreferences->config['Kontodaten']['ci'], $text);
-    $text = preg_replace('/#iban#/',   $user->getValue('IBAN'), $text);
-    $text = preg_replace('/#bic#/',   $user->getValue('BIC'), $text);
-    $text = preg_replace('/#debtor#/',   $user->getValue('DEBTOR'), $text);
+    $text = preg_replace('/#mandate_date#/', $user->getValue('MANDATEDATE'.$GLOBALS['gCurrentOrgId']),   $text);
+    $text = preg_replace('/#creditor_id#/', $pPreferences->config['Kontodaten']['ci'], $text);
+    $text = preg_replace('/#iban#/', $user->getValue('IBAN'), $text);
+    $text = preg_replace('/#bic#/', $user->getValue('BIC'), $text);
+    $text = preg_replace('/#bank#/', $user->getValue('BANK'), $text);
+    $text = preg_replace('/#debtor#/', $user->getValue('DEBTOR'), $text);
     $text = preg_replace('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId']),   $text);
     $text = preg_replace('/#iban_obfuscated#/', obfuscate_iban($user->getValue('IBAN')), $text);
 
