@@ -410,6 +410,25 @@ $formFamilyRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SA
 
 $page->addHtml(getMenuePanel('preferences', 'familyroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), 'fas fa-user-friends', $formFamilyRoles->show()));
 
+// PANEL: MULTIPLIER_ROLES
+
+if (count($familienrollen) > 0)
+{
+    $formMultiplierRoles = new HtmlForm('multiplier_roles_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'multiplier_roles')), $page, array('class' => 'form-preferences'));
+    
+    $selectBoxEntries = array();
+    foreach ($familienrollen as $key => $data)
+    {
+        $selectBoxEntries[$key] = $data['rolle'];
+    }
+    asort($selectBoxEntries);
+    $formMultiplierRoles->addSelectBox('multiplier_roles', '', $selectBoxEntries, array('defaultValue' => $pPreferences->config['multiplier']['roles'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC'));
+    
+    $formMultiplierRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+    
+    $page->addHtml(getMenuePanel('preferences', 'multiplier_roles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES'), 'fas fa-percent', $formMultiplierRoles->show()));
+}
+
 // PANEL: ADVANCED_ROLE_EDITING
 
 $formAdvancedRoleEditing = new HtmlForm('advancedroleediting_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'advancedroleediting')), $page, array('class' => 'form-preferences'));
@@ -432,6 +451,66 @@ $formAdvancedRoleEditing->addDescription('</div>');
 $formAdvancedRoleEditing->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
 $page->addHtml(getMenuePanel('preferences', 'advancedroleediting', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING'), 'fas fa-users-cog', $formAdvancedRoleEditing->show()));
+
+// PANEL: INDIVIDUAL_CONTRIBUTIONS
+
+$formIndividualContributionsSetup = new HtmlForm('individual_contributions_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'individualcontributions')), $page, array('class' => 'form-preferences'));
+
+$selectBoxEntries = array(
+    '0' => $gL10n->get('SYS_DISABLED'),
+    '1' => $gL10n->get('SYS_ENABLED'));
+$formIndividualContributionsSetup->addSelectBox(
+    'enable_individual_contributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS'), $selectBoxEntries,
+    array('defaultValue' => $pPreferences->config['individual_contributions']['access_to_module'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC'));
+
+$formIndividualContributionsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC'));
+$formIndividualContributionsSetup->addLine();
+
+$formIndividualContributionsSetup->addDescription('<div style="width:100%; height:'.($num_individualcontributions<2 ? 500 : 650).'px; overflow:auto; border:20px;">');
+for ($conf = 0; $conf < $num_individualcontributions; $conf++)
+{
+    $formIndividualContributionsSetup->openGroupBox('individualcontributions_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION'));
+    $formIndividualContributionsSetup->addInput('individual_contributions_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_DESCRIPTION'), $pPreferences->config['individual_contributions']['desc'][$conf], array( 'property' => HtmlForm::FIELD_REQUIRED, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC'));
+    $formIndividualContributionsSetup->addInput('individual_contributions_short_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION'), $pPreferences->config['individual_contributions']['short_desc'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION_DESC'));
+    
+    $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
+              FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
+             WHERE cat.cat_id = rol.rol_cat_id
+               AND ( cat.cat_org_id = '.$gCurrentOrgId.'
+                OR cat.cat_org_id IS NULL )
+          ORDER BY cat.cat_name DESC';
+    $formIndividualContributionsSetup->addSelectBoxFromSql('individual_contributions_role'.$conf,  $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), $gDb, $sql, array('defaultValue' => $pPreferences->config['individual_contributions']['role'][$conf],  'multiselect' => false, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_ROLE_DESC'));
+    
+    $formIndividualContributionsSetup->addInput('individual_contributions_amount'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT'), $pPreferences->config['individual_contributions']['amount'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_AMOUNT_DESC'));
+    
+    $fieldSelectionList2 = array();
+    
+    foreach ($gProfileFields->getProfileFields() as $field)
+    {
+        if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->editUsers())
+        {
+            $fieldSelectionList2[] = array($field->getValue('usf_id'), addslashes($field->getValue('usf_name')), $field->getValue('cat_name') );
+        }
+    }
+    
+    $formIndividualContributionsSetup->addSelectBox('individual_contributions_profilefield'.$conf, $gL10n->get('SYS_PROFILE_FIELD'), $fieldSelectionList2, array('firstEntry' => '', 'defaultValue' => $pPreferences->config['individual_contributions']['profilefield'][$conf], 'showContextDependentFirstEntry' => true, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_PROFILE_FIELD_DESC'));
+    
+    if($num_individualcontributions != 1)
+    {
+        $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'individualcontributions', 'conf' => $conf)).'">
+        <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
+        $formIndividualContributionsSetup->addCustomContent('', $html);
+    }
+    $formIndividualContributionsSetup->closeGroupBox();
+}
+$formIndividualContributionsSetup->addDescription('</div>');
+$html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'individualcontributions', 'conf' => -1)).'">
+    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
+$htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
+$formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
+$formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+$page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-coins', $formIndividualContributionsSetup->show()));
 
 // PANEL: ACCOUNT_DATA                    
 
@@ -477,31 +556,7 @@ else
 $formAccountData->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
 $page->addHtml(getMenuePanel('preferences', 'accountdata', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'), 'fas fa-money-check', $formAccountData->show()));
-                                     
-// PANEL: EXPORT                    
-
-$selectBoxEntries =  array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
-
-$formExport = new HtmlForm('configurations_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'export')), $page, array('class' => 'form-preferences'));
-
-$formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'));
-$formExport->addInput('dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_NAME'), $pPreferences->config['SEPA']['dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
-$formExport->addInput('kontroll_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
-$formExport->addSelectBox('kontroll_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['kontroll_dateityp'], 'showContextDependentFirstEntry' => false));
-$formExport->addInput('vorabinformation_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME'), $pPreferences->config['SEPA']['vorabinformation_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
-$formExport->addSelectBox('vorabinformation_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['vorabinformation_dateityp'], 'showContextDependentFirstEntry' => false));
-$formExport->closeGroupBox();
-
-$formExport->openGroupBox('bill', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'));
-$formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
-$formExport->addSelectBox('rechnung_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'], 'showContextDependentFirstEntry' => false));
-$formExport->closeGroupBox();
-
-$formExport->addDescription('');
-$formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
-
-$page->addHtml(getMenuePanel('preferences', 'export', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), 'fas fa-file-export', $formExport->show()));
-                                   
+                                                                        
 // PANEL: MANDATE_MANAGEMENT
                     
 $formMandateManagement = new HtmlForm('mandatemanagement_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'mandatemanagement')), $page, array('class' => 'form-preferences'));
@@ -528,8 +583,148 @@ $formMandateManagement->addSubmitButton('btn_save_configurations', $gL10n->get('
 
 $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'), 'fas fa-puzzle-piece', $formMandateManagement->show()));
                                        
-// PANEL: ROLE_TEST
-                    
+// PANEL: VIEW_DEFINITIONS
+
+$formColumnSet = new HtmlForm('columnset_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'columnset')), $page, array('class' => 'form-preferences'));
+$formColumnSet->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER'));
+$formColumnSet->addDescription('<div style="width:100%; height:550px; overflow:auto; border:20px;">');
+
+foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
+{
+	$groupHeader = '';
+	switch($conf)
+	{
+		case 'payments_fields':
+			$groupHeader= 'PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS';
+			break;
+		case 'mandates_fields':
+			$groupHeader= 'PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS';
+			break;
+		case 'duedates_fields':
+			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS';
+			break;
+	}
+	$formColumnSet->openGroupBox('configurations_group', $gL10n->get($groupHeader));
+	
+	$html = '
+	<div class="table-responsive">
+		<table class="table table-condensed" id="mylist_fields_table">
+			<thead>
+				<tr>
+					<th style="width: 20%;">'.$gL10n->get('SYS_ABR_NO').'</th>
+					<th style="width: 37%;">'.$gL10n->get('SYS_CONTENT').'</th>
+				</tr>
+			</thead>
+			<tbody id="mylist_fields_tbody'.$conf.'">
+				<tr id="table_row_button">
+					<td colspan="2">
+					
+					    <a class="icon-text-link" href="javascript:addColumn'.$conf.'()"><i class="fas fa-plus-circle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'</a>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>';
+	$formColumnSet->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_COLUMN_SELECTION'), $html);
+	$formColumnSet->closeGroupBox();
+}
+$formColumnSet->addDescription('</div>');
+$formColumnSet->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+$page->addHtml(getMenuePanel('preferences', 'columnset', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'fas fa-binoculars', $formColumnSet->show()));
+
+// PANEL: EXPORT
+
+$selectBoxEntries =  array('xlsx' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)', 'csv-ms' => $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)', 'csv-oo' => $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')' );
+
+$formExport = new HtmlForm('configurations_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'export')), $page, array('class' => 'form-preferences'));
+
+$formExport->openGroupBox('sepa', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'));
+$formExport->addInput('dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_NAME'), $pPreferences->config['SEPA']['dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addInput('kontroll_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addSelectBox('kontroll_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['kontroll_dateityp'], 'showContextDependentFirstEntry' => false));
+$formExport->addInput('vorabinformation_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_NAME'), $pPreferences->config['SEPA']['vorabinformation_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addSelectBox('vorabinformation_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['SEPA']['vorabinformation_dateityp'], 'showContextDependentFirstEntry' => false));
+$formExport->closeGroupBox();
+
+$formExport->openGroupBox('bill', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'));
+$formExport->addInput('rechnung_dateiname', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_NAME'), $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING', 'property' => HtmlForm::FIELD_REQUIRED));
+$formExport->addSelectBox('rechnung_dateityp', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_FILE_TYPE'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'], 'showContextDependentFirstEntry' => false));
+$formExport->closeGroupBox();
+
+$formExport->addDescription('');
+$formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+$page->addHtml(getMenuePanel('preferences', 'export', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), 'fas fa-file-export', $formExport->show()));
+
+//PANEL: EMAIL_NOTIFICATIONS
+
+$formEmailNotifications = new HtmlForm('email_notifications_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'emailnotifications')), $page, array('class' => 'form-preferences'));
+
+$formEmailNotifications->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'),
+    '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS_DESC').':</p><p>
+    <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
+    <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
+    <strong>#street#</strong> - '.$gL10n->get('SYS_STREET').'<br />
+    <strong>#postcode#</strong> - '.$gL10n->get('SYS_POSTCODE').'<br />
+    <strong>#city#</strong> - '.$gL10n->get('SYS_CITY').'<br />
+    <strong>#email#</strong> - '.$gL10n->get('SYS_EMAIL').'<br />
+    <strong>#phone#</strong> - '.$gL10n->get('SYS_PHONE').'<br />
+    <strong>#mobile#</strong> - '.$gL10n->get('SYS_MOBILE').'<br />
+    <strong>#birthday#</strong> - '.$gL10n->get('SYS_BIRTHDAY').'<br />
+    <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
+    <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
+    <strong>#due_day#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY').'<br />
+    <strong>#mandate_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID').'<br />
+    <strong>#mandate_date#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').'<br />
+    <strong>#creditor_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID').'<br />
+    <strong>#iban#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN').'<br />
+	<strong>#iban_obfuscated#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED').'<br />
+    <strong>#bic#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BIC').'<br />
+    <strong>#bank#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BANK').'<br />
+    <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
+    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
+
+$text = new TableText($gDb);
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
+if ($text->getValue('txt_text') == '')
+{
+    // convert <br /> to a normal line feed
+    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS'));
+    $text->setValue('txt_text', $value);
+    $text->save();
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
+}
+$formEmailNotifications->addMultilineTextInput('mail_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT'), $text->getValue('txt_text'), 7);
+
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
+if ($text->getValue('txt_text') == '')
+{
+    // convert <br /> to a normal line feed
+    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION'));
+    $text->setValue('txt_text', $value);
+    $text->save();
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
+}
+$formEmailNotifications->addMultilineTextInput('pre_notification_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT'), $text->getValue('txt_text'), 7);
+
+$text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+if ($text->getValue('txt_text') == '')
+{
+    // convert <br /> to a normal line feed
+    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL'));
+    $text->setValue('txt_text', $value);
+    $text->save();
+    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+}
+$formEmailNotifications->addMultilineTextInput('bill_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT'), $text->getValue('txt_text'), 7);
+
+$formEmailNotifications->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+
+$page->addHtml(getMenuePanel('preferences', 'email_notifications', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'), 'fas fa-envelope', $formEmailNotifications->show()));
+
+// PANEL: TESTS
+
 $formTestsSetup = new HtmlForm('testssetup_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'testssetup')), $page, array('class' => 'form-preferences'));
 
 $formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO'));
@@ -698,67 +893,9 @@ $formTestsSetup->addLine();
 $formTestsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
 $page->addHtml(getMenuePanel('preferences', 'testssetup', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'fas fa-check-double', $formTestsSetup->show()));
-                             
-// PANEL: VIEW_DEFINITIONS
 
-$formColumnSet = new HtmlForm('columnset_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'columnset')), $page, array('class' => 'form-preferences'));
-$formColumnSet->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS_HEADER'));
-$formColumnSet->addDescription('<div style="width:100%; height:550px; overflow:auto; border:20px;">');
-
-foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
-{
-	$groupHeader = '';
-	switch($conf)
-	{
-		case 'payments_fields':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_PAYMENTS_FIELDS';
-			break;
-		case 'mandates_fields':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS';
-			break;
-		case 'duedates_fields':
-			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS';
-			break;
-	}
-	$formColumnSet->openGroupBox('configurations_group', $gL10n->get($groupHeader));
-	
-	$html = '
-	<div class="table-responsive">
-		<table class="table table-condensed" id="mylist_fields_table">
-			<thead>
-				<tr>
-					<th style="width: 20%;">'.$gL10n->get('SYS_ABR_NO').'</th>
-					<th style="width: 37%;">'.$gL10n->get('SYS_CONTENT').'</th>
-				</tr>
-			</thead>
-			<tbody id="mylist_fields_tbody'.$conf.'">
-				<tr id="table_row_button">
-					<td colspan="2">
-					
-					    <a class="icon-text-link" href="javascript:addColumn'.$conf.'()"><i class="fas fa-plus-circle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'</a>
-                    </td>
-				</tr>
-			</tbody>
-		</table>
-	</div>';
-	$formColumnSet->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_COLUMN_SELECTION'), $html);
-	$formColumnSet->closeGroupBox();
-}
-$formColumnSet->addDescription('</div>');
-$formColumnSet->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
-
-$page->addHtml(getMenuePanel('preferences', 'columnset', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'fas fa-binoculars', $formColumnSet->show()));
-                                
-//PANEL: DEINSTALLATION
-                    
-$formDeinstallation = new HtmlForm('deinstallation_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'deinstallation')), $page, array('class' => 'form-preferences'));
-$formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
-$formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
-
-$page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'fas fa-trash-alt', $formDeinstallation->show()));
-   
 // PANEL: ACCESS_PREFERENCES
-                    
+
 $formAccessPreferences = new HtmlForm('access_preferences_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'access_preferences')), $page, array('class' => 'form-preferences'));
 
 $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
@@ -772,150 +909,13 @@ $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('
 
 $page->addHtml(getMenuePanel('preferences', 'access_preferences', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'fas fa-key', $formAccessPreferences->show()));
 
-// PANEL: INDIVIDUAL_CONTRIBUTIONS
+//PANEL: DEINSTALLATION
 
-$formIndividualContributionsSetup = new HtmlForm('individual_contributions_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'individualcontributions')), $page, array('class' => 'form-preferences'));
+$formDeinstallation = new HtmlForm('deinstallation_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'deinstallation')), $page, array('class' => 'form-preferences'));
+$formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
+$formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
 
-$selectBoxEntries = array(
-    '0' => $gL10n->get('SYS_DISABLED'),
-    '1' => $gL10n->get('SYS_ENABLED'));
-$formIndividualContributionsSetup->addSelectBox(
-    'enable_individual_contributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS'), $selectBoxEntries,
-    array('defaultValue' => $pPreferences->config['individual_contributions']['access_to_module'], 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC'));
-
-$formIndividualContributionsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC'));
-$formIndividualContributionsSetup->addLine();
-
-$formIndividualContributionsSetup->addDescription('<div style="width:100%; height:'.($num_individualcontributions<2 ? 500 : 650).'px; overflow:auto; border:20px;">');
-for ($conf = 0; $conf < $num_individualcontributions; $conf++)
-{
-    $formIndividualContributionsSetup->openGroupBox('individualcontributions_group', ($conf+1).'. '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION'));
-    $formIndividualContributionsSetup->addInput('individual_contributions_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_DESCRIPTION'), $pPreferences->config['individual_contributions']['desc'][$conf], array( 'property' => HtmlForm::FIELD_REQUIRED, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC'));
-    $formIndividualContributionsSetup->addInput('individual_contributions_short_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION'), $pPreferences->config['individual_contributions']['short_desc'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION_DESC'));
-
-    $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
-              FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
-             WHERE cat.cat_id = rol.rol_cat_id
-               AND ( cat.cat_org_id = '.$gCurrentOrgId.'
-                OR cat.cat_org_id IS NULL )
-          ORDER BY cat.cat_name DESC';
-    $formIndividualContributionsSetup->addSelectBoxFromSql('individual_contributions_role'.$conf,  $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), $gDb, $sql, array('defaultValue' => $pPreferences->config['individual_contributions']['role'][$conf],  'multiselect' => false, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_ROLE_DESC'));
-    
-    $formIndividualContributionsSetup->addInput('individual_contributions_amount'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT'), $pPreferences->config['individual_contributions']['amount'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_AMOUNT_DESC'));
-
-    $fieldSelectionList2 = array();
-
-    foreach ($gProfileFields->getProfileFields() as $field)
-    {
-        if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->editUsers())
-        {
-            $fieldSelectionList2[] = array($field->getValue('usf_id'), addslashes($field->getValue('usf_name')), $field->getValue('cat_name') );
-        }
-    }
-    
-    $formIndividualContributionsSetup->addSelectBox('individual_contributions_profilefield'.$conf, $gL10n->get('SYS_PROFILE_FIELD'), $fieldSelectionList2, array('firstEntry' => '', 'defaultValue' => $pPreferences->config['individual_contributions']['profilefield'][$conf], 'showContextDependentFirstEntry' => true, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_PROFILE_FIELD_DESC'));
-    
-    if($num_individualcontributions != 1)
-    {
-        $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'individualcontributions', 'conf' => $conf)).'">
-        <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
-        $formIndividualContributionsSetup->addCustomContent('', $html);
-    }
-    $formIndividualContributionsSetup->closeGroupBox();
-}
-$formIndividualContributionsSetup->addDescription('</div>');
-$html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'individualcontributions', 'conf' => -1)).'">
-    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
-$htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
-$formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
-$formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
-
-$page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-coins', $formIndividualContributionsSetup->show()));
- 
-// PANEL: MULTIPLIER_ROLES
-
-if (count($familienrollen) > 0)
-{
-    $formMultiplierRoles = new HtmlForm('multiplier_roles_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'multiplier_roles')), $page, array('class' => 'form-preferences'));
-
-    $selectBoxEntries = array();
-    foreach ($familienrollen as $key => $data)
-    {
-        $selectBoxEntries[$key] = $data['rolle'];
-    }
-    asort($selectBoxEntries);
-    $formMultiplierRoles->addSelectBox('multiplier_roles', '', $selectBoxEntries, array('defaultValue' => $pPreferences->config['multiplier']['roles'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC'));
-
-    $formMultiplierRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
-
-    $page->addHtml(getMenuePanel('preferences', 'multiplier_roles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES'), 'fas fa-percent', $formMultiplierRoles->show()));
-}
-
-//PANEL: EMAIL_NOTIFICATIONS
-
-$formEmailNotifications = new HtmlForm('email_notifications_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences_function.php', array('form' => 'emailnotifications')), $page, array('class' => 'form-preferences'));
-
-$formEmailNotifications->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'),
-    '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS_DESC').':</p><p>
-    <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
-    <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
-    <strong>#street#</strong> - '.$gL10n->get('SYS_STREET').'<br />
-    <strong>#postcode#</strong> - '.$gL10n->get('SYS_POSTCODE').'<br />
-    <strong>#city#</strong> - '.$gL10n->get('SYS_CITY').'<br />
-    <strong>#email#</strong> - '.$gL10n->get('SYS_EMAIL').'<br />
-    <strong>#phone#</strong> - '.$gL10n->get('SYS_PHONE').'<br />
-    <strong>#mobile#</strong> - '.$gL10n->get('SYS_MOBILE').'<br />
-    <strong>#birthday#</strong> - '.$gL10n->get('SYS_BIRTHDAY').'<br />
-    <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
-    <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
-    <strong>#due_day#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY').'<br />
-    <strong>#mandate_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID').'<br />
-    <strong>#mandate_date#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').'<br />
-    <strong>#creditor_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID').'<br />
-    <strong>#iban#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN').'<br />
-	<strong>#iban_obfuscated#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED').'<br />
-    <strong>#bic#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BIC').'<br />
-    <strong>#bank#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BANK').'<br />
-    <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
-    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
-
-$text = new TableText($gDb);
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
-if ($text->getValue('txt_text') == '')
-{
-    // convert <br /> to a normal line feed
-    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS'));
-    $text->setValue('txt_text', $value);
-    $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
-}
-$formEmailNotifications->addMultilineTextInput('mail_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_MAIL_TEXT'), $text->getValue('txt_text'), 7);
-
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
-if ($text->getValue('txt_text') == '')
-{
-    // convert <br /> to a normal line feed
-    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION'));
-    $text->setValue('txt_text', $value);
-    $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
-}
-$formEmailNotifications->addMultilineTextInput('pre_notification_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_MAIL_TEXT'), $text->getValue('txt_text'), 7);
-
-$text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
-if ($text->getValue('txt_text') == '')
-{
-    // convert <br /> to a normal line feed
-    $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL'));
-    $text->setValue('txt_text', $value);
-    $text->save();
-    $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
-}
-$formEmailNotifications->addMultilineTextInput('bill_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT'), $text->getValue('txt_text'), 7);
-
-$formEmailNotifications->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
-
-$page->addHtml(getMenuePanel('preferences', 'email_notifications', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'), 'fas fa-envelope', $formEmailNotifications->show()));
+$page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'fas fa-trash-alt', $formDeinstallation->show()));
 
 //PANEL: PLUGIN_INFORMATION                     
 
