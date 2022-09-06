@@ -961,8 +961,8 @@ function check_family_roles()
                     foreach($famdata['members'] as $memberID => $memberdata)
                     {
                         // das Alter des Mitglieds am Stichtag bestimmen
-                        $deadline = (date('Y')  -1  + (int) $pPreferences->config['Altersrollen']['altersrollen_offset']) . '-12-31';
-                        $age = date('Y', strtotime($deadline)) - date('Y', strtotime($memberdata['BIRTHDAY']));
+                        $deadline = getDeadline($pPreferences->config['Altersrollen']['altersrollen_offset']);
+                        $age = ageCalculator(strtotime($memberdata['BIRTHDAY']), strtotime($deadline));
 
                         // passt das Alter zu einer der Pruefbedingungen?
                         if ($age >= $pruefdata['von'] && $age <= $pruefdata['bis'])
@@ -1313,6 +1313,29 @@ function isUserAuthorizedForPreferences()
 function date_format2mysql($date)
 {
     return date('Y-m-d', strtotime($date));
+}
+
+/**
+ * Generates a new reference time for the division into age-based roles.
+ * @param   int      $altersrollen_offset     The monthly offset for the reference time
+ * @return  string   The new reference time (deadline) in Y-m-d format
+ */
+function getDeadline($altersrollen_offset)
+{
+    $dateTime = \DateTime::createFromFormat('Y-m-d', date('Y').'-1-1');
+    
+    $dayOffset = new \DateInterval('P1D');
+    $monthOffset = new \DateInterval('P'. abs($altersrollen_offset).'M');
+    
+    if ($altersrollen_offset < 0)
+    {
+        $monthOffset->invert = 1;
+    }
+        
+    $dateTime->add($monthOffset);
+    $dateTime->sub($dayOffset);
+    
+    return $dateTime->format('Y-m-d');
 }
 
 /**

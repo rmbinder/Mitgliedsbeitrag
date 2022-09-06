@@ -326,9 +326,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_NOTHING_SELECTED">Rien n'est sélectionné.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER">Nombre</string>
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS">Nombre de transactions</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Compensation annuelle</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_DESC">Avec un décalage annuel, le temps de référence a) pour le classement dans les rôles d'âge et b) pour les tests liés à l'âge peut être décalé de x années dans le futur ou dans le passé (0 correspond à pas de décalage).</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_INFO">L'heure de référence est toujours le 31 décembre. (24 heures) de l'année écoulée.\n\nExemple de division en un rôle basé sur l'âge:\nUn rôle doit être attribué avec les restrictions d'âge suivantes:\n"Membres %1% à %2% ans"\nDans ce cas, il est vérifié si le membre au 31.12. (minuit) de l'année écoulée rentrent toujours dans la structure d'âge "1 à 2" ans (le minimum était de 1 an, ou le maximum était de 2 ans et 365 jours). Sinon, il sera déplacé vers un autre rôle.\n\nAvec un décalage annuel, ce point de référence dans le temps peut être décalé d'années entières dans le futur ou dans le passé.</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Décalage mensuel</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_DESC">Avec un décalage mensuel, le temps de référence a) pour le classement dans les rôles d'âge et b) pour les tests liés à l'âge peut être décalé de x mois dans le futur ou dans le passé (0 correspond à pas de décalage).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_INFO">L'heure de référence est toujours le 31 décembre. (24 heures) de l'année écoulée.\n\nExemple de division en un rôle basé sur l'âge:\nUn rôle doit être attribué avec les restrictions d'âge suivantes:\n"Membres %1% à %2% ans"\nDans ce cas, il est vérifié si le membre au 31.12. (minuit) de l'année écoulée rentrent toujours dans la structure d'âge "1 à 2" ans (le minimum était de 1 an, ou le maximum était de 2 ans et 365 jours). Sinon, il sera déplacé vers un autre rôle.\n\nAvec un décalage mensuel, cette heure de référence peut être définie des mois complets dans le futur ou dans le passé.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_OLD_ROLE">vieux rôles</string>
     <string name="PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC">ancien rôle du membre</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT">Premier prélèvement d\'une série de récurrents (OOFF)</string>

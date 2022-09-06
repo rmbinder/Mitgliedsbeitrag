@@ -326,9 +326,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_NOTHING_SELECTED">Nothing is selected.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER">Number</string>
     <string name="PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS">Number of transactions</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Annual offset</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_DESC">With an annual offset, the reference time a) for the classification into the age-based roles and b) for the age-related tests can be offset by x years in the future or in the past (0 corresponds to no offset).</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_INFO">The reference time is always December 31st. (24 hours) of the past year.\n\nExample of the division into an age-based role:\nA role should be given with the following age restrictions:\n"Members %1% to %2% years"\nIn this case, it is checked whether the member on 31.12. (midnight) of the past year still fit into the age structure "1 to 2" years (minimum was 1 year old, or maximum was 2 years and 365 days old). If not, it will be moved to another role.\n\nWith an annual offset, this reference point in time can be shifted by full years in the future or in the past.</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET">Monthly offset</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_DESC">With a monthly offset, the reference time a) for the classification into the age-based roles and b) for the age-related tests can be shifted by x months in the future or in the past (0 corresponds to no offset).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OFFSET_INFO">The reference time is always December 31st. (24 hours) of the past year.\n\nExample of the division into an age-based role:\nA role should be given with the following age restrictions:\n"Members %1% to %2% years"\nIn this case, it is checked whether the member on 31.12. (midnight) of the past year still fit into the age structure "1 to 2" years (minimum was 1 year old, or maximum was 2 years and 365 days old). If not, it will be moved to another role.\n\nWith a monthly offset, this reference point in time can be shifted by full months in the future or in the past.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_OLD_ROLE">old role</string>
     <string name="PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC">old role of the member</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ONETIMES_DIRECT_DEBIT">One-off debit (OOFF)</string>

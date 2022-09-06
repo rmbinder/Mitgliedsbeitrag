@@ -77,8 +77,8 @@ if ($getMode == 'preview')     //Default
 			}
 	
 			// das Alter des Mitglieds am Stichtag bestimmen
-			$deadline = (date('Y') -1 + (int) $pPreferences->config['Altersrollen']['altersrollen_offset']  ) . '-12-31';
-			$age = date('Y', strtotime($deadline)) - date('Y', strtotime($memberdata['BIRTHDAY']));
+            $deadline = getDeadline($pPreferences->config['Altersrollen']['altersrollen_offset']);
+            $age = ageCalculator(strtotime($memberdata['BIRTHDAY']), strtotime($deadline));
 			
 			// ist das Alter des Mitglieds außerhalb des Altersschemas der Rolle
 			if (($age < $roldata['von']) || ($age > $roldata['bis']))
