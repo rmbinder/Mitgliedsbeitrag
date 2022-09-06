@@ -268,7 +268,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT">Mandatsverwaltung</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC">Anhand der oben aufgeführten Felder können die Parameter für die Zusammensetzung der Mandatsreferenz eingestellt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2">Überprüfung auf Vollständigkeit der Daten in der Mandatsverwaltung.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">Bei den aufgeführten Mitgliedern sind IBAN und Mitgliedsbeitrag vorhanden, aber es fehlen entweder Mandatsreferenz oder Mandatsdatum (oder beides).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR">Bei den aufgeführten Mitgliedern sind IBAN und Mitgliedsbeitrag vorhanden, aber es fehlt entweder Mandatsreferenz oder Mandatsdatum (oder beides).</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK">Alle Daten sind vollständig.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE">Mandatsdatum</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC">Hiermit wird bei allen angezeigten Benutzern (! filterabhängig !) das Mandatsdatum geändert. -> ein nicht vorhandenes Datum wird gesetzt -> ein vorhandenes Datum wird entfernt </string>
