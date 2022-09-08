@@ -407,6 +407,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Here a role must be selected for which this individual contribution is calculated.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Role membership (age staggered roles)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Checking for multiple memberships in age staggered roles.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2">Select the graduations that should not be included in the exam.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC_LABEL">Here it is checked whether a member belongs to several age-based roles. By default, all age-based roles are considered. With this option, one or more graduations can be removed from consideration.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">The members are listed multiple times in different echelons of the age staggered roles.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK">No member is repeatedly in different echelons of the age staggered rollers.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY">Role membership (mandatory)</string>

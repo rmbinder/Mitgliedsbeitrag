@@ -208,6 +208,11 @@ try
 
             foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
             {
+                if(isset($_POST['age_staggered_roles_exclusion'. $token]))
+                {
+                    $pPreferences->config['Rollenpruefung']['age_staggered_roles_exclusion'][] = $token;
+                    
+                }
                 if(isset($_POST['altersrollenpflicht'. $token]))
                 {
                     $pPreferences->config['Rollenpruefung']['altersrollenpflicht'][] = $token;

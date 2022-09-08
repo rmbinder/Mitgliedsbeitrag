@@ -62,7 +62,8 @@ $config_default['Rollenpruefung'] = array('altersrollenfamilienrollen' => array(
                                             'altersrollenaltersrollen' => array(' '),
                                             'familienrollenfix'        => array(' '),
                                             'altersrollenfix'          => array(' '),
-										    'fixrollenfixrollen'       => array(' '));
+										    'fixrollenfixrollen'       => array(' '),
+                                            'age_staggered_roles_exclusion'=> array(' '));
 
 $config_default['tests_enable'] = array('age_staggered_roles'                   => 1,
                                         'role_membership_age_staggered_roles'   => 1,

@@ -741,6 +741,21 @@ $formTestsSetup->addCheckbox(
     $gL10n->get('PLG_MITGLIEDSBEITRAG_TEST').' "'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES').'" '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ENABLE'),
     (bool) $pPreferences->config['tests_enable']['role_membership_age_staggered_roles']
     );
+$formTestsSetup->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'), '', array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC_LABEL', 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2'));
+if (count($altersrollen) > 0 )
+{
+    if (count($altersrollen) > 0)
+    {
+        foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
+        {
+            $formTestsSetup->addCheckbox('age_staggered_roles_exclusion'.$token, $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES').' ('.$token .')', (in_array($token, $pPreferences->config['Rollenpruefung']['age_staggered_roles_exclusion']) ? 1 : 0));
+        }
+    }
+}
+else
+{
+    $formTestsSetup->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES'));
+}
 $formTestsSetup->addLine();
 
 $formTestsSetup->addCheckbox(

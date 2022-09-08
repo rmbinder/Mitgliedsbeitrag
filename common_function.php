@@ -540,7 +540,7 @@ function analyse_rol()
  */
 function check_rollenmitgliedschaft_altersrolle()
 {
-    global $gProfileFields;
+    global $pPreferences, $gProfileFields;
     $ret = array();
     $alt = beitragsrollen_einlesen('alt', array('FIRST_NAME', 'LAST_NAME'));
     $user = new User($GLOBALS['gDb'], $gProfileFields);
@@ -548,6 +548,12 @@ function check_rollenmitgliedschaft_altersrolle()
     $check = array();
     foreach ($alt as $altrol => $altdata)
     {
+        if (in_array($altdata['alterstyp'], $pPreferences->config['Rollenpruefung']['age_staggered_roles_exclusion']))
+        {
+            unset($alt[$altrol]);
+            continue;
+        }
+        
         foreach($altdata['members'] as $member => $memberdata)
         {
             $check[$member]['alterstyp'][] = $altdata['alterstyp'];
@@ -556,7 +562,7 @@ function check_rollenmitgliedschaft_altersrolle()
         }
     }
 
-    // jetzt $check durchlaufen und nur die Eintraege bearbeiten, bei denen mehr als 1 Alterstyp vorhanden ist
+    // jetzt $check durchlaufen und nur die Eintraege bearbeiten, bei denen mehr als ein Alterstyp vorhanden ist
     foreach($check as $member => $memberdata)
     {
         if(count($memberdata['alterstyp']) > 1)

@@ -407,6 +407,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Hier muss eine Rolle gewählt werden, für die dieser Individualbeitrag berechnet wird.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Rollenmitgliedschaft (Altersgestaffelte Rollen)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Überprüfung auf mehrfache Mitgliedschaften in altersgestaffelten Rollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2">Wählen Sie die Staffelungen aus, die nicht in die Prüfung einbezogen werden sollen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC_LABEL">Hier wird geprüft, ob ein Mitglied Angehöriger mehrerer altersgestaffelter Rollen ist. Standardmäßig werden dabei alle altersgestaffelten Rollen betrachtet. Mit dieser Option können eine oder mehrere Staffelungen aus der Betrachtung herausgenommen werden.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">Die aufgeführten Mitglieder befinden sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK">Kein Mitglied befindet sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY">Rollenmitgliedschaft (Pflicht)</string>

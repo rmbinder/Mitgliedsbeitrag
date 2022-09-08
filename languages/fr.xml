@@ -407,6 +407,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Ici, un rôle doit être sélectionné pour lequel cette contribution individuelle est calculée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Rôle de membre (rôles échelonnés en fonction de l\'âge)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Vérifie s\'il y a plusieurs membres dans les rôles échelonnées en fonction de l\'âge.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2">Sélectionnez les diplômes qui ne doivent pas être inclus dans l'examen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC_LABEL">Ici, il est vérifié si un membre appartient à plusieurs rôles basés sur l'âge. Par défaut, tous les rôles basés sur l'âge sont pris en compte. Avec cette option, une ou plusieurs graduations peuvent être supprimées.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">Les membres énumérés sont plusieurs fois dans différents échelons des rôles classés selon l\'âge.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK">Aucun membre n\'occupe plusieurs fois différentes échelons de rôles échelonnés selon l\'âge.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY">Rôle adhésion (obligatoire)</string>
