@@ -603,6 +603,9 @@ foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
 		case 'duedates_fields':
 			$groupHeader= 'PLG_MITGLIEDSBEITRAG_DUEDATES_FIELDS';
 			break;
+		case 'bill_fields':
+		    $groupHeader= 'PLG_MITGLIEDSBEITRAG_BILL';
+		    break;
 	}
 	$formColumnSet->openGroupBox('configurations_group', $gL10n->get($groupHeader));
 	

@@ -34,6 +34,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
+$userField = new TableUserField($gDb);
 
 if(isset($_GET['mode']) && ($_GET['mode'] == 'export' || $_GET['mode'] == 'mail' || $_GET['mode'] == 'prepare'))
 {
@@ -62,90 +63,34 @@ if($getMode == 'mail' || $getMode == 'export')
 }
 else
 {
-    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
-               city.usd_value AS city, street.usd_value AS street, zip_code.usd_value AS zip_code, beitrag.usd_value AS beitrag,
-               iban.usd_value AS iban, paid.usd_value AS paid, contributory_text.usd_value AS contributory_text, email.usd_value AS email
+    $membersListFields = array_filter($pPreferences->config['columnconfig']['bill_fields']);           //array_filter: löschen leerer Einträge, falls das Setup fehlgeschlagen ist
+
+    $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM '. TBL_USERS. '
-        LEFT JOIN '. TBL_USER_DATA. ' AS last_name
-          ON last_name.usd_usr_id = usr_id
-         AND last_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'LAST_NAME\', \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS first_name
-          ON first_name.usd_usr_id = usr_id
-         AND first_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'FIRST_NAME\', \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS birthday
-          ON birthday.usd_usr_id = usr_id
-         AND birthday.usd_usf_id = ? -- $gProfileFields->getProperty(\'BIRTHDAY\', \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS city
-          ON city.usd_usr_id = usr_id
-         AND city.usd_usf_id = ? -- $gProfileFields->getProperty(\'CITY\', \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS street
-          ON street.usd_usr_id = usr_id
-         AND street.usd_usf_id = ? -- $gProfileFields->getProperty(\'STREET\', \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS beitrag
-          ON beitrag.usd_usr_id = usr_id
-         AND beitrag.usd_usf_id = ? -- $gProfileFields->getProperty(\'FEE\'.$gCurrentOrgId, \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS iban
-          ON iban.usd_usr_id = usr_id
-         AND iban.usd_usf_id = ? -- $gProfileFields->getProperty(\'IBAN\', \'usf_id\')
+
         LEFT JOIN '. TBL_USER_DATA. ' AS paid
           ON paid.usd_usr_id = usr_id
-         AND paid.usd_usf_id = ? -- $gProfileFields->getProperty(\'PAID\'.$gCurrentOrgId, \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS contributory_text
-          ON contributory_text.usd_usr_id = usr_id
-         AND contributory_text.usd_usf_id = ? -- $gProfileFields->getProperty(\'CONTRIBUTORY_TEXT\'.$gCurrentOrgId, \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS zip_code
-          ON zip_code.usd_usr_id = usr_id
-         AND zip_code.usd_usf_id = ? -- $gProfileFields->getProperty(\'POSTCODE\', \'usf_id\')
-        LEFT JOIN '. TBL_USER_DATA. ' AS email
-          ON email.usd_usr_id = usr_id
-         AND email.usd_usf_id = ? -- $gProfileFields->getProperty(\'EMAIL\', \'usf_id\')
-
+         AND paid.usd_usf_id = '. $gProfileFields->getProperty('PAID'.$gCurrentOrgId, 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS fee
+          ON fee.usd_usr_id = usr_id
+         AND fee.usd_usf_id = '. $gProfileFields->getProperty('FEE'.$gCurrentOrgId, 'usf_id'). '
+        LEFT JOIN '. TBL_USER_DATA. ' AS iban
+          ON iban.usd_usr_id = usr_id
+         AND iban.usd_usf_id = '. $gProfileFields->getProperty('IBAN', 'usf_id'). '
+             
         LEFT JOIN '. TBL_MEMBERS. ' AS mem
-          ON  mem.mem_begin  <= ? -- DATE_NOW
-         AND mem.mem_end     > ? -- DATE_NOW
+          ON mem.mem_begin  <= \''.DATE_NOW.'\'
+         AND mem.mem_end     > \''.DATE_NOW.'\'
          AND mem.mem_usr_id  = usr_id
-
+             
        WHERE iban.usd_value IS NULL
          AND paid.usd_value IS NULL
-         AND beitrag.usd_value IS NOT NULL
-    
-         AND EXISTS
-        (SELECT 1
-           FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ','. TBL_USER_DATA. '
-          WHERE mem_usr_id = usr_id
-            AND mem_rol_id = rol_id
-            AND mem_begin <= ? -- DATE_NOW
-            AND mem_end    > ? -- DATE_NOW
-            AND usd_usr_id = usr_id
-            AND rol_valid  = 1
-            AND rol_cat_id = cat_id
-            AND ( cat_org_id = ? -- $gCurrentOrgId
-                OR cat_org_id IS NULL ) 
-            AND usd_value IS NOT NULL )                                    
+         AND fee.usd_value IS NOT NULL
+                    ';
+    $membersListSqlCondition .= ' ) ';
 
-    ORDER BY last_name, first_name ';
+    $membersList = list_members($membersListFields, 0, $membersListSqlCondition);
     
-    $queryParams = array(
-        $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
-        $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
-        $gProfileFields->getProperty('BIRTHDAY', 'usf_id'),
-        $gProfileFields->getProperty('CITY', 'usf_id'),
-        $gProfileFields->getProperty('STREET', 'usf_id'),
-        $gProfileFields->getProperty('FEE'.$gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('IBAN', 'usf_id'),
-        $gProfileFields->getProperty('PAID'.$gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('POSTCODE', 'usf_id'),
-        $gProfileFields->getProperty('EMAIL', 'usf_id'),
-        DATE_NOW,
-        DATE_NOW,
-        DATE_NOW,
-        DATE_NOW,
-        $gCurrentOrgId
-    );
-       
-    $statement = $gDb->queryPrepared($sql, $queryParams);
-
     if($getMode == 'prepare')
     {
         $ret_text = 'ERROR';
@@ -164,15 +109,15 @@ else
         }
         else                        // Alle aendern wurde gewaehlt
         {
-            while($usr = $statement->fetch())
+            foreach ($membersList as $member => $memberData)
             {
-                if (array_key_exists($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
+                if (array_key_exists($member, $_SESSION['pMembershipFee']['checkedArray']))
                 {
-                    unset($_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']]);
+                    unset($_SESSION['pMembershipFee']['checkedArray'][$member]);
                 }
                 else
                 {
-                    $_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']] =  isset($_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']]) ? $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] : '';
+                    $_SESSION['pMembershipFee']['checkedArray'][$member] =  isset($_SESSION['pMembershipFee']['mailArray'][$member]) ? $_SESSION['pMembershipFee']['mailArray'][$member] : '';
                 }
             }
             $ret_text = 'success';
@@ -227,13 +172,10 @@ else
                         return true;
                     }
                 );
-            };    
-        ');            // !!!: ohne true
-
-        $javascriptCode = '    
-
-        // if checkbox in header is clicked then change all data
-        $("input[type=checkbox].change_checkbox").click(function(){
+            }; 
+            
+            function select_all() {
+            var mem_show = $("#mem_show").val();
             $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/bill.php', array('mode' => 'prepare')) .'" ,
                 function(data){
                     // check if error occurs
@@ -247,7 +189,10 @@ else
                     return true;
                 }
             );
-        });
+        }   
+        ');            // !!!: ohne true
+
+        $javascriptCode = '    
 
         // if checkbox of user is clicked then change data
         $("input[type=checkbox].memlist_checkbox").click(function(e){
@@ -286,121 +231,128 @@ else
         $table = new HtmlTable('tbl_bill', $page, true, true, 'table table-condensed');
         $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
 
-        // create array with all column heading values
-        $columnHeading = array(
-            '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_ALL').'"/>',
-            $gL10n->get('SYS_LASTNAME'),
-            $gL10n->get('SYS_FIRSTNAME'),
-            $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
-            $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT'),
-            '<i class="fas fa-map-marked-alt admidio-info-icon" title="'.$gL10n->get('SYS_ADDRESS').'"></i>',
-            $gL10n->get('SYS_STREET'),
-            '<i class="fas fa-envelope admidio-info-icon" title="'.$gL10n->get('SYS_EMAIL').'"></i>',
-            $gL10n->get('SYS_EMAIL')
-        );
+        $columnAlign  = array('center');
         
-        $table->setColumnAlignByArray(array('center', 'left', 'left',  'right', 'left', 'left',  'left', 'center', 'center'));
-        $table->setDatatablesOrderColumns(array(2, 3));
-        $table->addRowHeadingByArray($columnHeading);
-        $table->disableDatatablesColumnsSort(array(1));
-        $table->setDatatablesAlternativeOrderColumns(6, 7);
-        $table->setDatatablesAlternativeOrderColumns(8, 9);
-        $table->setDatatablesColumnsHide(array(7, 9));
+        $columnValues = array();
+        $columnValues[] = '<a class="icon-text-link" href="javascript:select_all()">'.$gL10n->get('SYS_ALL').'</a>';
 
-        // show rows with users
-        while($usr = $statement->fetch())
-        {
-            $addressText  = ' ';
-            $htmlAddress  = '&nbsp;';
-            $htmlBirthday = '&nbsp;';
-            $htmlBeitrag  = '&nbsp;';
-            $htmlBeitragstext = '&nbsp;';
-            $email = '';
-            $htmlMail = '&nbsp;';
-            
-            $user->readDataById($usr['usr_id']);
-            
-            //1. Spalte ($htmlCheckedStatus)
-           if (array_key_exists($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray']))
+        // headlines for columns
+   	    foreach ($membersList as $member => $memberData)
+   	    {
+            foreach ($memberData as $usfId => $dummy)
             {
-                $htmlCheckedStatus = '<input type="checkbox" id="member_'.$usr['usr_id'].'" name="member_'.$usr['usr_id'].'" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_'.$usr['usr_id'].'"></b>';
-            }
-            else
-            {
-                $htmlCheckedStatus = '<input type="checkbox" id="member_'.$usr['usr_id'].'" name="member_'.$usr['usr_id'].'" class="memlist_checkbox" /><b id="loadindicator_member_'.$usr['usr_id'].'"></b>';
-            }
-
-            //2. Spalte (Nachname)
-            
-            //3. Spalte (Vorname)
-            
-            //4. Spalte ($htmlBeitrag)
-            if($usr['beitrag'] > 0)
-            {
-                $htmlBeitrag = $usr['beitrag'].' '.$gSettingsManager->getString('system_currency');
-            }
-
-            //5. Spalte ($htmlBeitragstext)
-            if(strlen($usr['contributory_text']) > 0)
-            {
-                $htmlBeitragstext = $usr['contributory_text'];
-            }
-            
-            //6. Spalte ($htmlAddress)
-            if(strlen($usr['zip_code']) > 0 || strlen($usr['city']) > 0)
-            {
-                $addressText .= $usr['zip_code']. ' '. $usr['city'];
-            }
-            if(strlen($usr['street']) > 0)
-            {
-                $addressText .= ' - '. $usr['street'];
-            }
-            if(strlen($addressText) > 1)
-            {
-                $htmlAddress = '<i class="fas fa-map-marked-alt admidio-info-icon" title="'.$addressText.'"></i>';
-            }
-
-            //7. Spalte ($addressText)
-
-            //10. Spalte ($htmlDebtorText)
-            
-            //8. Spalte ($htmlMail)
-            //9. Spalte ($email)
-                
-            if(strlen($usr['email']) > 0)
-            {
-                $email = $usr['email'];
-                $usf_uuid = $gProfileFields->getProperty('EMAIL', 'usf_uuid');
-            }
-            if(strlen($email) > 0)
-            {
-                $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] = $usf_uuid;
-                if($gSettingsManager->getString('enable_mail_module') != 1)
+                if (!is_int($usfId))
                 {
-                   $mail_link = 'mailto:'. $email;
+                    continue;
+                }
+ 
+                // Find name of the field
+                $columnHeader = $gProfileFields->getPropertyById($usfId, 'usf_name');
+ 
+                if ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'CHECKBOX'
+                    ||  $gProfileFields->getPropertyById($usfId, 'usf_name_intern') === 'GENDER'
+                    ||  $gProfileFields->getPropertyById($usfId, 'usf_type') === 'EMAIL' 
+                    ||  $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'))
+                {
+                    $columnAlign[] = 'center';
+                }
+                elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'NUMBER'
+                    ||   $gProfileFields->getPropertyById($usfId, 'usf_type') === 'DECIMAL')
+                {
+                    $columnAlign[] = 'right';
                 }
                 else
                 {
-                    $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('user_uuid' => $user->getValue('usr_uuid'), 'usf_uuid' => $usf_uuid));
+                    $columnAlign[] = 'left';
                 }
-                $htmlMail = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($email)).'"></i>';
+                $columnValues[] = $columnHeader;
+            }  
+            break;							// Abbruch nach dem ersten Mitglied, da nur die usfIds eines Mitglieds benoetigt werden um die headlines zu erzeugen
+        }
+   
+        $table->setColumnAlignByArray($columnAlign);
+        $table->addRowHeadingByArray($columnValues);
+        $table->disableDatatablesColumnsSort(array(1));
+     
+       //user data
+       foreach ($membersList as $member => $memberData)
+        {
+        
+            $columnValues = array();
+    
+            if (array_key_exists($member, $_SESSION['pMembershipFee']['checkedArray']))
+            {
+                $content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" checked="checked" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
             }
+            else
+            {
+                $content= '<input type="checkbox" id="member_'.$member.'" name="member_'.$member.'" class="memlist_checkbox memlist_member" /><b id="loadindicator_member_'.$member.'"></b>';
+            }
+            $columnValues[] = $content;
+        
+            $user->readDataById($member);
+    	
+            $usf_uuid = '';         
+            if(strlen($user->getValue('DEBTOR_EMAIL')) > 0)
+            {
+                $usf_uuid = $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_uuid');
+            }
+            if(strlen($user->getValue('EMAIL')) > 0)
+            {
+                $usf_uuid = $gProfileFields->getProperty('EMAIL', 'usf_uuid');
+            }
+            $_SESSION['pMembershipFee']['mailArray'][$member] = $usf_uuid;
+            
+    	    foreach ($memberData as $usfId => $content)
+    	    {
+                if (!is_int($usfId))
+                {
+                    continue;
+                }
 
-            // create array with all column values
-            $columnValues = array(
-                $htmlCheckedStatus,     
-                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))) .'">'.$usr['last_name'].'</a>',
-                '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))) .'">'.$usr['first_name'].'</a>',
-                $htmlBeitrag,
-                $htmlBeitragstext,
-                $htmlAddress,
-                $addressText,
-                $htmlMail,
-                $email
-            );
+                //*****************************************************************/
+                // in some cases the content must have a special output format
+                //*****************************************************************/
+                if ($usfId === (int) $gProfileFields->getProperty('COUNTRY', 'usf_id'))
+                {
+                    $content = $gL10n->getCountryByCode($content);
+                }
+    	
+                $userField->readDataById($usfId);
 
-            $table->addRowByArray($columnValues, 'userid_'.$usr['usr_id']);
-        }//End While
+                $htmlValue = $gProfileFields->getHtmlValue($gProfileFields->getPropertyById($usfId, 'usf_name_intern'), $content, $user->getValue('usr_uuid'));
+
+                if (($usfId === (int) $gProfileFields->getProperty('LAST_NAME', 'usf_id') || $usfId === (int) $gProfileFields->getProperty('FIRST_NAME', 'usf_id')))
+                {
+                    $columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$htmlValue.'</a>';
+                }
+                elseif ($gProfileFields->getPropertyById($usfId, 'usf_type') === 'EMAIL' || $usfId === (int) $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'))
+                {
+                    if (strlen($content)>0)
+                    {
+                    if($gSettingsManager->getString('enable_mail_module') != 1)
+                    {
+                        $mail_link = 'mailto:'. $content;
+                    }
+                    else
+                    {
+                        $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('user_uuid' => $user->getValue('usr_uuid'), 'usf_uuid' => $userField->getValue('usf_uuid')));
+                    }
+                    $columnValues[] = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($content)).'"></i>';
+                    }
+                    else 
+                    {
+                        $columnValues[] = '';
+                    }
+                    
+                }
+                else
+                {
+                    $columnValues[] = $htmlValue;
+                }
+            }
+            $table->addRowByArray($columnValues, 'userid_'.$member, array('nobr' => 'true'));      
+        }//End Foreach
 
         $page->addHtml($table->show(false));
         $page->show();
