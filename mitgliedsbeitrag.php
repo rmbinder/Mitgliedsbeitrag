@@ -700,6 +700,20 @@ if(count($rols) > 0)
     $page->addHtml($table->show(false));
     $page->addHtml(getMenuePanelFooterOnly());
                                 
+    //PANEL: PLUGIN_INFORMATION
+    
+    $formPluginInformations = new HtmlForm('plugin_informations_form', null, $page);
+    $formPluginInformations->addStaticControl('plg_name', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_NAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
+    $formPluginInformations->addStaticControl('plg_version', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION'), $pPreferences->config['Plugininformationen']['version']);
+    $formPluginInformations->addStaticControl('plg_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_DATE'), $pPreferences->config['Plugininformationen']['stand']);
+    
+    $html = '<a class="icon-text-link" href="https://www.admidio.org/dokuwiki/doku.php?id=de:plugins:mitgliedsbeitrag#mitgliedsbeitrag" target="_blank">
+    <i class="fas fa-external-link-square-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
+    
+    $formPluginInformations->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION'), $html, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC'));
+    
+    $page->addHtml(getMenuePanel('options', 'plugin_informations', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'fas fa-info', $formPluginInformations->show()));
+    
     $page->addHtml(closeMenueTab());
 
     $page->addHtml('</div>');               //end div class="tab-content"

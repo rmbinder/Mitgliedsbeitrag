@@ -935,20 +935,6 @@ $formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEIT
 
 $page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'fas fa-trash-alt', $formDeinstallation->show()));
 
-//PANEL: PLUGIN_INFORMATION                     
-
-$formPluginInformations = new HtmlForm('plugin_informations_form', null, $page);
-$formPluginInformations->addStaticControl('plg_name', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_NAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
-$formPluginInformations->addStaticControl('plg_version', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION'), $pPreferences->config['Plugininformationen']['version']);
-$formPluginInformations->addStaticControl('plg_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_DATE'), $pPreferences->config['Plugininformationen']['stand']);
-
-$html = '<a class="icon-text-link" href="https://www.admidio.org/dokuwiki/doku.php?id=de:plugins:mitgliedsbeitrag#mitgliedsbeitrag" target="_blank">
-    <i class="fas fa-external-link-square-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
-
-$formPluginInformations->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION'), $html, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC'));
-  
-$page->addHtml(getMenuePanel('preferences', 'plugin_informations', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'fas fa-info', $formPluginInformations->show()));
-                        
 $page->addHtml('
         </div>
     </div>
