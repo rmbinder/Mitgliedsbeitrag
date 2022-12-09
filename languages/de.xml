@@ -167,7 +167,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC">Hier ist eine Bezeichnung für diese Konfiguration eines Individualbeitrages anzugeben.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION">Dokumentation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN">Dokumentation öffnen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC">Hiermit kann die Dokumentation zum Plugin geöffnet werden (Eine bestehende Internetverbindung wird vorausgesetzt, da sich die Daten auf admidio.org befinden).</string>
     <string name="PLG_MITGLIEDSBEITRAG_DTA_EXPORT">DTA</string>
     <string name="PLG_MITGLIEDSBEITRAG_DTA_EXPORT_INFO">DTA Export exportiert Daten, die sich derzeit in der Datenbank befinden. Falls neue Mitglieder existieren und noch keine Neuberechnung (Neuzuordnung) durchgeführt wurde ist die Datenbank unter Umständen nicht auf aktuellem Stand.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUE">Fällig</string>

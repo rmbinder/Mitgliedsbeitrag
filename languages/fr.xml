@@ -167,7 +167,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_DESCRIPTION_DESC">Entrez un nom pour cette configuration d'une contribution individuelle.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION">Documentation</string>
     <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN">Ouvrir la documentation</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN_DESC">Cela ouvre la documentation pour le plug-in (une connexion Internet existante est nécessaire, car les données se trouvent sur admidio.org).</string>
     <string name="PLG_MITGLIEDSBEITRAG_DTA_EXPORT">DTA</string>
     <string name="PLG_MITGLIEDSBEITRAG_DTA_EXPORT_INFO">DTA Export exporte les données qui se trouvent actuellement dans la base de données. Si de nouveaux membres existent et qu\'aucun recalcul (réattribution) n\'a été effectué, la base de données peut ne pas être à jour.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DUE">Échéant</string>
