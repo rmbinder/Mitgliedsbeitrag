@@ -41,7 +41,7 @@ $role = new TableRoles($gDb);
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE');
 
-$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'familyrolesupdate')));
+$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('show_option' => 'familyrolesupdate')));
 $gNavigation->addUrl(CURRENT_URL);
 
 if ($getMode == 'preview')     //Default

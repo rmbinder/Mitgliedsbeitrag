@@ -53,7 +53,7 @@ $getChecked     = admFuncVariableIsValid($_GET, 'checked', 'string');
 $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array('defaultValue' => 0));
 
 // write role selection in session
-if (strpos($gNavigation->getUrl(), 'mitgliedsbeitrag.php') !== false)
+if (strpos($gNavigation->getUrl(), 'membership_fee.php') !== false)
 {
     $_SESSION['pMembershipFee']['checkedArray'] = array();
     $_SESSION['pMembershipFee']['selectAll'] = true;
@@ -265,7 +265,7 @@ else
         // add current url to navigation stack if last url was not the same page
         if (strpos($gNavigation->getUrl(), 'payments.php') === false)
         {
-            $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'payments')));
+            $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('show_option' => 'payments')));
             $gNavigation->addUrl(CURRENT_URL);
         }
 

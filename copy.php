@@ -78,7 +78,7 @@ else
     // add current url to navigation stack if last url was not the same page
     if(strpos($gNavigation->getUrl(), 'copy.php') === false)
     {
-        $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'copy')));
+        $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('show_option' => 'copy')));
         $gNavigation->addUrl(CURRENT_URL);
     }
     

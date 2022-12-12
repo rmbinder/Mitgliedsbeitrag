@@ -51,7 +51,7 @@ $getMembersShow  = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', a
 $getSequenceType = admFuncVariableIsValid($_GET, 'sequencetype', 'string');
 
 // write role selection in session
-if (strpos($gNavigation->getUrl(), 'mitgliedsbeitrag.php') !== false)
+if (strpos($gNavigation->getUrl(), 'membership_fee.php') !== false)
 {
 	if (isset($_POST['duedates_roleselection']) )
 	{
@@ -190,7 +190,7 @@ else
     // add current url to navigation stack if last url was not the same page
     if (strpos($gNavigation->getUrl(), 'duedates.php') === false)
     {
-        $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'sepa')));
+        $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('show_option' => 'sepa')));
         $gNavigation->addUrl(CURRENT_URL);
     }
 

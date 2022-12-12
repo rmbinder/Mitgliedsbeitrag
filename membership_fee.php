@@ -1,7 +1,7 @@
 <?php
 /**
  ***********************************************************************************************
- * Mitgliedsbeitrag
+ * Mitgliedsbeitrag / Membership fee
  *
  * Version 5.1.5
  *
@@ -135,7 +135,7 @@ $selectBoxEntriesAlleRollen = 'SELECT rol_id, rol_name, cat_name
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
-$gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', $headline);
+$gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', $headline);
 
 // create html page object
 $page = new HtmlPage('plg-mitgliedsbeitrag-main', $headline);

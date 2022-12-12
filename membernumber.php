@@ -44,7 +44,7 @@ $pPreferences->read();
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER');
 
-$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mitgliedsbeitrag.php', array('show_option' => 'producemembernumber')));
+$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('show_option' => 'producemembernumber')));
 $gNavigation->addUrl(CURRENT_URL);
 
 if ($getMode == 'preview')     //Default
