@@ -712,7 +712,7 @@ if(count($rols) > 0)
     {
         $docfile = 'documentation-de.pdf';
     }
-    $html = '<a class="icon-text-link" href="'.$docfile.'" target="_blank"><i class="fas fa-file-pdf"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
+    $html = '<a class="icon-text-link" href="docs/'.$docfile.'" target="_blank"><i class="fas fa-file-pdf"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
     $formPluginInformations->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION'), $html);
     
     $page->addHtml(getMenuePanel('options', 'plugin_informations', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'fas fa-info', $formPluginInformations->show()));
