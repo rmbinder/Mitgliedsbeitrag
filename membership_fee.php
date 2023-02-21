@@ -514,8 +514,8 @@ if(count($rols) > 0)
         $formSepa->addLine();   
         $formSepa->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => 'fa-file', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
-        $formSepa->addLine();
-        $formSepa->addSubmitButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'fa-file', 'class' => 'btn-primary offset-sm-3'));
+        $formSepa->addLine();       
+        $formSepa->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'fa-file', 'link' => 'pre_notification.php', 'class' => 'btn-primary offset-sm-3'));       
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
     }
     

@@ -28,11 +28,6 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-if (isset($_POST['btn_pre_notification']))
-{
-    admRedirect(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER. '/pre_notification.php'));
-}
-
 // Konfiguration einlesen
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
