@@ -11,7 +11,7 @@
  *
  * Compatible with Admidio version 4.1.1
  *
- * @copyright 2004-2023 The Admidio Team
+ * @copyright 2004-2022 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  ***********************************************************************************************
@@ -183,33 +183,18 @@ if (isUserAuthorizedForPreferences())
 	    ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php',  'fa-cog');
 }
 
-//show Static Display in Header
-$formStaticDisplay = new HtmlForm('navbar_static_display', '', $page, array('type' => 'navbar', 'setFocus' => false));
-
-$formStaticDisplay->addCustomContent('', '<table class="table table-condensed">
+$page->addHtml('<table class="table table-condensed">
     <tr>
-        <td style="text-align: right;">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL').':</td>
-        <td style="text-align: right;">'.($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gSettingsManager->getString('system_currency').'</td>
-        <td>&#160;&#160;&#160;&#160;</td>
-        <td align = "right">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID').':</td>
-        <td style="text-align: right;">'.($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency').'</td>
-        <td>&#160;&#160;&#160;&#160;</td>
+        <td style="text-align: left;">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL').':</td>
+        <td style="text-align: left;">'.($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gSettingsManager->getString('system_currency').'&#160;&#160;&#160;(#'.($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']).')</td>
+    
+        <td style="text-align: center;">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID').':</td>
+        <td style="text-align: center;">'.($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency').'&#160;&#160;&#160;(#'.($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']).')</td>
+      
         <td style="text-align: right;">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING').':</td>
-        <td style="text-align: right;">'.(($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gSettingsManager->getString('system_currency').'</td>
-    </tr>
-    <tr>
-        <td style="text-align: right;">#</td>
-        <td style="text-align: right;">'.($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']).'</td>
-        <td>&#160;&#160;&#160;&#160;</td>
-        <td style="text-align: right;">#</td>
-        <td style="text-align: right;">'.($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']).'</td>
-        <td>&#160;&#160;&#160;&#160;</td>
-        <td style="text-align: right;">#</td>
-        <td style="text-align: right;">'.(($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])).'</td>
+        <td style="text-align: right;">'.(($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gSettingsManager->getString('system_currency').'&#160;&#160;&#160;(#'.(($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])).')</td>
     </tr>
 </table>');
-
-$page->addHtml($formStaticDisplay->show(false));
 
 if(count($rols) > 0)
 {
