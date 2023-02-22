@@ -262,12 +262,7 @@ else
         // set headline of the script
         $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS');
 
-        // add current url to navigation stack if last url was not the same page
-        if (strpos($gNavigation->getUrl(), 'payments.php') === false)
-        {
-            $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('show_option' => 'payments')));
-            $gNavigation->addUrl(CURRENT_URL);
-        }
+        $gNavigation->addUrl(CURRENT_URL, $headline);
 
         $page = new HtmlPage('plg-mitgliedsbeitrag-payments', $headline);
 

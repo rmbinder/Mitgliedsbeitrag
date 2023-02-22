@@ -34,7 +34,7 @@ if (!isUserAuthorizedForPreferences())
 $getChoice = admFuncVariableIsValid($_GET, 'choice', 'string', array('defaultValue' => ''));
 $getConf   = admFuncVariableIsValid($_GET, 'conf', 'numeric');
 
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
+$headline = $gL10n->get('SYS_SETTINGS');
 
 if ($getChoice == 'agestaggeredroles')
 {

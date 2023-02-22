@@ -233,8 +233,7 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
         }
 		$hoverRows = true;
 
-		$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('show_option' => 'history')));
-		$gNavigation->addUrl(CURRENT_URL);
+		$gNavigation->addUrl(CURRENT_URL, $headline);
 		
 		$page = new HtmlPage('plg-mitgliedsbeitrag-history-html', $headline);
 

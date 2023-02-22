@@ -144,8 +144,8 @@ else
 {
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
 
-    $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php'));
-    $gNavigation->addUrl(CURRENT_URL);
+    //$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php'));
+    $gNavigation->addUrl(CURRENT_URL, $headline);
     
     $page = new HtmlPage('plg-mitgliedsbeitrag-mandate-change', $headline);
   

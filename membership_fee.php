@@ -34,9 +34,6 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-// Initialize and check the parameters
-$showOption = admFuncVariableIsValid($_GET, 'show_option', 'string');
-
 $pPreferences = new ConfigTablePMB();
 $checked = $pPreferences->checkforupdate();
 
@@ -140,41 +137,11 @@ $gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/member
 // create html page object
 $page = new HtmlPage('plg-mitgliedsbeitrag-main', $headline);
 
-if($showOption != '')
-{
-    if(in_array($showOption, array('mandategenerate', 'mandates', 'createmandateid')) == true)
-    {
-        $navOption = 'mandatemanagement';
-    }
-    elseif(in_array($showOption, array('sepa', 'bill')) == true)
-    {
-        $navOption = 'export';
-    }
-    elseif(in_array($showOption, array('producemembernumber', 'copy', 'familyrolesupdate')) == true)
-    {
-        $navOption = 'options';
-    }
-    else
-    {
-        $navOption = 'fees';
-    }
-
-    $page->addJavascript('
-        $("#tabs_nav_'.$navOption.'").attr("class", "nav-link active");
-        $("#tabs-'.$navOption.'").attr("class", "tab-pane fade show active");
-        $("#collapse_'.$showOption.'").attr("class", "collapse show");
-        location.hash = "#" + "panel_'.$showOption.'";',
-        true
-    );       
-}
-else
-{
-    $page->addJavascript('
-        $("#tabs_nav_fees").attr("class", "nav-link active");
-        $("#tabs-fees").attr("class", "tab-pane fade show active");',
-        true
-    );
-}
+$page->addJavascript('
+    $("#tabs_nav_fees").attr("class", "nav-link active");
+    $("#tabs-fees").attr("class", "tab-pane fade show active");',
+    true
+);
 
 if (isUserAuthorizedForPreferences())
 {  

@@ -36,6 +36,7 @@ if ($getMode === 'save')
 
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').' - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CORRECTION');
+$gNavigation->addUrl(CURRENT_URL, $headline);
 
 // create html page object
 $page = new HtmlPage('plg-blsv_export-info', $headline);
