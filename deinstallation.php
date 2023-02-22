@@ -36,8 +36,8 @@ $page = new HtmlPage('plg-mitgliedsbeitrag-deinstallation', $headline);
   
 if ($getMode == 'start')     //Default
 {
-    $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'deinstallation')));
-    $gNavigation->addUrl(CURRENT_URL);
+    //$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/preferences.php', array('choice' => 'deinstallation')));
+    $gNavigation->addUrl(CURRENT_URL, $headline);
     
     $form = new HtmlForm('deinstallation_start_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/deinstallation.php', array('mode' => 'delete')), $page);
 
