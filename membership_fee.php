@@ -468,15 +468,6 @@ if(count($rols) > 0)
         $page->addHtml(getMenuePanel('fees', 'remapping', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES'), 'fas fa-random', $formRemapping->show()));
     }
     
-    // PANEL: DELETE
-
-    $formDelete = new HtmlForm('delete_form', null, $page);
-    
-    $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'fa-trash-alt', 'link' => 'delete.php', 'class' => 'btn-primary offset-sm-3'));
-    $formDelete->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC'));
-        
-    $page->addHtml(getMenuePanel('fees', 'delete', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'fas fa-trash-alt', $formDelete->show()));
-                                                
     // PANEL: RECALCULATION
 
     unset($_SESSION['pMembershipFee']['recalculation_user']);
@@ -1548,6 +1539,14 @@ if(count($rols) > 0)
         $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
         
         $page->addHtml(getMenuePanel('preferences', 'access_preferences', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'fas fa-key', $formAccessPreferences->show()));
+ 
+        // PANEL: DELETE
+        
+        $formDelete = new HtmlForm('delete_form', null, $page);
+        $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'fa-trash-alt', 'link' => 'delete.php', 'class' => 'btn-primary offset-sm-3'));
+        $formDelete->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC'));
+        
+        $page->addHtml(getMenuePanel('preferences', 'delete', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'fas fa-trash-alt', $formDelete->show()));
         
         //PANEL: DEINSTALLATION
         
@@ -1556,15 +1555,10 @@ if(count($rols) > 0)
         $formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
         
         $page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'fas fa-trash-alt', $formDeinstallation->show()));
-        
-        
-        
+            
         $page->addHtml(closeMenueTab());
     }
     
-    
-    
-
     $page->addHtml('</div>');               //end div class="tab-content"
 }
 else
