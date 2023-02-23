@@ -64,6 +64,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC">Sie werden nach dem Löschen und anschließendem Neustart des Plugins wieder mit Standardwerten befüllt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC">Konfigurationsdaten sind die Daten, die über das Menü "Einstellungen" gesetzt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS">Beitragsanalyse</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS_DESC">Hiermit kann eine Analyse der Beitragsdaten angezeigt werden, unterschieden nach Beiträgen, die im Profil eines Mitglieds gespeichert sind und nach Beiträgen, die bei den Beitragsrollen definiert sind.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK">Leerzeichen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_CALCULATION">Beitragsberechnung</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA">Komma</string>
@@ -214,7 +215,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Alle Familien entsprechen den Prüfbedingungen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Familienrollen aktualisieren</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Hier können die Einträge von Beitrag, Beitragszeitraum und Beschreibung von Familienrollen mit den Angaben in den Einstellungen abgeglichen und aktualisiert werden.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Eine Aktualisierung ist nicht möglich, da bei allen Familienrollen die Einträge von Beitrag, Beitragszeitraum und Beschreibung mit den Angaben in den Einstellungen übereinstimmen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Eine Aktualisierung ist nicht notwendig, da bei allen Familienrollen die Einträge von Beitrag, Beitragszeitraum und Beschreibung mit den Angaben in den Einstellungen übereinstimmen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">Die zu aktualisierenden Familienrollen wurden bis jetzt nur identifiziert. Es wurden noch keine Daten gespeichert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Beitrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">neuer Beitrag</string>
@@ -422,6 +423,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK">Alle Mitglieder sind in keiner Ausschluss-Beitragsrolle doppelt vorhanden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_NAME">Rollenname</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Rollenübersicht</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC">Hier gibt es eine Übersicht über alle Beitragsrollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rollenauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Folgende Rollen sind derzeit berechtigt</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Beiträge der Beitragsrollen</string>
@@ -457,6 +459,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TEST">Prüfung</string>
     <string name="PLG_MITGLIEDSBEITRAG_TESTS">Prüfungen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS_DESC">Anzeige diverser Prüfungen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO">Die nachfolgenden Prüfungen können einzeln aktiviert werden. Bei einigen Prüfungen sind eventuell zusätzliche Einstellungen möglich. Alle hier getätigten Einstellungen dienen nur zur Prüfung, sie wirken sich nicht auf die Beitragsberechnung aus.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Gesamtsumme</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternativer Zahlungspflichtiger</string>

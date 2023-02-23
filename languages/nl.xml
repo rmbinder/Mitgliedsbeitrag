@@ -64,6 +64,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC">Na het verwijderen, en vervolgens opnieuw opstarten van de plug-in, worden ze weer gevuld met standaardwaarden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC">Configuratie data zijn de gegevens die worden ingesteld via het menu "Voorkeuren".</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS">Analyse kosten lidmaatschap</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS_DESC">Hiermee kan een analyse van de postgegevens worden weergegeven, waarbij onderscheid wordt gemaakt tussen posts die zijn opgeslagen in het profiel van een lid en posts die zijn gedefinieerd in de postrollen.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK">Spatie</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_CALCULATION">Bepaling van lidmaatschapsgeld</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA">Komma</string>
@@ -214,7 +215,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">Alle gezinnen volgen de testvoorwaarden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Gezinsrollen bijwerken</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Hier kunnen de invoer van premie, premieperiode en beschrijving van gezinsrollen worden vergeleken met de informatie in de instellingen en worden bijgewerkt.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Een update is niet mogelijk, omdat de invoer van contributie, contributieperiode en omschrijving van alle gezinsrollen overeenkomen met de bestaande instellingen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">Een update is niet nodig, omdat de invoer van contributie, contributieperiode en omschrijving van alle gezinsrollen overeenkomen met de bestaande instellingen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">De gezinsrollen die moeten worden bijgewerkt, zijn tot nu toe pas geïdentificeerd. Er zijn nog geen gegevens opgeslagen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Contributie</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">Nieuwe contributie</string>
@@ -422,6 +423,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK">Geen enkel lid bestaat twee keer in een uitgesloten lidmaatschapsrol.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_NAME">Rol naam</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Overzicht van rollen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC">Hier is een overzicht van alle bijdragerollen.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rol selectie</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Momenteel zijn de volgende rollen geautoriseerd.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Contributie voor lidmaatschapsrollen</string>
@@ -457,6 +459,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">Dit hier geselecteerde Lid is het doel van de kopieeractie.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TEST">Test</string>
     <string name="PLG_MITGLIEDSBEITRAG_TESTS">Testen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS_DESC">Weergave van verschillende testen.</string>   
     <string name="PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO">De volgende tests kunnen afzonderlijk worden geactiveerd. Voor sommige tests zijn aanvullende instellingen mogelijk. Alle hier gemaakte instellingen zijn alleen ter controle, ze hebben geen invloed op de berekening.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Totaal som</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternatieve betaler</string>

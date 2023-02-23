@@ -54,10 +54,6 @@ $pPreferences->read();            // (checked == 0) : nur Einlesen der Konfigura
 
 $duedates = array();
 $directdebittype = false;
-$duedatecount = 0;
-$paidcount = 0;
-
-$role = new TableRoles($gDb);
 
 //alle Mitglieder einlesen
 $members = list_members(array('DUEDATE'.$gCurrentOrgId, 'SEQUENCETYPE'.$gCurrentOrgId, 'CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'PAID'.$gCurrentOrgId, 'FEE'.$gCurrentOrgId, 'MANDATEID'.$gCurrentOrgId, 'MANDATEDATE'.$gCurrentOrgId, 'IBAN', 'BIC'), 0);
@@ -100,19 +96,8 @@ foreach ($members as $member => $memberdata)
             $duedates[$memberdata['DUEDATE'.$gCurrentOrgId]]['FRST']++;
         }
     }
-    if (!empty($memberdata['DUEDATE'.$gCurrentOrgId]))
-    {
-    	$duedatecount++;
-    }
-    if (!empty($memberdata['PAID'.$gCurrentOrgId]))
-    {
-        $paidcount++;
-    }
 }
 unset($members);
-
-$beitrag = analyse_mem();
-$sum = 0;
 
 $rols = beitragsrollen_einlesen();
 $sortArray = array();
@@ -210,7 +195,7 @@ foreach ($gProfileFields->getProfileFields() as $field)
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
-$gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', $headline);
+$gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', $headline, 'fa-euro-sign');
 
 // create html page object
 $page = new HtmlPage('plg-membership-fee-main', $headline);
@@ -407,6 +392,7 @@ $javascriptCode = '$(document).ready(function() { ';
     
 $page->addJavascript($javascriptCode);
 
+$beitrag = analyse_mem();
 $page->addHtml('<table class="table table-condensed">
     <tr>
         <td style="text-align: left;">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL').':</td>
@@ -509,117 +495,18 @@ if(count($rols) > 0)
                             
     // PANEL: ANALYSIS 
     
-    $page->addHtml(getMenuePanelHeaderOnly('fees', 'analysis', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), 'fas fa-stream'));
-            
-    $page->addHtml(openGroupBox('members_contribution', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION')));
+    $formAnalysis = new HtmlForm('analysis_form', null, $page);
     
-        $datatable = false;
-        $hoverRows = true;
-        $classTable  = 'table table-condensed';
-        $table = new HtmlTable('table_members_contribution', $page, $hoverRows, $datatable, $classTable);
-        
-        $columnAttributes['style'] = 'text-align: left';
-        $table->addColumn('', $columnAttributes, 'th');
-        
-        $columnAttributes['colspan'] = 2;
-        $columnAttributes['style'] = 'text-align: right';
-        $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_ACCOUNT_DATA'), $columnAttributes, 'th');
-        $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_ACCOUNT_DATA'), $columnAttributes, 'th');
-        $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'), $columnAttributes, 'th');
-        
-        $columnAlign  = array('left', 'right', 'right', 'right', 'right', 'right', 'right');
-        $table->setColumnAlignByArray($columnAlign);
-        
-        $columnValues = array();
-        $columnValues[] = '';
-        $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
-        $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
-        $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
-        $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
-        $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
-        $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
-        $table->addRowByArray($columnValues);
-        
-        $columnValues = array();
-        $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUES');
-        $columnValues[] = $beitrag['BEITRAG_kto'].' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = $beitrag['BEITRAG_kto_anzahl'];
-        $columnValues[] = $beitrag['BEITRAG_rech'].' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = $beitrag['BEITRAG_rech_anzahl'];
-        $columnValues[] = ($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech']).' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']);
-        $table->addRowByArray($columnValues);
-        
-        $columnValues = array();
-        $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID');
-        $columnValues[] = $beitrag['BEZAHLT_kto'].' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = $beitrag['BEZAHLT_kto_anzahl'];
-        $columnValues[] = $beitrag['BEZAHLT_rech'].' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = $beitrag['BEZAHLT_rech_anzahl'];
-        $columnValues[] = ($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']);
-        $table->addRowByArray($columnValues);
-        
-        $columnValues = array();
-        $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING');
-        $columnValues[] = ($beitrag['BEITRAG_kto']-$beitrag['BEZAHLT_kto']).' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']-$beitrag['BEZAHLT_kto_anzahl']);
-        $columnValues[] = ($beitrag['BEITRAG_rech']-$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = ($beitrag['BEITRAG_rech_anzahl']-$beitrag['BEZAHLT_rech_anzahl']);
-        $columnValues[] = (($beitrag['BEITRAG_kto']+$beitrag['BEITRAG_rech'])-($beitrag['BEZAHLT_kto']+$beitrag['BEZAHLT_rech'])).' '.$gSettingsManager->getString('system_currency');
-        $columnValues[] = (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']));
-        $table->addRowByArray($columnValues);
-        
-        $table->setDatatablesRowsPerPage(10);
-        $page->addHtml($table->show(false));
-        $page->addHtml('<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC'));
-        
-    $page->addHtml(closeGroupBox());
+    $formAnalysis->addButton('btn_analysis', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), array('icon' => 'fa-stream', 'link' => 'analysis.php', 'class' => 'btn-primary offset-sm-3'));
+    $formAnalysis->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS_DESC'));
     
-    $page->addHtml(openGroupBox('roles_contribution', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION')));
-        
-        $datatable = true;
-        $hoverRows = true;
-        $classTable  = 'table table-condensed';
-        $table = new HtmlTable('table_roles_contribution', $page, $hoverRows, $datatable, $classTable);
-        
-        $columnAlign  = array('left', 'right', 'right', 'right', 'right');
-        $table->setColumnAlignByArray($columnAlign);
-        
-        $columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), 'dummy', $gL10n->get('SYS_CONTRIBUTION'), $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'));
-        $table->addRowHeadingByArray($columnValues);
-        
-        $rollen = analyse_rol();
-        foreach ($rollen as $rol => $roldata)
-        {
-            $columnValues = array();
-            $columnValues[] = $roldata['rolle'];
-            $columnValues[] = expand_rollentyp($roldata['rollentyp']);
-            $columnValues[] = $roldata['rol_cost'].' '.$gSettingsManager->getString('system_currency');
-            $columnValues[] = count($roldata['members']);
-            $columnValues[] = ($roldata['rol_cost']*count($roldata['members'])).' '.$gSettingsManager->getString('system_currency');
-        
-            $sum += ($roldata['rol_cost']*count($roldata['members']));
-            $table->addRowByArray($columnValues);
-        }
-        
-        $columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL'), '', '', '', $sum.' '.$gSettingsManager->getString('system_currency'));
-        $table->addRowByArray($columnValues);
-        $table->setDatatablesGroupColumn(2);
-        $table->setDatatablesRowsPerPage(10);
-        
-        $page->addHtml($table->show(false));
-        $page->addHtml('<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC'));
-    
-    $page->addHtml(closeGroupBox());
-    
-    $page->addHtml(getMenuePanelFooterOnly());
-                        
+    $page->addHtml(getMenuePanel('fees', 'analysis', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), 'fas fa-stream', $formAnalysis->show()));       
+                         
     // PANEL: HISTORY
     
-    $formHistory = new HtmlForm('history_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', $page);
+    $formHistory = new HtmlForm('history_form', null, $page);
     
-    $formHistory->addSubmitButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => 'fa-history',  'class' => 'offset-sm-3'));
+    $formHistory->addSubmitButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => 'fa-history', 'link' => 'history.php',  'class' => 'btn-primary offset-sm-3'));
     $formHistory->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC'));
                                 
     $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY'), 'fas fa-history', $formHistory->show()));                               
@@ -667,6 +554,7 @@ if(count($rols) > 0)
     $page->addHtml($formDuedates->show(false));
     
     $formSepa = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/sepa_export.php', $page);
+    
     if (!$directdebittype)
     {
         $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST').'</div>';
@@ -781,137 +669,42 @@ if(count($rols) > 0)
     
     unset($_SESSION['pMembershipFee']['familyroles_update']);
     
-    $formFamilyrolesUpdate = new HtmlForm('familyrolesupdate_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/familyroles_update.php', $page);
+    $formFamilyrolesUpdate = new HtmlForm('familyrolesupdate_form', null, $page);
     
-    $formFamilyrolesUpdate->addSubmitButton('btn_familyrolesupdate', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), array('icon' => 'fa-sync',  'class' => 'offset-sm-3'));
+    $formFamilyrolesUpdate->addButton('btn_familyrolesupdate', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), array('icon' => 'fa-sync', 'link' => 'familyroles_update.php', 'class' => 'btn-primary offset-sm-3'));
     $formFamilyrolesUpdate->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC'));
     
     $page->addHtml(getMenuePanel('options', 'familyrolesupdate', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), 'fas fa-sync', $formFamilyrolesUpdate->show()));  
                             
     // PANEL: COPY
 
-    $formCopy = new HtmlForm('copy_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', $page);
+    $formCopy = new HtmlForm('copy_form', null, $page);
     
-    $formCopy->addSubmitButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => 'fa-clone',  'class' => 'offset-sm-3'));
+    $formCopy->addButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => 'fa-clone', 'link' => 'copy.php',  'class' => 'btn-primary offset-sm-3'));
     $formCopy->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_DESC'));
     
     $page->addHtml(getMenuePanel('options', 'copy', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), 'fas fa-clone', $formCopy->show()));  
                             
     // PANEL: TESTS
 
-    //Panel Tests nur anzeigen, wenn mindesteste ein Einzeltest aktiviert ist
+    //Panel Tests nur anzeigen, wenn mindestens ein Einzeltest aktiviert ist
     if (in_array(1, $pPreferences->config['tests_enable']))
     {
         $formTests = new HtmlForm('tests_form', null, $page);
+        $formTests->addButton('btn_tests', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), array('icon' => 'fa-user-md', 'link' => 'tests.php', 'class' => 'btn-primary offset-sm-3'));
+        $formTests->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS_DESC'));
         
-        if ($pPreferences->config['tests_enable']['age_staggered_roles'])
-        {
-            $formTests->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_rols()));
-            $formTests->closeGroupBox();
-        }
-        
-        // Pruefung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
-        if ($pPreferences->config['tests_enable']['role_membership_age_staggered_roles'] && count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1)
-        {
-            $formTests->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_altersrolle()));
-            $formTests->closeGroupBox();
-        }
-        
-        if ($pPreferences->config['tests_enable']['role_membership_duty_and_exclusion'])
-        {
-            $formTests->openGroupBox('role_membership_duty', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_pflicht()));
-            $formTests->closeGroupBox();
-            
-            $formTests->openGroupBox('role_membership_exclusion', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_ausschluss()));
-            $formTests->closeGroupBox();
-        }
-        
-        if ($pPreferences->config['tests_enable']['family_roles'])
-        {
-            $formTests->openGroupBox('family_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_family_roles()));
-            $formTests->closeGroupBox();
-        }
-        
-        if ($pPreferences->config['tests_enable']['account_details'])
-        {
-            $formTests->openGroupBox('account_details', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_account_details()));
-            $formTests->closeGroupBox();
-        }
-        
-        if ($pPreferences->config['tests_enable']['mandate_management'])
-        {
-            $formTests->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_mandate_management()));
-            $formTests->closeGroupBox();
-        }
-        
-        if ($pPreferences->config['tests_enable']['iban_check'])
-        {
-            $formTests->openGroupBox('iban_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_iban()));
-            $formTests->closeGroupBox();
-        }
-        
-        if ($pPreferences->config['tests_enable']['bic_check'])
-        {
-            $formTests->openGroupBox('bic_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK'));
-            $formTests->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_DESC').'</strong>');
-            $formTests->addDescription(showTestResultWithScrollbar(check_bic()));
-            $formTests->closeGroupBox();
-        }
-        
-        //seltsamerweise wird in diesem Abschnitt nichts angezeigt wenn diese Anweisung fehlt
-        $formTests->addStaticControl('', '', '');
-        
-        $page->addHtml(getMenuePanel('options', 'tests', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'fas fa-user-md', $formTests->show()));  
+        $page->addHtml(getMenuePanel('options', 'tests', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'fas fa-user-md', $formTests->show()));
     }
-           
+       
     // PANEL: ROLEOVERVIEW
 
-    $page->addHtml(getMenuePanelHeaderOnly('options', 'roleoverview', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), 'fas fa-info'));
-     
-    $datatable = true;
-    $hoverRows = true;
-    $classTable  = 'table table-condensed';
-    $table = new HtmlTable('table_role_overview', $page, $hoverRows, $datatable, $classTable);
+    $formRoleOverview = new HtmlForm('roleoverview_form', null, $page);
+    $formRoleOverview->addButton('btn_roleoverview', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), array('icon' => 'fa-info', 'link' => 'roleoverview.php', 'class' => 'btn-primary offset-sm-3'));
+    $formRoleOverview->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC'));
     
-    $columnAlign  = array('left', 'right', 'right');
-    $table->setColumnAlignByArray($columnAlign);
-    
-    $columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'), 'dummy', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT'));
-    $table->addRowHeadingByArray($columnValues);
-    
-    $rollen = beitragsrollen_einlesen('', array('LAST_NAME'));
-    foreach ($rollen as $rol_id => $data)
-    {
-        $role->readDataById($rol_id);
-    
-        $columnValues = array();
-        $columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rolle']. '</a>';
-        $columnValues[] = expand_rollentyp($data['rollentyp']);
-        $columnValues[] = count($data['members']);
-        $table->addRowByArray($columnValues);
-    }
-    $table->setDatatablesGroupColumn(2);
-    $table->setDatatablesRowsPerPage(10);
-    
-    $page->addHtml($table->show(false));
-    $page->addHtml(getMenuePanelFooterOnly());
-                                
+    $page->addHtml(getMenuePanel('options', 'roleoverview', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), 'fas fa-info', $formRoleOverview->show()));
+                          
     //PANEL: PLUGIN_INFORMATION
 
     $formPluginInformations = new HtmlForm('plugin_informations_form', null, $page);
@@ -977,7 +770,8 @@ if(count($rols) > 0)
             if($num_agestaggeredroles != 1)
             {
                 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'agestaggeredroles', 'conf' => $conf)).'">
-            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
+                            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
+                        </a>';
                 $formAgeStaggeredRoles->addCustomContent('', $html);
             }
             $formAgeStaggeredRoles->closeGroupBox();
@@ -985,7 +779,8 @@ if(count($rols) > 0)
         $formAgeStaggeredRoles->addDescription('</div>');
         
         $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'agestaggeredroles', 'conf' => -1)).'">
-    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
+                    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
+                </a>';
         $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
         $formAgeStaggeredRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
         $formAgeStaggeredRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
@@ -1009,14 +804,16 @@ if(count($rols) > 0)
             if($num_familyroles != 1)
             {
                 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'familyroles', 'conf' => $conf)).'">
-            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
+                            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
+                        </a>';
                 $formFamilyRoles->addCustomContent('', $html);
             }
             $formFamilyRoles->closeGroupBox();
         }
         $formFamilyRoles->addDescription('</div>');
         $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'familyroles', 'conf' => -1)).'">
-    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
+                    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
+                 </a>';
         $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
         $formFamilyRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
         $formFamilyRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
@@ -1087,11 +884,11 @@ if(count($rols) > 0)
             $formIndividualContributionsSetup->addInput('individual_contributions_short_desc'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION'), $pPreferences->config['individual_contributions']['short_desc'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SHORT_DESCRIPTION_DESC'));
             
             $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
-              FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
-             WHERE cat.cat_id = rol.rol_cat_id
-               AND ( cat.cat_org_id = '.$gCurrentOrgId.'
-                OR cat.cat_org_id IS NULL )
-          ORDER BY cat.cat_name DESC';
+                      FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
+                     WHERE cat.cat_id = rol.rol_cat_id
+                       AND ( cat.cat_org_id = '.$gCurrentOrgId.'
+                        OR cat.cat_org_id IS NULL )
+                  ORDER BY cat.cat_name DESC';
             $formIndividualContributionsSetup->addSelectBoxFromSql('individual_contributions_role'.$conf,  $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), $gDb, $sql, array('defaultValue' => $pPreferences->config['individual_contributions']['role'][$conf],  'multiselect' => false, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_ROLE_DESC'));
             
             $formIndividualContributionsSetup->addInput('individual_contributions_amount'.$conf, $gL10n->get('PLG_MITGLIEDSBEITRAG_AMOUNT'), $pPreferences->config['individual_contributions']['amount'][$conf], array('helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_AMOUNT_DESC'));
@@ -1111,14 +908,16 @@ if(count($rols) > 0)
             if($num_individualcontributions != 1)
             {
                 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'individualcontributions', 'conf' => $conf)).'">
-        <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'</a>';
+                            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
+                        </a>';
                 $formIndividualContributionsSetup->addCustomContent('', $html);
             }
             $formIndividualContributionsSetup->closeGroupBox();
         }
         $formIndividualContributionsSetup->addDescription('</div>');
         $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'individualcontributions', 'conf' => -1)).'">
-    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'</a>';
+                    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
+                </a>';
         $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
         $formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
         $formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
@@ -1137,14 +936,16 @@ if(count($rols) > 0)
         {
             $formAccountData->addInput('creditor', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR'), $pPreferences->config['Kontodaten']['inhaber'], array('property' => HtmlForm::FIELD_REQUIRED));
             $html = '<a class="iconLink" id="creditorschieben" href="javascript:creditorschieben()">
-        <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'"></i></a>';
+                        <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'"></i>
+                    </a>';
             
             $formAccountData->addCustomContent('', $html);
             $formAccountData->addInput('origcreditor', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR'), $pPreferences->config['Kontodaten']['origcreditor']);
             
             $formAccountData->addInput('ci', $gL10n->get('PLG_MITGLIEDSBEITRAG_CI'), $pPreferences->config['Kontodaten']['ci'], array('property' => HtmlForm::FIELD_REQUIRED));
             $html = '<a class="iconLink" id="cischieben" href="javascript:cischieben()">
-       <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'"></i></a>';
+                        <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'"></i>
+                    </a>';
             $formAccountData->addCustomContent('', $html);
             $formAccountData->addInput('origci', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $pPreferences->config['Kontodaten']['origci']);
             $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO').'</div>';
@@ -1223,24 +1024,23 @@ if(count($rols) > 0)
             $formColumnSet->openGroupBox('configurations_group', $gL10n->get($groupHeader));
             
             $html = '
-	<div class="table-responsive">
-		<table class="table table-condensed" id="mylist_fields_table">
-			<thead>
-				<tr>
-					<th style="width: 20%;">'.$gL10n->get('SYS_ABR_NO').'</th>
-					<th style="width: 37%;">'.$gL10n->get('SYS_CONTENT').'</th>
-				</tr>
-			</thead>
-			<tbody id="mylist_fields_tbody'.$conf.'">
-				<tr id="table_row_button">
-					<td colspan="2">
-			    
-					    <a class="icon-text-link" href="javascript:addColumn'.$conf.'()"><i class="fas fa-plus-circle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'</a>
-                    </td>
-				</tr>
-			</tbody>
-		</table>
-	</div>';
+	           <div class="table-responsive">
+		          <table class="table table-condensed" id="mylist_fields_table">
+			         <thead>
+				            <tr>
+					           <th style="width: 20%;">'.$gL10n->get('SYS_ABR_NO').'</th>
+					           <th style="width: 37%;">'.$gL10n->get('SYS_CONTENT').'</th>
+				            </tr>
+			         </thead>
+			         <tbody id="mylist_fields_tbody'.$conf.'">
+				            <tr id="table_row_button">
+					           <td colspan="2">
+					               <a class="icon-text-link" href="javascript:addColumn'.$conf.'()"><i class="fas fa-plus-circle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'</a>
+                                </td>
+				            </tr>
+			         </tbody>
+		          </table>
+	           </div>';
             $formColumnSet->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_COLUMN_SELECTION'), $html);
             $formColumnSet->closeGroupBox();
         }
@@ -1279,27 +1079,27 @@ if(count($rols) > 0)
         
         $formEmailNotifications->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'),
             '<p>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS_DESC').':</p><p>
-    <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
-    <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
-    <strong>#street#</strong> - '.$gL10n->get('SYS_STREET').'<br />
-    <strong>#postcode#</strong> - '.$gL10n->get('SYS_POSTCODE').'<br />
-    <strong>#city#</strong> - '.$gL10n->get('SYS_CITY').'<br />
-    <strong>#email#</strong> - '.$gL10n->get('SYS_EMAIL').'<br />
-    <strong>#phone#</strong> - '.$gL10n->get('SYS_PHONE').'<br />
-    <strong>#mobile#</strong> - '.$gL10n->get('SYS_MOBILE').'<br />
-    <strong>#birthday#</strong> - '.$gL10n->get('SYS_BIRTHDAY').'<br />
-    <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
-    <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
-    <strong>#due_day#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY').'<br />
-    <strong>#mandate_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID').'<br />
-    <strong>#mandate_date#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').'<br />
-    <strong>#creditor_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID').'<br />
-    <strong>#iban#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN').'<br />
-	<strong>#iban_obfuscated#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED').'<br />
-    <strong>#bic#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BIC').'<br />
-    <strong>#bank#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BANK').'<br />
-    <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
-    <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
+            <strong>#user_first_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FIRST_NAME').'<br />
+            <strong>#user_last_name#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_LAST_NAME').'<br />
+            <strong>#street#</strong> - '.$gL10n->get('SYS_STREET').'<br />
+            <strong>#postcode#</strong> - '.$gL10n->get('SYS_POSTCODE').'<br />
+            <strong>#city#</strong> - '.$gL10n->get('SYS_CITY').'<br />
+            <strong>#email#</strong> - '.$gL10n->get('SYS_EMAIL').'<br />
+            <strong>#phone#</strong> - '.$gL10n->get('SYS_PHONE').'<br />
+            <strong>#mobile#</strong> - '.$gL10n->get('SYS_MOBILE').'<br />
+            <strong>#birthday#</strong> - '.$gL10n->get('SYS_BIRTHDAY').'<br />
+            <strong>#organization_long_name#</strong> - '.$gL10n->get('ORG_VARIABLE_NAME_ORGANIZATION').'<br />
+            <strong>#fee#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_FEE').'<br />
+            <strong>#due_day#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DUE_DAY').'<br />
+            <strong>#mandate_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MANDATE_ID').'<br />
+            <strong>#mandate_date#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE').'<br />
+            <strong>#creditor_id#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_CREDITOR_ID').'<br />
+            <strong>#iban#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_IBAN').'<br />
+	       <strong>#iban_obfuscated#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN_OBFUSCATED').'<br />
+            <strong>#bic#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BIC').'<br />
+            <strong>#bank#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_BANK').'<br />
+            <strong>#debtor#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_DEBTOR').'<br />
+            <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'</p>');
         
         $text = new TableText($gDb);
         $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
@@ -1530,11 +1330,11 @@ if(count($rols) > 0)
         $formAccessPreferences = new HtmlForm('access_preferences_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee_function.php', array('form' => 'access_preferences')), $page, array('class' => 'form-preferences'));
         
         $sql = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
-          FROM '.TBL_CATEGORIES.' AS cat, '.TBL_ROLES.' AS rol
-         WHERE cat.cat_id = rol.rol_cat_id
-           AND ( cat.cat_org_id = '.$gCurrentOrgId.'
-            OR cat.cat_org_id IS NULL )
-      ORDER BY cat_sequence, rol.rol_name ASC';
+                  FROM '.TBL_CATEGORIES.' AS cat, '.TBL_ROLES.' AS rol
+                 WHERE cat.cat_id = rol.rol_cat_id
+                   AND ( cat.cat_org_id = '.$gCurrentOrgId.'
+                    OR cat.cat_org_id IS NULL )
+              ORDER BY cat_sequence, rol.rol_name ASC';
         $formAccessPreferences->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true));
         $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
         
@@ -1550,7 +1350,7 @@ if(count($rols) > 0)
         
         //PANEL: DEINSTALLATION
         
-        $formDeinstallation = new HtmlForm('deinstallation_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee_function.php', array('form' => 'deinstallation')), $page, array('class' => 'form-preferences'));
+        $formDeinstallation = new HtmlForm('deinstallation_form', null, $page);
         $formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
         $formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
         

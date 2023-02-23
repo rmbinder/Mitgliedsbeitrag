@@ -64,6 +64,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC">They are refilled after the plugin Delete and then restart with default values.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC">Configuration data is the data that are set via the "Preferences" menu.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS">Membership fee analysis</string>
+    <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS_DESC">With this, an analysis of the contribution data can be displayed, differentiated between contribution that are stored in a member's profile and contributions that are defined in the contribution roles.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_BLANK">Space</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_CALCULATION">Determination of membership fees</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTION_COMMA">Comma</string>
@@ -214,7 +215,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK">All families follow the test conditions.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE">Update family roles</string>    
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC">Here the entries of contribution, contribution period and description of family roles can be compared with the information in the settings and updated.</string>    
-    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">An update is not possible, as the entries of contribution, contribution period and description of all family roles match the settings in the setup.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN">An update is not necessary, as the entries of contribution, contribution period and description of all family roles match the settings in the setup.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW">The family roles to be updated have only been identified so far. No data has been saved yet.</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE">Membership fee</string>
     <string name="PLG_MITGLIEDSBEITRAG_FEE_NEW">new membership fee</string>
@@ -422,6 +423,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK">No member exists twice in any excluded membership role.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_NAME">Role name</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW">Overview of roles</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC">Here is an overview of all contribution roles.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Role selection</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Currently, the following roles are authorised.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Fees of membership roles</string>
@@ -457,6 +459,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_TARGET_DESC">This selected here Member is the target of the copy action.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TEST">Test</string>
     <string name="PLG_MITGLIEDSBEITRAG_TESTS">Tests</string>
+    <string name="PLG_MITGLIEDSBEITRAG_TESTS_DESC">Display of various tests.</string>  
     <string name="PLG_MITGLIEDSBEITRAG_TESTS_SETUP_INFO">The following tests can be activated individually. Additional settings may be possible for some tests. All settings made here are only for checking, they do not affect the calculation.</string>
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Total sum</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternative payer</string>
