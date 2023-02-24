@@ -199,6 +199,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED">In den Feldern wurde nichts geändert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING">Die IBAN wurde bei derselben Bank geändert. Das Feld Ursprüngliche IBAN muss deshalb befüllt sein.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">Die Mandatsreferenz wurde geändert. Das Feld Ursprüngliche Mandatsreferenz muss befüllt sein.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC">Den hier ausgewählten Termine kann anschließend über das Modul "Erweiterte Rollenbearbeitung" ein Beitrag und ein Beitragszeitraum zugewiesen werden.</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">In Admidio kann für einen Termin standardmäßig kein Beitrag und kein Beitragszeitraum vergeben werden. Über die "Terminauswahl" wird den ausgewählten Terminen ein Beitrag von 0 € und eine Beitragszeitraum von "Einmalig" zugewiesen. Dadurch werden sie vom Plugin als Beitragsrolle erkannt und können weiter bearbeitet werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export und Filter</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Es sind keine Daten zum Exportieren ausgewählt.</string>
@@ -494,8 +496,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML-Dateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Jahre</string>
+  	<string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION">Terminauswahl</string>
 	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Die neuen Mitgliedsnummern wurden gespeichert.</string>
-	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string> 
+	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string>    
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Beitritt</string>
     <string name="PMB_ACCOUNT_DATA">Kontodaten</string>
