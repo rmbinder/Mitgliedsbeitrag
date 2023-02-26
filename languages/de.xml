@@ -104,7 +104,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW">neuer Beitragstext</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS">bisheriger Beitragstext</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Kontrolldatei</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Erstellt eine Kontrolldatei (.XLSX oder .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Kontrolldateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"Kontroll-Datei" wird zu "Kontroll-Datei-2013-04-01-RCUR.csv"</string> 
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE">Kontrolldateityp</string>       
@@ -113,6 +112,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Wähle zuerst eine Quelle und ein Ziel des Kopiervorgangs aus. Danach bestimmst Du über "Auswahl" welches Profilfeld von "Quelle" zu "Ziel" kopiert wird. Der Kopiervorgang erfolgt automatisch mit Setzen des Hakens der Ziel-Auswahl.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CORRECTION">Korrektur</string>
+ 	<string name="PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE">Exportdatei erstellen</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Mandatsreferenzen erzeugen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">Standardmäßig werden Mandatsreferenzen für Mitglieder erzeugt,\n  - falls sie noch keine besitzen\n  - und für die eine IBAN hinterlegt ist.\n\n Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">FEHLER: keine laufende Nummer gefunden!</string>
@@ -490,7 +490,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC">'Ohne Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen kein Bezahlt-Datum vorhanden ist.</string>
     <string name="PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION">Fehlerhafte Individualkonfiguraton\n\nBei mindestens einer Konfiguration sind falsche Angaben vorhanden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">XML-Datei</string>
-    <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_DESC">Erstellt eine XML-Datei.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML-Dateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Jahre</string>

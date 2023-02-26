@@ -104,7 +104,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW">new membership fee text</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS">previous membership fee text</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Control file</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Creates a control file (.XLSX or .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Control file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\nControl file name: &quot;Kontroll-Datei&quot; becomes &quot;Kontroll-Datei-2013-04-01-RCUR.csv&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE">Control file type</string>    
@@ -113,6 +112,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">This profile data of a member can be copied to another Member.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">First pick from a source and then a destination copying. Then you determine about "choice" which profile field of "source" to "target" is copied. The copying process is done automatically by setting the hook of the target range.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CORRECTION">Correction</string>
+ 	<string name="PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE">Create export file</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Create mandate references</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">By default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">ERROR: no consecutive number found!</string>
@@ -490,7 +490,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC">'Without paid-date' deletes only the contributions (including contributions text and paid-date) for which no paid-date is available.</string>
     <string name="PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION">Incorrect individual configuration\n\nWrong information is available in at least one configuration.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">XML file</string>
-    <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_DESC">Creates an XML file.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML file name</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\XML file name: &quot;SEPA-Datei&quot; becomes &quot;SEPA-Datei-2013-04-01-RCUR.xml&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Years</string>

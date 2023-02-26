@@ -104,7 +104,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW">Nieuwe contributie tekst</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS">Vorige contributie tekst</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE">Controle gegevens</string>
-    <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC">Maakt een controlebestand aan (.XLSX of .CSV).</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME">Controle bestandsnaam</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME_DESC">Bestandsnamen moeten zonder achtervoegsel worden ingevoerd.\n\nVoorbeeld:\nBesturingsbestandsnaam: &quot;Controledata&quot; wordt &quot;Controledata-2023-01-03-RCUR.csv&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_CONTROL_FILE_TYPE">Controlebestand type</string>    
@@ -113,6 +112,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Deze profielgegevens van een lid kunnen worden gekopieerd naar een ander lid.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Kies eerst uit een bron en een bestemming uit voor het kopiëren. Vervolgens bepaalt u met "keuze" welk profielveld van "bron" naar "doel" wordt gekopieerd. Het kopieerproces wordt automatisch uitgevoerd door de haak van het doelbereik in te stellen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CORRECTION">Correctie</string>
+ 	<string name="PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE">Exportbestand maken</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Maak machtigingsreferenties aan</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">Standaard worden lidmaatschapsreferenties gegenereerd voor leden,\n - indien ze er nog geen hebben\n - en waarvoor een IBAN is gedeponeerd.\n\n Met deze rolselectie kan alleen voor de geselecteerde rollen worden gegenereerd . Als er geen beperking moet worden gemaakt tot specifieke rollen, moet dit veld leeg worden gelaten.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">FOUT: geen volgnummer gevonden!</string>
@@ -490,7 +490,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC">'Zonder betaald-datum' verwijdert alleen de contrbutie (inclusief contrubutietekst en betaald-datum) waar geen betaald-datum beschikbaar is..</string>
     <string name="PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION">Onjuiste individuele configuratie\n\nVerkeerde informatie is beschikbaar in ten minste één configuratie.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">XML bestand</string>
-    <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_DESC">Creëert een XML-bestand.</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML-bestandsnaam</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Bestandsnamen moeten zonder achtervoegsel worden ingevoerd.\n\nVoorbeeld:\XML-bestandsnaam: &quot;SEPA-Datei&quot; wordt &quot;SEPA-Datei-2013-04-01-RCUR.xml&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">jaar</string>

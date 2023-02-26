@@ -45,6 +45,9 @@ if (sizeof($_POST['duedatesepatype']) == 1)
 	$oneDueDateOnly = true;				// es gibt nur ein Fälligkeitsdatum mit einem Sequenztyp: der PmtTpInf-Block wird im PmtInf-Block plaziert (damit KSK die XML-Datei einlesen kann)
 }
 
+// Initialize and check the parameters
+$postExportFileMode = admFuncVariableIsValid($_POST, 'export_file_mode', 'string', array('defaultValue' => 'xml_file', 'validValues' => array('xml_file', 'ctl_file')));
+
 $dueDateArr   = array();
 $zempf        = array();
 $zpflgt       = array();
@@ -172,7 +175,7 @@ $zempf['bic'] = strtoupper($pPreferences->config['Kontodaten']['bic']);         
 $zempf['orig_cdtr_name'] = $pPreferences->config['Kontodaten']['origcreditor'];                                   //urspruenglicher Creditor
 $zempf['orig_cdtr_id'] = $pPreferences->config['Kontodaten']['origci'];                                           //urspruengliche Mandats-ID
 
-if (isset($_POST['btn_xml_file']))
+if ($postExportFileMode === 'xml_file')
 {
 
     /******************************************************************************
@@ -446,7 +449,7 @@ if (isset($_POST['btn_xml_file']))
 
     die();
 }
-elseif (isset($_POST['btn_xml_kontroll_datei']))
+elseif ($postExportFileMode === 'ctl_file')
 {    
     // initialize some special mode parameters
     $separator   = '';
@@ -627,5 +630,5 @@ elseif (isset($_POST['btn_xml_kontroll_datei']))
 }
 else
 {
-    exit;
+    $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
 }

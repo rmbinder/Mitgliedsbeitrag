@@ -239,7 +239,7 @@ $page->addJavascript('
         var action = $(this).attr("action");
         var formAlert = $("#" + id + " .form-alert");
         formAlert.hide();
-        
+       //  alert("id:" + id + " action: " + action + " formAlert: " +  formAlert);
         // disable default form submit
         event.preventDefault();
         
@@ -620,15 +620,21 @@ if(count($rols) > 0)
     
         $formSepa->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION'), $htmlTable);
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_SELECTION_DESC'));
-        $formSepa->addLine();
         
-        $formSepa->addSubmitButton('btn_xml_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'), array('icon' => 'fa-file-alt', 'class' => 'btn-primary offset-sm-3'));
-        $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE_DESC'));
+        $formSepa->addRadioButton(
+            'export_file_mode',
+            '',
+            array(
+                'xml_file' => $gL10n->get('PLG_MITGLIEDSBEITRAG_XML_FILE'),
+                'ctl_file' => $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE')
+            ),
+            array(
+                'defaultValue' => 'xml_file')
+            );
+        
+        $formSepa->addSubmitButton('btn_create_export_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE'), array('icon' => 'fa-file-alt', 'class' => 'btn-primary offset-sm-3'));
         $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
-        $formSepa->addStaticControl('', '', $html);
-        $formSepa->addLine();   
-        $formSepa->addSubmitButton('btn_xml_kontroll_datei', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'), array('icon' => 'fa-file', 'class' => 'btn-primary offset-sm-3'));
-        $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_DESC'));
+        $formSepa->addStaticControl('', '', $html); 
         $formSepa->addLine();       
         $formSepa->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'fa-file', 'link' => 'pre_notification.php', 'class' => 'btn-primary offset-sm-3'));       
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
