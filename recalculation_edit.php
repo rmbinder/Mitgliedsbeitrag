@@ -1,7 +1,7 @@
 <?php
 /**
  ***********************************************************************************************
- * Erzeugt ein Modal-Fenster um neu erzeugte Beitr�ge und Beitragstexte zu editieren
+ * Erzeugt ein Modal-Fenster um neu erzeugte Beiträge und Beitragstexte zu editieren
  *
  * @copyright 2004-2023 The Admidio Team
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
@@ -30,6 +30,7 @@ if ($getMode === 'save')
 {
     $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE_NEW'] = $postFeeNew;
     $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT_NEW'] = $postContributoryTextNew;
+    $gNavigation->deleteLastUrl();
     admRedirect($gNavigation->getUrl());
     // => EXIT
 }
@@ -39,7 +40,7 @@ $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').' - '.$gL10n->get(
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
 // create html page object
-$page = new HtmlPage('plg-blsv_export-info', $headline);
+$page = new HtmlPage('plg-mitgliedsbeitrag-recalculation-edit', $headline);
 
 header('Content-type: text/html; charset=utf-8');
 
