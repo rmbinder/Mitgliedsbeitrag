@@ -199,6 +199,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED">In the fields nothing has changed.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING">The IBAN has been changed at the same bank. The original IBAN field must therefore be filled.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">The mandate reference was changed. The original mandate reference field must be filled.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION">Appointment selection</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC">The dates selected here can then be assigned a contribution and a contribution period using the "Advanced role editing" module.</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">By default, no contribution and no contribution period can be assigned for an event in Admidio. A contribution of 0 and a contribution period of "One time" is assigned to the selected dates via the "Appointment selection". As a result, they are recognized by the plugin as contribution roles and can be edited further.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export and filter</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">There is no data to be exported.</string>
@@ -494,7 +497,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">File names are to be entered without suffix.\n\nExample:\XML file name: &quot;SEPA-Datei&quot; becomes &quot;SEPA-Datei-2013-04-01-RCUR.xml&quot;</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Years</string>
    	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">The new member numbers have been saved.</string>
-	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">New Membership numbers</string>   
+	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">New Membership numbers</string>      
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Accession</string>
     <string name="PMB_ACCOUNT_DATA">Account data</string>

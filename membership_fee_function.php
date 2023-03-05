@@ -27,8 +27,8 @@ $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
 // in ajax mode return simple text on error
 $gMessage->showHtmlTextOnly(true);
 
-// Marker fuer Rueckgabecode
-$echomarker = 0;
+// Rueckgabecode
+$ret = 'success';
 
 try
 {
@@ -107,8 +107,23 @@ try
                 $role->setvalue('rol_description', $_POST['rol_description'. $rol_id]);
                 $role->save();
             }
+            $ret = 'success_replace';
             break;
             
+        case 'events':
+            if (isset($_POST['events']))
+            {
+                $role = new TableRoles($gDb);
+                foreach(array_filter($_POST['events']) as $rol_id)
+                {
+                    $role->readDataById((int) $rol_id);
+                    $role->setvalue('rol_cost', 0);
+                    $role->setvalue('rol_cost_period', -1);
+                    $role->save();
+                }
+            }
+            $ret = 'success_replace';
+            break;
         case 'accountdata':
             unset($pPreferences->config['Kontodaten']);
 
@@ -349,11 +364,4 @@ catch(AdmException $e)
 
 $pPreferences->save();
 
-if ($echomarker == 0)
-{
-    echo 'success';
-}
-elseif($echomarker == 1)
-{
-    echo 'convert_error';
-}
+echo $ret;

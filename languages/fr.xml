@@ -199,6 +199,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED">Rien n\'a modifié dans les champs.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING">L\'IBAN a été changé à la même banque. La zone IBAN d\'origine doit donc être renseignée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">La référence du mandat a été modifiée. Le champ référence du mandat original doit être renseignée.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION">Sélection de rendez-vous</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC">Les dates sélectionnées ici peuvent ensuite être affectées d'une cotisation et d'une période de cotisation à l'aide du module "Modification de rôle avancée".</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">Par défaut, aucune cotisation et aucune période de cotisation ne peuvent être attribuées pour un rendez-vous dans Admidio. Les rendez-vous sélectionnés se voient attribuer une cotisation de 0 et une période de cotisation de "Une fois" via la "Sélection de rendez-vous". En conséquence, ils sont reconnus par le plugin comme des rôles de contribution et peuvent être modifiés ultérieurement.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Exporter et filtrer</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Aucune donnée n\'est sélectionnée pour l\'exportation.</string>
@@ -494,7 +497,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Les noms de fichiers doivent être spécifiés sans extension de fichier.\n\nExemple:\n "fichier SEPA" devient "fichier SEPA-2013-04-01-RCUR.xml".</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Années</string>
 	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Les nouveaux numéros de membre ont été sauvegardés.</string>
-	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Nouveaux numéros de membres</string>
+	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Nouveaux numéros de membres</string>  
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Adhésion</string>
     <string name="PMB_ACCOUNT_DATA">Données de compte</string>

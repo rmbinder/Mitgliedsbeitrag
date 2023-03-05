@@ -255,12 +255,13 @@ $page->addJavascript('
                     formAlert.animate({opacity: 1.0}, 2500);
                     formAlert.fadeOut("slow");
                 }
-                else if(data === "convert_error") {
-                    formAlert.attr("class", "alert alert-danger form-alert");
-                    formAlert.html("<i class=\"fas fa-times\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DATA_TO_CONVERT').'</strong>");
+                else if(data === "success_replace") {
+                   formAlert.attr("class", "alert alert-success form-alert");
+                    formAlert.html("<i class=\"fas fa-check\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
                     formAlert.fadeIn("slow");
-                    formAlert.animate({opacity: 1.0}, 10000);
+                    formAlert.animate({opacity: 1.0}, 2500);
                     formAlert.fadeOut("slow");
+                    window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'advancedroleediting')).'");
                 }
                 else {
                     formAlert.attr("class", "alert alert-danger form-alert");
@@ -850,7 +851,7 @@ if(count($rols) > 0)
         $formAdvancedRoleEditing = new HtmlForm('advancedroleediting_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee_function.php', array('form' => 'advancedroleediting')), $page, array('class' => 'form-preferences'));
         $formAdvancedRoleEditing->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING_DESC'));
         
-        $formAdvancedRoleEditing->addDescription('<div style="width:100%; height:250px; overflow:auto; border:20px;">');
+        $formAdvancedRoleEditing->addDescription('<div style="width:100%; height:450px; overflow:auto; border:20px;">');
         
         foreach($alt_fix_rollen as $key => $data)
         {
@@ -867,6 +868,26 @@ if(count($rols) > 0)
         $formAdvancedRoleEditing->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
         
         $page->addHtml(getMenuePanel('preferences', 'advancedroleediting', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING'), 'fas fa-users-cog', $formAdvancedRoleEditing->show()));
+        
+        // PANEL: EVENTS_SELECTION
+        
+        $formEvents = new HtmlForm('events_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee_function.php', array('form' => 'events')), $page, array('class' => 'form-preferences'));
+        
+        $sqlData['query'] = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
+                               FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
+                              WHERE cat.cat_id = rol.rol_cat_id
+                                AND rol.rol_cost IS NULL
+                                AND rol.rol_cost_period IS NULL
+                                AND ( cat.cat_org_id = ?
+                                 OR cat.cat_org_id IS NULL )
+                                AND cat.cat_name_intern = ? ';
+        
+        $sqlData['params']= array($gCurrentOrgId, 'EVENTS');
+        
+        $formEvents->addSelectBoxFromSql('events', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), $gDb, $sqlData, array( 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO'));
+        $formEvents->addSubmitButton('btn_save_events', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+     
+        $page->addHtml(getMenuePanel('preferences', 'events', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), 'fas fa-sync', $formEvents->show()));
         
         // PANEL: INDIVIDUAL_CONTRIBUTIONS
         
