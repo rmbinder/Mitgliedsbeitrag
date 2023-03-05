@@ -201,7 +201,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">The mandate reference was changed. The original mandate reference field must be filled.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION">Appointment selection</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC">The dates selected here can then be assigned a contribution and a contribution period using the "Advanced role editing" module.</string>  
-    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">By default, no contribution and no contribution period can be assigned for an event in Admidio. A contribution of 0 € and a contribution period of "One time" is assigned to the selected dates via the "Appointment selection". As a result, they are recognized by the plugin as a contribution role and can be edited further.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">By default, no contribution and no contribution period can be assigned for an event in Admidio. A contribution of 0 and a contribution period of "One time" is assigned to the selected dates via the "Appointment selection". As a result, they are recognized by the plugin as contribution roles and can be edited further.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export and filter</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">There is no data to be exported.</string>

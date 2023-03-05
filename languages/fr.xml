@@ -201,7 +201,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">La référence du mandat a été modifiée. Le champ référence du mandat original doit être renseignée.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION">Sélection de rendez-vous</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC">Les dates sélectionnées ici peuvent ensuite être affectées d'une cotisation et d'une période de cotisation à l'aide du module "Modification de rôle avancée".</string>  
-    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">Par défaut, aucune cotisation et aucune période de cotisation ne peuvent être attribuées pour un rendez-vous dans Admidio. Une cotisation de 0 € et une durée de cotisation de « Une seule fois » sont attribuées aux dates sélectionnées via la « Sélection de rendez-vous ». En conséquence, ils sont reconnus par le plugin comme un rôle de contribution et peuvent être modifiés ultérieurement.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">Par défaut, aucune cotisation et aucune période de cotisation ne peuvent être attribuées pour un rendez-vous dans Admidio. Les rendez-vous sélectionnés se voient attribuer une cotisation de 0 et une période de cotisation de "Une fois" via la "Sélection de rendez-vous". En conséquence, ils sont reconnus par le plugin comme des rôles de contribution et peuvent être modifiés ultérieurement.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Exporter et filtrer</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Aucune donnée n\'est sélectionnée pour l\'exportation.</string>

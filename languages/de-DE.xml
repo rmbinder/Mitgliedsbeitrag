@@ -201,7 +201,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">Die Mandatsreferenz wurde geändert. Das Feld Ursprüngliche Mandatsreferenz muss befüllt sein.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION">Terminauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC">Den hier ausgewählten Termine kann anschließend über das Modul "Erweiterte Rollenbearbeitung" ein Beitrag und ein Beitragszeitraum zugewiesen werden.</string>  
-    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">In Admidio kann für einen Termin standardmäßig kein Beitrag und kein Beitragszeitraum vergeben werden. Über die "Terminauswahl" wird den ausgewählten Terminen ein Beitrag von 0 € und eine Beitragszeitraum von "Einmalig" zugewiesen. Dadurch werden sie vom Plugin als Beitragsrolle erkannt und können weiter bearbeitet werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">In Admidio kann für einen Termin standardmäßig kein Beitrag und kein Beitragszeitraum vergeben werden. Über die "Terminauswahl" wird den ausgewählten Terminen ein Beitrag von 0 und eine Beitragszeitraum von "Einmalig" zugewiesen. Dadurch werden sie vom Plugin als Beitragsrollen erkannt und können weiter bearbeitet werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export und Filter</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Es sind keine Daten zum Exportieren ausgewählt.</string>

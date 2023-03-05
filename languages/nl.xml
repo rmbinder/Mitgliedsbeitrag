@@ -201,7 +201,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING">De machtigingsreferentie is gewijzigd. Het veld van de oorspronkelijke machtigingsreferentie moet worden ingevuld.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION">Afspraak selectie</string>
     <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC">Aan de hier geselecteerde data kan vervolgens een bijdrage en een bijdrageperiode worden toegewezen met behulp van de module "Geavanceerde rolbewerking".</string>  
-    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">Standaard kan er geen contributie en geen contributieperiode toegekend worden aan een afspraak in Admidio. Een bijdrage van 0 € en een bijdrageperiode van "Eenmalig" wordt toegewezen aan de geselecteerde data via de "Afspraak selectie". Als gevolg hiervan worden ze door de plug-in herkend als bijdragende rol en kunnen ze verder worden bewerkt.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO">Standaard kan er geen contributie en geen contributieperiode toegekend worden aan een afspraak in Admidio. De geselecteerde afspraken krijgen via de "Afspraak selectie" een bijdrage van 0 en een bijdrageperiode van "Eenmalig". Als gevolg hiervan worden ze door de plug-in herkend als bijdragende rollen en kunnen ze verder worden bewerkt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT">Export</string>
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER">Export en filter</string>    
     <string name="PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY">Er zijn geen gegevens om te exporteren.</string>
