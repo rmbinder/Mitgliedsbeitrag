@@ -507,7 +507,7 @@ if(count($rols) > 0)
     
     $formHistory = new HtmlForm('history_form', null, $page);
     
-    $formHistory->addSubmitButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => 'fa-history', 'link' => 'history.php',  'class' => 'btn-primary offset-sm-3'));
+    $formHistory->addButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => 'fa-history', 'link' => 'history.php',  'class' => 'btn-primary offset-sm-3'));
     $formHistory->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC'));
                                 
     $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY'), 'fas fa-history', $formHistory->show()));                               
