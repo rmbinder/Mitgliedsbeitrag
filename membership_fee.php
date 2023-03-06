@@ -887,7 +887,7 @@ if(count($rols) > 0)
         $formEvents->addSelectBoxFromSql('events', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), $gDb, $sqlData, array( 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO'));
         $formEvents->addSubmitButton('btn_save_events', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
      
-        $page->addHtml(getMenuePanel('preferences', 'events', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), 'fas fa-sync', $formEvents->show()));
+        $page->addHtml(getMenuePanel('preferences', 'events', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), 'fas fa-calendar-alt', $formEvents->show()));
         
         // PANEL: INDIVIDUAL_CONTRIBUTIONS
         
