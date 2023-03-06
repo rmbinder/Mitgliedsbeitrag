@@ -244,6 +244,11 @@ function list_members($fields, $rols = array(), $conditions = '')
             $usfID= substr($data, 1);
             $nameRow = $usfID;
             $nameIntern = $gProfileFields->getPropertyById($usfID, 'usf_name_intern');
+            
+            if ($nameIntern === '')         //prüfen, ob ein 'usf_name_intern' mit der angegebenen $usfID existiert; wenn nicht, zum nächsten Feld 
+            {
+                continue;
+            }
         }
         
         $rowArray[] = $nameRow;
