@@ -3,15 +3,15 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag / Membership fee
  *
- * Version 5.1.6
+ * Version 5.2.0
  *
  * This plugin calculates membership fees based on role assignments.
  *
  * Author: rmb
  *
- * Compatible with Admidio version 4.1.1
+ * Compatible with Admidio version 4.2
  *
- * @copyright 2004-2022 The Admidio Team
+ * @copyright 2004-2023 The Admidio Team
  * @see https://www.admidio.org/
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  ***********************************************************************************************
