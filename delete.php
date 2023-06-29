@@ -14,6 +14,10 @@
 
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
+require_once(__DIR__ . '/classes/configtable.php');
+
+$pPreferences = new ConfigTablePMB();
+$pPreferences->read();
 
 // only authorized user are allowed to start this module
 if (!isUserAuthorizedForPreferences())
