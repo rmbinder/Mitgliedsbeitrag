@@ -1604,7 +1604,14 @@ function replace_emailparameter($text, $user)
     $text = preg_replace('/#iban#/', $user->getValue('IBAN'), $text);
     $text = preg_replace('/#bic#/', $user->getValue('BIC'), $text);
     $text = preg_replace('/#bank#/', $user->getValue('BANK'), $text);
-    $text = preg_replace('/#debtor#/', $user->getValue('DEBTOR'), $text);
+    if ($user->getValue('DEBTOR') <> '')
+    {
+        $text = preg_replace('/#debtor#/', $user->getValue('DEBTOR'), $text);
+    }
+    else 
+    {
+        $text = preg_replace('/#debtor#/', $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME'), $text);
+    }
     $text = preg_replace('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId']),   $text);
     $text = preg_replace('/#iban_obfuscated#/', obfuscate_iban($user->getValue('IBAN')), $text);
 
