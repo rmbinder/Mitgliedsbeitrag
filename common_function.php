@@ -57,7 +57,7 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
 
     while ($row = $statement->fetch())
     {
-        $rollen[$row['rol_id']] = array('rolle' => $row['rol_name'], 'rol_cost' => $row['rol_cost'], 'rol_cost_period' => $row['rol_cost_period'], 'rol_timestamp_create' => $row['rol_timestamp_create'], 'rol_description' => $row['rol_description'], 'von' => 0, 'bis' => 0, 'rollentyp' => '');
+            $rollen[$row['rol_id']] = array('rolle' => $row['rol_name'], 'rol_cost' => $row['rol_cost'], 'rol_cost_period' => $row['rol_cost_period'], 'rol_timestamp_create' => $row['rol_timestamp_create'], 'rol_description' => (empty($row['rol_description']) ? '' : $row['rol_description']), 'von' => 0, 'bis' => 0, 'rollentyp' => '');
     }
 
     foreach ($rollen as $key => $data)
