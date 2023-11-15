@@ -1614,6 +1614,7 @@ function replace_emailparameter($text, $user)
     }
     $text = preg_replace('/#membership_fee_text#/', $user->getValue('CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId']),   $text);
     $text = preg_replace('/#iban_obfuscated#/', obfuscate_iban($user->getValue('IBAN')), $text);
+    $text = preg_replace('/#membernumber#/', $user->getValue('MEMBERNUMBER'.$GLOBALS['gCurrentOrgId']),  $text);
 
     return $text;
 }
