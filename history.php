@@ -37,7 +37,7 @@ $user = new User($gDb, $gProfileFields);
 
 // calculate default date from which the contribution history should be shown
 $filterDateFrom = DateTime::createFromFormat('Y-m-d', DATE_NOW);
-$filterDateFrom->modify('-'.$gSettingsManager->getString('members_days_field_history').' day');
+$filterDateFrom->modify('-'.$gSettingsManager->getString('contacts_field_history_days').' day');
 
 // Initialize and check the parameters
 $getDateFrom   	    = admFuncVariableIsValid($_GET, 'filter_date_from', 'date',  array('defaultValue'  => $filterDateFrom->format($gSettingsManager->getString('system_date'))));
