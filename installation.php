@@ -520,7 +520,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedschaft'));
-    $table->addRowByArray($columnValues, null, null, 8, 5);
+    $table->addRowByArray($columnValues, '', null, 8, 5);
     
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -537,7 +537,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedsbeitrag'));
-    $table->addRowByArray($columnValues, null, null, 8, 5);
+    $table->addRowByArray($columnValues, '', null, 8, 5);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -572,7 +572,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mandat'));
-    $table->addRowByArray($columnValues, null, null, 8, 5);
+    $table->addRowByArray($columnValues, '', null, 8, 5);
 
     $columnValues   = array();
     $columnValues[] = $leer;
@@ -595,7 +595,7 @@ elseif($getMode == 'soll_ist')
     $columnValues   = array();
     $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
     $columnValues  = array_merge($columnValues, SollIstKategorie($arr, 'Kontodaten'));
-    $table->addRowByArray($columnValues, null, null, 8, 5);
+    $table->addRowByArray($columnValues, '', null, 8, 5);
 
     $columnValues   = array();
     $columnValues[] = $leer;

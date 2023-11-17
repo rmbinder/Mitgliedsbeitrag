@@ -446,7 +446,7 @@ while($row = $fieldHistoryStatement->fetch())
    		elseif($getMode === 'print' || $getMode === 'pdf')
    		{
    			$table->setColumnAlignByArray(array('center','center','center','center','center'));
-   			$table->addRowByArray($columnValues[$row['usl_usr_id']], null, array('nobr' => 'true'));
+   			$table->addRowByArray($columnValues[$row['usl_usr_id']], '', array('nobr' => 'true'));
    		}
         elseif($getMode === 'xlsx')
    		{
@@ -455,7 +455,7 @@ while($row = $fieldHistoryStatement->fetch())
    		else
    		{
             $user->readDataById($row['usl_usr_id']);
-   			$table->addRowByArray($columnValues[$row['usl_usr_id']], null, array('style' => 'cursor: pointer', 'onclick' => 'window.location.href=\''. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '\''));
+   			$table->addRowByArray($columnValues[$row['usl_usr_id']], '', array('style' => 'cursor: pointer', 'onclick' => 'window.location.href=\''. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '\''));
    		}
    		unset($columnValues[$row['usl_usr_id']]);
    	}
