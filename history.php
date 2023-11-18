@@ -339,7 +339,12 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
         }
         
 		$table = new HtmlTable('history_table', $page, $hoverRows, $datatable, $classTable);
-		$table->setDatatablesRowsPerPage($gSettingsManager->getString('groups_roles_members_per_page'));
+		if ($datatable)
+		{
+		    // ab Admidio 4.3 verursacht setDatatablesRowsPerPage, wenn $datatable "false" ist, folgenden Fehler:
+		    // "Fatal error: Uncaught Error: Call to a member function setDatatablesRowsPerPage() on null"
+		    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+		}
 	}
 	else
 	{
@@ -376,7 +381,10 @@ if($getMode === 'csv')
 elseif($getMode === 'html')
 {
 	$table->setColumnAlignByArray(array('left','left','left','left','left'));
-	$table->setDatatablesOrderColumns(array(array(5, 'desc')));
+	if ($datatable)
+	{
+	    $table->setDatatablesOrderColumns(array(array(5, 'desc')));
+	}
 	$table->addRowHeadingByArray($columnHeading);
 }
 elseif( $getMode === 'print')
