@@ -172,7 +172,7 @@ if ($singleMail)
     //Datensatz fuer E-Mail-Adresse zusammensetzen
     if($userField->getValue('usf_name_intern') === 'DEBTOR_EMAIL')                      // Problem: 'DEBTOR_EMAIL' ist als TEXT in der DB definiert
     {
-        if(StringUtils::strValidCharacters($user->getValue('DEBTOR_EMAIL'), 'email'))
+        if(StringUtils::strValidCharacters((string) $user->getValue('DEBTOR_EMAIL'), 'email'))
         {
             $userEmail = $user->getValue('DEBTOR').' <'.$user->getValue('DEBTOR_EMAIL').'>';
         }
@@ -184,7 +184,7 @@ if ($singleMail)
     }
     else 
     {
-        if(StringUtils::strValidCharacters($user->getValue($userField->getValue('usf_name_intern')), 'email'))
+        if(StringUtils::strValidCharacters((string) $user->getValue($userField->getValue('usf_name_intern')), 'email'))
         {
             $userEmail = $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME').' <'.$user->getValue($userField->getValue('usf_name_intern')).'>';
         }

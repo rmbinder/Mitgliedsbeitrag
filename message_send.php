@@ -115,7 +115,7 @@ foreach ($mailToArray as $userId => $usfUuid )
         $receiverName = $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME');
     }
    
-    if (!StringUtils::strValidCharacters($receiverEmail, 'email'))
+    if (!StringUtils::strValidCharacters((string) $receiverEmail, 'email'))
     {
         $sendMailResultMissingEmail[] = $receiverName;
         continue;

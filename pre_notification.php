@@ -484,7 +484,7 @@ else
             $user->readDataById($usr['usr_id']);
             
             //11. Spalte ($htmlMail)
-            if(StringUtils::strValidCharacters($usr['debtoremail'], 'email'))
+            if(StringUtils::strValidCharacters((string) $usr['debtoremail'], 'email'))
             {
                 $email = $usr['debtoremail'];
                 $usf_uuid = $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_uuid');
