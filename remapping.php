@@ -173,8 +173,8 @@ if ($getMode == 'preview')     //Default
 
 		foreach ($members as $data)
 		{
-            $user->readDataById($data['user_id']);
-            $role->readDataById($data['role_id']);
+            $user->readDataById((int) $data['user_id']);
+            $role->readDataById((int) $data['role_id']);
 
 			$columnValues = array();
 			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['LAST_NAME'].'</a>';
@@ -233,8 +233,8 @@ elseif ($getMode == 'write')
 	
 	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
 	{
-        $user->readDataById($data['user_id']);
-        $role->readDataById($data['role_id']);
+        $user->readDataById((int) $data['user_id']);
+        $role->readDataById((int) $data['role_id']);
 		
         $columnValues = array();
 		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['LAST_NAME'].'</a>';
