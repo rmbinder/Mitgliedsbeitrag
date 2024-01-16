@@ -914,15 +914,30 @@ function check_family_roles()
 
             $temp_arr2 = explode('*', $bedingung);
 
-            // pruefen auf unsinnige Bedingungen
-            if(isset($temp_arr2[0]) && isset($temp_arr2[1]) && isset($temp_arr2[2])
-             && is_numeric($temp_arr2[0]) && is_numeric($temp_arr2[1]) && is_numeric($temp_arr2[2]))
+            // pruefen auf ungültige oder fehlerhafte Bedingungen und einlesen der Bedingungen            
+            $cond_incorrect = FALSE;
+            if (count($temp_arr2) >= 3 && is_numeric($temp_arr2[0]) && is_numeric($temp_arr2[1]) )
             {
                 $check['pruefungsbedingungen'][$key][$keybed]['von'] = $temp_arr2[0];
                 $check['pruefungsbedingungen'][$key][$keybed]['bis'] = $temp_arr2[1];
-                $check['pruefungsbedingungen'][$key][$keybed]['anz'] = $temp_arr2[2];
+                for ($i = 2; $i < count($temp_arr2); $i++)
+                {
+                    if (is_numeric($temp_arr2[$i]))
+                    {
+                        $check['pruefungsbedingungen'][$key][$keybed]['anz'][] = $temp_arr2[$i];
+                    }
+                    else
+                    {
+                        $cond_incorrect = TRUE;
+                    }
+                }
             }
-            else
+            else 
+            {
+                $cond_incorrect = TRUE;
+            }
+                  
+            if ($cond_incorrect)
             {
                 unset(
                     $check['familienrollen_prefix'][$key],
@@ -982,9 +997,15 @@ function check_family_roles()
                         }
                     }
 
-                    if ($counter != $pruefdata['anz'])
+                    if (!in_array($counter, $pruefdata['anz'] ))
                     {
-                        $ret_temp[] = '&#160&#160&#160&#183<small>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'].':'.$pruefdata['anz'].' '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_NOT_SATISFIED').'.</small>';
+                        $temp = '&#160&#160&#160&#183<small>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'];
+                        for ($i = 0; $i < count($pruefdata['anz']); $i++)
+                        {
+                            $temp .= ':'.$pruefdata['anz'][$i];
+                        }
+                        $temp .= ' '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_NOT_SATISFIED').' ('.$counter.').</small>';
+                        $ret_temp[] = $temp;
                     }
                 }
                 if (count($ret_temp) !== 0)
