@@ -50,6 +50,8 @@ if ($getMode == 'preview')     //Default
 	// anstelle eines Leerzeichens ist ein # in der $pPreferences->config gespeichert; # wird hier wieder ersetzt
 	$text_token = ($pPreferences->config['Beitrag']['beitrag_text_token'] == '#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'];
 	
+	$roles_token = ($pPreferences->config['Beitrag']['beitrag_roles_token'] != '') ? $pPreferences->config['Beitrag']['beitrag_roles_token'] : ' ';
+	
 	//alle Beitragsrollen einlesen
 	$contributingRolls = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
 	
@@ -190,7 +192,7 @@ if ($getMode == 'preview')     //Default
     					$members[$member]['FEE_NEW'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
     					if ($roldata['rol_description'] != '')
     					{
-    						$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$roldata['rol_description'].' ';
+    					    $members[$member]['CONTRIBUTORY_TEXT_NEW'] .= $roles_token.$roldata['rol_description'].' ';
     					}
     					if ($pPreferences->config['Beitrag']['beitrag_suffix'] != '')
     					{
@@ -208,12 +210,18 @@ if ($getMode == 'preview')     //Default
     					$members[$member]['FEE_NEW'] += $roldata['rol_cost'];
     					if ($roldata['rol_description'] != '')
     					{
-    						$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$roldata['rol_description'].' ';
+    					    $members[$member]['CONTRIBUTORY_TEXT_NEW'] .= $roles_token.$roldata['rol_description'].' ';
     					}
     				}
     			}
     		}
 	
+    		// das erste $roles_token entfernen
+    		// Bsp: SV Musterverein +Jahresbeitrag+Spartenbeitrag soll sein SV Musterverein Jahresbeitrag+Spartenbeitrag
+    		if ($roles_token != '')
+    		{
+    		    $members[$member]['CONTRIBUTORY_TEXT_NEW'] = substr($members[$member]['CONTRIBUTORY_TEXT_NEW'], strlen($roles_token));
+    		}
     		// wenn definiert: Beitragstext mit dem Namen des Benutzers
     		if(($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
     				&&  ($members[$member]['FEE_NEW'] != 0)

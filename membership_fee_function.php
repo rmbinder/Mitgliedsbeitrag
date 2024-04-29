@@ -45,6 +45,7 @@ try
             $pPreferences->config['Beitrag']['beitrag_textmitnam'] = isset($_POST['beitrag_textmitnam']) ? 1 : 0;
             $pPreferences->config['Beitrag']['beitrag_textmitfam'] = isset($_POST['beitrag_textmitfam']) ? 1 : 0;
             $pPreferences->config['Beitrag']['beitrag_text_token'] = $_POST['beitrag_text_token'];
+            $pPreferences->config['Beitrag']['beitrag_roles_token'] = $_REQUEST['beitrag_roles_token'];  //$_POST übergibt keine Leerzeichen, $_REQUEST schon
             break;
 
         case 'agestaggeredroles':

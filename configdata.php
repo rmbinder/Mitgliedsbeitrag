@@ -33,6 +33,7 @@ $config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag
                                     'beitrag_textmitnam'    => 1,
                                     'beitrag_textmitfam'    => '',
                                     'beitrag_text_token'    => '#',
+                                    'beitrag_roles_token'   => '',
                                     'beitrag_anteilig'      => '',
                                     'beitrag_abrunden'      => 1,
                                     'beitrag_mindestbetrag' => 0);
