@@ -429,6 +429,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC">Hier gibt es eine Übersicht über alle Beitragsrollen.</string>   
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rollenauswahl</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Folgende Rollen sind derzeit berechtigt</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR">Rollentrennzeichen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC">Zeichen, mit dem die Beschreibungen von Beitragsrollen miteinander verknüpft sind. Standardmäßig wird im Beitragstext die Beschreibung jeder Beitragsrolle aufgeführt. Mit Rollentrennzeichen kann anstelle eines Leerzeichens eine beliebige Textfolge als Trennzeichen definiert werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC2">SEPA XML Dateien sind nur mit einem zulässigen Zeichensatz zu erstellen. Dieser Zeichensatz besteht aus den Zeichen: a - z, A - Z, 0 - 9, den Sonderzeichen /?:().,'+- und einem Leerzeichen. Nicht zulässige Zeichen werden ersetzt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Beiträge der Beitragsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Einträge im Setup, nicht die Einträge der einzelnen Rollen in der Datenbank. Manuelle Änderungen von Beiträgen einzelner Rollen oder anteilige Beiträge werden nicht berücksichtigt. Dies kann daher nur als Prognose angesehen werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Abfrage der Beitragsrollen</string>

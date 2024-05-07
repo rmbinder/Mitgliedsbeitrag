@@ -429,6 +429,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC">Hier is een overzicht van alle bijdragerollen.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Rol selectie</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Momenteel zijn de volgende rollen geautoriseerd.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR">Rolscheidingsteken</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC">Karakter waarmee de beschrijvingen van bijdragerollen aan elkaar worden gekoppeld. Standaard wordt de beschrijving van elke berichtrol vermeld in de berichttekst. Met rolscheidingstekens kan elke tekenreeks worden gedefinieerd als scheidingsteken in plaats van als spatie.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC2">SEPA XML-bestanden kunnen alleen worden aangemaakt met een toegestane tekenset. Deze tekenset bestaat uit de tekens: a - z, A - Z, 0 - 9, de speciale tekens /?:().,'+- en een spatie. Illegale tekens worden vervangen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Contributie voor lidmaatschapsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">De basis van deze gegevens zijn de invoer in de setup, niet de invoer voor de individuele rollen in de database. Handmatig gewijzigde contributies voor individuele rollen of proportionele contributies worden niet in aanmerking genomen. Om deze reden kan dit alleen als een prognose worden beschouwd.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Vraag de bijdragerollen op</string>

@@ -429,6 +429,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC">Voici un aperçu de tous les rôles de contribution.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Sélection des rôles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Les rôles suivants sont actuellement autorisés</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR">Séparateur de rôles</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC">Caractère avec lequel les descriptions des rôles de contribution sont liées entre elles. Par défaut, la description de chaque rôle de publication est répertoriée dans le corps de la publication. Avec les séparateurs de rôles, n'importe quelle chaîne de texte peut être définie comme un séparateur au lieu d'un espace.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC2">Les fichiers XML SEPA ne peuvent être créés qu'avec un jeu de caractères autorisé. Ce jeu de caractères se compose des caractères : a - z, A - Z, 0 - 9, des caractères spéciaux /?:().,'+- et d'un espace. Les caractères illégaux sont remplacés.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Cotisations des rôles de cotisation</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">Ces données sont basées sur les entrées dans la configuration, et non sur les entrées des rôles individuels dans la base de données. Les modifications manuelles des cotisations des rôles individuels ou des cotisations proportionnelles ne sont pas prises en compte. Ceci ne peut donc être considéré que comme une prévision.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Requête des rôles de cotisation</string>

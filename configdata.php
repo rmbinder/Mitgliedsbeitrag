@@ -28,12 +28,12 @@ $config_default['Familienrollen'] = array('familienrollen_beitrag'        => arr
                                             'familienrollen_pruefung'     => array(''));
 
 //Beitrag
-$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2019',
+$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2024',
                                     'beitrag_suffix'        => '(ant.)',
                                     'beitrag_textmitnam'    => 1,
                                     'beitrag_textmitfam'    => '',
                                     'beitrag_text_token'    => '#',
-                                    'beitrag_roles_token'   => '',
+                                    'beitrag_role_separator'=> '',
                                     'beitrag_anteilig'      => '',
                                     'beitrag_abrunden'      => 1,
                                     'beitrag_mindestbetrag' => 0);

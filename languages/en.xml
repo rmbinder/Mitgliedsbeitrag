@@ -429,6 +429,9 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC">Here is an overview of all contribution roles.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION">Role selection</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_SELECTION_ACTIV">Currently, the following roles are authorised.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR">Role separator</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC">Character with which the descriptions of contribution roles are linked together. By default, the description of each role is listed in the membership fee text. With role separators, any text string can be defined as a separator instead of a space.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC2">SEPA XML files can only be created with a permitted character set. This character set consists of the characters: a - z, A - Z, 0 - 9, the special characters /?:().,'+- and a space. Illegal characters are replaced.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION">Fees of membership roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC">The basis of this data are the entries in the setup, not the entries for the individual roles in the database. Manually changed membership fees for individual roles or proportional membership fees are not taken into account. For this reason, this can only be regarded as a forecast.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLLQUERY">Query the contribution roles</string>

@@ -50,7 +50,7 @@ if ($getMode == 'preview')     //Default
 	// anstelle eines Leerzeichens ist ein # in der $pPreferences->config gespeichert; # wird hier wieder ersetzt
 	$text_token = ($pPreferences->config['Beitrag']['beitrag_text_token'] == '#') ? ' ' : $pPreferences->config['Beitrag']['beitrag_text_token'];
 	
-	$roles_token = ($pPreferences->config['Beitrag']['beitrag_roles_token'] != '') ? $pPreferences->config['Beitrag']['beitrag_roles_token'] : ' ';
+	$role_separator = ($pPreferences->config['Beitrag']['beitrag_role_separator'] != '') ? $pPreferences->config['Beitrag']['beitrag_role_separator'] : ' ';
 	
 	//alle Beitragsrollen einlesen
 	$contributingRolls = beitragsrollen_einlesen('', array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'DEBTOR'));
@@ -135,6 +135,12 @@ if ($getMode == 'preview')     //Default
 	
     		foreach ($contributingRolls as $rol => $roldata)
     		{
+    		    $rolDescription = ' ';
+    		    if ($roldata['rol_description'] != '')
+    		    {
+    		        $rolDescription = $role_separator.$roldata['rol_description'].' ';
+    		    }
+    		    
     			// alle Rollen, außer Familienrollen
     			if (($roldata['rollentyp'] != 'fam') && (array_key_exists($member, $roldata['members'])))
     			{
@@ -190,10 +196,8 @@ if ($getMode == 'preview')     //Default
     					$segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
 	
     					$members[$member]['FEE_NEW'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
-    					if ($roldata['rol_description'] != '')
-    					{
-    					    $members[$member]['CONTRIBUTORY_TEXT_NEW'] .= $roles_token.$roldata['rol_description'].' ';
-    					}
+    					$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= $rolDescription;
+    					
     					if ($pPreferences->config['Beitrag']['beitrag_suffix'] != '')
     					{
     						$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' ';
@@ -201,27 +205,18 @@ if ($getMode == 'preview')     //Default
     					// nur einmal soll beitrag_suffix angezeigt werden, wenn aber rol_description leer ist,
     					// wird es mehrfach hintereinander mit vielen Leerzeichen dazwischen angefuegt, deshalb ersetzen
     					// zuerst zwei aufeinanderfolgende Leerzeichen durch ein Leerzeichen ersetzen
-    					$members[$member]['CONTRIBUTORY_TEXT_NEW'] = str_replace('  ', ' ', $members[$member]['CONTRIBUTORY_TEXT_NEW']);
+    					//$members[$member]['CONTRIBUTORY_TEXT_NEW'] = str_replace('  ', ' ', $members[$member]['CONTRIBUTORY_TEXT_NEW']);                               //toDo testen
     					//jetzt mehrfache beitrag_suffix loeschen
     					$members[$member]['CONTRIBUTORY_TEXT_NEW'] = str_replace($pPreferences->config['Beitrag']['beitrag_suffix'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'], $pPreferences->config['Beitrag']['beitrag_suffix'], $members[$member]['CONTRIBUTORY_TEXT_NEW']);
     				}
     				else                             //keine anteilige Berechnung
     				{
     					$members[$member]['FEE_NEW'] += $roldata['rol_cost'];
-    					if ($roldata['rol_description'] != '')
-    					{
-    					    $members[$member]['CONTRIBUTORY_TEXT_NEW'] .= $roles_token.$roldata['rol_description'].' ';
-    					}
+    					$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= $rolDescription;
     				}
     			}
     		}
 	
-    		// das erste $roles_token entfernen
-    		// Bsp: SV Musterverein +Jahresbeitrag+Spartenbeitrag soll sein SV Musterverein Jahresbeitrag+Spartenbeitrag
-    		if ($roles_token != '')
-    		{
-    		    $members[$member]['CONTRIBUTORY_TEXT_NEW'] = substr($members[$member]['CONTRIBUTORY_TEXT_NEW'], strlen($roles_token));
-    		}
     		// wenn definiert: Beitragstext mit dem Namen des Benutzers
     		if(($pPreferences->config['Beitrag']['beitrag_textmitnam'] == true)
     				&&  ($members[$member]['FEE_NEW'] != 0)
@@ -237,6 +232,12 @@ if ($getMode == 'preview')     //Default
     	// das zudem ein Familienmitglied ist, dem Zahlungspflichtigen der Familie zugeschlagen
     	foreach ($contributingRolls as $rol => $roldata)
     	{
+    	    $rolDescription = ' ';
+    	    if ($roldata['rol_description'] != '')
+    	    {
+    	        $rolDescription = $role_separator.$roldata['rol_description'].' ';
+    	    }
+    	    
     		// nur Rollen mit dem Praefix einer Familie && die Familienrolle muß Mitglieder aufweisen
     		if (($roldata['rollentyp'] == 'fam') && (count($roldata['members']) > 0))
     		{
@@ -274,7 +275,7 @@ if ($getMode == 'preview')     //Default
     			if (in_array($rol, $pPreferences->config['multiplier']['roles']))
     			{
     			    $members[$roldata['has_to_pay']]['FEE_NEW'] = $members[$roldata['has_to_pay']]['FEE_NEW'] * $roldata['rol_cost'] / 100;
-    			    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
+    			    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = $rolDescription.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
     			}
     			else 
     			{
@@ -326,12 +327,12 @@ if ($getMode == 'preview')     //Default
     			        $segment_end = ceil($month_end * $roldata['rol_cost_period']/12);
 			    
     			        $members[$roldata['has_to_pay']]['FEE_NEW'] +=  ($segment_end - $segment_begin +1) * $roldata['rol_cost'] / $roldata['rol_cost_period'];
-    			        $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].' '.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
+    			        $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = $rolDescription.$pPreferences->config['Beitrag']['beitrag_suffix'].' '.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
     			    }
     			    else
     			    {
     				    $members[$roldata['has_to_pay']]['FEE_NEW'] += $roldata['rol_cost'];
-    				    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = ' '.$roldata['rol_description'].$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
+    				    $members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'] = $rolDescription.$members[$roldata['has_to_pay']]['CONTRIBUTORY_TEXT_NEW'].' ';
     			    }
     			}
     		}
@@ -348,6 +349,13 @@ if ($getMode == 'preview')     //Default
     		        && (!isset($_POST['recalculation_notpaid']) || (isset($_POST['recalculation_notpaid']) && $members[$member]['PAID'.$gCurrentOrgId] == ''))
     				&& ($members[$member]['FEE_NEW'] > $pPreferences->config['Beitrag']['beitrag_mindestbetrag']))
     		{
+    		    // wenn vorhanden, dann das erste $role_separator entfernen
+    		    // Bsp: SV Musterverein +Jahresbeitrag+Spartenbeitrag soll sein SV Musterverein Jahresbeitrag+Spartenbeitrag
+    		    if (substr($members[$member]['CONTRIBUTORY_TEXT_NEW'], 0, strlen($role_separator)) == $role_separator )
+    		    {
+    		        $members[$member]['CONTRIBUTORY_TEXT_NEW'] = substr($members[$member]['CONTRIBUTORY_TEXT_NEW'], strlen($role_separator));
+    		    }
+    		    
     			$members[$member]['CONTRIBUTORY_TEXT_NEW'] =  $pPreferences->config['Beitrag']['beitrag_prefix'].' '.$members[$member]['CONTRIBUTORY_TEXT_NEW'].' ';
 	
     			// alle Beitraege auf 2 Nachkommastellen runden
