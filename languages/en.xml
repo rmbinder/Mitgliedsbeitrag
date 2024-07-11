@@ -345,6 +345,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Original mandate reference</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Other membership roles</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Others</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Information on contribution calculation is only available after registration.</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NO_DATA">No data for contribution calculation is stored for #VAR1# #VAR2#.</string>     
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Overwrite</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Paid</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">This date is entered by a user as an identifier for a contribution payment made.\n\nAn existing date is not overwritten.</string>

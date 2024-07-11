@@ -345,6 +345,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Ursprüngliche Mandatsreferenz</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Sonstige Beitragsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Sonstiges</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Informationen zur Beitragsberechnung stehen erst nach Anmeldung zur Verfügung.</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NO_DATA">Für #VAR1# #VAR2# sind keine Daten zur Beitragsberechnung gespeichert.</string> 
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Überschreiben</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Bezahlt</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">Dieses Datum wird bei einem Benutzer als Kennzeichnung für eine geleistete Beitragszahlung eingetragen.\n\nEin vorhandenes Datum wird dabei nicht überschrieben.</string>    

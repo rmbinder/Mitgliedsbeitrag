@@ -345,6 +345,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Référence du mandat original</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Autres rôles de cotisations</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Autres</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Les informations sur le calcul des cotisations ne sont disponibles qu’après inscription.</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NO_DATA">Aucune donnée pour le calcul des cotisations n'est stockée pour #VAR1# #VAR2#.</string>     
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Remplacer</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Payé</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">Cette date est saisie par un utilisateur comme identifiant d'un paiement de contribution effectué.\n\nUne date existante n'est pas écrasée.</string>

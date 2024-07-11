@@ -345,6 +345,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Originele machtigings referentie</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Andere lidmaatschapsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Anderen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Informatie over contributieberekening is alleen beschikbaar na registratie.</string>  
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NO_DATA">Voor #VAR1# #VAR2# worden geen gegevens voor de contributieberekening opgeslagen.</string>     
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Overschrijven</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Betaald</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">Deze datum wordt door een gebruiker ingevoerd als identificatiemiddel voor een gedane contributiebetaling.\n\nEen bestaande datum wordt niet overschreven.</string>
