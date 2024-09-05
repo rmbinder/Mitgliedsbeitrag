@@ -46,9 +46,9 @@ function beitragsrollen_einlesen($rollenwahl = '', $with_members = array())
     // alle Rollen einlesen
     $sql = 'SELECT rol_id, rol_name, rol_cost, rol_cost_period, rol_timestamp_create, rol_description
               FROM '.TBL_ROLES.', '. TBL_CATEGORIES. '
-             WHERE rol_valid  = 1
+             WHERE rol_valid  = true
                AND rol_cost IS NOT NULL
-               AND rol_cost_period <> \'\'
+               AND rol_cost_period IS NOT NULL
                AND rol_cat_id = cat_id
                AND ( cat_org_id = ?
                 OR cat_org_id IS NULL ) ';
@@ -173,7 +173,7 @@ function bezugskategorie_einlesen()
 
         $sql .= 'cat_id = '.$cat_id.' ';
         $sql .= ' AND mem_rol_id = rol_id
-                  AND rol_valid  = 1
+                  AND rol_valid  = true
 
                   AND mem_begin <= \''.DATE_NOW.'\'
                   AND mem_end >= \''.DATE_NOW.'\'
@@ -220,7 +220,7 @@ function bezugskategorie_einlesen()
 function list_members($fields, $rols = array(), $conditions = '')
 {
     global $gProfileFields;
-    
+
     $members = array();
     $rowArray = array();
     $selectString = '';
@@ -233,39 +233,39 @@ function list_members($fields, $rols = array(), $conditions = '')
     $mainString = '';
     $addString = '';
     $sql = '';
-    
+
     foreach ($fields as $field => $data)
     {
         $nameRow = $data;
         $nameIntern = $data;
-        
+
         if (substr($data, 0 ,1) == 'p')
         {
             $usfID= substr($data, 1);
             $nameRow = $usfID;
             $nameIntern = $gProfileFields->getPropertyById($usfID, 'usf_name_intern');
-            
-            if ($nameIntern === '')         //prüfen, ob ein 'usf_name_intern' mit der angegebenen $usfID existiert; wenn nicht, zum nächsten Feld 
+
+            if ($nameIntern === '')         //prüfen, ob ein 'usf_name_intern' mit der angegebenen $usfID existiert; wenn nicht, zum nächsten Feld
             {
                 continue;
             }
         }
-        
+
         $rowArray[] = $nameRow;
-        $selectString .= ', '.$nameIntern.'.usd_value AS \''.$nameRow.'\'';
-        
+        $selectString .= ', '.$nameIntern.'.usd_value AS "'.$nameRow.'"';
+
         $joinString .= 'LEFT JOIN '.TBL_USER_DATA.' AS '.$nameIntern.'
                                ON '.$nameIntern.'.usd_usr_id = mem_usr_id
                               AND '.$nameIntern.'.usd_usf_id = '. $gProfileFields->getProperty($nameIntern, 'usf_id'). '  ';
     }
-    
+
     $mainString .= $selectString;
     $mainString .= ' FROM '. TBL_MEMBERS. ' ';
     $mainString .= $joinString;
-    
+
     $inString .= 'WHERE mem_usr_id IN (SELECT DISTINCT mem_usr_id
                    FROM '. TBL_MEMBERS. ', '. TBL_ROLES. ', '. TBL_CATEGORIES. ' ';
-    
+
     if (is_string($rols))
     {
         $inString .= ' WHERE mem_rol_id = '.getRoleId($rols).' AND ';
@@ -275,7 +275,7 @@ function list_members($fields, $rols = array(), $conditions = '')
         // aktive Mitglieder
         $inString .= ' WHERE mem_begin <= \''.DATE_NOW.'\' ';
         $inString .= ' AND mem_end >= \''.DATE_NOW.'\' AND ';
-        
+
     }
     elseif (is_int($rols) && ($rols == 1))
     {
@@ -286,7 +286,7 @@ function list_members($fields, $rols = array(), $conditions = '')
     {
         // alle Mitglieder (aktiv und nicht-aktiv)
         $inString .= ' WHERE ';
-    } 
+    }
     elseif (is_array($rols))
     {
         if (sizeof($rols) == 1)
@@ -294,11 +294,11 @@ function list_members($fields, $rols = array(), $conditions = '')
             $timeString = ', mem_begin, mem_end ';
             $rowArray[] = 'mem_begin';
             $rowArray[] = 'mem_end';
-            
+
             reset($rols);                           // nur zur Sicherheit, falls eine Funktion vorher den Array-Zeiger verändert hat
             $roleKey = key($rols);
             $roleValue = current($rols);
-       
+
             $addString .= ' ) AND mem_rol_id = '.getRoleId($roleKey).' ';
             if ($roleValue == 0)
             {
@@ -327,7 +327,7 @@ function list_members($fields, $rols = array(), $conditions = '')
                     $inString .= ' OR ( ';
                 }
                 $inString .= 'mem_rol_id = '.getRoleId($rol).' ';
-            
+
                 if ($rol_switch == 0)
                 {
                     // aktive Mitglieder
@@ -345,18 +345,18 @@ function list_members($fields, $rols = array(), $conditions = '')
             $inString .= ' ) AND ';
         }
     }
-    
+
     $inString .= '  mem_rol_id = rol_id
-                   AND rol_valid  = 1
+                   AND rol_valid  = true
                    AND rol_cat_id = cat_id
                    AND ( cat_org_id = '. $GLOBALS['gCurrentOrgId']. '
                     OR cat_org_id IS NULL ) ) ';
-    
+
     $mainString .= $inString;
-    
+
     $sql .= $startString.$timeString.$mainString.$addString.$conditions;
     $sql .= ' ORDER BY mem_usr_id ASC ';
-    
+
     $statement = $GLOBALS['gDb']->queryPrepared($sql);
     while ($row = $statement->fetch())
     {
@@ -392,7 +392,7 @@ function getRoleId($role_name)
     $sql = 'SELECT rol_id
               FROM '. TBL_ROLES. ', '. TBL_CATEGORIES. '
              WHERE rol_name  = ? -- $role_name
-               AND rol_valid  = 1
+               AND rol_valid  = true
                AND rol_cat_id = cat_id
                AND ( cat_org_id = ? -- $GLOBALS[\'gCurrentOrgId\']
                 OR cat_org_id IS NULL ) ';
@@ -400,9 +400,9 @@ function getRoleId($role_name)
     $queryParams = array(
 	   $role_name,
 	   $GLOBALS['gCurrentOrgId']);
-       
+
 	$statement = $GLOBALS['gDb']->queryPrepared($sql, $queryParams);
-                    
+
     $row = $statement->fetchObject();
     if(isset($row->rol_id) && strlen($row->rol_id) > 0)
     {
@@ -558,7 +558,7 @@ function check_rollenmitgliedschaft_altersrolle()
             unset($alt[$altrol]);
             continue;
         }
-        
+
         foreach($altdata['members'] as $member => $memberdata)
         {
             $check[$member]['alterstyp'][] = $altdata['alterstyp'];
@@ -914,7 +914,7 @@ function check_family_roles()
 
             $temp_arr2 = explode('*', $bedingung);
 
-            // pruefen auf ungültige oder fehlerhafte Bedingungen und einlesen der Bedingungen            
+            // pruefen auf ungültige oder fehlerhafte Bedingungen und einlesen der Bedingungen
             $cond_incorrect = FALSE;
             if (count($temp_arr2) >= 3 && is_numeric($temp_arr2[0]) && is_numeric($temp_arr2[1]) )
             {
@@ -932,11 +932,11 @@ function check_family_roles()
                     }
                 }
             }
-            else 
+            else
             {
                 $cond_incorrect = TRUE;
             }
-                  
+
             if ($cond_incorrect)
             {
                 unset(
@@ -1081,9 +1081,9 @@ function check_account_details()
     global $gProfileFields;
     $ret = array();
     $user = new User($GLOBALS['gDb'], $gProfileFields);
-    
+
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_STREET'), 0);
-    
+
     foreach ($members as $member => $memberdata)
     {
         if ((strlen($memberdata['DEBTOR']) !== 0) && ((strlen($memberdata['DEBTOR_POSTCODE']) === 0) || (strlen($memberdata['DEBTOR_CITY']) === 0) || (strlen($memberdata['DEBTOR_STREET']) === 0)))
@@ -1092,7 +1092,7 @@ function check_account_details()
             $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
         }
     }
-    
+
     if (count($ret) === 0)
     {
         $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_OK'));
@@ -1142,18 +1142,18 @@ function check_iban()
  * @return  bool
  */
 function test_iban($iban)
-{    
+{
     //von karelvh
     $iban = strtolower(str_replace(' ', '', $iban));
     $Countries = array('al'=>28,'ad'=>24,'at'=>20,'az'=>28,'bh'=>22,'be'=>16,'ba'=>20,'br'=>29,'bg'=>22,'cr'=>21,'hr'=>21,'cy'=>28,'cz'=>24,'dk'=>18,'do'=>28,'ee'=>20,'fo'=>18,'fi'=>18,'fr'=>27,'ge'=>22,'de'=>22,'gi'=>23,'gr'=>27,'gl'=>18,'gt'=>28,'hu'=>28,'is'=>26,'ie'=>22,'il'=>23,'it'=>27,'jo'=>30,'kz'=>20,'kw'=>30,'lv'=>21,'lb'=>28,'li'=>21,'lt'=>20,'lu'=>20,'mk'=>19,'mt'=>31,'mr'=>27,'mu'=>30,'mc'=>27,'md'=>24,'me'=>22,'nl'=>18,'no'=>15,'pk'=>24,'ps'=>29,'pl'=>28,'pt'=>25,'qa'=>29,'ro'=>24,'sm'=>27,'sa'=>24,'rs'=>22,'sk'=>24,'si'=>19,'es'=>24,'se'=>24,'ch'=>21,'tn'=>24,'tr'=>26,'ae'=>23,'gb'=>22,'vg'=>24);
     $Chars = array('a'=>10,'b'=>11,'c'=>12,'d'=>13,'e'=>14,'f'=>15,'g'=>16,'h'=>17,'i'=>18,'j'=>19,'k'=>20,'l'=>21,'m'=>22,'n'=>23,'o'=>24,'p'=>25,'q'=>26,'r'=>27,'s'=>28,'t'=>29,'u'=>30,'v'=>31,'w'=>32,'x'=>33,'y'=>34,'z'=>35);
-    
+
     if (array_key_exists(substr($iban, 0, 2), $Countries) && strlen($iban) == $Countries[substr($iban, 0, 2)])
     {
     	$MovedChar = substr($iban, 4).substr($iban, 0, 4);
     	$MovedCharArray = str_split($MovedChar);
     	$NewString = "";
-    
+
     	foreach ($MovedCharArray AS $key => $value)
     	{
     		if (!is_numeric($MovedCharArray[$key]))
@@ -1162,7 +1162,7 @@ function test_iban($iban)
     		}
     		$NewString .= $MovedCharArray[$key];
     	}
-    
+
     	if (bcmod($NewString, '97') == 1)
     	{
     		return TRUE;
@@ -1179,9 +1179,9 @@ function test_iban($iban)
 }
 
 /**
- * Durchlaeuft alle Mitglieder und prueft ob ein BIC vorhanden ist, falls das Mitglied aus 
+ * Durchlaeuft alle Mitglieder und prueft ob ein BIC vorhanden ist, falls das Mitglied aus
  * einem Land außerhalb EU/EWR stammt
- * Prueft die Kontodaten des Vereins ob ein BIC vorhanden ist, falls der Verein 
+ * Prueft die Kontodaten des Vereins ob ein BIC vorhanden ist, falls der Verein
  * aus einem Land außerhalb EU/EWR stammt
  * @return  array $ret
  */
@@ -1190,14 +1190,14 @@ function check_bic()
 	global $pPreferences, $gProfileFields;
 	$ret = array();
     $user = new User($GLOBALS['gDb'], $gProfileFields);
-	
+
 	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'BIC'), 0);
-	
+
 	foreach ($members as $member => $memberdata)
 	{
 		if (isIbanNOT_EU_EWR($memberdata['IBAN']) && empty($memberdata['BIC']))
 		{
-            $user->readDataById($member); 
+            $user->readDataById($member);
 			$ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
 	}
@@ -1224,8 +1224,8 @@ function check_bic()
  */
 function isIbanNOT_EU_EWR($iban)
 {
-	$iban_land = strtoupper(substr(str_replace(' ', '', $iban), 0,2));                  
-	
+	$iban_land = strtoupper(substr(str_replace(' ', '', $iban), 0,2));
+
 	$countries = array( 'CH',			//Schweiz
 						'MC', 			//Monaco
 						'SM', 			//San Marino
@@ -1234,12 +1234,12 @@ function isIbanNOT_EU_EWR($iban)
 						'IM',			//Isle of Man
 //						'GB',			//Großbritannien (je nach Brexit-Vereinbarung)
 						'PM' );			//St. Pierre und Miquelon
-	
+
 	if (in_array($iban_land, $countries))
 	{
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
@@ -1256,16 +1256,16 @@ function isIbanNOT_EU_EWR($iban)
 function isUserAuthorized($scriptName)
 {
 	global $gMessage;
-	
+
 	$userIsAuthorized = false;
 	$menId = 0;
-	
+
 	$sql = 'SELECT men_id
               FROM '.TBL_MENU.'
              WHERE men_url = ? -- $scriptName ';
-	
+
 	$menuStatement = $GLOBALS['gDb']->queryPrepared($sql, array($scriptName));
-	
+
 	if ( $menuStatement->rowCount() === 0 || $menuStatement->rowCount() > 1)
 	{
 		$GLOBALS['gLogger']->notice('MembershipFee: Error with menu entry: Found rows: '. $menuStatement->rowCount() );
@@ -1279,14 +1279,14 @@ function isUserAuthorized($scriptName)
 			$menId = (int) $row['men_id'];
 		}
 	}
-	
+
 	$sql = 'SELECT men_id, men_com_id, com_name_intern
               FROM '.TBL_MENU.'
          LEFT JOIN '.TBL_COMPONENTS.'
                 ON com_id = men_com_id
              WHERE men_id = ? -- $menId
           ORDER BY men_men_id_parent DESC, men_order';
-	
+
 	$menuStatement = $GLOBALS['gDb']->queryPrepared($sql, array($menId));
 	while ($row = $menuStatement->fetch())
 	{
@@ -1295,7 +1295,7 @@ function isUserAuthorized($scriptName)
 			// Read current roles rights of the menu
 			$displayMenu = new RolesRights($GLOBALS['gDb'], 'menu_view', $row['men_id']);
 			$rolesDisplayRight = $displayMenu->getRolesIds();
-			
+
 			// check for right to show the menu
 			if (count($rolesDisplayRight) === 0 || $displayMenu->hasRight($GLOBALS['gCurrentUser']->getRoleMemberships()))
 			{
@@ -1314,9 +1314,9 @@ function isUserAuthorized($scriptName)
 function isUserAuthorizedForPreferences()
 {
     global $pPreferences;
-    
+
     $userIsAuthorized = false;
-    
+
     if ($GLOBALS['gCurrentUser']->isAdministrator())                   // Mitglieder der Rolle Administrator dürfen "Preferences" immer aufrufen
     {
         $userIsAuthorized = true;
@@ -1332,7 +1332,7 @@ function isUserAuthorizedForPreferences()
             }
         }
     }
-    
+
     return $userIsAuthorized;
 }
 
@@ -1355,18 +1355,18 @@ function date_format2mysql($date)
 function getDeadline($altersrollen_offset)
 {
     $dateTime = \DateTime::createFromFormat('Y-m-d', date('Y').'-1-1');
-    
+
     $dayOffset = new \DateInterval('P1D');
     $monthOffset = new \DateInterval('P'. abs($altersrollen_offset).'M');
-    
+
     if ($altersrollen_offset < 0)
     {
         $monthOffset->invert = 1;
     }
-        
+
     $dateTime->add($monthOffset);
     $dateTime->sub($dayOffset);
-    
+
     return $dateTime->format('Y-m-d');
 }
 
@@ -1629,7 +1629,7 @@ function replace_emailparameter($text, $user)
     {
         $text = preg_replace('/#debtor#/', $user->getValue('DEBTOR'), $text);
     }
-    else 
+    else
     {
         $text = preg_replace('/#debtor#/', $user->getValue('FIRST_NAME'). ' '. $user->getValue('LAST_NAME'), $text);
     }
@@ -1684,12 +1684,12 @@ function obfuscate_iban($iban) {
  * @param string $value           The value that should be formated
  * @param string $user_uuid       The user uuid
  * @param string $usf_uuid        The usf uuid
- * @return string The formated string 
+ * @return string The formated string
  */
 function getEmailLink($value, $user_uuid, $usf_uuid)
 {
 	$htmlValue = '';
-	
+
 	if (StringUtils::strValidCharacters((string) $value, 'email'))
 	{
 	    if (!$GLOBALS['gSettingsManager']->getBool('enable_mail_module'))
@@ -1829,7 +1829,7 @@ function showTestResultWithScrollbar($testResult)
 {
     $size = sizeof($testResult);
     $html = '';
-    
+
     if ($size > 8)
     {
         $html .= '<div style="width:100%; height:200px; overflow:auto; border:20px;">';

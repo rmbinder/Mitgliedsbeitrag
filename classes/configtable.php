@@ -72,11 +72,11 @@ class ConfigTablePMB
     public function init()
     {
         // pruefen, ob es die Tabelle bereits gibt
-        $sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
-        $statement = $GLOBALS['gDb']->queryPrepared($sql);
+        $sql = 'SELECT * FROM '.$this->table_name;
+        $pdoStatement = $GLOBALS['gDb']->queryPrepared($sql, array(), false);
 
-        // Tabelle anlegen, wenn es sie noch nicht gibt
-        if (!$statement->rowCount())
+        // Check the query for results in case installation is running at this time and the config file is already created but database is not installed so far
+        if ($pdoStatement === false)
         {
             // Tabelle ist nicht vorhanden --> anlegen
             $sql = 'CREATE TABLE '.$this->table_name.' (
@@ -163,10 +163,10 @@ class ConfigTablePMB
             {
                 $plp_name = self::$shortcut.'__'.$section.'__'.$key;
 				$sql = 'DELETE FROM '.$this->table_name.'
-        				      WHERE plp_name = ? 
+        				      WHERE plp_name = ?
         				        AND plp_org_id = ? ';
 				$GLOBALS['gDb']->queryPrepared($sql, array($plp_name, $GLOBALS['gCurrentOrgId']));
-                
+
                 unset($this->config[$section][$key]);
             }
             // leere Abschnitte (=leere Arrays) loeschen
@@ -198,9 +198,9 @@ class ConfigTablePMB
 
                 $plp_name = self::$shortcut.'__'.$section.'__'.$key;
 
-            	$sql = ' SELECT plp_id 
-            			   FROM '.$this->table_name.' 
-            			  WHERE plp_name = ? 
+            	$sql = ' SELECT plp_id
+            			   FROM '.$this->table_name.'
+            			  WHERE plp_name = ?
             			    AND ( plp_org_id = ?
                  		     OR plp_org_id IS NULL ) ';
             	$statement = $GLOBALS['gDb']->queryPrepared($sql, array($plp_name, $GLOBALS['gCurrentOrgId']));
@@ -212,14 +212,14 @@ class ConfigTablePMB
                 {
                     $sql = 'UPDATE '.$this->table_name.'
                             SET plp_value = ?
-                			 WHERE plp_id = ? ';   
-                    $GLOBALS['gDb']->queryPrepared($sql, array($value, $row->plp_id));  
+                			 WHERE plp_id = ? ';
+                    $GLOBALS['gDb']->queryPrepared($sql, array($value, $row->plp_id));
                 }
                 // wenn nicht: INSERT eines neuen Datensatzes
                 else
                 {
-                    $sql = 'INSERT INTO '.$this->table_name.' (plp_org_id, plp_name, plp_value) 
-  							VALUES (? , ? , ?)  -- $GLOBALS[\'gCurrentOrgId\'], self::$shortcut.\'__\'.$section.\'__\'.$key, $value '; 
+                    $sql = 'INSERT INTO '.$this->table_name.' (plp_org_id, plp_name, plp_value)
+  							VALUES (? , ? , ?)  -- $GLOBALS[\'gCurrentOrgId\'], self::$shortcut.\'__\'.$section.\'__\'.$key, $value ';
             		$GLOBALS['gDb']->queryPrepared($sql, array($GLOBALS['gCurrentOrgId'], self::$shortcut.'__'.$section.'__'.$key, $value));
                 }
             }
@@ -237,7 +237,7 @@ class ConfigTablePMB
              	  WHERE plp_name LIKE ?
              	    AND ( plp_org_id = ?
                  	 OR plp_org_id IS NULL ) ';
-		$statement = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%', $GLOBALS['gCurrentOrgId'])); 
+		$statement = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%', $GLOBALS['gCurrentOrgId']));
 
         while ($row = $statement->fetch())
         {
@@ -268,16 +268,17 @@ class ConfigTablePMB
         $ret = 0;
 
         // pruefen, ob es die Konfigurationstabelle gibt
-        $sql = 'SHOW TABLES LIKE \''.$this->table_name.'\' ';
-        $tableExistStatement = $GLOBALS['gDb']->queryPrepared($sql);
+        $sql = 'SELECT * FROM '.$this->table_name;
+        $pdoStatement = $GLOBALS['gDb']->queryPrepared($sql, array(), false);
 
-        if ($tableExistStatement->rowCount())
+        // Check the query for results in case installation is running at this time and the config file is already created but database is not installed so far
+        if ($pdoStatement !== false)
         {
             $plp_name = self::$shortcut.'__Plugininformationen__version';
 
-       		$sql = 'SELECT plp_value 
-            		  FROM '.$this->table_name.' 
-            		 WHERE plp_name = ? 
+       		$sql = 'SELECT plp_value
+            		  FROM '.$this->table_name.'
+            		 WHERE plp_name = ?
             		   AND ( plp_org_id = ?
             	    	OR plp_org_id IS NULL ) ';
     		$statement = $GLOBALS['gDb']->queryPrepared($sql, array($plp_name, $GLOBALS['gCurrentOrgId']));
@@ -291,8 +292,8 @@ class ConfigTablePMB
 
             $plp_name = self::$shortcut.'__Plugininformationen__stand';
 
-      		$sql = 'SELECT plp_value 
-            		  FROM '.$this->table_name.' 
+      		$sql = 'SELECT plp_value
+            		  FROM '.$this->table_name.'
             		 WHERE plp_name = ?
             		   AND ( plp_org_id = ?
                  		OR plp_org_id IS NULL ) ';
@@ -371,13 +372,13 @@ class ConfigTablePMB
             $sql = 'DELETE FROM '.$this->table_name.'
           			      WHERE plp_name LIKE ?
         			        AND plp_org_id = ? ';
-			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%', $GLOBALS['gCurrentOrgId']));		
+			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%', $GLOBALS['gCurrentOrgId']));
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
             $sql = 'DELETE FROM '.$this->table_name.'
                           WHERE plp_name LIKE ? ';
-			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%'));	
+			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%'));
         }
 
         // wenn die Tabelle nur Eintraege dieses Plugins hatte, sollte sie jetzt leer sein und kann geloescht werden
@@ -425,11 +426,11 @@ class ConfigTablePMB
         }
 
         // alle usf_ids des uebergebenen $dataField einlesen
-        $sql = 'SELECT usf_id, usf_name, usf_name_intern, usf_cat_id, cat_name, cat_name_intern 
+        $sql = 'SELECT usf_id, usf_name, usf_name_intern, usf_cat_id, cat_name, cat_name_intern
                   FROM '.TBL_USER_FIELDS.', '.TBL_CATEGORIES.'
                  WHERE usf_name_intern LIKE ?
                    AND  usf_cat_id = cat_id  ';
-        $statement = $GLOBALS['gDb']->queryPrepared($sql, array($dataField.$orgSelector)); 
+        $statement = $GLOBALS['gDb']->queryPrepared($sql, array($dataField.$orgSelector));
 
         while ($row = $statement->fetch())
         {
@@ -446,21 +447,21 @@ class ConfigTablePMB
         // das Array durchlaufen und DELETE ausfuehren
         foreach ($usfIDs as $dummy => $data)
         {
-            $sql = 'SELECT * 
+            $sql = 'SELECT *
                       FROM '.TBL_USER_DATA.'
                      WHERE usd_usf_id = ? ';
-            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id'])); 
+            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
 
             if ($statement->rowCount() != 0)
             {
                 $sql = 'DELETE FROM '.TBL_USER_DATA.'
                         WHERE usd_usf_id = ? ';
-                $result_data = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));	
+                $result_data = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
                 $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_DATA.' - Status: '.($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
                 //$result_sum .= '<br/>';
             }
 
-            $sql = 'SELECT * 
+            $sql = 'SELECT *
                       FROM '.TBL_USER_LOG.'
                      WHERE usl_usf_id = ? ';
             $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
@@ -474,10 +475,10 @@ class ConfigTablePMB
                 //$result_sum .= '<br/>';
             }
 
-            $sql = 'SELECT * 
+            $sql = 'SELECT *
                       FROM '.TBL_LIST_COLUMNS.'
                      WHERE lsc_usf_id = ? ';
-            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id'])); 
+            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
 
             if ($statement->rowCount() != 0)
             {
@@ -493,11 +494,11 @@ class ConfigTablePMB
             $result_profilefield = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
             $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD').' '.$data['usf_name_intern'].' in '.TBL_USER_FIELDS.' - Status: '.($result_profilefield ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
 
-            $sql = 'SELECT * 
+            $sql = 'SELECT *
                       FROM '.TBL_USER_FIELDS.'
                      WHERE usf_cat_id = ? ';
             $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_cat_id']));
-            
+
             if ($statement->rowCount() == 0)
             {
                     $sql = 'DELETE FROM '.TBL_CATEGORIES.'
@@ -526,7 +527,7 @@ class ConfigTablePMB
             $sql = 'DELETE FROM '.TBL_TEXTS.'
                           WHERE txt_name LIKE ?
                             AND txt_org_id = ? ';
-            $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('PMBMAIL_%', $GLOBALS['gCurrentOrgId']));		
+            $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('PMBMAIL_%', $GLOBALS['gCurrentOrgId']));
         }
         elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
         {
