@@ -9,7 +9,7 @@
  */
 
 /******************************************************************************
- * Parameters:   
+ * Parameters:
  *
  * user_id    : User_Id des Benutzer, dessen Daten angezeigt werden
  * mode       : edit  - editieren von Text und Beitragstext
@@ -56,7 +56,7 @@ $form->addHtml('
 ');
 $form->addLine();
 
-if (strlen($_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE'.$gCurrentOrgId]) > 0)
+if (strlen((string) $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE'.$gCurrentOrgId]) > 0)
 {
     $form->addInput('fee', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE'.$gCurrentOrgId] , array('property' => HtmlForm::FIELD_DISABLED));
 }
@@ -64,7 +64,7 @@ $form->addInput('fee_new', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'), $_SESSIO
 
 $form->addLine();
 
-if (strlen($_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT'.$gCurrentOrgId]) > 0)
+if (strlen((string) $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT'.$gCurrentOrgId]) > 0)
 {
     $form->addInput('contributory_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT'.$gCurrentOrgId] , array('property' => HtmlForm::FIELD_DISABLED));
 }

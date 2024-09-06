@@ -77,7 +77,7 @@ else
             AND mem_end    > \''.DATE_NOW.'\'
             AND usd_usr_id = usr_id
             AND usd_usf_id = '. $gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'). '
-            AND rol_valid  = 1
+            AND rol_valid  = true
             AND rol_cat_id = cat_id
             AND (  cat_org_id = '. $gCurrentOrgId. '
                 OR cat_org_id IS NULL ) ';
@@ -156,7 +156,7 @@ else
          AND mem.mem_usr_id  = usr_id
        WHERE  '. $memberCondition. '
     ORDER BY last_name, first_name ';
-            
+
     $queryParams = array(
         $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
         $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
@@ -178,7 +178,7 @@ else
         DATE_NOW,
         DATE_NOW
     );
-        
+
     $statement = $gDb->queryPrepared($sql, $queryParams);
 
     if($getMode == 'prepare')
@@ -224,8 +224,8 @@ else
         $page = new HtmlPage('plg-mitgliedsbeitrag-pre-notification', $headline);
 
         $page->addJavascript('
-            function prenotexport(){ 
-                //var duedate = $("#duedate").val(); 
+            function prenotexport(){
+                //var duedate = $("#duedate").val();
                 $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'export')) .'",
                     function(data){
                         // check if error occurs
@@ -244,9 +244,9 @@ else
                     }
                 );
             };
-            
-            function massmail(){ 
-            //var duedate = $("#duedate").val(); 
+
+            function massmail(){
+            //var duedate = $("#duedate").val();
                 $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'mail')) .'",
                     function(data){
                         // check if error occurs
@@ -261,14 +261,14 @@ else
                         return true;
                     }
                 );
-            };    
+            };
         ');            // !!!: ohne true
 
-        $javascriptCode = '    
+        $javascriptCode = '
 
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
-            var duedate = $("#duedate").val(); 
+            var duedate = $("#duedate").val();
             $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/pre_notification.php', array('mode' => 'prepare')) .'&duedate=" + duedate,
                 function(data){
                     // check if error occurs
@@ -326,11 +326,11 @@ else
                 AND   mem_end >= ? -- DATE_NOW
                 AND   usd_usr_id = mem_usr_id
                 AND   mem_rol_id = rol_id
-                AND   rol_valid = 1
+                AND   rol_valid = true
                 AND   rol_cat_id = cat_id
                 AND (  cat_org_id = ? -- $gCurrentOrgId
                  OR cat_org_id IS NULL ) ';
-                 
+
         $queryParams = array(
             $gProfileFields->getProperty('DUEDATE'.$gCurrentOrgId, 'usf_id'),
             DATE_NOW,
@@ -351,9 +351,9 @@ else
         $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'fa-file-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
  	    $form->addDescription('&nbsp');
         $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'fa-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
- 
+
         $page->addHtml($form->show());
-    
+
         // create table object
         $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');
         $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
@@ -482,7 +482,7 @@ else
             }
 
             $user->readDataById($usr['usr_id']);
-            
+
             //11. Spalte ($htmlMail)
             if(StringUtils::strValidCharacters((string) $usr['debtoremail'], 'email'))
             {
@@ -513,7 +513,7 @@ else
             {
                 $htmlMandateID = $usr['mandatsreferenz'];
             }
-            
+
             // create array with all column values
             $columnValues = array(
                 $htmlDueDateStatus,
