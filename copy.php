@@ -76,11 +76,11 @@ else
     $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY');
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
-    
+
     $page = new HtmlPage('plg-mitgliedsbeitrag-copy', $headline);
 
     $javascriptCode = '
-        // pulldown Quelle is clicked 
+        // pulldown Quelle is clicked
         $("#quelle").change(function () {
             if($(this).val().length > 0) {
                 window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('target_userid' => $getTargetUserid)) . '&source_userid=" + $(this).val());
@@ -111,21 +111,21 @@ else
             var row_id = targetcheckbox.attr("id");
             var pos = row_id.search("_");
             var target_usfid = row_id.substring(pos+1);
-       
+
             var sourcecheckbox = $("input[type=checkbox].sourcelist_checkbox:checked");
-            
+
             if(sourcecheckbox.length == 1) {
                 var row_id = sourcecheckbox.attr("id");
                 var pos = row_id.search("_");
                 var source_usfid = row_id.substring(pos+1);
-                               
+
                  $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/copy.php', array('mode' => 'assign', 'target_userid' => $getTargetUserid, 'source_userid' => $getSourceUserid)) .'&source_usfid=" + source_usfid + "&target_usfid=" + target_usfid,
                     function(data){
                         // check if error occurs
                         if(data == "success") {
                             //$("#targetval_"+target_usfid).fadeOut(3000);
                             $("#targetval_"+target_usfid).hide();
-                            $("#targetval_"+target_usfid).text($("#sourceval_"+source_usfid).text()); 
+                            $("#targetval_"+target_usfid).text($("#sourceval_"+source_usfid).text());
                             $("#targetval_"+target_usfid).fadeIn(1200);
                         }
                         else if(data == "unequal_datatype"){
@@ -152,19 +152,19 @@ else
     foreach ($members as $member => $memberdata)
     {
         $birthday = '';
-        $objBirthday = \DateTime::createFromFormat('Y-m-d', $memberdata['BIRTHDAY']);
+        $objBirthday = \DateTime::createFromFormat('Y-m-d', (string) $memberdata['BIRTHDAY']);
         if ($objBirthday !== false)
         {
             $birthday = ', '.$objBirthday->format($gSettingsManager->getString('system_date'));
         }
-        
+
         $members[$member] = $memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$birthday;
         $membersSelectString = $membersSelectString.'<option value='.$member.'>'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].$birthday.'</option>';
     }
     asort($members);
 
     $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
- 
+
     $form = new HtmlForm('copy_selection_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
     $form->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
     $form->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
@@ -185,7 +185,7 @@ else
     );
     $table->setColumnAlignByArray(array('center', 'center', 'center', 'center', 'center'));
     $table->addRowHeadingByArray($columnHeading);
-    
+
     if($getSourceUserid == 0)
     {
         $table->setDatatablesColumnsHide(array(2));
