@@ -111,11 +111,11 @@ try
             $ret = 'success_replace';
             break;
             
-        case 'events':
-            if (isset($_POST['events']))
+        case 'eventsselection':
+            if (isset($_POST['eventsselection']))
             {
                 $role = new TableRoles($gDb);
-                foreach(array_filter($_POST['events']) as $rol_id)
+                foreach(array_filter($_POST['eventsselection']) as $rol_id)
                 {
                     $role->readDataById((int) $rol_id);
                     $role->setvalue('rol_cost', 0);

@@ -872,7 +872,7 @@ if(count($rols) > 0)
 
         // PANEL: EVENTS_SELECTION
 
-        $formEvents = new HtmlForm('events_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee_function.php', array('form' => 'events')), $page, array('class' => 'form-preferences'));
+        $formEvents = new HtmlForm('eventsselection_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee_function.php', array('form' => 'eventsselection')), $page, array('class' => 'form-preferences'));
 
         $sqlData['query'] = 'SELECT rol.rol_id, rol.rol_name, cat.cat_name
                                FROM '.TBL_CATEGORIES.' as cat, '.TBL_ROLES.' as rol
@@ -885,10 +885,10 @@ if(count($rols) > 0)
 
         $sqlData['params']= array($gCurrentOrgId, 'EVENTS');
 
-        $formEvents->addSelectBoxFromSql('events', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), $gDb, $sqlData, array( 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO'));
-        $formEvents->addSubmitButton('btn_save_events', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formEvents->addSelectBoxFromSql('eventsselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), $gDb, $sqlData, array( 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO'));
+        $formEvents->addSubmitButton('btn_save_eventsselection', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'events', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), 'fas fa-calendar-alt', $formEvents->show()));
+        $page->addHtml(getMenuePanel('preferences', 'eventsselection', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), 'fas fa-calendar-alt', $formEvents->show()));
 
         // PANEL: INDIVIDUAL_CONTRIBUTIONS
 
