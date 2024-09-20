@@ -1011,6 +1011,13 @@ if(count($rols) > 0)
         $i  = 0;
         foreach($gProfileFields->getProfileFields() as $field)
         {
+            // normalerweise sollte für das "Datenfeld für die laufende Nummer" ein Profilfeld mit einer laufenden Nummer (Mitgliedsnummer oder UserID) gewählt werden
+            // LAST_NAME oder DEBTOR z.B. darf nicht gewählt werden, da dies zu einem SQL-FEHLER in der Funktion list_members führt
+            if (in_array($field->getValue('usf_name_intern'), array('LAST_NAME', 'FIRST_NAME', 'DEBTOR', 'MANDATEID'.$gCurrentOrgId, 'FEE'.$gCurrentOrgId, 'CONTRIBUTORY_TEXT'.$gCurrentOrgId, 'IBAN')))
+            {
+                continue;
+            }
+            
             $configSelection[$i][0]   = $field->getValue('usf_name_intern');
             $configSelection[$i][1]   = addslashes($field->getValue('usf_name'));
             $configSelection[$i][2]   = $field->getValue('cat_name');

@@ -288,6 +288,8 @@ try
         				$pPreferences->config['columnconfig'][$conf][] = $_POST['column'.$conf.'_'.$number];
         			}
         		}
+        		// doppelte Einträge führen zu einem SQL-FEHLER in der Funktion list_members
+        		$pPreferences->config['columnconfig'][$conf] = array_unique($pPreferences->config['columnconfig'][$conf]);
         	}
         	break; 
         	
