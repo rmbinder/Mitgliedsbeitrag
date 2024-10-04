@@ -28,7 +28,7 @@ $pPreferences->read();
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS');
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-analysis', $headline);
-  
+
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
 $beitrag = analyse_mem();
@@ -120,8 +120,8 @@ foreach ($rollen as $rol => $roldata)
     $columnValues[] = expand_rollentyp($roldata['rollentyp']);
     $columnValues[] = $roldata['rol_cost'].' '.$gSettingsManager->getString('system_currency');
     $columnValues[] = count($roldata['members']);
-    $columnValues[] = ($roldata['rol_cost']*count($roldata['members'])).' '.$gSettingsManager->getString('system_currency');
-    
+    $columnValues[] = ((float)$roldata['rol_cost'] * count($roldata['members'])).' '.$gSettingsManager->getString('system_currency');
+
     $sum += ($roldata['rol_cost']*count($roldata['members']));
     $table->addRowByArray($columnValues);
 }

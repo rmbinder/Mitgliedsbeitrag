@@ -8,7 +8,7 @@
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  *
  * Parameters:
- * 
+ *
  * user_uuid    : send message to the given user UUID
  * usf_uuid     : UUID of the (email) profile field which was transferred
  ***********************************************************************************************
@@ -63,7 +63,7 @@ if ($getUserUuid !== '' && $getUsfUuid !== '')                          // ein E
 elseif (isset($_SESSION['pMembershipFee']['checkedArray']))
 {
     $mailToArray = $_SESSION['pMembershipFee']['checkedArray'];
-    
+
     foreach ($mailToArray as $userId => $usfUuid )
     {
         if ($usfUuid === '')
@@ -71,7 +71,7 @@ elseif (isset($_SESSION['pMembershipFee']['checkedArray']))
             unset($mailToArray[$userId]);
         }
     }
-    
+
     if (count($mailToArray) < 1)
     {
         $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
@@ -86,7 +86,7 @@ elseif (isset($_SESSION['pMembershipFee']['checkedArray']))
         $singleMail = true;
     }
 }
-else 
+else
 {
     $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
     // => EXIT
@@ -176,13 +176,13 @@ if ($singleMail)
         {
             $userEmail = $user->getValue('DEBTOR').' <'.$user->getValue('DEBTOR_EMAIL').'>';
         }
-        else 
+        else
         {
             $gMessage->show($gL10n->get('SYS_USER_NO_EMAIL', array($user->getValue('DEBTOR'))));
             // => EXIT
         }
     }
-    else 
+    else
     {
         if(StringUtils::strValidCharacters((string) $user->getValue($userField->getValue('usf_name_intern')), 'email'))
         {
@@ -195,7 +195,7 @@ if ($singleMail)
         }
     }
 }
-else 
+else
 {
     $userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', array(count($mailToArray)));
 }
@@ -209,7 +209,7 @@ if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['p
     // da der User hier wieder gelandet ist nach der Mailversand-Seite
     $formValues = $_SESSION['pMembershipFee']['message_request'];
     unset($_SESSION['pMembershipFee']['message_request']);
-    $gNavigation->deleteLastUrl();                                  
+    $gNavigation->deleteLastUrl();
     if(!isset($formValues['carbon_copy']))
     {
         $formValues['carbon_copy'] = false;
@@ -221,7 +221,7 @@ if (strpos($gNavigation->getUrl(), 'message_send.php') > 0 && isset($_SESSION['p
     if(!isset($formValues['mailfrom']))
     {
         $formValues['mailfrom'] = $gCurrentUser->getValue('EMAIL');
-    }    
+    }
 }
 else
 {
@@ -239,12 +239,12 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 $page = new HtmlPage('plg-mitgliedsbeitrag-message-write', $headline);
 
 // show form
-$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', array('user_uuid' => $getUserUuid, 'usf_uuid' => $getUsfUuid)), $page, array('enableFileUpload' => true)); 
+$form = new HtmlForm('mail_send_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_send.php', array('user_uuid' => $getUserUuid, 'usf_uuid' => $getUsfUuid)), $page, array('enableFileUpload' => true));
 
 $form->openGroupBox('gb_mail_contact_details', $gL10n->get('SYS_CONTACT_DETAILS'));
 $form->addInput('msg_to', $gL10n->get('SYS_TO'), $userEmail, array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED));
 $form->addLine();
-$form->addInput('namefrom', $gL10n->get('SYS_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'), 
+$form->addInput('namefrom', $gL10n->get('SYS_YOUR_NAME'), $gCurrentUser->getValue('FIRST_NAME'). ' '. $gCurrentUser->getValue('LAST_NAME'),
     array('maxLength' => 50, 'property' => HtmlForm::FIELD_DISABLED)
 );
 
@@ -272,7 +272,7 @@ if($possibleEmails > 1)
                              ON field.usf_id = email.usd_usf_id
                             AND field.usf_type = \'EMAIL\'
                           WHERE usr_id = ? -- $gCurrentUserId
-                            AND usr_valid = 1
+                            AND usr_valid = true
                        GROUP BY email.usd_value, email.usd_value';
     $sqlData['params'] = array($gCurrentUserId);
 
