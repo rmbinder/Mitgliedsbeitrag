@@ -122,7 +122,7 @@ foreach ($rollen as $rol => $roldata)
     $columnValues[] = count($roldata['members']);
     $columnValues[] = ((float)$roldata['rol_cost'] * count($roldata['members'])).' '.$gSettingsManager->getString('system_currency');
 
-    $sum += ($roldata['rol_cost']*count($roldata['members']));
+    $sum += ((float)$roldata['rol_cost'] * count($roldata['members']));
     $table->addRowByArray($columnValues);
 }
 
