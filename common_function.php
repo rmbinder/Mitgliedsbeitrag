@@ -363,7 +363,7 @@ function list_members($fields, $rols = array(), $conditions = '')
         $members[$row['mem_usr_id']] = array();
         foreach ($rowArray as $key)
         {
-            $members[$row['mem_usr_id']][$key] = $row[$key];
+            $members[$row['mem_usr_id']][$key] =  (string) $row[$key];
         }
     }
     return $members;
@@ -1054,7 +1054,7 @@ function check_mandate_management()
 
     foreach ($members as $member => $memberdata)
     {
-        if ((strlen((string) $memberdata['IBAN']) !== 0) && (strlen((string) $memberdata['FEE'.$GLOBALS['gCurrentOrgId']]) !== 0) && ((strlen($memberdata['MANDATEID'.$GLOBALS['gCurrentOrgId']]) === 0)  || (strlen($memberdata['MANDATEDATE'.$GLOBALS['gCurrentOrgId']]) === 0)))
+        if ((strlen($memberdata['IBAN']) !== 0) && (strlen($memberdata['FEE'.$GLOBALS['gCurrentOrgId']]) !== 0) && ((strlen($memberdata['MANDATEID'.$GLOBALS['gCurrentOrgId']]) === 0)  || (strlen($memberdata['MANDATEDATE'.$GLOBALS['gCurrentOrgId']]) === 0)))
         {
             $user->readDataById($member);
             $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
@@ -1118,7 +1118,7 @@ function check_iban()
 
     foreach ($members as $member => $memberdata)
     {
-        if ((strlen((string) $memberdata['IBAN']) === 1) || ((strlen((string) $memberdata['IBAN']) > 1) && !test_iban($memberdata['IBAN'])))
+        if ((strlen($memberdata['IBAN']) === 1) || ((strlen($memberdata['IBAN']) > 1) && !test_iban($memberdata['IBAN'])))
         {
             $user->readDataById($member);
             $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';

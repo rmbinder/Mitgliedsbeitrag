@@ -152,7 +152,7 @@ else
     foreach ($members as $member => $memberdata)
     {
         $birthday = '';
-        $objBirthday = \DateTime::createFromFormat('Y-m-d', (string) $memberdata['BIRTHDAY']);
+        $objBirthday = \DateTime::createFromFormat('Y-m-d', $memberdata['BIRTHDAY']);
         if ($objBirthday !== false)
         {
             $birthday = ', '.$objBirthday->format($gSettingsManager->getString('system_date'));

@@ -447,11 +447,11 @@ else
             //6. Spalte (Vorname)
 
             //7. Spalte ($htmlAddress)
-            if(strlen($usr['zip_code']) > 0 || strlen($usr['city']) > 0)
+            if(strlen((string) $usr['zip_code']) > 0 || strlen((string) $usr['city']) > 0)
             {
                 $addressText .= $usr['zip_code']. ' '. $usr['city'];
             }
-            if(strlen($usr['street']) > 0)
+            if(strlen((string) $usr['street']) > 0)
             {
                 $addressText .= ' - '. $usr['street'];
             }
@@ -463,15 +463,15 @@ else
             //8. Spalte ($addressText)
 
             //10. Spalte ($htmlDebtorText)
-            if(strlen($usr['debtor']) > 0)
+            if(strlen((string) $usr['debtor']) > 0)
             {
                 $debtor_text = $usr['debtor'];
             }
-            if(strlen($usr['debtorstreet']) > 0)
+            if(strlen((string) $usr['debtorstreet']) > 0)
             {
                 $debtor_text = $debtor_text. ' - '. $usr['debtorstreet'];
             }
-            if(strlen($usr['debtorpostcode']) > 0 || strlen($usr['debtorcity']) > 0)
+            if(strlen((string) $usr['debtorpostcode']) > 0 || strlen((string) $usr['debtorcity']) > 0)
             {
                 $debtor_text = $debtor_text. ' - '. $usr['debtorpostcode']. ' '. $usr['debtorcity'];
             }
@@ -489,12 +489,12 @@ else
                 $email = $usr['debtoremail'];
                 $usf_uuid = $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_uuid');
             }
-            elseif(strlen($usr['email']) > 0)
+            elseif(strlen((string) $usr['email']) > 0)
             {
                 $email = $usr['email'];
                 $usf_uuid = $gProfileFields->getProperty('EMAIL', 'usf_uuid');
             }
-            if(strlen($email) > 0)
+            if(strlen((string) $email) > 0)
             {
                 $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] = $usf_uuid;
                 if($gSettingsManager->getString('enable_mail_module') != 1)
@@ -509,7 +509,7 @@ else
             }
 
             //12. Spalte ($email)
-            if(strlen($usr['mandatsreferenz']) > 0)
+            if(strlen((string) $usr['mandatsreferenz']) > 0)
             {
                 $htmlMandateID = $usr['mandatsreferenz'];
             }

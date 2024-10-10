@@ -151,7 +151,7 @@ if ($getMode == 'preview')     //Default
     				}
     				else                                                                        // anhand des Beitrittsdatums
     				{
-    					$time_begin = strtotime((string) $members[$member]['ACCESSION'.$gCurrentOrgId]);
+    					$time_begin = strtotime($members[$member]['ACCESSION'.$gCurrentOrgId]);
     				}
 
     				// anteilige Beitragsberechnung anhand des Endes einer Rollenzugehörigkeit
@@ -341,8 +341,8 @@ if ($getMode == 'preview')     //Default
     	foreach ($members as $member => $memberdata)
     	{
     		// letzte Datenaufbereitung (aufsummieren, ueberschreiben, runden...)
-    		if ((is_null($members[$member]['FEE'.$gCurrentOrgId])
-    				||  (!(is_null($members[$member]['FEE'.$gCurrentOrgId]))
+    		if ((empty($members[$member]['FEE'.$gCurrentOrgId])
+    				||  (!(empty($members[$member]['FEE'.$gCurrentOrgId]))
     				    && (isset($_POST['recalculation_modus']) && (($_POST['recalculation_modus'] == 'overwrite') || ($_POST['recalculation_modus'] == 'summation')))
     				    )
     		    )
