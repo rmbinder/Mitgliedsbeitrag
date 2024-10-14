@@ -542,4 +542,25 @@ class ConfigTablePMB
 
         return $result;
     }
+    
+    /**
+     * Loescht den Menüeintrag
+     * @return  string  $result   Meldung
+     */
+    public function delete_menu_item()
+    {
+        $result = '';
+        $result_data = false;
+        
+        // eigentlich bräuchte nur auf 'membership_fee.php' geprüft werden
+        // um aber auch alte Bestandsinstallationen zu löschen, wird 'mitgliedsbeitrag.php' auch mit betrachtet
+        $sql = 'DELETE FROM '.TBL_MENU.'
+                      WHERE men_url LIKE ?
+                         OR men_url LIKE ? ';
+        
+        $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('/adm_plugins/%/membership_fee.php', '/adm_plugins/%/mitgliedsbeitrag.php'));
+         
+        $result .= '<br/>'.$GLOBALS['gL10n']->get('SYS_MENU_ITEM').' - Status: '.($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
+        return $result;
+    }
 }

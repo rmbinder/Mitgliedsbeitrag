@@ -135,7 +135,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Supprimer les données dans toutes les organisations.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- Une erreur s\'est produite lors de la suppression des données.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- Les données créées par le plug-in ont été supprimées.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nPour supprimer complètement le plug-in, les fichiers du programme et l\'entrée de menu doivent encore être supprimés.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nPour supprimer complètement le plugin, les fichiers du programme doivent être supprimés.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">Aucune donnée n\'a été sélectionnée pour suppression.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">Les actions suivantes ont été effectuées :\n\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- La table "adm_plugin_preferences" n\'a pas pu être supprimée car elle contient encore des données d\'un autre plug-in.\n</string>
@@ -296,6 +296,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">Ces données sont basées sur les données du compte ainsi que sur les entrées Cotisations et Payé des membres payants.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Adhésion</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Cotisation</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE_DESC">Ce plugin calcule les frais d'adhésion.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR">Le contrôle d\'autorisation du plug-in a échoué. Plus d\'un élément de menu est défini avec la même URL.\n\n=> #VAR1_BOLD#</string>    
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_DATE">Date du message</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_ID">ID du message</string>

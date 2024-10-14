@@ -135,7 +135,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Delete data in all organizations.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- When you delete the data, an error has occurred..\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- The created data has been cleared.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nTo completely remove the plugin the program files and the menu entry must be removed.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nTo completely remove the plugin the program files must be deleted.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">No data has been selected for deletion.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">The following deletions were performed:\n\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- The table "adm_plugin_preferences" could not be deleted because it houses more data from other plugins.\n</string>
@@ -296,6 +296,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">The basis of this data are the account details and the Membership Fee and Paid entries of the members liable to pay.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Membership</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Membership fee</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE_DESC">This plugin calculates membership fees.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR">The authorization check of the plugin failed. There is more than one menu item with the same URL defined.\n\n=> #VAR1_BOLD#</string>        
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_DATE">Date of message</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_ID">Message ID</string>

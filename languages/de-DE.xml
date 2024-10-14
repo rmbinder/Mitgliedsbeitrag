@@ -135,7 +135,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Daten in allen Organisationen löschen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- Beim Löschen der Daten ist ein Fehler aufgetreten.\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- Die vom Plugin angelegten Daten wurden gelöscht.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nUm das Plugin vollständig zu entfernen, müssen noch die Programmdateien und der Menü-Eintrag gelöscht werden.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nUm das Plugin vollständig zu entfernen, müssen noch die Programmdateien gelöscht werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">Es wurden keine Daten zum Löschen ausgewählt.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">Folgende Aktionen wurden durchgeführt:\n\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- Die Tabelle "adm_plugin_preferences" konnte nicht gelöscht werden, da sich darin noch Daten eines anderen Plugins befinden.\n</string>
@@ -296,6 +296,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Kontodaten sowie die Einträge Beitrag und Bezahlt der zahlungspflichtigen Mitglieder.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Mitgliedschaft</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Mitgliedsbeitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE_DESC">Dieses Plugin berechnet Mitgliedsbeiträge.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR">Die Authorisierungsprüfung des Plugins ist fehlgeschlagen. Es ist mehr als ein Menüpunkt mit derselben URL definiert.\n\n=> #VAR1_BOLD#</string>        
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_DATE">Datum der Nachricht</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_ID">Nachrichten-ID</string>

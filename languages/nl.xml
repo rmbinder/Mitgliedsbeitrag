@@ -135,7 +135,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Verwijder gegevens in alle organisaties.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- Er is een fout opgetreden bij het verwijderen van de gegevens..\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- De aangemaakte gegevens zijn gewist.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nOm de plug-in volledig te verwijderen, moeten de programmabestanden en het menu-item worden verwijderd.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nOm de plug-in volledig te verwijderen, moeten de programmabestanden worden verwijderd.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">Er zijn geen gegevens geselecteerd om te verwijderen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">De volgende verwijderingen zijn uitgevoerd:\n\n</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- De tabel "adm_plugin_preferences" kon niet worden verwijderd omdat deze meer gegevens bevat van andere plug-ins.\n</string>
@@ -296,6 +296,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">Deze gegevens zijn gebaseerd op de rekeninggegevens en de posten Contributie en Betaald van de betalende leden..</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Lidmaatschap</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE">Contributie</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE_DESC">Deze plug-in berekent lidmaatschapskosten.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR">De autorisatiecontrole van de plug-in is mislukt. Er is meer dan één menu-item gedefinieerd met dezelfde URL.\n\n=> #VAR1_BOLD#</string>        
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_DATE">Datum bericht</string>
     <string name="PLG_MITGLIEDSBEITRAG_MESSAGE_ID">Bericht ID</string>

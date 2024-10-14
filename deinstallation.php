@@ -48,7 +48,7 @@ if ($getMode == 'start')     //Default
     $form->openGroupBox('orgchoice', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORG_CHOICE'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ORG_CHOICE_DESC'));
     $radioButtonEntries = array('0' => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ALLORG'));
-    $form->addRadioButton('deinst_org_select', '', $radioButtonEntries);
+    $form->addRadioButton('deinst_org_select', '', $radioButtonEntries, array('defaultValue' => '0'));
     $form->closeGroupBox();
 
     $form->openGroupBox('configdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'));
@@ -99,6 +99,10 @@ if ($getMode == 'start')     //Default
     $form->openGroupBox('others', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_OTHERS'));
     $form->addCheckbox('mailtexts', $gL10n->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS'), 0);
     $form->closeGroupBox();
+    $form->closeGroupBox();
+    
+    $form->openGroupBox('menu', $headline = $gL10n->get('SYS_MENU'));
+    $form->addCheckbox('menuitem', $gL10n->get('SYS_MENU_ITEM'), 0);
     $form->closeGroupBox();
 
     $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'class' => 'btn-primary'));
@@ -196,7 +200,13 @@ elseif ($getMode == 'delete')
     {
         $deinst_member_data_message .= $pPreferences->delete_mail_data($_POST['deinst_org_select']);
     }
-
+    
+    $deinst_menuitem_message = '';
+    if (isset($_POST['menuitem']))
+    {
+        $deinst_menuitem_message .= $pPreferences->delete_menu_item();
+    }
+    
     $deinstMessage = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE');
     if ($deinst_config_data_message != '')
     {
@@ -208,6 +218,11 @@ elseif ($getMode == 'delete')
         $deinstMessage .= '<br/><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA').'</strong>';
         $deinstMessage .= $deinst_member_data_message;
     }
+    if ($deinst_menuitem_message != '')
+    {
+        $deinstMessage .= '<br/><br/><strong>'.$gL10n->get('SYS_MENU').'</strong>';
+        $deinstMessage .= $deinst_menuitem_message;
+    }
     
     if ($deinstMessage != $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE'))
     {
@@ -215,6 +230,7 @@ elseif ($getMode == 'delete')
         $page->addHtml('<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE').'</div>');
        
         $_SESSION['pMembershipFee']['deinst'] = true;
+        $gCurrentSession->reloadAllSessions();
     }
     else
     {

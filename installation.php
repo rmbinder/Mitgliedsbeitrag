@@ -32,7 +32,7 @@ $gNavigation->addStartUrl(CURRENT_URL);
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start', 'anlegen', 'soll_ist')));
 
 if($getMode == 'anlegen')
-{
+{  
     $arr = check_DB();
 
     // pruefen, ob es die Kategorie Mitgliedschaft gibt, wenn nicht: anlegen
@@ -481,6 +481,12 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 }
 elseif($getMode == 'soll_ist')
 {
+    // Menüpunkt erzeugen, wenn keiner vorhanden ist
+    if (!isMenuItem())
+    {
+        addMenuItem();
+    }
+
     $arr = check_DB();
 
     $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE').': '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS'));
@@ -1194,3 +1200,75 @@ function setUserField($cat_id, $arr, $sequence)
     
     $newUserField->save();
 }  
+
+
+/**
+ * Creates a menu item in the Plugins submenu
+ * @return  void
+ */
+function addMenuItem() 
+{   
+    // die men_id von men_name_intern 'plugins' ermitteln
+    $sql = 'SELECT men_id
+              FROM '.TBL_MENU.'
+             WHERE men_name_intern = ? ';
+    
+    $statement = $GLOBALS['gDb']->queryPrepared($sql, array('plugins'));
+    
+    while ($row = $statement->fetch())
+    {
+        $menId = (int) $row['men_id'];
+    }
+    
+    // die höchste Sequenz (men_order) im Untermenü 'plugins' ermitteln
+    $sequence = 0;
+    $men_order_new = 0;
+    
+    $sql = 'SELECT men_order
+              FROM '. TBL_MENU. '
+             WHERE men_men_id_parent = ?
+          ORDER BY men_order ASC';
+    
+    $statement = $GLOBALS['gDb']->queryPrepared($sql, array($menId));
+    
+    while($row = $statement->fetch())
+    {
+        $sequence = $row['men_order'];
+    }
+    
+    // die höchste Sequenz inkrementieren
+    $men_order_new = $sequence+1;
+    
+    // den Menüeintrag erzeugen
+    $sql = 'INSERT INTO '.TBL_MENU.'
+                   (men_com_id, men_men_id_parent, men_uuid, men_node, men_order, men_standard, men_name_intern, men_url, men_icon, men_name, men_description)
+            VALUES (NULL, \'' . $menId . '\', \'' . Uuid::uuid4() . '\', 0, \'' . $men_order_new . '\', false, \'membership_fee\', \''.FOLDER_PLUGINS. PLUGIN_FOLDER .'/membership_fee.php\', \'fa-euro-sign\', \'PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE\', \'PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE_DESC\')';
+    $GLOBALS['gDb']->query($sql);
+    
+    // damit am Bildschirm die Menüeinträge aktualisiert werden: alle Sesssions neu laden
+    $GLOBALS['gCurrentSession']->reloadAllSessions();
+}
+
+/**
+ * Checks whether a menu item already exists
+ * @return bool Return true if menu item exists
+ */
+function isMenuItem()
+{
+    $menUrl = FOLDER_PLUGINS. PLUGIN_FOLDER .'/membership_fee.php';
+    
+    $sql = 'SELECT men_id
+              FROM '.TBL_MENU.'
+             WHERE men_url = ? -- $menUrl ';
+    
+    $menuStatement = $GLOBALS['gDb']->queryPrepared($sql, array($menUrl));
+    
+    if ( $menuStatement->rowCount() === 0 )
+    {
+        return false;
+    }
+    else
+    {
+       return true;
+    }
+}
