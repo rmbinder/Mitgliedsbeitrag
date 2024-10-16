@@ -110,7 +110,7 @@ if ($getMode == 'preview')     //Default
 		// letzte Datenaufbereitung
 		if ($members[$member]['FEE_NEW'] > $pPreferences->config['Beitrag']['beitrag_mindestbetrag'])
 		{
-		    $members[$member]['FEE_NEW'] += $members[$member]['FEE'.$gCurrentOrgId];
+		    $members[$member]['FEE_NEW'] += (float) $members[$member]['FEE'.$gCurrentOrgId];
             $members[$member]['CONTRIBUTORY_TEXT_NEW'] = $members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrgId].' '.$members[$member]['CONTRIBUTORY_TEXT_NEW'];
 		
 		    //fuehrende und nachfolgene Leerstellen im Beitragstext loeschen
