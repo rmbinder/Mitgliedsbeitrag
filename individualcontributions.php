@@ -94,7 +94,7 @@ if ($getMode == 'preview')     //Default
 			$members[$member]['FEE_NEW'] += $amount;
 			if ($pPreferences->config['individual_contributions']['short_desc'][$i] != '')
 			{
-				$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$pPreferences->config['individual_contributions']['short_desc'][$i].':'.$amount.' ';
+				$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$pPreferences->config['individual_contributions']['short_desc'][$i].' '.$amount.' ';
 			}            
 		}  
 
