@@ -67,7 +67,7 @@ $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER');
 $columnValues[] = $gL10n->get('SYS_NAME');
 $columnValues[] = $gL10n->get('SYS_STREET');
 $columnValues[] = $gL10n->get('SYS_POSTCODE');
-$columnValues[] = $gL10n->get('SYS_LOCATION');
+$columnValues[] = $gL10n->get('SYS_CITY');
 $columnValues[] = $gL10n->get('SYS_EMAIL');
 $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
 $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
@@ -166,7 +166,7 @@ elseif ($exportMode === 'xlsx')
     $writer->setTitle($filename);
     $writer->setSubject($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
     $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
-    $writer->setKeywords(array($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_STATEMENT_FILE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA')));
+    $writer->setKeywords(array($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA')));
     $writer->setDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATED_WITH'));
     $writer->writeSheet($rows,'', $header);
     $writer->writeToStdOut();
