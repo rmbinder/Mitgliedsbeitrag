@@ -1021,7 +1021,7 @@ function check_family_roles()
                     $test = $role->readDataById($famkey);
                     $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$famdata['rolle']. '</a>
                         <a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/lists_show.php', array('mode' => 'html', 'rol_ids' => $famkey)). '">
-                            <i class="fas fa-users" alt="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'" title="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'"></i>
+                            <i class="bi bi-people" alt="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'" title="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'"></i>
                         </a>';
 
                     $ret = array_merge($ret, $ret_temp);
@@ -1734,7 +1734,7 @@ function getMenuePanel($group, $id, $parentId, $title, $icon, $body)
         <div class="card" id="panel_' . $id . '">
             <div class="card-header">
                 <a type="button" data-bs-toggle="collapse" data-bs-target="#collapse_' . $id . '">
-                    <i class="' . $icon . ' fa-fw"></i>' . $title . '
+                    <i class="' . $icon . ' bi-fw"></i>' . $title . '
                 </a>
             </div>
             <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-bs-parent="#' . $parentId . '">
@@ -1760,7 +1760,7 @@ function getMenuePanelHeaderOnly($group, $id, $parentId, $title, $icon)
         <div class="card" id="panel_' . $id . '">
             <div class="card-header">
                 <a type="button" data-bs-toggle="collapse" data-bs-target="#collapse_' . $id . '">
-                    <i class="' . $icon . ' fa-fw"></i>' . $title . '
+                    <i class="' . $icon . ' bi-fw"></i>' . $title . '
                 </a>
             </div>
             <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-bs-parent="#' . $parentId . '">

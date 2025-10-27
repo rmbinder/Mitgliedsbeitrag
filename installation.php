@@ -464,9 +464,9 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));
         
         $form->openButtonGroup();
-        $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'anlegen')), 'class' => 'btn-primary'));
+        $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array('icon' => 'bi-arrow-right-circle-fill', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'anlegen')), 'class' => 'btn-primary'));
         $form->addDescription('&nbsp');
-        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => 'fa-times', 'link' => $gHomepage, 'class' => 'btn-primary' ));
+        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array('icon' => 'bi-door-open', 'link' => $gHomepage, 'class' => 'btn-primary' ));
         $form->closeButtonGroup();
         
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));
@@ -478,7 +478,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
         $pPreferences->init();      //Konfigurationstabelle anlegen
         
         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));        
-        $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'soll_ist')), 'class' => 'btn-primary'));
+        $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array('icon' => 'bi-arrow-right-circle-fill', 'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/installation.php', array('mode' => 'soll_ist')), 'class' => 'btn-primary'));
         $form->addDescription('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));
     }
     $page->addHtml($form->show(false));
@@ -515,9 +515,9 @@ elseif($getMode == 'soll_ist')
     $columnAttributes['colspan'] = 2;
     $table->addColumn($gL10n->get('SYS_INTERNAL_NAME'), $columnAttributes, 'th');
     $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_DATA_TYPE'), $columnAttributes, 'th');
-    $table->addColumn('<i class="fas fa-eye" data-bs-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'"></i>/<i class="fas fa-eye admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'"></i>', $columnAttributes, 'th');
-    $table->addColumn('<i class="fas fa-key" data-bs-toggle="tooltip" data-bs-html="true" title="'.$gL10n->get('ORG_FIELD_DISABLED', array($gL10n->get('SYS_RIGHT_EDIT_USER'))).'"></i>/<i class="fas fa-key admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'"></i>', $columnAttributes, 'th');
-    $table->addColumn('<i class="fas fa-asterisk" data-bs-toggle="tooltip" title="'.$gL10n->get('SYS_REQUIRED_INPUT').'"></i>/<i class="fas fa-asterisk admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$gL10n->get('SYS_REQUIRED_INPUT').': '.$gL10n->get('SYS_NO').'"></i>', $columnAttributes, 'th');
+    $table->addColumn('<i class="bi bi-eye-fill" data-bs-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_HIDDEN').'"></i>/<i class="bi bi-eye-fill admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_HIDDEN').'"></i>', $columnAttributes, 'th');
+    $table->addColumn('<i class="bi bi-key-fill" data-bs-toggle="tooltip" data-bs-html="true" title="'.$gL10n->get('ORG_FIELD_DISABLED', array($gL10n->get('SYS_RIGHT_EDIT_USER'))).'"></i>/<i class="bi bi-key-fill admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$gL10n->get('ORG_FIELD_NOT_DISABLED').'"></i>', $columnAttributes, 'th');
+    $table->addColumn('<i class="bi bi-asterisk" data-bs-toggle="tooltip" title="'.$gL10n->get('SYS_REQUIRED_INPUT').'"></i>/<i class="bi bi-asterisk admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$gL10n->get('SYS_REQUIRED_INPUT').': '.$gL10n->get('SYS_NO').'"></i>', $columnAttributes, 'th');
 
     $table->addRow('', null, 'th');
     $columnAttributes['colspan'] = 1;
@@ -672,7 +672,7 @@ elseif($getMode == 'soll_ist')
     $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));
     
     $form = new HtmlForm('installation_soll_ist_form', '', $page);
-    $form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => $gHomepage, 'class' => 'btn-primary'));
+    $form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => 'bi-arrow-right-circle-fill', 'link' => $gHomepage, 'class' => 'btn-primary'));
     $page->addHtml($form->show(false));
     
     $page->addHtml('<strong>'.$gL10n->get('SYS_NEXT').'</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));
@@ -1001,72 +1001,72 @@ function SollIstProfilfeld($arr, $field)
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_HIDDEN').'"></i>';
+        $columnValues[] = '<i class="bi bi-eye-fill admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_HIDDEN').'"></i>';
     }                       
     else
     {
-        $columnValues[] =  '<i class="fas fa-eye" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
+        $columnValues[] =  '<i class="bi bi-eye-fill" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_hidden'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-eye admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_HIDDEN').'"></i>';
+        $columnValues[] = '<i class="bi bi-eye-fill admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_HIDDEN').'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-eye" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
+        $columnValues[] = '<i class="bi bi-eye-fill" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_HIDDEN').'"></i>';
     }
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-key" data-bs-toggle="tooltip" data-bs-html="true" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_DISABLED', array($GLOBALS['gL10n']->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
+        $columnValues[] = '<i class="bi bi-key-fill" data-bs-toggle="tooltip" data-bs-html="true" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_DISABLED', array($GLOBALS['gL10n']->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_DISABLED').'"></i>';
+        $columnValues[] = '<i class="bi bi-key-fill admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_DISABLED').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_disabled'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-key" data-bs-toggle="tooltip" data-bs-html="true" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_DISABLED', array($GLOBALS['gL10n']->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
+        $columnValues[] = '<i class="bi bi-key-fill" data-bs-toggle="tooltip" data-bs-html="true" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_DISABLED', array($GLOBALS['gL10n']->get('SYS_RIGHT_EDIT_USER'))).'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-key admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_DISABLED').'"></i>';
+        $columnValues[] = '<i class="bi bi-key-fill admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('ORG_FIELD_NOT_DISABLED').'"></i>';
     }
 
     if ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_required_input'] == 1)
     {
-        $columnValues[] = '<i class="fas fa-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_YES').'"></i>';
+        $columnValues[] = '<i class="bi bi-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_YES').'"></i>';
     }
     elseif ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_required_input'] == 2)
     {
-        $columnValues[] = '<i class="fas fa-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_ONLY_AT_REGISTRATION_AND_OWN_PROFILE').'"></i>';
+        $columnValues[] = '<i class="bi bi-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_ONLY_AT_REGISTRATION_AND_OWN_PROFILE').'"></i>';
     }
     elseif ($arr['SOLL']['TBL_USER_FIELDS'][$field]['usf_required_input'] == 3)
     {
-        $columnValues[] = '<i class="fas fa-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NOT_AT_REGISTRATION').'"></i>';
+        $columnValues[] = '<i class="bi bi-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NOT_AT_REGISTRATION').'"></i>';
     }
     else
     {
-        $columnValues[] = '<i class="fas fa-asterisk admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NO').'"></i>';
+        $columnValues[] = '<i class="bi bi-asterisk admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NO').'"></i>';
     }
 
     if ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_required_input'] == 1)
     { 
-        $columnValues[] =  '<i class="fas fa-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_YES').'"></i>' ;
+        $columnValues[] =  '<i class="bi bi-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_YES').'"></i>' ;
     }
     elseif ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_required_input'] == 2)
     {
-        $columnValues[] =  '<i class="fas fa-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_ONLY_AT_REGISTRATION_AND_OWN_PROFILE').'"></i>' ;
+        $columnValues[] =  '<i class="bi bi-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_ONLY_AT_REGISTRATION_AND_OWN_PROFILE').'"></i>' ;
     }
     elseif ($arr['IST']['TBL_USER_FIELDS'][$field]['usf_required_input'] == 3)
     {
-        $columnValues[] =  '<i class="fas fa-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NOT_AT_REGISTRATION').'"></i>' ;
+        $columnValues[] =  '<i class="bi bi-asterisk" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NOT_AT_REGISTRATION').'"></i>' ;
     }
     else
     {
-        $columnValues[] ='<i class="fas fa-asterisk admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NO').'"></i>';
+        $columnValues[] ='<i class="bi bi-asterisk admidio-opacity-reduced" data-bs-toggle="tooltip" title="'.$GLOBALS['gL10n']->get('SYS_NO').'"></i>';
     }
 
     return $columnValues;
@@ -1248,7 +1248,7 @@ function addMenuItem()
     // den Menüeintrag erzeugen
     $sql = 'INSERT INTO '.TBL_MENU.'
                    (men_com_id, men_men_id_parent, men_uuid, men_node, men_order, men_standard, men_name_intern, men_url, men_icon, men_name, men_description)
-            VALUES (NULL, \'' . $menId . '\', \'' . Uuid::uuid4() . '\', 0, \'' . $men_order_new . '\', false, \'membership_fee\', \''.FOLDER_PLUGINS. PLUGIN_FOLDER .'/membership_fee.php\', \'fa-euro-sign\', \'PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE\', \'PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE_DESC\')';
+            VALUES (NULL, \'' . $menId . '\', \'' . Uuid::uuid4() . '\', 0, \'' . $men_order_new . '\', false, \'membership_fee\', \''.FOLDER_PLUGINS. PLUGIN_FOLDER .'/membership_fee.php\', \'bi-currency-euro\', \'PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE\', \'PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE_DESC\')';
     $GLOBALS['gDb']->query($sql);
     
     // damit am Bildschirm die Menüeinträge aktualisiert werden: alle Sesssions neu laden

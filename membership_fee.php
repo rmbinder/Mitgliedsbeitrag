@@ -199,7 +199,7 @@ foreach ($gProfileFields->getProfileFields() as $field)
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
 
-$gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', $headline, 'fa-euro-sign');
+$gNavigation->addStartUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', $headline, 'bi-currency-euro');
 
 // create html page object
 $page = new HtmlPage('plg-membership-fee-main', $headline);
@@ -254,14 +254,14 @@ $page->addJavascript('
             success: function(data) {
                 if (data === "success") {
                     formAlert.attr("class", "alert alert-success form-alert");
-                    formAlert.html("<i class=\"fas fa-check\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
+                    formAlert.html("<i class=\"bi bi-check-lg\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
                     formAlert.fadeIn("slow");
                     formAlert.animate({opacity: 1.0}, 2500);
                     formAlert.fadeOut("slow");
                 }
                 else if(data === "success_replace") {
                    formAlert.attr("class", "alert alert-success form-alert");
-                    formAlert.html("<i class=\"fas fa-check\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
+                    formAlert.html("<i class=\"bi bi-check-lg\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
                     formAlert.fadeIn("slow");
                     formAlert.animate({opacity: 1.0}, 2500);
                     formAlert.fadeOut("slow");
@@ -270,7 +270,7 @@ $page->addJavascript('
                 else {
                     formAlert.attr("class", "alert alert-danger form-alert");
                     formAlert.fadeIn();
-                    formAlert.html("<i class=\"fas fa-exclamation-circle\"></i>" + data);
+                    formAlert.html("<i class=\"bi bi-exclamation-circle\"></i>" + data);
                 }
             }
         });
@@ -453,10 +453,10 @@ if(count($rols) > 0)
     {
         $formRemapping = new HtmlForm('remapping_form', '', $page);
 
-        $formRemapping->addButton('btn_remapping_age_staggered_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => 'fa-random', 'link' => 'remapping.php', 'class' => 'btn-primary offset-sm-3'));
+        $formRemapping->addButton('btn_remapping_age_staggered_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => 'bi-shuffle', 'link' => 'remapping.php', 'class' => 'btn-primary offset-sm-3'));
         $formRemapping->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
 
-        $page->addHtml(getMenuePanel('fees', 'remapping', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES'), 'fas fa-random', $formRemapping->show()));
+        $page->addHtml(getMenuePanel('fees', 'remapping', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES'), 'bi bi-shuffle', $formRemapping->show()));
     }
 
     // PANEL: RECALCULATION
@@ -471,10 +471,10 @@ if(count($rols) > 0)
                                 'overwrite' => $gL10n->get('PLG_MITGLIEDSBEITRAG_OVERWRITE'),
                                 'summation' => $gL10n->get('PLG_MITGLIEDSBEITRAG_SUMMATION'));
     $formRecalculation->addRadioButton('recalculation_modus', '', $radioButtonEntries, array('defaultValue' => 'standard', 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_DESC'));
-    $formRecalculation->addSubmitButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => 'fa-calculator', 'class' => 'offset-sm-3'));
+    $formRecalculation->addSubmitButton('btn_recalculation', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), array('icon' => 'bi-calculator', 'class' => 'offset-sm-3'));
     $formRecalculation->addCustomContent('', '<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_MODUS_NOTE'));
 
-    $page->addHtml(getMenuePanel('fees', 'recalculation', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), 'fas fa-calculator', $formRecalculation->show()));
+    $page->addHtml(getMenuePanel('fees', 'recalculation', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION'), 'bi bi-calculator', $formRecalculation->show()));
 
     // PANEL: INDIVIDUAL_CONTRIBUTIONS
 
@@ -482,10 +482,10 @@ if(count($rols) > 0)
     {
         $formIndividualContributions = new HtmlForm('individual_contributions_form', '', $page);
 
-        $formIndividualContributions->addButton('btn_individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), array('icon' => 'fa-calculator', 'link' => 'individualcontributions.php', 'class' => 'btn-primary offset-sm-3'));
+        $formIndividualContributions->addButton('btn_individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), array('icon' => 'bi-calculator', 'link' => 'individualcontributions.php', 'class' => 'btn-primary offset-sm-3'));
         $formIndividualContributions->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC'));
 
-        $page->addHtml(getMenuePanel('fees', 'individualcontributions', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-calculator', $formIndividualContributions->show()));
+        $page->addHtml(getMenuePanel('fees', 'individualcontributions', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'bi bi-calculator', $formIndividualContributions->show()));
     }
 
     // PANEL: PAYMENTS
@@ -493,28 +493,28 @@ if(count($rols) > 0)
     $formPayments = new HtmlForm('payments_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/payments.php', $page);
 
     $formPayments->addSelectBox('payments_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['payments_rol_sel']) ? $_SESSION['pMembershipFee']['payments_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAYMENTS_ROLLQUERY_DESC', 'multiselect' => true));
-    $formPayments->addSubmitButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => 'fa-coins', 'class' => 'offset-sm-3'));
+    $formPayments->addSubmitButton('btn_payments', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_EDIT'), array('icon' => 'bi-cash-coin', 'class' => 'offset-sm-3'));
     $formPayments->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS_DESC'));
 
-    $page->addHtml(getMenuePanel('fees', 'payments', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS'), 'fas fa-coins', $formPayments->show()));
+    $page->addHtml(getMenuePanel('fees', 'payments', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS'), 'bi bi-cash-coin', $formPayments->show()));
 
     // PANEL: ANALYSIS
 
     $formAnalysis = new HtmlForm('analysis_form', '', $page);
 
-    $formAnalysis->addButton('btn_analysis', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), array('icon' => 'fa-stream', 'link' => 'analysis.php', 'class' => 'btn-primary offset-sm-3'));
+    $formAnalysis->addButton('btn_analysis', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), array('icon' => 'bi-bar-chart', 'link' => 'analysis.php', 'class' => 'btn-primary offset-sm-3'));
     $formAnalysis->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS_DESC'));
 
-    $page->addHtml(getMenuePanel('fees', 'analysis', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), 'fas fa-stream', $formAnalysis->show()));
+    $page->addHtml(getMenuePanel('fees', 'analysis', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), 'bi bi-bar-chart', $formAnalysis->show()));
 
     // PANEL: HISTORY
 
     $formHistory = new HtmlForm('history_form', '', $page);
 
-    $formHistory->addButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => 'fa-history', 'link' => 'history.php',  'class' => 'btn-primary offset-sm-3'));
+    $formHistory->addButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => 'bi-clock-history', 'link' => 'history.php',  'class' => 'btn-primary offset-sm-3'));
     $formHistory->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC'));
 
-    $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY'), 'fas fa-history', $formHistory->show()));
+    $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY'), 'bi bi-clock-history', $formHistory->show()));
 
     $page->addHtml(closeMenueTab());
 
@@ -528,18 +528,18 @@ if(count($rols) > 0)
     $formCreateMandateID = new HtmlForm('createmandateid_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/create_mandate_id.php', $page);
 
     $formCreateMandateID->addSelectBoxFromSql('createmandateid_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $selectBoxEntriesAlleRollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['createmandateid_rol_sel']) ? $_SESSION['pMembershipFee']['createmandateid_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC', 'multiselect' => true));
-    $formCreateMandateID->addSubmitButton('btn_createmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), array('icon' => 'fa-plus-circle',  'class' => 'offset-sm-3'));
+    $formCreateMandateID->addSubmitButton('btn_createmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), array('icon' => 'bi-plus-circle',  'class' => 'offset-sm-3'));
 
-    $page->addHtml(getMenuePanel('mandatemanagement', 'createmandateid', 'accordion_mandatemanagement', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), 'fas fa-plus-circle', $formCreateMandateID->show()));
+    $page->addHtml(getMenuePanel('mandatemanagement', 'createmandateid', 'accordion_mandatemanagement', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), 'bi bi-plus-circle', $formCreateMandateID->show()));
 
     // PANEL: MANDATES
 
     $formMandates = new HtmlForm('mandates_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandates.php', $page);
 
-    $formMandates->addSubmitButton('btn_mandates', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT'), array('icon' => 'fa-edit', 'class' => 'offset-sm-3'));
+    $formMandates->addSubmitButton('btn_mandates', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT'), array('icon' => 'bi-pen', 'class' => 'offset-sm-3'));
     $formMandates->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT_DESC'));
 
-    $page->addHtml(getMenuePanel('mandatemanagement', 'mandates', 'accordion_mandatemanagement', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT'), 'fas fa-edit', $formMandates->show()));
+    $page->addHtml(getMenuePanel('mandatemanagement', 'mandates', 'accordion_mandatemanagement', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_EDIT'), 'bi bi-pen', $formMandates->show()));
 
     $page->addHtml(closeMenueTab());
 
@@ -548,12 +548,12 @@ if(count($rols) > 0)
 
     // PANEL: SEPA
 
-    $page->addHtml(getMenuePanelHeaderOnly('export', 'sepa', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'), 'fas fa-file-invoice-dollar'));
+    $page->addHtml(getMenuePanelHeaderOnly('export', 'sepa', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'), 'bi bi-file-earmark-arrow-down'));
 
     $formDuedates = new HtmlForm('duedates_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/duedates.php', $page);
 
     $formDuedates->addSelectBox('duedates_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['duedates_rol_sel']) ? $_SESSION['pMembershipFee']['duedates_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_DESC', 'multiselect' => true));
-    $formDuedates->addSubmitButton('btn_duedates', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => 'fa-edit', 'class' => 'offset-sm-3'));
+    $formDuedates->addSubmitButton('btn_duedates', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => 'bi-pen', 'class' => 'offset-sm-3'));
     $formDuedates->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC'));
     $formDuedates->addLine();
     $page->addHtml($formDuedates->show(false));
@@ -562,7 +562,7 @@ if(count($rols) > 0)
 
     if (!$directdebittype)
     {
-        $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST').'</div>';
+        $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_DUEDATES_EXIST').'</div>';
         $formSepa->addCustomContent('', $html);
     }
     else
@@ -637,11 +637,11 @@ if(count($rols) > 0)
                 'defaultValue' => 'xml_file')
             );
 
-        $formSepa->addSubmitButton('btn_create_export_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE'), array('icon' => 'fa-file-alt', 'class' => 'btn-primary offset-sm-3'));
-        $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
+        $formSepa->addSubmitButton('btn_create_export_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE'), array('icon' => 'bi-file-earmark', 'class' => 'btn-primary offset-sm-3'));
+        $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
         $formSepa->addStaticControl('', '', $html);
         $formSepa->addLine();
-        $formSepa->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'fa-file', 'link' => 'pre_notification.php', 'class' => 'btn-primary offset-sm-3'));
+        $formSepa->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'bi-file-earmark-fill', 'link' => 'pre_notification.php', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
     }
 
@@ -652,10 +652,10 @@ if(count($rols) > 0)
     // PANEL: BILL
 
     $formBillExport = new HtmlForm('billexport_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/bill.php', $page);
-    $formBillExport->addSubmitButton('btn_bill', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT'), array('icon' => 'fa-file',  'class' => 'offset-sm-3'));
+    $formBillExport->addSubmitButton('btn_bill', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT'), array('icon' => 'bi-file-earmark-fill',  'class' => 'offset-sm-3'));
     $formBillExport->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC'));
 
-    $page->addHtml(getMenuePanel('export', 'bill', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'), 'fas fa-file-invoice', $formBillExport->show()));
+    $page->addHtml(getMenuePanel('export', 'bill', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'), 'bi bi-file-earmark-spreadsheet', $formBillExport->show()));
 
     $page->addHtml(closeMenueTab());
 
@@ -671,10 +671,10 @@ if(count($rols) > 0)
     $formProduceMembernumber->addSelectBoxFromSql('producemembernumber_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $selectBoxEntriesAlleRollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['membernumber_rol_sel']) ? $_SESSION['pMembershipFee']['membernumber_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2', 'multiselect' => true));
     $formProduceMembernumber->addInput('producemembernumber_format', $gL10n->get('PLG_MITGLIEDSBEITRAG_FORMAT'), (isset($_SESSION['pMembershipFee']['membernumber_format']) ? $_SESSION['pMembershipFee']['membernumber_format'] : (isset($pPreferences->config['membernumber']['format']) ? $pPreferences->config['membernumber']['format'] : '')), array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FORMAT_DESC'));
     $formProduceMembernumber->addCheckbox('producemembernumber_fill_gaps', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILL_GAPS'),  (isset($_SESSION['pMembershipFee']['membernumber_fill_gaps']) ? $_SESSION['pMembershipFee']['membernumber_fill_gaps'] : (isset($pPreferences->config['membernumber']['fill_gaps']) ? $pPreferences->config['membernumber']['fill_gaps'] : '')), array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FILL_GAPS_DESC'));
-    $formProduceMembernumber->addSubmitButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => 'fa-plus-circle',  'class' => 'offset-sm-3'));
+    $formProduceMembernumber->addSubmitButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => 'bi-plus-circle',  'class' => 'offset-sm-3'));
     $formProduceMembernumber->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC'));
 
-    $page->addHtml(getMenuePanel('options', 'producemembernumber', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), 'fas fa-plus-circle', $formProduceMembernumber->show()));
+    $page->addHtml(getMenuePanel('options', 'producemembernumber', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), 'bi bi-plus-circle', $formProduceMembernumber->show()));
 
     // PANEL: FAMILYROLESUPDATE
 
@@ -682,19 +682,19 @@ if(count($rols) > 0)
 
     $formFamilyrolesUpdate = new HtmlForm('familyrolesupdate_form', '', $page);
 
-    $formFamilyrolesUpdate->addButton('btn_familyrolesupdate', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), array('icon' => 'fa-sync', 'link' => 'familyroles_update.php', 'class' => 'btn-primary offset-sm-3'));
+    $formFamilyrolesUpdate->addButton('btn_familyrolesupdate', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), array('icon' => 'bi-arrow-repeat', 'link' => 'familyroles_update.php', 'class' => 'btn-primary offset-sm-3'));
     $formFamilyrolesUpdate->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC'));
 
-    $page->addHtml(getMenuePanel('options', 'familyrolesupdate', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), 'fas fa-sync', $formFamilyrolesUpdate->show()));
+    $page->addHtml(getMenuePanel('options', 'familyrolesupdate', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), 'bi bi-arrow-repeat', $formFamilyrolesUpdate->show()));
 
     // PANEL: COPY
 
     $formCopy = new HtmlForm('copy_form', '', $page);
 
-    $formCopy->addButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => 'fa-clone', 'link' => 'copy.php',  'class' => 'btn-primary offset-sm-3'));
+    $formCopy->addButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => 'bi-copy', 'link' => 'copy.php',  'class' => 'btn-primary offset-sm-3'));
     $formCopy->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_DESC'));
 
-    $page->addHtml(getMenuePanel('options', 'copy', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), 'fas fa-clone', $formCopy->show()));
+    $page->addHtml(getMenuePanel('options', 'copy', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), 'bi bi-copy', $formCopy->show()));
 
     // PANEL: TESTS
 
@@ -702,19 +702,19 @@ if(count($rols) > 0)
     if (in_array(1, $pPreferences->config['tests_enable']))
     {
         $formTests = new HtmlForm('tests_form', '', $page);
-        $formTests->addButton('btn_tests', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), array('icon' => 'fa-user-md', 'link' => 'tests.php', 'class' => 'btn-primary offset-sm-3'));
+        $formTests->addButton('btn_tests', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), array('icon' => 'bi-heart-pulse', 'link' => 'tests.php', 'class' => 'btn-primary offset-sm-3'));
         $formTests->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS_DESC'));
 
-        $page->addHtml(getMenuePanel('options', 'tests', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'fas fa-user-md', $formTests->show()));
+        $page->addHtml(getMenuePanel('options', 'tests', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'bi bi-heart-pulse', $formTests->show()));
     }
 
     // PANEL: ROLEOVERVIEW
 
     $formRoleOverview = new HtmlForm('roleoverview_form', '', $page);
-    $formRoleOverview->addButton('btn_roleoverview', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), array('icon' => 'fa-info', 'link' => 'roleoverview.php', 'class' => 'btn-primary offset-sm-3'));
+    $formRoleOverview->addButton('btn_roleoverview', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), array('icon' => 'bi-list-columns-reverse', 'link' => 'roleoverview.php', 'class' => 'btn-primary offset-sm-3'));
     $formRoleOverview->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC'));
 
-    $page->addHtml(getMenuePanel('options', 'roleoverview', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), 'fas fa-info', $formRoleOverview->show()));
+    $page->addHtml(getMenuePanel('options', 'roleoverview', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), 'bi bi-list-columns-reverse', $formRoleOverview->show()));
 
     //PANEL: PLUGIN_INFORMATION
 
@@ -728,10 +728,10 @@ if(count($rols) > 0)
     {
         $docfile = 'documentation-de.pdf';
     }
-    $html = '<a class="icon-text-link" href="docs/'.$docfile.'" target="_blank"><i class="fas fa-file-pdf"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
+    $html = '<a class="icon-text-link" href="docs/'.$docfile.'" target="_blank"><i class="bi bi-file-earmark-pdf"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION_OPEN').'</a>';
     $formPluginInformations->addCustomContent($gL10n->get('PLG_MITGLIEDSBEITRAG_DOCUMENTATION'), $html);
 
-    $page->addHtml(getMenuePanel('options', 'plugin_informations', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'fas fa-info', $formPluginInformations->show()));
+    $page->addHtml(getMenuePanel('options', 'plugin_informations', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_INFORMATION'), 'bi bi-info-circle', $formPluginInformations->show()));
 
     $page->addHtml(closeMenueTab());
 
@@ -760,9 +760,9 @@ if(count($rols) > 0)
             '%' => '% '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PERCENT').'(*)');
         $formContributionSettings->addSelectBox('beitrag_text_token', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN'), $selectBoxEntries, array('defaultValue' => $pPreferences->config['Beitrag']['beitrag_text_token'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CONTRIBUTION_TEXT_TOKEN_DESC', 'showContextDependentFirstEntry' => false));
         $formContributionSettings->addInput('beitrag_role_separator', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR'), $pPreferences->config['Beitrag']['beitrag_role_separator'], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_ROLE_SEPARATOR_DESC2'));
-        $formContributionSettings->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formContributionSettings->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'contributionsettings', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS'), 'fas fa-edit', $formContributionSettings->show()));
+        $page->addHtml(getMenuePanel('preferences', 'contributionsettings', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_SETTINGS'), 'bi bi-database-gear', $formContributionSettings->show()));
 
         // PANEL: AGE_STAGGERED_ROLES
 
@@ -782,7 +782,7 @@ if(count($rols) > 0)
             if($num_agestaggeredroles != 1)
             {
                 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'agestaggeredroles', 'conf' => $conf)).'">
-                            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
+                            <i class="bi bi-trash"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
                         </a>';
                 $formAgeStaggeredRoles->addCustomContent('', $html);
             }
@@ -791,13 +791,13 @@ if(count($rols) > 0)
         $formAgeStaggeredRoles->addDescription('</div>');
 
         $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'agestaggeredroles', 'conf' => -1)).'">
-                    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
+                    <i class="bi bi-copy"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
                 </a>';
-        $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
+        $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
         $formAgeStaggeredRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
-        $formAgeStaggeredRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formAgeStaggeredRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'agestaggeredroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'), 'fas fa-user-clock', $formAgeStaggeredRoles->show()));
+        $page->addHtml(getMenuePanel('preferences', 'agestaggeredroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'), 'bi bi-hourglass-split', $formAgeStaggeredRoles->show()));
 
         // PANEL: FAMILY_ROLES
 
@@ -816,7 +816,7 @@ if(count($rols) > 0)
             if($num_familyroles != 1)
             {
                 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'familyroles', 'conf' => $conf)).'">
-                            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
+                            <i class="bi bi-trash"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
                         </a>';
                 $formFamilyRoles->addCustomContent('', $html);
             }
@@ -824,13 +824,13 @@ if(count($rols) > 0)
         }
         $formFamilyRoles->addDescription('</div>');
         $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'familyroles', 'conf' => -1)).'">
-                    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
+                    <i class="bi bi-copy"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
                  </a>';
-        $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
+        $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
         $formFamilyRoles->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
-        $formFamilyRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formFamilyRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'familyroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), 'fas fa-user-friends', $formFamilyRoles->show()));
+        $page->addHtml(getMenuePanel('preferences', 'familyroles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'), 'bi bi-people', $formFamilyRoles->show()));
 
         // PANEL: MULTIPLIER_ROLES
 
@@ -846,9 +846,9 @@ if(count($rols) > 0)
             asort($selectBoxEntries);
             $formMultiplierRoles->addSelectBox('multiplier_roles', '', $selectBoxEntries, array('defaultValue' => $pPreferences->config['multiplier']['roles'], 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC'));
 
-            $formMultiplierRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+            $formMultiplierRoles->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-            $page->addHtml(getMenuePanel('preferences', 'multiplier_roles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES'), 'fas fa-percent', $formMultiplierRoles->show()));
+            $page->addHtml(getMenuePanel('preferences', 'multiplier_roles', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES'), 'bi bi-magic', $formMultiplierRoles->show()));
         }
 
         // PANEL: ADVANCED_ROLE_EDITING
@@ -870,9 +870,9 @@ if(count($rols) > 0)
         }
 
         $formAdvancedRoleEditing->addDescription('</div>');
-        $formAdvancedRoleEditing->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formAdvancedRoleEditing->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'advancedroleediting', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING'), 'fas fa-users-cog', $formAdvancedRoleEditing->show()));
+        $page->addHtml(getMenuePanel('preferences', 'advancedroleediting', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ADVANCED_ROLE_EDITING'), 'bi bi-person-gear', $formAdvancedRoleEditing->show()));
 
         // PANEL: EVENTS_SELECTION
 
@@ -890,9 +890,9 @@ if(count($rols) > 0)
         $sqlData['params']= array($gCurrentOrgId, 'EVENTS');
 
         $formEvents->addSelectBoxFromSql('eventsselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), $gDb, $sqlData, array( 'multiselect' => true, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_DESC', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION_INFO'));
-        $formEvents->addSubmitButton('btn_save_eventsselection', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formEvents->addSubmitButton('btn_save_eventsselection', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'eventsselection', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), 'fas fa-calendar-alt', $formEvents->show()));
+        $page->addHtml(getMenuePanel('preferences', 'eventsselection', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EVENTS_SELECTION'), 'bi bi-calendar-range', $formEvents->show()));
 
         // PANEL: INDIVIDUAL_CONTRIBUTIONS
 
@@ -940,7 +940,7 @@ if(count($rols) > 0)
             if($num_individualcontributions != 1)
             {
                 $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'individualcontributions', 'conf' => $conf)).'">
-                            <i class="fas fa-trash-alt"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
+                            <i class="bi bi-trash"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_CONFIG').'
                         </a>';
                 $formIndividualContributionsSetup->addCustomContent('', $html);
             }
@@ -948,13 +948,13 @@ if(count($rols) > 0)
         }
         $formIndividualContributionsSetup->addDescription('</div>');
         $html = '<a id="add_config" class="icon-text-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'individualcontributions', 'conf' => -1)).'">
-                    <i class="fas fa-clone"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
+                    <i class="bi bi-copy"></i> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_CONFIG').'
                 </a>';
-        $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
+        $htmlDesc = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOT_SAVED_SETTINGS_LOST').'</div>';
         $formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
-        $formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'fas fa-coins', $formIndividualContributionsSetup->show()));
+        $page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'bi bi-coin', $formIndividualContributionsSetup->show()));
 
         // PANEL: ACCOUNT_DATA
 
@@ -968,7 +968,7 @@ if(count($rols) > 0)
         {
             $formAccountData->addInput('creditor', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR'), $pPreferences->config['Kontodaten']['inhaber'], array('property' => HtmlForm::FIELD_REQUIRED));
             $html = '<a class="iconLink" id="creditorschieben" href="javascript:creditorschieben()">
-                        <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'"></i>
+                        <i class="bi bi-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CREDITOR').'"></i>
                     </a>';
 
             $formAccountData->addCustomContent('', $html);
@@ -976,11 +976,11 @@ if(count($rols) > 0)
 
             $formAccountData->addInput('ci', $gL10n->get('PLG_MITGLIEDSBEITRAG_CI'), $pPreferences->config['Kontodaten']['ci'], array('property' => HtmlForm::FIELD_REQUIRED));
             $html = '<a class="iconLink" id="cischieben" href="javascript:cischieben()">
-                        <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'"></i>
+                        <i class="bi bi-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_CI').'"></i>
                     </a>';
             $formAccountData->addCustomContent('', $html);
             $formAccountData->addInput('origci', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $pPreferences->config['Kontodaten']['origci']);
-            $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO').'</div>';
+            $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_CDTR_INFO').'</div>';
             $formAccountData->addCustomContent('', $html);
         }
         else
@@ -999,9 +999,9 @@ if(count($rols) > 0)
             $html = '<a class="icon-text-info" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/membership_fee.php', array('choice' => 'accountdata')).'">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'</a>';
             $formAccountData->addCustomContent('', $html, array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DESC'));
         }
-        $formAccountData->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formAccountData->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'accountdata', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'), 'fas fa-money-check', $formAccountData->show()));
+        $page->addHtml(getMenuePanel('preferences', 'accountdata', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'), 'bi bi-bank', $formAccountData->show()));
 
         // PANEL: MANDATE_MANAGEMENT
 
@@ -1032,9 +1032,9 @@ if(count($rols) > 0)
         $configSelection[$i][2]   = $gL10n->get('PLG_MITGLIEDSBEITRAG_ADDITIONAL_FIELDS');
         $formMandateManagement->addSelectBox('data_field', $gL10n->get('PLG_MITGLIEDSBEITRAG_DATA_FIELD_SERIAL_NUMBER'), $configSelection, array('defaultValue' => $pPreferences->config['Mandatsreferenz']['data_field'], 'showContextDependentFirstEntry' => false));
         $formMandateManagement->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC'));
-        $formMandateManagement->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formMandateManagement->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'), 'fas fa-puzzle-piece', $formMandateManagement->show()));
+        $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'), 'bi bi-puzzle', $formMandateManagement->show()));
 
         // PANEL: VIEW_DEFINITIONS
 
@@ -1074,7 +1074,7 @@ if(count($rols) > 0)
 			         <tbody id="mylist_fields_tbody'.$conf.'">
 				            <tr id="table_row_button">
 					           <td colspan="2">
-					               <a class="icon-text-link" href="javascript:addColumn'.$conf.'()"><i class="fas fa-plus-circle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'</a>
+					               <a class="icon-text-link" href="javascript:addColumn'.$conf.'()"><i class="bi bi-plus-circle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ADD_ANOTHER_COLUMN').'</a>
                                 </td>
 				            </tr>
 			         </tbody>
@@ -1084,9 +1084,9 @@ if(count($rols) > 0)
             $formColumnSet->closeGroupBox();
         }
         $formColumnSet->addDescription('</div>');
-        $formColumnSet->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formColumnSet->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'columnset', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'fas fa-binoculars', $formColumnSet->show()));
+        $page->addHtml(getMenuePanel('preferences', 'columnset', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'bi bi-binoculars-fill', $formColumnSet->show()));
 
         // PANEL: EXPORT
 
@@ -1108,9 +1108,9 @@ if(count($rols) > 0)
         $formExport->closeGroupBox();
 
         $formExport->addDescription('');
-        $formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formExport->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'export', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), 'fas fa-file-export', $formExport->show()));
+        $page->addHtml(getMenuePanel('preferences', 'export', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), 'bi bi-download', $formExport->show()));
 
         //PANEL: EMAIL_NOTIFICATIONS
 
@@ -1175,9 +1175,9 @@ if(count($rols) > 0)
         }
         $formEmailNotifications->addMultilineTextInput('bill_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_MAIL_TEXT'), $text->getValue('txt_text'), 7);
 
-        $formEmailNotifications->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formEmailNotifications->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'email_notifications', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'), 'fas fa-envelope', $formEmailNotifications->show()));
+        $page->addHtml(getMenuePanel('preferences', 'email_notifications', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_NOTIFICATIONS'), 'bi bi-envelope', $formEmailNotifications->show()));
 
         // PANEL: TESTS
 
@@ -1361,9 +1361,9 @@ if(count($rols) > 0)
             );
         $formTestsSetup->addLine();
 
-        $formTestsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formTestsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'testssetup', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'fas fa-check-double', $formTestsSetup->show()));
+        $page->addHtml(getMenuePanel('preferences', 'testssetup', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), 'bi bi-heart-pulse', $formTestsSetup->show()));
 
         // PANEL: ACCESS_PREFERENCES
 
@@ -1376,25 +1376,25 @@ if(count($rols) > 0)
                     OR cat.cat_org_id IS NULL )
               ORDER BY cat_sequence, rol.rol_name ASC';
         $formAccessPreferences->addSelectBoxFromSql('access_preferences', '', $gDb, $sql, array('defaultValue' => $pPreferences->config['access']['preferences'], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC', 'multiselect' => true));
-        $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+        $formAccessPreferences->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'access_preferences', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'fas fa-key', $formAccessPreferences->show()));
+        $page->addHtml(getMenuePanel('preferences', 'access_preferences', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES'), 'bi bi-key-fill', $formAccessPreferences->show()));
 
         // PANEL: DELETE
 
         $formDelete = new HtmlForm('delete_form', '', $page);
-        $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'fa-trash-alt', 'link' => 'delete.php', 'class' => 'btn-primary offset-sm-3'));
+        $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash', 'link' => 'delete.php', 'class' => 'btn-primary offset-sm-3'));
         $formDelete->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC'));
 
-        $page->addHtml(getMenuePanel('preferences', 'delete', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'fas fa-trash-alt', $formDelete->show()));
+        $page->addHtml(getMenuePanel('preferences', 'delete', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'bi bi-trash', $formDelete->show()));
 
         //PANEL: DEINSTALLATION
 
         $formDeinstallation = new HtmlForm('deinstallation_form', '', $page);
-        $formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
+        $formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'bi-trash', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
         $formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
 
-        $page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'fas fa-trash-alt', $formDeinstallation->show()));
+        $page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'bi bi-trash', $formDeinstallation->show()));
 
         $page->addHtml(closeMenueTab());
     }
@@ -1403,7 +1403,7 @@ if(count($rols) > 0)
 }
 else
 {
-    $page->addHtml('<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED').'</div>');
+    $page->addHtml('<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CONTRIBUTION_ROLES_DEFINED').'</div>');
 }
 
 $page->show();

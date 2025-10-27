@@ -44,7 +44,7 @@ if ($getMode == 'start')     //Default
     $form = new HtmlForm('deinstallation_start_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/deinstallation.php', array('mode' => 'delete')), $page);
 
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC').'</div>';
+    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC').'</div>';
     $form->addDescription($html);
 
     $form->openGroupBox('orgchoice', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORG_CHOICE'));
@@ -55,14 +55,14 @@ if ($getMode == 'start')     //Default
 
     $form->openGroupBox('configdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_DESC'));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC').'</div>';
+    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA_ALERT_DESC').'</div>';
     $form->addDescription($html);
     $form->addCheckbox('configurationdata', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONFIGURATION_DATA'), 0);
     $form->closeGroupBox();
 
     $form->openGroupBox('memberdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA'));
     $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA_DESC'));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA_ALERT_DESC').'</div>';
+    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_DATA_ALERT_DESC').'</div>';
     $form->addDescription($html);
 
     $form->openGroupBox('accountdata', $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
@@ -107,7 +107,7 @@ if ($getMode == 'start')     //Default
     $form->addCheckbox('menuitem', $gL10n->get('SYS_MENU_ITEM'), 0);
     $form->closeGroupBox();
 
-    $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'class' => 'btn-primary'));
+    $form->addSubmitButton('btn_deinstall', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'bi-trash', 'class' => 'btn-primary'));
 }
 elseif ($getMode == 'delete')
 {
@@ -229,7 +229,7 @@ elseif ($getMode == 'delete')
     if ($deinstMessage != $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE'))
     {
         $page->addHtml($deinstMessage);
-        $page->addHtml('<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE').'</div>');
+        $page->addHtml('<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE').'</div>');
        
         $_SESSION['pMembershipFee']['deinst'] = true;
         $gCurrentSession->reloadAllSessions();
@@ -241,7 +241,7 @@ elseif ($getMode == 'delete')
     
     $form = new HtmlForm('deinstallation_delete_form', '', $page);
     $gNavigation->clear();
-    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => $gHomepage, 'class' => 'btn-primary'));
+    $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => 'bi-arrow-right-circle-fill', 'link' => $gHomepage, 'class' => 'btn-primary'));
 }
 
 $page->addHtml($form->show(false));

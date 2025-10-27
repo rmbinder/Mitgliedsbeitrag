@@ -220,9 +220,9 @@ else
 
         $form = new HtmlForm('bill_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
-        $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'fa-file-csv', 'link' => 'javascript:billexport()', 'class' => 'btn-primary'));
+        $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'bi-fileteype-csv', 'link' => 'javascript:billexport()', 'class' => 'btn-primary'));
  	    $form->addDescription('&nbsp');
-        $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'fa-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
+        $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'bi-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
  
         $page->addHtml($form->show());
     
@@ -337,7 +337,7 @@ else
                     {
                         $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('user_uuid' => $user->getValue('usr_uuid'), 'usf_uuid' => $userField->getValue('usf_uuid')));
                     }
-                    $columnValues[] = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($content)).'"></i>';
+                    $columnValues[] = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="bi bi-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($content)).'"></i>';
                     }
                     else 
                     {

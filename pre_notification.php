@@ -352,9 +352,9 @@ else
         }
         $form->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-        $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'fa-file-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
+        $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'bi-filetype-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
  	    $form->addDescription('&nbsp');
-        $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'fa-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
+        $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'bi-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
 
         $page->addHtml($form->show());
 
@@ -366,15 +366,15 @@ else
         $columnHeading = array(
             '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_ALL').'"/>',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'),
-            '<i class="fas fa-comment admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'"></i>',
+            '<i class="bi bi-chat-fill admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'"></i>',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
             $gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
-            '<i class="fas fa-map-marked-alt admidio-info-icon" title="'.$gL10n->get('SYS_ADDRESS').'"></i>',
+            '<i class="bi bi-map-fill admidio-info-icon" title="'.$gL10n->get('SYS_ADDRESS').'"></i>',
             $gL10n->get('SYS_STREET'),
-            '<i class="fas fa-info-circle admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'"></i>',
+            '<i class="bi bi-info-circle admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'"></i>',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR'),
-            '<i class="fas fa-envelope admidio-info-icon" title="'.$gL10n->get('SYS_EMAIL').'"></i>',
+            '<i class="bi bi-envelope admidio-info-icon" title="'.$gL10n->get('SYS_EMAIL').'"></i>',
             $gL10n->get('SYS_EMAIL'),
             $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID')
         );
@@ -461,7 +461,7 @@ else
             }
             if(strlen($addressText) > 1)
             {
-                $htmlAddress = '<i class="fas fa-map-marked-alt admidio-info-icon" title="'.$addressText.'"></i>';
+                $htmlAddress = '<i class="bi bi-map-fill admidio-info-icon" title="'.$addressText.'"></i>';
             }
 
             //8. Spalte ($addressText)
@@ -482,7 +482,7 @@ else
 
             if(strlen($debtor_text) > 1)
             {
-                $htmlDebtorText = '<i class="fas fa-info-circle admidio-info-icon" title="'.$debtor_text.'"></i>';
+                $htmlDebtorText = '<i class="bi bi-info-circle admidio-info-icon" title="'.$debtor_text.'"></i>';
             }
 
             $user->readDataById($usr['usr_id']);
@@ -509,7 +509,7 @@ else
                 {
                     $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/message_write.php', array('user_uuid' => $user->getValue('usr_uuid'), 'usf_uuid' => $usf_uuid));
                 }
-                $htmlMail = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="fas fa-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($email)).'"></i>';
+                $htmlMail = '<a class="admidio-icon-link" href="'.$mail_link.'"><i class="bi bi-envelope" title="'.$gL10n->get('SYS_SEND_EMAIL_TO', array($email)).'"></i>';
             }
 
             //12. Spalte ($email)

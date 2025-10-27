@@ -224,7 +224,7 @@ else
     
     //column mandate change
     $columnAlign[]  = 'center';
-    $columnValues[] = '<i class="fas fa-edit"  title="' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE') . '"></i>';
+    $columnValues[] = '<i class="bi bi-pen"  title="' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE') . '"></i>';
     
     // headlines for columns
     foreach ($membersList as $member => $memberData)
@@ -278,7 +278,7 @@ else
         
     	$columnValues = array($content);
         $columnValues[] = '<a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/mandate_change.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">
-            <i class="fas fa-edit" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'"></i>';
+            <i class="bi bi-pen" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'"></i>';
       		
         foreach ($memberData as $usfId => $content)
     	{

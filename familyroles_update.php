@@ -136,7 +136,7 @@ if ($getMode == 'preview')     //Default
 
 		$page->addHtml($table->show(false));
 
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check'));
+		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg'));
 		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW'));
 
         $page->addHtml($form->show(false));
@@ -150,7 +150,7 @@ elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-write', $headline);
 
- 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+ 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
 
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {

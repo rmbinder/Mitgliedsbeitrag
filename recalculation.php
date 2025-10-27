@@ -432,7 +432,7 @@ if ($getMode == 'preview')     //Default
 
         $form = new HtmlForm('recalculation_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/recalculation.php', array('mode' => 'write')), $page);
 
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => 'btn btn-primary'));
+		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => 'btn btn-primary'));
 		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW'));
 
         $page->addHtml($form->show(false));
@@ -452,7 +452,7 @@ elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-recalculation-write', $headline);
 
- 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+ 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
 
 	$page->addJavascript('
     	$("#menu_item_print_view").click(function() {

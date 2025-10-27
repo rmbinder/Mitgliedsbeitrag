@@ -320,7 +320,7 @@ if (($gSettingsManager->getInt('max_email_attachment_size') > 0) && PhpIniUtils:
             'multiUploadLabel'   => $gL10n->get('SYS_ADD_ATTACHMENT'),
             'hideUploadField'    => true,
             'helpTextIdLabel'    => $gL10n->get('SYS_MAX_ATTACHMENT_SIZE', array(Email::getMaxAttachmentSize(Email::SIZE_UNIT_MEBIBYTE))),
-            'icon'               => 'fa-paperclip'
+            'icon'               => 'bi-paperclip'
         )
     );
 }
@@ -328,7 +328,7 @@ if (($gSettingsManager->getInt('max_email_attachment_size') > 0) && PhpIniUtils:
 $form->addEditor('msg_body', '', $formValues['msg_body'], array('property' => HtmlForm::FIELD_REQUIRED));
 $form->closeGroupBox();
 
-$form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => 'fa-envelope'));
+$form->addSubmitButton('btn_send', $gL10n->get('SYS_SEND'), array('icon' => 'bi-envelope'));
 
 $page->addHtml($form->show());
 

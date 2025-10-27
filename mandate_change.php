@@ -207,35 +207,35 @@ else
                 success: function(data) {
                     if (data === "success") {
                         $("#"+id+" .form-alert").attr("class", "alert alert-success form-alert");
-                        formAlert.html("<i class=\"fas fa-check\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
+                        formAlert.html("<i class=\"bi bi-check-lg\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 2500);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_nothing_changed") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"fas fa-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_origmandateid_missing") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"fas fa-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_origiban_missing") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"fas fa-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_bank_changed") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"fas fa-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
@@ -243,7 +243,7 @@ else
                     else {
                         formAlert.attr("class", "alert alert-danger form-alert");
                         formAlert.fadeIn();
-                        formAlert.html("<i class=\"fas fa-exclamation-circle\"></i>"+data);
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i>"+data);
                     }
                 }
             });
@@ -254,22 +254,22 @@ else
     $form = new HtmlForm('mandate_change_form', '', $page, array('class' => 'form-mandate_change'));
     $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_REQUIRED));
     $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()">
-            <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'"></i> </a>';
+            <i class="bi bi-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'"></i> </a>';
     $form->addCustomContent('', $html);
     $form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_DISABLED));
     $form->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $user->getValue('IBAN'), array('property' => HtmlForm::FIELD_REQUIRED));
     $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()">
-            <i class="fas fa-arrow-down"  title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'"></i> </a>';
+            <i class="bi bi-arrow-down"  title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'"></i> </a>';
     $form->addCustomContent('', $html);
     $form->addInput('origiban', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'), $user->getValue('ORIG_IBAN'), array('property' => HtmlForm::FIELD_DISABLED));
     $form->addCheckbox('bankchanged', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK_CHANGED'), 0, array('class' => 'bank_changed_checkbox'));
     $form->addInput('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $user->getValue('BIC'), array('property' => HtmlForm::FIELD_DISABLED));
     $form->addInput('bank', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'), $user->getValue('BANK'), array('property' => HtmlForm::FIELD_DISABLED));
     $form->addInput('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'), array('property' => HtmlForm::FIELD_DISABLED));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="fas fa-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO').'</div>';
+    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO').'</div>';
     $form->addCustomContent('', $html);
 
-    $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+    $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
     $page->addHtml($form->show(false));
 

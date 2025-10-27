@@ -274,10 +274,10 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
         if ($getExportAndFilter)
         {
             // links to print and exports
-            $page->addPageFunctionsMenuItem('menu_item_lists_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
+            $page->addPageFunctionsMenuItem('menu_item_lists_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
         
             // dropdown menu item with all export possibilities
-            $page->addPageFunctionsMenuItem('menu_item_lists_export', $gL10n->get('SYS_EXPORT_TO'), '#', 'fa-file-download');
+            $page->addPageFunctionsMenuItem('menu_item_lists_export', $gL10n->get('SYS_EXPORT_TO'), '#', 'bi-download');
             $page->addPageFunctionsMenuItem('menu_item_lists_xlsx', $gL10n->get('SYS_MICROSOFT_EXCEL').' (XLSX)',
                 SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
                     'filter_date_from'  => $getDateFrom,
@@ -286,7 +286,7 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
                     'filter_first_name' => $getFirstName,
                     'export_and_filter' => $getExportAndFilter,
                     'mode'              => 'xlsx')),
-                'fa-file-excel', 'menu_item_lists_export');
+                'bi-file-earmark-excel', 'menu_item_lists_export');
             $page->addPageFunctionsMenuItem('menu_item_lists_csv_ms', $gL10n->get('SYS_MICROSOFT_EXCEL').' (CSV)',
                 SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
                     'filter_date_from'  => $getDateFrom,
@@ -295,7 +295,7 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
                     'filter_first_name' => $getFirstName,
                     'export_and_filter' => $getExportAndFilter,
                     'mode'              => 'csv-ms')),
-                'fa-file-excel', 'menu_item_lists_export');
+                'bi-filetype-csv', 'menu_item_lists_export');
             $page->addPageFunctionsMenuItem('menu_item_lists_pdf', $gL10n->get('SYS_PDF').' ('.$gL10n->get('SYS_PORTRAIT').')',
                 SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
                     'filter_date_from'  => $getDateFrom,
@@ -304,7 +304,7 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
                     'filter_first_name' => $getFirstName,
                     'export_and_filter' => $getExportAndFilter,
                     'mode'              => 'pdf')),
-                'fa-file-pdf', 'menu_item_lists_export');
+                'bi-file-earmark-pdf', 'menu_item_lists_export');
             $page->addPageFunctionsMenuItem('menu_item_lists_pdfl', $gL10n->get('SYS_PDF').' ('.$gL10n->get('SYS_LANDSCAPE').')',
                 SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
                     'filter_date_from'  => $getDateFrom,
@@ -313,7 +313,7 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
                     'filter_first_name' => $getFirstName,
                     'export_and_filter' => $getExportAndFilter,
                     'mode'              => 'pdfl')),
-                'fa-file-pdf', 'menu_item_lists_export');
+                'bi-file-earmark-pdf', 'menu_item_lists_export');
             $page->addPageFunctionsMenuItem('menu_item_lists_csv', $gL10n->get('SYS_CSV').' ('.$gL10n->get('SYS_UTF8').')',
                 SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php', array(
                     'filter_date_from'  => $getDateFrom,
@@ -322,7 +322,7 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
                     'filter_first_name' => $getFirstName,
                     'export_and_filter' => $getExportAndFilter,
                     'mode'              => 'csv-oo')),
-                'fa-file-csv', 'menu_item_lists_export');
+                'bi-fileteype-csv', 'menu_item_lists_export');
         }
   
         $form = new HtmlForm('navbar_checkbox_form', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/history.php'),  $page, array('type' => 'navbar', 'setFocus' => false));

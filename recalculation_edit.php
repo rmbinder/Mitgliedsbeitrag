@@ -72,7 +72,7 @@ if (strlen((string) $_SESSION['pMembershipFee']['recalculation_user'][$getUserId
 }
 $form->addInput('contributory_text_new', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT_NEW']);
 
-$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'fa-check', 'class' => ' offset-sm-3'));
+$form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
 $form->addHtml('</div>');
 echo $form->show();

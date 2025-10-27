@@ -381,9 +381,9 @@ else
         $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
         $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ON'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_PAID_DESC'));
 
-        $form->addButton('btn_save_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_SAVE_DATE'), array('icon' => 'fa-check', 'link' => 'javascript:assign_date()', 'class' => 'btn-primary'));
+        $form->addButton('btn_save_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_SAVE_DATE'), array('icon' => 'bi-check-lg', 'link' => 'javascript:assign_date()', 'class' => 'btn-primary'));
         $form->addDescription('&nbsp');
-        $form->addButton('btn_delete_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATE'), array('icon' => 'fa-trash-alt', 'link' => 'javascript:delete_date()', 'class' => 'btn-primary'));
+        $form->addButton('btn_delete_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATE'), array('icon' => 'bi-trash', 'link' => 'javascript:delete_date()', 'class' => 'btn-primary'));
  
         $page->addHtml($form->show(false));
 
