@@ -21,7 +21,7 @@ use Admidio\Messages\Entity\Message;
 use Admidio\Users\Entity\User;
 use PHPMailer\PHPMailer\PHPMailer;
 
-require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
 

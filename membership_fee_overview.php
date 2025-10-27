@@ -30,7 +30,7 @@ use Admidio\Users\Entity\User;
 $rootPath = dirname(__DIR__, 2);
 $pluginFolder = basename(__DIR__);
 
-require_once($rootPath . '/adm_program/system/common.php');
+require_once($rootPath . '/system/common.php');
 
 echo '<div id="plugin_'. $pluginFolder. '" class="admidio-plugin-content">';
 

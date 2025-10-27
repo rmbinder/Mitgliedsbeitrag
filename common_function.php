@@ -18,7 +18,7 @@ use Admidio\Roles\Entity\RolesRights;
 use Admidio\Users\Entity\User;
 use Smarty\Data;
 
-require_once(__DIR__ . '/../../adm_program/system/common.php');
+require_once(__DIR__ . '/../../system/common.php');
 
 if(!defined('PLUGIN_FOLDER'))
 {
