@@ -188,7 +188,7 @@ $fieldSelectionList = array();
 $i = 1;
 foreach ($gProfileFields->getProfileFields() as $field)
 {
-    if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->editUsers())
+    if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->isAdministratorUsers())
     {
         $fieldSelectionList[$i]['id']       = 'p'.$field->getValue('usf_id');
         $fieldSelectionList[$i]['cat_name'] = $field->getValue('cat_name');
@@ -929,7 +929,7 @@ if(count($rols) > 0)
 
             foreach ($gProfileFields->getProfileFields() as $field)
             {
-                if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->editUsers())
+                if ($field->getValue('usf_hidden') == 0 || $gCurrentUser->isAdministratorUsers())
                 {
                     $fieldSelectionList2[] = array($field->getValue('usf_id'), addslashes($field->getValue('usf_name')), $field->getValue('cat_name') );
                 }
