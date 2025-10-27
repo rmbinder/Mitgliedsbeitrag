@@ -51,7 +51,7 @@ $form = new HtmlForm('recalculation_edit_form', SecurityUtils::encodeUrl(ADMIDIO
 $form->addHtml('
     <div class="modal-header">
         <h3 class="modal-title">'.$headline.'</h3>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
     </div>
     <div class="modal-body">
     <h5>' .$_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FIRST_NAME']. ' ' .$_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['LAST_NAME']. '</h5>

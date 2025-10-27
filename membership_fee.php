@@ -416,16 +416,16 @@ if(count($rols) > 0)
     $page->addHtml('
     <ul id="preferences_tabs" class="nav nav-tabs" role="tablist">
         <li class="nav-item">
-            <a id="tabs_nav_fees" class="nav-link" href="#tabs-fees" data-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEES').'</a>
+            <a id="tabs_nav_fees" class="nav-link" href="#tabs-fees" data-bs-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FEES').'</a>
         </li>
         <li class="nav-item">
-            <a id="tabs_nav_mandatemanagement" class="nav-link" href="#tabs-mandatemanagement" data-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'</a>
+            <a id="tabs_nav_mandatemanagement" class="nav-link" href="#tabs-mandatemanagement" data-bs-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT').'</a>
         </li>
         <li class="nav-item">
-            <a id="tabs_nav_export" class="nav-link" href="#tabs-export" data-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'</a>
+            <a id="tabs_nav_export" class="nav-link" href="#tabs-export" data-bs-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT').'</a>
         </li>
         <li class="nav-item">
-            <a id="tabs_nav_options" class="nav-link" href="#tabs-options" data-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OPTIONS').'</a>
+            <a id="tabs_nav_options" class="nav-link" href="#tabs-options" data-bs-toggle="tab" role="tab">'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OPTIONS').'</a>
         </li>
     ');
 
@@ -433,7 +433,7 @@ if(count($rols) > 0)
     {
         $page->addHtml('
             <li class="nav-item">
-                <a id="tabs_nav_preferences" class="nav-link" href="#tabs-preferences" data-toggle="tab" role="tab">'.$gL10n->get('SYS_SETTINGS').'</a>
+                <a id="tabs_nav_preferences" class="nav-link" href="#tabs-preferences" data-bs-toggle="tab" role="tab">'.$gL10n->get('SYS_SETTINGS').'</a>
             </li>
         ');
     }

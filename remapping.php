@@ -169,10 +169,10 @@ if ($getMode == 'preview')     //Default
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
-            '<i class="fas fa-birthday-cake" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
-		    '<i class="fas fa-minus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
-		    '<i class="fas fa-plus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
-		    '<i class="fas fa-exclamation" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
+            '<i class="fas fa-birthday-cake" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
+		    '<i class="fas fa-minus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
+		    '<i class="fas fa-plus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
+		    '<i class="fas fa-exclamation" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
             $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
 		$table->addRowHeadingByArray($columnValues);
 
@@ -229,10 +229,10 @@ elseif ($getMode == 'write')
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 		$gL10n->get('SYS_FIRSTNAME'),
-	    '<i class="fas fa-birthday-cake" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
-	    '<i class="fas fa-minus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
-	    '<i class="fas fa-plus" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
-	    '<i class="fas fa-exclamation" data-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
+	    '<i class="fas fa-birthday-cake" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
+	    '<i class="fas fa-minus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
+	    '<i class="fas fa-plus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
+	    '<i class="fas fa-exclamation" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
 		$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
 	$table->addRowHeadingByArray($columnValues);
 	

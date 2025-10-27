@@ -1733,11 +1733,11 @@ function getMenuePanel($group, $id, $parentId, $title, $icon, $body)
     $html = '
         <div class="card" id="panel_' . $id . '">
             <div class="card-header">
-                <a type="button" data-toggle="collapse" data-target="#collapse_' . $id . '">
+                <a type="button" data-bs-toggle="collapse" data-bs-target="#collapse_' . $id . '">
                     <i class="' . $icon . ' fa-fw"></i>' . $title . '
                 </a>
             </div>
-            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#' . $parentId . '">
+            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-bs-parent="#' . $parentId . '">
                 <div class="card-body">
                     ' . $body . '
                 </div>
@@ -1759,11 +1759,11 @@ function getMenuePanelHeaderOnly($group, $id, $parentId, $title, $icon)
     $html = '
         <div class="card" id="panel_' . $id . '">
             <div class="card-header">
-                <a type="button" data-toggle="collapse" data-target="#collapse_' . $id . '">
+                <a type="button" data-bs-toggle="collapse" data-bs-target="#collapse_' . $id . '">
                     <i class="' . $icon . ' fa-fw"></i>' . $title . '
                 </a>
             </div>
-            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-parent="#' . $parentId . '">
+            <div id="collapse_' . $id . '" class="collapse" aria-labelledby="headingOne" data-bs-parent="#' . $parentId . '">
                 <div class="card-body">
     ';
     return $html;
