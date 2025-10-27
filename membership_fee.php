@@ -20,6 +20,10 @@
 //Fehlermeldungen anzeigen
 //error_reporting(E_ALL);
 
+use Admidio\Infrastructure\Entity\Text;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Roles\Entity\Role;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/../../adm_program/system/login_valid.php');
 require_once(__DIR__ . '/common_function.php');
@@ -806,7 +810,7 @@ if(count($rols) > 0)
             $formFamilyRoles->addInput('familienrollen_beitrag'.$conf, $gL10n->get('SYS_CONTRIBUTION').' '.$gSettingsManager->getString('system_currency'), $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_DESC', 'type' => 'number', 'minNumber' => -99999, 'maxNumber' => 99999, 'step' => 0.01));
 
             $selectBoxEntries = array('--', -1, 1, 2, 4, 12);
-            $role = new TableRoles($gDb);
+            $role = new Role($gDb);
             $formFamilyRoles->addSelectBox('familienrollen_zeitraum'.$conf, $gL10n->get('SYS_CONTRIBUTION_PERIOD'), $role->getCostPeriods(), array('firstEntry' => '', 'defaultValue' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$conf], 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_CONTRIBUTION_PERIOD_DESC', 'showContextDependentFirstEntry' => false));
             $formFamilyRoles->addInput('familienrollen_beschreibung'.$conf, $gL10n->get('SYS_DESCRIPTION'), $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$conf], array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_DESCRIPTION_DESC'));
             if($num_familyroles != 1)
@@ -859,7 +863,7 @@ if(count($rols) > 0)
             $formAdvancedRoleEditing->openGroupBox('advancedroleediting_group', $data['rolle']);
 
             $formAdvancedRoleEditing->addInput('rol_cost'.$key, $gL10n->get('SYS_CONTRIBUTION').' '.$gSettingsManager->getString('system_currency'), $data['rol_cost'], array('type' => 'number', 'minNumber' => -99999, 'maxNumber' => 99999, 'step' => 0.01));
-            $formAdvancedRoleEditing->addSelectBox('rol_cost_period'.$key, $gL10n->get('SYS_CONTRIBUTION_PERIOD'), TableRoles::getCostPeriods(), array('defaultValue' => $data['rol_cost_period']));
+            $formAdvancedRoleEditing->addSelectBox('rol_cost_period'.$key, $gL10n->get('SYS_CONTRIBUTION_PERIOD'), Role::getCostPeriods(), array('defaultValue' => $data['rol_cost_period']));
             $formAdvancedRoleEditing->addInput('rol_description'.$key, $gL10n->get('SYS_DESCRIPTION'), $data['rol_description']);
 
             $formAdvancedRoleEditing->closeGroupBox();
@@ -1137,7 +1141,7 @@ if(count($rols) > 0)
             <strong>#membership_fee_text#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_VARIABLE_MEMBERSHIP_FEE_TEXT').'<br />
             <strong>#membernumber#</strong> - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER').'</p>');
 
-        $text = new TableText($gDb);
+        $text = new Text($gDb);
         $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
         if ($text->getValue('txt_text') == '')
         {

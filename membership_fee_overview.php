@@ -25,6 +25,8 @@
  * 
  ***********************************************************************************************
  */
+use Admidio\Users\Entity\User;
+
 $rootPath = dirname(__DIR__, 2);
 $pluginFolder = basename(__DIR__);
 

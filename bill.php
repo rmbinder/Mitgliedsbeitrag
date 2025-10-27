@@ -20,6 +20,10 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Entity\Entity;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Users\Entity\User;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -34,7 +38,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
-$userField = new TableUserField($gDb);
+$userField = new Entity($gDb, TBL_USER_FIELDS, 'usf'); 
 
 if(isset($_GET['mode']) && ($_GET['mode'] == 'export' || $_GET['mode'] == 'mail' || $_GET['mode'] == 'prepare'))
 {

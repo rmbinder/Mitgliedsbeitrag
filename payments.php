@@ -23,6 +23,11 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Entity\Entity;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Roles\Entity\Role;
+use Admidio\Users\Entity\User;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -37,7 +42,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
-$userField = new TableUserField($gDb);
+$userField = new Entity($gDb, TBL_USER_FIELDS, 'usf'); 
 
 if(isset($_GET['mode']) && ($_GET['mode'] == 'assign_date' || $_GET['mode'] == 'delete_date' || $_GET['mode'] == 'prepare'))
 {
@@ -178,7 +183,7 @@ else
     {
     	// Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
     	$membersListRols = array();
-    	$role = new TableRoles($gDb);
+    	$role = new Role($gDb);
     	foreach ($_SESSION['pMembershipFee']['payments_rol_sel']as $rol_id)
     	{
     		$role->readDataById($rol_id);

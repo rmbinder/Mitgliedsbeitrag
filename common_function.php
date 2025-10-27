@@ -10,6 +10,14 @@
  ***********************************************************************************************
  */
 
+use Admidio\Components\Entity\Component;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Infrastructure\Utils\StringUtils;
+use Admidio\Roles\Entity\Role;
+use Admidio\Roles\Entity\RolesRights;
+use Admidio\Users\Entity\User;
+use Smarty\Data;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 
 if(!defined('PLUGIN_FOLDER'))
@@ -899,7 +907,7 @@ function check_family_roles()
     $ret_marker = false;
     $fam = beitragsrollen_einlesen('fam', array('LAST_NAME', 'FIRST_NAME', 'BIRTHDAY'));
     $check = $pPreferences->config['Familienrollen'];
-    $role = new TableRoles($GLOBALS['gDb']);
+    $role = new Role($GLOBALS['gDb']);
 
 
     // alle Pruefbedingungen einlesen

@@ -14,6 +14,9 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Entity\Text;
+use Admidio\Roles\Entity\Role;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -98,7 +101,7 @@ try
             unset($altersrollen);
             unset($fixrollen);
             
-            $role = new TableRoles($gDb);
+            $role = new Role($gDb);
             
             foreach($alt_fix_rollen as $rol_id => $dummy)
             {
@@ -114,7 +117,7 @@ try
         case 'eventsselection':
             if (isset($_POST['eventsselection']))
             {
-                $role = new TableRoles($gDb);
+                $role = new Role($gDb);
                 foreach(array_filter($_POST['eventsselection']) as $rol_id)
                 {
                     $role->readDataById((int) $rol_id);
@@ -341,7 +344,7 @@ try
             
         case 'emailnotifications':
             
-            $text = new TableText($gDb);
+            $text = new Text($gDb);
             
             $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
             $text->setValue('txt_text', $_POST['mail_text']);

@@ -12,6 +12,9 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Roles\Entity\Role;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -25,7 +28,7 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
-$role = new TableRoles($gDb);
+$role = new Role($gDb);
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW');
 

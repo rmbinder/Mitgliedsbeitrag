@@ -20,6 +20,9 @@
  *
  *****************************************************************************/
 
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Roles\Entity\Role;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -36,7 +39,7 @@ $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' 
 $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
-$role = new TableRoles($gDb);
+$role = new Role($gDb);
 
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE');
@@ -117,8 +120,8 @@ if ($getMode == 'preview')     //Default
             $role->readDataById( $rol_id);
 
 			//Sonderfall absichern, wenn rol_cost_period_is oder rol_cost_period_shall nicht gesetzt, also null ist
-			$rol_cost_period_is = $data['rol_cost_period_is'] !== null ? TableRoles::getCostPeriods($data['rol_cost_period_is']) : '';
-			$rol_cost_period_shall = $data['rol_cost_period_shall'] !== null ? TableRoles::getCostPeriods($data['rol_cost_period_shall']) : '';
+			$rol_cost_period_is = $data['rol_cost_period_is'] !== null ? Role::getCostPeriods($data['rol_cost_period_is']) : '';
+			$rol_cost_period_shall = $data['rol_cost_period_shall'] !== null ? Role::getCostPeriods($data['rol_cost_period_shall']) : '';
 
 			$columnValues = array();
 			$columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rol_name']. '</a>';
@@ -190,7 +193,7 @@ elseif ($getMode == 'write')
 		$columnValues = array(
 			'<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rol_name']. '</a>',
 			$role->getValue('rol_cost'),
-			($role->getValue('rol_cost_period') !== null ? TableRoles::getCostPeriods($role->getValue('rol_cost_period')) : ''),
+			($role->getValue('rol_cost_period') !== null ? Role::getCostPeriods($role->getValue('rol_cost_period')) : ''),
 			$role->getValue('rol_description') );
 		$table->addRowByArray($columnValues);
 	}
@@ -226,7 +229,7 @@ elseif ($getMode == 'print')
 		$columnValues = array(
 			$data['rol_name'],
 			$role->getValue('rol_cost'),
-			($role->getValue('rol_cost_period') !== null ? TableRoles::getCostPeriods($role->getValue('rol_cost_period')) : ''),
+			($role->getValue('rol_cost_period') !== null ? Role::getCostPeriods($role->getValue('rol_cost_period')) : ''),
 			$role->getValue('rol_description') );
 		$table->addRowByArray($columnValues);
 	}

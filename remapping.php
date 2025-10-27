@@ -19,6 +19,11 @@
  *
  *****************************************************************************/
 
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Roles\Entity\Membership;
+use Admidio\Roles\Entity\Role;
+use Admidio\Users\Entity\User;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -36,7 +41,7 @@ $pPreferences = new ConfigTablePMB();
 $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);
-$role = new TableRoles($gDb);
+$role = new Role($gDb);
 
 // set headline of the script
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES');
@@ -206,7 +211,7 @@ elseif ($getMode == 'write')
 
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'fa-print');
         
-	$tablemember = new TableMembers($gDb);
+ 	$tablemember = new Membership($gDb);
 	$sql = '';
 	
 	$page->addJavascript('

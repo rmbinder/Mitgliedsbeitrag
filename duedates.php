@@ -22,6 +22,10 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Roles\Entity\Role;
+use Admidio\Users\Entity\User;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -123,7 +127,7 @@ else
     {
     	// Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
     	$membersListRols = array();
-    	$role = new TableRoles($gDb);
+    	$role = new Role($gDb);
     	foreach ($_SESSION['pMembershipFee']['duedates_rol_sel'] as $rol_id)
     	{
     		$role->readDataById($rol_id);

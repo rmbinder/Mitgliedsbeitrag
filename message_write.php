@@ -14,6 +14,14 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Email;
+use Admidio\Infrastructure\Entity\Entity;
+use Admidio\Infrastructure\Entity\Text;
+use Admidio\Infrastructure\Utils\PhpIniUtils;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Infrastructure\Utils\StringUtils;
+use Admidio\Users\Entity\User;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -51,7 +59,7 @@ $mailBody    = '';
 $mailToArray = array();
 
 $user = new User($gDb, $gProfileFields);
-$userField = new TableUserField($gDb);
+$userField = new Entity($gDb, TBL_USER_FIELDS, 'usf'); 
 
 $singleMail = false;
 if ($getUserUuid !== '' && $getUsfUuid !== '')                          // ein E-Mail-Link wurde angeklickt
@@ -93,7 +101,7 @@ else
 }
 
 // Subject und Body erzeugen
-$text = new TableText($gDb);
+$text = new Text($gDb);
 
 //abhaengig vom aufrufenden Modul Text einlesen
 if (substr_count($gNavigation->getUrl(), 'pre_notification') === 1)

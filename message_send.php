@@ -14,6 +14,13 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Email;
+use Admidio\Infrastructure\Entity\Entity;
+use Admidio\Infrastructure\Utils\StringUtils;
+use Admidio\Messages\Entity\Message;
+use Admidio\Users\Entity\User;
+use PHPMailer\PHPMailer\PHPMailer;
+
 require_once(__DIR__ . '/../../adm_program/system/common.php');
 require_once(__DIR__ . '/common_function.php');
 require_once(__DIR__ . '/classes/configtable.php');
@@ -76,7 +83,7 @@ $sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG
 $sendResult  = false;
 
 $user = new User($gDb, $gProfileFields);
-$userField = new TableUserField($gDb);
+$userField = new Entity($gDb, TBL_USER_FIELDS, 'usf'); 
 
 if ($getUserUuid !== '' && $getUsfUuid !== '')                          // ein einzelner E-Mail-Link wurde angeklickt
 {
@@ -126,8 +133,8 @@ foreach ($mailToArray as $userId => $usfUuid )
     $body = replace_emailparameter($postBody, $user);   
     
     // object to handle the current message in the database
-    $message = new TableMessage($gDb);
-    $message->setValue('msg_type', TableMessage::MESSAGE_TYPE_EMAIL);
+    $message = new Message($gDb);
+    $message->setValue('msg_type', Message::MESSAGE_TYPE_EMAIL);
     $message->setValue('msg_subject', $subject);
     $message->setValue('msg_usr_id_sender', $gCurrentUserId);
     $message->addContent($body);
@@ -189,7 +196,7 @@ foreach ($mailToArray as $userId => $usfUuid )
                             $email->AddAttachment($_FILES['userfile']['tmp_name'][$currentAttachmentNo], $_FILES['userfile']['name'][$currentAttachmentNo], $encoding = 'base64', $_FILES['userfile']['type'][$currentAttachmentNo]);
                             $message->addAttachment($_FILES['userfile']['tmp_name'][$currentAttachmentNo], $_FILES['userfile']['name'][$currentAttachmentNo]);
                         }
-                        catch (phpmailerException $e)
+                        catch (PHPMailer $e)                    //phpmailerException toDo!!!!!!!!!!!!!!!!!!!!!!!!!
                         {
                             $gMessage->show($e->errorMessage());
                         }             

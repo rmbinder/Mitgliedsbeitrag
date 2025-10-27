@@ -14,6 +14,9 @@
  *                soll_ist  - Anzeige des Soll/Ist-Vergleiches
  ***********************************************************************************************
  */
+use Admidio\Infrastructure\Entity\Entity;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Users\Entity\User;
 use Ramsey\Uuid\Uuid;
 
 require_once(__DIR__ . '/../../adm_program/system/common.php');
@@ -214,7 +217,8 @@ if($getMode == 'anlegen')
     if ($gProfileFields->getProperty('MEMBERNUMBER', 'usf_id') > 0)
     {
     	//wenn ja, das alte, org-uebergreifende Profilfeld umbenennen in "Mitgliedsnummer-alt"
-    	$userField = new TableUserField($gDb, $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));
+  //  	$userField = new TableUserField($gDb, $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));
+    	$userField = new Entity($gDb, TBL_USER_FIELDS, 'usf', $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));             // toDo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     	$userField->setValue('usf_name', 'Mitgliedsnummer-alt');
     	$userField->setValue('usf_name_intern', 'MEMBERNUMBER_OLD');
     	$userField->save();
@@ -1169,7 +1173,8 @@ function getCat_IDPMB($cat_name_intern)
  */
 function setCategory($arr, $sequence)
 {
-    $newCategory = new TableAccess($GLOBALS['gDb'], TBL_CATEGORIES, 'cat');
+  //  $newCategory = new TableAccess($GLOBALS['gDb'], TBL_CATEGORIES, 'cat');
+    $newCategory = new Entity($GLOBALS['gDb'], TBL_CATEGORIES, 'cat');
     $newCategory->setValue('cat_sequence', $sequence);
     
     foreach ($arr as $key => $value)
@@ -1189,7 +1194,8 @@ function setCategory($arr, $sequence)
  */
 function setUserField($cat_id, $arr, $sequence)
 {
-    $newUserField = new TableAccess($GLOBALS['gDb'], TBL_USER_FIELDS, 'usf');
+  //  $newUserField = new TableAccess($GLOBALS['gDb'], TBL_USER_FIELDS, 'usf');
+    $newUserField = new Entity($GLOBALS['gDb'], TBL_USER_FIELDS, 'usf');
     $newUserField->setValue('usf_cat_id', $cat_id);
     $newUserField->setValue('usf_sequence', $sequence);
     
