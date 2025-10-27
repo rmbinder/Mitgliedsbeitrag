@@ -34,7 +34,7 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 //Prüfungen nur anzeigen, wenn mindestens ein Einzeltest aktiviert ist
 if (in_array(1, $pPreferences->config['tests_enable']))
 {
-    $form = new HtmlForm('tests_form', null, $page);
+    $form = new HtmlForm('tests_form', '', $page);
     
     if ($pPreferences->config['tests_enable']['age_staggered_roles'])
     {

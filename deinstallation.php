@@ -239,7 +239,7 @@ elseif ($getMode == 'delete')
         $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA'));
     }
     
-    $form = new HtmlForm('deinstallation_delete_form', null, $page);
+    $form = new HtmlForm('deinstallation_delete_form', '', $page);
     $gNavigation->clear();
     $form->addButton('next_page', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => $gHomepage, 'class' => 'btn-primary'));
 }

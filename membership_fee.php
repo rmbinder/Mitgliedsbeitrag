@@ -451,7 +451,7 @@ if(count($rols) > 0)
 
     if (count(beitragsrollen_einlesen('alt')) > 0)
     {
-        $formRemapping = new HtmlForm('remapping_form', null, $page);
+        $formRemapping = new HtmlForm('remapping_form', '', $page);
 
         $formRemapping->addButton('btn_remapping_age_staggered_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING'), array('icon' => 'fa-random', 'link' => 'remapping.php', 'class' => 'btn-primary offset-sm-3'));
         $formRemapping->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES_DESC'));
@@ -480,7 +480,7 @@ if(count($rols) > 0)
 
     if ( $pPreferences->config['individual_contributions']['access_to_module'] )
     {
-        $formIndividualContributions = new HtmlForm('individual_contributions_form', null, $page);
+        $formIndividualContributions = new HtmlForm('individual_contributions_form', '', $page);
 
         $formIndividualContributions->addButton('btn_individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), array('icon' => 'fa-calculator', 'link' => 'individualcontributions.php', 'class' => 'btn-primary offset-sm-3'));
         $formIndividualContributions->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC'));
@@ -500,7 +500,7 @@ if(count($rols) > 0)
 
     // PANEL: ANALYSIS
 
-    $formAnalysis = new HtmlForm('analysis_form', null, $page);
+    $formAnalysis = new HtmlForm('analysis_form', '', $page);
 
     $formAnalysis->addButton('btn_analysis', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS'), array('icon' => 'fa-stream', 'link' => 'analysis.php', 'class' => 'btn-primary offset-sm-3'));
     $formAnalysis->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS_DESC'));
@@ -509,7 +509,7 @@ if(count($rols) > 0)
 
     // PANEL: HISTORY
 
-    $formHistory = new HtmlForm('history_form', null, $page);
+    $formHistory = new HtmlForm('history_form', '', $page);
 
     $formHistory->addButton('btn_history', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_SHOW'), array('icon' => 'fa-history', 'link' => 'history.php',  'class' => 'btn-primary offset-sm-3'));
     $formHistory->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY_DESC'));
@@ -680,7 +680,7 @@ if(count($rols) > 0)
 
     unset($_SESSION['pMembershipFee']['familyroles_update']);
 
-    $formFamilyrolesUpdate = new HtmlForm('familyrolesupdate_form', null, $page);
+    $formFamilyrolesUpdate = new HtmlForm('familyrolesupdate_form', '', $page);
 
     $formFamilyrolesUpdate->addButton('btn_familyrolesupdate', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE'), array('icon' => 'fa-sync', 'link' => 'familyroles_update.php', 'class' => 'btn-primary offset-sm-3'));
     $formFamilyrolesUpdate->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_DESC'));
@@ -689,7 +689,7 @@ if(count($rols) > 0)
 
     // PANEL: COPY
 
-    $formCopy = new HtmlForm('copy_form', null, $page);
+    $formCopy = new HtmlForm('copy_form', '', $page);
 
     $formCopy->addButton('btn_copy', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY'), array('icon' => 'fa-clone', 'link' => 'copy.php',  'class' => 'btn-primary offset-sm-3'));
     $formCopy->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_DESC'));
@@ -701,7 +701,7 @@ if(count($rols) > 0)
     //Panel Tests nur anzeigen, wenn mindestens ein Einzeltest aktiviert ist
     if (in_array(1, $pPreferences->config['tests_enable']))
     {
-        $formTests = new HtmlForm('tests_form', null, $page);
+        $formTests = new HtmlForm('tests_form', '', $page);
         $formTests->addButton('btn_tests', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS'), array('icon' => 'fa-user-md', 'link' => 'tests.php', 'class' => 'btn-primary offset-sm-3'));
         $formTests->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS_DESC'));
 
@@ -710,7 +710,7 @@ if(count($rols) > 0)
 
     // PANEL: ROLEOVERVIEW
 
-    $formRoleOverview = new HtmlForm('roleoverview_form', null, $page);
+    $formRoleOverview = new HtmlForm('roleoverview_form', '', $page);
     $formRoleOverview->addButton('btn_roleoverview', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW'), array('icon' => 'fa-info', 'link' => 'roleoverview.php', 'class' => 'btn-primary offset-sm-3'));
     $formRoleOverview->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW_DESC'));
 
@@ -718,7 +718,7 @@ if(count($rols) > 0)
 
     //PANEL: PLUGIN_INFORMATION
 
-    $formPluginInformations = new HtmlForm('plugin_informations_form', null, $page);
+    $formPluginInformations = new HtmlForm('plugin_informations_form','', $page);
     $formPluginInformations->addStaticControl('plg_name', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_NAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
     $formPluginInformations->addStaticControl('plg_version', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_VERSION'), $pPreferences->config['Plugininformationen']['version']);
     $formPluginInformations->addStaticControl('plg_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_PLUGIN_DATE'), $pPreferences->config['Plugininformationen']['stand']);
@@ -1382,7 +1382,7 @@ if(count($rols) > 0)
 
         // PANEL: DELETE
 
-        $formDelete = new HtmlForm('delete_form', null, $page);
+        $formDelete = new HtmlForm('delete_form', '', $page);
         $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'fa-trash-alt', 'link' => 'delete.php', 'class' => 'btn-primary offset-sm-3'));
         $formDelete->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC'));
 
@@ -1390,7 +1390,7 @@ if(count($rols) > 0)
 
         //PANEL: DEINSTALLATION
 
-        $formDeinstallation = new HtmlForm('deinstallation_form', null, $page);
+        $formDeinstallation = new HtmlForm('deinstallation_form', '', $page);
         $formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array('icon' => 'fa-trash-alt', 'link' => 'deinstallation.php', 'class' => 'btn-primary offset-sm-3'));
         $formDeinstallation->addCustomContent('', '<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
 

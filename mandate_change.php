@@ -251,7 +251,7 @@ else
 
     ', true);
 
-    $form = new HtmlForm('mandate_change_form', null, $page, array('class' => 'form-mandate_change'));
+    $form = new HtmlForm('mandate_change_form', '', $page, array('class' => 'form-mandate_change'));
     $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_REQUIRED));
     $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()">
             <i class="fas fa-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'"></i> </a>';

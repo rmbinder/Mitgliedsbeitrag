@@ -437,7 +437,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
 
     $page->addHtml($table->show(false));
 
-    $form = new HtmlForm('installation_start_form', null, $page, array('setFocus' => false));
+    $form = new HtmlForm('installation_start_form', '', $page, array('setFocus' => false));
     
     
     if ((!isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name']))
@@ -671,7 +671,7 @@ elseif($getMode == 'soll_ist')
     
     $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));
     
-    $form = new HtmlForm('installation_soll_ist_form', null, $page);
+    $form = new HtmlForm('installation_soll_ist_form', '', $page);
     $form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array('icon' => 'fa-arrow-circle-right', 'link' => $gHomepage, 'class' => 'btn-primary'));
     $page->addHtml($form->show(false));
     
