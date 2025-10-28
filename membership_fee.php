@@ -482,10 +482,10 @@ if(count($rols) > 0)
     {
         $formIndividualContributions = new HtmlForm('individual_contributions_form', '', $page);
 
-        $formIndividualContributions->addButton('btn_individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), array('icon' => 'bi-calculator', 'link' => 'individualcontributions.php', 'class' => 'btn-primary offset-sm-3'));
+        $formIndividualContributions->addButton('btn_individualcontributions', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), array('icon' => 'bi-house-gear', 'link' => 'individualcontributions.php', 'class' => 'btn-primary offset-sm-3'));
         $formIndividualContributions->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_DESC'));
 
-        $page->addHtml(getMenuePanel('fees', 'individualcontributions', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'bi bi-calculator', $formIndividualContributions->show()));
+        $page->addHtml(getMenuePanel('fees', 'individualcontributions', 'accordion_fees', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'bi bi-house-gear', $formIndividualContributions->show()));
     }
 
     // PANEL: PAYMENTS
@@ -528,9 +528,9 @@ if(count($rols) > 0)
     $formCreateMandateID = new HtmlForm('createmandateid_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/create_mandate_id.php', $page);
 
     $formCreateMandateID->addSelectBoxFromSql('createmandateid_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $selectBoxEntriesAlleRollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['createmandateid_rol_sel']) ? $_SESSION['pMembershipFee']['createmandateid_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC', 'multiselect' => true));
-    $formCreateMandateID->addSubmitButton('btn_createmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), array('icon' => 'bi-plus-circle',  'class' => 'offset-sm-3'));
+    $formCreateMandateID->addSubmitButton('btn_createmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), array('icon' => 'bi-list-ol',  'class' => 'offset-sm-3'));
 
-    $page->addHtml(getMenuePanel('mandatemanagement', 'createmandateid', 'accordion_mandatemanagement', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), 'bi bi-plus-circle', $formCreateMandateID->show()));
+    $page->addHtml(getMenuePanel('mandatemanagement', 'createmandateid', 'accordion_mandatemanagement', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID'), 'bi bi-list-ol', $formCreateMandateID->show()));
 
     // PANEL: MANDATES
 
@@ -548,12 +548,12 @@ if(count($rols) > 0)
 
     // PANEL: SEPA
 
-    $page->addHtml(getMenuePanelHeaderOnly('export', 'sepa', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'), 'bi bi-file-earmark-arrow-down'));
+    $page->addHtml(getMenuePanelHeaderOnly('export', 'sepa', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA'), 'bi bi-file-earmark'));
 
     $formDuedates = new HtmlForm('duedates_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/duedates.php', $page);
 
     $formDuedates->addSelectBox('duedates_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['duedates_rol_sel']) ? $_SESSION['pMembershipFee']['duedates_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ROLLQUERY_DESC', 'multiselect' => true));
-    $formDuedates->addSubmitButton('btn_duedates', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => 'bi-pen', 'class' => 'offset-sm-3'));
+    $formDuedates->addSubmitButton('btn_duedates', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), array('icon' => 'bi-calendar-check', 'class' => 'offset-sm-3'));
     $formDuedates->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_EDIT_DESC'));
     $formDuedates->addLine();
     $page->addHtml($formDuedates->show(false));
@@ -637,11 +637,11 @@ if(count($rols) > 0)
                 'defaultValue' => 'xml_file')
             );
 
-        $formSepa->addSubmitButton('btn_create_export_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE'), array('icon' => 'bi-file-earmark', 'class' => 'btn-primary offset-sm-3'));
+        $formSepa->addSubmitButton('btn_create_export_file', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE'), array('icon' => 'bi-filetype-xml', 'class' => 'btn-primary offset-sm-3'));
         $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_INFO').'</div>';
         $formSepa->addStaticControl('', '', $html);
         $formSepa->addLine();
-        $formSepa->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'bi-file-earmark-fill', 'link' => 'pre_notification.php', 'class' => 'btn-primary offset-sm-3'));
+        $formSepa->addButton('btn_pre_notification', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION'), array('icon' => 'bi-filetype-xlsx', 'link' => 'pre_notification.php', 'class' => 'btn-primary offset-sm-3'));
         $formSepa->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION_DESC'));
     }
 
@@ -652,7 +652,7 @@ if(count($rols) > 0)
     // PANEL: BILL
 
     $formBillExport = new HtmlForm('billexport_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/bill.php', $page);
-    $formBillExport->addSubmitButton('btn_bill', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT'), array('icon' => 'bi-file-earmark-fill',  'class' => 'offset-sm-3'));
+    $formBillExport->addSubmitButton('btn_bill', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT'), array('icon' => 'bi-file-earmark-spreadsheet',  'class' => 'offset-sm-3'));
     $formBillExport->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT_DESC'));
 
     $page->addHtml(getMenuePanel('export', 'bill', 'accordion_export', $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'), 'bi bi-file-earmark-spreadsheet', $formBillExport->show()));
@@ -671,10 +671,10 @@ if(count($rols) > 0)
     $formProduceMembernumber->addSelectBoxFromSql('producemembernumber_roleselection', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_SELECTION'), $gDb, $selectBoxEntriesAlleRollen, array('defaultValue' => (isset($_SESSION['pMembershipFee']['membernumber_rol_sel']) ? $_SESSION['pMembershipFee']['membernumber_rol_sel'] : ''), 'showContextDependentFirstEntry' => false, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC2', 'multiselect' => true));
     $formProduceMembernumber->addInput('producemembernumber_format', $gL10n->get('PLG_MITGLIEDSBEITRAG_FORMAT'), (isset($_SESSION['pMembershipFee']['membernumber_format']) ? $_SESSION['pMembershipFee']['membernumber_format'] : (isset($pPreferences->config['membernumber']['format']) ? $pPreferences->config['membernumber']['format'] : '')), array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FORMAT_DESC'));
     $formProduceMembernumber->addCheckbox('producemembernumber_fill_gaps', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILL_GAPS'),  (isset($_SESSION['pMembershipFee']['membernumber_fill_gaps']) ? $_SESSION['pMembershipFee']['membernumber_fill_gaps'] : (isset($pPreferences->config['membernumber']['fill_gaps']) ? $pPreferences->config['membernumber']['fill_gaps'] : '')), array('helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_FILL_GAPS_DESC'));
-    $formProduceMembernumber->addSubmitButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => 'bi-plus-circle',  'class' => 'offset-sm-3'));
+    $formProduceMembernumber->addSubmitButton('btn_producemembernumber', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), array('icon' => 'bi-123',  'class' => 'offset-sm-3'));
     $formProduceMembernumber->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER_DESC'));
 
-    $page->addHtml(getMenuePanel('options', 'producemembernumber', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), 'bi bi-plus-circle', $formProduceMembernumber->show()));
+    $page->addHtml(getMenuePanel('options', 'producemembernumber', 'accordion_options', $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER'), 'bi bi-123', $formProduceMembernumber->show()));
 
     // PANEL: FAMILYROLESUPDATE
 
@@ -954,7 +954,7 @@ if(count($rols) > 0)
         $formIndividualContributionsSetup->addCustomContent('', $html, array('helpTextIdInline' => $htmlDesc));
         $formIndividualContributionsSetup->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'bi bi-coin', $formIndividualContributionsSetup->show()));
+        $page->addHtml(getMenuePanel('preferences', 'individualcontributions', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS'), 'bi bi-house-gear', $formIndividualContributionsSetup->show()));
 
         // PANEL: ACCOUNT_DATA
 
@@ -1034,7 +1034,7 @@ if(count($rols) > 0)
         $formMandateManagement->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC'));
         $formMandateManagement->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'), 'bi bi-puzzle', $formMandateManagement->show()));
+        $page->addHtml(getMenuePanel('preferences', 'mandatemanagement', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'), 'bi bi-sliders2', $formMandateManagement->show()));
 
         // PANEL: VIEW_DEFINITIONS
 
@@ -1086,7 +1086,7 @@ if(count($rols) > 0)
         $formColumnSet->addDescription('</div>');
         $formColumnSet->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 
-        $page->addHtml(getMenuePanel('preferences', 'columnset', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'bi bi-binoculars-fill', $formColumnSet->show()));
+        $page->addHtml(getMenuePanel('preferences', 'columnset', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_VIEW_DEFINITIONS'), 'bi bi-eyeglasses', $formColumnSet->show()));
 
         // PANEL: EXPORT
 
@@ -1383,10 +1383,10 @@ if(count($rols) > 0)
         // PANEL: DELETE
 
         $formDelete = new HtmlForm('delete_form', '', $page);
-        $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash', 'link' => 'delete.php', 'class' => 'btn-primary offset-sm-3'));
+        $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-dash-circle', 'link' => 'delete.php', 'class' => 'btn-primary offset-sm-3'));
         $formDelete->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC'));
 
-        $page->addHtml(getMenuePanel('preferences', 'delete', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'bi bi-trash', $formDelete->show()));
+        $page->addHtml(getMenuePanel('preferences', 'delete', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'bi bi-dash-circle', $formDelete->show()));
 
         //PANEL: DEINSTALLATION
 
