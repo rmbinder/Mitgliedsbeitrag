@@ -46,7 +46,7 @@ $_SESSION['pMembershipFee']['message_request'] = $_POST;
 $gNavigation->addUrl(CURRENT_URL);
 
 // Stop if mail should be send and mail module is disabled
-if (!$gSettingsManager->getBool('enable_mail_module'))
+if (!$gSettingsManager->getInt('mail_module_enabled'))
 {
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
     // => EXIT

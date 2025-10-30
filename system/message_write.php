@@ -37,7 +37,7 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 }
 
 // check if the call of the page was allowed by settings
-if (!$gSettingsManager->getBool('enable_mail_module'))
+if (!$gSettingsManager->getInt('mail_module_enabled'))
 {
     // message if the sending of PM is not allowed
     $gMessage->show($gL10n->get('SYS_MODULE_DISABLED'));
@@ -319,7 +319,7 @@ if (($gSettingsManager->getInt('max_email_attachment_size') > 0) && PhpIniUtils:
             'maxUploadSize'      => Email::getMaxAttachmentSize(),
             'multiUploadLabel'   => $gL10n->get('SYS_ADD_ATTACHMENT'),
             'hideUploadField'    => true,
-            'helpTextIdLabel'    => $gL10n->get('SYS_MAX_ATTACHMENT_SIZE', array(Email::getMaxAttachmentSize(Email::SIZE_UNIT_MEBIBYTE))),
+            'helpTextId'    => $gL10n->get('SYS_MAX_ATTACHMENT_SIZE', array(Email::getMaxAttachmentSize(Email::SIZE_UNIT_MEBIBYTE))),
             'icon'               => 'bi-paperclip'
         )
     );

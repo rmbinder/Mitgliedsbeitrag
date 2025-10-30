@@ -169,8 +169,8 @@ else
     $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
 
     $form = new HtmlForm('copy_selection_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
-    $form->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
-    $form->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+    $form->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+    $form->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
 
     $page->addHtml($form->show(false));
 

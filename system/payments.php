@@ -375,11 +375,11 @@ else
         $form = new HtmlForm('payments_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
     
         $selectBoxEntries = array('0' => $gL10n->get('SYS_SHOW_ALL_CONTACTS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
-        $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+        $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
  
         $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
         $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
-        $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ON'), $datum, array('type' => 'date', 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_PAID_DESC'));
+        $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ON'), $datum, array('type' => 'date', 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_PAID_DESC'));
 
         $form->addButton('btn_save_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_SAVE_DATE'), array('icon' => 'bi-check-lg', 'link' => 'javascript:assign_date()', 'class' => 'btn-primary'));
         $form->addDescription('&nbsp');

@@ -96,31 +96,31 @@ $page->addJavascript('
 );  
 
 $form = new HtmlForm('delete_all_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
-$form->addInput('delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_ALL'), ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addInput('delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_ALL'), ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC'));                             //HtmlForm::FIELD_DISABLED
 $form->addSubmitButton('btn_delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('with_paid_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITH_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addInput('with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_WITH_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
 $form->addSubmitButton('btn_with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('without_paid_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'), (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => HtmlForm::FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addInput('without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'), (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
 $form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('paid_only_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'), $paidcount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addInput('paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'), $paidcount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //HtmlForm::FIELD_DISABLED
 $form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('duedate_only_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY'), $duedatecount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextIdInline' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY_DESC'));
+$form->addInput('duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY'), $duedatecount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY_DESC'));
 $form->addSubmitButton('btn_duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 
 $page->addHtml($form->show(false));

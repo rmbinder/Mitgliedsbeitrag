@@ -329,7 +329,7 @@ else
                 {
                     if (strlen($content)>0)
                     {
-                    if($gSettingsManager->getString('enable_mail_module') != 1)
+                    if($gSettingsManager-getInt('mail_module_enabled') != 1)
                     {
                         $mail_link = 'mailto:'. $content;
                     }

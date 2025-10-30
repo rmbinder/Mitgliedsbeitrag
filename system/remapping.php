@@ -188,7 +188,7 @@ if ($getMode == 'preview')     //Default
 			$columnValues[] = $data['icon_role_old'];
 			$columnValues[] = $data['icon_role_new'];
 			$columnValues[] = $data['icon_role_not_exist'];
-			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))).'">'.$data['role'].'</a>';
+			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles.php', array('mode' => 'edit', 'role_uuid' => $role->getValue('rol_uuid'))).'">'.$data['role'].'</a>';
 			$table->addRowByArray($columnValues);
 		}
 
@@ -248,7 +248,7 @@ elseif ($getMode == 'write')
 		$columnValues[] = $data['icon_role_old'];
 		$columnValues[] = $data['icon_role_new'];
 		$columnValues[] = $data['icon_role_not_exist'];
-		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))).'">'.$data['role'].'</a>';
+		$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/groups-roles/groups_roles.php', array('mode' => 'edit', 'role_uuid' => $role->getValue('rol_uuid'))).'">'.$data['role'].'</a>';
 		$table->addRowByArray($columnValues);
 		
 		if ($data['toDo'] == 'delete')

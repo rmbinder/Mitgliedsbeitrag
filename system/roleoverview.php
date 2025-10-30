@@ -54,7 +54,7 @@ foreach ($rollen as $rol_id => $data)
     $role->readDataById($rol_id);
     
     $columnValues = array();
-    $columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rolle']. '</a>';
+    $columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles.php', array('mode' => 'edit', 'role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rolle']. '</a>';
     $columnValues[] = expand_rollentyp($data['rollentyp']);
     $columnValues[] = count($data['members']);
     $table->addRowByArray($columnValues);

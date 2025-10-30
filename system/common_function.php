@@ -1054,7 +1054,7 @@ function check_family_roles()
                 if (count($ret_temp) !== 0)
                 {
                     $test = $role->readDataById($famkey);
-                    $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles_new.php', array('role_uuid' => $role->getValue('rol_uuid'))). '">'.$famdata['rolle']. '</a>
+                    $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles.php', array('mode' => 'edit', 'role_uuid' => $role->getValue('rol_uuid'))). '">'.$famdata['rolle']. '</a>
                         <a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/lists_show.php', array('mode' => 'html', 'rol_ids' => $famkey)). '">
                             <i class="bi bi-people" alt="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'" title="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'"></i>
                         </a>';
@@ -1735,7 +1735,7 @@ function getEmailLink($value, $user_uuid, $usf_uuid)
 
 	if (StringUtils::strValidCharacters((string) $value, 'email'))
 	{
-	    if (!$GLOBALS['gSettingsManager']->getBool('enable_mail_module'))
+	    if (!$GLOBALS['gSettingsManager']->getInt('mail_module_enabled'))
 		{
 			$emailLink = 'mailto:' . $value;
 		}

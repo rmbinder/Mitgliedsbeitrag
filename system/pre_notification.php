@@ -350,7 +350,7 @@ else
             $DueDate = \DateTime::createFromFormat('Y-m-d', $row['usd_value']);
             $selectBoxEntries[$row['usd_value']] = $DueDate->format($gSettingsManager->getString('system_date'));
         }
-        $form->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextIdLabel' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+        $form->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
         $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'bi-filetype-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
  	    $form->addDescription('&nbsp');
@@ -501,7 +501,7 @@ else
             if(strlen((string) $email) > 0)
             {
                 $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] = $usf_uuid;
-                if($gSettingsManager->getString('enable_mail_module') != 1)
+                if($gSettingsManager->getInt('mail_module_enabled') != 1)
                 {
                    $mail_link = 'mailto:'. $email;
                 }
