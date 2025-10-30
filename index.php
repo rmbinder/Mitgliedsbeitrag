@@ -19,15 +19,14 @@
 
 // Fehlermeldungen anzeigen
 // error_reporting(E_ALL);
-use Admidio\Infrastructure\Entity\Text;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Exception;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 try {
     require_once (__DIR__ . '/../../system/common.php');
     require_once (__DIR__ . '/../../system/login_valid.php');
     require_once (__DIR__ . '/system/common_function.php');
-    require_once (__DIR__ . '/classes/configtable.php');
 
     // script_name ist der Name wie er im Menue eingetragen werden muss, also ohne evtl. vorgelagerte Ordner wie z.B. /playground/adm_plugins/mitgliedsbeitrag...
     $_SESSION['pMembershipFee']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strpos($_SERVER['SCRIPT_NAME'], FOLDER_PLUGINS));
@@ -37,7 +36,7 @@ try {
         $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
     }
 
-    $pPreferences = new ConfigTablePMB();
+    $pPreferences = new ConfigTable();
     $checked = $pPreferences->checkforupdate();
 
     if ($checked == 1) // Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)

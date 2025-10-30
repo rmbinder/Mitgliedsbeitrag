@@ -12,12 +12,12 @@ use Admidio\Infrastructure\Entity\Text;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Exception;
 use Admidio\Roles\Entity\Role;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 try {
     require_once (__DIR__ . '/../../../system/common.php');
     require_once (__DIR__ . '/../../../system/login_valid.php');
     require_once (__DIR__ . '/common_function.php');
-    require_once (__DIR__ . '/../classes/configtable.php');
 
     // script_name ist der Name wie er im Menue eingetragen werden muss, also ohne evtl. vorgelagerte Ordner wie z.B. /playground/adm_plugins/mitgliedsbeitrag...
     $_SESSION['pMembershipFee']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strpos($_SERVER['SCRIPT_NAME'], FOLDER_PLUGINS));
@@ -33,7 +33,7 @@ try {
     ));
     $getConf = admFuncVariableIsValid($_GET, 'conf', 'numeric');
 
-    $pPreferences = new ConfigTablePMB();
+    $pPreferences = new ConfigTable();
     $pPreferences->read();
 
     $duedates = array();

@@ -23,10 +23,10 @@ use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Roles\Entity\Membership;
 use Admidio\Roles\Entity\Role;
 use Admidio\Users\Entity\User;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
 // only authorized user are allowed to start this module
 if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
@@ -37,7 +37,7 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 // Initialize and check the parameters
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
 
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $user = new User($gDb, $gProfileFields);

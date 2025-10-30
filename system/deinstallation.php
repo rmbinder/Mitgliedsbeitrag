@@ -15,10 +15,10 @@
  */
 
 use Admidio\Infrastructure\Utils\SecurityUtils;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
 // only authorized user are allowed to start this module
 if (!$gCurrentUser->isAdministrator())
@@ -29,7 +29,7 @@ if (!$gCurrentUser->isAdministrator())
 // Initialize and check the parameters
 $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'start', 'validValues' => array('start', 'delete')));
 
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION');

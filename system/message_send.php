@@ -20,10 +20,10 @@ use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Messages\Entity\Message;
 use Admidio\Users\Entity\User;
 use PHPMailer\PHPMailer\PHPMailer;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
 //use PHPMailer\PHPMailer\Exception;
 
@@ -73,7 +73,7 @@ if (empty($_POST))
     // => EXIT
 }
 
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $sendMailResultMessage = '';

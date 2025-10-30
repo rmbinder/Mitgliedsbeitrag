@@ -21,11 +21,10 @@
 
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Users\Entity\User;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
-require_once(__DIR__ . '/../classes/membernumbers.php');
 
 // only authorized user are allowed to start this module
 if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
@@ -41,7 +40,7 @@ $postFormat = admFuncVariableIsValid($_POST, 'producemembernumber_format', 'stri
 $postRoleselection = isset($_POST['producemembernumber_roleselection']) ? $_POST['producemembernumber_roleselection'] : '';
 $postFillGaps      = isset($_POST['producemembernumber_fill_gaps']) ? $_POST['producemembernumber_fill_gaps'] : '';
 
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 // set headline of the script

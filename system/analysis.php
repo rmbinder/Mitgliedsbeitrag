@@ -12,9 +12,10 @@
  ***********************************************************************************************
  */
 
+use Plugins\MembershipFee\classes\Config\ConfigTable;
+
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
 // only authorized user are allowed to start this module
 if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
@@ -22,7 +23,7 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
     $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
 }
 
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS');

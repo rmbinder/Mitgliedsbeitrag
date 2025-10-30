@@ -16,12 +16,12 @@
 
 use Admidio\Infrastructure\Entity\Text;
 use Admidio\Roles\Entity\Role;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 // Initialize and check the parameters

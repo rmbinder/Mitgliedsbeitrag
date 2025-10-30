@@ -21,10 +21,10 @@ use Admidio\Infrastructure\Utils\PhpIniUtils;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Users\Entity\User;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
 $getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
 $getUsfUuid  = admFuncVariableIsValid($_GET, 'usf_uuid', 'string');
@@ -51,7 +51,7 @@ if (!$gCurrentUser->hasEmail())
     // => EXIT
 }
 
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $mailSubject = '';

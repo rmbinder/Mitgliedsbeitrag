@@ -22,9 +22,9 @@
 use Admidio\Infrastructure\Utils\FileSystemUtils;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Users\Entity\User;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
 // only authorized user are allowed to start this module
 if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
@@ -33,7 +33,7 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 }
 
 // Konfiguration einlesen
-$pPreferences = new ConfigTablePMB();
+$pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $oneDueDateOnly = false;

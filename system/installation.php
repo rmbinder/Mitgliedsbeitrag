@@ -17,11 +17,11 @@
 use Admidio\Infrastructure\Entity\Entity;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Users\Entity\User;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 use Ramsey\Uuid\Uuid;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
-require_once(__DIR__ . '/../classes/configtable.php');
 
 // only authorized user are allowed to start this module
 if (!$gCurrentUser->isAdministrator())
@@ -474,7 +474,7 @@ if($getMode == 'start' || $getMode == 'anlegen')     //Default: start
     }
     else
     {
-        $pPreferences = new ConfigTablePMB();
+        $pPreferences = new ConfigTable();
         $pPreferences->init();      //Konfigurationstabelle anlegen
         
         $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));        
