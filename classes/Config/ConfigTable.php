@@ -96,35 +96,6 @@ class ConfigTable
 
         $this->read();
 
-        // Update/Konvertierungsroutine 3.3.7 -> 4.0.0
-        if (isset($this->config['Rollenpruefung']['bezugskategorie']) && $this->config['Rollenpruefung']['bezugskategorie'] == '')
-        {
-            $this->config['Rollenpruefung']['bezugskategorie'][0] = ' ';
-        }
-        //Update/Konvertierungsroutine 4.0.0 -> 4.1.0
-        // seit 01.02.2016 gibt es keine Kontonummern mehr; sollen alle Kontonummern und Bankleitzahlen automatisch geloescht werden,
-        // so sind in den naechsten beiden Zeilen die fuehrenden "//" zu entfernen
-        //$this->delete_member_data(3,'KONTONUMMER');
-        //$this->delete_member_data(3,'BANKLEITZAHL');
-
-        // Hinweis: delete_member_data() wird auch im Modul Deinstallation verwendet
-        // der zweite Parameter bestimmt das zu loeschende Profilfeld
-        // der erste Parameter definiert die Organistaion, in der geloescht wird
-        //  0 = Daten nur in aktueller Org loeschen
-        //  1 = Daten in allen Orgs loeschen
-        //  3 = Daten loeschen, die in allen Orgs sichtbar sind (z.B. Stammdaten)
-
-        //Update/Konvertierungsroutine 4.1.x -> 4.1.2
-        if (isset($this->config['Rollenpruefung']['altersrollenfamilienrollen']) && !is_array($this->config['Rollenpruefung']['altersrollenfamilienrollen']))
-        {
-            unset($this->config['Rollenpruefung']['altersrollenfamilienrollen']);
-        }
-        if (isset($this->config['Rollenpruefung']['altersrollenpflicht']) && !is_array($this->config['Rollenpruefung']['altersrollenpflicht']))
-        {
-            unset($this->config['Rollenpruefung']['altersrollenpflicht']);
-        }
-        // Ende Update/Konvertierungsroutine
-
         $this->config['Plugininformationen']['version'] = self::$version;
         $this->config['Plugininformationen']['stand'] = self::$stand;
 

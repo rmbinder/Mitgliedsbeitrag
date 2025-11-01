@@ -1,7 +1,7 @@
 <?php
 /**
  ***********************************************************************************************
- * Installationsroutine fuer das Admidio-Plugin Mitgliedsbeitrag
+ * Installation routine for the Admidio plugin Mitgliedsbeitrag / Membership fee
  *
  * @copyright The Admidio Team
  * @see https://www.admidio.org/
@@ -16,6 +16,7 @@
  */
 use Admidio\Infrastructure\Entity\Entity;
 use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Infrastructure\Exception;
 use Admidio\Users\Entity\User;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 use Ramsey\Uuid\Uuid;
@@ -23,11 +24,10 @@ use Ramsey\Uuid\Uuid;
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
 
-// only authorized user are allowed to start this module
-if (!$gCurrentUser->isAdministrator())
-{
-	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
-}
+ // only administrators are allowed to start this module
+    if (! $gCurrentUser->isAdministrator()) {
+        throw new Exception('SYS_NO_RIGHTS');
+    }
 
 $gNavigation->addStartUrl(CURRENT_URL);
 
@@ -211,54 +211,6 @@ if($getMode == 'anlegen')
     {
         setUserField($cat_id_kontodaten, $arr['SOLL']['TBL_USER_FIELDS']['Orig_IBAN'], $nextFieldSequence);
     }
-    
-    // Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.4 NEU
-    // im ersten Schritt pruefen, ob das Profilfeld 'MEMBERNUMBER' noch vorhanden ist
-    if ($gProfileFields->getProperty('MEMBERNUMBER', 'usf_id') > 0)
-    {
-    	//wenn ja, das alte, org-uebergreifende Profilfeld umbenennen in "Mitgliedsnummer-alt"
-  //  	$userField = new TableUserField($gDb, $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));
-    	$userField = new Entity($gDb, TBL_USER_FIELDS, 'usf', $gProfileFields->getProperty('MEMBERNUMBER', 'usf_id'));             // toDo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-    	$userField->setValue('usf_name', 'Mitgliedsnummer-alt');
-    	$userField->setValue('usf_name_intern', 'MEMBERNUMBER_OLD');
-    	$userField->save();
-    }
-        
-    // $gProfileFields aktualisieren
-    $gProfileFields->readProfileFields($gCurrentOrgId);
-
-    // im zweiten Schritt pruefen, ob ueberhaupt Mitgliedsnummern existieren
-    $sql = 'SELECT COUNT(*) AS count
-              FROM '.TBL_USER_DATA.'
-             WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER_OLD', 'usf_id').' ';
-    
-    $membNumOldStatement = $gDb->query($sql);
-    if ($membNumOldStatement->fetchColumn() > 0)       // ja, es gibt alte Mitgliedsnummern
-    {
-    	// im dritten Schritt pruefen, ob Mitgliedsnummern bereits uebertragen wurden
-    	$sql = 'SELECT COUNT(*) AS count
-                  FROM '.TBL_USER_DATA.'
-                 WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER'.$gCurrentOrgId, 'usf_id').' ';
-                       
-    	$membNumNewStatement = $gDb->query($sql);
-        if ($membNumNewStatement->fetchColumn() == 0)       // nein, es gibt noch keine neuen Mitgliedsnummern
-        {
-        	$user = new User($gDb, $gProfileFields);
-        	
-        	$sql = 'SELECT usd_usr_id, usd_value
-        		      FROM '. TBL_USER_DATA. '
-        		     WHERE usd_usf_id = '. $gProfileFields->getProperty('MEMBERNUMBER_OLD', 'usf_id').' ';
-        	
-        	$statement = $gDb->query($sql);
-        	while ($row = $statement->fetch())
-        	{
-        		$user->readDataById($row['usd_usr_id']);
-        		$user->setValue('MEMBERNUMBER'.$gCurrentOrgId, $row['usd_value']);
-        		$user->save();
-        	}
-        }
-    }            
-    //Ende Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.2.4 NEU
 }
 
 $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
@@ -688,195 +640,6 @@ $page->show();
 function check_DB()
 {
     global $gProfileFields;
-
-    //Mit der Version 3.3.0 wurde die Installationsroutine umprogrammiert.
-    //Frueher wurde auf usf_name geprueft, jetzt auf usf_name_intern.
-    //Die Installationsscripte der Versionen 1.x und 2.x befuellten jedoch
-    // von der Kategorie kontodaten usf_name_intern nicht mit dem Wert KONTODATEN.
-    //Hier wird deshalb ueberprueft, ob es eine Kategorie kontodaten gibt.
-    //Falls von dieser Kategorie der usf_name_intern leer ist, wird er mit KONTODATEN beschrieben.
-
-    $sql = ' SELECT cat_name, cat_name_intern
-            FROM '. TBL_CATEGORIES. '
-            WHERE cat_name = \'Kontodaten\'
-            AND (  cat_org_id = '. $GLOBALS['gCurrentOrgId']. '
-            OR cat_org_id IS NULL ) ';
-
-    $statement = $GLOBALS['gDb']->query($sql);
-    $row = $statement->fetchObject();
-
-    // Gibt es einen zutreffenden Datensatz?  Wenn ja: UPDATE
-    if(isset($row->cat_name_intern) && isset($row->cat_name) && (($row->cat_name_intern) == '') && (($row->cat_name) == 'Kontodaten'))
-    {
-        $sql = 'UPDATE '.TBL_CATEGORIES.'
-                SET cat_name_intern = \'KONTODATEN\'
-                WHERE cat_name = \'Kontodaten\'
-                AND (  cat_org_id = '. $GLOBALS['gCurrentOrgId']. '
-                OR cat_org_id IS NULL ) ';
-        $GLOBALS['gDb']->query($sql);
-    }
-
-    //Update/Konvertierungsroutine 4.1.2
-    // mit Version 4.1.2 wird die Struktur der DB-Eintraege an Admidio angepasst
-    // deutsche Bezeichnungen werden durch englische Bezeichnungen ersetzt
-    $update_array = array();
-    $update_array[] = array('alt_cat_name'        => 'Mitgliedschaft',
-                            'alt_cat_name_intern' => 'MITGLIEDSCHAFT'.$GLOBALS['gCurrentOrgId'],
-                            'neu_cat_name'        => 'PMB_MEMBERSHIP',
-                            'neu_cat_name_intern' => 'MEMBERSHIP'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_cat_name'        => 'Mitgliedsbeitrag',
-                            'alt_cat_name_intern' => 'MITGLIEDSBEITRAG'.$GLOBALS['gCurrentOrgId'],
-                            'neu_cat_name'        => 'PMB_MEMBERSHIP_FEE',
-                            'neu_cat_name_intern' => 'MEMBERSHIP_FEE'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_cat_name'        => 'Kontodaten',
-                            'alt_cat_name_intern' => 'KONTODATEN',
-                            'neu_cat_name'        => 'PMB_ACCOUNT_DATA',
-                            'neu_cat_name_intern' => 'ACCOUNT_DATA');
-
-    foreach($update_array as $data)
-    {
-        $sql = 'SELECT cat_id
-                FROM '.TBL_CATEGORIES.'
-                WHERE cat_name = \''.$data['alt_cat_name'].'\'
-                AND cat_name_intern = \''.$data['alt_cat_name_intern'].'\'
-                AND cat_type = \'USF\'
-                 ';
-                    //     AND (  cat_org_id = '.$gCurrentOrgId.'
-                 // OR cat_org_id IS NULL )
-        $statement = $GLOBALS['gDb']->query($sql);
-        $row = $statement->fetchObject();
-        // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version
-        if(isset($row->cat_id) && strlen($row->cat_id) > 0)
-        {
-            $sql = 'UPDATE '.TBL_CATEGORIES.'
-                    SET cat_name = \''.$data['neu_cat_name'].'\' ,
-                           cat_name_intern = \''.$data['neu_cat_name_intern'].'\'
-                    WHERE cat_id = '.$row->cat_id;
-                $GLOBALS['gDb']->query($sql);
-        }
-    }
-
-    $update_array = array();
-    $update_array[] = array('alt_usf_name'        => 'PMB_BANK',
-                            'alt_usf_name_intern' => 'BANKNAME',
-                            'neu_usf_name'        => 'PMB_BANK',
-                            'neu_usf_name_intern' => 'BANK');
-     $update_array[] = array('alt_usf_name'       => 'Kontoinhaber',
-                            'alt_usf_name_intern' => 'KONTOINHABER',
-                            'neu_usf_name'        => 'PMB_DEBTOR',
-                            'neu_usf_name_intern' => 'DEBTOR');
-     $update_array[] = array('alt_usf_name'       => 'PMB_ADDRESS',
-                            'alt_usf_name_intern' => 'DEBTORADDRESS',
-                            'neu_usf_name'        => 'PMB_DEBTOR_ADDRESS',
-                            'neu_usf_name_intern' => 'DEBTOR_ADDRESS');
-    $update_array[] = array('alt_usf_name'        => 'PMB_POSTCODE',
-                            'alt_usf_name_intern' => 'DEBTORPOSTCODE',
-                            'neu_usf_name'        => 'PMB_DEBTOR_POSTCODE',
-                            'neu_usf_name_intern' => 'DEBTOR_POSTCODE');
-    $update_array[] = array('alt_usf_name'        => 'PMB_CITY',
-                            'alt_usf_name_intern' => 'DEBTORCITY',
-                            'neu_usf_name'        => 'PMB_DEBTOR_CITY',
-                            'neu_usf_name_intern' => 'DEBTOR_CITY');
-    $update_array[] = array('alt_usf_name'        => 'PMB_EMAIL',
-                            'alt_usf_name_intern' => 'DEBTOREMAIL',
-                            'neu_usf_name'        => 'PMB_DEBTOR_EMAIL',
-                            'neu_usf_name_intern' => 'DEBTOR_EMAIL');
-    $update_array[] = array('alt_usf_name'        => 'Beitritt',
-                            'alt_usf_name_intern' => 'BEITRITT'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_ACCESSION',
-                            'neu_usf_name_intern' => 'ACCESSION'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_usf_name'        => 'Bezahlt',
-                            'alt_usf_name_intern' => 'BEZAHLT'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_PAID',
-                            'neu_usf_name_intern' => 'PAID'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_usf_name'        => 'Beitrag',
-                            'alt_usf_name_intern' => 'BEITRAG'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_FEE',
-                            'neu_usf_name_intern' => 'FEE'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_usf_name'        => 'Beitragstext',
-                            'alt_usf_name_intern' => 'BEITRAGSTEXT'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_CONTRIBUTORY_TEXT',
-                            'neu_usf_name_intern' => 'CONTRIBUTORY_TEXT'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_usf_name'        => 'PMB_MANDATEDATE',
-                            'alt_usf_name_intern' => 'MANDATEDATE'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_MANDATEDATE',
-                            'neu_usf_name_intern' => 'MANDATEDATE'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_usf_name'        => 'PMB_DUEDATE',
-                            'alt_usf_name_intern' => 'DUEDATE'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_DUEDATE',
-                            'neu_usf_name_intern' => 'DUEDATE'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_usf_name'        => 'PMB_SEQUENCETYPE',
-                            'alt_usf_name_intern' => 'SEQUENCETYPE'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_SEQUENCETYPE',
-                            'neu_usf_name_intern' => 'SEQUENCETYPE'.$GLOBALS['gCurrentOrgId']);
-    $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_DEBTOR_AGENT',
-                            'alt_usf_name_intern' => 'ORIGDEBTORAGENT',
-                            'neu_usf_name'        => 'PMB_ORIG_DEBTOR_AGENT',
-                            'neu_usf_name_intern' => 'ORIG_DEBTOR_AGENT');
-    $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_IBAN',
-                            'alt_usf_name_intern' => 'ORIGIBAN',
-                            'neu_usf_name'        => 'PMB_ORIG_IBAN',
-                            'neu_usf_name_intern' => 'ORIG_IBAN');
-    $update_array[] = array('alt_usf_name'        => 'PMB_ORIG_MANDATEID',
-                            'alt_usf_name_intern' => 'ORIGMANDATEID'.$GLOBALS['gCurrentOrgId'],
-                            'neu_usf_name'        => 'PMB_ORIG_MANDATEID',
-                            'neu_usf_name_intern' => 'ORIG_MANDATEID'.$GLOBALS['gCurrentOrgId']);
-
-    foreach($update_array as $data)
-    {
-        $sql = 'SELECT usf_id
-                FROM '.TBL_USER_FIELDS.' , '. TBL_CATEGORIES.  '
-                WHERE usf_name = \''.$data['alt_usf_name'].'\'
-                AND usf_name_intern = \''.$data['alt_usf_name_intern'].'\'
-                 ';
-                    //     AND (  cat_org_id = '.$gCurrentOrgId.'
-                //  OR cat_org_id IS NULL )
-        $statement = $GLOBALS['gDb']->query($sql);
-        $row = $statement->fetchObject();
-        // Gibt es einen Datensatz mit diesen (Alt-)Daten? Wenn ja: UPDATE auf die neue Version
-        if(isset($row->usf_id) && strlen($row->usf_id) > 0)
-        {
-            $sql = 'UPDATE '.TBL_USER_FIELDS.'
-                    SET usf_name = \''.$data['neu_usf_name'].'\' ,
-                        usf_name_intern = \''.$data['neu_usf_name_intern'].'\'
-                    WHERE usf_id = '.$row->usf_id;
-                $GLOBALS['gDb']->query($sql);
-        }
-    }
-    
-    //Update/Konvertierungsroutine 4.1.2/4.2.0 -> 4.3.0
-    $sql = 'SELECT usf_id
-        		FROM '.TBL_USER_FIELDS.'
-        		WHERE usf_name =  \'PMB_DEBTOR_ADDRESS\' ';
-    
-    $statement = $GLOBALS['gDb']->query($sql);
-    $row = $statement->fetchObject();
-    // Gibt es einen Datensatz mit diesen Alt-Daten? Wenn ja: UPDATE auf die neue Version
-    if (isset($row->usf_id) AND strlen($row->usf_id) > 0)
-    {
-    	$sql = 'UPDATE '.TBL_USER_FIELDS.'
-            		SET usf_name        = \'PMB_DEBTOR_STREET\' ,
-                        usf_name_intern = \'DEBTOR_STREET\'  ,
-                        usf_description = \'<p>Straße des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>\'
-            		WHERE usf_id = '.$row->usf_id;
-    	$GLOBALS['gDb']->query($sql);
-    }
-    
-    $sql = 'SELECT usf_id
-        		FROM '.TBL_USER_FIELDS.'
-        		WHERE usf_name =  \'PMB_DEBTOR\' ';
-    
-    $statement = $GLOBALS['gDb']->query($sql);
-    $row = $statement->fetchObject();
-    // Gibt es einen Datensatz mit diesen Alt-Daten? Wenn ja: UPDATE auf die neue Version
-    if (isset($row->usf_id) AND strlen($row->usf_id) > 0)
-    {
-    	$sql = 'UPDATE '.TBL_USER_FIELDS.'
-            		SET usf_description = \'<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Straße, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>\'
-            		WHERE usf_id = '.$row->usf_id;
-    	$GLOBALS['gDb']->query($sql);
-    }
-    // Ende Update/Konvertierungsroutine
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
     $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten']       = array('cat_org_id' => 'Null',         'cat_name' => 'PMB_ACCOUNT_DATA',   'cat_name_intern' => 'ACCOUNT_DATA',                  'cat_type' => 'USF', 'cat_system' => 0);
