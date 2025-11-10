@@ -15,6 +15,8 @@
  
 namespace Plugins\MembershipFee\classes\Service;
 
+use Admidio\Infrastructure\Database;
+
 class Membernumbers
 {
 	public $mNumbers = array();   					///< Array with all membernumbers
@@ -24,15 +26,16 @@ class Membernumbers
 	protected $preFormatSegment;          			///< Pre-segment of the new member number
 	protected $postFormatSegment;          			///< Post-segment of the new member number
 	protected $lengthSerialNumber;          		///< The length of the numerical part of the new member number
+	protected Database $mDb;
     public $userWithoutMembernumberExist;          	///< if true, user without membernumber exist
 
     /**
      * constructor that will initialize variables
-     * @param \Database $database       Database object (should be @b $gDb)
+     * @param Database $database       Database object (should be @b $gDb)
      */
-    public function __construct(&$database)
+    public function __construct(Database $database)
     {
-        $this->mDb =& $database;
+        $this->mDb = $database;
         $this->userWithoutMembernumberExist = false;
         $this->readNumbers();
         $this->doubleNumber = false;
@@ -42,14 +45,6 @@ class Membernumbers
         $this->lengthSerialNumber = 0;
     }
 
-    /**
-     * Set the database object for communication with the database of this class.
-     * @param \Database $database An object of the class Database. This should be the global $gDb object.
-     */
-    public function setDatabase(&$database)
-    {
-        $this->mDb =& $database;
-    }
 
     /**
      * Called on serialization of this object. The database object could not
