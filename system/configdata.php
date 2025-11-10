@@ -28,7 +28,7 @@ $config_default['Familienrollen'] = array('familienrollen_beitrag'        => arr
                                             'familienrollen_pruefung'     => array(''));
 
 //Beitrag
-$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2024',
+$config_default['Beitrag'] = array('beitrag_prefix'         => 'Mitgliedsbeitrag 2026',
                                     'beitrag_suffix'        => '(ant.)',
                                     'beitrag_textmitnam'    => 1,
                                     'beitrag_textmitfam'    => '',
@@ -119,6 +119,10 @@ $config_default['membernumber'] = array('format'    => '',
 
 //Zugriffsberechtigung für das Modul preferences
 $config_default['access']['preferences'] = array();
+
+//Infos für Uninstall
+$config_default['install']['access_role_id'] = 0;
+$config_default['install']['menu_item_id'] = 0;
 
 //Individualbeiträge
 $config_default['individual_contributions'] = array('access_to_module'  => '0',

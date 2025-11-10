@@ -1642,25 +1642,25 @@ try {
 
             $formDelete = new HtmlForm('delete_form', '', $page);
             $formDelete->addButton('btn_delete', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array(
-                'icon' => 'bi-dash-circle',
+                'icon' => 'bi-trash',
                 'link' => 'delete.php',
                 'class' => 'btn-primary offset-sm-3'
             ));
             $formDelete->addCustomContent('', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_DELETE_DESC'));
 
-            $page->addHtml(getMenuePanel('preferences', 'delete', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'bi bi-dash-circle', $formDelete->show()));
+            $page->addHtml(getMenuePanel('preferences', 'delete', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_RESET'), 'bi bi-trash', $formDelete->show()));
 
             // PANEL: DEINSTALLATION
 
-            $formDeinstallation = new HtmlForm('deinstallation_form', '', $page);
-            $formDeinstallation->addButton('btn_deinstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), array(
+            $formUninstallation = new HtmlForm('uninstallation_form', '', $page);
+            $formUninstallation->addButton('btn_uninstallation', $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINSTALLATION'), array(
                 'icon' => 'bi-trash',
-                'link' => 'deinstallation.php',
+                'link' => 'uninstall.php',
                 'class' => 'btn-primary offset-sm-3'
             ));
-            $formDeinstallation->addCustomContent('', '<br/>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC'));
+            $formUninstallation->addCustomContent('', '<br/>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINSTALLATION_DESC'));
 
-            $page->addHtml(getMenuePanel('preferences', 'deinstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_DEINSTALLATION'), 'bi bi-trash', $formDeinstallation->show()));
+            $page->addHtml(getMenuePanel('preferences', 'uninstallation', 'accordion_preferences', $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINSTALLATION'), 'bi bi-trash', $formUninstallation->show()));
 
             $page->addHtml(closeMenueTab());
         }

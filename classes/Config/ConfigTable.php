@@ -18,11 +18,7 @@
  *                                  legt sie ggf. an und befuellt sie mit Default-Werten
  * save()                       :   schreibt die Konfiguration in die Datenbank
  * read()                       :   liest die Konfigurationsdaten aus der Datenbank
- * checkforupdate()             :   vergleicht die Angaben in der Datei version.php
- *                                  mit den Daten in der DB
- * delete_config_data()         :   loescht Konfigurationsdaten in der Datenbank
- * delete_member_data           :   loescht Nutzerdaten in der Datenbank
- * delete_mail_data             :   loescht Mail-Texte  in der Datenbank
+ * checkforupdate()             :   vergleicht die Angaben in der Datei version.php mit den Daten in der DB
  *
  *****************************************************************************/
 
@@ -279,8 +275,9 @@ class ConfigTable
                 $ret = 1;
             }
         }
-        else        // nein, Konfigurationstabelle fehlt komplett, deshalb Neuinstallation
+        else        
         {
+            // nein, Konfigurationstabelle fehlt komplett, deshalb Neuinstallation
             $ret = 2;
         }
 
@@ -329,211 +326,64 @@ class ConfigTable
 
         return $ret;
     }
-
-    /**
-     * Loescht die Konfigurationsdaten in der Datenbank
-     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Org loeschen
-     * @return  string  $result             Meldung
-     */
-    public function delete_config_data($deinst_org_select)
-    {
-        $result_data = false;
-        $result_db = false;
-
-        if ($deinst_org_select == 0)                    //0 = Daten nur in aktueller Org loeschen
-        {
-            $sql = 'DELETE FROM '.$this->table_name.'
-          			      WHERE plp_name LIKE ?
-        			        AND plp_org_id = ? ';
-			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%', $GLOBALS['gCurrentOrgId']));
-        }
-        elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
-        {
-            $sql = 'DELETE FROM '.$this->table_name.'
-                          WHERE plp_name LIKE ? ';
-			$result_data = $GLOBALS['gDb']->queryPrepared($sql, array(self::$shortcut.'__%'));
-        }
-
-        // wenn die Tabelle nur Eintraege dieses Plugins hatte, sollte sie jetzt leer sein und kann geloescht werden
-        $sql = 'SELECT * FROM '.$this->table_name.' ';
-        $statement = $GLOBALS['gDb']->queryPrepared($sql);
-
-        if ($statement->rowCount() == 0)
-        {
-            $sql = 'DROP TABLE '.$this->table_name.' ';
-            $result_db = $GLOBALS['gDb']->queryPrepared($sql);
-        }
-
-        $result  = ($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR'));
-        $result .= ($result_db ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_SUCCESS') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR'));
-
-        return $result;
-    }
-
-    /**
-     * Loescht die Nutzerdaten in der Datenbank
-     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Orgs loeschen, != 0 oder != 1) = Daten loeschen, die in allen Orgs sichtbar sind
-     * @param   string  $dataField          usf_name_intern des zu loeschenden Datenfeldes
-     * @param   string  $dataDesc           Ueberschrift eines Blocks der Meldung
-     * @return  string  $result             Meldung
-     */
-    public function delete_member_data($deinst_org_select, $dataField, $dataDesc = '')
-    {
-        global $gProfileFields;
-
-        $result = '';
-        $usfIDs = array();
-
-        if ($deinst_org_select == 0)                   //0 = Daten nur in aktueller Org loeschen
-        {
-            $orgSelector = $GLOBALS['gCurrentOrgId'];
-        }
-        elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
-        {
-            $orgSelector = '%';
-            //$orgSelector = '_';
-        }
-        else                                         // else: uebergebenes Datenfeld ist nicht Org-gebunden (ohne Org-ID, NULL)
-        {
-            $orgSelector = '';
-        }
-
-        // alle usf_ids des uebergebenen $dataField einlesen
-        $sql = 'SELECT usf_id, usf_name, usf_name_intern, usf_cat_id, cat_name, cat_name_intern
-                  FROM '.TBL_USER_FIELDS.', '.TBL_CATEGORIES.'
-                 WHERE usf_name_intern LIKE ?
-                   AND  usf_cat_id = cat_id  ';
-        $statement = $GLOBALS['gDb']->queryPrepared($sql, array($dataField.$orgSelector));
-
-        while ($row = $statement->fetch())
-        {
-            $usfIDs[$row['usf_id']]['usf_id'] = $row['usf_id'];
-            $usfIDs[$row['usf_id']]['usf_name'] = $row['usf_name'];
-            $usfIDs[$row['usf_id']]['usf_name_intern'] = $row['usf_name_intern'];
-            $usfIDs[$row['usf_id']]['usf_cat_id'] = $row['usf_cat_id'];
-            $usfIDs[$row['usf_id']]['cat_name'] = $row['cat_name'];
-            $usfIDs[$row['usf_id']]['cat_name_intern'] = $row['cat_name_intern'];
-        }
-
-        $result .= '<br/><em>'.$dataDesc.'</em>';
-
-        // das Array durchlaufen und DELETE ausfuehren
-        foreach ($usfIDs as $dummy => $data)
-        {
-            $sql = 'SELECT *
-                      FROM '.TBL_USER_DATA.'
-                     WHERE usd_usf_id = ? ';
-            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
-
-            if ($statement->rowCount() != 0)
-            {
-                $sql = 'DELETE FROM '.TBL_USER_DATA.'
-                        WHERE usd_usf_id = ? ';
-                $result_data = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
-                $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_DATA.' - Status: '.($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-                //$result_sum .= '<br/>';
-            }
-
-            $sql = 'SELECT *
-                      FROM '.TBL_USER_LOG.'
-                     WHERE usl_usf_id = ? ';
-            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
-
-            if ($statement->rowCount() != 0)
-            {
-                $sql = 'DELETE FROM '.TBL_USER_LOG.'
-                              WHERE usl_usf_id = ? ';
-                $result_logdata = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
-                $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_USER_LOG.' - Status: '.($result_logdata ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-                //$result_sum .= '<br/>';
-            }
-
-            $sql = 'SELECT *
-                      FROM '.TBL_LIST_COLUMNS.'
-                     WHERE lsc_usf_id = ? ';
-            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
-
-            if ($statement->rowCount() != 0)
-            {
-                $sql = 'DELETE FROM '.TBL_LIST_COLUMNS.'
-                              WHERE lsc_usf_id = ? ';
-                $result_listdata = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
-                $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_DATA_FROM').' '.$data['usf_name_intern'].' in '.TBL_LIST_COLUMNS.' - Status: '.($result_listdata ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-                //$result_sum .= '<br/>';
-            }
-
-            $sql = 'DELETE FROM '.TBL_USER_FIELDS.'
-                          WHERE usf_id = ? ';
-            $result_profilefield = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_id']));
-            $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_REMOVE_PROFILEFIELD').' '.$data['usf_name_intern'].' in '.TBL_USER_FIELDS.' - Status: '.($result_profilefield ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-
-            $sql = 'SELECT *
-                      FROM '.TBL_USER_FIELDS.'
-                     WHERE usf_cat_id = ? ';
-            $statement = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_cat_id']));
-
-            if ($statement->rowCount() == 0)
-            {
-                    $sql = 'DELETE FROM '.TBL_CATEGORIES.'
-                                  WHERE cat_id = ? ';
-                    $result_category = $GLOBALS['gDb']->queryPrepared($sql, array($data['usf_cat_id']));
-                    $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_REMOVE_CATEGORY').' '.$data['cat_name_intern'].' in '.TBL_CATEGORIES.' - Status: '.($result_category ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-            }
-        }
-        $result .= '<br/>';
-
-        return $result;
-    }
-
-    /**
-     * Loescht die ueber das Plugin erstellten Mailtexte in der Datenbank
-     * @param   int     $deinst_org_select  0 = Daten nur in aktueller Org loeschen, 1 = Daten in allen Org loeschen
-     * @return  string  $result             Meldung
-     */
-    public function delete_mail_data($deinst_org_select)
-    {
-        $result = '';
-        $result_data = false;
-
-        if($deinst_org_select == 0)                    //0 = Daten nur in aktueller Org loeschen
-        {
-            $sql = 'DELETE FROM '.TBL_TEXTS.'
-                          WHERE txt_name LIKE ?
-                            AND txt_org_id = ? ';
-            $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('PMBMAIL_%', $GLOBALS['gCurrentOrgId']));
-        }
-        elseif ($deinst_org_select == 1)              //1 = Daten in allen Org loeschen
-        {
-            $sql = 'DELETE FROM '.TBL_TEXTS.'
-                    WHERE txt_name LIKE ? ';
-            $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('PMBMAIL_%'));
-        }
-
-        $result .= '<br/><em>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_MAIL_TEXTS').'</em>';
-
-        $result .= '<br/>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETE_MAIL_TEXTS').TBL_LIST_COLUMNS.' - Status: '.($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-
-        return $result;
-    }
     
     /**
-     * Loescht den Menüeintrag
-     * @return  string  $result   Meldung
-     */
-    public function delete_menu_item()
-    {
-        $result = '';
-        $result_data = false;
-        
-        // eigentlich bräuchte nur auf 'membership_fee.php' geprüft werden
-        // um aber auch alte Bestandsinstallationen zu löschen, wird 'mitgliedsbeitrag.php' auch mit betrachtet
-        $sql = 'DELETE FROM '.TBL_MENU.'
-                      WHERE men_url LIKE ?
-                         OR men_url LIKE ? ';
-        
-        $result_data = $GLOBALS['gDb']->queryPrepared($sql, array('/adm_plugins/%/membership_fee.php', '/adm_plugins/%/mitgliedsbeitrag.php'));
-         
-        $result .= '<br/>'.$GLOBALS['gL10n']->get('SYS_MENU_ITEM').' - Status: '.($result_data ? $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_DELETED') : $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ERROR'));
-        return $result;
-    }
+	 * Liest alle Zugriffsrollen ein die in der Konfigurationstabelle gespeichert sind
+	 * @return  array $data
+	 */
+     
+	public function getAllAccessRoles()
+	{
+	    global $gDb;
+	    
+	    $data = array();
+	    
+	    $sql = 'SELECT plp_id, plp_name, plp_value, plp_org_id
+                  FROM '.$this->table_name.'
+                 WHERE plp_name = ? ';
+	    $statement = $gDb->queryPrepared($sql, array(self::$shortcut.'__install__access_role_id'));
+	    
+	    while ($row = $statement->fetch())
+	    {
+	        $data[] = $row['plp_value'];
+	    }
+	    
+	    return $data;
+	}
+	
+	/**
+	 * Ermittelt die Anzahl der Installationen dieses Plugins
+	 * @return  int Anzahl
+	 */
+	
+	public function getAllPluginInstallations()
+	{
+	    global $gDb;
+	    
+	 //   $data = array();
+	    
+	    $sql =  'SELECT COUNT(*) AS count FROM '.$this->table_name.'
+                 WHERE plp_name = ? ';
+	    $countStatement = $gDb->queryPrepared($sql, array(self::$shortcut.'__Plugininformationen__version'));
+	    
+	    return (int) $countStatement->fetchColumn();
+	}
+    
+    /**
+	 * Returns the shortcut of the plugin.
+	 * @return string $shortcut.
+	 */
+	public function getShortcut()
+	{
+	    return self::$shortcut;
+	}
+	
+	/**
+	 * Returns the table name of the plugin.
+	 * @return string $table_name.
+	 */
+	public function getTableName()
+	{
+	    return $this->table_name;
+	}
 }

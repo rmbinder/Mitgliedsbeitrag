@@ -16,12 +16,12 @@
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  ***********************************************************************************************
  */
-
-// Fehlermeldungen anzeigen
-// error_reporting(E_ALL);
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Exception;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
+
+// Fehlermeldungen anzeigen
+error_reporting(E_ALL);
 
 try {
     require_once (__DIR__ . '/../../system/common.php');
@@ -36,18 +36,31 @@ try {
         $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
     }
 
+    $gNavigation->addStartUrl(CURRENT_URL);
+
     $pPreferences = new ConfigTable();
     $checked = $pPreferences->checkforupdate();
 
-    if ($checked == 1) // Update (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
-    {
+    if ($checked === 1) {
+        // Nur Update der Konfigurationstabelle (Konfigurationdaten sind vorhanden, der Stand ist aber unterschiedlich zur Version.php)
         $pPreferences->init();
-    } elseif ($checked == 2) // Installationsroutine durchlaufen
-    {
-        admRedirect(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/' . 'installation.php');
+    } elseif ($checked === 2) {
+        // Detaillierte Installationsroutine durchlaufen (mind. ein Profilfeld fehlt)
+        $urlInst = ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/install_db.php';
+        $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DETAILED_DESC', array(
+            '<a href="' . $urlInst . '">' . $urlInst . '</a>'
+        )), $gL10n->get('PLG_MITGLIEDSBEITRAG_ATTENTION'));
     }
 
-    $gNavigation->addStartUrl(CURRENT_URL);
+    $pPreferences->read();
+    // prüfen, ob role_id und/ item_id gespeichert sind (Wichtig für eine Deinstallation; evtl. ist eine vorher durchgeführte Deinstallation fehlgeschlagen)
+    if ($pPreferences->config['install']['access_role_id'] == 0 || $pPreferences->config['install']['menu_item_id'] == 0) {
+        $urlInst = ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/install.php';
+        $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_UPDATE_REQUIRED', array(
+            '<a href="' . $urlInst . '">' . $urlInst . '</a>'
+        )));
+    }
+
     admRedirect(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membership_fee.php');
 } catch (Exception $e) {
     $gMessage->show($e->getMessage());

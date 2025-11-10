@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources>
+<resources>           
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES">Tilgangstillatelse for innstillinger</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Her, i tillegg til rollen "Administrator", kan du autorisere ytterligere roller for tilgang til "Innstillinger"-modulen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Tilgang til modulen "Individuelle bidrag"</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC">Modulen kan deaktiveres fullstendig ved hjelp av denne innstillingen. (Standard: Deaktivert)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN">Tilgang til medlemsavgift-pluginen</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN_DESC">Medlemmer av denne rollen har tilgang til medlemsavgift-pluginen</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Opptak</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Konto</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Kontodetaljer</string>
@@ -31,6 +33,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_AMOUNT">Grunnbeløp eller forbruksbeløp</string>
     <string name="PLG_MITGLIEDSBEITRAG_AMOUNT_DESC">Enten et grunnbeløp eller et forbruksbeløp kan spesifiseres her. Hvis et forbruksbeløp er spesifisert, må et tilhørende profilfelt også velges. Fra et matematisk synspunkt multipliseres verdien av "Grunnbeløp eller forbruksbeløp" med verdien av det valgte profilfeltet. Hvis ingen profilfelt er spesifisert, multipliseres det med 1.</string>
     <string name="PLG_MITGLIEDSBEITRAG_AND">og</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ATTENTION">Obs</string>
     <string name="PLG_MITGLIEDSBEITRAG_AVAILABLE">Eksisterende</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK">Bank</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK_CHANGED">Ny konto med en annen bank.</string>
@@ -131,18 +134,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID">Betalingsdato mottatt</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Betaler</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Standard</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY">Slett kun data fra gjeldende organisasjon.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Slett data i alle organisasjoner.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- Det oppstod en feil under sletting av dataene..\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- De opprettede dataene er slettet.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nFor å fjerne plugin-modulen fullstendig må programfilene slettes.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">Ingen data er valgt for sletting.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">Følgende slettinger ble utført:\n\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- Tabellen "adm_plugin_preferences" kunne ikke slettes fordi den inneholder mer data fra andre plugin-moduler.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_SUCCESS">- Den opprettede tabellen "adm_plugin_preferences" ble slettet.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION">Avinstaller</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC">Ved avinstallering kan oppføringer som er generert av plugin-modulen slettes fra databasen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC">*** Denne rutinen sletter kun oppføringene i Admidio-databasen. Programfiler og lenken i menyen vil ikke bli slettet! ***</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE">Slett</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL">Slett alle</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC">'Slett alle' sletter alle bidrag (inkludert bidragstekst og betalingsdato).</string>
@@ -153,7 +144,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IBAN_BIC">Slett IBAN, BIC og banknavn</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS">Profilfeltene i denne kategorien er synlige for flere organisasjoner og vil bli slettet uavhengig av innstillingen i "organisasjonsvalg".</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_INFO">Følgende alternativer er kun tilgjengelige i SEPA-innføringsfasen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DELETE_MAIL_TEXTS">Slett e-posttekster</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_MANDATE">Slett mandater</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_MANDATECHANGE">Slett mandatendringer</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_MEMBERNUMBER">Slett medlemsnummer</string>
@@ -247,16 +237,17 @@
     <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_PREVIEW">De nye individuelle bidragene er kun beregnet så langt, men er ennå ikke lagret.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_SAVED">De nye individuelle bidragene er lagret.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">Oppsettrutinen for medlemsavgiften har oppdaget at en versjonsoppdatering er utført og sjekker derfor strukturen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DETAILED_DESC">Strukturen til databasen og programfilene er forskjellig. En detaljert oppsettrutine må utføres.\n\nFor å gjøre dette, kjør følgende skript: #VAR1#</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">avslutter denne oppsettrutinen (Hvis det er gjort endringer i databasen, anbefales det sterkt å starte Admidio på nytt).</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1. kjøring</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE">2. kjøring</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_TITLE">Oppsett av medlemsavgift</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_UPDATE_REQUIRED">Den eksisterende installasjonen er ufullstendig. Det er nødvendig å kjøre installasjonsrutinen på nytt.\n\nFor å installere, kjør følgende skript: #VAR1#</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON">Kontroll av profilfelt (ønsket / faktisk verdi sammenligning)</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS">Kontroll av manglende profilfelt og kategorier.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INVALID">ugyldig</string>
     <string name="PLG_MITGLIEDSBEITRAG_IS">FAKTISK</string>
     <string name="PLG_MITGLIEDSBEITRAG_ITEM">Element</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MAIL_TEXTS">E-posttekster</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR">Følgende feil har oppstått:</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILCOUNT">  * * * #VAR1# medlem(mer) * * *</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL">Manglende e-postadresse for mottaker:</string>
@@ -280,7 +271,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEDATE_SET">Angi mandatdato</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATEID">Mandatreferanse</string>
     <string name="PLG_MITGLIEDSBEITRAG_MANDATES">Mandater</string>
-        <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS">Mandatadministrasjon</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MANDATES_FIELDS">Mandatadministrasjon</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAX">Maks</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT">Antall medlemmer</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBER_DATA">Brukerdata</string>
@@ -292,6 +283,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW">nytt medlemsnummer</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN">Ingen nye medlemsnummer kan tildeles fordi alle medlemmer, eller alle medlemmer av de valgte rollene, allerede har et medlemsnummer.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW">De nye medlemsnumrene er kun beregnet, men er ennå ikke lagret.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">De nye medlemsnumrene er lagret.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Nye medlemsnummer</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION">Medlemmers avgifter</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">Grunnlaget for disse dataene er kontodetaljene og oppføringene for medlemsavgift og betalt for de betalingspliktige medlemmene.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Medlemskap</string>
@@ -312,6 +305,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Flytt mandatreferanse til opprinnelig mandatreferanse</string>
     <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES">Multiplikatorroller</string>
     <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC">Multiplikatorroller er familieroller der bidragsverdien ikke legges til, men fungerer som en multiplikator. Verdien er en prosentandel (f.eks. 70 tilsvarer 70%).</string>           
+    <string name="PLG_MITGLIEDSBEITRAG_NAME">Medlemsavgift</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NAME_DESC">Medlemsavgift-pluginen</string>
     <string name="PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING">Filnavn skal oppgis uten filtype.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE">ny rolle</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">ny rolle for medlemmet</string>
@@ -346,8 +341,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Opprinnelig mandatreferanse</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Andre medlemskapsroller</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Andre</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Informasjon om bidragsberegning er kun tilgjengelig etter registrering.</string>  
     <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NO_DATA">Ingen data for bidragsberegning er lagret for #VAR1# #VAR2#.</string>     
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Informasjon om bidragsberegning er kun tilgjengelig etter registrering.</string>  
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Overskriv</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Betalt</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">Denne datoen legges inn av en bruker som en identifikator for en utført bidragsbetaling.\n\nEn eksisterende dato overskrives ikke.</string>
@@ -413,8 +408,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Her må en rolle velges som dette individuelle bidraget beregnes for.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Rollemedlemskap (aldersbaserte roller)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Kontroll av flere medlemskap i aldersbaserte roller.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2">Velg trinnene som ikke skal inkluderes i eksamen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC_LABEL">Her sjekkes det om et medlem tilhører flere aldersbaserte roller. Som standard vurderes alle aldersbaserte roller. Med dette alternativet kan ett eller flere trinn fjernes fra vurdering.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2">Velg trinnene som ikke skal inkluderes i eksamen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">Medlemmene er oppført flere ganger i forskjellige trinn av de aldersbaserte rollene.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK">Ingen medlemmer er gjentatte ganger i forskjellige trinn av de aldersbaserte rollene.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY">Rollemedlemskap (obligatorisk)</string>
@@ -473,6 +468,28 @@
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Totalsum</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternativ betaler</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">Disse profilfeltene kan ikke kopieres fordi de har forskjellige datatyper (for eksempel dato til tekst).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_ACCESS_ROLE_ERROR">– Det oppsto en feil under sletting av tilgangsrollen.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_ACCESS_ROLE_SUCCESS">– Tilgangsrollen som ble opprettet av plugin-modulen er slettet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_ERROR">– Det oppsto en feil under sletting av kategori #VAR1#.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_NOT_DELETED">– Kategorien #VAR1# kunne ikke slettes fordi den fortsatt er i bruk.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_SUCCESS">– Kategorien #VAR1# er slettet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_DATA_DELETE_ERROR">- Det oppsto en feil under sletting av konfigurasjonsdataene.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_DATA_DELETE_SUCCESS">- Konfigurasjonsdataene som ble opprettet av plugin-modulen, ble slettet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MAIL_TEXTS_ERROR">– Det oppsto en feil under sletting av e-postmeldingene.\n</string>            
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MAIL_TEXTS_SUCCESS">– E-postmeldingene er slettet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_ERROR">- Det oppsto en feil under sletting av menyelementet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_NOT_DELETED">- Menyelementet som ble opprettet av plugin-modulen kunne ikke slettes fordi det fortsatt er i bruk i en annen organisasjon.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_SUCCESS">- Menyelementet som ble opprettet av plugin-modulen ble slettet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_NO_INST_IDS_FOUND">- Ingen menyelement og/eller tilgangsrolle ble funnet. Du må slette menyelementet og tilgangsrollen manuelt.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_ERROR">– Det oppsto en feil under sletting av profilfeltet #VAR1#.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_NOT_DELETED">– Profilfeltet #VAR1# kunne ikke slettes fordi det fortsatt er i bruk i en annen organisasjon.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_SUCCESS">– Profilfeltet #VAR1# er slettet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_SECURITY_CHECK">Er du sikker på at du vil avinstallere plugin-modulen?</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_STARTMESSAGE">Følgende sletting ble utført:\n\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_TABLE_DELETE_ERROR">- Tabellen "adm_plugin_preferences" kunne ikke slettes fordi den fortsatt inneholder data fra en annen plugin-modul.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_TABLE_DELETE_SUCCESS">- Tabellen "adm_plugin_preferences" som ble opprettet av plugin-modulen ble slettet.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINSTALLATION">Avinstaller</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_UNINSTALLATION_DESC">Oppføringer opprettet av programtillegget kan slettes via avinstallering.</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNSELECT_ALL">Fjern markering for alle</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BANK">Kontoeiers bank</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BIC">Kontoeiers BIC</string>
@@ -501,9 +518,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE">XML-fil</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML-filnavn</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Filnavn skal angis uten suffiks.\n\nEksempel:\XML-filnavn: &quot;SEPA-Datei&quot; blir &quot;SEPA-Datei-2013-04-01-RCUR.xml&quot;</string>
-    <string name="PLG_MITGLIEDSBEITRAG_YEARS">År</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">De nye medlemsnumrene er lagret.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Nye medlemsnummer</string>
+    <string name="PLG_MITGLIEDSBEITRAG_YEARS">År</string>    
+    <!-- Phrases only in Database -->   
     <string name="PMB_ACCESSION">Adgang</string>
     <string name="PMB_ACCOUNT_DATA">Kontodata</string>
     <string name="PMB_BANK">Bank</string>

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES">Zugriffsberechtigung für Einstellungen</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Hier kann man, zusätzlich zur Rolle "Administrator", weitere Rollen für den Zugriff auf das Modul "Einstellungen" berechtigen.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_PREFERENCES_DESC">Hier können, zusätzlich zur Rolle "Administrator", weitere Rollen für den Zugriff auf das Modul "Einstellungen" berechtigt werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Zugriff auf das Modul "Individualbeiträge"</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS_DESC">Das Modul kann über diese Einstellung komplett deaktiviert werden. (Standard: Deaktiviert)</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN">Zugriff auf das Plugin Mitgliedsbeitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN_DESC">Mitglieder dieser Rolle haben Zugriff auf das Plugin Mitgliedsbeitrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCESSION">Beitritt</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT">Konto</string>
     <string name="PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA">Kontodaten</string>
@@ -31,6 +33,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_AMOUNT">Grund- oder Verbrauchsbetrag</string>
     <string name="PLG_MITGLIEDSBEITRAG_AMOUNT_DESC">Hier kann entweder ein Grund- oder ein Verbrauchsbetrag angegeben werden. Wird ein Verbrauchsbetrag angegeben, so muss auch ein dazugehöriges Profilfeld ausgewählt sein. Mathematisch betrachtet wird der Wert von "Grund- oder Verbrauchsbetrag" mit dem Wert des ausgewählten Profilfeldes multipliziert. Ist kein Profilfeld angegeben, so wird mit 1 multipliziert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_AND">und</string>
+    <string name="PLG_MITGLIEDSBEITRAG_ATTENTION">Achtung</string>
     <string name="PLG_MITGLIEDSBEITRAG_AVAILABLE">vorhanden</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK">Bank</string>
     <string name="PLG_MITGLIEDSBEITRAG_BANK_CHANGED">Neue Kontoverbindung bei einer anderen Bank.</string>
@@ -112,7 +115,7 @@
     <string name="PLG_MITGLIEDSBEITRAG_COPY_DESC">Hiermit können Profildaten eines Mitglieds zu einem anderen Mitglied kopiert werden.</string>
     <string name="PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO">Wählen Sie zuerst eine Quelle und ein Ziel des Kopiervorgangs aus. Danach bestimmsen Sie über "Auswahl" welches Profilfeld von "Quelle" zu "Ziel" kopiert wird. Der Kopiervorgang erfolgt automatisch mit Setzen des Hakens der Ziel-Auswahl.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CORRECTION">Korrektur</string>
- 	<string name="PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE">Exportdatei erstellen</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_CREATE_EXPORT_FILE">Exportdatei erstellen</string>    
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID">Mandatsreferenzen erzeugen</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_DESC">Standardmäßig werden Mandatsreferenzen für Mitglieder erzeugt,\n  - falls sie noch keine besitzen\n  - und für die eine IBAN hinterlegt ist.\n\n Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR">FEHLER: keine laufende Nummer gefunden!</string>
@@ -131,18 +134,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_DATE_PAID">Bezahlt-Datum</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEBTOR">Zahlungspflichtiger</string>
     <string name="PLG_MITGLIEDSBEITRAG_DEFAULT">Standard</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ACTORGONLY">Nur Daten der aktuellen Organisation löschen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ALLORG">Daten in allen Organisationen löschen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_ERROR">- Beim Löschen der Daten ist ein Fehler aufgetreten.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_DATA_DELETE_SUCCESS">- Die vom Plugin angelegten Daten wurden gelöscht.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_ENDMESSAGE">\nUm das Plugin vollständig zu entfernen, müssen noch die Programmdateien gelöscht werden.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_NO_SELECTED_DATA">Es wurden keine Daten zum Löschen ausgewählt.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_STARTMESSAGE">Folgende Aktionen wurden durchgeführt:\n\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_ERROR">- Die Tabelle "adm_plugin_preferences" konnte nicht gelöscht werden, da sich darin noch Daten eines anderen Plugins befinden.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINST_TABLE_DELETE_SUCCESS">- Die vom Plugin angelegte Tabelle "adm_plugin_preferences" wurde gelöscht.\n</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION">Deinstallation</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_DESC">Über die Deinstallation können vom Plugin erzeugte Einträge in der Datenbank gelöscht werden.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DEINSTALLATION_FORM_DESC">*** Diese Routine löscht nur Einträge in der Admidio-Datenbank. Programmdateien und der Link im Menü werden nicht gelöscht! ***</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE">Löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL">Alles löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC">'Alles löschen' löscht alle Beiträge (einschließlich Beitragstext und Bezahlt-Datum).</string>
@@ -153,7 +144,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IBAN_BIC">IBAN, BIC und Bankname löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_IN_ALL_ORGS">Die Profilfelder in dieser Kategorie sind für mehrere Organisationen sichtbar und werden gelöscht unabhängig von der Einstellung in "Organisationswahl".</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_INFO">Die folgenden Optionen sind nur während der SEPA-Einführungsphase verfügbar.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_DELETE_MAIL_TEXTS">Lösche E-Mail Texte in </string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_MANDATE">Mandate löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_MANDATECHANGE">Mandatsänderungen löschen</string>
     <string name="PLG_MITGLIEDSBEITRAG_DELETE_MEMBERNUMBER">Mitgliedsnummern löschen</string>
@@ -247,16 +237,17 @@
     <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_PREVIEW">Die neuen Individualbeiträge wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_SAVED">Die neuen Individualbeiträge wurden gespeichert.</string> 
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION">Die Setuproutine von Mitgliedsbeitrag hat festgestellt, daß ein Versionsupdate stattgefunden hat und überprüft deshalb die Struktur.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_DETAILED_DESC">Die Struktur der Datenbank und der Programmdateien unterscheiden sich. Es muss eine detaillierte Setuproutine durchgeführt werden.\n\nDazu folgendes Script ausführen: #VAR1#</string>     	
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_END">beendet diese Setuproutine (Wenn Änderungen an der Datenbank durchgeführt wurden, wird dringend empfohlen, Admidio neu zu starten).</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE">1. Durchgang</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE">2. Durchgang</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_TITLE">Installation Mitgliedsbeitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_INSTALL_UPDATE_REQUIRED">Die vorhandene Installation ist unvollständig. Es ist notwendig, die Installationsroutine erneut zu durchlaufen.\n\nZur Installation folgendes Script ausführen: #VAR1#</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON">Überprüfung der Profilfelder (SOLL-IST-Vergleich).</string>
     <string name="PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS">Überprüfung auf fehlende Profilfelder und Kategorien.</string>
     <string name="PLG_MITGLIEDSBEITRAG_INVALID">ungültig</string>
     <string name="PLG_MITGLIEDSBEITRAG_IS">IST</string>
     <string name="PLG_MITGLIEDSBEITRAG_ITEM">Posten</string>
-    <string name="PLG_MITGLIEDSBEITRAG_MAIL_TEXTS">E-Mail Texte</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR">Folgender Fehler ist eingetreten:</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILCOUNT">  * * * #VAR1# Mitglied(er) * * *</string>
     <string name="PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL">Fehlende Empfänger E-Mailadresse:</string>
@@ -292,6 +283,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW">neue Mitgliedsnummer</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN">Es können keine neuen Mitgliedsnummern zugewiesen werden, da alle Mitglieder bzw. alle Mitglieder der ausgewählten Rollen, bereits eine Mitgliedsnummer besitzen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW">Die neuen Mitgliedsnummern wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Die neuen Mitgliedsnummern wurden gespeichert.</string>
+    <string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION">Beiträge der Mitglieder</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC">Grundlage dieser Daten sind die Kontodaten sowie die Einträge Beitrag und Bezahlt der zahlungspflichtigen Mitglieder.</string>
     <string name="PLG_MITGLIEDSBEITRAG_MEMBERSHIP">Mitgliedschaft</string>
@@ -312,6 +305,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID">Mandatsreferenz verschieben nach Ursprüngliche Mandatsreferenz</string>
     <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES">Multiplikatorrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_MULTIPLIER_ROLES_DESC">Multiplikatorrollen sind Familienrollen bei denen der Beitragswert nicht addiert wird, sondern als Multiplikator dient. Der Wert ist eine Prozentangabe (Bsp.: 70 entspricht 70%).</string>           
+    <string name="PLG_MITGLIEDSBEITRAG_NAME">Mitgliedsbeitrag</string>
+    <string name="PLG_MITGLIEDSBEITRAG_NAME_DESC">Das Plugin Mitgliedsbeitrag</string> 
     <string name="PLG_MITGLIEDSBEITRAG_NAME_WITHOUT_ENDING">Dateinamen sind ohne Dateiendung anzugeben.</string>    
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE">neue Rolle</string>
     <string name="PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC">neue Rolle des Mitglieds</string>
@@ -346,8 +341,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID">Ursprüngliche Mandatsreferenz</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES">Sonstige Beitragsrollen</string>
     <string name="PLG_MITGLIEDSBEITRAG_OTHERS">Sonstiges</string>
-    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Informationen zur Beitragsberechnung stehen erst nach Anmeldung zur Verfügung.</string>  
     <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NO_DATA">Für #VAR1# #VAR2# sind keine Daten zur Beitragsberechnung gespeichert.</string>     
+    <string name="PLG_MITGLIEDSBEITRAG_OVERVIEW_NOVALIDLOGIN">Informationen zur Beitragsberechnung stehen erst nach Anmeldung zur Verfügung.</string>  
     <string name="PLG_MITGLIEDSBEITRAG_OVERWRITE">Überschreiben</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID">Bezahlt</string>
     <string name="PLG_MITGLIEDSBEITRAG_PAID_DESC">Dieses Datum wird bei einem Benutzer als Kennzeichnung für eine geleistete Beitragszahlung eingetragen.\n\nEin vorhandenes Datum wird dabei nicht überschrieben.</string>
@@ -413,8 +408,8 @@
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_DESC">Hier muss eine Rolle gewählt werden, für die dieser Individualbeitrag berechnet wird.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES">Rollenmitgliedschaft (Altersgestaffelte Rollen)</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC">Überprüfung auf mehrfache Mitgliedschaften in altersgestaffelten Rollen.</string>
-    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2">Wählen Sie die Staffelungen aus, die nicht in die Prüfung einbezogen werden sollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC_LABEL">Hier wird geprüft, ob ein Mitglied Angehöriger mehrerer altersgestaffelter Rollen ist. Standardmäßig werden dabei alle altersgestaffelten Rollen betrachtet. Mit dieser Option können eine oder mehrere Staffelungen aus der Betrachtung herausgenommen werden.</string>    
+    <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC2">Wählen Sie die Staffelungen aus, die nicht in die Prüfung einbezogen werden sollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR">Die aufgeführten Mitglieder befinden sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK">Kein Mitglied befindet sich mehrfach in unterschiedlichen Staffelungen der altersgestaffelten Rollen.</string>
     <string name="PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY">Rollenmitgliedschaft (Pflicht)</string>
@@ -473,6 +468,28 @@
     <string name="PLG_MITGLIEDSBEITRAG_TOTAL">Gesamtsumme</string>
     <string name="PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR">Alternativer Zahlungspflichtiger</string>
     <string name="PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE">Diese Profilfelder können nicht kopiert werden, da sie unterschiedliche Datentypen aufweisen (z.B. Datum zu Text).</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_ACCESS_ROLE_ERROR">- Beim Löschen der Zugriffsrolle ist ein Fehler aufgetreten.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_ACCESS_ROLE_SUCCESS">- Die vom Plugin angelegte Zugriffsrolle wurde gelöscht.\n</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_ERROR">- Beim Löschen der Kategorie #VAR1# ist ein Fehler aufgetreten.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_NOT_DELETED">- Die Kategorie #VAR1# konnte nicht gelöscht werden, da sie noch verwendet wird.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_SUCCESS">- Die Kategory #VAR1# wurde gelöscht.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_DATA_DELETE_ERROR">- Beim Löschen der Konfigurationsdaten ist ein Fehler aufgetreten.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_DATA_DELETE_SUCCESS">- Die vom Plugin angelegten Konfigurationsdaten wurden gelöscht.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MAIL_TEXTS_ERROR">- Beim Löschen der E-Mail Texte ist ein Fehler aufgetreten.\n</string>            
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MAIL_TEXTS_SUCCESS">- Die E-Mail Texte wurden gelöscht.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_ERROR">- Beim Löschen des Menüpunktes ist ein Fehler aufgetreten.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_NOT_DELETED">- Der vom Plugin angelegte Menüpunkt konnte nicht gelöscht werden, da er noch in einer anderen Organisation verwendet wird.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_SUCCESS">- Der vom Plugin angelegte Menüpunkt wurde gelöscht.\n</string>               
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_NO_INST_IDS_FOUND">- Es konnte kein Menüpunkt und/oder keine Zugriffsrolle ermittelt werden. Sie müssen Menüpunkt und Zugriffsrolle von Hand löschen.\n</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_ERROR">- Beim Löschen des Profilfeldes #VAR1# ist ein Fehler aufgetreten.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_NOT_DELETED">- Das Profilfeld #VAR1# konnte nicht gelöscht werden, da es noch in einer anderen Organisation verwendet wird.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_SUCCESS">- Das Profilfeld #VAR1# wurde gelöscht.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_SECURITY_CHECK">Möchten Sie wirklich das Plugin deinstallieren?</string> 
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_STARTMESSAGE">Folgende Löschvorgänge wurden durchgeführt:\n\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_TABLE_DELETE_ERROR">- Die Tabelle "adm_plugin_preferences" konnte nicht gelöscht werden, da sich darin noch Daten eines anderen Plugins befinden.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINST_TABLE_DELETE_SUCCESS">- Die vom Plugin angelegte Tabelle "adm_plugin_preferences" wurde gelöscht.\n</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINSTALLATION">Deinstallation</string>
+    <string name="PLG_MITGLIEDSBEITRAG_UNINSTALLATION_DESC">Über die Deinstallation können vom Plugin erzeugte Einträge gelöscht werden.</string> 
     <string name="PLG_MITGLIEDSBEITRAG_UNSELECT_ALL">Alle abwählen</string>
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BANK">Bank des Zahlungspflichtigen</string>     
     <string name="PLG_MITGLIEDSBEITRAG_VARIABLE_BIC">BIC des Zahlungspflichtigen</string>
@@ -502,8 +519,6 @@
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME">XML-Dateiname</string>
     <string name="PLG_MITGLIEDSBEITRAG_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
     <string name="PLG_MITGLIEDSBEITRAG_YEARS">Jahre</string>
-   	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED">Die neuen Mitgliedsnummern wurden gespeichert.</string>
-	<string name="PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW">Neue Mitgliedsnummern</string>
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Beitritt</string>
     <string name="PMB_ACCOUNT_DATA">Kontodaten</string>
