@@ -13,6 +13,7 @@
  */
 
 use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Infrastructure\Exception;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
@@ -24,7 +25,7 @@ $pPreferences->read();
 // only authorized user are allowed to start this module
 if (!isUserAuthorizedForPreferences())
 {
-	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+	 throw new Exception('SYS_NO_RIGHTS');  
 }
 
 $duedatecount = 0;

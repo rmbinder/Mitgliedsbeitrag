@@ -23,8 +23,9 @@ try {
     $_SESSION['pMembershipFee']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strpos($_SERVER['SCRIPT_NAME'], FOLDER_PLUGINS));
 
     // only authorized user are allowed to start this module
-    if (! isUserAuthorized($_SESSION['pMembershipFee']['script_name'])) {
-        $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+    if (!isUserAuthorized())
+    {
+        throw new Exception('SYS_NO_RIGHTS');   
     }
 
     // Initialize and check the parameters

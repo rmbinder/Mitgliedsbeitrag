@@ -53,6 +53,7 @@ try {
     // nur wenn es keine Rolle gibt, neue Daten eingeben (mehr als eine Rolle wird nicht betrachtet)
     if ($role->getValue('rol_id') === 0) {
         $role->saveChangesWithoutRights(); // toDo: ggf. erweiterte Berechtigungen für die Rolle vergeben
+        $role->setValue('rol_edit_user', 1);
         $role->setValue('rol_cat_id', $categoryCommonId, false);
         $role->setValue('rol_name', $gL10n->get('PLG_MEMBERSHIPFEE_ACCESS_TO_PLUGIN'));
         $role->setValue('rol_description', $gL10n->get('PLG_MEMBERSHIPFEE_ACCESS_TO_PLUGIN_DESC'));

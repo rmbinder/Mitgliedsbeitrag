@@ -29,11 +29,12 @@ try {
     require_once (__DIR__ . '/system/common_function.php');
 
     // script_name ist der Name wie er im Menue eingetragen werden muss, also ohne evtl. vorgelagerte Ordner wie z.B. /playground/adm_plugins/mitgliedsbeitrag...
-    $_SESSION['pMembershipFee']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strpos($_SERVER['SCRIPT_NAME'], FOLDER_PLUGINS));
+ //   $_SESSION['pMembershipFee']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strpos($_SERVER['SCRIPT_NAME'], FOLDER_PLUGINS));
 
     // only authorized user are allowed to start this module
-    if (! isUserAuthorized($_SESSION['pMembershipFee']['script_name'])) {
-        $gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+    if (!isUserAuthorized())
+    {
+        throw new Exception('SYS_NO_RIGHTS');   
     }
 
     $gNavigation->addStartUrl(CURRENT_URL);

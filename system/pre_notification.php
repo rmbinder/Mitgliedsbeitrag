@@ -23,6 +23,7 @@
 
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Utils\StringUtils;
+use Admidio\Infrastructure\Exception;
 use Admidio\Users\Entity\User;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
@@ -30,9 +31,9 @@ require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
 
 // only authorized user are allowed to start this module
-if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
+if (!isUserAuthorized())
 {
-	$gMessage->show($gL10n->get('SYS_NO_RIGHTS'));
+    throw new Exception('SYS_NO_RIGHTS');   
 }
 
 $pPreferences = new ConfigTable();

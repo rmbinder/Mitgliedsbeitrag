@@ -14,8 +14,14 @@ use Admidio\Components\Entity\Component;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Roles\Entity\Role;
+use Admidio\Roles\Entity\RolesRights;
 use Admidio\Users\Entity\User;
+use Plugins\MembershipFee\classes\Config\ConfigTable;
 use Smarty\Data;
+
+if (basename($_SERVER['SCRIPT_FILENAME']) === 'common_function.php') {
+    exit('This page may not be called directly!');
+}
 
 require_once(__DIR__ . '/../../../system/common.php');
 
@@ -58,6 +64,99 @@ function myAutoloader($className) {
     if (file_exists($file)) {
         require $file;
     }
+}
+
+/**
+ * Funktion prueft, ob der Nutzer berechtigt ist das Plugin auszuführen.
+ * 
+ * In Admidio im Modul Menü kann über 'Sichtbar für' die Sichtbarkeit eines Menüpunkts eingeschränkt werden.
+ * Der Zugriff auf die darunter liegende Seite ist von dieser Berechtigung jedoch nicht betroffen.
+ * 
+ * Mit Admidio 5 werden alle Startcripte meiner Plugins umbenannt zu index.php
+ * Um die index.php auszuführen, kann die bei einem Menüpunkt angegebene URL wie folgt angegeben sein:
+ * /adm_plugins/<Installationsordner des Plugins>
+ *   oder
+ * /adm_plugins/<Installationsordner des Plugins>/
+ *   oder
+ * /adm_plugins/<Installationsordner des Plugins>/<Dateiname.php>
+ * 
+ * Das Installationsscript des Plugins erstellt automatisch einen Menüpunkt in der Form: /adm_plugins/<Installationsordner des Plugins>/index.php
+ * Standardmäßig wird deshalb für die Prüfung index.php als <Dateiname.php> verwendet, alternativ die übergebene Datei ($scriptname).
+ * 
+ * Diese Funktion ermittelt nur die Menüpunkte, die einen Dateinamen am Ende (index.php oder $scriptname) aufweisen, liest bei diesen Menüpunkten
+ * die unter 'Sichtbar für' eingetragenen Rollen ein und prüft, ob der angemeldete Benutzer Mitglied mindestens einer dieser Rollen ist.
+ * Wenn ja, ist der Benutzer berechtigt, das Plugin auszuführen (auch, wenn es weitere Menüpunkte ohne Dateinamen am Ende gibt).
+ * Wichtiger Hinweis: Sind unter 'Sichtbar für' keine Rollen angegeben, so darf jeder Benutzer das Plugin ausführen
+ * 
+ * @param   string  $scriptName   Der Scriptname des Plugins (default: 'index.php')
+ * @return  bool    true, wenn der User berechtigt ist
+ */
+function isUserAuthorized( string $scriptname = '')
+{
+    global $gDb, $gCurrentUser;
+    
+    $userIsAuthorized = false;
+    $menIds = array();
+    
+    $menuItemURL = FOLDER_PLUGINS. PLUGIN_FOLDER. '/'. ((strlen($scriptname) === 0) ? 'index.php' : $scriptname);
+    
+    $sql = 'SELECT men_id
+              FROM '.TBL_MENU.'
+             WHERE men_url = ? -- $menuItemURL';
+    
+    $menuStatement = $gDb->queryPrepared($sql, array($menuItemURL));
+    
+    if ( $menuStatement->rowCount() !== 0 )
+    {
+        while ($row = $menuStatement->fetch())
+        {
+            $menIds[] = (int) $row['men_id'];
+        }
+        
+        foreach ($menIds as $menId)
+        {
+            // read current roles rights of the menu
+            $displayMenu = new RolesRights($gDb, 'menu_view', $menId);
+            
+            // check for right to show the menu
+            if (count($displayMenu->getRolesIds()) === 0 || $displayMenu->hasRight($gCurrentUser->getRoleMemberships()))
+            {
+                $userIsAuthorized = true;
+            }
+        }
+    }
+    return $userIsAuthorized;
+}
+
+/**
+ * Funktion prueft, ob der Nutzer berechtigt ist, das Modul Preferences aufzurufen.
+ * @param   none
+ * @return  bool    true, wenn der User berechtigt ist
+ */
+function isUserAuthorizedForPreferences()
+{
+    // Konfiguration einlesen
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
+    
+    $userIsAuthorized = false;
+    
+    if ($GLOBALS['gCurrentUser']->isAdministrator())                   // Mitglieder der Rolle Administrator dürfen "Preferences" immer aufrufen
+    {
+        $userIsAuthorized = true;
+    }
+    else
+    {
+        foreach ($pPreferences->config['access']['preferences'] as $roleId)
+        {
+            if ($GLOBALS['gCurrentUser']->isMemberOfRole((int) $roleId))
+            {
+                $userIsAuthorized = true;
+                continue;
+            }
+        }
+    }
+    return $userIsAuthorized;
 }
 
 /**
@@ -1286,97 +1385,6 @@ function isIbanNOT_EU_EWR($iban)
 	{
 		return false;
 	}
-}
-
-
-/**
- * Funktion prueft, ob der Nutzer berechtigt ist das Plugin aufzurufen.
- * Zur Prüfung werden die Einstellungen von 'Modulrechte' und 'Sichtbar für'
- * verwendet, die im Modul Menü für dieses Plugin gesetzt wurden.
- * @param   string  $scriptName   Der Scriptname des Plugins
- * @return  bool    true, wenn der User berechtigt ist
- */
-function isUserAuthorized($scriptName)
-{
-	global $gMessage;
-
-	$userIsAuthorized =true;
-/*	$menId = 0;
-
-	$sql = 'SELECT men_id
-              FROM '.TBL_MENU.'
-             WHERE men_url = ? -- $scriptName ';
-
-	$menuStatement = $GLOBALS['gDb']->queryPrepared($sql, array($scriptName));
-
-	if ( $menuStatement->rowCount() === 0 || $menuStatement->rowCount() > 1)
-	{
-		$GLOBALS['gLogger']->notice('MembershipFee: Error with menu entry: Found rows: '. $menuStatement->rowCount() );
-		$GLOBALS['gLogger']->notice('MembershipFee: Error with menu entry: ScriptName: '. $scriptName);
-		$gMessage->show($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_MENU_URL_ERROR', array($scriptName)), $GLOBALS['gL10n']->get('SYS_ERROR'));
-	}
-	else
-	{
-		while ($row = $menuStatement->fetch())
-		{
-			$menId = (int) $row['men_id'];
-		}
-	}
-
-	$sql = 'SELECT men_id, men_com_id, com_name_intern
-              FROM '.TBL_MENU.'
-         LEFT JOIN '.TBL_COMPONENTS.'
-                ON com_id = men_com_id
-             WHERE men_id = ? -- $menId
-          ORDER BY men_men_id_parent DESC, men_order';
-
-	$menuStatement = $GLOBALS['gDb']->queryPrepared($sql, array($menId));
-	while ($row = $menuStatement->fetch())
-	{
-		if ((int) $row['men_com_id'] === 0 || Component::isVisible($row['com_name_intern']))
-		{
-			// Read current roles rights of the menu
-			$displayMenu = new RolesRights($GLOBALS['gDb'], 'menu_view', $row['men_id']);
-			$rolesDisplayRight = $displayMenu->getRolesIds();
-
-			// check for right to show the menu
-			if (count($rolesDisplayRight) === 0 || $displayMenu->hasRight($GLOBALS['gCurrentUser']->getRoleMemberships()))
-			{
-				$userIsAuthorized = true;
-			}
-		}
-	}  */
-	return $userIsAuthorized;
-}
-
-/**
- * Funktion prueft, ob der Nutzer berechtigt ist, das Modul Preferences aufzurufen.
- * @param   none
- * @return  bool    true, wenn der User berechtigt ist
- */
-function isUserAuthorizedForPreferences()
-{
-    global $pPreferences;
-
-    $userIsAuthorized =true;
-
- /*   if ($GLOBALS['gCurrentUser']->isAdministrator())                   // Mitglieder der Rolle Administrator dürfen "Preferences" immer aufrufen
-    {
-        $userIsAuthorized = true;
-    }
-    else
-    {
-        foreach ($pPreferences->config['access']['preferences'] as $roleId)
-        {
-            if ($GLOBALS['gCurrentUser']->isMemberOfRole((int) $roleId))
-            {
-                $userIsAuthorized = true;
-                continue;
-            }
-        }
-    }     */
-
-    return $userIsAuthorized;
 }
 
 /**
