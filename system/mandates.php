@@ -136,7 +136,7 @@ else
     $membersList = list_members($membersListFields, 0, $membersListSqlCondition);
 
     // set headline of the script
-    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATES');
+    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATES');
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -208,10 +208,10 @@ else
 
     $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
     $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
-    $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE'), $datum, array('type' => 'date', 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_MANDATEDATE_DESC'));
+    $form->addInput('datum', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEDATE'), $datum, array('type' => 'date', 'helpTextId' => 'PLG_MEMBERSHIPFEE_MANDATEDATE_DESC'));
 
-    $selectBoxEntries = array('0' => $gL10n->get('SYS_SHOW_ALL_CONTACTS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_MANDATEDATE'));
-    $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+    $selectBoxEntries = array('0' => $gL10n->get('SYS_SHOW_ALL_CONTACTS'), '1' => $gL10n->get('PLG_MEMBERSHIPFEE_WITH_MANDATEDATE'), '2' => $gL10n->get('PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE'));
+    $form->addSelectBox('mem_show', $gL10n->get('PLG_MEMBERSHIPFEE_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
     $page->addHtml($form->show());
 
@@ -220,11 +220,11 @@ else
     $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
     
     $columnAlign  = array('center');
-    $columnValues = array( '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE_CHANGE_ALL_DESC').'"/>');
+    $columnValues = array( '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_MANDATEDATE_CHANGE_ALL_DESC').'"/>');
     
     //column mandate change
     $columnAlign[]  = 'center';
-    $columnValues[] = '<i class="bi bi-pen"  title="' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE') . '"></i>';
+    $columnValues[] = '<i class="bi bi-pen"  title="' . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE') . '"></i>';
     
     // headlines for columns
     foreach ($membersList as $member => $memberData)
@@ -278,7 +278,7 @@ else
         
     	$columnValues = array($content);
         $columnValues[] = '<a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/mandate_change.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">
-            <i class="bi bi-pen" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').'"></i>';
+            <i class="bi bi-pen" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE').'"></i>';
       		
         foreach ($memberData as $usfId => $content)
     	{

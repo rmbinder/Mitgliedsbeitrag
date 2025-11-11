@@ -2,7 +2,7 @@
         {$attribute@key}="{$attribute}"
     {/foreach}>
 
-    <p>{$l10n->get('PLG_MITGLIEDSBEITRAG_UNINST_SECURITY_CHECK')}</p>
+    <p>{$l10n->get('PLG_MEMBERSHIPFEE_UNINST_SECURITY_CHECK')}</p>
                
     {include 'sys-template-parts/form.button.tpl' data=$elements['btn_exit']} 
     {include 'sys-template-parts/form.button.tpl' data=$elements['btn_continue']}

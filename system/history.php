@@ -51,9 +51,9 @@ $getFirstName 	    = admFuncVariableIsValid($_GET, 'filter_first_name','string')
 $getMode       	    = admFuncVariableIsValid($_GET, 'mode',             'string', array('defaultValue' => 'html', 'validValues' => array('csv-ms', 'csv-oo', 'html', 'print', 'pdf', 'pdfl', 'xlsx' )));
 $getExportAndFilter = admFuncVariableIsValid($_GET, 'export_and_filter', 'bool', array('defaultValue' => false));
 
-$title    = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
-$filename = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_HISTORY');
+$title    = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY');
+$filename = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY');
 
 // filter_date_from and filter_date_to can have different formats
 // now we try to get a default format for intern use and html output
@@ -326,7 +326,7 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
         }
   
         $form = new HtmlForm('navbar_checkbox_form', SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/history.php'),  $page, array('type' => 'navbar', 'setFocus' => false));
-        $form->addCheckbox('export_and_filter', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_AND_FILTER'), $getExportAndFilter);
+        $form->addCheckbox('export_and_filter', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT_AND_FILTER'), $getExportAndFilter);
         
         $page->addHtml($form->show());
  
@@ -359,10 +359,10 @@ if ($getMode !== 'csv' && $getMode != 'xlsx' )
 //header definitions
 $columnHeading = array();
 $columnHeading[] = $gL10n->get('SYS_NAME');
-$columnHeading[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ON');
-$columnHeading[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
-$columnHeading[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
-$columnHeading[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
+$columnHeading[] = $gL10n->get('PLG_MEMBERSHIPFEE_PAID_ON');
+$columnHeading[] = $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE');
+$columnHeading[] = $gL10n->get('PLG_MEMBERSHIPFEE_FEE');
+$columnHeading[] = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT');
 
 $rows[] = $columnHeading;           // header for 'xlsx'
 

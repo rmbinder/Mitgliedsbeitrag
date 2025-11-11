@@ -44,7 +44,7 @@ $user = new User($gDb, $gProfileFields);
 $role = new Role($gDb);
 
 // set headline of the script
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_AGE_STAGGERED_ROLES');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING_AGE_STAGGERED_ROLES');
 
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -54,9 +54,9 @@ if ($getMode == 'preview')     //Default
     
 	//Vor der Neuzuordnung die altersgestaffelten Rollen auf Luecken oder Ueberlappungen pruefen
 	$arr = check_rols();
-	if (!in_array($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'), $arr))
+	if (!in_array($gL10n->get('PLG_MEMBERSHIPFEE_AGE_STAGGERED_ROLES_RESULT_OK'), $arr))
 	{
-		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR2'));
+		$gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_AGE_STAGGERED_ROLES_RESULT_ERROR2'));
 	}
 	unset($arr);
 	
@@ -75,7 +75,7 @@ if ($getMode == 'preview')     //Default
 			{
                 $user->readDataById($member);
 
-				$gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_MISSING_BIRTHDAY',array(
+				$gMessage->show('<strong>'.$gL10n->get('SYS_ERROR').':</strong> '.$gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING_MISSING_BIRTHDAY',array(
 						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$memberdata['FIRST_NAME'].'</a>',
 						'<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$memberdata['LAST_NAME'].'</a>' )));
 			}
@@ -101,7 +101,7 @@ if ($getMode == 'preview')     //Default
 						                'toDo' => 'delete',
 					     'icon_role_not_exist' => '&nbsp;',
 				    	       'icon_role_new' => '&nbsp;',
-		                       'icon_role_old' => '<i class="bi bi-dash" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'"></i>'  );
+		                       'icon_role_old' => '<i class="bi bi-dash" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_OLD_ROLE').'"></i>'  );
         	}
 		}
 	}
@@ -131,7 +131,7 @@ if ($getMode == 'preview')     //Default
 						                 'age' => $stackdata['alter'],
 						                'toDo' => 'set',
 				         'icon_role_not_exist' => '&nbsp;',
-					           'icon_role_new' => '<i class="bi bi-plus" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'"></i>',	     
+					           'icon_role_new' => '<i class="bi bi-plus" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE').'"></i>',	     
                                'icon_role_old' => '&nbsp;');
 						
 				unset($stack[$key]);
@@ -150,7 +150,7 @@ if ($getMode == 'preview')     //Default
 					                'role' => '',
 					                 'age' => $stackdata['alter'],
 					                'toDo' => '',
-        			 'icon_role_not_exist' => '<i class="bi bi-exclamation" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'"></i>',		    
+        			 'icon_role_not_exist' => '<i class="bi bi-exclamation" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE_MISSING').'"></i>',		    
                            'icon_role_new' => '&nbsp;',
 					       'icon_role_old' => '&nbsp;');
 		}
@@ -169,11 +169,11 @@ if ($getMode == 'preview')     //Default
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
-            '<i class="bi bi-cake2" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
-		    '<i class="bi bi-dash" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
-		    '<i class="bi bi-plus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
-		    '<i class="bi bi-exclamation" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
-            $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
+            '<i class="bi bi-cake2" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_AGE_DESC').'"></i>',
+		    '<i class="bi bi-dash" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_OLD_ROLE_DESC').'"></i>',
+		    '<i class="bi bi-plus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE_DESC').'"></i>',
+		    '<i class="bi bi-exclamation" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE_MISSING_DESC').'"></i>',
+            $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'));
 		$table->addRowHeadingByArray($columnValues);
 
 		foreach ($members as $data)
@@ -196,13 +196,13 @@ if ($getMode == 'preview')     //Default
 
         $form = new HtmlForm('createmandateid_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/remapping.php', array('mode' => 'write')), $page);
 		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'),  array('icon' => 'bi-check-lg'));
-		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_PREVIEW'));
+		$form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING_PREVIEW'));
 		
 		$page->addHtml($form->show(false));
 	}
 	else 
 	{
-		$page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_NO_ASSIGN').'<br/><br/>');
+		$page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING_NO_ASSIGN').'<br/><br/>');
 	}
 }
 elseif ($getMode == 'write')
@@ -229,11 +229,11 @@ elseif ($getMode == 'write')
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 		$gL10n->get('SYS_FIRSTNAME'),
-	    '<i class="bi bi-cake2" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_DESC').'"></i>',
-	    '<i class="bi bi-dash" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE_DESC').'"></i>',
-	    '<i class="bi bi-plus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_DESC').'"></i>',
-	    '<i class="bi bi-exclamation" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING_DESC').'"></i>',
-		$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
+	    '<i class="bi bi-cake2" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_AGE_DESC').'"></i>',
+	    '<i class="bi bi-dash" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_OLD_ROLE_DESC').'"></i>',
+	    '<i class="bi bi-plus" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE_DESC').'"></i>',
+	    '<i class="bi bi-exclamation" data-bs-toggle="tooltip" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE_MISSING_DESC').'"></i>',
+		$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)
@@ -284,7 +284,7 @@ elseif ($getMode == 'write')
 	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
 	$page->addHtml('</div><br/>');
-	$page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SAVED').'</strong><br/><br/>');
+	$page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING_SAVED').'</strong><br/><br/>');
 }
 elseif ($getMode == 'print')
 {
@@ -296,18 +296,18 @@ elseif ($getMode == 'print')
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
 	
-	$page = new HtmlPage('plg-mitgliedsbeitrag-remapping-print', $gL10n->get('PLG_MITGLIEDSBEITRAG_REMAPPING_SUMMARY', array($date)));
+	$page = new HtmlPage('plg-mitgliedsbeitrag-remapping-print', $gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING_SUMMARY', array($date)));
 	$page->setPrintMode();
 	
 	$table = new HtmlTable('table_print_remapping', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 		$gL10n->get('SYS_FIRSTNAME'),
-	    '<i class="bi bi-cake2" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE').'"></i>',
-	    '<i class="bi bi-dash" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_OLD_ROLE').'"></i>',
-	    '<i class="bi bi-plus" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE').'"></i>',
-	    '<i class="bi bi-exclamation" alt="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NEW_ROLE_MISSING').'"></i>',
-		$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'));
+	    '<i class="bi bi-cake2" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_AGE').'"></i>',
+	    '<i class="bi bi-dash" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_OLD_ROLE').'"></i>',
+	    '<i class="bi bi-plus" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE').'"></i>',
+	    '<i class="bi bi-exclamation" alt="'.$gL10n->get('PLG_MEMBERSHIPFEE_NEW_ROLE_MISSING').'"></i>',
+		$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['remapping_user'] as $data)

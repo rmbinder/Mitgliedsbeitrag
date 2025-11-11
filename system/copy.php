@@ -76,7 +76,7 @@ if($getMode == 'assign')
 else
 {
     // set headline of the script
-    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_COPY');
+    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_COPY');
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -132,7 +132,7 @@ else
                             $("#targetval_"+target_usfid).fadeIn(1200);
                         }
                         else if(data == "unequal_datatype"){
-                            alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_UNEQUAL_DATATYPE').'");
+                            alert("'.$gL10n->get('PLG_MEMBERSHIPFEE_UNEQUAL_DATATYPE').'");
                             return false;
                         }
                         else {
@@ -166,11 +166,11 @@ else
     }
     asort($members);
 
-    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_COPY_HEADERINFO'));
+    $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_COPY_HEADERINFO'));
 
     $form = new HtmlForm('copy_selection_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
-    $form->addSelectBox('quelle', $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
-    $form->addSelectBox('ziel',   $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+    $form->addSelectBox('quelle', $gL10n->get('PLG_MEMBERSHIPFEE_SOURCE'), $members, array('defaultValue' => $getSourceUserid, 'helpTextId' => 'PLG_MEMBERSHIPFEE_SOURCE_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
+    $form->addSelectBox('ziel',   $gL10n->get('PLG_MEMBERSHIPFEE_TARGET'), $members, array('defaultValue' => $getTargetUserid, 'helpTextId' => 'PLG_MEMBERSHIPFEE_TARGET_DESC', 'showContextDependentFirstEntry' => true, 'property' => HtmlForm::FIELD_REQUIRED));
 
     $page->addHtml($form->show(false));
 
@@ -180,11 +180,11 @@ else
 
     // create array with all column heading values
     $columnHeading = array(
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_SOURCE'),
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_CHOICE'),
+        $gL10n->get('PLG_MEMBERSHIPFEE_SOURCE'),
+        $gL10n->get('PLG_MEMBERSHIPFEE_CHOICE'),
         $gL10n->get('SYS_PROFILE_FIELD'),
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_CHOICE'),
-        $gL10n->get('PLG_MITGLIEDSBEITRAG_TARGET')
+        $gL10n->get('PLG_MEMBERSHIPFEE_CHOICE'),
+        $gL10n->get('PLG_MEMBERSHIPFEE_TARGET')
     );
     $table->setColumnAlignByArray(array('center', 'center', 'center', 'center', 'center'));
     $table->addRowHeadingByArray($columnHeading);

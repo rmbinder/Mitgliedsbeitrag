@@ -69,7 +69,7 @@ try
             //und dadurch nicht durch das Plugin kontrollierte Loeschungen oder Hinzufuegungen ausfuehrt
             if($altersrollen_anzahl == 0)
             {
-                $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_MIN_CONFIG'));
+                $gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_ERROR_MIN_CONFIG'));
             }
             break;
 

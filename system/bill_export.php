@@ -66,15 +66,15 @@ switch ($exportMode)
         break;
 }
 
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_SERIAL_NUMBER');
 $columnValues[] = $gL10n->get('SYS_NAME');
 $columnValues[] = $gL10n->get('SYS_STREET');
 $columnValues[] = $gL10n->get('SYS_POSTCODE');
 $columnValues[] = $gL10n->get('SYS_CITY');
 $columnValues[] = $gL10n->get('SYS_EMAIL');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SUM');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_FEE');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_SUM');
 $rows[] = $columnValues;
 
 if ($exportMode === 'csv')
@@ -167,10 +167,10 @@ elseif ($exportMode === 'xlsx')
     $writer = new XLSXWriter();
     $writer->setAuthor($gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME'));
     $writer->setTitle($filename);
-    $writer->setSubject($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
+    $writer->setSubject($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'));
     $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
-    $writer->setKeywords(array($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA')));
-    $writer->setDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATED_WITH'));
+    $writer->setKeywords(array($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'), $gL10n->get('PLG_MEMBERSHIPFEE_BILL'), $gL10n->get('PLG_MEMBERSHIPFEE_SEPA')));
+    $writer->setDescription($gL10n->get('PLG_MEMBERSHIPFEE_CREATED_WITH'));
     $writer->writeSheet($rows,'', $header);
     $writer->writeToStdOut();
 }

@@ -45,7 +45,7 @@ $pPreferences = new ConfigTable();
 $pPreferences->read();
 
 // set headline of the script
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRODUCE_MEMBERNUMBER');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER');
 
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -57,7 +57,7 @@ if ($getMode == 'preview')     //Default
 
 	if ($membernumbers->isDoubleNumber())
 	{
-		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_ERROR', array($membernumbers->isDoubleNumber())));
+		$gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_ERROR', array($membernumbers->isDoubleNumber())));
 		// --> EXIT
 	}
 
@@ -80,7 +80,7 @@ if ($getMode == 'preview')     //Default
         
 		$table = new HtmlTable('table_new_membernumbers', $page, $hoverRows, $datatable, $classTable);
 		$table->setColumnAlignByArray(array('left', 'left', 'center'));
-		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));
+		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
 		$table->addRowHeadingByArray($columnValues);
 
 		foreach ($membernumbers->mUserWithoutMembernumber as $data)
@@ -96,13 +96,13 @@ if ($getMode == 'preview')     //Default
         
     	$form = new HtmlForm('membernumber_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/membernumber.php', array('mode' => 'write')), $page);       
 		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg'));
-		$form->addDescription('<br/>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_PREVIEW'));
+		$form->addDescription('<br/>'.$gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_PREVIEW'));
         
         $page->addHtml($form->show(false));
 	}
 	else 
 	{
-        $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NO_ASSIGN').'<br/><br/>');
+        $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NO_ASSIGN').'<br/><br/>');
 	}
 }
 elseif ($getMode == 'write')
@@ -124,7 +124,7 @@ elseif ($getMode == 'write')
     
 	$table = new HtmlTable('table_saved_membernumbers', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center'));
-	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));
+	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	$user = new User($gDb, $gProfileFields);
@@ -145,7 +145,7 @@ elseif ($getMode == 'write')
 	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
 	$page->addHtml('</div><br/>');
-    $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_SAVED').'</strong><br/><br/>');
+    $page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_SAVED').'</strong><br/><br/>');
 	
 	// save the format string in database
 	$pPreferences->config['membernumber']['format'] = $_SESSION['pMembershipFee']['membernumber_format'];
@@ -158,12 +158,12 @@ elseif ($getMode == 'print')
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
     
-    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-print', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBERS_NEW'));
+    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-print', $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBERS_NEW'));
 	$page->setPrintMode();
 
 	$table = new HtmlTable('table_print_membernumbers', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center'));
-	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER_NEW'));
+	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $data)

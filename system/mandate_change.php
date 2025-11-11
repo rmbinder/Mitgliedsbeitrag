@@ -145,7 +145,7 @@ if($getMode == 'assign')
 }
 else
 {
-    $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
+    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
 
     //$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/mandates.php'));
     $gNavigation->addUrl(CURRENT_URL, $headline);
@@ -214,28 +214,28 @@ else
                     }
                     else if(data === "error_nothing_changed") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_NOTHING_CHANGED').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_NOTHING_CHANGED').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_origmandateid_missing") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGMANDATEID_MISSING').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_ORIGMANDATEID_MISSING').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_origiban_missing") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_ORIGIBAN_MISSING').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_ORIGIBAN_MISSING').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_bank_changed") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ERROR_BANK_CHANGED').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED').'</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
@@ -252,21 +252,21 @@ else
     ', true);
 
     $form = new HtmlForm('mandate_change_form', '', $page, array('class' => 'form-mandate_change'));
-    $form->addInput('mandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_REQUIRED));
+    $form->addInput('mandateid', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_REQUIRED));
     $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()">
-            <i class="bi bi-arrow-down" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_MANDATEID').'"></i> </a>';
+            <i class="bi bi-arrow-down" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_MOVE_MANDATEID').'"></i> </a>';
     $form->addCustomContent('', $html);
-    $form->addInput('origmandateid', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addInput('iban', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $user->getValue('IBAN'), array('property' => HtmlForm::FIELD_REQUIRED));
+    $form->addInput('origmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_DISABLED));
+    $form->addInput('iban', $gL10n->get('PLG_MEMBERSHIPFEE_IBAN'), $user->getValue('IBAN'), array('property' => HtmlForm::FIELD_REQUIRED));
     $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()">
-            <i class="bi bi-arrow-down"  title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MOVE_IBAN').'"></i> </a>';
+            <i class="bi bi-arrow-down"  title="'.$gL10n->get('PLG_MEMBERSHIPFEE_MOVE_IBAN').'"></i> </a>';
     $form->addCustomContent('', $html);
-    $form->addInput('origiban', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN'), $user->getValue('ORIG_IBAN'), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addCheckbox('bankchanged', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK_CHANGED'), 0, array('class' => 'bank_changed_checkbox'));
-    $form->addInput('bic', $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $user->getValue('BIC'), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addInput('bank', $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK'), $user->getValue('BANK'), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addInput('origdebtoragent', $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'), array('property' => HtmlForm::FIELD_DISABLED));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_CHANGE_DBTR_INFO').'</div>';
+    $form->addInput('origiban', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_IBAN'), $user->getValue('ORIG_IBAN'), array('property' => HtmlForm::FIELD_DISABLED));
+    $form->addCheckbox('bankchanged', $gL10n->get('PLG_MEMBERSHIPFEE_BANK_CHANGED'), 0, array('class' => 'bank_changed_checkbox'));
+    $form->addInput('bic', $gL10n->get('PLG_MEMBERSHIPFEE_BIC'), $user->getValue('BIC'), array('property' => HtmlForm::FIELD_DISABLED));
+    $form->addInput('bank', $gL10n->get('PLG_MEMBERSHIPFEE_BANK'), $user->getValue('BANK'), array('property' => HtmlForm::FIELD_DISABLED));
+    $form->addInput('origdebtoragent', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'), array('property' => HtmlForm::FIELD_DISABLED));
+    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE_DBTR_INFO').'</div>';
     $form->addCustomContent('', $html);
 
     $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));

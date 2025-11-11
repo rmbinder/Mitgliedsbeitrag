@@ -42,7 +42,7 @@ $pPreferences->read();
 $user = new User($gDb, $gProfileFields);
 
 // set headline of the script
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID');
 
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -128,7 +128,7 @@ if ($getMode == 'preview')     //Default
 		}
 		else 
 		{
-			$members[$member]['referenz'] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_ERROR');
+			$members[$member]['referenz'] = $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR');
 			$errorMarker = true;
 		}
 	}	
@@ -146,7 +146,7 @@ if ($getMode == 'preview')     //Default
         
 		$table = new HtmlTable('table_new_createmandateids', $page, $hoverRows, $datatable, $classTable);
 		$table->setColumnAlignByArray(array('left', 'left', 'center'));
-		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NEW'));
+		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW'));
 		$table->addRowHeadingByArray($columnValues);
 
 		foreach ($members as $member => $data)
@@ -164,13 +164,13 @@ if ($getMode == 'preview')     //Default
 		if (!$errorMarker)
 		{
 			$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg'));
-			$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_PREVIEW'));
+			$form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW'));
 		}
         $page->addHtml($form->show(false)); 
 	}
 	else 
 	{
-        $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NO_ASSIGN').'<br/><br/>');
+        $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN').'<br/><br/>');
 	}
 }
 elseif ($getMode == 'write')
@@ -192,7 +192,7 @@ elseif ($getMode == 'write')
     
 	$table = new HtmlTable('table_saved_createmandateids', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center'));
-	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NEW'));
+	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['createmandateid_user'] as $member => $data)
@@ -212,7 +212,7 @@ elseif ($getMode == 'write')
 	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
 	$page->addHtml('</div><br/>');
-    $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_SAVED').'</strong><br/><br/>');
+    $page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_SAVED').'</strong><br/><br/>');
 }
 elseif ($getMode == 'print')
 {
@@ -220,12 +220,12 @@ elseif ($getMode == 'print')
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
     
-    $page = new HtmlPage('plg-mitgliedsbeitrag-create-mandate-id-print', $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_IDS_NEW'));    
+    $page = new HtmlPage('plg-mitgliedsbeitrag-create-mandate-id-print', $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_IDS_NEW'));    
 	$page->setPrintMode();
     
 	$table = new HtmlTable('table_print_createmandateids', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center'));
-	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MANDATE_ID_NEW'));
+	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['createmandateid_user'] as $data)

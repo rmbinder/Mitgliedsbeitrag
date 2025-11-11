@@ -26,7 +26,7 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTable();
 $pPreferences->read();
 
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_ANALYSIS');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS');
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-analysis', $headline);
 
@@ -35,7 +35,7 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 $beitrag = analyse_mem();
 $sum = 0;
 
-$page->addHtml(openGroupBox('members_contribution', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION')));
+$page->addHtml(openGroupBox('members_contribution', $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERS_CONTRIBUTION')));
 
 $datatable = false;
 $hoverRows = true;
@@ -48,9 +48,9 @@ $table->addColumn('', $columnAttributes, 'th');
 
 $columnAttributes['colspan'] = 2;
 $columnAttributes['style'] = 'text-align: right';
-$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_ACCOUNT_DATA'), $columnAttributes, 'th');
-$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_ACCOUNT_DATA'), $columnAttributes, 'th');
-$table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'), $columnAttributes, 'th');
+$table->addColumn($gL10n->get('PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA'), $columnAttributes, 'th');
+$table->addColumn($gL10n->get('PLG_MEMBERSHIPFEE_WITHOUT_ACCOUNT_DATA'), $columnAttributes, 'th');
+$table->addColumn($gL10n->get('PLG_MEMBERSHIPFEE_SUM'), $columnAttributes, 'th');
 
 $columnAlign  = array('left', 'right', 'right', 'right', 'right', 'right', 'right');
 $table->setColumnAlignByArray($columnAlign);
@@ -58,15 +58,15 @@ $table->setColumnAlignByArray($columnAlign);
 $columnValues = array();
 $columnValues[] = '';
 $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_NUMBER');
 $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_NUMBER');
 $columnValues[] = $gL10n->get('SYS_CONTRIBUTION');
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_NUMBER');
 $table->addRowByArray($columnValues);
 
 $columnValues = array();
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUES');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_DUES');
 $columnValues[] = $beitrag['BEITRAG_kto'].' '.$gSettingsManager->getString('system_currency');
 $columnValues[] = $beitrag['BEITRAG_kto_anzahl'];
 $columnValues[] = $beitrag['BEITRAG_rech'].' '.$gSettingsManager->getString('system_currency');
@@ -76,7 +76,7 @@ $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'
 $table->addRowByArray($columnValues);
 
 $columnValues = array();
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ALREADY_PAID');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ALREADY_PAID');
 $columnValues[] = $beitrag['BEZAHLT_kto'].' '.$gSettingsManager->getString('system_currency');
 $columnValues[] = $beitrag['BEZAHLT_kto_anzahl'];
 $columnValues[] = $beitrag['BEZAHLT_rech'].' '.$gSettingsManager->getString('system_currency');
@@ -86,7 +86,7 @@ $columnValues[] = ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'
 $table->addRowByArray($columnValues);
 
 $columnValues = array();
-$columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_PENDING');
+$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_PENDING');
 $columnValues[] = ($beitrag['BEITRAG_kto']-$beitrag['BEZAHLT_kto']).' '.$gSettingsManager->getString('system_currency');
 $columnValues[] = ($beitrag['BEITRAG_kto_anzahl']-$beitrag['BEZAHLT_kto_anzahl']);
 $columnValues[] = ($beitrag['BEITRAG_rech']-$beitrag['BEZAHLT_rech']).' '.$gSettingsManager->getString('system_currency');
@@ -96,11 +96,11 @@ $columnValues[] = (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl
 $table->addRowByArray($columnValues);
 
 $page->addHtml($table->show(false));
-$page->addHtml('<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERS_CONTRIBUTION_DESC'));
+$page->addHtml('<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MEMBERSHIPFEE_MEMBERS_CONTRIBUTION_DESC'));
 
 $page->addHtml(closeGroupBox());
 
-$page->addHtml(openGroupBox('roles_contribution', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION')));
+$page->addHtml(openGroupBox('roles_contribution', $gL10n->get('PLG_MEMBERSHIPFEE_ROLES_CONTRIBUTION')));
 
 $datatable = true;
 $hoverRows = true;
@@ -110,7 +110,7 @@ $table = new HtmlTable('table_roles_contribution', $page, $hoverRows, $datatable
 $columnAlign  = array('left', 'right', 'right', 'right', 'right');
 $table->setColumnAlignByArray($columnAlign);
 
-$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE'), 'dummy', $gL10n->get('SYS_CONTRIBUTION'), $gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SUM'));
+$columnValues = array($gL10n->get('PLG_MEMBERSHIPFEE_ROLE'), 'dummy', $gL10n->get('SYS_CONTRIBUTION'), $gL10n->get('PLG_MEMBERSHIPFEE_NUMBER'), $gL10n->get('PLG_MEMBERSHIPFEE_SUM'));
 $table->addRowHeadingByArray($columnValues);
 
 $rollen = analyse_rol();
@@ -127,13 +127,13 @@ foreach ($rollen as $rol => $roldata)
     $table->addRowByArray($columnValues);
 }
 
-$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_TOTAL'), '', '', '', $sum.' '.$gSettingsManager->getString('system_currency'));
+$columnValues = array($gL10n->get('PLG_MEMBERSHIPFEE_TOTAL'), '', '', '', $sum.' '.$gSettingsManager->getString('system_currency'));
 $table->addRowByArray($columnValues);
 $table->setDatatablesGroupColumn(2);
 $table->setDatatablesRowsPerPage(10);
 
 $page->addHtml($table->show(false));
-$page->addHtml('<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLES_CONTRIBUTION_DESC'));
+$page->addHtml('<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MEMBERSHIPFEE_ROLES_CONTRIBUTION_DESC'));
 
 $page->addHtml(closeGroupBox());
 

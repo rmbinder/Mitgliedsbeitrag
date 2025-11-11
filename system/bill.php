@@ -131,7 +131,7 @@ else
     else
     {
         // set headline of the script
-        $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_BILL_EDIT');
+        $headline = $gL10n->get('PLG_MEMBERSHIPFEE_BILL_EDIT');
 
         $gNavigation->addUrl(CURRENT_URL, $headline);
     
@@ -143,7 +143,7 @@ else
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
-                            alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
+                            alert("'.$gL10n->get('PLG_MEMBERSHIPFEE_EXPORT_EMPTY').'");
                             return false;
                         }
                         else if(data == "success") {
@@ -162,7 +162,7 @@ else
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
-                            alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY').'");
+                            alert("'.$gL10n->get('PLG_MEMBERSHIPFEE_EMAIL_EMPTY').'");
                             return false;
                         }
                         else {
@@ -220,7 +220,7 @@ else
 
         $form = new HtmlForm('bill_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
 
-        $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'bi-filetype-csv', 'link' => 'javascript:billexport()', 'class' => 'btn-primary'));
+        $form->addButton('btn_exportieren', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), array('icon' => 'bi-filetype-csv', 'link' => 'javascript:billexport()', 'class' => 'btn-primary'));
  	    $form->addDescription('&nbsp');
         $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'bi-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
  

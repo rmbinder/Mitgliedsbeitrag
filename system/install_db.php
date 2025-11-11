@@ -197,20 +197,20 @@ if ($getMode == 'anlegen') {
     }
 }
 
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_TITLE');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_TITLE');
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-installation', $headline);
 
-$page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_DESCRIPTION'));
+$page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_DESCRIPTION'));
 $page->addHtml('<br/><br/>');
 
 if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
 {
     $arr = check_DB();
 
-    $page->addHtml('<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE') . ':  ==> ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS') . '</strong>');
+    $page->addHtml('<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_FIRST_PASSAGE') . ':  ==> ' . $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_VERIFICATION_MISSING_FIELDS') . '</strong>');
     $page->addHtml('<br/>');
-    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE') . ': ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON'));
+    $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_SECOND_PASSAGE') . ': ' . $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_VERIFICATION_COMPARISON'));
     $page->addHtml('<br/><br/>');
 
     $datatable = false;
@@ -223,152 +223,152 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
 
     $columnValues = array();
     $columnValues[] = $gL10n->get('SYS_CATEGORY');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_PROFILE_FIELD');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_STATUS');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_PROFILE_FIELD');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_STATUS');
     $table->addRowHeadingByArray($columnValues);
 
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP');
     $columnValues[] = $leer;
-    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Mitgliedschaft']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ACCESSION');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE');
     $columnValues[] = $leer;
-    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Mitgliedsbeitrag']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
     $columnValues[] = $strich . $gL10n->get('SYS_CONTRIBUTION');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_PAID');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_SEQUENCETYPE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE');
     $columnValues[] = $leer;
-    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues);
-
-    $columnValues = array();
-    $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Mandat']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
-    $table->addRowByArray($columnValues);
-
-    $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
-    $columnValues[] = $leer;
-    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEDATE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_MANDATEID');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
+    $table->addRowByArray($columnValues);
+
+    $columnValues = array();
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA');
+    $columnValues[] = $leer;
+    $columnValues[] = ! (isset($arr['IST']['TBL_CATEGORIES']['Kontodaten']['cat_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_IBAN');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_BIC');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_BANK');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_STREET');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_STREET');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_POSTCODE');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_CITY');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_EMAIL');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
-    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_MISSING') . '</strong>' : $gL10n->get('PLG_MITGLIEDSBEITRAG_AVAILABLE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
+    $table->addRowByArray($columnValues);
+
+    $columnValues = array();
+    $columnValues[] = $leer;
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_IBAN');
+    $columnValues[] = ! (isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) ? '<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_MISSING') . '</strong>' : $gL10n->get('PLG_MEMBERSHIPFEE_AVAILABLE');
     $table->addRowByArray($columnValues);
 
     $page->addHtml($table->show(false));
@@ -378,7 +378,7 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
     ));
 
     if ((! isset($arr['IST']['TBL_USER_FIELDS']['Beitritt']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Bezahlt']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Mitgliedsnummer']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Beitrag']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Beitragstext']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Faelligkeitsdatum']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['IBAN']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['BIC']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Bankname']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Kontoinhaber']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Sequenztyp']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Mandatsreferenz']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberStrasse']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberPLZ']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberOrt']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['KontoinhaberEMail']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Orig_Debtor_Agent']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Orig_IBAN']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Orig_Mandatsreferenz']['usf_name'])) || (! isset($arr['IST']['TBL_USER_FIELDS']['Mandatsdatum']['usf_name']))) {
-        $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FIELDS_SHOULD_BE_CREATED'));
+        $form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_FIELDS_SHOULD_BE_CREATED'));
 
         $form->openButtonGroup();
         $form->addButton('btnAnlegen', $gL10n->get('SYS_NEXT'), array(
@@ -396,13 +396,13 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
         ));
         $form->closeButtonGroup();
 
-        $form->addDescription('<strong>' . $gL10n->get('SYS_NEXT') . '</strong> ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_CREATE_MISSING_FIELDS'));
-        $form->addDescription('<strong>' . $gL10n->get('SYS_ABORT') . '</strong> ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_NO_CHANGES'));
+        $form->addDescription('<strong>' . $gL10n->get('SYS_NEXT') . '</strong> ' . $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MISSING_FIELDS'));
+        $form->addDescription('<strong>' . $gL10n->get('SYS_ABORT') . '</strong> ' . $gL10n->get('PLG_MEMBERSHIPFEE_NO_CHANGES'));
     } else {
         $pPreferences = new ConfigTable();
         $pPreferences->init(); // Konfigurationstabelle anlegen
 
-        $form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_ALL_FIELDS_ARE_AVAILABLE'));
+        $form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_ALL_FIELDS_ARE_AVAILABLE'));
         $form->addButton('btnSollIst', $gL10n->get('SYS_NEXT'), array(
             'icon' => 'bi-arrow-right-circle-fill',
             'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/install_db.php', array(
@@ -410,16 +410,16 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
             )),
             'class' => 'btn-primary'
         ));
-        $form->addDescription('<strong>' . $gL10n->get('SYS_NEXT') . '</strong> ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_NEXT_TEST'));
+        $form->addDescription('<strong>' . $gL10n->get('SYS_NEXT') . '</strong> ' . $gL10n->get('PLG_MEMBERSHIPFEE_CHANGE_NEXT_TEST'));
     }
     $page->addHtml($form->show(false));
     $page->show();
 } elseif ($getMode == 'soll_ist') {
     $arr = check_DB();
 
-    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_FIRST_PASSAGE') . ': ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_MISSING_FIELDS'));
+    $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_FIRST_PASSAGE') . ': ' . $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_VERIFICATION_MISSING_FIELDS'));
     $page->addHtml('<br/>');
-    $page->addHtml('<strong>' . $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_SECOND_PASSAGE') . ':  ==> ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_VERIFICATION_COMPARISON') . '</strong>');
+    $page->addHtml('<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_SECOND_PASSAGE') . ':  ==> ' . $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_VERIFICATION_COMPARISON') . '</strong>');
     $page->addHtml('<br/><br/>');
 
     $datatable = false;
@@ -433,12 +433,12 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
     $columnAttributes['style'] = 'text-align: center; vertical-align: middle';
     $columnAttributes['rowspan'] = 2;
     $table->addColumn($gL10n->get('SYS_CATEGORY'), $columnAttributes, 'th');
-    $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_PROFILE_FIELD'), $columnAttributes, 'th');
+    $table->addColumn($gL10n->get('PLG_MEMBERSHIPFEE_PROFILE_FIELD'), $columnAttributes, 'th');
 
     $columnAttributes['rowspan'] = 1;
     $columnAttributes['colspan'] = 2;
     $table->addColumn($gL10n->get('SYS_INTERNAL_NAME'), $columnAttributes, 'th');
-    $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_DATA_TYPE'), $columnAttributes, 'th');
+    $table->addColumn($gL10n->get('PLG_MEMBERSHIPFEE_DATA_TYPE'), $columnAttributes, 'th');
     $table->addColumn('<i class="bi bi-eye-fill" data-bs-toggle="tooltip" title="' . $gL10n->get('ORG_FIELD_NOT_HIDDEN') . '"></i>/<i class="bi bi-eye-fill admidio-opacity-reduced" data-bs-toggle="tooltip" title="' . $gL10n->get('ORG_FIELD_HIDDEN') . '"></i>', $columnAttributes, 'th');
     $table->addColumn('<i class="bi bi-key-fill" data-bs-toggle="tooltip" data-bs-html="true" title="' . $gL10n->get('ORG_FIELD_DISABLED', array(
         $gL10n->get('SYS_RIGHT_EDIT_USER')
@@ -448,29 +448,29 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
     $table->addRow('', null, 'th');
     $columnAttributes['colspan'] = 1;
     for ($i = 0; $i < 5; $i ++) {
-        $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_SHALL'), $columnAttributes, 'th');
-        $table->addColumn($gL10n->get('PLG_MITGLIEDSBEITRAG_IS'), $columnAttributes, 'th');
+        $table->addColumn($gL10n->get('PLG_MEMBERSHIPFEE_SHALL'), $columnAttributes, 'th');
+        $table->addColumn($gL10n->get('PLG_MEMBERSHIPFEE_IS'), $columnAttributes, 'th');
     }
 
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedschaft'));
     $table->addRowByArray($columnValues, '', null, 8, 5);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERNUMBER');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Mitgliedsnummer'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESSION');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ACCESSION');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Beitritt'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mitgliedsbeitrag'));
     $table->addRowByArray($columnValues, '', null, 8, 5);
 
@@ -482,119 +482,119 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_PAID');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Bezahlt'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Beitragstext'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_SEQUENCETYPE');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Sequenztyp'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Faelligkeitsdatum'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Mandat'));
     $table->addRowByArray($columnValues, '', null, 8, 5);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Mandatsreferenz'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEDATE');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Mandatsdatum'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_MANDATEID');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Orig_Mandatsreferenz'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA');
     $columnValues = array_merge($columnValues, SollIstKategorie($arr, 'Kontodaten'));
     $table->addRowByArray($columnValues, '', null, 8, 5);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_IBAN');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'IBAN'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_BIC');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'BIC'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_BANK');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_BANK');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Bankname'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Kontoinhaber'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_STREET');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_STREET');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'KontoinhaberStrasse'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_POSTCODE');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_POSTCODE');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'KontoinhaberPLZ'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_CITY');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_CITY');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'KontoinhaberOrt'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_EMAIL');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'KontoinhaberEMail'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Orig_Debtor_Agent'));
     $table->addRowByArray($columnValues);
 
     $columnValues = array();
     $columnValues[] = $leer;
-    $columnValues[] = $strich . $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
+    $columnValues[] = $strich . $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_IBAN');
     $columnValues = array_merge($columnValues, SollIstProfilfeld($arr, 'Orig_IBAN'));
     $table->addRowByArray($columnValues);
 
     $page->addHtml($table->show(false));
 
-    $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_SECOND_PASSAGE_INFO'));
+    $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_SECOND_PASSAGE_INFO'));
 
     $form = new HtmlForm('installation_soll_ist_form', '', $page);
     $form->addButton('btnNext', $gL10n->get('SYS_NEXT'), array(
@@ -604,7 +604,7 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
     ));
     $page->addHtml($form->show(false));
 
-    $page->addHtml('<strong>' . $gL10n->get('SYS_NEXT') . '</strong> ' . $gL10n->get('PLG_MITGLIEDSBEITRAG_INSTALL_END'));
+    $page->addHtml('<strong>' . $gL10n->get('SYS_NEXT') . '</strong> ' . $gL10n->get('PLG_MEMBERSHIPFEE_INSTALL_END'));
     $page->show();
 }
 

@@ -221,7 +221,7 @@ else
     else
     {
         // set headline of the script
-        $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_PRE_NOTIFICATION');
+        $headline = $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION');
 
         $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -234,7 +234,7 @@ else
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
-                            alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT_EMPTY').'");
+                            alert("'.$gL10n->get('PLG_MEMBERSHIPFEE_EXPORT_EMPTY').'");
                             return false;
                         }
                         else if(data == "success") {
@@ -255,7 +255,7 @@ else
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
-                            alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY').'");
+                            alert("'.$gL10n->get('PLG_MEMBERSHIPFEE_EMAIL_EMPTY').'");
                             return false;
                         }
                         else {
@@ -344,15 +344,15 @@ else
 
         $duedateStatement = $gDb->queryPrepared($sql, $queryParams);
 
-        $selectBoxEntries = array('0' => '- '.$gL10n->get('PLG_MITGLIEDSBEITRAG_SHOW_ALL').' -');
+        $selectBoxEntries = array('0' => '- '.$gL10n->get('PLG_MEMBERSHIPFEE_SHOW_ALL').' -');
         while ($row = $duedateStatement->fetch())
         {
             $DueDate = \DateTime::createFromFormat('Y-m-d', $row['usd_value']);
             $selectBoxEntries[$row['usd_value']] = $DueDate->format($gSettingsManager->getString('system_date'));
         }
-        $form->addSelectBox('duedate', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+        $form->addSelectBox('duedate', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), $selectBoxEntries, array('defaultValue' => $getDueDate, 'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC', 'showContextDependentFirstEntry' => false));
 
-        $form->addButton('btn_exportieren', $gL10n->get('PLG_MITGLIEDSBEITRAG_EXPORT'), array('icon' => 'bi-filetype-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
+        $form->addButton('btn_exportieren', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), array('icon' => 'bi-filetype-csv', 'link' => 'javascript:prenotexport()', 'class' => 'btn-primary'));
  	    $form->addDescription('&nbsp');
         $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array('icon' => 'bi-envelope', 'link' => 'javascript:massmail()', 'class' => 'btn-primary'));
 
@@ -364,19 +364,19 @@ else
 
         // create array with all column heading values
         $columnHeading = array(
-            '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CHANGE_ALL').'"/>',
-            $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE'),
-            '<i class="bi bi-chat-fill admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE_DESC').'"></i>',
-            $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE'),
+            '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_CHANGE_ALL').'"/>',
+            $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'),
+            '<i class="bi bi-chat-fill admidio-info-icon" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC').'"></i>',
+            $gL10n->get('PLG_MEMBERSHIPFEE_FEE'),
             $gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
             '<i class="bi bi-map-fill admidio-info-icon" title="'.$gL10n->get('SYS_ADDRESS').'"></i>',
             $gL10n->get('SYS_STREET'),
-            '<i class="bi bi-info-circle admidio-info-icon" title="'.$gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR').'"></i>',
-            $gL10n->get('PLG_MITGLIEDSBEITRAG_DEBTOR'),
+            '<i class="bi bi-info-circle admidio-info-icon" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR').'"></i>',
+            $gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR'),
             '<i class="bi bi-envelope admidio-info-icon" title="'.$gL10n->get('SYS_EMAIL').'"></i>',
             $gL10n->get('SYS_EMAIL'),
-            $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID')
+            $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID')
         );
 
         $table->setColumnAlignByArray(array('left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'left', 'center', 'left', 'left'));

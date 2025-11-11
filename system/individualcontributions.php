@@ -41,7 +41,7 @@ $pPreferences->read();
 $user = new User($gDb, $gProfileFields);
 
 // set headline of the script
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS');
 
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -139,10 +139,10 @@ if ($getMode == 'preview')     //Default
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center','center'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'), 
 							  $gL10n->get('SYS_FIRSTNAME'), 
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'),
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'),
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS'),
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS'));
+							  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_NEW'),
+							  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_NEW'),
+							  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_PREVIOUS'),
+							  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_PREVIOUS'));
 		$table->addRowHeadingByArray($columnValues);
 
 		foreach ($members as $member => $data)
@@ -163,13 +163,13 @@ if ($getMode == 'preview')     //Default
 
         $form = new HtmlForm('individualcontributions_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/individualcontributions.php', array('mode' => 'write')), $page);
 		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => 'btn btn-primary'));
-		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_PREVIEW'));
+		$form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_PREVIEW'));
         
         $page->addHtml($form->show(false));
 	}
 	else 
 	{
-        $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NO_DATA').'<br/>');
+        $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_NO_DATA').'<br/>');
 	}
 	
 	if (!empty($message))
@@ -198,8 +198,8 @@ elseif ($getMode == 'write')
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 						  $gL10n->get('SYS_FIRSTNAME'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'));
+						  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_NEW'),
+						  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['individualcontributions_user'] as $member => $data)
@@ -219,7 +219,7 @@ elseif ($getMode == 'write')
 	}
 
 	$page->addHtml($table->show(false));
-	$page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_SAVED').'</strong><br/><br/>');
+	$page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_SAVED').'</strong><br/><br/>');
 }
 elseif ($getMode == 'print')
 {
@@ -228,15 +228,15 @@ elseif ($getMode == 'print')
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
 
-	$page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-print', $gL10n->get('PLG_MITGLIEDSBEITRAG_INDIVIDUAL_CONTRIBUTIONS_NEW'));
+	$page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-print', $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_NEW'));
 	$page->setPrintMode();
 	
 	$table = new HtmlTable('table_print_individualcontributions', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 						  $gL10n->get('SYS_FIRSTNAME'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'));
+						  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_NEW'),
+						  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 	
 	foreach ($_SESSION['pMembershipFee']['individualcontributions_user'] as $data)
@@ -253,7 +253,7 @@ elseif ($getMode == 'print')
 else          // $getMode = error
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-error', $headline);
-    $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_WRONG_INDIVIDUAL_CONTRIBUTION').'</strong><br/><br/>');
+    $page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_WRONG_INDIVIDUAL_CONTRIBUTION').'</strong><br/><br/>');
 }
 
 $page->show();

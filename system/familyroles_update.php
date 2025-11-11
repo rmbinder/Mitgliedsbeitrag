@@ -42,7 +42,7 @@ $pPreferences->read();
 $role = new Role($gDb);
 
 // set headline of the script
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE');
 
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -106,13 +106,13 @@ if ($getMode == 'preview')     //Default
 		$table = new HtmlTable('table_new_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
 		$table->setColumnAlignByArray(array('left', 'center', 'center', 'center','center', 'center', 'center'));
 		$columnValues = array(
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'),
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_IS').' '.$gL10n->get('SYS_CONTRIBUTION'),
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_SHALL').' '.$gL10n->get('SYS_CONTRIBUTION'),
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_IS').' '.$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_SHALL').' '.$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_IS').' '.$gL10n->get('SYS_DESCRIPTION'),
-			$gL10n->get('PLG_MITGLIEDSBEITRAG_SHALL').' '.$gL10n->get('SYS_DESCRIPTION') );
+			$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
+			$gL10n->get('PLG_MEMBERSHIPFEE_IS').' '.$gL10n->get('SYS_CONTRIBUTION'),
+			$gL10n->get('PLG_MEMBERSHIPFEE_SHALL').' '.$gL10n->get('SYS_CONTRIBUTION'),
+			$gL10n->get('PLG_MEMBERSHIPFEE_IS').' '.$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
+			$gL10n->get('PLG_MEMBERSHIPFEE_SHALL').' '.$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
+			$gL10n->get('PLG_MEMBERSHIPFEE_IS').' '.$gL10n->get('SYS_DESCRIPTION'),
+			$gL10n->get('PLG_MEMBERSHIPFEE_SHALL').' '.$gL10n->get('SYS_DESCRIPTION') );
 		$table->addRowHeadingByArray($columnValues);
 
 		foreach ($familyRolesToUpdate as $rol_id => $data)
@@ -137,13 +137,13 @@ if ($getMode == 'preview')     //Default
 		$page->addHtml($table->show(false));
 
 		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg'));
-		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_PREVIEW'));
+		$form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_PREVIEW'));
 
         $page->addHtml($form->show(false));
 	}
 	else
 	{
-        $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_UPDATE_NO_ASSIGN').'<br/><br/>');
+        $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_NO_ASSIGN').'<br/><br/>');
 	}
 }
 elseif ($getMode == 'write')
@@ -166,7 +166,7 @@ elseif ($getMode == 'write')
 	$table = new HtmlTable('table_saved_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'center', 'center', 'center'));
 	$columnValues = array(
-		$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'),
+		$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
 		$gL10n->get('SYS_CONTRIBUTION'),
 		$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
 		$gL10n->get('SYS_DESCRIPTION') );
@@ -216,7 +216,7 @@ elseif ($getMode == 'print')
 	$table = new HtmlTable('table_print_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'center', 'center', 'center'));
 	$columnValues = array(
-		$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'),
+		$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
 		$gL10n->get('SYS_CONTRIBUTION'),
 		$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
 		$gL10n->get('SYS_DESCRIPTION') );

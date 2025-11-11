@@ -41,7 +41,7 @@ $user = new User($gDb, $gProfileFields);
 
 if (!isset($_POST['duedatesepatype']))
 {
-	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA'));
+	$gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA'));
 }
 
 if (sizeof($_POST['duedatesepatype']) == 1)
@@ -121,7 +121,7 @@ foreach ($members as $member => $memberdata)
         	if (empty($members[$member]['BIC']))
         	{
                 $user->readDataById($member);
-        		$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', array('<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$zpflgt[$member]['name']. '</a>')), $gL10n->get('SYS_ERROR'));
+        		$gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_BIC_MISSING', array('<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$zpflgt[$member]['name']. '</a>')), $gL10n->get('SYS_ERROR'));
         	}
         	$zpflgt[$member]['land'] = substr($zpflgt[$member]['iban'], 0, 2);
         	$zpflgt[$member]['street'] = substr(replace_sepadaten($members[$member]['DEBTOR_STREET']), 0, 70);    
@@ -156,7 +156,7 @@ $nbOfTxs_Msg = count($zpflgt);                                                  
 
 if ($nbOfTxs_Msg == 0)
 {
-    $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA_EXPORT_NO_DATA'));
+    $gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA'));
 }
 
 $message_id = substr('Message-ID-'.replace_sepadaten($gCurrentOrganization->getValue('org_shortname')), 0, 35);   //SEPA Message-ID    (max. 35)
@@ -171,7 +171,7 @@ $zempf['ci'] = $pPreferences->config['Kontodaten']['ci'];                       
 
 if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPreferences->config['Kontodaten']['bic']))
 {
-	$gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC_MISSING', array($zempf['name'])), $gL10n->get('SYS_ERROR'));
+	$gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_BIC_MISSING', array($zempf['name'])), $gL10n->get('SYS_ERROR'));
 }
 
 $zempf['iban'] = strtoupper(str_replace(' ', '', $pPreferences->config['Kontodaten']['iban']));                   //SEPA  Zahlungsempfaenger IBAN
@@ -489,42 +489,42 @@ elseif ($postExportFileMode === 'ctl_file')
 
     $filename = FileSystemUtils::getSanitizedPathEntry($filename) . '.' . $exportMode;
     
-    $rows[] = array('SEPA-'.$gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE'));
+    $rows[] = array('SEPA-'.$gL10n->get('PLG_MEMBERSHIPFEE_CONTROL_FILE'));
     $rows[] = array('');
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_FILE_NAME'), $filename);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_CONTROL_FILE_NAME'), $filename);
     $rows[] = array('');
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_ID'), $message_id);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_DATE'), $message_datum);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_MESSAGE_INITIATOR_NAME'), $message_initiator_name);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_NUMBER_TRANSACTIONS'), $nbOfTxs_Msg);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CONTROL_SUM'), $ctrlSum_Msg);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_MESSAGE_ID'), $message_id);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_MESSAGE_DATE'), $message_datum);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_MESSAGE_INITIATOR_NAME'), $message_initiator_name);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_NUMBER_TRANSACTIONS'), $nbOfTxs_Msg);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_CONTROL_SUM'), $ctrlSum_Msg);
     $rows[] = array('');
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_PAYMENT_ID'), $payment_id);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_PAYMENT_ID'), $payment_id);
     $rows[] = array('');
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CREDITOR'), $zempf['name']);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_CI'), $zempf['ci']);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN'), $zempf['iban']);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_BIC'), $zempf['bic']);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_CREDITOR'), $zempf['name']);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_CI'), $zempf['ci']);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_IBAN'), $zempf['iban']);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_BIC'), $zempf['bic']);
     $rows[] = array('');
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CI'), $zempf['orig_cdtr_id']);
-    $rows[] = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_CREDITOR'), $zempf['orig_cdtr_name']);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_ORIG_CI'), $zempf['orig_cdtr_id']);
+    $rows[] = array($gL10n->get('PLG_MEMBERSHIPFEE_ORIG_CREDITOR'), $zempf['orig_cdtr_name']);
     $rows[] = array('');
     
     $columnValues = array();
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SERIAL_NUMBER');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_HOLDER');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_IBAN');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_BIC');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_SEQUENCETYPE');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEID');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATEDATE');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ULTIMATE_DEBTOR');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_MANDATEID');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_IBAN');
-    $columnValues[] = $gL10n->get('PLG_MITGLIEDSBEITRAG_ORIG_DEBTOR_AGENT');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_SERIAL_NUMBER');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_IBAN');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_BIC');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_SEQUENCETYPE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_FEE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEDATE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ULTIMATE_DEBTOR');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_MANDATEID');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_IBAN');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT');
     $columnValues[] = $gL10n->get('SYS_COUNTRY');
     $columnValues[] = $gL10n->get('SYS_STREET');
     $columnValues[] = $gL10n->get('SYS_CITY');
@@ -622,10 +622,10 @@ elseif ($postExportFileMode === 'ctl_file')
         $writer = new XLSXWriter();
         $writer->setAuthor($gCurrentUser->getValue('FIRST_NAME').' '.$gCurrentUser->getValue('LAST_NAME'));
         $writer->setTitle($filename);
-        $writer->setSubject($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'));
+        $writer->setSubject($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'));
         $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
-        $writer->setKeywords(array($gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBERSHIP_FEE'), $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS'), $gL10n->get('PLG_MITGLIEDSBEITRAG_SEPA')));
-        $writer->setDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_CREATED_WITH'));
+        $writer->setKeywords(array($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'), $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS'), $gL10n->get('PLG_MEMBERSHIPFEE_SEPA')));
+        $writer->setDescription($gL10n->get('PLG_MEMBERSHIPFEE_CREATED_WITH'));
         $writer->writeSheet($rows,'', $header);
         $writer->writeToStdOut();
     }   

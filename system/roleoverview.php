@@ -30,7 +30,7 @@ $pPreferences->read();
 
 $role = new Role($gDb);
 
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_OVERVIEW');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_OVERVIEW');
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-eoleoverview', $headline);
   
@@ -45,7 +45,7 @@ $table = new HtmlTable('table_role_overview', $page, $hoverRows, $datatable, $cl
 $columnAlign  = array('left', 'right', 'right');
 $table->setColumnAlignByArray($columnAlign);
 
-$columnValues = array($gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_NAME'), 'dummy', $gL10n->get('PLG_MITGLIEDSBEITRAG_MEMBER_ACCOUNT'));
+$columnValues = array($gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'), 'dummy', $gL10n->get('PLG_MEMBERSHIPFEE_MEMBER_ACCOUNT'));
 $table->addRowHeadingByArray($columnValues);
 
 $rollen = beitragsrollen_einlesen('', array('LAST_NAME'));

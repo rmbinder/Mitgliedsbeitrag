@@ -26,7 +26,7 @@ if (!isUserAuthorized($_SESSION['pMembershipFee']['script_name']))
 $pPreferences = new ConfigTable();
 $pPreferences->read();
 
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_TESTS');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_TESTS');
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-tests', $headline);
   
@@ -39,8 +39,8 @@ if (in_array(1, $pPreferences->config['tests_enable']))
     
     if ($pPreferences->config['tests_enable']['age_staggered_roles'])
     {
-        $form->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_DESC').'</strong>');
+        $form->openGroupBox('AGE_STAGGERed_roles', $gL10n->get('PLG_MEMBERSHIPFEE_AGE_STAGGERED_ROLES'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_AGE_STAGGERED_ROLES_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_rols()));
         $form->closeGroupBox();
     }
@@ -48,61 +48,61 @@ if (in_array(1, $pPreferences->config['tests_enable']))
     // Pruefung der Rollenmitgliedschaften in den altersgestaffelten Rollen nur, wenn es mehrere Staffelungen gibt
     if ($pPreferences->config['tests_enable']['role_membership_age_staggered_roles'] && count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1)
     {
-        $form->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
+        $form->openGroupBox('role_membership_AGE_STAGGERed_roles', $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_altersrolle()));
         $form->closeGroupBox();
     }
     
     if ($pPreferences->config['tests_enable']['role_membership_duty_and_exclusion'])
     {
-        $form->openGroupBox('role_membership_duty', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_DESC').'</strong>');
+        $form->openGroupBox('role_membership_duty', $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_DUTY'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_DUTY_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_pflicht()));
         $form->closeGroupBox();
         
-        $form->openGroupBox('role_membership_exclusion', $gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_DESC').'</strong>');
+        $form->openGroupBox('role_membership_exclusion', $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_EXCLUSION'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_EXCLUSION_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_rollenmitgliedschaft_ausschluss()));
         $form->closeGroupBox();
     }
     
     if ($pPreferences->config['tests_enable']['family_roles'])
     {
-        $form->openGroupBox('family_roles', $gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
+        $form->openGroupBox('family_roles', $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_ROLE_TEST_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_family_roles()));
         $form->closeGroupBox();
     }
     
     if ($pPreferences->config['tests_enable']['account_details'])
     {
-        $form->openGroupBox('account_details', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_DESC').'</strong>');
+        $form->openGroupBox('account_details', $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_account_details()));
         $form->closeGroupBox();
     }
     
     if ($pPreferences->config['tests_enable']['mandate_management'])
     {
-        $form->openGroupBox('mandate_management', $gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_DESC2').'</strong>');
+        $form->openGroupBox('mandate_management', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT_DESC2').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_mandate_management()));
         $form->closeGroupBox();
     }
     
     if ($pPreferences->config['tests_enable']['iban_check'])
     {
-        $form->openGroupBox('iban_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_DESC').'</strong>');
+        $form->openGroupBox('iban_check', $gL10n->get('PLG_MEMBERSHIPFEE_IBANCHECK'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_IBANCHECK_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_iban()));
         $form->closeGroupBox();
     }
     
     if ($pPreferences->config['tests_enable']['bic_check'])
     {
-        $form->openGroupBox('bic_check', $gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_BICCHECK_DESC').'</strong>');
+        $form->openGroupBox('bic_check', $gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK'));
+        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_bic()));
         $form->closeGroupBox();
     }

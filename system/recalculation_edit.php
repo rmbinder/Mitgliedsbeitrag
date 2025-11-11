@@ -38,7 +38,7 @@ if ($getMode === 'save')
 }
 
 // set headline of the script
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION').' - '.$gL10n->get('PLG_MITGLIEDSBEITRAG_CORRECTION');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION').' - '.$gL10n->get('PLG_MEMBERSHIPFEE_CORRECTION');
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
 // create html page object
@@ -60,17 +60,17 @@ $form->addLine();
 
 if (strlen((string) $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE'.$gCurrentOrgId]) > 0)
 {
-    $form->addInput('fee', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE'.$gCurrentOrgId] , array('property' => HtmlForm::FIELD_DISABLED));
+    $form->addInput('fee', $gL10n->get('PLG_MEMBERSHIPFEE_FEE_PREVIOUS'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE'.$gCurrentOrgId] , array('property' => HtmlForm::FIELD_DISABLED));
 }
-$form->addInput('fee_new', $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE_NEW']);
+$form->addInput('fee_new', $gL10n->get('PLG_MEMBERSHIPFEE_FEE_NEW'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE_NEW']);
 
 $form->addLine();
 
 if (strlen((string) $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT'.$gCurrentOrgId]) > 0)
 {
-    $form->addInput('contributory_text', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT'.$gCurrentOrgId] , array('property' => HtmlForm::FIELD_DISABLED));
+    $form->addInput('contributory_text', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_PREVIOUS'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT'.$gCurrentOrgId] , array('property' => HtmlForm::FIELD_DISABLED));
 }
-$form->addInput('contributory_text_new', $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT_NEW']);
+$form->addInput('contributory_text_new', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_NEW'), $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT_NEW']);
 
 $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
 

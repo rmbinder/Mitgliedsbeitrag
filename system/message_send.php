@@ -77,9 +77,9 @@ $pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $sendMailResultMessage = '';
-$sendMailResultSendOK = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILSEND_OK').'</strong>');
-$sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILMISSING_EMAIL').'</strong>');
-$sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_MAILANOTHER_ERROR').'</strong>');
+$sendMailResultSendOK = array('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_MAILSEND_OK').'</strong>');
+$sendMailResultMissingEmail = array('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_MAILMISSING_EMAIL').'</strong>');
+$sendMailResultAnotherError = array('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_MAILANOTHER_ERROR').'</strong>');
 $sendResult  = false;
 
 $user = new User($gDb, $gProfileFields);

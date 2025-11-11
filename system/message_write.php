@@ -82,7 +82,7 @@ elseif (isset($_SESSION['pMembershipFee']['checkedArray']))
 
     if (count($mailToArray) < 1)
     {
-        $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
+        $gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_EMAIL_EMPTY'));
         // => EXIT
     }
     elseif (count($mailToArray) === 1)                                      // der Mail-Button wurde angeklickt (aber es gibt nur eine Mail-Adresse in der Liste)
@@ -96,7 +96,7 @@ elseif (isset($_SESSION['pMembershipFee']['checkedArray']))
 }
 else
 {
-    $gMessage->show($gL10n->get('PLG_MITGLIEDSBEITRAG_EMAIL_EMPTY'));
+    $gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_EMAIL_EMPTY'));
     // => EXIT
 }
 
@@ -111,7 +111,7 @@ if (substr_count($gNavigation->getUrl(), 'pre_notification') === 1)
     if ($text->getValue('txt_text') == '')
     {
         // convert <br /> to a normal line feed
-        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_PRE_NOTIFICATION'));
+        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MEMBERSHIPFEE_PMBMAIL_PRE_NOTIFICATION'));
         $text->setValue('txt_text', $value);
     }
 }
@@ -122,7 +122,7 @@ elseif (substr_count($gNavigation->getUrl(), 'payments') === 1)
     if ($text->getValue('txt_text') == '')
     {
         // convert <br /> to a normal line feed
-        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_CONTRIBUTION_PAYMENTS'));
+        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MEMBERSHIPFEE_PMBMAIL_CONTRIBUTION_PAYMENTS'));
         $text->setValue('txt_text', $value);
     }
 }
@@ -133,7 +133,7 @@ elseif (substr_count($gNavigation->getUrl(), 'bill') === 1)
     if ($text->getValue('txt_text') == '')
     {
         // convert <br /> to a normal line feed
-        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MITGLIEDSBEITRAG_PMBMAIL_BILL'));
+        $value = preg_replace('/<br[[:space:]]*\/?[[:space:]]*>/', chr(13).chr(10), $gL10n->get('PLG_MEMBERSHIPFEE_PMBMAIL_BILL'));
         $text->setValue('txt_text', $value);
     }
 }
@@ -205,7 +205,7 @@ if ($singleMail)
 }
 else
 {
-    $userEmail = $gL10n->get('PLG_MITGLIEDSBEITRAG_MAILCOUNT', array(count($mailToArray)));
+    $userEmail = $gL10n->get('PLG_MEMBERSHIPFEE_MAILCOUNT', array(count($mailToArray)));
 }
 
 // Wenn die letzte URL in der Zuruecknavigation die des Scriptes message_send.php ist,

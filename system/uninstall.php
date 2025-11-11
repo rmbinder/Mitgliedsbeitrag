@@ -36,7 +36,7 @@ try {
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
-    $result = $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_STARTMESSAGE');
+    $result = $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_STARTMESSAGE');
 
     // Initialize and check the parameters
     $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
@@ -53,8 +53,8 @@ try {
 
             global $gL10n;
 
-            $title = $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINSTALLATION');
-            $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINSTALLATION');
+            $title = $gL10n->get('PLG_MEMBERSHIPFEE_UNINSTALLATION');
+            $headline = $gL10n->get('PLG_MEMBERSHIPFEE_UNINSTALLATION');
 
             $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -93,14 +93,14 @@ try {
             // Zugriffsrolle und Menüpunkt löschen
             if ($pPreferences->config['install']['access_role_id'] == 0 || $pPreferences->config['install']['menu_item_id'] == 0) {
                 // nur zur Sicherheit; dass 'access_role_id' und/oder 'menu_item_id'== 0 ist, dürfte eigentlich nicht vorkommen
-                $result .= $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_NO_INST_IDS_FOUND');
+                $result .= $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_NO_INST_IDS_FOUND');
             } else {
                 $result_role = true;
 
                 $role = new Role($gDb, (int) $pPreferences->config['install']['access_role_id']);
 
                 $result_role = $role->delete();
-                $result .= ($result_role ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_ACCESS_ROLE_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_ACCESS_ROLE_ERROR'));
+                $result .= ($result_role ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_ACCESS_ROLE_SUCCESS') : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_ACCESS_ROLE_ERROR'));
 
                 $result_menu = false;
 
@@ -112,10 +112,10 @@ try {
                 if (count($access_roles_prefs) === 1 && $access_roles_prefs[0] == $pPreferences->config['install']['access_role_id']) {
                     $menu = new MenuEntry($gDb, (int) $pPreferences->config['install']['menu_item_id']);
                     $result_menu = $menu->delete();
-                    $result .= ($result_menu ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_ERROR'));
+                    $result .= ($result_menu ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_MENU_ITEM_SUCCESS') : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_MENU_ITEM_ERROR'));
                 } else {
                     // Menüpunkt nicht entfernen, wenn er noch für eine andere Organisation verwendet wird
-                    $result .= $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_MENU_ITEM_NOT_DELETED');
+                    $result .= $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_MENU_ITEM_NOT_DELETED');
                 }
             }
 
@@ -142,8 +142,8 @@ try {
                 $result_db = $gDb->queryPrepared($sql);
             }
 
-            $result .= ($result_data ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_DATA_DELETE_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_DATA_DELETE_ERROR'));
-            $result .= ($result_db ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_TABLE_DELETE_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_TABLE_DELETE_ERROR'));
+            $result .= ($result_data ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_DATA_DELETE_SUCCESS') : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_DATA_DELETE_ERROR'));
+            $result .= ($result_db ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_TABLE_DELETE_SUCCESS') : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_TABLE_DELETE_ERROR'));
 
             // Profilfelder löschen
 
@@ -188,9 +188,9 @@ try {
                     // das Profilfeld ist organisationsbezogen und kann deshalb gelöscht werden
                     $result_profileField = $profileField->delete();
 
-                    $result .= ($result_profileField ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_SUCCESS', array(
+                    $result .= ($result_profileField ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_PROFILE_FIELD_SUCCESS', array(
                         $fieldName
-                    )) : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_ERROR', array(
+                    )) : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_PROFILE_FIELD_ERROR', array(
                         $fieldName
                     )));
                 } else {
@@ -198,15 +198,15 @@ try {
 
                     // die aktuellen Konfigurationsdaten wurden bereits gelöscht, wenn jetzt noch eine weitere Installation vorhanden ist, dann nicht löschen
                     if ($pPreferences->getAllPluginInstallations() > 0) {
-                        $result .= $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_NOT_DELETED', array(
+                        $result .= $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_PROFILE_FIELD_NOT_DELETED', array(
                             $fieldName
                         ));
                     } else {
                         $result_profileField = $profileField->delete();
 
-                        $result .= ($result_profileField ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_SUCCESS', array(
+                        $result .= ($result_profileField ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_PROFILE_FIELD_SUCCESS', array(
                             $fieldName
-                        )) : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_PROFILE_FIELD_ERROR', array(
+                        )) : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_PROFILE_FIELD_ERROR', array(
                             $fieldName
                         )));
                     }
@@ -224,7 +224,7 @@ try {
                 $gCurrentOrgId
             ));
 
-            $result .= ($result_mail ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_MAIL_TEXTS_SUCCESS') : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_MAIL_TEXTS_ERROR'));
+            $result .= ($result_mail ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_MAIL_TEXTS_SUCCESS') : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_MAIL_TEXTS_ERROR'));
 
             // alle von Mitgliedsbeitrag angelegten Profilfelder
             $catArray = array();
@@ -247,9 +247,9 @@ try {
                         // das Profilfeld ist organisationsbezogen und kann deshalb gelöscht werden
                         $result_category = $category->delete();
 
-                        $result .= ($result_category ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_SUCCESS', array(
+                        $result .= ($result_category ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_CATEGORY_SUCCESS', array(
                             $cat
-                        )) : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_ERROR', array(
+                        )) : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_CATEGORY_ERROR', array(
                             $cat
                         )));
                     } else {
@@ -257,21 +257,21 @@ try {
 
                         // die aktuellen Konfigurationsdaten wurden bereits gelöscht, wenn jetzt noch eine weitere Installation vorhanden ist, dann nicht löschen
                         if ($pPreferences->getAllPluginInstallations() > 0) {
-                            $result .= $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_NOT_DELETED', array(
+                            $result .= $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_CATEGORY_NOT_DELETED', array(
                                 $cat
                             ));
                         } else {
                             $result_category = $category->delete();
 
-                            $result .= ($result_category ? $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_SUCCESS', array(
+                            $result .= ($result_category ? $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_CATEGORY_SUCCESS', array(
                                 $cat
-                            )) : $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_ERROR', array(
+                            )) : $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_CATEGORY_ERROR', array(
                                 $cat
                             )));
                         }
                     }
                 } catch (Exception $e) {
-                    $result .= $gL10n->get('PLG_MITGLIEDSBEITRAG_UNINST_CATEGORY_NOT_DELETED', array(
+                    $result .= $gL10n->get('PLG_MEMBERSHIPFEE_UNINST_CATEGORY_NOT_DELETED', array(
                         $cat
                     ));
                 }

@@ -576,7 +576,7 @@ function analyse_rol()
                 $arr[] = $key;
             }
         }
-        $ret[$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey]] = array('rolle' => $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLE').' '.$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey], 'rol_cost' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$famkey], 'rol_cost_period' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$famkey], 'members' => $arr, 'rollentyp' => 'fam');
+        $ret[$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey]] = array('rolle' => $GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_FAMILY_ROLE').' '.$pPreferences->config['Familienrollen']['familienrollen_prefix'][$famkey], 'rol_cost' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$famkey], 'rol_cost_period' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$famkey], 'members' => $arr, 'rollentyp' => 'fam');
 
     }
     return $ret;
@@ -628,11 +628,11 @@ function check_rollenmitgliedschaft_altersrolle()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -712,11 +712,11 @@ function check_rollenmitgliedschaft_pflicht()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_DUTY_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_DUTY_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -852,11 +852,11 @@ function check_rollenmitgliedschaft_ausschluss()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_EXCLUSION_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ROLE_MEMBERSHIP_EXCLUSION_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -919,11 +919,11 @@ function check_rols()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_AGE_STAGGERED_ROLES_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_AGE_STAGGERED_ROLES_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -999,7 +999,7 @@ function check_family_roles()
         // Meldung bei fehlerhaften Pruefbedingungen
         if($ret_marker && strlen($pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key]) > 0)
         {
-            $ret_error[] = '<small>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key].' ('.$prefix.') '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_INVALID').'.</small>';
+            $ret_error[] = '<small>'.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_CONDITION').' '.$pPreferences->config['Familienrollen']['familienrollen_pruefung'][$key].' ('.$prefix.') '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_INVALID').'.</small>';
         }
         $ret_marker = false;
     }
@@ -1042,12 +1042,12 @@ function check_family_roles()
 
                     if (!in_array($counter, $pruefdata['anz'] ))
                     {
-                        $temp = '&#160&#160&#160&#183<small>'.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'];
+                        $temp = '&#160&#160&#160&#183<small>'.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_CONDITION').' '.$pruefdata['von'].'*'.$pruefdata['bis'];
                         for ($i = 0; $i < count($pruefdata['anz']); $i++)
                         {
                             $temp .= ':'.$pruefdata['anz'][$i];
                         }
-                        $temp .= ' '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_NOT_SATISFIED').' ('.$counter.').</small>';
+                        $temp .= ' '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_NOT_SATISFIED').' ('.$counter.').</small>';
                         $ret_temp[] = $temp;
                     }
                 }
@@ -1067,11 +1067,11 @@ function check_family_roles()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_ROLE_TEST_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_ROLE_TEST_RESULT_ERROR').'</strong>';
     }
 
     // eine evtl. vorhandene Fehlermeldung davorsetzen
@@ -1106,11 +1106,11 @@ function check_mandate_management()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_MANDATE_MANAGEMENT_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -1138,11 +1138,11 @@ function check_account_details()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA_TEST_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -1170,11 +1170,11 @@ function check_iban()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_OK'));
+        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_IBANCHECK_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_IBANCHECK_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_IBANCHECK_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }
@@ -1247,15 +1247,15 @@ function check_bic()
 
 	if (count($ret) === 0)
 	{
-		$ret = array($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_OK'));
+		$ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_BICCHECK_RESULT_OK'));
 	}
 	else
 	{
 		if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPreferences->config['Kontodaten']['bic']))
 		{
-			$ret[] = '- '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_ACCOUNT_DATA').' '.$GLOBALS['gCurrentOrganization']->getValue('org_longname');
+			$ret[] = '- '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA').' '.$GLOBALS['gCurrentOrganization']->getValue('org_longname');
 		}
-		$ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_BICCHECK_RESULT_ERROR').'</strong>';
+		$ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_BICCHECK_RESULT_ERROR').'</strong>';
 	}
 	return $ret;
 }
@@ -1313,7 +1313,7 @@ function isUserAuthorized($scriptName)
 	{
 		$GLOBALS['gLogger']->notice('MembershipFee: Error with menu entry: Found rows: '. $menuStatement->rowCount() );
 		$GLOBALS['gLogger']->notice('MembershipFee: Error with menu entry: ScriptName: '. $scriptName);
-		$gMessage->show($GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_MENU_URL_ERROR', array($scriptName)), $GLOBALS['gL10n']->get('SYS_ERROR'));
+		$gMessage->show($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_MENU_URL_ERROR', array($scriptName)), $GLOBALS['gL10n']->get('SYS_ERROR'));
 	}
 	else
 	{
@@ -1692,15 +1692,15 @@ function expand_rollentyp($rollentyp = '')
 {
     if ($rollentyp == 'fix')
     {
-        $ret = $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_OTHER_CONTRIBUTION_ROLES');
+        $ret = $GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_OTHER_CONTRIBUTION_ROLES');
     }
     elseif($rollentyp == 'fam')
     {
-        $ret = $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_FAMILY_ROLES');
+        $ret = $GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES');
     }
     else             //==alt
     {
-        $ret = $GLOBALS['gL10n']->get('PLG_MITGLIEDSBEITRAG_AGE_STAGGERED_ROLES');
+        $ret = $GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_AGE_STAGGERED_ROLES');
     }
     return $ret;
 }

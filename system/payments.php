@@ -265,7 +265,7 @@ else
     else
     {
         // set headline of the script
-        $headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTION_PAYMENTS');
+        $headline = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS');
 
         $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -279,7 +279,7 @@ else
                 function(data){
                     // check if error occurs
                     if(data == "nothing_selected") {
-                        alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOTHING_SELECTED').'");
+                        alert("'.$gL10n->get('PLG_MEMBERSHIPFEE_NOTHING_SELECTED').'");
                         return false;
                     }
                     else if(data == "success") {
@@ -300,7 +300,7 @@ else
                 function(data){
                     // check if error occurs
                     if(data == "nothing_selected") {
-                        alert("'.$gL10n->get('PLG_MITGLIEDSBEITRAG_NOTHING_SELECTED').'");
+                        alert("'.$gL10n->get('PLG_MEMBERSHIPFEE_NOTHING_SELECTED').'");
                         return false;
                     }
                     else if(data == "success") {
@@ -369,21 +369,21 @@ else
     
         if (isset($_SESSION['pMembershipFee']['payments_rol_sel']))
         {
-            $page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_ROLLQUERY_ACTIV').'</strong>');
+            $page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ROLLQUERY_ACTIV').'</strong>');
         }
 
         $form = new HtmlForm('payments_filter_form', '', $page, array('type' => 'navbar', 'setFocus' => false));
     
-        $selectBoxEntries = array('0' => $gL10n->get('SYS_SHOW_ALL_CONTACTS'), '1' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), '2' => $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'));
-        $form->addSelectBox('mem_show', $gL10n->get('PLG_MITGLIEDSBEITRAG_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_FILTER_DESC', 'showContextDependentFirstEntry' => false));
+        $selectBoxEntries = array('0' => $gL10n->get('SYS_SHOW_ALL_CONTACTS'), '1' => $gL10n->get('PLG_MEMBERSHIPFEE_WITH_PAID'), '2' => $gL10n->get('PLG_MEMBERSHIPFEE_WITHOUT_PAID'));
+        $form->addSelectBox('mem_show', $gL10n->get('PLG_MEMBERSHIPFEE_FILTER'), $selectBoxEntries, array('defaultValue' => $getMembersShow, 'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC', 'showContextDependentFirstEntry' => false));
  
         $datumtemp = \DateTime::createFromFormat('Y-m-d', DATE_NOW);
         $datum = $datumtemp->format($gSettingsManager->getString('system_date'));
-        $form->addInput('datum', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ON'), $datum, array('type' => 'date', 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_PAID_DESC'));
+        $form->addInput('datum', $gL10n->get('PLG_MEMBERSHIPFEE_PAID_ON'), $datum, array('type' => 'date', 'helpTextId' => 'PLG_MEMBERSHIPFEE_PAID_DESC'));
 
-        $form->addButton('btn_save_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_SAVE_DATE'), array('icon' => 'bi-check-lg', 'link' => 'javascript:assign_date()', 'class' => 'btn-primary'));
+        $form->addButton('btn_save_date', $gL10n->get('PLG_MEMBERSHIPFEE_SAVE_DATE'), array('icon' => 'bi-check-lg', 'link' => 'javascript:assign_date()', 'class' => 'btn-primary'));
         $form->addDescription('&nbsp');
-        $form->addButton('btn_delete_date', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_DATE'), array('icon' => 'bi-trash', 'link' => 'javascript:delete_date()', 'class' => 'btn-primary'));
+        $form->addButton('btn_delete_date', $gL10n->get('PLG_MEMBERSHIPFEE_DELETE_DATE'), array('icon' => 'bi-trash', 'link' => 'javascript:delete_date()', 'class' => 'btn-primary'));
  
         $page->addHtml($form->show(false));
 

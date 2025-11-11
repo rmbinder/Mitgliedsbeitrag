@@ -46,16 +46,16 @@ try {
     // eine eventuell vorhandene Rolle einlesen (das Einlesen über 'rol_name' und 'rol_description' funktioniert nur, wenn diese Daten vom Benutzer nicht verändert worden sind)
     $role->readDataByColumns(array(
         'rol_cat_id' => $categoryCommonId,
-        'rol_name' => $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN'),
-        'rol_description' => $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN_DESC')
+        'rol_name' => $gL10n->get('PLG_MEMBERSHIPFEE_ACCESS_TO_PLUGIN'),
+        'rol_description' => $gL10n->get('PLG_MEMBERSHIPFEE_ACCESS_TO_PLUGIN_DESC')
     ));
 
     // nur wenn es keine Rolle gibt, neue Daten eingeben (mehr als eine Rolle wird nicht betrachtet)
     if ($role->getValue('rol_id') === 0) {
         $role->saveChangesWithoutRights(); // toDo: ggf. erweiterte Berechtigungen für die Rolle vergeben
         $role->setValue('rol_cat_id', $categoryCommonId, false);
-        $role->setValue('rol_name', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN'));
-        $role->setValue('rol_description', $gL10n->get('PLG_MITGLIEDSBEITRAG_ACCESS_TO_PLUGIN_DESC'));
+        $role->setValue('rol_name', $gL10n->get('PLG_MEMBERSHIPFEE_ACCESS_TO_PLUGIN'));
+        $role->setValue('rol_description', $gL10n->get('PLG_MEMBERSHIPFEE_ACCESS_TO_PLUGIN_DESC'));
         $role->save();
     }
 
@@ -83,8 +83,8 @@ try {
     $menu->setValue('men_men_id_parent', $menIdParent);
     $menu->setValue('men_url', FOLDER_PLUGINS . PLUGIN_FOLDER . '/index.php');
     $menu->setValue('men_icon', 'currency-euro');
-    $menu->setValue('men_name', 'PLG_MITGLIEDSBEITRAG_NAME');
-    $menu->setValue('men_description', 'PLG_MITGLIEDSBEITRAG_NAME_DESC');
+    $menu->setValue('men_name', 'PLG_MEMBERSHIPFEE_NAME');
+    $menu->setValue('men_description', 'PLG_MEMBERSHIPFEE_NAME_DESC');
     $menu->save();
 
     // die vorher angelegte Rolle diesem Menüpunkt hinzufügen ('Sichtbar für')

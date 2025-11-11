@@ -42,7 +42,7 @@ $pPreferences->read();
 $user = new User($gDb, $gProfileFields);
 
 // set headline of the script
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION');
 
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -65,7 +65,7 @@ if ($getMode == 'preview')     //Default
 		$_SESSION['pMembershipFee']['recalculation_rol_sel'] = $_POST['recalculation_roleselection'];
 
 		// nicht gewaehlte Beitragsrollen im Array $contributingRolls loeschen
-		$message .= '<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_ROLLQUERY_INFO').'</strong><br/><br/>';
+		$message .= '<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_INFO').'</strong><br/><br/>';
 		foreach ($contributingRolls as $rol => $roldata)
 		{
 			if (!in_array($rol, $_POST['recalculation_roleselection']))
@@ -402,10 +402,10 @@ if ($getMode == 'preview')     //Default
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center','center'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'),
 							  $gL10n->get('SYS_FIRSTNAME'),
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'),
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'),
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_PREVIOUS'),
-							  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_PREVIOUS'));
+							  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_NEW'),
+							  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_NEW'),
+							  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_PREVIOUS'),
+							  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_PREVIOUS'));
 		$table->addRowHeadingByArray($columnValues);
 
 		foreach ($_SESSION['pMembershipFee']['recalculation_user'] as $member => $data)
@@ -433,13 +433,13 @@ if ($getMode == 'preview')     //Default
         $form = new HtmlForm('recalculation_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/recalculation.php', array('mode' => 'write')), $page);
 
 		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => 'btn btn-primary'));
-		$form->addDescription($gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_PREVIEW'));
+		$form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_PREVIEW'));
 
         $page->addHtml($form->show(false));
 	}
 	else
 	{
-        $page->addHtml($gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_NO_DATA').'<br/>');
+        $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_NO_DATA').'<br/>');
 	}
 
 	if (!empty($message))
@@ -469,8 +469,8 @@ elseif ($getMode == 'write')
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 						  $gL10n->get('SYS_FIRSTNAME'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'));
+						  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_NEW'),
+						  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 
 	foreach ($_SESSION['pMembershipFee']['recalculation_user'] as $member => $data)
@@ -492,7 +492,7 @@ elseif ($getMode == 'write')
 	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
 	$page->addHtml($table->show(false));
 	$page->addHtml('</div><br/>');
-	$page->addHtml('<strong>'.$gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_SAVED').'</strong><br/><br/>');
+	$page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_SAVED').'</strong><br/><br/>');
 	$page->show();
 }
 elseif ($getMode == 'print')
@@ -502,15 +502,15 @@ elseif ($getMode == 'print')
 	$datatable = false;
 	$classTable  = 'table table-condensed table-striped';
 
-	$page = new HtmlPage('plg-mitgliedsbeitrag-recalculation-print', $gL10n->get('PLG_MITGLIEDSBEITRAG_RECALCULATION_NEW'));
+	$page = new HtmlPage('plg-mitgliedsbeitrag-recalculation-print', $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_NEW'));
 	$page->setPrintMode();
 
 	$table = new HtmlTable('table_print_recalculation', $page, $hoverRows, $datatable, $classTable);
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 						  $gL10n->get('SYS_FIRSTNAME'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_FEE_NEW'),
-						  $gL10n->get('PLG_MITGLIEDSBEITRAG_CONTRIBUTORY_TEXT_NEW'));
+						  $gL10n->get('PLG_MEMBERSHIPFEE_FEE_NEW'),
+						  $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT_NEW'));
 	$table->addRowHeadingByArray($columnValues);
 
 	foreach ($_SESSION['pMembershipFee']['recalculation_user'] as $data)

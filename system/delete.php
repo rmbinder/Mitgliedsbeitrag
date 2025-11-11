@@ -49,7 +49,7 @@ unset($members);
 
 $beitrag = analyse_mem();
 
-$headline = $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE');
+$headline = $gL10n->get('PLG_MEMBERSHIPFEE_DELETE');
 
 $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -96,32 +96,32 @@ $page->addJavascript('
 );  
 
 $form = new HtmlForm('delete_all_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
-$form->addInput('delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE_ALL'), ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_DELETE_ALL_DESC'));                             //HtmlForm::FIELD_DISABLED
-$form->addSubmitButton('btn_delete_all', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
+$form->addInput('delete_all', $gL10n->get('PLG_MEMBERSHIPFEE_DELETE_ALL'), ($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MEMBERSHIPFEE_DELETE_ALL_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addSubmitButton('btn_delete_all', $gL10n->get('PLG_MEMBERSHIPFEE_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('with_paid_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITH_PAID'), ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_WITH_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
-$form->addSubmitButton('btn_with_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
+$form->addInput('with_paid', $gL10n->get('PLG_MEMBERSHIPFEE_WITH_PAID'), ($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl']), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MEMBERSHIPFEE_WITH_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addSubmitButton('btn_with_paid', $gL10n->get('PLG_MEMBERSHIPFEE_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('without_paid_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_WITHOUT_PAID'), (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_WITHOUT_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
-$form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
+$form->addInput('without_paid', $gL10n->get('PLG_MEMBERSHIPFEE_WITHOUT_PAID'), (($beitrag['BEITRAG_kto_anzahl']+$beitrag['BEITRAG_rech_anzahl'])-($beitrag['BEZAHLT_kto_anzahl']+$beitrag['BEZAHLT_rech_anzahl'])), array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MEMBERSHIPFEE_WITHOUT_PAID_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addSubmitButton('btn_without_paid', $gL10n->get('PLG_MEMBERSHIPFEE_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('paid_only_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_PAID_ONLY'), $paidcount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_PAID_ONLY_DESC'));                             //HtmlForm::FIELD_DISABLED
-$form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
+$form->addInput('paid_only', $gL10n->get('PLG_MEMBERSHIPFEE_PAID_ONLY'), $paidcount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MEMBERSHIPFEE_PAID_ONLY_DESC'));                             //HtmlForm::FIELD_DISABLED
+$form->addSubmitButton('btn_paid_only', $gL10n->get('PLG_MEMBERSHIPFEE_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 $page->addHtml($form->show(false));
 
 $form = new HtmlForm('duedate_only_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/delete_function.php', array('form' => 'delete')), $page, array('class' => 'form-preferences'));
 $form->addLine();
-$form->addInput('duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY'), $duedatecount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MITGLIEDSBEITRAG_DUEDATE_ONLY_DESC'));
-$form->addSubmitButton('btn_duedate_only', $gL10n->get('PLG_MITGLIEDSBEITRAG_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
+$form->addInput('duedate_only', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE_ONLY'), $duedatecount, array('property' => HtmlForm::FIELD_READONLY, 'helpTextId' => 'PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC'));
+$form->addSubmitButton('btn_duedate_only', $gL10n->get('PLG_MEMBERSHIPFEE_DELETE'), array('icon' => 'bi-trash',  'class' => 'offset-sm-3'));
 
 $page->addHtml($form->show(false));
 $page->show();
