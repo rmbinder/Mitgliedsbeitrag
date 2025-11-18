@@ -492,7 +492,7 @@ try {
 
         // PANEL: HISTORY
 
-        $formHistory = new HtmlForm('history_form', '', $page);
+     /*   $formHistory = new HtmlForm('history_form', '', $page);
 
         $formHistory->addButton('btn_history', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY_SHOW'), array(
             'icon' => 'bi-clock-history',
@@ -501,8 +501,8 @@ try {
         ));
         $formHistory->addCustomContent('', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY_DESC'));
 
-        $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY'), 'bi bi-clock-history', $formHistory->show()));
-
+        $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY'), 'bi bi-clock-history', $formHistory->show()));*/
+    
         $page->addHtml(closeMenueTab());
 
         // TAB: MANDATEMANAGEMENT
