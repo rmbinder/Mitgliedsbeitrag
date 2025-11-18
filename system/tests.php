@@ -28,10 +28,9 @@ $pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $headline = $gL10n->get('PLG_MEMBERSHIPFEE_TESTS');
+$gNavigation->addUrl(CURRENT_URL, $headline);
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-tests', $headline);
-  
-$gNavigation->addUrl(CURRENT_URL, $headline);
 
 //Prüfungen nur anzeigen, wenn mindestens ein Einzeltest aktiviert ist
 if (in_array(1, $pPreferences->config['tests_enable']))

@@ -32,11 +32,10 @@ $pPreferences->read();
 $role = new Role($gDb);
 
 $headline = $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_OVERVIEW');
+$gNavigation->addUrl(CURRENT_URL, $headline);
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-eoleoverview', $headline);
   
-$gNavigation->addUrl(CURRENT_URL, $headline);
-
 $datatable = true;
 $hoverRows = true;
 $classTable  = 'table table-condensed';

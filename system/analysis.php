@@ -30,10 +30,9 @@ $pPreferences = new ConfigTable();
 $pPreferences->read();
 
 $headline = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS');
+$gNavigation->addUrl(CURRENT_URL, $headline);
 
 $page = new HtmlPage('plg-mitgliedsbeitrag-analysis', $headline);
-
-$gNavigation->addUrl(CURRENT_URL, $headline);
 
 $beitrag = analyse_mem();
 $sum = 0;
