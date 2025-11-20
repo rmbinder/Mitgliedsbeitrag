@@ -43,6 +43,9 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_DESC">Controleert op de aanwezigheid van een BIC. Voor betalingen buiten de EU/EER blijft een BIC vereist (Momenteel de volgende landen: Zwitserland, Monaco, San Marino, Jersey, Guernsey, Isle of Man, St. Pierre en Miquelon).</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_ERROR">De vermelde leden of de accountgegevens van de vereniging missen de BIC.</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_OK">Alle benodigde BIC zijn aanwezig.</string>
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_DESC">Controleer de opmaak van de BIC. Een BIC bestaat uit een viercijferige bankcode, een tweecijferige landcode, een tweecijferige stadscode en een optionele driecijferige filiaalcode.</string>   
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_ERROR">Als u de juiste gegevens of de koppelingen naar de BIC-indeling gebruikt, is deze niet geschikt voor het juiste formaat.</string> 
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Alle aangeboden BIC's worden in het gültigen formaat weergegeven.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Factuur</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Factuurgegevens bewerken</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Creëert een bestand (.XLSX of .CSV) met gegevens om facturen te genereren en biedt de mogelijkheid om bankoverschrijvingsverzoeken via e-mail te verzenden.</string>

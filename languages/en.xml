@@ -43,6 +43,9 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_DESC">Checks for the presence of a BIC. Payments outside the EU / EEA continue to require a BIC (Currently the following countries: Switzerland, Monaco, San Marino, Jersey, Guernsey, Isle of Man, St. Pierre and Miquelon).</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_ERROR">The listed members or the account details of the association are missing the BIC.</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_OK">All required BIC are available.</string>
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_DESC">Check the formatting of the BIC. A BIC consists of a 4-digit bank code, a 2-digit country code, a 2-digit city code, and an optional 3-digit branch code.</string>   
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_ERROR">The BIC code for the listed members or the club's account details does not conform to the valid format.</string> 
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">All existing BIC codes conform to the valid format.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Invoice</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Edit invoice data</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Creates a file (.XLSX or .CSV) with data to generate invoices and offers the possibility to send bank transfer requests via email.</string>

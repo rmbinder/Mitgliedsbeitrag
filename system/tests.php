@@ -102,7 +102,6 @@ if (in_array(1, $pPreferences->config['tests_enable']))
     if ($pPreferences->config['tests_enable']['bic_check'])
     {
         $form->openGroupBox('bic_check', $gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK'));
-        $form->addDescription('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK_DESC').'</strong>');
         $form->addDescription(showTestResultWithScrollbar(check_bic()));
         $form->closeGroupBox();
     }

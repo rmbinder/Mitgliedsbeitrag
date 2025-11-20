@@ -43,6 +43,9 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_DESC">Vérifie la présence d\'un BIC. Pour les paiements en dehors de l\'UE/EEE, un BIC est toujours requis (actuellement dans les pays suivants : Suisse, Monaco, Saint-Marin, Jersey, Guernesey, Île de Man, Saint-Pierre-et-Miquelon).</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_ERROR">Le BIC est manquant pour les membres listés ou pour les données de compte de l\'organisation.</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_OK">Tous les BIC nécessaires sont disponibles.</string>
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_DESC">Vérifiez le format du code BIC. Un code BIC se compose d'un code banque à 4 chiffres, d'un code pays à 2 chiffres, d'un code ville à 2 chiffres et d'un code agence facultatif à 3 chiffres.</string>   
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_ERROR">Le code BIC des membres listés ou les coordonnées bancaires du club ne sont pas conformes au format valide.</string> 
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Tous les BIC vorhandenen entsprechen dem gültigen Format.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Facture</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Modifier les informations de facturation</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Crée un fichier (.XLSX ou .CSV) avec des données pour générer des factures et offre la possibilité d'envoyer des demandes de virement par e-mail.</string>

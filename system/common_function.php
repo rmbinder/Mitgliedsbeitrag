@@ -1321,18 +1321,26 @@ function test_iban($iban)
 }
 
 /**
- * Durchlaeuft alle Mitglieder und prueft ob ein BIC vorhanden ist, falls das Mitglied aus
- * einem Land außerhalb EU/EWR stammt
+ * Durchläuft alle Mitglieder und prueft ob ein BIC vorhanden ist, 
+ * falls das Mitglied aus einem Land außerhalb EU/EWR stammt
  * Prueft die Kontodaten des Vereins ob ein BIC vorhanden ist, falls der Verein
  * aus einem Land außerhalb EU/EWR stammt
+ * Überprüft die BIC der Mitglieder und des Vereins auf das gültige Format
  * @return  array $ret
  */
 function check_bic()
 {
-	global $pPreferences, $gProfileFields;
+    global $pPreferences, $gProfileFields, $gL10n, $gDb, $gCurrentOrganization;
 	$ret = array();
-    $user = new User($GLOBALS['gDb'], $gProfileFields);
+	$ret2 = array();
+	$retSum = array();
+	$user = new User($gDb, $gProfileFields);
 
+	// Prüf-Pattern für den BIC
+	$pattern = '/^([a-zA-Z]{4})([a-zA-Z]{2})(([2-9a-zA-Z]{1})([0-9a-np-zA-NP-Z]{1}))((([0-9a-wy-zA-WY-Z]{1})([0-9a-zA-Z]{2}))|([xX]{3})|)$/';
+	//$pattern = '/^[A-Z]{6,6}[A-Z2-9][A-NP-Z0-9]([A-Z0-9]{3,3}){0,1}?$/';         // auch möglich, aber nicht so detailliert
+	//$pattern = '/^[A-Z0-9]{4}[A-Z]{2}[A-Z0-9]{2}(?:[A-Z0-9]{3})?$/';             // auch möglich, aber nicht so detailliert
+	
 	$members = list_members(array('FIRST_NAME', 'LAST_NAME', 'IBAN', 'BIC'), 0);
 
 	foreach ($members as $member => $memberdata)
@@ -1342,21 +1350,50 @@ function check_bic()
             $user->readDataById($member);
 			$ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME']. '</a>';
 		}
+		
+		if (!empty($memberdata['BIC']))
+		{    
+		    if (!preg_match($pattern, $memberdata['BIC'] ))
+		    {
+		        $user->readDataById($member);
+		        $ret2[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))). '">'.$memberdata['LAST_NAME'].', '.$memberdata['FIRST_NAME'].' => '.$memberdata['BIC'].'</a>';
+		    }
+		}
+	}
+	
+	if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPreferences->config['Kontodaten']['bic']))
+	{
+	    $ret[] = '- '.$gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA').' '.$gCurrentOrganization->getValue('org_longname');
+	}
+	if (!empty($pPreferences->config['Kontodaten']['bic']) && !preg_match($pattern, $pPreferences->config['Kontodaten']['bic']))
+	{
+	    $ret2[] = '- '.$gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA').' '.$gCurrentOrganization->getValue('org_longname');
 	}
 
+	$retSum[] = '<strong>1: '.$gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK_DESC').'</strong><br/>';
 	if (count($ret) === 0)
 	{
-		$ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_BICCHECK_RESULT_OK'));
+	    $retSum[] = $gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK_RESULT_OK');
 	}
 	else
 	{
-		if (isIbanNOT_EU_EWR($pPreferences->config['Kontodaten']['iban']) && empty($pPreferences->config['Kontodaten']['bic']))
-		{
-			$ret[] = '- '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA').' '.$GLOBALS['gCurrentOrganization']->getValue('org_longname');
-		}
-		$ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_BICCHECK_RESULT_ERROR').'</strong>';
+	    $retSum = array_merge($retSum, $ret);
+		$retSum[] = '<br/><strong>=> '.$gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK_RESULT_ERROR').'</strong>';
 	}
-	return $ret;
+
+	$retSum[] = '<br/><strong>2: '.$gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK2_DESC').'</strong><br/>';
+
+	if (count($ret2) === 0)
+	{
+	    $retSum[] = $gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK');
+	}
+	else
+	{
+	    $retSum = array_merge($retSum, $ret2);
+	    $retSum[] = '<br/><strong>=> '.$gL10n->get('PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_ERROR').'</strong>';
+	}
+	
+	return $retSum;
 }
 
 /**

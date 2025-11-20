@@ -43,6 +43,9 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_DESC">Überprüft das Vorhandensein eines BIC. Bei Zahlungen außerhalb EU/EWR ist weiterhin die Angabe eines BIC erforderlich (Aktuell folgende Länder: Schweiz, Monaco, San Marino, Jersey, Guernsey, Isle of Man, St. Pierre und Miquelon).</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_ERROR">Bei den aufgeführten Mitgliedern oder bei den Kontodaten des Vereins fehlt der BIC.</string>
     <string name="PLG_MEMBERSHIPFEE_BICCHECK_RESULT_OK">Alle benötigten BIC sind vorhanden.</string>
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_DESC">Überprüft die Formatierung des BIC. Ein BIC besteht aus einem 4-stelligen Bankcode, einem 2-stelligen Ländercode, einem 2-stelligen Ortscode und einem optionalen, 3-stelligen Branch(Filial)-Code.</string>   
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_ERROR">Bei den aufgeführten Mitgliedern oder bei den Kontodaten des Vereins entspricht der BIC nicht dem gültigen Format.</string> 
+    <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Alle vorhandenen BIC entsprechen dem gültigen Format.</string>  
     <string name="PLG_MEMBERSHIPFEE_BILL">Rechnung</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Rechnungsdaten bearbeiten</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit Daten zum Erzeugen von Rechnungen und bietet die Möglichkeit Überweisungsaufforderungen per E-Mail zu versenden.</string>
