@@ -11,23 +11,21 @@
  * 
  * Usage:
  * 
- * To display an overview, the following lines must be inserted into "adm_themes/simple/templates/overview.tpl":
+ * To display an overview, the following lines must be inserted into "themes/simple/templates/system/overview.tpl":
  * 
  * <div class="admidio-overview-plugin col-sm-6 col-lg-4 col-xl-3" id="admidio-plugin-membership_fee">
  *    <div class="card admidio-card">
  *        <div class="card-body">
- *            {load_admidio_plugin plugin="membership_fee" file="membership_fee_overview.php"}
+ *            {load_admidio_plugin plugin="MembershipFee" file="system/membership_fee_overview.php"}
  *        </div>
  *    </div>
  * </div>
- * 
- * Attention: If the plugin folder is not "membership_fee", the code plugin="..." must be modified accordingly.
  * 
  ***********************************************************************************************
  */
 use Admidio\Users\Entity\User;
 
-$rootPath = dirname(__DIR__, 2);
+$rootPath = dirname(__DIR__, 3);
 $pluginFolder = basename(__DIR__);
 
 require_once($rootPath . '/system/common.php');
