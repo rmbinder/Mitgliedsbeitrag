@@ -393,7 +393,8 @@ if ($getMode == 'preview')     //Default
 	}
 
 	$page = new HtmlPage('plg-mitgliedsbeitrag-recalculation-preview', $headline);
-
+    $page->setContentFullWidth();
+    
 	if (sizeof($_SESSION['pMembershipFee']['recalculation_user']) > 0)
 	{
 		$datatable = true;
@@ -417,11 +418,11 @@ if ($getMode == 'preview')     //Default
 			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['LAST_NAME'].'</a>';
 			$columnValues[] = '<a href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_MODULES.'/profile/profile.php', array('user_uuid' => $user->getValue('usr_uuid'))).'">'.$data['FIRST_NAME'].'</a>';
 			$columnValues[] =  '
-                <a class="admidio-icon-link openPopup" href="javascript:void(0);" data-bs-href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/recalculation_edit.php', array('user_id' => $member)).'">'.'
+                <a class="admidio-icon-link openPopup" href="javascript:void(0);" data-href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/recalculation_edit.php', array('user_id' => $member)).'">'.'
                     '.$data['FEE_NEW'].'
                 </a>';
 			$columnValues[] =  '
-                <a class="admidio-icon-link openPopup" href="javascript:void(0);" data-bs-href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/recalculation_edit.php', array('user_id' => $member)).'">'.'
+                <a class="admidio-icon-link openPopup" href="javascript:void(0);" data-href="'.SecurityUtils::encodeUrl(ADMIDIO_URL.FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/recalculation_edit.php', array('user_id' => $member)).'">'.'
                     '.$data['CONTRIBUTORY_TEXT_NEW'].'
                 </a>';
 			$columnValues[] = $data['FEE'.$gCurrentOrgId];
@@ -452,7 +453,8 @@ if ($getMode == 'preview')     //Default
 elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-recalculation-write', $headline);
-
+    $page->setContentFullWidth();
+    
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
 
 	$page->addJavascript('
@@ -462,7 +464,7 @@ elseif ($getMode == 'write')
 		true
 	);
 
-	$datatable = false;
+	$datatable = true;
 	$hoverRows = true;
 	$classTable  = 'table table-condensed';
 

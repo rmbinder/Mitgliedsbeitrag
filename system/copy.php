@@ -82,7 +82,8 @@ else
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
     $page = new HtmlPage('plg-mitgliedsbeitrag-copy', $headline);
-
+    $page->setContentFullWidth(); 
+    
     $javascriptCode = '
         // pulldown Quelle is clicked
         $("#quelle").change(function () {

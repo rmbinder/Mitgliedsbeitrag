@@ -227,7 +227,8 @@ else
         $gNavigation->addUrl(CURRENT_URL, $headline);
 
         $page = new HtmlPage('plg-mitgliedsbeitrag-pre-notification', $headline);
-
+        $page->setContentFullWidth(); 
+        
         $page->addJavascript('
             function prenotexport(){
                 //var duedate = $("#duedate").val();

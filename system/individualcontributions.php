@@ -57,7 +57,8 @@ for ($i = 0; $i < count($pPreferences->config['individual_contributions']['desc'
 if ($getMode == 'preview')     //Default
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-preview', $headline);
-
+    $page->setContentFullWidth(); 
+    
 	$members = array();
 	$message = '';
 
@@ -181,7 +182,8 @@ if ($getMode == 'preview')     //Default
 elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-write', $headline);
-
+    $page->setContentFullWidth(); 
+    
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
         
 	$page->addJavascript('

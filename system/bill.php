@@ -137,7 +137,8 @@ else
         $gNavigation->addUrl(CURRENT_URL, $headline);
     
         $page = new HtmlPage('plg-mitgliedsbeitrag-bill', $headline);
-
+        $page->setContentFullWidth(); 
+        
         $page->addJavascript('
             function billexport(){ 
                 $.post("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/bill.php', array('mode' => 'export')) .'",

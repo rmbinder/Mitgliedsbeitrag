@@ -758,7 +758,7 @@ try {
         if ($gSettingsManager->getString('system_language') === 'de' || $gSettingsManager->getString('system_language') === 'de-DE') {
             $docfile = 'documentation-de.pdf';
         }
-        $html = '<a class="icon-text-link" href="docs/' . $docfile . '" target="_blank"><i class="bi bi-file-earmark-pdf"></i> ' . $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION_OPEN') . '</a>';
+        $html = '<a class="icon-text-link" href="' . ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER. '/docs/' . $docfile . '" target="_blank"><i class="bi bi-file-earmark-pdf"></i> ' . $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION_OPEN') . '</a>';
         $formPluginInformations->addCustomContent($gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION'), $html);
 
         $page->addHtml(getMenuePanel('options', 'plugin_informations', 'accordion_options', $gL10n->get('PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION'), 'bi bi-info-circle', $formPluginInformations->show()));

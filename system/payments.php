@@ -271,7 +271,8 @@ else
         $gNavigation->addUrl(CURRENT_URL, $headline);
 
         $page = new HtmlPage('plg-mitgliedsbeitrag-payments', $headline);
-
+        $page->setContentFullWidth(); 
+        
         $page->addJavascript('
 
         function assign_date() {

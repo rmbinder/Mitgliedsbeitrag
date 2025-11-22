@@ -50,7 +50,8 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 if ($getMode == 'preview')     //Default
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-preview', $headline);
-
+    $page->setContentFullWidth(); 
+    
 	$familyRolesToUpdate = array();
 
 	// alle Familienkonfigurationen durchlaufen
@@ -150,7 +151,8 @@ if ($getMode == 'preview')     //Default
 elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-write', $headline);
-
+    $page->setContentFullWidth(); 
+    
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
 
 	$page->addJavascript('

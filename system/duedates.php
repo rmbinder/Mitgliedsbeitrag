@@ -195,7 +195,8 @@ else
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
     $page = new HtmlPage('plg-mitgliedsbeitrag-duedates', $headline);
-   
+    $page->setContentFullWidth(); 
+    
     $javascriptCode = '
         // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {

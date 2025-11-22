@@ -52,6 +52,7 @@ $gNavigation->addUrl(CURRENT_URL, $headline);
 if ($getMode == 'preview')     //Default
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-preview', $headline);
+    $page->setContentFullWidth(); 
     
 	//Vor der Neuzuordnung die altersgestaffelten Rollen auf Luecken oder Ueberlappungen pruefen
 	$arr = check_rols();
@@ -209,7 +210,8 @@ if ($getMode == 'preview')     //Default
 elseif ($getMode == 'write')
 {
     $page = new HtmlPage('plg-mitgliedsbeitrag-remapping-write', $headline);
-
+    $page->setContentFullWidth(); 
+    
  	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
         
  	$tablemember = new Membership($gDb);
@@ -222,7 +224,7 @@ elseif ($getMode == 'write')
 		true
 	);
 
-	$datatable = false;
+	$datatable = true;
 	$hoverRows = true;
 	$classTable  = 'table table-condensed';
     
