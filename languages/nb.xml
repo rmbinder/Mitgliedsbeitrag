@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources>           
+<resources>
+    <string name="PLG_MEMBERSHIPFEE_ABORT">Kansellere</string>           
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES">Tilgangstillatelse for innstillinger</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES_DESC">Her, i tillegg til rollen "Administrator", kan du autorisere ytterligere roller for tilgang til "Innstillinger"-modulen.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Tilgang til modulen "Individuelle bidrag"</string>

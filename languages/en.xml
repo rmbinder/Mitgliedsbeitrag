@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="PLG_MEMBERSHIPFEE_ABORT">Cancel</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES">Access permission for preferences</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES_DESC">Here, in addition to the role "Administrator", you can authorize additional roles for access to the "Preferences" module.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Access to the "Individual Contributions" module</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="PLG_MEMBERSHIPFEE_ABORT">Abbrechen</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES">Zugriffsberechtigung für Einstellungen</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES_DESC">Hier können, zusätzlich zur Rolle "Administrator", weitere Rollen für den Zugriff auf das Modul "Einstellungen" berechtigt werden.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Zugriff auf das Modul "Individualbeiträge"</string>

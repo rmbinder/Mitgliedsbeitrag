@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="PLG_MEMBERSHIPFEE_ABORT">Annuleer</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES">Toegangsrechten voor voorkeuren</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES_DESC">Hier kunt u naast de rol "Beheerder" extra rollen autoriseren voor toegang tot de module "Voorkeuren".</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Toegang tot de module "Individuele bijdragen".</string>

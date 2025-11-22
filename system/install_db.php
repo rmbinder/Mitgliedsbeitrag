@@ -389,7 +389,7 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
             'class' => 'btn-primary'
         ));
         $form->addDescription('&nbsp');
-        $form->addButton('btnAbbrechen', $gL10n->get('SYS_ABORT'), array(
+        $form->addButton('btnAbbrechen', $gL10n->get('PLG_MEMBERSHIPFEE_ABORT'), array(
             'icon' => 'bi-door-open',
             'link' => $gHomepage,
             'class' => 'btn-primary'
@@ -397,7 +397,7 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
         $form->closeButtonGroup();
 
         $form->addDescription('<strong>' . $gL10n->get('SYS_NEXT') . '</strong> ' . $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MISSING_FIELDS'));
-        $form->addDescription('<strong>' . $gL10n->get('SYS_ABORT') . '</strong> ' . $gL10n->get('PLG_MEMBERSHIPFEE_NO_CHANGES'));
+        $form->addDescription('<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_ABORT') . '</strong> ' . $gL10n->get('PLG_MEMBERSHIPFEE_NO_CHANGES'));
     } else {
         $pPreferences = new ConfigTable();
         $pPreferences->init(); // Konfigurationstabelle anlegen
