@@ -11,7 +11,7 @@
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA">Kontodetaljer</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_INFO">Kontodetaljene til mottakeren skal legges inn.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_DESC">Sjekk for fullstendighet av kontodataene.</string>
-    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">For de listede medlemmene er profilfeltet for kontohaver (=betaler) ikke tomt, og adresseopplysninger mangler for denne betaleren.</string>
+    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">For medlemmene som er oppført, er profilfeltet for kontoinnehaver (=betaler) ikke tomt. (--> Dersom kontoinnehaver ikke er tom, må også kontohavers postnummer, by og gate fylles ut.)</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_OK">Alle data er fullstendige.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER">Kontohaver</string>
     <string name="PLG_MEMBERSHIPFEE_ADD_ANOTHER_COLUMN">Legg til en ny kolonne</string>

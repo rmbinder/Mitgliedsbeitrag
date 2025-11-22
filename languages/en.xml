@@ -11,7 +11,7 @@
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA">Account details</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_INFO">The account details of the recipient are to be entered.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_DESC">Check for completeness of the account data.</string>
-    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">For the listed members, the profile field for the account holder (=payer) is not empty and address details are missing for this payer.</string>
+    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">For the members listed, the account holder (=payer) profile field is not empty. (--> If account holder is not empty, then the account holder's zip code, city and street must also be filled in.)</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_OK">All data is complete.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER">Account holder</string>
     <string name="PLG_MEMBERSHIPFEE_ADD_ANOTHER_COLUMN">Add another column</string>

@@ -11,7 +11,7 @@
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA">Kontodaten</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_INFO">Anzugeben sind die Kontodaten des Empfängers.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_DESC">Überprüfung auf Vollständigkeit der Kontodaten.</string>
-    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist das Profilfeld Kontoinhaber (=Zahlungspflichtiger) nicht leer und bei diesem Zahlungspflichtigen fehlen Adressangaben.</string>
+    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">Bei den aufgeführten Mitgliedern ist das Profilfeld Kontoinhaber (=Zahlungspflichtiger) nicht leer. (--> Wenn Kontoinhaber nicht leer ist, dann müssen auch PLZ, Ort und Straße des Kontoinhabers ausgefüllt sein.)</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_OK">Alle Daten sind vollständig.</string>    
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER">Kontoinhaber</string>
     <string name="PLG_MEMBERSHIPFEE_ADD_ANOTHER_COLUMN">Weitere Spalte hinzufügen</string>

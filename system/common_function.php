@@ -1215,14 +1215,14 @@ function check_mandate_management()
 }
 
 /**
- * Prueft, ob bei Angabe eines Kontoinhabers alle erforderlichen Daten (Strasse, Ort...) vorhanden sind
+ * Prueft, ob bei Angabe eines Kontoinhabers auch KtoInh-Ort, KtoInh-PLZ und KtoInh-Straße vorhanden sind
  * @return  array $ret
  */
 function check_account_details()
 {
-    global $gProfileFields;
+    global $gProfileFields, $gDb, $gL10n;
     $ret = array();
-    $user = new User($GLOBALS['gDb'], $gProfileFields);
+    $user = new User($gDb, $gProfileFields);
 
     $members = list_members(array('FIRST_NAME', 'LAST_NAME', 'DEBTOR', 'DEBTOR_POSTCODE', 'DEBTOR_CITY', 'DEBTOR_STREET'), 0);
 
@@ -1237,11 +1237,11 @@ function check_account_details()
 
     if (count($ret) === 0)
     {
-        $ret = array($GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_OK'));
+        $ret = array($gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_OK'));
     }
     else
     {
-        $ret[] = '<br/><strong>=> '.$GLOBALS['gL10n']->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR').'</strong>';
+        $ret[] = '<br/><strong>=> '.$gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR').'</strong>';
     }
     return $ret;
 }

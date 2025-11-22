@@ -11,7 +11,7 @@
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA">Données du compte</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_INFO">Saisis les données de compte du destinataire.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_DESC">Vérifiez l'exhaustivité des données du compte.</string>
-    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">Pour les membres listés, le champ de profil Titulaire du compte (=payeur) n\'est pas vide et les détails de l\'adresse manquent pour ce payeur.</string>
+    <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_ERROR">Pour les membres répertoriés, le champ du profil du titulaire du compte (=payeur) n'est pas vide. (--> Si le titulaire du compte n'est pas vide, alors le code postal, la ville et la rue du titulaire du compte doivent également être renseignés.)</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_DATA_TEST_RESULT_OK">Toutes les données sont complets.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER">Titulaire du compte</string>
     <string name="PLG_MEMBERSHIPFEE_ADD_ANOTHER_COLUMN">Ajouter une autre colonne</string>
