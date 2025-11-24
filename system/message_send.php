@@ -25,8 +25,6 @@ use Plugins\MembershipFee\classes\Config\ConfigTable;
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
 
-//use PHPMailer\PHPMailer\Exception;
-
 // Initialize and check the parameters
 $getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
 $getUsfUuid  = admFuncVariableIsValid($_GET, 'usf_uuid', 'string');

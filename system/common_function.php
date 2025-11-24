@@ -11,6 +11,7 @@
  */
 
 use Admidio\Components\Entity\Component;
+use Admidio\Infrastructure\Database;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Roles\Entity\Role;
@@ -1428,7 +1429,7 @@ function isIbanNOT_EU_EWR($iban)
  * Formatiert den uebergebenen Datumsstring fuer MySQL,
  * date_format2mysql ersetzt date_german2mysql (erstellt von eiseli)
  * @param   string  $date       Datumsstring
- * @return  date                Datum im Format Y-m-d
+ * @return  DateTime                Datum im Format Y-m-d
  */
 function date_format2mysql($date)
 {
@@ -1460,8 +1461,8 @@ function getDeadline($altersrollen_offset)
 
 /**
  * Berechnet das Alter an einem bestimmten Tag (Stichtag)
- * @param   date  $geburtstag     Datum des Geburtstages
- * @param   date  $stichtag       Datum des Stichtages
+ * @param   DateTime  $geburtstag     Datum des Geburtstages
+ * @param   DateTime  $stichtag       Datum des Stichtages
  * @return  int                   Das Alter in Jahren
  */
 function ageCalculator($geburtstag, $stichtag)
@@ -1687,13 +1688,13 @@ Schraegstrich           |  /        | X'2F
 /**
  * Ersetzt Parameter im E-Mail-Text
  * @param   string  $text       Die E-Mail-Nachricht mit Parametern
- * @param   objekt  $user       User-Objekt
+ * @param   Database $user Object of the class User
  * @return  string  $text       Die E-Mail-Nachricht mit ersetzten Werten
  */
 function replace_emailparameter($text, $user)
 {
     global $pPreferences;
-
+    
     // now replace all parameters in email text
     $text = preg_replace('/#user_first_name#/', $user->getValue('FIRST_NAME'),  $text);
     $text = preg_replace('/#user_last_name#/',  $user->getValue('LAST_NAME'), $text);

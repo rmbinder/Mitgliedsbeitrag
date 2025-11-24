@@ -1,7 +1,7 @@
 <?php
 /**
  ***********************************************************************************************
- * Uninstallation of the Admidio plugin BirthdayList
+ * Uninstallation of the Admidio plugin MembershipFee
  *
  * @copyright The Admidio Team
  * @see https://www.admidio.org/

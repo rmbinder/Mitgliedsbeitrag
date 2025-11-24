@@ -21,15 +21,12 @@ use Admidio\Infrastructure\Exception;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 // Fehlermeldungen anzeigen
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 try {
     require_once (__DIR__ . '/../../system/common.php');
     require_once (__DIR__ . '/../../system/login_valid.php');
     require_once (__DIR__ . '/system/common_function.php');
-
-    // script_name ist der Name wie er im Menue eingetragen werden muss, also ohne evtl. vorgelagerte Ordner wie z.B. /playground/adm_plugins/mitgliedsbeitrag...
- //   $_SESSION['pMembershipFee']['script_name'] = substr($_SERVER['SCRIPT_NAME'], strpos($_SERVER['SCRIPT_NAME'], FOLDER_PLUGINS));
 
     // only authorized user are allowed to start this module
     if (!isUserAuthorized())

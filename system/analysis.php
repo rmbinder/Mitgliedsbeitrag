@@ -15,7 +15,6 @@
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 use Admidio\Infrastructure\Exception;
 
-
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
 
@@ -24,7 +23,6 @@ if (!isUserAuthorized())
 {
     throw new Exception('SYS_NO_RIGHTS');   
 }
-
 
 $pPreferences = new ConfigTable();
 $pPreferences->read();
