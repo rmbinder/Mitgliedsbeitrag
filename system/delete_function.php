@@ -17,7 +17,7 @@
 use Admidio\Users\Entity\User;
 
 require_once(__DIR__ . '/../../../system/common.php');
-require_once(__DIR__ . '/../common_function.php');
+require_once(__DIR__ . '/common_function.php');
 
 // Initialize and check the parameters
 $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
