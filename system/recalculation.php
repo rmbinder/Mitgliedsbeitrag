@@ -374,7 +374,7 @@ if ($getMode == 'preview')     //Default
 
     			if (isset($_POST['recalculation_modus']) && $_POST['recalculation_modus'] == 'summation')
     			{
-    				$members[$member]['FEE_NEW'] += $members[$member]['FEE'.$gCurrentOrgId];
+    				$members[$member]['FEE_NEW'] += (float) $members[$member]['FEE'.$gCurrentOrgId];
     				$members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' '.$members[$member]['CONTRIBUTORY_TEXT'.$gCurrentOrgId].' ';
     			}
 
