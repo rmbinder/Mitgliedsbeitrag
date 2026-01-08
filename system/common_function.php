@@ -506,10 +506,49 @@ function list_members($fields, $rols = array(), $conditions = '')
         $members[$row['mem_usr_id']] = array();
         foreach ($rowArray as $key)
         {
-            $members[$row['mem_usr_id']][$key] =  (string) $row[$key];
+            if ( $key === 'FEE'.$GLOBALS['gCurrentOrgId'])
+            {
+                $members[$row['mem_usr_id']][$key] =  normalize_fee($row[$key]);
+            }
+            else
+            {
+                $members[$row['mem_usr_id']][$key] =  (string) $row[$key];
+            }
         }
     }
     return $members;
+}
+
+/**
+ * Normalisiert verschiedene Zahlenformate in einen Float-Wert.
+ * Akzeptiert z.B. "1.234,56 €", "1234.56", "1,234.56" etc.
+ * Beitrag von tt2g89 (GitHub #163)
+ */
+function normalize_fee($value)
+{
+    if ($value === null || $value === '') {
+        return 0.0;
+    }
+    if (is_array($value)) {
+        return 0.0;
+    }
+    $v = (string)$value;
+    $v = trim($v);
+    // Entfernt alles außer Ziffern, Minus, Punkt und Komma
+    $v = preg_replace('/[^\d\-\.,]/u', '', $v);
+    // Falls sowohl Punkt als auch Komma vorkommen, annehmen: '.' Tausender, ',' Dezimal
+    if (strpos($v, ',') !== false && strpos($v, '.') !== false) {
+        $v = str_replace('.', '', $v);
+        $v = str_replace(',', '.', $v);
+    } else {
+        if (strpos($v, ',') !== false) {
+            $v = str_replace(',', '.', $v);
+        }
+    }
+    if ($v === '' || !is_numeric($v)) {
+        return 0.0;
+    }
+    return (float)$v;
 }
 
 /**
