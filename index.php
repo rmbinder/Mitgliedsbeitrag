@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag / Membership fee
  *
- * Version 6.0.0
+ * Version 6.0.1
  *
  * This plugin calculates membership fees based on role assignments.
  *
@@ -19,9 +19,6 @@
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Exception;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
-
-// Fehlermeldungen anzeigen
-//error_reporting(E_ALL);
 
 try {
     require_once (__DIR__ . '/../../system/common.php');
