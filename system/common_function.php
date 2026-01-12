@@ -1194,7 +1194,7 @@ function check_family_roles()
                 {
                     $test = $role->readDataById($famkey);
                     $ret[] = '- <a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles.php', array('mode' => 'edit', 'role_uuid' => $role->getValue('rol_uuid'))). '">'.$famdata['rolle']. '</a>
-                        <a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/lists_show.php', array('mode' => 'html', 'rol_ids' => $famkey)). '">
+                        <a class="admidio-icon-link" href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/lists_show.php', array('mode' => 'html', 'role_list' => $role->getValue('rol_uuid'))). '">
                             <i class="bi bi-people" alt="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'" title="'.$GLOBALS['gL10n']->get('SYS_SHOW_MEMBER_LIST').'"></i>
                         </a>';
 
