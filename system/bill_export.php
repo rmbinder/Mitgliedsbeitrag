@@ -60,7 +60,7 @@ switch ($exportMode)
         $charset     = 'utf-8';
         break;
     case 'xlsx':
-        include_once(__DIR__ . '/libs/PHP_XLSXWriter/xlsxwriter.class.php');
+        include_once(__DIR__ . '/../libs/PHP_XLSXWriter/xlsxwriter.class.php');
         $exportMode   = 'xlsx';
         break;
     default:

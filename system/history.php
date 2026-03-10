@@ -133,7 +133,7 @@ switch ($getMode)
 		$classTable  = 'table table-condensed table-striped';
 		break;
     case 'xlsx':
-	    include_once(__DIR__ . '/libs/PHP_XLSXWriter/xlsxwriter.class.php');
+	    include_once(__DIR__ . '/../libs/PHP_XLSXWriter/xlsxwriter.class.php');
 	    $getMode     = 'xlsx';
 	    break;
 	default:
