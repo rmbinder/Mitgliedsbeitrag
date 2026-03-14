@@ -138,6 +138,7 @@ if ($getMode == 'preview')     //Default
 		$hoverRows = true;
 		$classTable  = 'table table-condensed';
 		$table = new HtmlTable('table_new_individualcontributions', $page, $hoverRows, $datatable, $classTable);
+        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center','center'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'), 
 							  $gL10n->get('SYS_FIRSTNAME'), 
@@ -198,6 +199,7 @@ elseif ($getMode == 'write')
 	$classTable  = 'table table-condensed';
     
 	$table = new HtmlTable('table_saved_individualcontributions', $page, $hoverRows, $datatable, $classTable);
+    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 						  $gL10n->get('SYS_FIRSTNAME'),

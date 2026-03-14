@@ -168,6 +168,7 @@ if ($getMode == 'preview')     //Default
 		$classTable  = 'table table-condensed';
         
 		$table = new HtmlTable('table_new_remapping', $page, $hoverRows, $datatable, $classTable);
+        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 		$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'),
             $gL10n->get('SYS_FIRSTNAME'),
@@ -229,6 +230,7 @@ elseif ($getMode == 'write')
 	$classTable  = 'table table-condensed';
     
 	$table = new HtmlTable('table_saved_remapping', $page, $hoverRows, $datatable, $classTable);
+    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 	$table->setColumnAlignByArray(array('left', 'left', 'center', 'center', 'center', 'center', 'left'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'),
 		$gL10n->get('SYS_FIRSTNAME'),

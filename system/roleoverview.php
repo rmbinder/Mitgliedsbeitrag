@@ -60,7 +60,7 @@ foreach ($rollen as $rol_id => $data)
     $table->addRowByArray($columnValues);
 }
 $table->setDatatablesGroupColumn(2);
-$table->setDatatablesRowsPerPage(10);
+$table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 
 $page->addHtml($table->show(false));
 

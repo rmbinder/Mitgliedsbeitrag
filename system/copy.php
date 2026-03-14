@@ -178,6 +178,7 @@ else
 
     // create table object
     $table = new HtmlTable('tbl_copy', $page, true, true, 'table table-condensed');
+    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
     $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
 
     // create array with all column heading values

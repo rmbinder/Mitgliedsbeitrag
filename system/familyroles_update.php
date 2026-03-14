@@ -106,6 +106,7 @@ if ($getMode == 'preview')     //Default
 		$classTable  = 'table table-condensed';
 
 		$table = new HtmlTable('table_new_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
+        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 		$table->setColumnAlignByArray(array('left', 'center', 'center', 'center','center', 'center', 'center'));
 		$columnValues = array(
 			$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
@@ -167,6 +168,7 @@ elseif ($getMode == 'write')
 	$classTable  = 'table table-condensed';
 
 	$table = new HtmlTable('table_saved_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
+    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 	$table->setColumnAlignByArray(array('left', 'center', 'center', 'center'));
 	$columnValues = array(
 		$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),

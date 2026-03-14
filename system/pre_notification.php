@@ -382,6 +382,7 @@ else
         );
 
         $table->setColumnAlignByArray(array('left', 'left', 'center', 'right', 'left', 'left', 'center', 'left', 'center', 'left', 'center', 'left', 'left'));
+        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
         $table->setDatatablesOrderColumns(array(5, 6));
         $table->addRowHeadingByArray($columnHeading);
         $table->disableDatatablesColumnsSort(array(1));

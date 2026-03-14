@@ -433,6 +433,7 @@ else
         $table->setColumnAlignByArray($columnAlign);
         $table->addRowHeadingByArray($columnValues);
         $table->disableDatatablesColumnsSort(array(1));
+        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
     
         //user data
         foreach ($membersList as $member => $memberData)

@@ -262,6 +262,7 @@ else
     
     $table->setColumnAlignByArray($columnAlign);
     $table->addRowHeadingByArray($columnValues);
+    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
     $table->disableDatatablesColumnsSort(array(1,2));
     
     //user data

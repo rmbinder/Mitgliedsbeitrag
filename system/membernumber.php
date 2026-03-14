@@ -80,6 +80,7 @@ if ($getMode == 'preview')     //Default
 		$classTable  = 'table table-condensed';
         
 		$table = new HtmlTable('table_new_membernumbers', $page, $hoverRows, $datatable, $classTable);
+        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 		$table->setColumnAlignByArray(array('left', 'left', 'center'));
 		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
 		$table->addRowHeadingByArray($columnValues);
@@ -124,6 +125,7 @@ elseif ($getMode == 'write')
 	$classTable  = 'table table-condensed';
     
 	$table = new HtmlTable('table_saved_membernumbers', $page, $hoverRows, $datatable, $classTable);
+    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 	$table->setColumnAlignByArray(array('left', 'left', 'center'));
 	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
 	$table->addRowHeadingByArray($columnValues);

@@ -130,7 +130,7 @@ foreach ($rollen as $rol => $roldata)
 $columnValues = array($gL10n->get('PLG_MEMBERSHIPFEE_TOTAL'), '', '', '', $sum.' '.$gSettingsManager->getString('system_currency'));
 $table->addRowByArray($columnValues);
 $table->setDatatablesGroupColumn(2);
-$table->setDatatablesRowsPerPage(10);
+$table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 
 $page->addHtml($table->show(false));
 $page->addHtml('<strong>'.$gL10n->get('SYS_NOTE').':</strong> '.$gL10n->get('PLG_MEMBERSHIPFEE_ROLES_CONTRIBUTION_DESC'));
