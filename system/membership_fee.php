@@ -8,9 +8,9 @@
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  ***********************************************************************************************
  */
+use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Entity\Text;
 use Admidio\Infrastructure\Utils\SecurityUtils;
-use Admidio\Infrastructure\Exception;
 use Admidio\Roles\Entity\Role;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
@@ -20,9 +20,8 @@ try {
     require_once (__DIR__ . '/common_function.php');
 
     // only authorized user are allowed to start this module
-    if (!isUserAuthorized())
-    {
-        throw new Exception('SYS_NO_RIGHTS');   
+    if (! isUserAuthorized()) {
+        throw new Exception('SYS_NO_RIGHTS');
     }
 
     // Initialize and check the parameters
@@ -222,6 +221,16 @@ try {
                     formAlert.fadeOut("slow");
                     window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membership_fee.php', array(
         'choice' => 'advancedroleediting'
+    )) . '");
+                }
+ else if(data === "success_export") {
+                   formAlert.attr("class", "alert alert-success form-alert");
+                    formAlert.html("<i class=\"bi bi-check-lg\"></i><strong>' . $gL10n->get('SYS_SAVE_DATA') . '</strong>");
+                    formAlert.fadeIn("slow");
+                    formAlert.animate({opacity: 1.0}, 2500);
+                    formAlert.fadeOut("slow");
+                    window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membership_fee.php', array(
+        'choice' => 'export'
     )) . '");
                 }
                 else {
@@ -489,17 +498,19 @@ try {
 
         // PANEL: HISTORY
 
-     /*   $formHistory = new HtmlForm('history_form', '', $page);
+        /*
+         * $formHistory = new HtmlForm('history_form', '', $page);
+         *
+         * $formHistory->addButton('btn_history', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY_SHOW'), array(
+         * 'icon' => 'bi-clock-history',
+         * 'link' => 'history.php',
+         * 'class' => 'btn-primary offset-sm-3'
+         * ));
+         * $formHistory->addCustomContent('', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY_DESC'));
+         *
+         * $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY'), 'bi bi-clock-history', $formHistory->show()));
+         */
 
-        $formHistory->addButton('btn_history', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY_SHOW'), array(
-            'icon' => 'bi-clock-history',
-            'link' => 'history.php',
-            'class' => 'btn-primary offset-sm-3'
-        ));
-        $formHistory->addCustomContent('', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY_DESC'));
-
-        $page->addHtml(getMenuePanel('fees', 'history', 'accordion_fees', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_HISTORY'), 'bi bi-clock-history', $formHistory->show()));*/
-    
         $page->addHtml(closeMenueTab());
 
         // TAB: MANDATEMANAGEMENT
@@ -561,7 +572,11 @@ try {
         $formDuedates->addLine();
         $page->addHtml($formDuedates->show(false));
 
-        $formSepa = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/sepa_export.php', $page);
+        $exportActionFile = 'sepa_export.php';
+        if ($pPreferences->config['SEPA']['direct_debit_format'] === 'v8') {
+            $exportActionFile = 'sepa_export_pain.008.001.08.php';
+        }
+        $formSepa = new HtmlForm('sepa_export_form', ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/' . $exportActionFile, $page);
 
         if (! $directdebittype) {
             $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>' . $gL10n->get('PLG_MEMBERSHIPFEE_NO_DUEDATES_EXIST') . '</div>';
@@ -755,7 +770,7 @@ try {
         if ($gSettingsManager->getString('system_language') === 'de' || $gSettingsManager->getString('system_language') === 'de-DE') {
             $docfile = 'documentation-de.pdf';
         }
-        $html = '<a class="icon-text-link" href="' . ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER. '/docs/' . $docfile . '" target="_blank"><i class="bi bi-file-earmark-pdf"></i> ' . $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION_OPEN') . '</a>';
+        $html = '<a class="icon-text-link" href="' . ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/docs/' . $docfile . '" target="_blank"><i class="bi bi-file-earmark-pdf"></i> ' . $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION_OPEN') . '</a>';
         $formPluginInformations->addCustomContent($gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION'), $html);
 
         $page->addHtml(getMenuePanel('options', 'plugin_informations', 'accordion_options', $gL10n->get('PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION'), 'bi bi-info-circle', $formPluginInformations->show()));
@@ -1341,6 +1356,14 @@ try {
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_XML_FILE_NAME_DESC',
                 'property' => HtmlForm::FIELD_REQUIRED
             ));
+            $selectBoxEntriesDirectDebit = array(
+                'v2' => 'pain.008.001.02',
+                'v8' => 'pain.008.001.08'
+            );
+            $formExport->addSelectBox('direct_debit_format', $gL10n->get('PLG_MEMBERSHIPFEE_XML_FILE') . ' ' . $gL10n->get('SYS_FORMAT'), $selectBoxEntriesDirectDebit, array(
+                'defaultValue' => $pPreferences->config['SEPA']['direct_debit_format'],
+                'showContextDependentFirstEntry' => false
+            ));
             $formExport->addInput('kontroll_dateiname', $gL10n->get('PLG_MEMBERSHIPFEE_CONTROL_FILE_NAME'), $pPreferences->config['SEPA']['kontroll_dateiname'], array(
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_CONTROL_FILE_NAME_DESC',
                 'property' => HtmlForm::FIELD_REQUIRED
@@ -1408,7 +1431,7 @@ try {
             <strong>#bank#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_VARIABLE_BANK') . '<br />
             <strong>#debtor#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_VARIABLE_DEBTOR') . '<br />
             <strong>#membership_fee_text#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_VARIABLE_MEMBERSHIP_FEE_TEXT') . '<br />
-            <strong>#membernumber#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER') . '</p>');
+            <strong > # membernumber#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER') . '</p>');
 
             $text = new Text($gDb);
             $text->readDataByColumns(array(

@@ -13,13 +13,12 @@
  *
  ***********************************************************************************************
  */
-
 use Admidio\Infrastructure\Entity\Text;
 use Admidio\Roles\Entity\Role;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
-require_once(__DIR__ . '/../../../system/common.php');
-require_once(__DIR__ . '/common_function.php');
+require_once (__DIR__ . '/../../../system/common.php');
+require_once (__DIR__ . '/common_function.php');
 
 $pPreferences = new ConfigTable();
 $pPreferences->read();
@@ -33,10 +32,8 @@ $gMessage->showHtmlTextOnly(true);
 // Rueckgabecode
 $ret = 'success';
 
-try
-{
-    switch($getForm)
-    {
+try {
+    switch ($getForm) {
         case 'contributionsettings':
             unset($pPreferences->config['Beitrag']);
 
@@ -48,7 +45,7 @@ try
             $pPreferences->config['Beitrag']['beitrag_textmitnam'] = isset($_POST['beitrag_textmitnam']) ? 1 : 0;
             $pPreferences->config['Beitrag']['beitrag_textmitfam'] = isset($_POST['beitrag_textmitfam']) ? 1 : 0;
             $pPreferences->config['Beitrag']['beitrag_text_token'] = $_POST['beitrag_text_token'];
-            $pPreferences->config['Beitrag']['beitrag_role_separator'] = replace_sepadaten($_REQUEST['beitrag_role_separator']);  //$_POST übergibt keine führenden und nachfolgenden Leerzeichen, $_REQUEST schon
+            $pPreferences->config['Beitrag']['beitrag_role_separator'] = replace_sepadaten($_REQUEST['beitrag_role_separator']); // $_POST übergibt keine führenden und nachfolgenden Leerzeichen, $_REQUEST schon
             break;
 
         case 'agestaggeredroles':
@@ -56,40 +53,35 @@ try
             $altersrollen_anzahl = 0;
             $pPreferences->config['Altersrollen']['altersrollen_offset'] = $_POST['altersrollen_offset'];
 
-            for($conf = 0; isset($_POST['altersrollen_token'. $conf]); $conf++)
-            {
-                if (empty($_POST['altersrollen_token'. $conf]))
-                {
+            for ($conf = 0; isset($_POST['altersrollen_token' . $conf]); $conf ++) {
+                if (empty($_POST['altersrollen_token' . $conf])) {
                     continue;
                 }
-                $pPreferences->config['Altersrollen']['altersrollen_token'][] = $_POST['altersrollen_token'. $conf];
-                $altersrollen_anzahl++;
+                $pPreferences->config['Altersrollen']['altersrollen_token'][] = $_POST['altersrollen_token' . $conf];
+                $altersrollen_anzahl ++;
             }
-            //diese Zeile ist nur zur Sicherheit, falls ein Nutzer einen Refresh (F5) des Browsers ausfuehrt
-            //und dadurch nicht durch das Plugin kontrollierte Loeschungen oder Hinzufuegungen ausfuehrt
-            if($altersrollen_anzahl == 0)
-            {
+            // diese Zeile ist nur zur Sicherheit, falls ein Nutzer einen Refresh (F5) des Browsers ausfuehrt
+            // und dadurch nicht durch das Plugin kontrollierte Loeschungen oder Hinzufuegungen ausfuehrt
+            if ($altersrollen_anzahl == 0) {
                 $gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_ERROR_MIN_CONFIG'));
             }
             break;
 
         case 'familyroles':
-            //familienrollen_pruefung zwischenspeichern
+            // familienrollen_pruefung zwischenspeichern
             $familienrollen_pruefung = $pPreferences->config['Familienrollen']['familienrollen_pruefung'];
 
             unset($pPreferences->config['Familienrollen']);
 
-            for($conf = 0; isset($_POST['familienrollen_prefix'. $conf]); $conf++)
-            {
-                if (empty($_POST['familienrollen_prefix'. $conf]))
-                {
+            for ($conf = 0; isset($_POST['familienrollen_prefix' . $conf]); $conf ++) {
+                if (empty($_POST['familienrollen_prefix' . $conf])) {
                     continue;
                 }
 
-                $pPreferences->config['Familienrollen']['familienrollen_prefix'][] = $_POST['familienrollen_prefix'. $conf];
-                $pPreferences->config['Familienrollen']['familienrollen_beitrag'][] = str_replace(',', '.', $_POST['familienrollen_beitrag'. $conf]);
-                $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][] = $_POST['familienrollen_zeitraum'. $conf];
-                $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][] = $_POST['familienrollen_beschreibung'. $conf];
+                $pPreferences->config['Familienrollen']['familienrollen_prefix'][] = $_POST['familienrollen_prefix' . $conf];
+                $pPreferences->config['Familienrollen']['familienrollen_beitrag'][] = str_replace(',', '.', $_POST['familienrollen_beitrag' . $conf]);
+                $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][] = $_POST['familienrollen_zeitraum' . $conf];
+                $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][] = $_POST['familienrollen_beschreibung' . $conf];
                 $pPreferences->config['Familienrollen']['familienrollen_pruefung'][] = isset($familienrollen_pruefung[$conf]) ? $familienrollen_pruefung[$conf] : '';
             }
             break;
@@ -100,29 +92,26 @@ try
             $alt_fix_rollen = $altersrollen + $fixrollen;
             unset($altersrollen);
             unset($fixrollen);
-            
+
             $role = new Role($gDb);
-            
-            foreach($alt_fix_rollen as $rol_id => $dummy)
-            {
+
+            foreach ($alt_fix_rollen as $rol_id => $dummy) {
                 $role->readDataById((int) $rol_id);
-                $role->setvalue('rol_cost', str_replace(',', '.', $_POST['rol_cost'. $rol_id]));
-                $role->setvalue('rol_cost_period', $_POST['rol_cost_period'. $rol_id]);
-                $role->setvalue('rol_description', $_POST['rol_description'. $rol_id]);
+                $role->setvalue('rol_cost', str_replace(',', '.', $_POST['rol_cost' . $rol_id]));
+                $role->setvalue('rol_cost_period', $_POST['rol_cost_period' . $rol_id]);
+                $role->setvalue('rol_description', $_POST['rol_description' . $rol_id]);
                 $role->save();
             }
             $ret = 'success_replace';
             break;
-            
+
         case 'eventsselection':
-            if (isset($_POST['eventsselection']))
-            {
+            if (isset($_POST['eventsselection'])) {
                 $role = new Role($gDb);
-                foreach(array_filter($_POST['eventsselection']) as $rol_id)
-                {
+                foreach (array_filter($_POST['eventsselection']) as $rol_id) {
                     $role->readDataById((int) $rol_id);
                     $role->setvalue('rol_cost', 0);
-                    $role->setvalue('rol_cost_period', -1);
+                    $role->setvalue('rol_cost_period', - 1);
                     $role->save();
                 }
             }
@@ -141,18 +130,17 @@ try
             break;
 
         case 'export':
-            unset(
-                $pPreferences->config['SEPA'],
-                $pPreferences->config['Rechnungs-Export']
-            );
+            unset($pPreferences->config['SEPA'], $pPreferences->config['Rechnungs-Export']);
 
             $pPreferences->config['SEPA']['dateiname'] = $_POST['dateiname'];
+            $pPreferences->config['SEPA']['direct_debit_format'] = $_POST['direct_debit_format'];
             $pPreferences->config['SEPA']['kontroll_dateiname'] = $_POST['kontroll_dateiname'];
             $pPreferences->config['SEPA']['kontroll_dateityp'] = $_POST['kontroll_dateityp'];
             $pPreferences->config['SEPA']['vorabinformation_dateiname'] = $_POST['vorabinformation_dateiname'];
             $pPreferences->config['SEPA']['vorabinformation_dateityp'] = $_POST['vorabinformation_dateityp'];
             $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'] = $_POST['rechnung_dateiname'];
             $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'] = $_POST['rechnung_dateityp'];
+            $ret = 'success_export';
             break;
 
         case 'mandatemanagement':
@@ -166,11 +154,7 @@ try
             break;
 
         case 'testssetup':
-            unset(
-                $pPreferences->config['Familienrollen']['familienrollen_pruefung'],
-                $pPreferences->config['Rollenpruefung'],
-                $pPreferences->config['tests_enable']
-            );
+            unset($pPreferences->config['Familienrollen']['familienrollen_pruefung'], $pPreferences->config['Rollenpruefung'], $pPreferences->config['tests_enable']);
             $pPreferences->config['tests_enable']['age_staggered_roles'] = isset($_POST['age_staggered_roles']) ? 1 : 0;
             $pPreferences->config['tests_enable']['role_membership_age_staggered_roles'] = isset($_POST['role_membership_age_staggered_roles']) ? 1 : 0;
             $pPreferences->config['tests_enable']['role_membership_duty_and_exclusion'] = isset($_POST['role_membership_duty_and_exclusion']) ? 1 : 0;
@@ -179,192 +163,163 @@ try
             $pPreferences->config['tests_enable']['mandate_management'] = isset($_POST['mandate_management']) ? 1 : 0;
             $pPreferences->config['tests_enable']['iban_check'] = isset($_POST['iban_check']) ? 1 : 0;
             $pPreferences->config['tests_enable']['bic_check'] = isset($_POST['bic_check']) ? 1 : 0;
-            
-            for($conf = 0; isset($_POST['familienrollen_pruefung'. $conf]); $conf++)
-            {
-                $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf] = $_POST['familienrollen_pruefung'. $conf];
+
+            for ($conf = 0; isset($_POST['familienrollen_pruefung' . $conf]); $conf ++) {
+                $pPreferences->config['Familienrollen']['familienrollen_pruefung'][$conf] = $_POST['familienrollen_pruefung' . $conf];
             }
 
-            if (isset($_POST['familienrollenpflicht']))
-            {
-            	$pPreferences->config['Rollenpruefung']['familienrollenpflicht'] = $_POST['familienrollenpflicht'];
+            if (isset($_POST['familienrollenpflicht'])) {
+                $pPreferences->config['Rollenpruefung']['familienrollenpflicht'] = $_POST['familienrollenpflicht'];
             }
-            
+
             $fixrollen = beitragsrollen_einlesen('fix');
-            foreach($fixrollen as $key => $data)
-            {
-                if(isset($_POST['fixrollenpflicht'. $key]))
-                {
+            foreach ($fixrollen as $key => $data) {
+                if (isset($_POST['fixrollenpflicht' . $key])) {
                     $pPreferences->config['Rollenpruefung']['fixrollenpflicht'][] = $key;
                 }
-                foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
-                {
-                    if(isset($_POST['altersrollenfix'. $token.$key]))
-                    {
-                        $pPreferences->config['Rollenpruefung']['altersrollenfix'][] = $token.$key;
+                foreach ($pPreferences->config['Altersrollen']['altersrollen_token'] as $token) {
+                    if (isset($_POST['altersrollenfix' . $token . $key])) {
+                        $pPreferences->config['Rollenpruefung']['altersrollenfix'][] = $token . $key;
                     }
                 }
 
-                if(isset($_POST['familienrollenfix'. $key]))
-                {
+                if (isset($_POST['familienrollenfix' . $key])) {
                     $pPreferences->config['Rollenpruefung']['familienrollenfix'][] = $key;
                 }
             }
 
-            if ((count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1))
-            {
-                for ($x = 0; $x < count($pPreferences->config['Altersrollen']['altersrollen_token'])-1; $x++)
-                {
-                    for ($y = $x+1; $y < count($pPreferences->config['Altersrollen']['altersrollen_token']); $y++)
-                    {
-                        if(isset($_POST['altersrollenaltersrollen'.$pPreferences->config['Altersrollen']['altersrollen_token'][$x].$pPreferences->config['Altersrollen']['altersrollen_token'][$y]]))
-                        {
-                            $pPreferences->config['Rollenpruefung']['altersrollenaltersrollen'][] = $pPreferences->config['Altersrollen']['altersrollen_token'][$x].','.$pPreferences->config['Altersrollen']['altersrollen_token'][$y];
+            if ((count($pPreferences->config['Altersrollen']['altersrollen_token']) > 1)) {
+                for ($x = 0; $x < count($pPreferences->config['Altersrollen']['altersrollen_token']) - 1; $x ++) {
+                    for ($y = $x + 1; $y < count($pPreferences->config['Altersrollen']['altersrollen_token']); $y ++) {
+                        if (isset($_POST['altersrollenaltersrollen' . $pPreferences->config['Altersrollen']['altersrollen_token'][$x] . $pPreferences->config['Altersrollen']['altersrollen_token'][$y]])) {
+                            $pPreferences->config['Rollenpruefung']['altersrollenaltersrollen'][] = $pPreferences->config['Altersrollen']['altersrollen_token'][$x] . ',' . $pPreferences->config['Altersrollen']['altersrollen_token'][$y];
                         }
                     }
                 }
             }
 
-            foreach($pPreferences->config['Altersrollen']['altersrollen_token'] as $token)
-            {
-                if(isset($_POST['age_staggered_roles_exclusion'. $token]))
-                {
+            foreach ($pPreferences->config['Altersrollen']['altersrollen_token'] as $token) {
+                if (isset($_POST['age_staggered_roles_exclusion' . $token])) {
                     $pPreferences->config['Rollenpruefung']['age_staggered_roles_exclusion'][] = $token;
-                    
                 }
-                if(isset($_POST['altersrollenpflicht'. $token]))
-                {
+                if (isset($_POST['altersrollenpflicht' . $token])) {
                     $pPreferences->config['Rollenpruefung']['altersrollenpflicht'][] = $token;
-
                 }
-                if(isset($_POST['altersrollenfamilienrollen'. $token]))
-                {
+                if (isset($_POST['altersrollenfamilienrollen' . $token])) {
                     $pPreferences->config['Rollenpruefung']['altersrollenfamilienrollen'][] = $token;
                 }
             }
 
-            if (count($fixrollen) > 1)
-            {
-            	$fixrollenL = $fixrollen;
-            	array_pop($fixrollenL);						// das letzte Element entfernen
-            	$fixrollenR = $fixrollen;
-            	
-            	foreach ($fixrollenL as $keyL => $dataL)
-            	{
-            		unset($fixrollenR[$keyL]);				// dasselbe Element entfernen
-            		foreach ($fixrollenR as $keyR => $dataR)
-            		{
-            			if (isset($_POST['fixrollenfixrollen'.$keyL.'_'.$keyR]))
-            			{
-            				$pPreferences->config['Rollenpruefung']['fixrollenfixrollen'][] = $keyL.'_'.$keyR;
-            			}
-            		}
-            	}
-            	unset($fixrollenL);
-            	unset($fixrollenR);
+            if (count($fixrollen) > 1) {
+                $fixrollenL = $fixrollen;
+                array_pop($fixrollenL); // das letzte Element entfernen
+                $fixrollenR = $fixrollen;
+
+                foreach ($fixrollenL as $keyL => $dataL) {
+                    unset($fixrollenR[$keyL]); // dasselbe Element entfernen
+                    foreach ($fixrollenR as $keyR => $dataR) {
+                        if (isset($_POST['fixrollenfixrollen' . $keyL . '_' . $keyR])) {
+                            $pPreferences->config['Rollenpruefung']['fixrollenfixrollen'][] = $keyL . '_' . $keyR;
+                        }
+                    }
+                }
+                unset($fixrollenL);
+                unset($fixrollenR);
             }
-            
-            if(isset($_POST['bezugskategorie']))
-            {
-            	$pPreferences->config['Rollenpruefung']['bezugskategorie'] = $_POST['bezugskategorie'];
-            	
+
+            if (isset($_POST['bezugskategorie'])) {
+                $pPreferences->config['Rollenpruefung']['bezugskategorie'] = $_POST['bezugskategorie'];
             }
-            
-            foreach ($pPreferences->config_default['Rollenpruefung'] as $roleTest => $dummy)
-            {
-            	if (!isset($pPreferences->config['Rollenpruefung'][$roleTest]))
-            	{
-            		$pPreferences->config['Rollenpruefung'][$roleTest] = $pPreferences->config_default['Rollenpruefung'][$roleTest];
-            	}
+
+            foreach ($pPreferences->config_default['Rollenpruefung'] as $roleTest => $dummy) {
+                if (! isset($pPreferences->config['Rollenpruefung'][$roleTest])) {
+                    $pPreferences->config['Rollenpruefung'][$roleTest] = $pPreferences->config_default['Rollenpruefung'][$roleTest];
+                }
             }
             break;
 
         case 'columnset':
-        	foreach ($pPreferences->config['columnconfig'] as $conf => $confFields)
-        	{ 
-        		$pPreferences->config['columnconfig'][$conf] = array();
+            foreach ($pPreferences->config['columnconfig'] as $conf => $confFields) {
+                $pPreferences->config['columnconfig'][$conf] = array();
 
-        		for ($number = 1; isset($_POST['column'.$conf.'_'.$number]); $number++)
-        		{
-        			if (strlen($_POST['column'.$conf.'_'.$number]) > 0)
-        			{		
-        				$pPreferences->config['columnconfig'][$conf][] = $_POST['column'.$conf.'_'.$number];
-        			}
-        		}
-        		// doppelte Einträge führen zu einem SQL-FEHLER in der Funktion list_members
-        		$pPreferences->config['columnconfig'][$conf] = array_unique($pPreferences->config['columnconfig'][$conf]);
-        	}
-        	break; 
-        	
+                for ($number = 1; isset($_POST['column' . $conf . '_' . $number]); $number ++) {
+                    if (strlen($_POST['column' . $conf . '_' . $number]) > 0) {
+                        $pPreferences->config['columnconfig'][$conf][] = $_POST['column' . $conf . '_' . $number];
+                    }
+                }
+                // doppelte Einträge führen zu einem SQL-FEHLER in der Funktion list_members
+                $pPreferences->config['columnconfig'][$conf] = array_unique($pPreferences->config['columnconfig'][$conf]);
+            }
+            break;
+
         case 'individualcontributions':
             $pPreferences->config['individual_contributions']['access_to_module'] = $_POST['enable_individual_contributions'];
-            
+
             unset($pPreferences->config['individual_contributions']['desc']);
             unset($pPreferences->config['individual_contributions']['short_desc']);
             unset($pPreferences->config['individual_contributions']['role']);
             unset($pPreferences->config['individual_contributions']['amount']);
             unset($pPreferences->config['individual_contributions']['profilefield']);
-            
-            for($conf = 0; isset($_POST['individual_contributions_desc'. $conf]); $conf++)
-            {
-                if (empty($_POST['individual_contributions_desc'. $conf]))
-                {
+
+            for ($conf = 0; isset($_POST['individual_contributions_desc' . $conf]); $conf ++) {
+                if (empty($_POST['individual_contributions_desc' . $conf])) {
                     continue;
                 }
-          
-                $pPreferences->config['individual_contributions']['desc'][] = $_POST['individual_contributions_desc'. $conf];
-                $pPreferences->config['individual_contributions']['short_desc'][] = $_POST['individual_contributions_short_desc'. $conf];
-                $pPreferences->config['individual_contributions']['role'][] = $_POST['individual_contributions_role'. $conf];
-                $pPreferences->config['individual_contributions']['amount'][] = $_POST['individual_contributions_amount'. $conf];
-                $pPreferences->config['individual_contributions']['profilefield'][] = $_POST['individual_contributions_profilefield'. $conf];
+
+                $pPreferences->config['individual_contributions']['desc'][] = $_POST['individual_contributions_desc' . $conf];
+                $pPreferences->config['individual_contributions']['short_desc'][] = $_POST['individual_contributions_short_desc' . $conf];
+                $pPreferences->config['individual_contributions']['role'][] = $_POST['individual_contributions_role' . $conf];
+                $pPreferences->config['individual_contributions']['amount'][] = $_POST['individual_contributions_amount' . $conf];
+                $pPreferences->config['individual_contributions']['profilefield'][] = $_POST['individual_contributions_profilefield' . $conf];
             }
-            break; 
-        	
+            break;
+
         case 'access_preferences':
-            if (isset($_POST['access_preferences']))
-            {
+            if (isset($_POST['access_preferences'])) {
                 $pPreferences->config['access']['preferences'] = array_filter($_POST['access_preferences']);
-            }
-            else 
-            {
+            } else {
                 $pPreferences->config['access']['preferences'] = array();
             }
             break;
-            
+
         case 'multiplier_roles':
-            if (isset($_POST['multiplier_roles']))
-            {
+            if (isset($_POST['multiplier_roles'])) {
                 $pPreferences->config['multiplier']['roles'] = array_filter($_POST['multiplier_roles']);
-            }
-            else
-            {
+            } else {
                 $pPreferences->config['multiplier']['roles'] = array();
             }
             break;
-            
+
         case 'emailnotifications':
-            
+
             $text = new Text($gDb);
-            
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS', 'txt_org_id' => $gCurrentOrgId));
+
+            $text->readDataByColumns(array(
+                'txt_name' => 'PMBMAIL_CONTRIBUTION_PAYMENTS',
+                'txt_org_id' => $gCurrentOrgId
+            ));
             $text->setValue('txt_text', $_POST['mail_text']);
             $text->save();
-            
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_PRE_NOTIFICATION', 'txt_org_id' => $gCurrentOrgId));
+
+            $text->readDataByColumns(array(
+                'txt_name' => 'PMBMAIL_PRE_NOTIFICATION',
+                'txt_org_id' => $gCurrentOrgId
+            ));
             $text->setValue('txt_text', $_POST['pre_notification_text']);
             $text->save();
-            
-            $text->readDataByColumns(array('txt_name' => 'PMBMAIL_BILL', 'txt_org_id' => $gCurrentOrgId));
+
+            $text->readDataByColumns(array(
+                'txt_name' => 'PMBMAIL_BILL',
+                'txt_org_id' => $gCurrentOrgId
+            ));
             $text->setValue('txt_text', $_POST['bill_text']);
             $text->save();
             break;
-            
+
         default:
             $gMessage->show($gL10n->get('SYS_INVALID_PAGE_VIEW'));
     }
-}
-catch(AdmException $e)
-{
+} catch (AdmException $e) {
     $e->showText();
 }
 
