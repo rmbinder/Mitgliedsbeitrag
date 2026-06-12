@@ -80,9 +80,11 @@ $members = list_members(array(
     'PAID' . $gCurrentOrgId,
     'STREET',
     'CITY',
+    'POSTCODE',
     'DEBTOR',
     'DEBTOR_CITY',
     'DEBTOR_STREET',
+    'DEBTOR_POSTCODE',
     'IBAN',
     'ORIG_IBAN',
     'BIC',
@@ -109,6 +111,7 @@ foreach ($members as $member => $memberdata) {
         $zpflgt[$member]['land'] = '';
         $zpflgt[$member]['street'] = '';
         $zpflgt[$member]['ort'] = '';
+        $zpflgt[$member]['postcode'] = '';
         $zpflgt[$member]['bic'] = '';
         $zpflgt[$member]['mandat_id'] = '';
         $zpflgt[$member]['mandat_datum'] = '';
@@ -127,6 +130,7 @@ foreach ($members as $member => $memberdata) {
             $members[$member]['DEBTOR'] = $memberdata['FIRST_NAME'] . ' ' . $memberdata['LAST_NAME'];
             $members[$member]['DEBTOR_STREET'] = $memberdata['STREET'];
             $members[$member]['DEBTOR_CITY'] = $memberdata['CITY'];
+            $members[$member]['DEBTOR_POSTCODE'] = $memberdata['POSTCODE'];
         }
 
         $zpflgt[$member]['name'] = substr(replace_sepadaten($members[$member]['DEBTOR']), 0, 70); // Name of account owner.
@@ -145,6 +149,7 @@ foreach ($members as $member => $memberdata) {
             $zpflgt[$member]['land'] = substr($zpflgt[$member]['iban'], 0, 2);
             $zpflgt[$member]['street'] = substr(replace_sepadaten($members[$member]['DEBTOR_STREET']), 0, 70);
             $zpflgt[$member]['ort'] = substr(replace_sepadaten($members[$member]['DEBTOR_CITY']), 0, 70);
+            $zpflgt[$member]['postcode'] = substr(replace_sepadaten($members[$member]['DEBTOR_POSTCODE']), 0, 16);
         }
 
         $zpflgt[$member]['bic'] = strtoupper($members[$member]['BIC']); // BIC
@@ -207,12 +212,12 @@ if ($postExportFileMode === 'xml_file') {
     $xmlfile = '';
     $xmlfile .= "<?xml version='1.0' encoding='UTF-8'?>\n";
 
-    // DFÜ-Abkommen Version 3.1
-    // Pain 008.001.002
+    // DFÜ-Abkommen Version 26.11
+    // Pain 008.001.008
     // ########## Document ###########
-    $xmlfile .= "<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.001.02' 
+    $xmlfile .= "<Document xmlns='urn:iso:std:iso:20022:tech:xsd:pain.008.001.08' 
     		xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
-    		xsi:schemaLocation='urn:iso:std:iso:20022:tech:xsd:pain.008.001.02 pain.008.001.02.xsd'>\n";
+    		xsi:schemaLocation='urn:iso:std:iso:20022:tech:xsd:pain.008.001.08 pain.008.001.08.xsd'>\n";
 
     // ########## Customer Direct Debit Initiation ###########
     $xmlfile .= "<CstmrDrctDbtInitn>\n";
@@ -269,7 +274,7 @@ if ($postExportFileMode === 'xml_file') {
         $xmlfile .= "<FinInstnId>\n"; // FinancialInstitutionIdentification
         if (strlen($zempf['bic']) !== 0) // ist ein BIC vorhanden?
         {
-            $xmlfile .= '<BIC>' . $zempf['bic'] . "</BIC>\n";
+            $xmlfile .= '<BICFI>' . $zempf['bic'] . "</BICFI>\n";
         } else {
             $xmlfile .= "<Othr>\n";
             $xmlfile .= "<Id>NOTPROVIDED</Id>\n";
@@ -398,7 +403,7 @@ if ($postExportFileMode === 'xml_file') {
                 $xmlfile .= "<FinInstnId>\n"; // FinancialInstitutionIdentification
                 if (strlen($zpflgtdata['bic']) !== 0) // ist ein BIC vorhanden?
                 {
-                    $xmlfile .= '<BIC>' . $zpflgtdata['bic'] . "</BIC>\n";
+                    $xmlfile .= '<BICFI>' . $zpflgtdata['bic'] . "</BICFI>\n";
                 } else {
                     $xmlfile .= "<Othr>\n";
                     $xmlfile .= "<Id>NOTPROVIDED</Id>\n";
@@ -410,10 +415,12 @@ if ($postExportFileMode === 'xml_file') {
                 $xmlfile .= "<Dbtr>\n"; // Zahlungspflichtiger
                 $xmlfile .= '<Nm>' . $zpflgtdata['name'] . "</Nm>\n"; // Name (70)
                 if (! empty($zpflgtdata['land'])) {
+                    // Zahlungspflichtigen-Adresse ist Pflicht bei Lastschriften ausserhalb EU/EWR
                     $xmlfile .= "<PstlAdr>\n";
-                    $xmlfile .= '<Ctry>' . $zpflgtdata['land'] . "</Ctry>\n"; // Zahlungspflichtigen-Adresse ist Pflicht
-                    $xmlfile .= '<AdrLine>' . $zpflgtdata['street'] . "</AdrLine>\n"; // bei Lastschriften ausserhalb EU/EWR
-                    $xmlfile .= '<AdrLine>' . $zpflgtdata['ort'] . "</AdrLine>\n";
+                    $xmlfile .= '<PstCd>' . $zpflgtdata['postcode'] . "</PstCd>\n";
+                    $xmlfile .= '<TwnNm>' . $zpflgtdata['ort'] . "</TwnNm>\n";
+                    $xmlfile .= '<Ctry>' . $zpflgtdata['land'] . "</Ctry>\n";
+                    $xmlfile .= '<AdrLine>' . $zpflgtdata['street'] . "</AdrLine>\n";
                     $xmlfile .= "</PstlAdr>\n";
                 }
                 $xmlfile .= "</Dbtr>\n";
@@ -455,7 +462,7 @@ if ($postExportFileMode === 'xml_file') {
     header('Cache-Control: private'); // noetig fuer IE, da ansonsten der Download mit SSL nicht funktioniert
     header('Content-Transfer-Encoding: binary'); // Im Grunde ueberfluessig, hat sich anscheinend bewaehrt
     header('Cache-Control: post-check=0, pre-check=0'); // Zwischenspeichern auf Proxies verhindern
-    header('Content-Disposition: attachment; filename="' . $pPreferences->config['SEPA']['dateiname'] . $filename_ext . '-008.xml"');
+    header('Content-Disposition: attachment; filename="' . $pPreferences->config['SEPA']['dateiname'] . $filename_ext . '.xml"');
 
     echo $xmlfile;
 
@@ -585,6 +592,7 @@ if ($postExportFileMode === 'xml_file') {
     $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT');
     $columnValues[] = $gL10n->get('SYS_COUNTRY');
     $columnValues[] = $gL10n->get('SYS_STREET');
+    $columnValues[] = $gL10n->get('SYS_POSTCODE');
     $columnValues[] = $gL10n->get('SYS_CITY');
     $rows[] = $columnValues;
 
@@ -623,6 +631,7 @@ if ($postExportFileMode === 'xml_file') {
         $columnValues[] = $zpflgtdata['orig_dbtr_agent'];
         $columnValues[] = $zpflgtdata['land'];
         $columnValues[] = $zpflgtdata['street'];
+        $columnValues[] = $zpflgtdata['postcode'];
         $columnValues[] = $zpflgtdata['ort'];
 
         if ($exportMode === 'csv') {
