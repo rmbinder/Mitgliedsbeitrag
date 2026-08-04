@@ -103,7 +103,7 @@
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES">Text privind cotizația de membru, inclusiv numele (familiile)</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES_DESC">Caseta de selectare respectivă trebuie bifată dacă se dorește ca numele tuturor membrilor familiei să apară în textul referitor la cotizația de membru.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES">Textul referitor la cotizația de membru, inclusiv numele</string>
-    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Caseta de selectare respectivă trebuie bifată dacă se dorește ca numele utilizatorului să apară în textul referitor la cotizația de membru.</string>
+    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Dacă câmpul 'Titular cont' este completat (de obicei, dacă membrul nu este titularul contului), numele membrului poate fi listat în textul postării bifând căsuța respectivă.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN">Separator</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN_DESC">Separator utilizat pentru a delimita numele de utilizator / numele membrilor familiei în textul referitor la cotizația de membru. Separatorii marcați cu (*) nu sunt permise în cazul transferurilor bancare din UE.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TIMES">Semnul înmulțirii</string>
@@ -185,7 +185,7 @@
     <string name="PLG_MEMBERSHIPFEE_EMAIL">Adresa de e-mail a titularului contului</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_EMPTY">Nu există date selectate pentru trimiterea prin e-mail.</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS">Notificări prin e-mail</string>  
-    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Aici puteți alinia textul fiecărei notificări prin e-mail. Textele sunt împărțite în două părți (subiect și conținut) și sunt identificate prin #subject# și #content#. Conținutul fiecărei secțiuni urmează după acestea.\n\nÎn fiecare e-mail pot fi utilizate următoarele caractere joker. Acestea vor fi înlocuite cu conținutul corespunzător în momentul generării mesajului</string>
+    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Aici puteți alinia textul fiecărei notificări prin e-mail. Textele sunt împărțite în două părți (subiect și conținut) și sunt identificate prin #subject# și #content#. Conținutul fiecărei secțiuni urmează după acestea.\n\nÎn fiecare e-mail pot fi utilizate următoarele caractere joker. Acestea vor fi înlocuite cu conținutul corespunzător în momentul generării mesajului (Substituenții specifici SEPA, cum ar fi data scadenței (#due_day#) sau referința mandatului (#mandate_id#), trebuie utilizați cu precauție în „Textul e-mailului pentru plățile de membru” și „Textul e-mailului pentru factură”. Dacă o taxă de membru nu a fost colectată prin SEPA, data scadenței și referința mandatului nu vor conține valori.)</string>
     <string name="PLG_MEMBERSHIPFEE_ENABLE">activare</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR">Eroare</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED">A fost creat un nou cont bancar, dar codul IBAN este același. - Nu se poate.</string>

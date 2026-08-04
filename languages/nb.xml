@@ -103,7 +103,7 @@
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES">Medlemsavgiftstekst inkludert navn (familier)</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES_DESC">Den respektive avmerkingsboksen må aktiveres hvis navnene på alle familiemedlemmer skal vises i teksten for medlemsavgiften.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES">Medlemsavgiftstekst inkludert navn</string>
-    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Den respektive avmerkingsboksen må aktiveres hvis brukernavnet skal vises i teksten for medlemsavgiften.</string>
+    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Hvis feltet 'Kontoinnehaver' er utfylt (vanligvis hvis medlemmet ikke er kontoinnehaver), kan medlemmets navn oppføres i innleggsteksten ved å krysse av i boksen.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN">Skilletegn</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN_DESC">Skilletegn som brukes til å markere brukernavnet / navnene på familiemedlemmene i teksten for medlemsavgiften. Skilletegn merket med (*) er ikke tillatt i EU-bankoverføringer.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TIMES">Multiplikasjonstegn</string>
@@ -185,7 +185,7 @@
     <string name="PLG_MEMBERSHIPFEE_EMAIL">Kontoeiers e-post</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_EMPTY">Ingen data er valgt for e-postutsendelse.</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS">E-postvarsler</string>  
-    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Her kan du tilpasse teksten i hver e-postvarsling. Tekstene er delt inn i to deler (emne og innhold) og er identifisert med #subject# og #content#. Innholdet for hver seksjon følger etter.\n\nI hver e-post kan følgende jokertegn brukes. De vil bli erstattet med tilsvarende innhold ved kjøretidspunkt</string>
+    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Her kan du tilpasse teksten i hver e-postvarsling. Tekstene er delt inn i to deler (emne og innhold) og er identifisert med #subject# og #content#. Innholdet for hver seksjon følger etter.\n\nI hver e-post kan følgende jokertegn brukes. De vil bli erstattet med tilsvarende innhold ved kjøretidspunkt (SEPA-spesifikke plassholdere, som for eksempel forfallsdato (#due_day#) eller fullmaktsreferanse (#mandate_id#), bør brukes med forsiktighet i «E-posttekst for medlemsbetalinger» og «E-posttekst for fakturaer». Hvis et medlemsgebyr ikke ble innkrevd via SEPA, vil ikke forfallsdatoen og fullmaktsreferansen inneholde verdier.)</string>
     <string name="PLG_MEMBERSHIPFEE_ENABLE">aktiver</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR">Feil</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED">Det ble valgt en ny bankkonto med en annen bank, men IBAN er den samme. - Det kan ikke være.</string>

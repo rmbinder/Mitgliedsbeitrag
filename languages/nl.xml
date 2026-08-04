@@ -103,7 +103,7 @@
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES">contributietekst inclusief namen (families)</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES_DESC">Om de namen van alle gezinsleden in de contributietekst te laten verschijnen, moet het desbetreffende selectievakje zijn ingeschakeld.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES">contributietekst inclusief naam</string>
-    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Om de gebruikersnaam in de contributietekst te laten verschijnen, moet het desbetreffende selectievakje zijn geactiveerd.</string>
+    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Als het veld 'Rekeninghouder' is ingevuld (meestal als het lid niet de rekeninghouder is), kan de naam van het lid in de berichttekst worden vermeld door het vakje aan te vinken.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN">scheidingsteken</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN_DESC">Scheidingsteken wordt gebruikt om de gebruikersnaam/namen van de gezinsleden te markeren in de tekst van de contributie Scheidingstekens gemarkeerd met een (*) zijn niet toegestaan bij bankoverschrijvingen in de EU.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TIMES">Vermenigvuldiging teken</string>
@@ -185,7 +185,7 @@
     <string name="PLG_MEMBERSHIPFEE_EMAIL">Rek.houders e-mail</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_EMPTY">Er zijn geen gegevens geselecteerd voor een e-mailbezorging.</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS">Email notificaties</string>  
-    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Hier kunt u de tekst van elke e-mailmelding aanpassen. De teksten zijn verdeeld in twee delen (onderwerp en inhoud) en worden aangeduid met #onderwerp# en #inhoud#. Dan volgt de inhoud voor elke sectie.\n\nDe volgende tijdelijke aanduidingen kunnen in elke e-mail worden gebruikt, die vervolgens tijdens runtime worden vervangen door de overeenkomstige inhoud</string>
+    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Hier kunt u de tekst van elke e-mailmelding aanpassen. De teksten zijn verdeeld in twee delen (onderwerp en inhoud) en worden aangeduid met #onderwerp# en #inhoud#. Dan volgt de inhoud voor elke sectie.\n\nDe volgende tijdelijke aanduidingen kunnen in elke e-mail worden gebruikt, die vervolgens tijdens runtime worden vervangen door de overeenkomstige inhoud (SEPA-specifieke placeholders, zoals de vervaldatum (#due_day#) of het mandaatreferentienummer (#mandate_id#), moeten met voorzichtigheid worden gebruikt in 'Tekst van e-mailberichten over lidmaatschapsbetalingen' en 'Tekst van e-mailberichten over facturen'. Als een lidmaatschapsbijdrage niet via SEPA is geïncasseerd, bevatten de vervaldatum en het mandaatreferentienummer geen waarden.)</string>
     <string name="PLG_MEMBERSHIPFEE_ENABLE">activeren</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR">Fout</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED">Er is gekozen voor een andere bank nieuwe bankrekening, maar de IBAN is hetzelfde. - Dat kan niet.</string>

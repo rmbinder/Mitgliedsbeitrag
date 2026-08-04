@@ -103,7 +103,7 @@
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES">Membership fee text including names (families)</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES_DESC">The respective checkbox has to be activated if the names of all family members are to appear in the membership fee text.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES">Membership fee text including name</string>
-    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">The respective checkbox has to be activated if the user name is to appear in the membership fee text.</string>
+    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">If the 'Account Holder' field is populated (typically when the member is not the account holder), the member's name can be included in the contribution text by selecting the checkbox.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN">Separator</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN_DESC">Separator used to mark the user name / names of the family members in the membership fee text Separators marked with (*) are not permissible in EU bank transfers.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TIMES">Multiplication sign</string>
@@ -185,7 +185,7 @@
     <string name="PLG_MEMBERSHIPFEE_EMAIL">AccHolder&apos;s e-mail</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_EMPTY">There are no data selected for an e-mail delivery.</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS">Email notifications</string>  
-    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Here you can justify the text of each email notification. The texts are divided into two parts (subject and content) and are identified by #subject# and #content#. The content for each section follows it.\n\nIn each mail the following wildcards can be used. They will be replaced with the corresponding content at runtime</string>
+    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Here you can justify the text of each email notification. The texts are divided into two parts (subject and content) and are identified by #subject# and #content#. The content for each section follows it.\n\nIn each mail the following wildcards can be used. They will be replaced with the corresponding content at runtime (SEPA-specific placeholders, such as the due date (#due_day#) or mandate reference (#mandate_id#), should be used with caution in the 'Contribution payments e-mail message' and 'Invoice Email Text'. If a contribution collection was not processed via SEPA, the due date and mandate reference fields will not be populated with values.)</string>
     <string name="PLG_MEMBERSHIPFEE_ENABLE">activate</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR">Error</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED">It was elected with another bank new bank account, but the IBAN is the same. - That can not be.</string>

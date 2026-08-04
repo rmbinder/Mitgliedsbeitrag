@@ -103,7 +103,7 @@
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES"> Afficher le texte de cotisation avec les noms (familles)</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_FAMNAMES_DESC">Si les noms de tous les membres de la famille doivent figurer dans le texte de cotisation, il faut cocher la case.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES">Afficher le texte de cotisation avec des noms</string>
-    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Si le nom de l\'utilisateur doit figurer dans le texte de cotisation, la case doit être cochée.</string>
+    <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_MEMNAMES_DESC">Si le champ « Titulaire du compte » est rempli (généralement si le membre n'est pas le titulaire du compte), le nom du membre peut être indiqué dans le texte de la publication en cochant la case.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN">Délimiteur</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TEXT_TOKEN_DESC">Délimiteur pour mettre en évidence le nom d\'utilisateur / les noms des membres de la famille dans le texte de cotisation. Les délimiteurs marqués d\'un astérisque (*) ne sont pas autorisés pour les virements de l\'UE.</string>
     <string name="PLG_MEMBERSHIPFEE_CONTRIBUTION_TIMES">Signe de multiplication</string>
@@ -185,7 +185,7 @@
     <string name="PLG_MEMBERSHIPFEE_EMAIL">Couriel titcpte</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_EMPTY">Aucune donnée n\'est sélectionnée pour l\'envoi par courriel.</string>
     <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS">Notifications par email</string>  
-    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Les textes de toutes les notifications par e-mail peuvent être ajustés et complétés ici. Les textes sont divisés en 2 zones (sujet &amp; contenu) et sont identifiés par les chaînes de caractères #subject# et #content#. Puis suit le contenu respectif pour cette zone.\n\nDans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont remplacés au moment de l\'exécution par le contenu correspondant.</string>
+    <string name="PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS_DESC">Les textes de toutes les notifications par e-mail peuvent être ajustés et complétés ici. Les textes sont divisés en 2 zones (sujet &amp; contenu) et sont identifiés par les chaînes de caractères #subject# et #content#. Puis suit le contenu respectif pour cette zone.\n\nDans chaque courriel, les caractères de remplacement suivants peuvent être utilisés, qui sont remplacés au moment de l\'exécution par le contenu correspondant (Les champs spécifiques au SEPA, tels que la date d'échéance (#due_day#) ou la référence du mandat (#mandate_id#), doivent être utilisés avec précaution dans les e-mails de confirmation de paiement des adhésions et de facturation. Si une cotisation n'a pas été perçue par SEPA, la date d'échéance et la référence du mandat seront vides.)</string>
     <string name="PLG_MEMBERSHIPFEE_ENABLE">activer</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR">Erreur</string>
     <string name="PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED">Tu as choisi un nouveau compte bancaire auprès d\'une autre banque, mais l\'IBAN est le même. - C\'est impossible.</string>
