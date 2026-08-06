@@ -794,10 +794,12 @@ try {
             $formContributionSettings->addInput('beitrag_suffix', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_SUFFIX'), $pPreferences->config['Beitrag']['beitrag_suffix'], array(
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_CONTRIBUTION_SUFFIX_DESC'
             ));
+
             $formContributionSettings->addCheckbox('beitrag_anteilig', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PRORATA'), $pPreferences->config['Beitrag']['beitrag_anteilig'], array(
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_CONTRIBUTION_PRORATA_DESC',
                 'helpTextIdLabel' => 'PLG_MEMBERSHIPFEE_CONTRIBUTION_PRORATA_DESC2'
             ));
+
             $formContributionSettings->addCheckbox('beitrag_abrunden', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ROUNDDOWN'), $pPreferences->config['Beitrag']['beitrag_abrunden'], array(
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_CONTRIBUTION_ROUNDDOWN_DESC'
             ));
@@ -832,6 +834,7 @@ try {
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC',
                 'helpTextIdLabel' => 'PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC2'
             ));
+            $formContributionSettings->addCustomContent('', '<small>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC2') . '</small>');
             $formContributionSettings->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array(
                 'icon' => 'bi-check-lg',
                 'class' => ' offset-sm-3'
@@ -854,6 +857,7 @@ try {
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_OFFSET_DESC',
                 'helpTextIdLabel' => 'PLG_MEMBERSHIPFEE_OFFSET_INFO'
             ));
+            $formAgeStaggeredRoles->addCustomContent('', '<small>' . $gL10n->get('PLG_MEMBERSHIPFEE_OFFSET_INFO') . '</small>');
             $formAgeStaggeredRoles->addLine();
             $formAgeStaggeredRoles->addStaticControl('descd', $gL10n->get('PLG_MEMBERSHIPFEE_DELIMITER'), '', array(
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_DELIMITER_DESC'
@@ -1054,6 +1058,7 @@ try {
                 'EVENTS'
             );
 
+            $formEvents->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_EVENTS_SELECTION_INFO'));
             $formEvents->addSelectBoxFromSql('eventsselection', $gL10n->get('PLG_MEMBERSHIPFEE_EVENTS_SELECTION'), $gDb, $sqlData, array(
                 'multiselect' => true,
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_EVENTS_SELECTION_DESC',
