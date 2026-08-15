@@ -171,6 +171,8 @@
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_DESC">La date d\'échéance sélectionnée ici est entrée pour un utilisateur lorsque la case est cochée.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT">Modifier la date d\'échéance</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC">Ceci te permet de définir ou de supprimer une date d\'échéance.</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL">Date limite pour tous</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC">Permet de définir une date d'échéance même si aucun IBAN ni aucune information de mandat n'est disponible.</string> 
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY">Date d\'échéance seulement</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC">\'Date d\'échéance seulement\' supprime uniquement la date d\'échéance</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ROLLQUERY">Requête des rôles de cotisation</string>

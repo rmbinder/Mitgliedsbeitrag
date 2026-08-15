@@ -171,6 +171,8 @@
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_DESC">Das hier gewählte Fälligkeitsdatum wird bei einem Benutzer beim Setzen eines Hakens eingetragen.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT">Fälligkeitsdatum bearbeiten</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC">Hiermit kann ein Fälligkeitsdatum gesetzt oder gelöscht werden.</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL">Fälligkeitsdatum für alle</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC">Ermöglicht das Setzen eines Fälligkeitsdatums auch wenn keine IBAN und keine Mandatsdaten vorliegen.</string> 
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY">Nur Fälligkeitsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC">'Nur Fälligkeitsdatum' löscht nur das Fälligkeitsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ROLLQUERY">Abfrage der Beitragsrollen</string>

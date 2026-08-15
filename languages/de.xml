@@ -171,6 +171,8 @@
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_DESC">Das hier gewählte Fälligkeitsdatum wird bei einem Benutzer beim Setzen eines Hakens eingetragen.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT">Fälligkeitsdatum bearbeiten</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC">Hiermit kann ein Fälligkeitsdatum gesetzt oder gelöscht werden.</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL">Fälligkeitsdatum für alle</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC">Ermöglicht das Setzen eines Fälligkeitsdatums auch wenn keine IBAN und keine Mandatsdaten vorliegen.</string> 
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY">Nur Fälligkeitsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC">'Nur Fälligkeitsdatum' löscht nur das Fälligkeitsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ROLLQUERY">Abfrage der Beitragsrollen</string>
@@ -522,7 +524,7 @@
     <string name="PLG_MEMBERSHIPFEE_XML_FILE">XML-Datei</string>
     <string name="PLG_MEMBERSHIPFEE_XML_FILE_NAME">XML-Dateiname</string>
     <string name="PLG_MEMBERSHIPFEE_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
-    <string name="PLG_MEMBERSHIPFEE_YEARS">Jahre</string>
+    <string name="PLG_MEMBERSHIPFEE_YEARS">Jahre</string>   
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Beitritt</string>
     <string name="PMB_ACCOUNT_DATA">Kontodaten</string>

@@ -138,6 +138,7 @@ try {
             $pPreferences->config['SEPA']['kontroll_dateityp'] = $_POST['kontroll_dateityp'];
             $pPreferences->config['SEPA']['vorabinformation_dateiname'] = $_POST['vorabinformation_dateiname'];
             $pPreferences->config['SEPA']['vorabinformation_dateityp'] = $_POST['vorabinformation_dateityp'];
+            $pPreferences->config['SEPA']['duedate_for_all'] = isset($_POST['duedate_for_all']) ? 1 : 0;
             $pPreferences->config['Rechnungs-Export']['rechnung_dateiname'] = $_POST['rechnung_dateiname'];
             $pPreferences->config['Rechnungs-Export']['rechnung_dateityp'] = $_POST['rechnung_dateityp'];
             $ret = 'success_export';

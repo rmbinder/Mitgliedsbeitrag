@@ -171,6 +171,8 @@
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_DESC">Data de scadență selectată aici este introdusă atunci când un utilizator configurează o ancoră.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT">Modifică data scadentă</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC">Prin această opțiune, se poate seta sau șterge o dată de scadență.</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL">Data scadentă pentru toți</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC">Permite stabilirea unei date scadente chiar dacă nu sunt disponibile IBAN-ul și detaliile mandatului.</string> 
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY">Doar data scadentă</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC">Opțiunea 'Doar data scadentă' șterge doar data scadentă.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ROLLQUERY">Interogare roluri de contribuție</string>

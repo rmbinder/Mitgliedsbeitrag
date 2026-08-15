@@ -171,6 +171,8 @@
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_DESC">Den valgte forfallsdatoen legges inn når en bruker setter en hake.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT">Rediger forfallsdato</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC">Via dette alternativet kan en forfallsdato defineres eller slettes.</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL">Forfallsdato for alle</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC">Tillater angivelse av forfallsdato selv om ingen IBAN- eller fullmaktsdetaljer er tilgjengelige.</string> 
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY">Kun forfallsdato</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC">'Kun forfallsdato' sletter kun forfallsdatoen.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ROLLQUERY">Spørring av bidragsrollene</string>

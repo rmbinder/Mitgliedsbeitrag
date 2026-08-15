@@ -1385,6 +1385,9 @@ try {
                 'defaultValue' => $pPreferences->config['SEPA']['vorabinformation_dateityp'],
                 'showContextDependentFirstEntry' => false
             ));
+            $formExport->addCheckbox('duedate_for_all', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL'), $pPreferences->config['SEPA']['duedate_for_all'], array(
+                'helpTextId' => 'PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC'
+            ));
             $formExport->closeGroupBox();
 
             $formExport->openGroupBox('bill', $headline = $gL10n->get('PLG_MEMBERSHIPFEE_BILL'));

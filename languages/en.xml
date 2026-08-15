@@ -171,6 +171,8 @@
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_DESC">The chosen here due date is entered when a user is setting a hook.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT">Edit due date</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC">Via this option, a due date can be defined or deleted.</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL">Due date for all</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC">Allows a due date to be set even when no IBAN or mandate details are available.</string> 
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY">Duedate only</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC">'Duedate only' deletes only the duedate.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ROLLQUERY">Query the contribution roles</string>

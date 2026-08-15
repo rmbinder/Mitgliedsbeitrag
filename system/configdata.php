@@ -131,7 +131,8 @@ $config_default['SEPA'] = array(
     'kontroll_dateiname' => 'sepa',
     'kontroll_dateityp' => 'xlsx',
     'vorabinformation_dateiname' => 'export',
-    'vorabinformation_dateityp' => 'xlsx'
+    'vorabinformation_dateityp' => 'xlsx',
+    'duedate_for_all' => 0
 );
 
 // Plugininformationen

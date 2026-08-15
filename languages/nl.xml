@@ -171,6 +171,8 @@
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_DESC">De hier gekozen vervaldatum wordt ingevoerd wanneer een gebruiker een hook plaatst.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT">Vervaldatum bewerken</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC">Via deze optie kan een vervaldatum worden gedefinieerd of verwijderd.</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL">Uiterste betaaldatum voor alles</string>
+    <string name="PLG_MEMBERSHIPFEE_DUEDATE_FOR_ALL_DESC">Hiermee kunt u een vervaldatum instellen, zelfs als er geen IBAN-nummer en geen machtigingsgegevens beschikbaar zijn.</string> 
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY">Alleen vervaldatum</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ONLY_DESC">'Alleen vervaldatum' verwijdert alleen de vervaldatum.</string>
     <string name="PLG_MEMBERSHIPFEE_DUEDATE_ROLLQUERY">Vraag de contributierollen op</string>
