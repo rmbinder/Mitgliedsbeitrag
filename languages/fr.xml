@@ -49,7 +49,7 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Tous les BIC vorhandenen entsprechen dem gültigen Format.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Facture</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Modifier les informations de facturation</string>    
-    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Crée un fichier (.XLSX ou .CSV) avec des données pour générer des factures et offre la possibilité d'envoyer des demandes de virement par e-mail.</string>
+    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Offre la possibilité d'envoyer des demandes de paiement par courriel ou crée un fichier contenant les données nécessaires à la génération des factures.</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_NAME">Nom du fichier de facture</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_TYPE">Type de fichier de facture</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_MAIL_TEXT">Texte de l'e-mail de facturation</string>
@@ -512,11 +512,13 @@
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Ici, vous pouvez définir les colonnes pour les vues Paiements de la prime, Gestion des mandats, Date d'échéance et Factures.\n\n Notics : Une ou plusieurs colonnes sont déjà prédéfinies dans les affichages respectives. Ils ne peuvent pas être déplacés ou supprimés.</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">avec les données du compte</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Avec date d\'échéance</string>
+    <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Par courriel</string>    
     <string name="PLG_MEMBERSHIPFEE_WITH_MANDATEDATE">Avec date de mandat</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID">Avec date payée</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID_DESC">\'Avec date payée\' supprime uniquement les cotisations (y compris le texte de cotisation et la date payée) pour lesquelles il existe une date payée.</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_ACCOUNT_DATA">sans données de compte</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_DUEDATE">Sans date d\'échéance</string>
+    <string name="PLG_MEMBERSHIPFEE_WITHOUT_EMAIL">Sans courriel</string> 
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE">Sans date de mandat</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID">Sans date payée</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID_DESC">\'Sans date payée\' supprime uniquement les cotisations (y compris le texte de la cotisation et la date payée) pour lesquelles il n\'existe aucune date payée.</string>

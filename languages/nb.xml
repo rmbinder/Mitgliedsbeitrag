@@ -49,7 +49,7 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Alle forhandlere BIC entsprechen dem gültigen Format.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Faktura</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Rediger fakturadata</string>    
-    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Oppretter en fil (.XLSX eller .CSV) med data for å generere fakturaer og tilbyr muligheten til å sende betalingsforespørsler via e-post.</string>
+    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Tilbyr muligheten til å sende betalingsforespørsler via e-post eller oppretter en fil med data for å generere fakturaer.</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_NAME">Faktura filnavn</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_TYPE">Faktura filtype</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_MAIL_TEXT">Faktura e-posttekst</string>
@@ -510,13 +510,15 @@
     <string name="PLG_MEMBERSHIPFEE_VARIABLE_MEMBERSHIP_FEE_TEXT">Formål</string>
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS">Vis definisjoner</string>
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Her kan du definere kolonnene for visningene bidragsbetalinger, mandatstyring, forfallsdatoer og fakturaer.\n\n Merk: En eller flere kolonner er allerede forhåndsdefinert i de respektive visningene. Disse kan ikke flyttes i sin posisjon og kan ikke slettes.</string>
-    <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">med kontodata</string>
+    <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">Med kontodata</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Med forfallsdato</string>
+    <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Med e-post</string>    
     <string name="PLG_MEMBERSHIPFEE_WITH_MANDATEDATE">Med mandattdato</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID">Med betalt-dato</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID_DESC">\'Med betalt-dato\' sletter bare bidragene (inkludert bidragstekst og betalt-dato) der en betalt-dato er tilgjengelig.</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_ACCOUNT_DATA">uten kontodata</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_DUEDATE">Uten forfallsdato</string>
+    <string name="PLG_MEMBERSHIPFEE_WITHOUT_EMAIL">Uten e-post</string> 
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE">Uten mandattdato</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID">Uten betalt-dato</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID_DESC">\'Uten betalt-dato\' sletter bare bidragene (inkludert bidragstekst og betalt-dato) for hvilke ingen betalt-dato er tilgjengelig.</string>

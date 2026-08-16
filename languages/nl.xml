@@ -49,7 +49,7 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Alle aangeboden BIC's worden in het gültigen formaat weergegeven.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Factuur</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Factuurgegevens bewerken</string>    
-    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Creëert een bestand (.XLSX of .CSV) met gegevens om facturen te genereren en biedt de mogelijkheid om bankoverschrijvingsverzoeken via e-mail te verzenden.</string>
+    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Biedt de mogelijkheid om betalingsverzoeken per e-mail te versturen of een bestand met gegevens aan te maken voor het genereren van facturen.</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_NAME">Factuur bestandsnaam</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_TYPE">Factuur bestandstype</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_MAIL_TEXT">Factuur e-mail tekst</string>
@@ -512,11 +512,13 @@
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Hier kunt u de kolommen definiëren voor de weergaven contributiebetalingen, machtigingen beheer, vervaldata en facturen.\n\n Let op: Een of meer kolommen zijn al voorgedefinieerd in de respectievelijke weergaven. Deze kunnen niet in hun positie worden verplaatst en kunnen niet worden verwijderd.</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">met rekeninggegevens</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Met vervaldag</string>
+    <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Met e-mail</string>    
     <string name="PLG_MEMBERSHIPFEE_WITH_MANDATEDATE">Met machtigingsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID">Met betaalde datum</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID_DESC">'Met betaald-datum' verwijdert alleen de contrbutie (inclusief contrubutietekst en betaald-datum) waar een betaald-datum beschikbaar is.</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_ACCOUNT_DATA">zonder rekeninggegevens</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_DUEDATE">Zonder vervaldag</string>
+    <string name="PLG_MEMBERSHIPFEE_WITHOUT_EMAIL">Zonder e-mail</string> 
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE">Zonder machtigingsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID">Zonder betaaldag</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID_DESC">'Zonder betaald-datum' verwijdert alleen de contrbutie (inclusief contrubutietekst en betaald-datum) waar geen betaald-datum beschikbaar is..</string>

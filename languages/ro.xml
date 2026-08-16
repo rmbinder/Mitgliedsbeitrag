@@ -49,7 +49,7 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Toate codurile BIC existente respectă formatul valabil.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Factură</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Modifică datele facturii</string>    
-    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Creează un fișier (.XLSX sau .CSV) cu date pentru generarea facturilor și oferă posibilitatea de a trimite cereri de transfer bancar prin e-mail.</string>
+    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Oferă opțiunea de a trimite cereri de plată prin e-mail sau creează un fișier cu date pentru generarea facturilor.</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_NAME">Numele fișierului facturii</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_TYPE">Tipul fișierului facturii</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_MAIL_TEXT">Textul e-mailului cu factura</string>
@@ -512,11 +512,13 @@
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Aici puteți defini coloanele pentru vizualizările "Plăți contribuții", "Gestionarea mandatelor", "Termene de scadență" și "Facturi"".\n\n Notă: Una sau mai multe coloane sunt deja predefinite în vizualizările respective. Acestea nu pot fi mutate și nu pot fi șterse.</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">cu datele contului</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Cu data de scadență</string>
+    <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Prin e-mail</string>     
     <string name="PLG_MEMBERSHIPFEE_WITH_MANDATEDATE">Cu data de intrare în vigoare</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID">Cu data plății</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID_DESC">"Cu dată plății" șterge numai contribuțiile (inclusiv textul contribuțiilor și data de plată) pentru care este disponibilă o dată de plată.</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_ACCOUNT_DATA">fără datele contului</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_DUEDATE">Fără scadență</string>
+    <string name="PLG_MEMBERSHIPFEE_WITHOUT_EMAIL">Fără e-mail</string> 
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE">Fără data de intrare în vigoare</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID">Fără data plății</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID_DESC">'Fără data plății' șterge numai contribuțiile (inclusiv textul contribuțiilor și data plății) pentru care nu este disponibilă nicio dată a plății.</string>

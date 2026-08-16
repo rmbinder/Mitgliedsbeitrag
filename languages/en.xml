@@ -49,7 +49,7 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">All existing BIC codes conform to the valid format.</string>     
     <string name="PLG_MEMBERSHIPFEE_BILL">Invoice</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Edit invoice data</string>    
-    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Creates a file (.XLSX or .CSV) with data to generate invoices and offers the possibility to send bank transfer requests via email.</string>
+    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Offers the option to send payment requests via email or generates a file containing data for creating invoices.</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_NAME">Invoice file name</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_TYPE">Invoice file type</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_MAIL_TEXT">Invoice e-mail text</string>
@@ -512,11 +512,13 @@
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Here you can define the columns for the views contribution payments, mandate management, due dates and invoices.\n\n Note: One or more columns are already predefined in the respective views. These can not be moved in their position and can not be deleted.</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">with account data</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">With due date</string>
+    <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">With email</string>    
     <string name="PLG_MEMBERSHIPFEE_WITH_MANDATEDATE">With mandate date</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID">With paid-date</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID_DESC">'With paid-date' deletes only the contributions (including contributions text and paid-date) where a paid-date is available.</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_ACCOUNT_DATA">without account data</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_DUEDATE">Without due date</string>
+    <string name="PLG_MEMBERSHIPFEE_WITHOUT_EMAIL">Without email</string> 
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE">Without mandate date</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID">Without paid-date</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID_DESC">'Without paid-date' deletes only the contributions (including contributions text and paid-date) for which no paid-date is available.</string>

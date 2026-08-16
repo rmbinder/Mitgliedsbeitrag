@@ -49,7 +49,7 @@
     <string name="PLG_MEMBERSHIPFEE_BICCHECK2_RESULT_OK">Alle vorhandenen BIC entsprechen dem gültigen Format.</string>  
     <string name="PLG_MEMBERSHIPFEE_BILL">Rechnung</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_EDIT">Rechnungsdaten bearbeiten</string>
-    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Erstellt eine Datei (.XLSX oder .CSV) mit Daten zum Erzeugen von Rechnungen und bietet die Möglichkeit Überweisungsaufforderungen per E-Mail zu versenden.</string>
+    <string name="PLG_MEMBERSHIPFEE_BILL_EDIT_DESC">Bietet die Möglichkeit, Überweisungsaufforderungen per E-Mail zu versenden bzw. erstellt eine Datei mit Daten zum Erzeugen von Rechnungen.</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_NAME">Rechnungsdateiname</string>
     <string name="PLG_MEMBERSHIPFEE_BILL_FILE_TYPE">Rechnungsdateityp</string>    
     <string name="PLG_MEMBERSHIPFEE_BILL_MAIL_TEXT">Rechnung E-Mail-Text</string>
@@ -512,11 +512,13 @@
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Hier können die Spalten für die Ansichten Beitragszahlungen, Mandatsverwaltung, Fälligkeitsdatum und Rechnung definiert werden.\n\n Hinweis: In den jeweiligen Ansichten sind bereits eine oder mehrere Spalten vordefiniert. Diese können in ihrer Position nicht verschoben und auch nicht gelöscht werden.</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">mit Kontodaten</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Mit Fälligkeitsdatum</string>
+    <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Mit E-Mail</string>    
     <string name="PLG_MEMBERSHIPFEE_WITH_MANDATEDATE">Mit Mandatsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID">Mit Bezahlt-Datum</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_PAID_DESC">'Mit Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen ein Bezahlt-Datum vorhanden ist.</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_ACCOUNT_DATA">ohne Kontodaten</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_DUEDATE">Ohne Fälligkeitsdatum</string>
+    <string name="PLG_MEMBERSHIPFEE_WITHOUT_EMAIL">Ohne E-Mail</string>    
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE">Ohne Mandatsdatum</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID">Ohne Bezahlt-Datum</string>
     <string name="PLG_MEMBERSHIPFEE_WITHOUT_PAID_DESC">'Ohne Bezahlt-Datum' löscht nur die Beiträge (einschließlich Beitragstext und Bezahlt-Datum), bei denen kein Bezahlt-Datum vorhanden ist.</string>
