@@ -91,6 +91,9 @@ if ($getMode == 'mail' || $getMode == 'export') {
         LEFT JOIN ' . TBL_USER_DATA . ' AS iban
           ON iban.usd_usr_id = usr_id
          AND iban.usd_usf_id = ' . $gProfileFields->getProperty('IBAN', 'usf_id') . '
+        LEFT JOIN ' . TBL_USER_DATA . ' AS debtoremail
+          ON debtoremail.usd_usr_id = usr_id
+         AND debtoremail.usd_usf_id =  ' . $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id') . '
         LEFT JOIN ' . TBL_USER_DATA . ' AS email
           ON email.usd_usr_id = usr_id
          AND email.usd_usf_id = ' . $gProfileFields->getProperty('EMAIL', 'usf_id') . '
@@ -106,10 +109,12 @@ if ($getMode == 'mail' || $getMode == 'export') {
                     ';
     if ($getMembersShow == 1) // Nur Benutzer anzeigen, bei denen eine E-Mail vorhanden ist
     {
-        $membersListSqlCondition .= ' AND email.usd_value IS NOT NULL ) ';
+        $membersListSqlCondition .= 'AND (email.usd_value IS NOT NULL 
+                                      OR debtoremail.usd_value IS NOT NULL )) ';
     } elseif ($getMembersShow == 2) // Nur Benutzer anzeigen, bei denen keine E-Mail vorhanden ist
     {
-        $membersListSqlCondition .= ' AND email.usd_value IS NULL ) ';
+        $membersListSqlCondition .= ' AND email.usd_value IS NULL 
+                                      AND debtoremail.usd_value IS NULL) ';
     } else // Alle Benutzer anzeigen
     {
         $membersListSqlCondition .= ' ) ';
