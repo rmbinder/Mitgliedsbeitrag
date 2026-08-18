@@ -3,7 +3,7 @@
  ***********************************************************************************************
  * Mitgliedsbeitrag / Membership fee
  *
- * Version 6.0.2
+ * Version 6.0.3
  *
  * This plugin calculates membership fees based on role assignments.
  *
@@ -16,7 +16,6 @@
  * @license https://www.gnu.org/licenses/gpl-2.0.html GNU General Public License v2.0 only
  ***********************************************************************************************
  */
-use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Exception;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
@@ -26,9 +25,8 @@ try {
     require_once (__DIR__ . '/system/common_function.php');
 
     // only authorized user are allowed to start this module
-    if (!isUserAuthorized())
-    {
-        throw new Exception('SYS_NO_RIGHTS');   
+    if (! isUserAuthorized()) {
+        throw new Exception('SYS_NO_RIGHTS');
     }
 
     $gNavigation->addStartUrl(CURRENT_URL);
