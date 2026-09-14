@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="PLG_MEMBERSHIPFEE_ABORT">Abbrechen</string>
+    <string name="PLG_MEMBERSHIPFEE_ABOUT">Über</string>   
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES">Zugriffsberechtigung für Einstellungen</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES_DESC">Hier können, zusätzlich zur Rolle "Administrator", weitere Rollen für den Zugriff auf das Modul "Einstellungen" berechtigt werden.</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Zugriff auf das Modul "Individualbeiträge"</string>
@@ -201,6 +202,7 @@
     <string name="PLG_MEMBERSHIPFEE_EXPORT">Export</string>
     <string name="PLG_MEMBERSHIPFEE_EXPORT_AND_FILTER">Export und Filter</string>
     <string name="PLG_MEMBERSHIPFEE_EXPORT_EMPTY">Es sind keine Daten zum Exportieren ausgewählt.</string>
+    <string name="PLG_MEMBERSHIPFEE_EXTRAS">Extras</string>
     <string name="PLG_MEMBERSHIPFEE_FAMILY_ROLE">Familienrolle</string>
     <string name="PLG_MEMBERSHIPFEE_FAMILY_ROLES">Familienrollen</string>
     <string name="PLG_MEMBERSHIPFEE_FAMILY_ROLES_CONTRIBUTION_DESC">Der Beitrag für Familienrollen mit diesem Präfix.</string>
@@ -230,6 +232,7 @@
     <string name="PLG_MEMBERSHIPFEE_FOLLOW_DIRECT_DEBIT">Folgelastschrift (RCUR)</string>
     <string name="PLG_MEMBERSHIPFEE_FORMAT">Formatierung</string>
     <string name="PLG_MEMBERSHIPFEE_FORMAT_DESC">Hier kann eine Formatierung angegeben werden, anhand derer eine Mitgliedsnummer erstellt wird.\n\nEine Formatierung kann bis zu drei Segmente enthalten: Vorsegment, laufende Nummer, Nachsegment, Beispiel: DEU####GYMN. Jede Änderung im Vorsegment bewirkt einen Neubeginn der laufenden Nummer. Die laufende Nummer wird mit dem Zeichen # markiert. Das Nachsegment wird nur an die durch Vorsegment und laufende Nummer erzeugte Mitgliedsnummer angehängt.\n\nDEU###GYMN erzeugt z. B. folgende Mitgliedsnummern: DEU001GYMN, DEU002GYMN, DEU999GYMN, DEU1023GYMN. AUT###GYMN erzeugt z. B. folgende Mitgliedsnummern: AUT001GYMN, AUT002GYMN, AUT999GYMN, AUT1023GYMN.</string>
+    <string name="PLG_MEMBERSHIPFEE_HELP">Hilfe</string>
     <string name="PLG_MEMBERSHIPFEE_IBAN">IBAN</string>
     <string name="PLG_MEMBERSHIPFEE_IBAN_OBFUSCATED">Verschleierte IBAN des Zahlungspflichtigen</string>
     <string name="PLG_MEMBERSHIPFEE_IBANCHECK">IBAN-Test</string>

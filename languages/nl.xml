@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="PLG_MEMBERSHIPFEE_ABORT">Annuleer</string>
+    <string name="PLG_MEMBERSHIPFEE_ABOUT">Over</string>     
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES">Toegangsrechten voor voorkeuren</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_PREFERENCES_DESC">Hier kunt u naast de rol "Beheerder" extra rollen autoriseren voor toegang tot de module "Voorkeuren".</string>
     <string name="PLG_MEMBERSHIPFEE_ACCESS_TO_MODULE_INDIVIDUAL_CONTRIBUTIONS">Toegang tot de module "Individuele bijdragen".</string>
@@ -201,6 +202,7 @@
     <string name="PLG_MEMBERSHIPFEE_EXPORT">Export</string>
     <string name="PLG_MEMBERSHIPFEE_EXPORT_AND_FILTER">Export en filter</string>    
     <string name="PLG_MEMBERSHIPFEE_EXPORT_EMPTY">Er zijn geen gegevens om te exporteren.</string>
+    <string name="PLG_MEMBERSHIPFEE_EXTRAS">Extra's</string>
     <string name="PLG_MEMBERSHIPFEE_FAMILY_ROLE">Familie rol</string>
     <string name="PLG_MEMBERSHIPFEE_FAMILY_ROLES">Familie rollen</string>
     <string name="PLG_MEMBERSHIPFEE_FAMILY_ROLES_CONTRIBUTION_DESC">De contributie voor gezinsrollen met dit voorvoegsel.</string>
@@ -230,6 +232,7 @@
     <string name="PLG_MEMBERSHIPFEE_FOLLOW_DIRECT_DEBIT">Terugkerende incasso (RCUR)</string>
     <string name="PLG_MEMBERSHIPFEE_FORMAT">Formatteren</string>
     <string name="PLG_MEMBERSHIPFEE_FORMAT_DESC">U kunt hier een opmaak specificeren die wordt gebruikt om een lidnummer te maken.\n\nEen opmaak kan maximaal drie segmenten bevatten: het voorsegment, het volgnummer, het secundaire segment, het voorbeeld: ENG####GYMN. Elke verandering in het pre-segment veroorzaakt een nieuwe start van het volgnummer. Het volgnummer is gemarkeerd met het teken #. Het volgende segment wordt alleen gekoppeld aan het lidnummer dat wordt gegenereerd door het pre-segment- en serienummer.\n\nDEU###GYMN genereert bijvoorbeeld de volgende lidnummers: DEU001GYMN, DEU002GYMN, DEU999GYMN, DEU1023GYMN. AUT###GYMN genereert bijvoorbeeld de volgende lidnummers: AUT001GYMN, AUT002GYMN, AUT999GYMN, AUT1023GYMN.</string>    
+    <string name="PLG_MEMBERSHIPFEE_HELP">Hulp</string>
     <string name="PLG_MEMBERSHIPFEE_IBAN">IBAN</string>
     <string name="PLG_MEMBERSHIPFEE_IBAN_OBFUSCATED">Rekeninghouder's verborgen IBAN</string>
     <string name="PLG_MEMBERSHIPFEE_IBANCHECK">IBAN test</string>
