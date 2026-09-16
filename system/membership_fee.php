@@ -49,7 +49,7 @@ try {
     </table>');
 
     $page->addPageFunctionsMenuItem('menu_fees', $gL10n->get('PLG_MEMBERSHIPFEE_FEES'), '#', 'bi-wallet');
-    $page->addPageFunctionsMenuItem('menu_item_remapping', $gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING'), '', 'bi-shuffle', 'menu_fees');
+    $page->addPageFunctionsMenuItem('menu_item_remapping', $gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/remapping.php'), 'bi-shuffle', 'menu_fees');
     $page->addPageFunctionsMenuItem('menu_item_recalculation', $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php'), 'bi-calculator', 'menu_fees');
     $page->addPageFunctionsMenuItem('menu_item_individualcontributions', $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS'), '', 'bi-house-gear', 'menu_fees');
     $page->addPageFunctionsMenuItem('menu_item_payments', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS'), '', 'bi-cash-coin', 'menu_fees');
