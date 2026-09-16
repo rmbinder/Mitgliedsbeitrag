@@ -308,6 +308,7 @@
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER">Minimum aantal</string>
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER_DESC">Hier moet het minimum aantal gezinsleden worden ingevoerd. Een gezin moet minstens uit twee leden bestaan, aangezien de enkele bijdrage voor een lid zeker lager is dan een gezinsbijdrage.</string>
     <string name="PLG_MEMBERSHIPFEE_MISSING">Missend</string>
+    <string name="PLG_MEMBERSHIPFEE_MODE">Modus</string>    
     <string name="PLG_MEMBERSHIPFEE_MOVE_CI">"Creditor Identifier" verplaatsen naar "Oorspronkelijke Creditor Identifier"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_CREDITOR">"Begunstigde" verplaatst naar "Oorspronkelijke begunstigde"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_IBAN">IBAN verplaatsen naar oorspronkelijke IBAN</string>

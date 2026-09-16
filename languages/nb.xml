@@ -308,6 +308,7 @@
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER">Minimum antall</string>
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER_DESC">Her skal minimum antall fami/opt/Windsurf/bin/windsurfliemedlemmer legges inn. En familie bør ha minst to medlemmer da enkeltbidraget for et medlem sikkert er mindre enn et familiebidrag.</string>
     <string name="PLG_MEMBERSHIPFEE_MISSING">Mangler</string>
+    <string name="PLG_MEMBERSHIPFEE_MODE">Modus</string>    
     <string name="PLG_MEMBERSHIPFEE_MOVE_CI">Flytt "Kreditoridentifikator" til "Opprinnelig kreditoridentifikator"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_CREDITOR">Flytt "Betalingsmottaker" til "Opprinnelig betalingsmottaker"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_IBAN">Flytt IBAN til opprinnelig IBAN</string>

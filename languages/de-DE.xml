@@ -308,6 +308,7 @@
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER">Mindestanzahl</string>
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER_DESC">Hier ist die Mindestanzahl von Familienmitgliedern einzugeben. Eine Familie sollte mindestens zwei Mitglieder aufweisen, da der Einzelbeitrag für ein Mitglied sicher günstiger als ein Familienbeitrag ist.</string>
     <string name="PLG_MEMBERSHIPFEE_MISSING">fehlt</string>
+    <string name="PLG_MEMBERSHIPFEE_MODE">Modus</string>    
     <string name="PLG_MEMBERSHIPFEE_MOVE_CI">Gläubiger-Identifikationsnummer verschieben nach Ursprüngliche Gläubiger-Identifikationsnummer</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_CREDITOR">Zahlungsempfänger verschieben nach Ursprünglicher Zahlungsempfänger</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_IBAN">IBAN verschieben nach Ursprüngliche IBAN</string>

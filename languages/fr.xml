@@ -308,6 +308,7 @@
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER">Nombre minimal</string>
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER_DESC">Entrez le nombre minimum de membres de la famille. Une famille devrait avoir au moins deux membres, car la cotisation individuelle pour un membre est certainement moins chère qu\'une cotisation familiale.</string>
     <string name="PLG_MEMBERSHIPFEE_MISSING">manque</string>
+    <string name="PLG_MEMBERSHIPFEE_MODE">Mode</string>    
     <string name="PLG_MEMBERSHIPFEE_MOVE_CI">Déplacer le numéro d\'identification de créancier vers le numéro d\'identification de créancier original.</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_CREDITOR">Déplacer le destinataire du paiement vers le destinataire du paiement original</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_IBAN">Déplacer l\'IBAN vers l\'IBAN original</string>

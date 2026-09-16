@@ -308,6 +308,7 @@
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER">Număr minim</string>
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER_DESC">Aici trebuie introdus numărul minim de membri ai familiei. O familie trebuie să aibă cel puțin doi membri, întrucât contribuția individuală pentru un membru este cu siguranță mai mică decât contribuția familială.</string>
     <string name="PLG_MEMBERSHIPFEE_MISSING">Lipsește</string>
+    <string name="PLG_MEMBERSHIPFEE_MODE">Mod</string>    
     <string name="PLG_MEMBERSHIPFEE_MOVE_CI">"Identificator creditor" se schimbă în "Identificator creditor inițial"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_CREDITOR">"Beneficiar" se mută la "Beneficiar inițial"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_IBAN">Transfer IBAN către codul IBAN inițial</string>

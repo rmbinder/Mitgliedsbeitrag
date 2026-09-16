@@ -308,6 +308,7 @@
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER">Minimum number</string>
     <string name="PLG_MEMBERSHIPFEE_MINIMUM_NUMBER_DESC">Here, the minimum number of family members is to be entered. A family should have at least two members as the single contribution for a member is certainly less than a family contribution.</string>
     <string name="PLG_MEMBERSHIPFEE_MISSING">Missing</string>
+    <string name="PLG_MEMBERSHIPFEE_MODE">Mode</string>    
     <string name="PLG_MEMBERSHIPFEE_MOVE_CI">"Creditor Identifier" move to "Original Creditor Identifier"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_CREDITOR">"Payee" move to "Original payee"</string>
     <string name="PLG_MEMBERSHIPFEE_MOVE_IBAN">IBAN move to original IBAN</string>
