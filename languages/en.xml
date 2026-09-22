@@ -361,7 +361,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">'Paid-date only' deletes only the paid-date.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">Reference ID</string> 
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Contribution payments</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">By default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Role selection\n\nBy default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">Not yet received</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">Status</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Plugin information</string>

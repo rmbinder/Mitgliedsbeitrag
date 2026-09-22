@@ -54,7 +54,7 @@ try {
     if ($pPreferences->config['individual_contributions']['access_to_module']) {
         $page->addPageFunctionsMenuItem('menu_item_individualcontributions', $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/individualcontributions.php'), 'bi-house-gear', 'menu_fees');
     }
-    $page->addPageFunctionsMenuItem('menu_item_payments', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS'), '', 'bi-cash-coin', 'menu_fees');
+    $page->addPageFunctionsMenuItem('menu_item_payments', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS_EDIT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php'), 'bi-cash-coin', 'menu_fees');
     $page->addPageFunctionsMenuItem('menu_item_analysis', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS'), '', 'bi-bar-chart', 'menu_fees');
 
     $page->addPageFunctionsMenuItem('menu_mandatemanagement', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT'), '#', 'bi-basket');

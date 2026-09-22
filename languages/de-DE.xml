@@ -361,7 +361,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">'Nur Bezahlt-Datum' löscht nur das Bezahlt-Datum.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">Referenz-ID</string> 
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Beitragszahlungen</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Standardmäßig werden beim Bearbeiten der Beitragszahlungen alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Beitragszahlung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Rollenauswahl\n\nStandardmäßig werden beim Bearbeiten der Beitragszahlungen alle Beitragsrollen betrachtet. Über diese Rollenauswahl kann eine Bearbeitung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">noch ausstehend</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">Stand</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Plugininformationen</string>

@@ -361,7 +361,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">'Alleen betaald datum' verwijdert alleen de betaald datum.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">Referentie ID</string> 
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Contributiebetalingen</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Bij het verwerken van contributie betalingen wordt standaard rekening gehouden met alle rollen. Deze rolselectie kan alleen worden gebruikt om contributie te verwerken voor de geselecteerde rollen. Als er geen beperking is tot bepaalde rollen, moet dit veld leeg worden gelaten.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Rol selectie\n\nBij het verwerken van contributie betalingen wordt standaard rekening gehouden met alle rollen. Deze rolselectie kan alleen worden gebruikt om contributie te verwerken voor de geselecteerde rollen. Als er geen beperking is tot bepaalde rollen, moet dit veld leeg worden gelaten.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">Nog niet ontvangen</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">Status</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Plugin informatie</string>

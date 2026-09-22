@@ -361,7 +361,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">Opțiunea 'Numai data plății' șterge doar data plății.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">ID referință</string> 
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Plata contribuțieis</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">În mod implicit, toate rolurile de contribuție sunt luate în considerare la editarea contribuțiilor. În ceea ce privește această selecție a rolurilor, editarea contribuțiilor se poate efectua numai pentru rolurile selectate. Nu ar trebui să existe restricții pentru anumite roluri, așa că acest câmp trebuie lăsat necompletat.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Selectarea rolului\n\nÎn mod implicit, toate rolurile de contribuție sunt luate în considerare la editarea contribuțiilor. În ceea ce privește această selecție a rolurilor, editarea contribuțiilor se poate efectua numai pentru rolurile selectate. Nu ar trebui să existe restricții pentru anumite roluri, așa că acest câmp trebuie lăsat necompletat.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">Nerecepționat</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">Status</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Informații despre plugin</string>

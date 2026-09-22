@@ -361,7 +361,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">'Kun betalingsdato' sletter kun betalingsdatoen.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">Referanse-ID</string> 
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Bidragsbetalinger</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Som standard vurderes alle bidragsroller ved redigering av bidragene. Ved hjelp av dette rollevalget kan redigering av bidragene kun utføres for de valgte rollene. Det bør ikke være noen begrensning på visse roller, så dette feltet bør stå tomt.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Rollevalg\n\nSom standard vurderes alle bidragsroller ved redigering av bidragene. Ved hjelp av dette rollevalget kan redigering av bidragene kun utføres for de valgte rollene. Det bør ikke være noen begrensning på visse roller, så dette feltet bør stå tomt.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">Ikke mottatt ennå</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">Status</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Plugin-informasjon</string>

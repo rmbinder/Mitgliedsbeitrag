@@ -361,7 +361,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">L\'option \'Date payée seulement\' supprime uniquement la date payée.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">ID de référence</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Paiements de cotisations</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Par défaut, tous les rôles de cotisation sont pris en compte lors du traitement des paiements de cotisation. Tu peux utiliser cette sélection de rôles pour effectuer le payement les cotisations uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Sélection des rôles\n\nPar défaut, tous les rôles de cotisation sont pris en compte lors du traitement des paiements de cotisation. Tu peux utiliser cette sélection de rôles pour effectuer le payement les cotisations uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">encore impayé</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">État</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Informations sur le plug-in</string>
