@@ -55,7 +55,7 @@ try {
         $page->addPageFunctionsMenuItem('menu_item_individualcontributions', $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/individualcontributions.php'), 'bi-house-gear', 'menu_fees');
     }
     $page->addPageFunctionsMenuItem('menu_item_payments', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS_EDIT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php'), 'bi-cash-coin', 'menu_fees');
-    $page->addPageFunctionsMenuItem('menu_item_analysis', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS'), '', 'bi-bar-chart', 'menu_fees');
+    $page->addPageFunctionsMenuItem('menu_item_analysis', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/analysis.php'), 'bi-bar-chart', 'menu_fees');
 
     $page->addPageFunctionsMenuItem('menu_mandatemanagement', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT'), '#', 'bi-basket');
     $page->addPageFunctionsMenuItem('menu_item_createmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID'), '', 'bi-list-ol', 'menu_mandatemanagement');
