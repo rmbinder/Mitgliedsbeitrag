@@ -241,7 +241,7 @@ try {
             $page->setContentFullWidth();
             $page->setHeadline($headline);
 
-            $form = new FormPresenter('payments_form', '../templates/form.filter.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php'), $page, array(
+            $form = new FormPresenter('payments_form', '../templates/payments.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php'), $page, array(
                 'type' => 'navbar',
                 'setFocus' => false
             ));

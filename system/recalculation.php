@@ -23,6 +23,7 @@
  */
 use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Roles\Entity\Role;
 use Admidio\UI\Component\DataTables;
 use Admidio\UI\Presenter\FormPresenter;
@@ -48,12 +49,12 @@ try {
             'print'
         )
     ));
-    $postRecalcRoleSelection = array();
-    $postRecalcRoleSelection = admFuncVariableIsValid($_POST, 'recalculation_roleselection', 'array');
-    $postRecalcNotPaid = admFuncVariableIsValid($_POST, 'recalculation_notpaid', 'bool', array(
+    $getRecalcRoleSelection = array();
+    $getRecalcRoleSelection = admFuncVariableIsValid($_GET, 'recalculation_roleselection', 'array');
+    $getRecalcNotPaid = admFuncVariableIsValid($_GET, 'recalculation_notpaid', 'bool', array(
         'defaultValue' => FALSE
     ));
-    $postRecalcMode = admFuncVariableIsValid($_POST, 'recalculation_mode', 'string', array(
+    $getRecalcMode = admFuncVariableIsValid($_GET, 'recalculation_mode', 'string', array(
         'defaultValue' => 'standard',
         'validValues' => array(
             'standard',
@@ -69,6 +70,11 @@ try {
 
     $headline = $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION');
 
+    // beim ersten Aufruf des Scriptes (wenn es von membership_fee aufgerufen wird), das Session-Array initialisieren/löschen
+    if (StringUtils::strContains($gNavigation->getUrl(), 'membership_fee.php')) {
+        $_SESSION['pMembershipFee']['recalculation_user'] = array();
+    }
+
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
     if ($getMode == 'preview') {
@@ -76,8 +82,12 @@ try {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-recalculation-preview');
 
         $page->setContentFullWidth();
+        $page->setHeadline($headline);
 
-        $form = new FormPresenter('recalculation_form', '../templates/recalculation.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php'), $page);
+        $form = new FormPresenter('recalculation_navbar', '../templates/recalculation.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php'), $page, array(
+            'type' => 'navbar',
+            'setFocus' => false
+        ));
 
         $rols = beitragsrollen_einlesen();
         $sortArray = array();
@@ -94,18 +104,11 @@ try {
         array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen);
         unset($sortArray);
 
-        $form->addSelectBox('recalculation_roleselection', $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION'), $selectBoxEntriesBeitragsrollen, array(
-            'defaultValue' => $postRecalcRoleSelection,
+        $form->addSelectBox('recalculation_roleselection', '', $selectBoxEntriesBeitragsrollen, array(
+            'defaultValue' => $getRecalcRoleSelection,
             'showContextDependentFirstEntry' => false,
+            'helpTextId' => 'PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC',
             'multiselect' => true
-        ));
-
-        $radioButtonEntries = array(
-            FALSE => $gL10n->get('SYS_ALL'),
-            TRUE => $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID')
-        );
-        $form->addRadioButton('recalculation_notpaid', $gL10n->get('SYS_FILTER'), $radioButtonEntries, array(
-            'defaultValue' => $postRecalcNotPaid
         ));
 
         $radioButtonEntries = array(
@@ -114,11 +117,31 @@ try {
             'summation' => $gL10n->get('PLG_MEMBERSHIPFEE_SUMMATION')
         );
         $form->addRadioButton('recalculation_mode', $gL10n->get('PLG_MEMBERSHIPFEE_MODE'), $radioButtonEntries, array(
-            'defaultValue' => $postRecalcMode
+            'defaultValue' => $getRecalcMode,
+            'helpTextId' => $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_DESC', array(
+                'PLG_MEMBERSHIPFEE_DEFAULT',
+                'PLG_MEMBERSHIPFEE_OVERWRITE',
+                'PLG_MEMBERSHIPFEE_SUMMATION'
+            ))
         ));
+
+        $radioButtonEntries = array(
+            FALSE => $gL10n->get('SYS_ALL'),
+            TRUE => $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID')
+        );
+        $form->addRadioButton('recalculation_notpaid', $gL10n->get('PLG_MEMBERSHIPFEE_RANGE'), $radioButtonEntries, array(
+            'defaultValue' => $getRecalcNotPaid,
+            'helpTextId' => $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID_DESC', array(
+                'SYS_ALL',
+                'PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID'
+            ))
+        ));
+
         $form->addSubmitButton('btn_recalculation', $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION'), array(
             'icon' => 'bi-calculator'
         ));
+
+        $form->addToHtmlPage();
 
         $members = array();
         $message = '';
@@ -137,12 +160,12 @@ try {
         ));
 
         // pruefen, ob Eintraege in der Rollenauswahl bestehen
-        if (is_array($postRecalcRoleSelection)) {
-            $_SESSION['pMembershipFee']['recalculation_rol_sel'] = $postRecalcRoleSelection;
+        if (is_array($getRecalcRoleSelection)) {
+            $_SESSION['pMembershipFee']['recalculation_rol_sel'] = $getRecalcRoleSelection;
 
             // nicht gewaehlte Beitragsrollen im Array $contributingRolls loeschen
             foreach ($contributingRolls as $rol => $roldata) {
-                if (! in_array($rol, $postRecalcRoleSelection)) {
+                if (! in_array($rol, $getRecalcRoleSelection)) {
                     unset($contributingRolls[$rol]);
                 }
             }
@@ -150,7 +173,7 @@ try {
             // Rollendaten aufbereiten fuer list_members()
             $selectionRolls = array();
             $role = new Role($gDb);
-            foreach ($postRecalcRoleSelection as $rol) {
+            foreach ($getRecalcRoleSelection as $rol) {
                 $role->readDataById((int) $rol);
                 $selectionRolls[$role->getValue('rol_name')] = 0;
             }
@@ -160,10 +183,10 @@ try {
         }
 
         // eine Berechnung nur durchführen,
-        // 1. beim ersten Aufruf des Scripts ($_SESSION['pMembershipFee']['recalculation_user'] ist noch nicht vorhanden)
+        // 1. beim ersten Aufruf des Scripts
         // 2. wenn der Button Neuberechnung gedrückt wurde
         // eine Neuberechnung darf nicht durchgeführt werden, wenn ein Beitrag oder ein Text editiert wurde (über recalculatiuon_edit.php)
-        if (! isset($_SESSION['pMembershipFee']['recalculation_user']) || isset($_POST['btn_recalculation'])) {
+        if (count($_SESSION['pMembershipFee']['recalculation_user']) === 0 || isset($_GET['btn_recalculation'])) {
 
             // diese Rollen durchlaufen und bei den Familienrollen eine Zahlungspflichtigen bestimmen
             foreach ($contributingRolls as $rol => $roldata) {
@@ -374,7 +397,7 @@ try {
 
             foreach ($members as $member => $memberdata) {
                 // letzte Datenaufbereitung (aufsummieren, ueberschreiben, runden...)
-                if ((empty($members[$member]['FEE' . $gCurrentOrgId]) || (! (empty($members[$member]['FEE' . $gCurrentOrgId])) && (($postRecalcMode == 'overwrite') || ($postRecalcMode == 'summation')))) && (! $postRecalcNotPaid || $postRecalcNotPaid && $members[$member]['PAID' . $gCurrentOrgId] == '') && ($members[$member]['FEE_NEW'] > $pPreferences->config['Beitrag']['beitrag_mindestbetrag'])) {
+                if ((empty($members[$member]['FEE' . $gCurrentOrgId]) || (! (empty($members[$member]['FEE' . $gCurrentOrgId])) && (($getRecalcMode == 'overwrite') || ($getRecalcMode == 'summation')))) && (! $getRecalcNotPaid || $getRecalcNotPaid && $members[$member]['PAID' . $gCurrentOrgId] == '') && ($members[$member]['FEE_NEW'] > $pPreferences->config['Beitrag']['beitrag_mindestbetrag'])) {
 
                     // wenn vorhanden, dann das erste $role_separator entfernen
                     // Bsp: SV Musterverein +Jahresbeitrag+Spartenbeitrag soll sein SV Musterverein Jahresbeitrag+Spartenbeitrag
@@ -393,7 +416,7 @@ try {
                     }
 
                     // if (isset($_POST['recalculation_modus']) && $_POST['recalculation_modus'] == 'summation') {
-                    if ($postRecalcMode == 'summation') {
+                    if ($getRecalcMode == 'summation') {
                         $members[$member]['FEE_NEW'] += (float) $members[$member]['FEE' . $gCurrentOrgId];
                         $members[$member]['CONTRIBUTORY_TEXT_NEW'] .= ' ' . $members[$member]['CONTRIBUTORY_TEXT' . $gCurrentOrgId] . ' ';
                     }
@@ -483,11 +506,13 @@ try {
             ++ $listRowNumber;
         }
 
-        $form->addButton('btn_next_page', $gL10n->get('SYS_SAVE'), array(
+        $form = new FormPresenter('recalculation_form', '../templates/recalculation.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php', array(
+            'mode' => 'save'
+        )), $page);
+
+        $form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array(
             'icon' => 'bi-check-lg',
-            'link' => SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php', array(
-                'mode' => 'save'
-            )),
+
             'class' => 'btn-primary'
         ));
 
