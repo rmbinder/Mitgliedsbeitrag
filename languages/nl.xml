@@ -124,6 +124,7 @@
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Maak machtigingsreferenties aan</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Standaard worden lidmaatschapsreferenties gegenereerd voor leden,\n - indien ze er nog geen hebben\n - en waarvoor een IBAN is gedeponeerd.\n\n Met deze rolselectie kan alleen voor de geselecteerde rollen worden gegenereerd . Als er geen beperking moet worden gemaakt tot specifieke rollen, moet dit veld leeg worden gelaten.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">FOUT: geen volgnummer gevonden!</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Hier worden mandaatreferenties gegenereerd op basis van de specificaties in #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">nieuwe machtigingsreferentie</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN">Er kunnen geen nieuwe machtigingsreferenties worden toegewezen omdat alle betrokken leden of alle betrokken leden van de geselecteerde rollen al een machtigingsreferentie hebben.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW">De nieuwe machtigingsreferenties zijn alleen berekend maar nog niet opgeslagen.</string>
@@ -388,6 +389,7 @@
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD_DESC">Als er een verbruiksbedrag is opgegeven, moet hier een profielveld (met de specificatie van het verbruik) worden geselecteerd.</string>
     <string name="PLG_MEMBERSHIPFEE_RANGE">Bereik</string>     
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION">Herberekening</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_DESC">Herberekent lidmaatschapskosten.</string>   
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_DESC">Instellingen voor de berekeningsmodus.\n\n#VAR1_BOLD#:\neen daadwerkelijke bijdrage (behalve € 0) wordt niet gewijzigd.\n\n#VAR2_BOLD#:\nbestaande invoer wordt verwijderd en vervangen door nieuwe invoer.\n\n#VAR3_BOLD#:\nbijdragen worden opgeteld en bijdragen tekst is aangevuld.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_NOTE">Als bij de rolselectie de berekening beperkt is tot bepaalde rollen, geldt ook de berekeningsmodus alleen voor die rollen. Bestaande functies die niet onder deze functies vallen, blijven ongewijzigd.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NEW">De nieuwe contributie en contrbutieteksten</string>
@@ -450,6 +452,7 @@
     <string name="PLG_MEMBERSHIPFEE_SECOND_PASSAGE_INFO">De weergegeven gegevens zijn louter informatief. Er worden geen wijzigingen aangebracht in de database. Als er verschillen zijn (GEWENST / WERKELIJK), werkt de plug-in mogelijk niet correct.</string>
     <string name="PLG_MEMBERSHIPFEE_SELECT_ALL">Selecteer alles</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_DESC">Dit menu-item genereert SEPA XML-bestanden.</string>  
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">De lidmaatschaps plug-in genereert een enkel SEPA XML-bestand op basis van de geselecteerde parameters. Het is echter mogelijk dat het bestand niet wordt geaccepteerd door het bank-/thuisbankierprogramma als het meerdere vervaldata heeft. Het is daarom aan te raden om een XML-bestand aan te maken met slechts één vervaldatum.\n\n FRST=eerste incasso, RCUR=doorlopende incasso, FNAL=laatste incasso, OOFF=eenmalige incasso</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Er zijn niet genoeg gegevens om te exporteren.</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Reeks aanduiding</string>
@@ -457,6 +460,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">De waarde die hier wordt ingesteld voor het reeks aanduiding wordt ingesteld bij het instellen van een vervaldatum.</string>
     <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Reeks. nummer</string>
     <string name="PLG_MEMBERSHIPFEE_SETUP">Instellingen</string>
+    <string name="PLG_MEMBERSHIPFEE_SETUP_DESC">De plugininstellingen.</string>   
     <string name="PLG_MEMBERSHIPFEE_SHALL">GEWENST</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION">Korte naam</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION_DESC">Vul hier een korte naam in. Nadat de contributieberekening is uitgevoerd, verschijnt deze korte naam in de contributietekst.</string>

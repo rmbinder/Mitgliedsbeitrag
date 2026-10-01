@@ -124,6 +124,7 @@
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Opprett mandatreferanser</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Som standard genereres medlemsreferanser for medlemmer,\n  - hvis de ikke har en fra før\n  - og for hvem en IBAN er registrert.\n\n Ved å bruke dette rollevalget kan generering kun utføres for de valgte rollene. Hvis det ikke skal gjøres noen begrensning til spesifikke roller, bør dette feltet stå tomt.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">FEIL: intet fortløpende nummer funnet!</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Her genereres mandatsreferanser basert på spesifikasjonene i #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">ny mandatreferanse</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN">Ingen nye mandatreferanser kan tildeles fordi alle berørte medlemmer eller alle berørte medlemmer av de valgte rollene allerede har en mandatreferanse.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW">De nye mandatreferansene er kun beregnet, men ikke lagret ennå.</string>
@@ -388,6 +389,7 @@
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD_DESC">Hvis et forbruksbeløp er spesifisert, må et profilfelt (med spesifikasjonen av forbruket) velges her.</string>
     <string name="PLG_MEMBERSHIPFEE_RANGE">Spekter</string>     
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION">Ny beregning</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_DESC">Beregner medlemsavgifter på nytt.</string>   
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_DESC">Innstillinger for beregningsmodus.\n\n#VAR1_BOLD#:\nEt faktisk bidrag (unntatt 0 €) endres ikke.\n\n#VAR2_BOLD#:\nEksisterende oppføringer slettes og erstattes av nye oppføringer.\n\n#VAR3_BOLD#:\nBidrag summeres og bidragstekst suppleres.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_NOTE">Hvis rollevalget begrenser beregningen til visse roller, påvirker beregningsmodusen også bare disse rollene. Eksisterende innlegg som ikke dekkes av disse rollene forblir uendret.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NEW">De nye bidragene og bidragstekstene</string>
@@ -450,6 +452,7 @@
     <string name="PLG_MEMBERSHIPFEE_SECOND_PASSAGE_INFO">De viste dataene er kun til informasjonsformål. Ingen endringer vil bli gjort i databasen. Skulle det være noen forskjeller (ØNSKET / FAKTISK), kan det hende at plugin-modulen ikke fungerer ordentlig.</string>
     <string name="PLG_MEMBERSHIPFEE_SELECT_ALL">Velg alle</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_DESC">Dette menyelementet genererer SEPA XML-filer.</string>  
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Plugin-modulen medlemsavgift genererer en enkelt SEPA XML-fil basert på de valgte parameterne. Filen godtas imidlertid kanskje ikke av banken / hjemmebankprogrammet hvis den har flere forfallsdatoer. Det anbefales derfor å opprette en XML-fil med bare én forfallsdato.\n\nFRST=første debitering, RCUR=gjentakende debitering, FNAL=siste debitering, OOFF=engangsdebitering</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Det er ikke nok data til å eksportere.</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Sekvenstype</string>
@@ -457,6 +460,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">Verdien satt her sekvenstype settes samtidig som du setter en forfallsdato.</string>
     <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Sekv. nummer</string>
     <string name="PLG_MEMBERSHIPFEE_SETUP">Innstillinger</string>
+    <string name="PLG_MEMBERSHIPFEE_SETUP_DESC">Plugin-innstillingene.</string>  
     <string name="PLG_MEMBERSHIPFEE_SHALL">ØNSKET</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION">Kortnavn</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION_DESC">Skriv inn et kortnavn her. Etter at bidragsberegningen er utført, vises dette kortnavnet i bidragsteksten.</string>

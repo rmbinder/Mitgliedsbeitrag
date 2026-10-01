@@ -124,6 +124,7 @@
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Créer des références de mandat</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Par défaut, les références de mandat sont créées pour les membres,\n - s\'ils n\'en ont pas encore\n  - et pour lesquelles un IBAN est stocké. \n\n Par la sélection de rôle, la création ne peut être effectuée uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter la création à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">ERREUR : aucun numéro courant trouvé !</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Ici, les références de mandat sont générées selon les spécifications de #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">nouvelle référence du mandat</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN">Aucune nouvelle référence de mandat ne peut être attribuée, puisque tous les membres concernés ou tous les membres affectés des rôles sélectionnés ont déjà une référence de mandat.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW">Les nouvelles références de mandat n\'ont jusqu\'à présent été calculées, mais pas encore sauvegardées.</string>
@@ -388,6 +389,7 @@
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD_DESC">Si un montant de consommation est spécifié, un champ de profil (avec la spécification de la consommation) doit être sélectionné ici.</string>
     <string name="PLG_MEMBERSHIPFEE_RANGE">Gamme</string>     
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION">Recalcul</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_DESC">Recalcule les cotisations.</string>  
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_DESC">Réglages pour le mode de calcul.\n\n#VAR1_BOLD#:\nUne cotisation existante (sauf 0 CHF) n\'est pas modifié.\n\n#VAR2_BOLD#:\nLes entrées existantes sont supprimées et remplacées par de nouvelles entrées.\n\n#VAR3_BOLD#:\nLes cotisations sont additionnées et un texte de cotisation est ajouté.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_NOTE">Si le calcul des cotisations est limité à certains rôles à l\'aide de la sélection des rôles, le mode de calcul n\'affecte que ces rôles. Les cotisations existantes qui ne sont pas couvertes par ces rôles restent inchangés.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NEW">Les nouvelles cotisations et textes de cotisations</string>
@@ -450,6 +452,7 @@
     <string name="PLG_MEMBERSHIPFEE_SECOND_PASSAGE_INFO">Les données affichées ne le sont qu\'à titre d\'information. Aucune modification n\'est apportée à la base de données. Cependant, s\'il y a des différences, le plugin peut ne pas fonctionner correctement.</string>
     <string name="PLG_MEMBERSHIPFEE_SELECT_ALL">Sélectionner tout</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_DESC">Cet élément de menu génère des fichiers XML SEPA.</string>   
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Le plug-in Cotisations des membres génère un seul fichier SEPA XML basé sur les paramètres sélectionnés. Toutefois, dans certaines circonstances, le dossier peut ne pas être accepté par la banque ou un programme de banque en ligne s\'il y a plusieurs dates d\'échéance. Il est donc recommandé de créer un fichier XML avec une seule date d\'échéance. FRST=premier débit, RCUR=débit suivant, FNAL=dernier débit, OOFF=débit unique.</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Il n\'y a pas assez de données disponibles pour l\'exportation.</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Type de séquence</string>
@@ -457,6 +460,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">La catégorie de séquence définie ici est définie en même temps qu\'une date d\'échéance.</string>
     <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Numéro courant</string>
     <string name="PLG_MEMBERSHIPFEE_SETUP">Paramétrages</string>
+    <string name="PLG_MEMBERSHIPFEE_SETUP_DESC">Paramètres du plugin.</string>  
     <string name="PLG_MEMBERSHIPFEE_SHALL">Cible</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION">Nom court</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION_DESC">Entrez un nom court ici. Une fois le calcul de la contribution effectué, ce nom court apparaît dans le texte de la contribution.</string>

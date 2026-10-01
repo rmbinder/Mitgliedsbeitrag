@@ -124,6 +124,7 @@
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Creați referințe de mandat</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">În mod implicit, se generează referințe de membru pentru membri,\n  - dacă aceștia nu au încă una\n  - și pentru care a fost înregistrat un cod IBAN.\n\n Prin selectarea acestor roluri, generarea se poate efectua numai pentru rolurile selectate. Dacă nu se dorește impunerea unei restricții asupra anumitor roluri, acest câmp trebuie lăsat necompletat.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">EROARE: nu s-a găsit niciun număr consecutiv!</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Aici, referințele mandatelor sunt generate pe baza specificațiilor din #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">noua referință de mandat</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN">Nu se pot atribui noi referințe de mandat, deoarece toți membrii vizați sau toți membrii vizați ai rolurilor selectate au deja o referință de mandat.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW">Noile referințe ale mandatului au fost doar calculate, dar nu au fost încă salvate.</string>
@@ -388,6 +389,7 @@
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD_DESC">Dacă se specifică o cantitate de consum, trebuie selectat aici un câmp de profil (care să specifice consumul).</string>
     <string name="PLG_MEMBERSHIPFEE_RANGE">Gamă</string>     
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION">Recalculare</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_DESC">Recalculează taxele de membru.</string>   
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_DESC">Setări pentru modul de calcul.\n\n#VAR1_BOLD#:\nContribuția actuală (cu excepția valorii de 0 €) nu este modificată.\n\n#VAR2_BOLD#:\nIntrările existente sunt șterse și înlocuite cu intrări noi.\n\n#VAR3_BOLD#:\nContribuțiile sunt însumate, iar textul corespunzător este completat.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_NOTE">Dacă, la selectarea rolurilor, calculul se limitează la anumite roluri, atunci și modul de calcul se aplică doar acelor roluri. Posturile existente care nu sunt incluse în aceste roluri rămân neschimbate.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NEW">Noile contribuții și textele contribuțiilor</string>
@@ -450,6 +452,7 @@
     <string name="PLG_MEMBERSHIPFEE_SECOND_PASSAGE_INFO">Datele afișate au doar caracter informativ. Nu se vor efectua modificări în baza de date. În cazul în care există diferențe (DORIT / REAL), este posibil ca pluginul să nu funcționeze corect.</string>
     <string name="PLG_MEMBERSHIPFEE_SELECT_ALL">Selectare tot</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_DESC">Acest element de meniu generează fișiere XML SEPA.</string> 
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Pluginul pentru cotizații generează un singur fișier XML SEPA pe baza parametrilor selectați. Cu toate acestea, este posibil ca fișierul să nu fie acceptat de bancă sau de programul de internet banking dacă conține mai multe date de scadență. Prin urmare, se recomandă crearea unui fișier XML cu o singură dată de scadență.\n\n FRST = primul debit, RCUR = debit recurent, FNAL = debit final, OOFF = debit unic</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Nu există suficiente date pentru export.</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Tipul secvenței</string>
@@ -457,6 +460,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">Valoarea setată aici pentru tipul de secvență este stabilită odată cu stabilirea datei de scadență.</string>
     <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Număr secvență</string>
     <string name="PLG_MEMBERSHIPFEE_SETUP">Setări</string>
+    <string name="PLG_MEMBERSHIPFEE_SETUP_DESC">Setările pluginului.</string>  
     <string name="PLG_MEMBERSHIPFEE_SHALL">DORIT</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION">Nume scurt</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION_DESC">Introduceți aici o denumire scurtă. După efectuarea calculului contribuției, această denumire scurtă va apărea în textul contribuției.</string>

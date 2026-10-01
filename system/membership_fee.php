@@ -35,17 +35,16 @@ try {
 
     $beitrag = analyse_mem();
     $page->addHtml('<table class="table table-condensed">
- 
-    <tr>
-        <td style="text-align: left;">' . $gL10n->get('PLG_MEMBERSHIPFEE_TOTAL') . ':</td>
-        <td style="text-align: left;">' . ($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . ($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) . ')</td>
+        <tr>
+            <td style="text-align: left;">' . $gL10n->get('PLG_MEMBERSHIPFEE_TOTAL') . ':</td>
+            <td style="text-align: left;">' . ($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . ($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) . ')</td>
         
-        <td style="text-align: center;">' . $gL10n->get('PLG_MEMBERSHIPFEE_ALREADY_PAID') . ':</td>
-        <td style="text-align: center;">' . ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl']) . ')</td>
+            <td style="text-align: center;">' . $gL10n->get('PLG_MEMBERSHIPFEE_ALREADY_PAID') . ':</td>
+            <td style="text-align: center;">' . ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl']) . ')</td>
         
-        <td style="text-align: right;">' . $gL10n->get('PLG_MEMBERSHIPFEE_PENDING') . ':</td>
-        <td style="text-align: right;">' . (($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) - ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech'])) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . (($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) - ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl'])) . ')</td>
-    </tr>
+            <td style="text-align: right;">' . $gL10n->get('PLG_MEMBERSHIPFEE_PENDING') . ':</td>
+            <td style="text-align: right;">' . (($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) - ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech'])) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . (($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) - ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl'])) . ')</td>
+        </tr>
     </table>');
 
     $page->addPageFunctionsMenuItem('menu_fees', $gL10n->get('PLG_MEMBERSHIPFEE_FEES'), '#', 'bi-wallet');
@@ -76,7 +75,7 @@ try {
     }
 
     $page->addPageFunctionsMenuItem('menu_help', $gL10n->get('PLG_MEMBERSHIPFEE_HELP'), '#', 'bi-question-circle');
-    $page->addPageFunctionsMenuItem('menu_item_menu', $gL10n->get('SYS_MENU'), '', 'bi-menu-button-wide', 'menu_help');
+    $page->addPageFunctionsMenuItem('menu_item_menu', $gL10n->get('SYS_MENU'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/help_menu.php'), 'bi-menu-button-wide', 'menu_help');
     $page->addPageFunctionsMenuItem('menu_item_documentation', $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION'), '', 'bi-filetype-doc', 'menu_help');
     $page->addPageFunctionsMenuItem('menu_item_about', $gL10n->get('PLG_MEMBERSHIPFEE_ABOUT') . ' ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'), '', 'bi-info-circle', 'menu_help');
 

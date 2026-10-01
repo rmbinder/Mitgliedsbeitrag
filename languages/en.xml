@@ -124,6 +124,7 @@
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Create mandate references</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">By default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">ERROR: no consecutive number found!</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Mandate references are generated here based on the specifications in #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">new mandate reference</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN">No new mandate references can be assigned because all affected members or all affected members of the selected roles already have a mandate reference.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW">The new mandate references have only been calculated but not yet saved.</string>
@@ -388,6 +389,7 @@
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD_DESC">If a consumption amount is specified, a profile field (with the specification of the consumption) must be selected here.</string>
     <string name="PLG_MEMBERSHIPFEE_RANGE">Range</string>     
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION">Recalculation</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_DESC">Membership fees are recalculated here.</string>   
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_DESC">Settings for the calculation mode.\n\n#VAR1_BOLD#:\nAn actual contribution (except for 0 €) is not changed.\n\n#VAR2_BOLD#:\nExisting entries are deleted and replaced by new entries.\n\n#VAR3_BOLD#:\nContributions are summed and contribute text is supplemented.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_NOTE">If on the role selection the calculation limited to certain roles, so also the calculation mode affects only for those roles. Existing posts which are not covered by these roles remain unchanged.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NEW">The new contributions and contribution texts</string>
@@ -450,6 +452,7 @@
     <string name="PLG_MEMBERSHIPFEE_SECOND_PASSAGE_INFO">The displayed data is for information purposes only. No changes will be made to the database. Should there be any differences (DESIRED / ACTUAL), the plugin may not function correctly.</string>
     <string name="PLG_MEMBERSHIPFEE_SELECT_ALL">Select all</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_DESC">SEPA XML files are generated via this menu item.</string>   
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">The plugin membership fee generates a single SEPA XML file based on the selected parameters. However, the file may not be accepted by the bank / home banking program if it has multiple due dates. It is therefore recommended to create an XML file with only one due date.\n\n FRST=first debit, RCUR=recurring debit, FNAL=final debit, OOFF=one-off debit</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">There is not enough data to export.</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Sequence type</string>
@@ -457,6 +460,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">The value set here sequence type is set at the same time setting a due date.</string>
     <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Seq. number</string>
     <string name="PLG_MEMBERSHIPFEE_SETUP">Settings</string>
+    <string name="PLG_MEMBERSHIPFEE_SETUP_DESC">The plugin settings.</string>  
     <string name="PLG_MEMBERSHIPFEE_SHALL">DESIRED</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION">Short name</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION_DESC">Enter a short name here. After the contribution calculation has been carried out, this short name appears in the contribution text.</string>

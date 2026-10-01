@@ -124,6 +124,7 @@
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Mandatsreferenzen erzeugen</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Standardmäßig werden Mandatsreferenzen für Mitglieder erzeugt,\n  - falls sie noch keine besitzen\n  - und für die eine IBAN hinterlegt ist.\n\n Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">FEHLER: keine laufende Nummer gefunden!</string>
+   <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Hier werden Mandatsreferenzen abhängig von den Vorgaben in #VAR1_BOLD#-#VAR2_BOLD# erzeugt.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">neue Mandatsreferenz</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN">Es können keine neuen Mandatsreferenzen zugewiesen werden, da alle betroffenen Mitglieder bzw. alle betroffenen Mitglieder der ausgewählten Rollen, bereits eine Mandatsreferenz besitzen.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW">Die neuen Mandatsreferenzen wurden bis jetzt nur berechnet, aber noch nicht gespeichert.</string>
@@ -388,6 +389,7 @@
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD_DESC">Ist ein Verbrauchsbetrag angegeben, so muss hier ein Profilfeld (mit der Angabe des Verbrauchs) ausgewählt werden.</string>
     <string name="PLG_MEMBERSHIPFEE_RANGE">Umfang</string>     
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION">Neuberechnung</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_DESC">Über Neuberechnung werden die Mitgliedsbeiträge neu berechnet.</string>    
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_DESC">Einstellungen für den Berechnungsmodus.\n\n#VAR1_BOLD#:\nEin vorhandener Beitrag (außer 0 €) wird nicht verändert.\n\n#VAR2_BOLD#:\nExistierende Einträge werden gelöscht und durch neue Einträge ersetzt.\n\n#VAR3_BOLD#:\nBeiträge werden aufsummiert und ein Beitragstext wird ergänzt.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_MODUS_NOTE">Wird über die Rollenauswahl die Beitragsberechnung auf bestimmte Rollen beschränkt, so wirkt sich auch der Berechnungsmodus nur für diese Rollen aus. Vorhandene Beiträge, die nicht über diese Rollen abgedeckt sind, bleiben unverändert bestehen.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NEW">Die neuen Beiträge und Beitragstexte</string>
@@ -450,6 +452,7 @@
     <string name="PLG_MEMBERSHIPFEE_SECOND_PASSAGE_INFO">Die angezeigten Daten dienen nur zur Information. Es werden keine Änderungen an der Datenbank vorgenommen. Sollten jedoch Unterschiede (SOLL/IST) vorhanden sein, kann das Plugin unter Umständen nicht richtig funktionieren.</string>
     <string name="PLG_MEMBERSHIPFEE_SELECT_ALL">Alle markieren</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_DESC">Über diesen Menüpunkt werden SEPA XML-Dateien erzeugt.</string>    
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Das Plugin Mitgliedsbeitrag erzeugt anhand der gewählten Einstellungen eine einzige SEPA XML-Datei. Unter Umständen wird die Datei aber von der Bank/einem Homebanking Programm nicht akzeptiert, wenn sie mehrere Fälligkeitsdaten aufweist. Es wird deshalb empfohlen eine XML-Datei mit nur jeweils einem Fälligkeitsdatum zu erstellen.\n\n FRST=Erstlastschrift, RCUR=Folgelastschrift, FNAL=letzte Lastschrift, OOFF=Einmallastschrift</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Es sind nicht genügend Daten für den Export vorhanden.</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Sequenztyp</string>
@@ -457,6 +460,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">Der hier eingestellte Sequenztyp wird gleichzeitig mit dem Setzen eines Fälligkeitsdatum gesetzt.</string>
     <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Lfd. Nummer</string>
     <string name="PLG_MEMBERSHIPFEE_SETUP">Einstellungen</string>
+    <string name="PLG_MEMBERSHIPFEE_SETUP_DESC">Die Einstellungen des Plugins.</string> 
     <string name="PLG_MEMBERSHIPFEE_SHALL">SOLL</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION">Kurzbezeichnung</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION_DESC">Hier ist eine Kurzbezeichnung einzutragen. Nach einer durchgeführten Beitragsberechnung erscheint diese Kurzbezeichnung im Beitragstext.</string>
