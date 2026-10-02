@@ -76,7 +76,12 @@ try {
 
     $page->addPageFunctionsMenuItem('menu_help', $gL10n->get('PLG_MEMBERSHIPFEE_HELP'), '#', 'bi-question-circle');
     $page->addPageFunctionsMenuItem('menu_item_menu', $gL10n->get('SYS_MENU'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/help_menu.php'), 'bi-menu-button-wide', 'menu_help');
-    $page->addPageFunctionsMenuItem('menu_item_documentation', $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION'), '', 'bi-filetype-doc', 'menu_help');
+
+    $docfile = 'documentation-en.pdf';
+    if ($gSettingsManager->getString('system_language') === 'de' || $gSettingsManager->getString('system_language') === 'de-DE') {
+        $docfile = 'documentation-de.pdf';
+    }
+    $page->addPageFunctionsMenuItem('menu_item_documentation', $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/docs/' . $docfile), 'bi-filetype-doc', 'menu_help');
     $page->addPageFunctionsMenuItem('menu_item_about', $gL10n->get('PLG_MEMBERSHIPFEE_ABOUT') . ' ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'), '', 'bi-info-circle', 'menu_help');
 
     $page->show();
