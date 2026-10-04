@@ -82,7 +82,15 @@ try {
         $docfile = 'documentation-de.pdf';
     }
     $page->addPageFunctionsMenuItem('menu_item_documentation', $gL10n->get('PLG_MEMBERSHIPFEE_DOCUMENTATION'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/docs/' . $docfile), 'bi-filetype-doc', 'menu_help');
-    $page->addPageFunctionsMenuItem('menu_item_about', $gL10n->get('PLG_MEMBERSHIPFEE_ABOUT') . ' ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'), '', 'bi-info-circle', 'menu_help');
+
+    $javascriptCode = '
+        $("#menu_item_about").attr("href", "javascript:void(0);");
+        $("#menu_item_about").attr("data-href", "' . ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/about_membership_fee.php");
+        $("#menu_item_about").attr("class", "icon-link dropdown-item openPopup");
+    ';
+
+    $page->addJavascript($javascriptCode, true);
+    $page->addPageFunctionsMenuItem('menu_item_about', $gL10n->get('PLG_MEMBERSHIPFEE_ABOUT') . ' ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'), ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/about_membership_fee.php', 'bi-info-circle', 'menu_help');
 
     $page->show();
 } catch (Exception $e) {
