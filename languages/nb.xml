@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Korreksjon</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Opprett eksportfil</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Opprett mandatreferanser</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Som standard genereres medlemsreferanser for medlemmer,\n  - hvis de ikke har en fra før\n  - og for hvem en IBAN er registrert.\n\n Ved å bruke dette rollevalget kan generering kun utføres for de valgte rollene. Hvis det ikke skal gjøres noen begrensning til spesifikke roller, bør dette feltet stå tomt.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Rollevalg\n\nSom standard genereres medlemsreferanser for medlemmer,\n  - hvis de ikke har en fra før\n  - og for hvem en IBAN er registrert.\n\n Ved å bruke dette rollevalget kan generering kun utføres for de valgte rollene. Hvis det ikke skal gjøres noen begrensning til spesifikke roller, bør dette feltet stå tomt.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">FEIL: intet fortløpende nummer funnet!</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Her genereres mandatsreferanser basert på spesifikasjonene i #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">ny mandatreferanse</string>

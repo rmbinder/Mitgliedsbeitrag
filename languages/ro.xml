@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Corectie</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Creare fișier export</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Creați referințe de mandat</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">În mod implicit, se generează referințe de membru pentru membri,\n  - dacă aceștia nu au încă una\n  - și pentru care a fost înregistrat un cod IBAN.\n\n Prin selectarea acestor roluri, generarea se poate efectua numai pentru rolurile selectate. Dacă nu se dorește impunerea unei restricții asupra anumitor roluri, acest câmp trebuie lăsat necompletat.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Selectarea rolului\n\nÎn mod implicit, se generează referințe de membru pentru membri,\n  - dacă aceștia nu au încă una\n  - și pentru care a fost înregistrat un cod IBAN.\n\n Prin selectarea acestor roluri, generarea se poate efectua numai pentru rolurile selectate. Dacă nu se dorește impunerea unei restricții asupra anumitor roluri, acest câmp trebuie lăsat necompletat.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">EROARE: nu s-a găsit niciun număr consecutiv!</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Aici, referințele mandatelor sunt generate pe baza specificațiilor din #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">noua referință de mandat</string>

@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Correction</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Create export file</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Create mandate references</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">By default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Role selection\n\nBy default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">ERROR: no consecutive number found!</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Mandate references are generated here based on the specifications in #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">new mandate reference</string>

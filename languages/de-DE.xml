@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Korrektur</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Exportdatei erstellen</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Mandatsreferenzen erzeugen</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Standardmäßig werden Mandatsreferenzen für Mitglieder erzeugt,\n  - falls sie noch keine besitzen\n  - und für die eine IBAN hinterlegt ist.\n\n Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Rollenauswahl\n\nStandardmäßig werden Mandatsreferenzen für Mitglieder erzeugt,\n  - falls sie noch keine besitzen\n  - und für die eine IBAN hinterlegt ist.\n\n Über diese Rollenauswahl kann eine Erzeugung nur für die gewählten Rollen durchgeführt werden. Soll keine Einschränkung auf bestimmte Rollen erfolgen, so ist dieses Feld leer zu lassen.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">FEHLER: keine laufende Nummer gefunden!</string>
    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Hier werden Mandatsreferenzen abhängig von den Vorgaben in #VAR1_BOLD#-#VAR2_BOLD# erzeugt.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">neue Mandatsreferenz</string>

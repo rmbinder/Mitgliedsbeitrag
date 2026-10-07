@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Correctie</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Exportbestand maken</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Maak machtigingsreferenties aan</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Standaard worden lidmaatschapsreferenties gegenereerd voor leden,\n - indien ze er nog geen hebben\n - en waarvoor een IBAN is gedeponeerd.\n\n Met deze rolselectie kan alleen voor de geselecteerde rollen worden gegenereerd . Als er geen beperking moet worden gemaakt tot specifieke rollen, moet dit veld leeg worden gelaten.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Rol selectie\n\nStandaard worden lidmaatschapsreferenties gegenereerd voor leden,\n - indien ze er nog geen hebben\n - en waarvoor een IBAN is gedeponeerd.\n\n Met deze rolselectie kan alleen voor de geselecteerde rollen worden gegenereerd . Als er geen beperking moet worden gemaakt tot specifieke rollen, moet dit veld leeg worden gelaten.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">FOUT: geen volgnummer gevonden!</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Hier worden mandaatreferenties gegenereerd op basis van de specificaties in #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">nieuwe machtigingsreferentie</string>
