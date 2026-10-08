@@ -58,7 +58,7 @@ try {
 
     $page->addPageFunctionsMenuItem('menu_mandatemanagement', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT'), '#', 'bi-basket');
     $page->addPageFunctionsMenuItem('menu_item_createmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php'), 'bi-list-ol', 'menu_mandatemanagement');
-    $page->addPageFunctionsMenuItem('menu_item_mandates', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT'), '', 'bi-pen', 'menu_mandatemanagement');
+    $page->addPageFunctionsMenuItem('menu_item_mandates', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandates.php'), 'bi-pen', 'menu_mandatemanagement');
 
     $page->addPageFunctionsMenuItem('menu_export', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), '#', 'bi-download');
     $page->addPageFunctionsMenuItem('menu_item_sepa', $gL10n->get('PLG_MEMBERSHIPFEE_SEPA'), '', 'bi-file-earmark', 'menu_export');

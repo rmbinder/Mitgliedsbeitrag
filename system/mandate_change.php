@@ -23,137 +23,129 @@
  * bic              : der neue BIC des Zahlungspflichtigen
  ***********************************************************************************************
  */
-
-use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Exception;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\UI\Presenter\FormPresenter;
+use Admidio\UI\Presenter\PagePresenter;
 use Admidio\Users\Entity\User;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
-require_once(__DIR__ . '/../../../system/common.php');
-require_once(__DIR__ . '/common_function.php');
+try {
+    require_once (__DIR__ . '/../../../system/common.php');
+    require_once (__DIR__ . '/common_function.php');
 
-// only authorized user are allowed to start this module
-if (!isUserAuthorized())
-{
-    throw new Exception('SYS_NO_RIGHTS');   
-}
+    // only authorized user are allowed to start this module
+    if (! isUserAuthorized()) {
+        throw new Exception('SYS_NO_RIGHTS');
+    }
 
-$pPreferences = new ConfigTable();
-$pPreferences->read();
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
 
-if(isset($_GET['mode']) && $_GET['mode'] == 'assign')
-{
-    // ajax mode then only show text if error occurs
-    $gMessage->showTextOnly(true);
-}
+    if (isset($_GET['mode']) && $_GET['mode'] == 'assign') {
+        // ajax mode then only show text if error occurs
+        $gMessage->showTextOnly(true);
+    }
 
-// Initialize and check the parameters
-$getMode            = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'html', 'validValues' => array('html', 'assign')));
-$getUserUuid        = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
-$getIBAN            = admFuncVariableIsValid($_GET, 'iban', 'string');
-$getOrigIBAN        = admFuncVariableIsValid($_GET, 'origiban', 'string');
-$getMandateID       = admFuncVariableIsValid($_GET, 'mandateid', 'string');
-$getOrigMandateID   = admFuncVariableIsValid($_GET, 'origmandateid', 'string');
-$getBankChanged     = admFuncVariableIsValid($_GET, 'bankchanged', 'string');
-$getBank            = admFuncVariableIsValid($_GET, 'bank', 'string', array('defaultValue' => ''));
-$getBIC             = admFuncVariableIsValid($_GET, 'bic', 'string', array('defaultValue' => ''));
+    // Initialize and check the parameters
+    $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
+        'defaultValue' => 'html',
+        'validValues' => array(
+            'html',
+            'assign'
+        )
+    ));
+    $getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');
+    $getIBAN = admFuncVariableIsValid($_GET, 'iban', 'string');
+    $getOrigIBAN = admFuncVariableIsValid($_GET, 'origiban', 'string');
+    $getMandateID = admFuncVariableIsValid($_GET, 'mandateid', 'string');
+    $getOrigMandateID = admFuncVariableIsValid($_GET, 'origmandateid', 'string');
+    $getBankChanged = admFuncVariableIsValid($_GET, 'bankchanged', 'string');
+    $getBank = admFuncVariableIsValid($_GET, 'bank', 'string', array(
+        'defaultValue' => ''
+    ));
+    $getBIC = admFuncVariableIsValid($_GET, 'bic', 'string', array(
+        'defaultValue' => ''
+    ));
 
-$user = new User($gDb, $gProfileFields);
-$user->readDataByUuid($getUserUuid);
+    $user = new User($gDb, $gProfileFields);
+    $user->readDataByUuid($getUserUuid);
 
-if($getMode == 'assign')
-{
-    $ret_txt = 'error_nothing_changed';
-    $iban_change = 'false';
-    $bank_change = 'false';
-    $mandateid_change = 'false';
+    if ($getMode == 'assign') {
+        $ret_txt = 'error_nothing_changed';
+        $iban_change = 'false';
+        $bank_change = 'false';
+        $mandateid_change = 'false';
 
-    $gMessage->showTextOnly(true);
+        $gMessage->showTextOnly(true);
 
-    // wurde die Bank geaendert?
-    if ($getBankChanged == 'false')             //nein, dieselbe Bank
-    {
-        //hat eine Aenderung der IBAN stattgefunden?
-        if ($getIBAN != $user->getValue('IBAN'))
+        // wurde die Bank geaendert?
+        if ($getBankChanged == 'false') // nein, dieselbe Bank
         {
-            //ja, dann muss origIBAN befuellt sein
-            if (strlen($getOrigIBAN) !== 0)
-            {
-                $iban_change = 'true';
+            // hat eine Aenderung der IBAN stattgefunden?
+            if ($getIBAN != $user->getValue('IBAN')) {
+                // ja, dann muss origIBAN befuellt sein
+                if (strlen($getOrigIBAN) !== 0) {
+                    $iban_change = 'true';
+                    $ret_txt = 'success';
+                } else {
+                    $ret_txt = 'error_origiban_missing';
+                }
+            }
+        } else // die Bank wurde geaendert
+        {
+            // bei einer Aenderung der Bank muss es eine andere IBAN geben
+            if ($getIBAN != $user->getValue('IBAN')) {
+                $bank_change = 'true';
                 $ret_txt = 'success';
-            }
-            else
-            {
-                $ret_txt = 'error_origiban_missing';
+            } else {
+                $ret_txt = 'error_bank_changed';
             }
         }
-    }
-    else               //die Bank wurde geaendert
-    {
-        //bei einer Aenderung der Bank muss es eine andere IBAN geben
-        if ($getIBAN != $user->getValue('IBAN'))
-        {
-            $bank_change = 'true';
-            $ret_txt = 'success';
-        }
-        else
-        {
-            $ret_txt = 'error_bank_changed';
-        }
-    }
 
-    // wurde die Mandatsreferenz geaendert?
-    if($getMandateID != $user->getValue('MANDATEID'.$gCurrentOrgId))
-    {
-        //bei einer Aenderung muss origMandateID befuellt sein
-        if (strlen($getOrigMandateID) !== 0)
-        {
-            $mandateid_change = 'true';
-            $ret_txt = 'success';
+        // wurde die Mandatsreferenz geaendert?
+        if ($getMandateID != $user->getValue('MANDATEID' . $gCurrentOrgId)) {
+            // bei einer Aenderung muss origMandateID befuellt sein
+            if (strlen($getOrigMandateID) !== 0) {
+                $mandateid_change = 'true';
+                $ret_txt = 'success';
+            } else {
+                $ret_txt = 'error_origmandateid_missing';
+            }
         }
-        else
-        {
-            $ret_txt = 'error_origmandateid_missing';
-        }
-    }
 
-    if($ret_txt == 'success')
-    {
-        if($iban_change == 'true')
-        {
-            $user->setValue('IBAN', $getIBAN);
-            $user->setValue('ORIG_IBAN', $getOrigIBAN);
-        }
-        if($bank_change == 'true')
-        {
-            $user->setValue('IBAN', $getIBAN);
-            $user->setValue('BIC', $getBIC);
-            $user->setValue('BANK', $getBank);
-            $user->setValue('SEQUENCETYPE'.$gCurrentOrgId, '');
-            $user->setValue('ORIG_DEBTOR_AGENT', 'SMNDA');
+        if ($ret_txt == 'success') {
+            if ($iban_change == 'true') {
+                $user->setValue('IBAN', $getIBAN);
+                $user->setValue('ORIG_IBAN', $getOrigIBAN);
+            }
+            if ($bank_change == 'true') {
+                $user->setValue('IBAN', $getIBAN);
+                $user->setValue('BIC', $getBIC);
+                $user->setValue('BANK', $getBank);
+                $user->setValue('SEQUENCETYPE' . $gCurrentOrgId, '');
+                $user->setValue('ORIG_DEBTOR_AGENT', 'SMNDA');
 
-            // wenn die Bank gewechselt wurde, braucht die neue Bank die urspruengliche IBAN nicht zu kennen
-            $user->setValue('ORIG_IBAN', '');
+                // wenn die Bank gewechselt wurde, braucht die neue Bank die urspruengliche IBAN nicht zu kennen
+                $user->setValue('ORIG_IBAN', '');
+            }
+            if ($mandateid_change == 'true') {
+                $user->setValue('MANDATEID' . $gCurrentOrgId, $getMandateID);
+                $user->setValue('ORIG_MANDATEID' . $gCurrentOrgId, $getOrigMandateID);
+            }
+            $user->save();
         }
-        if($mandateid_change == 'true')
-        {
-            $user->setValue('MANDATEID'.$gCurrentOrgId, $getMandateID);
-            $user->setValue('ORIG_MANDATEID'.$gCurrentOrgId, $getOrigMandateID);
-        }
-        $user->save();
-    }
-    echo $ret_txt;
-}
-else
-{
-    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE').' ('. $user->getValue('LAST_NAME').' '.$user->getValue('FIRST_NAME').')';
+        echo $ret_txt;
+    } else {
+        $headline = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE') . ' (' . $user->getValue('LAST_NAME') . ' ' . $user->getValue('FIRST_NAME') . ')';
 
-    //$gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/mandates.php'));
-    $gNavigation->addUrl(CURRENT_URL, $headline);
-    
-    $page = new HtmlPage('plg-mitgliedsbeitrag-mandate-change', $headline);
-  
-    $page->addJavascript('
+        // $gNavigation->addUrl(SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/mandates.php'));
+        $gNavigation->addUrl(CURRENT_URL, $headline);
+
+        $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-mandate-change');
+        $page->setHeadline($headline);
+
+        $page->addJavascript('
         function ibanschieben(){
           var iban = $("input[type=text]#iban").val();
           var origiban = $("input[type=text]#origiban").val(iban);
@@ -164,9 +156,9 @@ else
           var origmandateid = $("input[type=text]#origmandateid").val(mandateid);
           $("input[type=text]#mandateid").val("");
        };
-    ');            // !!!: ohne true
+    '); // !!!: ohne true
 
-    $page->addJavascript('
+        $page->addJavascript('
 
         // checkbox "Kontoverbindung bei anderer Bank" wurde gewaehlt
         $("input[type=checkbox].bank_changed_checkbox").click(function(){
@@ -180,7 +172,9 @@ else
                 $("input[type=text]#origdebtoragent").val("SMNDA");
             }
             else {
-                window.location.replace("'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/mandate_change.php', array('user_uuid' => $getUserUuid)).'");
+                window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandate_change.php', array(
+            'user_uuid' => $getUserUuid
+        )) . '");
             }
         }); 
    
@@ -194,7 +188,10 @@ else
             var bic = $("input[type=text]#bic").val();
             var bankchanged = $("input[type=checkbox]#bankchanged").prop("checked");
         
-            var action ="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/mandate_change.php', array('user_uuid' => $getUserUuid, 'mode' => 'assign')) .'&iban=" + iban + "&origiban=" + origiban + "&mandateid=" + mandateid + "&origmandateid=" + origmandateid + "&bank=" + bank + "&bic=" + bic + "&bankchanged=" + bankchanged;
+            var action ="' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandate_change.php', array(
+            'user_uuid' => $getUserUuid,
+            'mode' => 'assign'
+        )) . '&iban=" + iban + "&origiban=" + origiban + "&mandateid=" + mandateid + "&origmandateid=" + origmandateid + "&bank=" + bank + "&bic=" + bic + "&bankchanged=" + bankchanged;
  
             var formAlert = $("#" + id + " .form-alert");
             formAlert.hide();
@@ -208,35 +205,36 @@ else
                 success: function(data) {
                     if (data === "success") {
                         $("#"+id+" .form-alert").attr("class", "alert alert-success form-alert");
-                        formAlert.html("<i class=\"bi bi-check-lg\"></i><strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong>");
+                        formAlert.html("<i class=\"bi bi-check-lg\"></i><strong>' . $gL10n->get('SYS_SAVE_DATA') . '</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 2500);
                         formAlert.fadeOut("slow");
+                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandates.php') . '");
                     }
                     else if(data === "error_nothing_changed") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_NOTHING_CHANGED').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_ERROR_NOTHING_CHANGED') . '</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_origmandateid_missing") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_ORIGMANDATEID_MISSING').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_ERROR_ORIGMANDATEID_MISSING') . '</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_origiban_missing") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_ORIGIBAN_MISSING').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_ERROR_ORIGIBAN_MISSING') . '</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
                     }
                     else if(data === "error_bank_changed") {
                         formAlert.attr("class", "alert alert-danger form-alert");
-                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED').'</strong>");
+                        formAlert.html("<i class=\"bi bi-exclamation-circle\"></i><strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_ERROR_BANK_CHANGED') . '</strong>");
                         formAlert.fadeIn("slow");
                         formAlert.animate({opacity: 1.0}, 5000);
                         formAlert.fadeOut("slow");
@@ -252,27 +250,56 @@ else
 
     ', true);
 
-    $form = new HtmlForm('mandate_change_form', '', $page, array('class' => 'form-mandate_change'));
-    $form->addInput('mandateid', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID'), $user->getValue('MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_REQUIRED));
-    $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()">
-            <i class="bi bi-arrow-down" title="'.$gL10n->get('PLG_MEMBERSHIPFEE_MOVE_MANDATEID').'"></i> </a>';
-    $form->addCustomContent('', $html);
-    $form->addInput('origmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID'.$gCurrentOrgId), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addInput('iban', $gL10n->get('PLG_MEMBERSHIPFEE_IBAN'), $user->getValue('IBAN'), array('property' => HtmlForm::FIELD_REQUIRED));
-    $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()">
-            <i class="bi bi-arrow-down"  title="'.$gL10n->get('PLG_MEMBERSHIPFEE_MOVE_IBAN').'"></i> </a>';
-    $form->addCustomContent('', $html);
-    $form->addInput('origiban', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_IBAN'), $user->getValue('ORIG_IBAN'), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addCheckbox('bankchanged', $gL10n->get('PLG_MEMBERSHIPFEE_BANK_CHANGED'), 0, array('class' => 'bank_changed_checkbox'));
-    $form->addInput('bic', $gL10n->get('PLG_MEMBERSHIPFEE_BIC'), $user->getValue('BIC'), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addInput('bank', $gL10n->get('PLG_MEMBERSHIPFEE_BANK'), $user->getValue('BANK'), array('property' => HtmlForm::FIELD_DISABLED));
-    $form->addInput('origdebtoragent', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'), array('property' => HtmlForm::FIELD_DISABLED));
-    $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>'.$gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE_DBTR_INFO').'</div>';
-    $form->addCustomContent('', $html);
+        $form = new FormPresenter('mandate_change_form', '../templates/mandate.change.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandate_change.php'), $page, array(
+            'class' => 'form-mandate_change'
+        ));
 
-    $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg', 'class' => ' offset-sm-3'));
+        $form->addInput('mandateid', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID'), $user->getValue('MANDATEID' . $gCurrentOrgId), array(
+            'property' => HtmlForm::FIELD_REQUIRED
+        ));
+        $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()">
+            <i class="bi bi-arrow-down" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_MOVE_MANDATEID') . '"></i> </a>';
+        $form->addCustomContent('mandat_schieben', '', $html);
+        $form->addInput('origmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID' . $gCurrentOrgId), array(
+            'property' => HtmlForm::FIELD_DISABLED
+        ));
+        $form->addInput('iban', $gL10n->get('PLG_MEMBERSHIPFEE_IBAN'), $user->getValue('IBAN'), array(
+            'property' => HtmlForm::FIELD_REQUIRED
+        ));
+        $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()">
+            <i class="bi bi-arrow-down"  title="' . $gL10n->get('PLG_MEMBERSHIPFEE_MOVE_IBAN') . '"></i> </a>';
+        $form->addCustomContent('iban_schieben', '', $html);
+        $form->addInput('origiban', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_IBAN'), $user->getValue('ORIG_IBAN'), array(
+            'property' => HtmlForm::FIELD_DISABLED
+        ));
+        $form->addCheckbox('bankchanged', $gL10n->get('PLG_MEMBERSHIPFEE_BANK_CHANGED'), 0, array(
+            'class' => 'bank_changed_checkbox'
+        ));
+        $form->addInput('bic', $gL10n->get('PLG_MEMBERSHIPFEE_BIC'), $user->getValue('BIC'), array(
+            'property' => HtmlForm::FIELD_DISABLED
+        ));
+        $form->addInput('bank', $gL10n->get('PLG_MEMBERSHIPFEE_BANK'), $user->getValue('BANK'), array(
+            'property' => HtmlForm::FIELD_DISABLED
+        ));
+        $form->addInput('origdebtoragent', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'), array(
+            'property' => HtmlForm::FIELD_DISABLED
+        ));
+        $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>' . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE_DBTR_INFO') . '</div>';
+        $form->addCustomContent('warning', '', $html);
 
-    $page->addHtml($form->show(false));
+        $form->addSubmitButton('btn_save_configurations', $gL10n->get('SYS_SAVE'), array(
+            'icon' => 'bi-check-lg',
+            'class' => ' offset-sm-3'
+        ));
 
-    $page->show();
+        $smarty = $page->createSmartyObject();
+        $smarty->assign('headline', $headline);
+        $form->addToSmarty($smarty);
+
+        $page->addHtml($smarty->fetch('../templates/mandate.change.plugin.membershipfee.tpl'));
+
+        $page->show();
+    }
+} catch (Exception $e) {
+    $gMessage->show($e->getMessage());
 }
