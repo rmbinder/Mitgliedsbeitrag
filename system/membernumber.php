@@ -10,176 +10,375 @@
  ***********************************************************************************************
  */
 
-/******************************************************************************
+/**
+ * ****************************************************************************
  * Parameters:
  *
- * mode       : preview - preview of the new member numbers
- *              write   - save the new member numbers
- *              print   - preview fpr printing  
+ * mode : preview - preview of the new member numbers
+ * write - save the new member numbers
+ * print - preview fpr printing
  *
- *****************************************************************************/
-
-use Admidio\Infrastructure\Utils\SecurityUtils;
+ * ***************************************************************************
+ */
 use Admidio\Infrastructure\Exception;
+use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\Infrastructure\Utils\StringUtils;
+use Admidio\UI\Component\DataTables;
+use Admidio\UI\Presenter\FormPresenter;
+use Admidio\UI\Presenter\PagePresenter;
 use Admidio\Users\Entity\User;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 use Plugins\MembershipFee\classes\Service\Membernumbers;
 
-require_once(__DIR__ . '/../../../system/common.php');
-require_once(__DIR__ . '/common_function.php');
+try {
+    require_once (__DIR__ . '/../../../system/common.php');
+    require_once (__DIR__ . '/common_function.php');
 
-// only authorized user are allowed to start this module
-if (!isUserAuthorized())
-{
-    throw new Exception('SYS_NO_RIGHTS');   
-}
+    // only authorized user are allowed to start this module
+    if (! isUserAuthorized()) {
+        throw new Exception('SYS_NO_RIGHTS');
+    }
 
-// Initialize and check the parameters
-$getMode    = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
-$postFormat = admFuncVariableIsValid($_POST, 'producemembernumber_format', 'string');
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
 
-//an array can not be checked with admFuncVariableIsValid
-$postRoleselection = isset($_POST['producemembernumber_roleselection']) ? $_POST['producemembernumber_roleselection'] : '';
-$postFillGaps      = isset($_POST['producemembernumber_fill_gaps']) ? $_POST['producemembernumber_fill_gaps'] : '';
+    // beim ersten Aufruf des Scriptes (wenn es von membership_fee aufgerufen wird), das Session-Array initialisieren/löschen
+    if (StringUtils::strContains($gNavigation->getUrl(), 'membership_fee.php')) {
+        $_SESSION['pMembershipFee']['membernumber_user'] = array();
+    }
 
-$pPreferences = new ConfigTable();
-$pPreferences->read();
+    // Initialize and check the parameters
+    $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
+        'defaultValue' => 'preview',
+        'validValues' => array(
+            'preview',
+            'save',
+            'print'
+        )
+    ));
 
-// set headline of the script
-$headline = $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER');
+    // wurde der OK-Button in der Filter-Bar gedrückt?
+    if (isset($_GET['btn_producemembernumber'])) {
+        $getFormat = admFuncVariableIsValid($_GET, 'producemembernumber_format', 'string');
+        $getFillGaps = isset($_GET['producemembernumber_fill_gaps']) ? 1 : 0;
 
-$gNavigation->addUrl(CURRENT_URL, $headline);
+        $getRoleselection = '';
+        if (isset($_GET['producemembernumber_roleselection'])) {
+            $tempArray = array_filter($_GET['producemembernumber_roleselection']);
+            if (count($tempArray) > 0) {
+                $getRoleselection = $tempArray;
+            }
+            unset($tempArray);
+        }
+    } else {
+        $getFormat = isset($pPreferences->config['membernumber']['format']) ? $pPreferences->config['membernumber']['format'] : '';
+        $getFillGaps = isset($pPreferences->config['membernumber']['fill_gaps']) ? $pPreferences->config['membernumber']['fill_gaps'] : 0;
+        $getRoleselection = '';
+    }
 
-if ($getMode == 'preview')     //Default
-{
-    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-preview', $headline);
-    
-	$membernumbers = new Membernumbers($gDb);
+    // set headline of the script
+    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER');
 
-	if ($membernumbers->isDoubleNumber())
-	{
-		$gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_ERROR', array($membernumbers->isDoubleNumber())));
-		// --> EXIT
-	}
+    $gNavigation->addUrl(CURRENT_URL, $headline);
 
-	$membernumbers->readUserWithoutMembernumber($postRoleselection);
-	$membernumbers->separateFormatSegment($postFormat);
-	$membernumbers->getMembernumber($postFillGaps);
-	
-	$_SESSION['pMembershipFee']['membernumber_rol_sel'] = $postRoleselection;
-	$_SESSION['pMembershipFee']['membernumber_format'] = $postFormat;
-	$_SESSION['pMembershipFee']['membernumber_fill_gaps'] = $postFillGaps;
+    if ($getMode == 'preview') // Default
+    {
+        $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-membernumber-preview');
+        $page->setHeadline($headline);
 
-	if ($membernumbers->userWithoutMembernumberExist)
-	{
-		// save new membernumbers in session (for mode write and mode print)
-		$_SESSION['pMembershipFee']['membernumber_user'] = $membernumbers->mUserWithoutMembernumber;
-	
-		$datatable = true;
-		$hoverRows = true;
-		$classTable  = 'table table-condensed';
-        
-		$table = new HtmlTable('table_new_membernumbers', $page, $hoverRows, $datatable, $classTable);
-        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-		$table->setColumnAlignByArray(array('left', 'left', 'center'));
-		$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
-		$table->addRowHeadingByArray($columnValues);
+        $form = new FormPresenter('membernumber_navbar', 'sys-template-parts/form.filter.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php'), $page, array(
+            'type' => 'navbar',
+            'setFocus' => false
+        ));
 
-		foreach ($membernumbers->mUserWithoutMembernumber as $data)
-		{
-			$columnValues = array();
-			$columnValues[] = $data['last_name'];
-			$columnValues[] = $data['first_name'];
-			$columnValues[] = $data['membernumber'];
-			$table->addRowByArray($columnValues);
-		}
+        $selectBoxEntriesAlleRollen = 'SELECT rol_id, rol_name, cat_name
+          						 FROM ' . TBL_ROLES . '
+    					   INNER JOIN ' . TBL_CATEGORIES . '
+                                   ON cat_id = rol_cat_id
+                                WHERE rol_valid   = true
+                                  AND (  cat_org_id  = ' . $gCurrentOrgId . '
+                                   OR cat_org_id IS NULL )
+                             ORDER BY cat_sequence, rol_name';
 
-		$page->addHtml($table->show(false));
-        
-    	$form = new HtmlForm('membernumber_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/membernumber.php', array('mode' => 'write')), $page);       
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg'));
-		$form->addDescription('<br/>'.$gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_PREVIEW'));
-        
-        $page->addHtml($form->show(false));
-	}
-	else 
-	{
-        $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NO_ASSIGN').'<br/><br/>');
-	}
-}
-elseif ($getMode == 'write')
-{
-    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-write', $headline);
+        $form->addSelectBoxFromSql('producemembernumber_roleselection', '', $gDb, $selectBoxEntriesAlleRollen, array(
+            'defaultValue' => $getRoleselection,
+            'showContextDependentFirstEntry' => false,
+            'helpTextId' => 'PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC2',
+            'multiselect' => true
+        ));
+        $form->addInput('producemembernumber_format', $gL10n->get('PLG_MEMBERSHIPFEE_FORMAT'), $getFormat, array(
+            'helpTextId' => 'PLG_MEMBERSHIPFEE_FORMAT_DESC'
+        ));
+        $form->addCheckbox('producemembernumber_fill_gaps', $gL10n->get('PLG_MEMBERSHIPFEE_FILL_GAPS'), $getFillGaps, array(
+            'helpTextId' => 'PLG_MEMBERSHIPFEE_FILL_GAPS_DESC'
+        ));
 
- 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
-    
-	$page->addJavascript('
+        $form->addSubmitButton('btn_producemembernumber', $gL10n->get('SYS_OK'), array(
+            'icon' => 'bi-calculator'
+        ));
+
+        $form->addToHtmlPage();
+
+        $membernumbers = new Membernumbers($gDb);
+
+        if ($membernumbers->isDoubleNumber()) {
+            $gMessage->show($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_ERROR', array(
+                $membernumbers->isDoubleNumber()
+            )));
+            // --> EXIT
+        }
+
+        $membernumbers->readUserWithoutMembernumber($getRoleselection);
+        $membernumbers->separateFormatSegment($getFormat);
+        $membernumbers->getMembernumber($getFillGaps);
+
+        $_SESSION['pMembershipFee']['membernumber_rol_sel'] = $getRoleselection;
+        $_SESSION['pMembershipFee']['membernumber_format'] = $getFormat;
+        $_SESSION['pMembershipFee']['membernumber_fill_gaps'] = $getFillGaps;
+
+        $table = new DataTables($page, 'table_preview_membernumber');
+
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
+
+        // data array
+        $data = array(
+            'headers' => array(),
+            'rows' => array(),
+            'column_align' => array(),
+            'column_width' => array()
+        );
+
+        $data['column_align'] = array(
+            'left',
+            'left',
+            'center'
+        );
+
+        $data['headers'] = array(
+            $gL10n->get('SYS_LASTNAME'),
+            $gL10n->get('SYS_FIRSTNAME'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW')
+        );
+
+        $data['column_width'] = array(
+            '25%',
+            '25%',
+            '50%'
+        );
+
+        if ($membernumbers->userWithoutMembernumberExist) {
+
+            // save new membernumbers in session (for mode write and mode print)
+            $_SESSION['pMembershipFee']['membernumber_user'] = $membernumbers->mUserWithoutMembernumber;
+
+            $listRowNumber = 1;
+            foreach ($membernumbers->mUserWithoutMembernumber as $memberdata) {
+                $columnValues = array();
+
+                $columnValues[] = $memberdata['last_name'];
+                $columnValues[] = $memberdata['first_name'];
+                $columnValues[] = $memberdata['membernumber'];
+
+                $data['rows'][] = array(
+                    'id' => 'row-' . $listRowNumber,
+                    'data' => $columnValues
+                );
+
+                ++ $listRowNumber;
+            }
+
+            $form = new FormPresenter('membernumber_preview_form', '../templates/membernumber.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php', array(
+                'mode' => 'save'
+            )), $page);
+
+            $form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array(
+                'icon' => 'bi-check-lg',
+                'class' => 'btn-primary'
+            ));
+        }
+        $table->createJavascript(count($data['rows']), count($data['headers']));
+        $table->setColumnAlignByArray($data['column_align']);
+
+        $smarty = $page->createSmartyObject();
+        $smarty->assign('l10n', $gL10n);
+        $smarty->assign('classTable', 'table table-condensed table-hover');
+
+        $smarty->assign('columnAlign', $data['column_align']);
+        $smarty->assign('columnWidth', $data['column_width']);
+        $smarty->assign('headers', $data['headers']);
+        $smarty->assign('rows', $data['rows']);
+
+        $errorMarker = false;
+        $smarty->assign('errorMarker', $errorMarker);
+
+        $form->addToSmarty($smarty);
+
+        // Fetch the HTML table from our Smarty template
+        $htmlTable = $smarty->fetch('../templates/membernumber.preview.plugin.membershipfee.tpl');
+        // add table list to the page
+        $page->addHtml($htmlTable);
+
+        $page->show();
+    } elseif ($getMode == 'save') {
+
+        $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-membernumber-save');
+        $page->setHeadline($headline);
+
+        $page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
+
+        $page->addJavascript('
     	$("#menu_item_print_view").click(function() {
-            window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/membernumber.php', array('mode' => 'print')). '", "_blank");
-        });',
-		true
-	);
-	
-	$datatable = false;
-	$hoverRows = true;
-	$classTable  = 'table table-condensed';
-    
-	$table = new HtmlTable('table_saved_membernumbers', $page, $hoverRows, $datatable, $classTable);
-    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-	$table->setColumnAlignByArray(array('left', 'left', 'center'));
-	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
-	$table->addRowHeadingByArray($columnValues);
-	
-	$user = new User($gDb, $gProfileFields);
-	
-	foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $data)
-	{
-		$columnValues = array();
-		$columnValues[] = $data['last_name'];
-		$columnValues[] = $data['first_name'];
-		$columnValues[] = $data['membernumber'];
-		$table->addRowByArray($columnValues);
-		
-		$user->readDataById($data['usr_id']);
-		$user->setValue('MEMBERNUMBER'.$gCurrentOrgId, $data['membernumber']);
-		$user->save();
-	}
-	
-	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
-	$page->addHtml($table->show(false));
-	$page->addHtml('</div><br/>');
-    $page->addHtml('<strong>'.$gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_SAVED').'</strong><br/><br/>');
-	
-	// save the format string in database
-	$pPreferences->config['membernumber']['format'] = $_SESSION['pMembershipFee']['membernumber_format'];
-	$pPreferences->config['membernumber']['fill_gaps'] = $_SESSION['pMembershipFee']['membernumber_fill_gaps'];
-	$pPreferences->save();
+            window.open("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php', array(
+            'mode' => 'print'
+        )) . '", "_blank");
+        });', true);
+
+        $table = new DataTables($page, 'table_save_membernumber');
+
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
+
+        // data array
+        $data = array(
+            'headers' => array(),
+            'rows' => array(),
+            'column_align' => array(),
+            'column_width' => array()
+        );
+
+        $data['column_align'] = array(
+            'left',
+            'left',
+            'center'
+        );
+
+        $data['headers'] = array(
+            $gL10n->get('SYS_LASTNAME'),
+            $gL10n->get('SYS_FIRSTNAME'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW')
+        );
+
+        $data['column_width'] = array(
+            '25%',
+            '25%',
+            '50%'
+        );
+
+        $user = new User($gDb, $gProfileFields);
+
+        $listRowNumber = 1;
+        foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $memberdata) {
+            $columnValues = array();
+            $columnValues[] = $memberdata['last_name'];
+            $columnValues[] = $memberdata['first_name'];
+            $columnValues[] = $memberdata['membernumber'];
+
+            $data['rows'][] = array(
+                'id' => 'row-' . $listRowNumber,
+                'data' => $columnValues
+            );
+
+            ++ $listRowNumber;
+
+            $user->readDataById($memberdata['usr_id']);
+            $user->setValue('MEMBERNUMBER' . $gCurrentOrgId, $memberdata['membernumber']);
+            $user->save();
+        }
+
+        // save the format string in database
+        $pPreferences->config['membernumber']['format'] = $_SESSION['pMembershipFee']['membernumber_format'];
+        $pPreferences->config['membernumber']['fill_gaps'] = $_SESSION['pMembershipFee']['membernumber_fill_gaps'];
+        $pPreferences->save();
+
+        $table->createJavascript(count($data['rows']), count($data['headers']));
+        $table->setColumnAlignByArray($data['column_align']);
+
+        $smarty = $page->createSmartyObject();
+        $smarty->assign('l10n', $gL10n);
+        $smarty->assign('classTable', 'table table-condensed table-hover');
+        $smarty->assign('columnAlign', $data['column_align']);
+        $smarty->assign('columnWidth', $data['column_width']);
+        $smarty->assign('headers', $data['headers']);
+        $smarty->assign('rows', $data['rows']);
+
+        $htmlTable = $smarty->fetch('../templates/membernumber.save.plugin.membershipfee.tpl');
+        // add table list to the page
+        $page->addHtml($htmlTable);
+
+        $page->show();
+    } elseif ($getMode == 'print') {
+
+        $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-membernumber-print');
+
+        $page->setHeadline($headline);
+        $page->setPrintMode();
+
+        $table = new DataTables($page, 'table_print_membernumer');
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
+
+        // data array
+        $data = array(
+            'headers' => array(),
+            'rows' => array(),
+            'column_align' => array(),
+            'column_width' => array()
+        );
+
+        $data['column_align'] = array(
+            'left',
+            'left',
+            'center'
+        );
+
+        $data['headers'] = array(
+            $gL10n->get('SYS_LASTNAME'),
+            $gL10n->get('SYS_FIRSTNAME'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW')
+        );
+
+        $data['column_width'] = array(
+            '25%',
+            '25%',
+            '50%'
+        );
+
+        $listRowNumber = 1;
+
+        foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $memberdata) {
+            $columnValues = array();
+            $columnValues[] = $memberdata['last_name'];
+            $columnValues[] = $memberdata['first_name'];
+            $columnValues[] = $memberdata['membernumber'];
+
+            $data['rows'][] = array(
+                'id' => 'row-' . $listRowNumber,
+                'data' => $columnValues
+            );
+
+            ++ $listRowNumber;
+        }
+
+        $table->createJavascript(count($data['rows']), count($data['headers']));
+        $table->setColumnAlignByArray($data['column_align']);
+
+        $smarty = $page->createSmartyObject();
+        $smarty->assign('l10n', $gL10n);
+        $smarty->assign('classTable', 'table table-condensed table-hover');
+        $smarty->assign('columnAlign', $data['column_align']);
+        $smarty->assign('columnWidth', $data['column_width']);
+        $smarty->assign('headers', $data['headers']);
+        $smarty->assign('rows', $data['rows']);
+
+        // Fetch the HTML table from our Smarty template
+        $htmlTable = $smarty->fetch('../templates/membernumber.print.plugin.membershipfee.tpl');
+        // add table list to the page
+        $page->addHtml($htmlTable);
+
+        $page->show();
+    }
+} catch (Exception $e) {
+    $gMessage->show($e->getMessage());
 }
-elseif ($getMode == 'print')
-{
-	$hoverRows = false;
-	$datatable = false;
-	$classTable  = 'table table-condensed table-striped';
-    
-    $page = new HtmlPage('plg-mitgliedsbeitrag-membernumber-print', $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBERS_NEW'));
-	$page->setPrintMode();
-
-	$table = new HtmlTable('table_print_membernumbers', $page, $hoverRows, $datatable, $classTable);
-	$table->setColumnAlignByArray(array('left', 'left', 'center'));
-	$columnValues = array($gL10n->get('SYS_LASTNAME'), $gL10n->get('SYS_FIRSTNAME'), $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER_NEW'));
-	$table->addRowHeadingByArray($columnValues);
-	
-	foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $data)
-	{
-		$columnValues = array();
-		$columnValues[] = $data['last_name'];
-		$columnValues[] = $data['first_name'];
-		$columnValues[] = $data['membernumber'];
-		$table->addRowByArray($columnValues);
-	}
-	$page->addHtml($table->show(false));
-}
-
-$page->show();
-
 
