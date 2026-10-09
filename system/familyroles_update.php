@@ -11,236 +11,379 @@
  ***********************************************************************************************
  */
 
-/******************************************************************************
+/**
+ * ****************************************************************************
  * Parameters:
  *
- * mode       : preview - preview of the familiy roles update
- *              write   - save the new values for cost, cost period and description
- *              print   - preview for printing
+ * mode : preview - preview of the familiy roles update
+ * save - save the new values for cost, cost period and description
+ * print - preview for printing
  *
- *****************************************************************************/
-
-use Admidio\Infrastructure\Utils\SecurityUtils;
+ * ***************************************************************************
+ */
 use Admidio\Infrastructure\Exception;
+use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Roles\Entity\Role;
+use Admidio\UI\Component\DataTables;
+use Admidio\UI\Presenter\FormPresenter;
+use Admidio\UI\Presenter\PagePresenter;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
-require_once(__DIR__ . '/../../../system/common.php');
-require_once(__DIR__ . '/common_function.php');
+try {
+    require_once (__DIR__ . '/../../../system/common.php');
+    require_once (__DIR__ . '/common_function.php');
 
-// only authorized user are allowed to start this module
-if (!isUserAuthorized())
-{
-    throw new Exception('SYS_NO_RIGHTS');   
-}
+    // only authorized user are allowed to start this module
+    if (! isUserAuthorized()) {
+        throw new Exception('SYS_NO_RIGHTS');
+    }
 
-// Initialize and check the parameters
-$getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
+    // Initialize and check the parameters
+    $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
+        'defaultValue' => 'preview',
+        'validValues' => array(
+            'preview',
+            'save',
+            'print'
+        )
+    ));
 
-$pPreferences = new ConfigTable();
-$pPreferences->read();
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
 
-$role = new Role($gDb);
+    $role = new Role($gDb);
 
-// set headline of the script
-$headline = $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE');
+    // set headline of the script
+    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE');
 
-$gNavigation->addUrl(CURRENT_URL, $headline);
+    $gNavigation->addUrl(CURRENT_URL, $headline);
 
-if ($getMode == 'preview')     //Default
-{
-    $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-preview', $headline);
-    $page->setContentFullWidth(); 
-    
-	$familyRolesToUpdate = array();
+    if ($getMode == 'preview') // Default
+    {
+        $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-familyrolesupdate-preview');
+        $page->setHeadline($headline);
 
-	// alle Familienkonfigurationen durchlaufen
-	foreach($pPreferences->config['Familienrollen']['familienrollen_prefix'] as $key => $data)
-	{
-		// Familienrollen anhand des Präfix bestimmen
-		$sql = 'SELECT rol_id, rol_name, rol_cost, rol_cost_period, rol_description
-                FROM '.TBL_ROLES.', '. TBL_CATEGORIES. '
+        $page->setContentFullWidth();
+
+        $familyRolesToUpdate = array();
+
+        // alle Familienkonfigurationen durchlaufen
+        foreach ($pPreferences->config['Familienrollen']['familienrollen_prefix'] as $key => $data) {
+            // Familienrollen anhand des Präfix bestimmen
+            $sql = 'SELECT rol_id, rol_name, rol_cost, rol_cost_period, rol_description
+                FROM ' . TBL_ROLES . ', ' . TBL_CATEGORIES . '
 				WHERE rol_valid  = true
                 AND rol_name LIKE ?
 				AND rol_cat_id = cat_id
             	AND ( cat_org_id = ?
                 OR cat_org_id IS NULL ) ';
 
-	   $statement = $gDb->queryPrepared($sql, array($data.'%', $gCurrentOrgId));
+            $statement = $gDb->queryPrepared($sql, array(
+                $data . '%',
+                $gCurrentOrgId
+            ));
 
-		// die Einträge von Beitrag, Beitragszeitraum und Beschreibung auslesen und mit den Einträgen im Setup vergleichen
-		while ($row = $statement->fetch())
-		{
-			if (	($row['rol_cost']        != $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key])
-				|| 	($row['rol_cost_period'] != $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key])
-				|| 	($row['rol_description'] != $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key]) )
-			{
-				$familyRolesToUpdate[$row['rol_id']] = array(
-					'rol_name' => $row['rol_name'],
+            // die Einträge von Beitrag, Beitragszeitraum und Beschreibung auslesen und mit den Einträgen im Setup vergleichen
+            while ($row = $statement->fetch()) {
+                if (($row['rol_cost'] != $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key]) || ($row['rol_cost_period'] != $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key]) || ($row['rol_description'] != $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key])) {
+                    $familyRolesToUpdate[$row['rol_id']] = array(
+                        'rol_name' => $row['rol_name'],
 
-					'rol_cost_is' => $row['rol_cost'],
-					'rol_cost_shall' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key],
-					'rol_cost_update' => ($row['rol_cost'] != $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key] ? true : false),
+                        'rol_cost_is' => $row['rol_cost'],
+                        'rol_cost_shall' => $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key],
+                        'rol_cost_update' => ($row['rol_cost'] != $pPreferences->config['Familienrollen']['familienrollen_beitrag'][$key] ? true : false),
 
-					'rol_cost_period_is' => $row['rol_cost_period'],
-					'rol_cost_period_shall' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key],
-					'rol_cost_period_update' => ($row['rol_cost_period'] != $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key] ? true : false),
+                        'rol_cost_period_is' => $row['rol_cost_period'],
+                        'rol_cost_period_shall' => $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key],
+                        'rol_cost_period_update' => ($row['rol_cost_period'] != $pPreferences->config['Familienrollen']['familienrollen_zeitraum'][$key] ? true : false),
 
-					'rol_description_is' =>  $row['rol_description'],
-					'rol_description_shall' => $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key],
-					'rol_description_update' => ($row['rol_description'] != $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key] ? true : false)
-				);
-			}
-		}
-	}
+                        'rol_description_is' => $row['rol_description'],
+                        'rol_description_shall' => $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key],
+                        'rol_description_update' => ($row['rol_description'] != $pPreferences->config['Familienrollen']['familienrollen_beschreibung'][$key] ? true : false)
+                    );
+                }
+            }
+        }
 
-	if (sizeof($familyRolesToUpdate) > 0)
-	{
-    	$form = new HtmlForm('familyrolesupdate_preview_form', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/familyroles_update.php', array('mode' => 'write')), $page);
+        $table = new DataTables($page, 'table_preview_familyrolesupdate');
 
-		// save new values in session (for mode write and mode print)
-		$_SESSION['pMembershipFee']['familyroles_update'] = $familyRolesToUpdate;
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
 
-		$datatable = true;
-		$hoverRows = true;
-		$classTable  = 'table table-condensed';
+        // data array
+        $data = array(
+            'headers' => array(),
+            'rows' => array(),
+            'column_align' => array(),
+            'column_width' => array()
+        );
 
-		$table = new HtmlTable('table_new_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
-        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-		$table->setColumnAlignByArray(array('left', 'center', 'center', 'center','center', 'center', 'center'));
-		$columnValues = array(
-			$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
-			$gL10n->get('PLG_MEMBERSHIPFEE_IS').' '.$gL10n->get('SYS_CONTRIBUTION'),
-			$gL10n->get('PLG_MEMBERSHIPFEE_SHALL').' '.$gL10n->get('SYS_CONTRIBUTION'),
-			$gL10n->get('PLG_MEMBERSHIPFEE_IS').' '.$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
-			$gL10n->get('PLG_MEMBERSHIPFEE_SHALL').' '.$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
-			$gL10n->get('PLG_MEMBERSHIPFEE_IS').' '.$gL10n->get('SYS_DESCRIPTION'),
-			$gL10n->get('PLG_MEMBERSHIPFEE_SHALL').' '.$gL10n->get('SYS_DESCRIPTION') );
-		$table->addRowHeadingByArray($columnValues);
+        $data['column_align'] = array(
+            'left',
+            'center',
+            'center',
+            'center',
+            'center',
+            'center',
+            'center'
+        );
 
-		foreach ($familyRolesToUpdate as $rol_id => $data)
-		{
-            $role->readDataById( $rol_id);
+        $data['headers'] = array(
+            $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_IS') . ' ' . $gL10n->get('SYS_CONTRIBUTION'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_SHALL') . ' ' . $gL10n->get('SYS_CONTRIBUTION'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_IS') . ' ' . $gL10n->get('SYS_CONTRIBUTION_PERIOD'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_SHALL') . ' ' . $gL10n->get('SYS_CONTRIBUTION_PERIOD'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_IS') . ' ' . $gL10n->get('SYS_DESCRIPTION'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_SHALL') . ' ' . $gL10n->get('SYS_DESCRIPTION')
+        );
 
-			//Sonderfall absichern, wenn rol_cost_period_is oder rol_cost_period_shall nicht gesetzt, also null ist
-			$rol_cost_period_is = $data['rol_cost_period_is'] !== null ? Role::getCostPeriods($data['rol_cost_period_is']) : '';
-			$rol_cost_period_shall = $data['rol_cost_period_shall'] !== null ? Role::getCostPeriods($data['rol_cost_period_shall']) : '';
+        $data['column_width'] = array(
+            '28%',
+            '8%',
+            '8%',
+            '14%',
+            '14%',
+            '14%',
+            '14%'
+        );
 
-			$columnValues = array();
-			$columnValues[] = '<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles.php', array('mode' => 'edit', 'role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rol_name']. '</a>';
-			$columnValues[] = ($data['rol_cost_update'] ? '<strong>'.$data['rol_cost_is'].'</strong>': $data['rol_cost_is']);
-			$columnValues[] = ($data['rol_cost_update'] ? '<strong>'.$data['rol_cost_shall'].'</strong>': $data['rol_cost_shall']);
-			$columnValues[] = ($data['rol_cost_period_update'] ? '<strong>'.$rol_cost_period_is.'</strong>': $rol_cost_period_is);
-			$columnValues[] = ($data['rol_cost_period_update'] ? '<strong>'.$rol_cost_period_shall.'</strong>' : $rol_cost_period_shall);
-			$columnValues[] = ($data['rol_description_update'] ? '<strong>'.$data['rol_description_is'].'</strong>' : $data['rol_description_is']);
-			$columnValues[] = ($data['rol_description_update'] ? '<strong>'.$data['rol_description_shall'].'</strong>': $data['rol_description_shall']);
-			$table->addRowByArray($columnValues);
-		}
+        if (sizeof($familyRolesToUpdate) > 0) {
 
-		$page->addHtml($table->show(false));
+            // save new values in session (for mode write and mode print)
+            $_SESSION['pMembershipFee']['familyroles_update'] = $familyRolesToUpdate;
 
-		$form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array('icon' => 'bi-check-lg'));
-		$form->addDescription($gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_PREVIEW'));
+            $listRowNumber = 1;
+            foreach ($familyRolesToUpdate as $rol_id => $memberdata) {
+                $role->readDataById($rol_id);
 
-        $page->addHtml($form->show(false));
-	}
-	else
-	{
-        $page->addHtml($gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_NO_ASSIGN').'<br/><br/>');
-	}
-}
-elseif ($getMode == 'write')
-{
-    $page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-write', $headline);
-    $page->setContentFullWidth(); 
-    
- 	$page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
+                // Sonderfall absichern, wenn rol_cost_period_is oder rol_cost_period_shall nicht gesetzt, also null ist
+                $rol_cost_period_is = $memberdata['rol_cost_period_is'] !== null ? Role::getCostPeriods($memberdata['rol_cost_period_is']) : '';
+                $rol_cost_period_shall = $memberdata['rol_cost_period_shall'] !== null ? Role::getCostPeriods($memberdata['rol_cost_period_shall']) : '';
 
-	$page->addJavascript('
+                $columnValues = array();
+                $columnValues[] = '<a href="' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles.php', array(
+                    'mode' => 'edit',
+                    'role_uuid' => $role->getValue('rol_uuid')
+                )) . '">' . $memberdata['rol_name'] . '</a>';
+                $columnValues[] = ($memberdata['rol_cost_update'] ? '<strong>' . $memberdata['rol_cost_is'] . '</strong>' : $memberdata['rol_cost_is']);
+                $columnValues[] = ($memberdata['rol_cost_update'] ? '<strong>' . $memberdata['rol_cost_shall'] . '</strong>' : $memberdata['rol_cost_shall']);
+                $columnValues[] = ($memberdata['rol_cost_period_update'] ? '<strong>' . $rol_cost_period_is . '</strong>' : $rol_cost_period_is);
+                $columnValues[] = ($memberdata['rol_cost_period_update'] ? '<strong>' . $rol_cost_period_shall . '</strong>' : $rol_cost_period_shall);
+                $columnValues[] = ($memberdata['rol_description_update'] ? '<strong>' . $memberdata['rol_description_is'] . '</strong>' : $memberdata['rol_description_is']);
+                $columnValues[] = ($memberdata['rol_description_update'] ? '<strong>' . $memberdata['rol_description_shall'] . '</strong>' : $memberdata['rol_description_shall']);
+
+                $data['rows'][] = array(
+                    'id' => 'row-' . $listRowNumber,
+                    'data' => $columnValues
+                );
+
+                ++ $listRowNumber;
+            }
+        }
+
+        $form = new FormPresenter('familyrolesupdate_preview_form', '../templates/familyrolesupdate.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/familyroles_update.php', array(
+            'mode' => 'save'
+        )), $page);
+
+        $form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array(
+            'icon' => 'bi-check-lg',
+            'class' => 'btn-primary'
+        ));
+
+        $table->createJavascript(count($data['rows']), count($data['headers']));
+        $table->setColumnAlignByArray($data['column_align']);
+
+        $smarty = $page->createSmartyObject();
+        $smarty->assign('l10n', $gL10n);
+        $smarty->assign('classTable', 'table table-condensed table-hover');
+
+        $smarty->assign('columnAlign', $data['column_align']);
+        $smarty->assign('columnWidth', $data['column_width']);
+        $smarty->assign('headers', $data['headers']);
+        $smarty->assign('rows', $data['rows']);
+
+        $form->addToSmarty($smarty);
+
+        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.preview.plugin.membershipfee.tpl');
+        $page->addHtml($htmlTable);
+
+        $page->show();
+    } elseif ($getMode == 'save') {
+
+        $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-familyrolesupdate-save');
+
+        $page->setContentFullWidth();
+
+        $page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
+
+        $page->addJavascript('
     	$("#menu_item_print_view").click(function() {
-            window.open("'. SecurityUtils::encodeUrl(ADMIDIO_URL. FOLDER_PLUGINS . PLUGIN_FOLDER .'/system/familyroles_update.php', array('mode' => 'print')). '", "_blank");
-        });',
-		true
-	);
+            window.open("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/familyroles_update.php', array(
+            'mode' => 'print'
+        )) . '", "_blank");
+        });', true);
 
-	$datatable = false;
-	$hoverRows = true;
-	$classTable  = 'table table-condensed';
+        $table = new DataTables($page, 'table_preview_familyrolesupdate');
 
-	$table = new HtmlTable('table_saved_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
-    $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-	$table->setColumnAlignByArray(array('left', 'center', 'center', 'center'));
-	$columnValues = array(
-		$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
-		$gL10n->get('SYS_CONTRIBUTION'),
-		$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
-		$gL10n->get('SYS_DESCRIPTION') );
-	$table->addRowHeadingByArray($columnValues);
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
 
-	foreach ($_SESSION['pMembershipFee']['familyroles_update'] as $rol_id => $data)
-	{
-		$role->readDataById( $rol_id);
+        // data array
+        $data = array(
+            'headers' => array(),
+            'rows' => array(),
+            'column_align' => array(),
+            'column_width' => array()
+        );
 
-		if ($data['rol_cost_update'])
-		{
-			$role->setvalue('rol_cost', $data['rol_cost_shall']);
-		}
-		if ($data['rol_cost_period_update'])
-		{
-			$role->setvalue('rol_cost_period', $data['rol_cost_period_shall']);
-		}
-		if ($data['rol_description_update'])
-		{
-			$role->setvalue('rol_description', $data['rol_description_shall']);
-		}
-		$role->save();
+        $data['column_align'] = array(
+            'left',
+            'center',
+            'center',
+            'center'
+        );
 
-		$columnValues = array(
-			'<a href="'. SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles.php', array('mode' => 'edit', 'role_uuid' => $role->getValue('rol_uuid'))). '">'.$data['rol_name']. '</a>',
-			$role->getValue('rol_cost'),
-			($role->getValue('rol_cost_period') !== null ? Role::getCostPeriods($role->getValue('rol_cost_period')) : ''),
-			$role->getValue('rol_description') );
-		$table->addRowByArray($columnValues);
-	}
+        $data['headers'] = array(
+            $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
+            $gL10n->get('SYS_CONTRIBUTION'),
+            $gL10n->get('SYS_CONTRIBUTION_PERIOD'),
+            $gL10n->get('SYS_DESCRIPTION')
+        );
 
-	$page->addHtml('<div style="width:100%; height: 500px; overflow:auto; border:20px;">');
-	$page->addHtml($table->show(false));
-	$page->addHtml('</div><br/>');
-    $page->addHtml('<strong>'.$gL10n->get('SYS_SAVE_DATA').'</strong><br/><br/>');
+        $data['column_width'] = array(
+            '40%',
+            '20%',
+            '20%',
+            '20%'
+        );
+
+        $listRowNumber = 1;
+
+        foreach ($_SESSION['pMembershipFee']['familyroles_update'] as $rol_id => $memberdata) {
+            $role->readDataById($rol_id);
+
+            if ($memberdata['rol_cost_update']) {
+                $role->setvalue('rol_cost', $memberdata['rol_cost_shall']);
+            }
+            if ($memberdata['rol_cost_period_update']) {
+                $role->setvalue('rol_cost_period', $memberdata['rol_cost_period_shall']);
+            }
+            if ($memberdata['rol_description_update']) {
+                $role->setvalue('rol_description', $memberdata['rol_description_shall']);
+            }
+            $role->save();
+
+            $columnValues = array(
+                '<a href="' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/groups-roles/groups_roles.php', array(
+                    'mode' => 'edit',
+                    'role_uuid' => $role->getValue('rol_uuid')
+                )) . '">' . $memberdata['rol_name'] . '</a>',
+                $role->getValue('rol_cost'),
+                ($role->getValue('rol_cost_period') !== null ? Role::getCostPeriods($role->getValue('rol_cost_period')) : ''),
+                $role->getValue('rol_description')
+            );
+
+            $data['rows'][] = array(
+                'id' => 'row-' . $listRowNumber,
+                'data' => $columnValues
+            );
+
+            ++ $listRowNumber;
+        }
+
+        $table->createJavascript(count($data['rows']), count($data['headers']));
+        $table->setColumnAlignByArray($data['column_align']);
+
+        $smarty = $page->createSmartyObject();
+        $smarty->assign('l10n', $gL10n);
+        $smarty->assign('classTable', 'table table-condensed table-hover');
+        $smarty->assign('columnAlign', $data['column_align']);
+        $smarty->assign('columnWidth', $data['column_width']);
+        $smarty->assign('headers', $data['headers']);
+        $smarty->assign('rows', $data['rows']);
+
+        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.save.plugin.membershipfee.tpl');
+        $page->addHtml($htmlTable);
+
+        $page->show();
+    } elseif ($getMode == 'print') {
+
+        $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-familyrolesupdate-print');
+
+        $page->setHeadline($headline);
+        $page->setPrintMode();
+
+        $table = new DataTables($page, 'table_print_familyrolesupdate');
+
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
+
+        // data array
+        $data = array(
+            'headers' => array(),
+            'rows' => array(),
+            'column_align' => array(),
+            'column_width' => array()
+        );
+
+        $data['column_align'] = array(
+            'left',
+            'center',
+            'center',
+            'center'
+        );
+
+        $data['headers'] = array(
+            $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
+            $gL10n->get('SYS_CONTRIBUTION'),
+            $gL10n->get('SYS_CONTRIBUTION_PERIOD'),
+            $gL10n->get('SYS_DESCRIPTION')
+        );
+
+        $data['column_width'] = array(
+            '40%',
+            '20%',
+            '20%',
+            '20%'
+        );
+
+        $listRowNumber = 1;
+        foreach ($_SESSION['pMembershipFee']['familyroles_update'] as $rol_id => $memberdata) {
+            $role->readDataById($rol_id);
+
+            $columnValues = array(
+                $memberdata['rol_name'],
+                $role->getValue('rol_cost'),
+                ($role->getValue('rol_cost_period') !== null ? Role::getCostPeriods($role->getValue('rol_cost_period')) : ''),
+                $role->getValue('rol_description')
+            );
+
+            $data['rows'][] = array(
+                'id' => 'row-' . $listRowNumber,
+                'data' => $columnValues
+            );
+
+            ++ $listRowNumber;
+        }
+
+        $table->createJavascript(count($data['rows']), count($data['headers']));
+        $table->setColumnAlignByArray($data['column_align']);
+
+        $smarty = $page->createSmartyObject();
+        $smarty->assign('l10n', $gL10n);
+        $smarty->assign('classTable', 'table table-condensed table-hover');
+        $smarty->assign('columnAlign', $data['column_align']);
+        $smarty->assign('columnWidth', $data['column_width']);
+        $smarty->assign('headers', $data['headers']);
+        $smarty->assign('rows', $data['rows']);
+
+        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.print.plugin.membershipfee.tpl');
+        $page->addHtml($htmlTable);
+
+        $page->show();
+    }
+} catch (Exception $e) {
+    $gMessage->show($e->getMessage());
 }
-elseif ($getMode == 'print')
-{
-	// create html page object without the custom theme files
-	$hoverRows = false;
-	$datatable = false;
-	$classTable = 'table table-condensed table-striped';
-
- 	$page = new HtmlPage('plg-mitgliedsbeitrag-familyrolesupdate-print', $headline);
-	$page->setPrintMode();
-
-	$table = new HtmlTable('table_print_familyrolesupdate', $page, $hoverRows, $datatable, $classTable);
-	$table->setColumnAlignByArray(array('left', 'center', 'center', 'center'));
-	$columnValues = array(
-		$gL10n->get('PLG_MEMBERSHIPFEE_ROLE_NAME'),
-		$gL10n->get('SYS_CONTRIBUTION'),
-		$gL10n->get('SYS_CONTRIBUTION_PERIOD'),
-		$gL10n->get('SYS_DESCRIPTION') );
-	$table->addRowHeadingByArray($columnValues);
-
-	foreach ($_SESSION['pMembershipFee']['familyroles_update'] as $rol_id => $data)
-	{
-		$role->readDataById( $rol_id);
-
-		$columnValues = array(
-			$data['rol_name'],
-			$role->getValue('rol_cost'),
-			($role->getValue('rol_cost_period') !== null ? Role::getCostPeriods($role->getValue('rol_cost_period')) : ''),
-			$role->getValue('rol_description') );
-		$table->addRowByArray($columnValues);
-	}
-	$page->addHtml($table->show(false));
-}
-
-$page->show();
-
 
