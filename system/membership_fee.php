@@ -67,7 +67,7 @@ try {
     $page->addPageFunctionsMenuItem('menu_extras', $gL10n->get('PLG_MEMBERSHIPFEE_EXTRAS'), '#', 'bi-option');
     $page->addPageFunctionsMenuItem('menu_item_producemembernumber', $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php'), 'bi-123', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_familyrolesupdate', $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/familyroles_update.php'), 'bi-arrow-repeat', 'menu_extras');
-    $page->addPageFunctionsMenuItem('menu_item_copy', $gL10n->get('PLG_MEMBERSHIPFEE_COPY'), '', 'bi-copy', 'menu_extras');
+    $page->addPageFunctionsMenuItem('menu_item_copy', $gL10n->get('PLG_MEMBERSHIPFEE_COPY'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/copy.php'), 'bi-copy', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_tests', $gL10n->get('PLG_MEMBERSHIPFEE_TESTS'), '', 'bi-heart-pulse', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_roleoverview', $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_OVERVIEW'), '', 'bi-list-columns-reverse', 'menu_extras');
     if (isUserAuthorizedForPreferences()) {
