@@ -116,10 +116,13 @@ class Membernumbers
     {
      	global $gProfileFields;
 
+     	$roleIds = array();
      	$sqlRoleCond = '';
-     	if (is_array($roleselection))
+     	if (is_array($roleselection) && count($roleselection) > 0)
      	{
-     		$sqlRoleCond =  'AND rol_id IN ('.implode(', ', $roleselection).')';
+     		// bind the role ids as query parameters to prevent SQL injection
+     		$roleIds = array_map('intval', $roleselection);
+     		$sqlRoleCond =  'AND rol_id IN ('.Database::getQmForValues($roleIds).')';
      	}
 
      	// usr_id, Name, Vorname und Mitgliedsnummer einlesen von Mitgliedern,
@@ -150,13 +153,16 @@ class Membernumbers
                    AND cat_org_id = ? -- $GLOBALS[\'gCurrentOrgId\']
               ) ';
 
-        $queryParams = array(
-            $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
-            $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
-            $gProfileFields->getProperty('MEMBERNUMBER'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
-            DATE_NOW,
-            DATE_NOW,
-            $GLOBALS['gCurrentOrgId']
+        $queryParams = array_merge(
+            array(
+                $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
+                $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
+                $gProfileFields->getProperty('MEMBERNUMBER'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+                DATE_NOW,
+                DATE_NOW
+            ),
+            $roleIds,                               // placeholders for the rol_id IN (...) list
+            array($GLOBALS['gCurrentOrgId'])
         );
 
     	$statement = $this->mDb->queryPrepared($sql, $queryParams);

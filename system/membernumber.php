@@ -38,8 +38,12 @@ if (!isUserAuthorized())
 $getMode    = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
 $postFormat = admFuncVariableIsValid($_POST, 'producemembernumber_format', 'string');
 
-//an array can not be checked with admFuncVariableIsValid
-$postRoleselection = isset($_POST['producemembernumber_roleselection']) ? $_POST['producemembernumber_roleselection'] : '';
+//an array can not be checked with admFuncVariableIsValid, so cast every role id to int
+$postRoleselection = '';
+if (isset($_POST['producemembernumber_roleselection']) && is_array($_POST['producemembernumber_roleselection']))
+{
+	$postRoleselection = array_map('intval', $_POST['producemembernumber_roleselection']);
+}
 $postFillGaps      = isset($_POST['producemembernumber_fill_gaps']) ? $_POST['producemembernumber_fill_gaps'] : '';
 
 $pPreferences = new ConfigTable();
