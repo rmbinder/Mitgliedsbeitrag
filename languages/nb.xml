@@ -138,6 +138,26 @@
     <string name="PLG_MEMBERSHIPFEE_DATE_PAID">Betalingsdato mottatt</string>
     <string name="PLG_MEMBERSHIPFEE_DEBTOR">Betaler</string>
     <string name="PLG_MEMBERSHIPFEE_DEFAULT">Standard</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER">Eksempelforening</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BANK">Eksempelbank</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME">faktura</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX">Medlemsavgift #VAR1#</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX">(forholdsm.)</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION">Familieavgift</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX">Familie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION">Datoen medlemmet meldte seg inn i foreningen</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK">Navnet på banken for trekket</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT">Formål</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR">Eier av bankkontoen. Bare nødvendig hvis kontoeieren og medlemmet ikke er samme person. Hvis feltet er fylt ut, må også Kontoeiers gate, Kontoeiers postnummer og Kontoeiers sted fylles ut.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY">Kontoeierens bosted. Påkrevd hvis kontoeieren og medlemmet ikke er samme person.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE">Kontoeierens postnummer. Påkrevd hvis kontoeieren og medlemmet ikke er samme person.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET">Kontoeierens adresse. Påkrevd hvis kontoeieren og medlemmet ikke er samme person.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE">Den beregnede medlemsavgiften</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE">Fylles ut automatisk av modulen Endring av mandat.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID">Dato da avgiften ble betalt; tom hvis den ikke er betalt ennå</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM">FAM</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM">MED</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY">BET</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE">Slett</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL">Slett alle</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL_DESC">'Slett alle' sletter alle bidrag (inkludert bidragstekst og betalingsdato).</string>
@@ -447,6 +467,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Plugin-modulen medlemsavgift genererer en enkelt SEPA XML-fil basert på de valgte parameterne. Filen godtas imidlertid kanskje ikke av banken / hjemmebankprogrammet hvis den har flere forfallsdatoer. Det anbefales derfor å opprette en XML-fil med bare én forfallsdato.\n\nFRST=første debitering, RCUR=gjentakende debitering, FNAL=siste debitering, OOFF=engangsdebitering</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Det er ikke nok data til å eksportere.</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID">Medlemsavgifter</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Sekvenstype</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Sekvenstype: empty=første debitering(FRST) R=gjentakende debitering(RCUR) F=siste debitering(FNAL) O=engangsdebitering(OOFF)</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">Verdien satt her sekvenstype settes samtidig som du setter en forfallsdato.</string>

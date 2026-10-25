@@ -138,6 +138,26 @@
     <string name="PLG_MEMBERSHIPFEE_DATE_PAID">Date payée</string>
     <string name="PLG_MEMBERSHIPFEE_DEBTOR">Payeur</string>
     <string name="PLG_MEMBERSHIPFEE_DEFAULT">Par défaut</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER">Association Exemple</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BANK">Banque Exemple</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME">facture</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX">Cotisation #VAR1#</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX">(prorata)</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION">Cotisation familiale</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX">Famille</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION">La date d'adhésion à l'association</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK">Le nom de la banque pour le prélèvement</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT">Motif de paiement</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR">Titulaire du compte bancaire. Uniquement nécessaire si le titulaire du compte et le membre ne sont pas la même personne. Si ce champ est rempli, Rue TitCpte, NPA TitCpte et Lieu TitCpte doivent aussi être remplis.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY">Localité du titulaire du compte. Obligatoire si le titulaire du compte et le membre ne sont pas la même personne.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE">Code postal du titulaire du compte. Obligatoire si le titulaire du compte et le membre ne sont pas la même personne.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET">Adresse du titulaire du compte. Obligatoire si le titulaire du compte et le membre ne sont pas la même personne.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE">La cotisation calculée</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE">Rempli automatiquement par le module Changement du mandat.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID">Date à laquelle la cotisation a été payée ; vide si elle n'est pas encore payée</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM">FAM</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM">MBR</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY">PAY</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE">Supprimer</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL">Supprimer tout</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL_DESC">\'Supprimer tout\' supprime tous les cotisations (y compris le texte de cotisation et la date de paiement).</string>
@@ -447,6 +467,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Le plug-in Cotisations des membres génère un seul fichier SEPA XML basé sur les paramètres sélectionnés. Toutefois, dans certaines circonstances, le dossier peut ne pas être accepté par la banque ou un programme de banque en ligne s\'il y a plusieurs dates d\'échéance. Il est donc recommandé de créer un fichier XML avec une seule date d\'échéance. FRST=premier débit, RCUR=débit suivant, FNAL=dernier débit, OOFF=débit unique.</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Il n\'y a pas assez de données disponibles pour l\'exportation.</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID">Paiements des cotisations</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Type de séquence</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Type de séquence : vide=première débit (FRST) R=débit suivant (RCUR) F=dernier débit (FNAL) O=débit unique (OOFF)</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">La catégorie de séquence définie ici est définie en même temps qu\'une date d\'échéance.</string>
