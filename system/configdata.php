@@ -9,11 +9,12 @@
  *
  ***********************************************************************************************
  */
-global $gProfileFields;
+global $gProfileFields, $gL10n;
 
 $config_default = array();
 
 // Standardwerte einer Neuinstallation
+// Sprachabhaengige Standardwerte kommen aus den Sprachdateien (PLG_MEMBERSHIPFEE_DEFAULT_*)
 
 // Altersrollen
 $config_default['Altersrollen'] = array(
@@ -32,10 +33,10 @@ $config_default['Familienrollen'] = array(
         12
     ),
     'familienrollen_beschreibung' => array(
-        'Familienbeitrag'
+        $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION')
     ),
     'familienrollen_prefix' => array(
-        'Familie'
+        $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX')
     ),
     'familienrollen_pruefung' => array(
         ''
@@ -44,8 +45,8 @@ $config_default['Familienrollen'] = array(
 
 // Beitrag
 $config_default['Beitrag'] = array(
-    'beitrag_prefix' => 'Mitgliedsbeitrag 2026',
-    'beitrag_suffix' => '(ant.)',
+    'beitrag_prefix' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX', array(date('Y'))),
+    'beitrag_suffix' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX'),
     'beitrag_textmitnam' => 1,
     'beitrag_textmitfam' => '',
     'beitrag_text_token' => '#',
@@ -57,8 +58,8 @@ $config_default['Beitrag'] = array(
 
 // Kontodaten
 $config_default['Kontodaten'] = array(
-    'bank' => 'Sparkasse Musterstadt',
-    'inhaber' => 'Musterverein e.V.',
+    'bank' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_BANK'),
+    'inhaber' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER'),
     'iban' => 'DE123456789',
     'bic' => 'ABCDEFGH',
     'ci' => 'DE98ZZZ09999999999',
@@ -68,9 +69,9 @@ $config_default['Kontodaten'] = array(
 
 // Mandatsreferenz
 $config_default['Mandatsreferenz'] = array(
-    'prefix_fam' => 'FAM',
-    'prefix_mem' => 'MIT',
-    'prefix_pay' => 'ZAL',
+    'prefix_fam' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM'),
+    'prefix_mem' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM'),
+    'prefix_pay' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY'),
     'min_length' => 15,
     'data_field' => '-- User_ID --'
 );
@@ -120,7 +121,7 @@ $config_default['tests_enable'] = array(
 
 // Rechnungs-Export
 $config_default['Rechnungs-Export'] = array(
-    'rechnung_dateiname' => 'rechnung',
+    'rechnung_dateiname' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME'),
     'rechnung_dateityp' => 'xlsx'
 );
 
