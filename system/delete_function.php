@@ -24,6 +24,9 @@ $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
 
 $gMessage->showHtmlTextOnly(true);
 
+// CSRF protection: reject the request if the token is missing or invalid
+checkCsrfToken();
+
 $ret_message = 'success';
 
 try

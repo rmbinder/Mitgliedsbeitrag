@@ -34,6 +34,9 @@ if (!isUserAuthorized())
     throw new Exception('SYS_NO_RIGHTS');   
 }
 
+// CSRF protection: reject the request if the token is missing or invalid
+checkCsrfToken();
+
 // Initialize and check the parameters
 $getMode    = admFuncVariableIsValid($_GET, 'mode', 'string', array('defaultValue' => 'preview', 'validValues' => array('preview', 'write', 'print')));
 $postFormat = admFuncVariableIsValid($_POST, 'producemembernumber_format', 'string');

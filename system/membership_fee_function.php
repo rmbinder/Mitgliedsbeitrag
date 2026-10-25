@@ -29,6 +29,9 @@ $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
 // in ajax mode return simple text on error
 $gMessage->showHtmlTextOnly(true);
 
+// CSRF protection: reject the request if the token is missing or invalid
+checkCsrfToken();
+
 // Rueckgabecode
 $ret = 'success';
 
