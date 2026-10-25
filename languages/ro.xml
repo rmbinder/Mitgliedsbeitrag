@@ -261,7 +261,7 @@
     <string name="PLG_MEMBERSHIPFEE_MANDATE">Mandat</string>
     <string name="PLG_MEMBERSHIPFEE_MANDATE_CHANGE">Modificarea mandatului</string>
     <string name="PLG_MEMBERSHIPFEE_MANDATE_CHANGE_CDTR_INFO">Informațiile trebuie introduse aici dacă datele mandatului s-au modificat de la ultima colectare. Nu este necesar un nou mandat. În înregistrarea de date XML trebuie incluse doar valorile inițiale. Înainte de o nouă colectare, datele inițiale introduse aici trebuie șterse manual.</string>
-    <string name="PLG_MEMBERSHIPFEE_MANDATE_CHANGE_DBTR_INFO">Informațiile trebuie introduse aici dacă datele mandatului s-au modificat de la ultima colectare. Nu este necesar un nou mandat. În înregistrarea de date XML trebuie incluse doar valorile inițiale. Datele inițiale introduse aici sunt șterse automat la stabilirea unei date de &quotprimire a plății&quot.</string>
+    <string name="PLG_MEMBERSHIPFEE_MANDATE_CHANGE_DBTR_INFO">Informațiile trebuie introduse aici dacă datele mandatului s-au modificat de la ultima colectare. Nu este necesar un nou mandat. În înregistrarea de date XML trebuie incluse doar valorile inițiale. Datele inițiale introduse aici sunt șterse automat la stabilirea unei date de &quot;primire a plății&quot;.</string>
     <string name="PLG_MEMBERSHIPFEE_MANDATE_CHANGE_DESC">Prin prezenta, se poate efectua o modificare a mandatului beneficiarului și/sau a codului de identificare al creditorului.</string>
     <string name="PLG_MEMBERSHIPFEE_MANDATE_EDIT">Editare mandat</string>
     <string name="PLG_MEMBERSHIPFEE_MANDATE_EDIT_DESC">Cu această opțiune, datele mandatului pot fi modificate.</string>
