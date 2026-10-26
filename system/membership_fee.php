@@ -1439,7 +1439,7 @@ try {
             <strong>#bank#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_VARIABLE_BANK') . '<br />
             <strong>#debtor#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_VARIABLE_DEBTOR') . '<br />
             <strong>#membership_fee_text#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_VARIABLE_MEMBERSHIP_FEE_TEXT') . '<br />
-            <strong > # membernumber#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER') . '</p>');
+            <strong>#membernumber#</strong> - ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER') . '</p>');
 
             $text = new Text($gDb);
             $text->readDataByColumns(array(

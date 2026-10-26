@@ -144,6 +144,32 @@
     <string name="PLG_MEMBERSHIPFEE_DELETE_CONFIG">Deze configuratie verwijderen</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_DATA_FROM">Gegevens verwijderen van</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_DATE">Datum verwijderen</string>     
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER">Voorbeeldvereniging</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BANK">Voorbeeldbank</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME">factuur</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX">Contributie #VAR1#</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX">(pro rata)</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION">Gezinscontributie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX">Gezin</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION">De datum waarop het lid tot de vereniging is toegetreden</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK">De naam van de bank voor de incasso</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT">Betalingsomschrijving</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR">Houder van de bankrekening. Alleen nodig als de rekeninghouder en het lid niet dezelfde persoon zijn. Als dit veld is ingevuld, moeten ook Straat rekeninghouder, Postcode rekeninghouder en Plaats rekeninghouder ingevuld zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY">Woonplaats van de rekeninghouder. Verplicht als de rekeninghouder en het lid niet dezelfde persoon zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE">Postcode van de rekeninghouder. Verplicht als de rekeninghouder en het lid niet dezelfde persoon zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET">Adres van de rekeninghouder. Verplicht als de rekeninghouder en het lid niet dezelfde persoon zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE">De berekende contributie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE">Wordt automatisch ingevuld door de module Machtigingswijziging.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID">Datum waarop de contributie is betaald; leeg als ze nog niet betaald is</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM">GEZ</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM">LID</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY">BET</string>
+    <string name="PLG_MEMBERSHIPFEE_DELETE">Wis</string>
+    <string name="PLG_MEMBERSHIPFEE_DELETE_ALL">Wis alles</string>
+    <string name="PLG_MEMBERSHIPFEE_DELETE_ALL_DESC">'Verwijder alles' verwijdert alle bijdragen (inclusief bijdragetekst en betaald-datum).</string>
+    <string name="PLG_MEMBERSHIPFEE_DELETE_CONFIG">Verwijder deze configuratie</string>
+    <string name="PLG_MEMBERSHIPFEE_DELETE_DATA_FROM">Wis Data van</string>
+    <string name="PLG_MEMBERSHIPFEE_DELETE_DATE">Wis de datum</string>     
     <string name="PLG_MEMBERSHIPFEE_DELETE_DUEDATE">Vervaldatums verwijderen</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_IBAN_BIC">IBAN, BIC en banknaam verwijderen</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_IN_ALL_ORGS">De profielvelden in deze categorie zijn zichtbaar voor meerdere organisaties en worden verwijderd, ongeacht de instelling bij "Organisatiekeuze".</string>
@@ -451,6 +477,11 @@
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Sequentietype: leeg = eerste incasso (FRST), R = terugkerende incasso (RCUR), F = laatste incasso (FNAL), O = eenmalige incasso (OOFF)</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">Het hier gekozen sequentietype wordt samen met de vervaldatum ingevuld.</string>
     <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Volgnr.</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID">Contributiebetalingen</string>
+    <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Reeks aanduiding</string>
+    <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Reeks aanduiding: leeg=eerste afschrijving(FRST) R=terugkerende afschrijving(RCUR) F=laatste afschrijving(FNAL) O=eenmalige afschrijving(OOFF)</string>
+    <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">De waarde die hier wordt ingesteld voor het reeks aanduiding wordt ingesteld bij het instellen van een vervaldatum.</string>
+    <string name="PLG_MEMBERSHIPFEE_SERIAL_NUMBER">Reeks. nummer</string>
     <string name="PLG_MEMBERSHIPFEE_SETUP">Instellingen</string>
     <string name="PLG_MEMBERSHIPFEE_SHALL">GEWENST</string>
     <string name="PLG_MEMBERSHIPFEE_SHORT_DESCRIPTION">Korte naam</string>

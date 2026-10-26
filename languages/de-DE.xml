@@ -138,6 +138,26 @@
     <string name="PLG_MEMBERSHIPFEE_DATE_PAID">Bezahlt-Datum</string>
     <string name="PLG_MEMBERSHIPFEE_DEBTOR">Zahlungspflichtiger</string>
     <string name="PLG_MEMBERSHIPFEE_DEFAULT">Standard</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER">Musterverein e.V.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BANK">Sparkasse Musterstadt</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME">rechnung</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX">Mitgliedsbeitrag #VAR1#</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX">(ant.)</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION">Familienbeitrag</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX">Familie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION">Das Beitrittsdatum zum Verein</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK">Der Name der Bank für den Bankeinzug</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT">Verwendungszweck</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR">Inhaber der angegebenen Bankverbindung. Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Straße, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY">Wohnort des Kontoinhabers. Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE">PLZ des Kontoinhabers. Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET">Adresse des Kontoinhabers. Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE">Der errechnete Mitgliedsbeitrag</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE">Wird durch das Modul Mandatsänderung automatisch befüllt.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID">Datumsangabe, ob und wann der Beitrag bezahlt wurde</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM">FAM</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM">MIT</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY">ZAL</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE">Löschen</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL">Alles löschen</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL_DESC">'Alles löschen' löscht alle Beiträge (einschließlich Beitragstext und Bezahlt-Datum).</string>
@@ -447,6 +467,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Das Plugin Mitgliedsbeitrag erzeugt anhand der gewählten Einstellungen eine einzige SEPA XML-Datei. Unter Umständen wird die Datei aber von der Bank/einem Homebanking Programm nicht akzeptiert, wenn sie mehrere Fälligkeitsdaten aufweist. Es wird deshalb empfohlen eine XML-Datei mit nur jeweils einem Fälligkeitsdatum zu erstellen.\n\n FRST=Erstlastschrift, RCUR=Folgelastschrift, FNAL=letzte Lastschrift, OOFF=Einmallastschrift</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Es sind nicht genügend Daten für den Export vorhanden.</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID">Beitragszahlungen</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Sequenztyp</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Sequenztyp: leer=Erstlastschrift(FRST) R=Folgelastschrift(RCUR) F=letzte Lastschrift (FNAL) O=Einmallastschrift (OOFF)</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">Der hier eingestellte Sequenztyp wird gleichzeitig mit dem Setzen eines Fälligkeitsdatum gesetzt.</string>

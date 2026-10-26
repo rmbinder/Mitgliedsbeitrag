@@ -138,6 +138,26 @@
     <string name="PLG_MEMBERSHIPFEE_DATE_PAID">Payment received date</string>
     <string name="PLG_MEMBERSHIPFEE_DEBTOR">Payer</string>
     <string name="PLG_MEMBERSHIPFEE_DEFAULT">Standard</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER">Sample Club</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BANK">Sample Bank</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME">invoice</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX">Membership fee #VAR1#</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX">(pro rata)</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION">Family fee</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX">Family</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION">The date the member joined the organisation</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK">The name of the bank for the direct debit</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT">Payment reference</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR">Holder of the bank account. Only needed if the account holder and the member are not the same person. If filled in, AccHolder's street, AccHolder's post code and AccHolder's location must be filled in too.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY">City of the account holder. Required if the account holder and the member are not the same person.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE">Post code of the account holder. Required if the account holder and the member are not the same person.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET">Address of the account holder. Required if the account holder and the member are not the same person.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE">The calculated membership fee</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE">Filled in automatically by the mandate change module.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID">Date on which the fee was paid; empty if not paid yet</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM">FAM</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM">MEM</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY">PAY</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE">Delete</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL">Delete all</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL_DESC">'Delete all' deletes all contributions (including contributions text and paid-date).</string>
@@ -447,6 +467,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">The plugin membership fee generates a single SEPA XML file based on the selected parameters. However, the file may not be accepted by the bank / home banking program if it has multiple due dates. It is therefore recommended to create an XML file with only one due date.\n\n FRST=first debit, RCUR=recurring debit, FNAL=final debit, OOFF=one-off debit</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">There is not enough data to export.</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID">Membership fee payments</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Sequence type</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Sequence type: empty=first debit(FRST) R=recurring debit(RCUR) F=final debit(FNAL) O=one-off debit(OOFF)</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">The value set here sequence type is set at the same time setting a due date.</string>

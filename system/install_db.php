@@ -617,7 +617,7 @@ if ($getMode == 'start' || $getMode == 'anlegen') // Default: start
  */
 function check_DB()
 {
-    global $gProfileFields;
+    global $gProfileFields, $gL10n;
 
     // $DB_array['SOLL'] beinhaltet die erforderlichen Werte fuer die Kategorien und die User Fields
     $DB_array['SOLL']['TBL_CATEGORIES']['Kontodaten'] = array(
@@ -677,7 +677,7 @@ function check_DB()
         'usf_disabled' => 0,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Der Name der Bank für den Bankeinzug'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['Kontoinhaber'] = array(
         'usf_name' => 'PMB_DEBTOR',
@@ -687,7 +687,7 @@ function check_DB()
         'usf_disabled' => 0,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => '<p>Inhaber der angegebenen Bankverbindung.</p><p>Ein Eintrag ist nur erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind. Wenn das Feld belegt ist, dann müssen KtoInh-Strasse, KtoInh-PLZ und KtoInh-Ort ausgefüllt sein.</p>'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR')
     );
 
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberStrasse'] = array(
@@ -698,7 +698,7 @@ function check_DB()
         'usf_disabled' => 0,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => '<p>Adresse des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberPLZ'] = array(
         'usf_name' => 'PMB_DEBTOR_POSTCODE',
@@ -708,7 +708,7 @@ function check_DB()
         'usf_disabled' => 0,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => '<p>PLZ des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberOrt'] = array(
         'usf_name' => 'PMB_DEBTOR_CITY',
@@ -718,7 +718,7 @@ function check_DB()
         'usf_disabled' => 0,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => '<p>Wohnort des Kontoinhabers.</p><p>Eine Angabe ist zwingend erforderlich, wenn der Inhaber der Bankverbindung und das Mitglied nicht identisch sind.</p>'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['KontoinhaberEMail'] = array(
         'usf_name' => 'PMB_DEBTOR_EMAIL',
@@ -749,7 +749,7 @@ function check_DB()
         'usf_disabled' => 1,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Das Beitrittsdatum zum Verein'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['Bezahlt'] = array(
         'usf_name' => 'PMB_PAID',
@@ -759,7 +759,7 @@ function check_DB()
         'usf_disabled' => 1,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Datumsangabe, ob und wann der Beitrag bezahlt wurde'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['Beitrag'] = array(
         'usf_name' => 'PMB_FEE',
@@ -769,7 +769,7 @@ function check_DB()
         'usf_disabled' => 1,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Der errechnete Mitgliedsbeitrag'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['Beitragstext'] = array(
         'usf_name' => 'PMB_CONTRIBUTORY_TEXT',
@@ -779,7 +779,7 @@ function check_DB()
         'usf_disabled' => 1,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Verwendungszweck'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['Mandatsreferenz'] = array(
         'usf_name' => 'PMB_MANDATEID',
@@ -830,7 +830,7 @@ function check_DB()
         'usf_disabled' => 1,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_IBAN'] = array(
         'usf_name' => 'PMB_ORIG_IBAN',
@@ -840,7 +840,7 @@ function check_DB()
         'usf_disabled' => 1,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE')
     );
     $DB_array['SOLL']['TBL_USER_FIELDS']['Orig_Mandatsreferenz'] = array(
         'usf_name' => 'PMB_ORIG_MANDATEID',
@@ -850,7 +850,7 @@ function check_DB()
         'usf_disabled' => 1,
         'usf_hidden' => 1,
         'usf_required_input' => 0,
-        'usf_description' => 'Wird durch das Modul Mandatsänderung automatisch befüllt.'
+        'usf_description' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE')
     );
 
     $DB_array['IST'] = $DB_array['SOLL'];
