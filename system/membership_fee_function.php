@@ -14,11 +14,18 @@
  ***********************************************************************************************
  */
 use Admidio\Infrastructure\Entity\Text;
+use Admidio\Infrastructure\Exception;
 use Admidio\Roles\Entity\Role;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once (__DIR__ . '/../../../system/common.php');
 require_once (__DIR__ . '/common_function.php');
+
+// only authorized user are allowed to start this module
+if (!isUserAuthorizedForPreferences())
+{
+    throw new Exception('SYS_NO_RIGHTS');
+}
 
 $pPreferences = new ConfigTable();
 $pPreferences->read();
@@ -28,6 +35,9 @@ $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
 
 // in ajax mode return simple text on error
 $gMessage->showHtmlTextOnly(true);
+
+// CSRF protection: reject the request if the token is missing or invalid
+checkCsrfToken();
 
 // Rueckgabecode
 $ret = 'success';

@@ -10,6 +10,7 @@
  ***********************************************************************************************
  */
 use Admidio\Infrastructure\Database;
+use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Roles\Entity\Role;
@@ -154,6 +155,30 @@ function isUserAuthorizedForPreferences()
         }
     }
     return $userIsAuthorized;
+}
+
+/**
+ * Validates the CSRF token of a POST request and stops execution (via
+ * $gMessage->show(), which also exits) if the token is missing or invalid.
+ * Call at the top of every state-changing POST handler. Does nothing on a
+ * GET request (no POST data), so the same call is safe in scripts that also
+ * serve a GET view. The error is rendered text-only when the caller has
+ * already set $gMessage->showHtmlTextOnly()/showTextOnly() (AJAX), otherwise
+ * as a normal message page.
+ *
+ * @return void
+ */
+function checkCsrfToken()
+{
+    global $gMessage;
+
+    if (count($_POST) > 0) {
+        try {
+            SecurityUtils::validateCsrfToken($_POST['adm_csrf_token'] ?? '');
+        } catch (Exception $e) {
+            $gMessage->show($e->getMessage());
+        }
+    }
 }
 
 /**
