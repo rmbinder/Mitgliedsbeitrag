@@ -16,6 +16,7 @@
 
 use Admidio\Infrastructure\Email;
 use Admidio\Infrastructure\Entity\Entity;
+use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Messages\Entity\Message;
 use Admidio\Users\Entity\User;
@@ -24,6 +25,14 @@ use Plugins\MembershipFee\classes\Config\ConfigTable;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
+
+// only authorized user are allowed to start this module
+if (!isUserAuthorized())
+{
+    throw new Exception('SYS_NO_RIGHTS');
+}
+// CSRF protection: reject the request if the token is missing or invalid
+checkCsrfToken();
 
 // Initialize and check the parameters
 $getUserUuid = admFuncVariableIsValid($_GET, 'user_uuid', 'string');

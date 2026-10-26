@@ -14,15 +14,25 @@
  ***********************************************************************************************
  */
 
+use Admidio\Infrastructure\Exception;
 use Admidio\Users\Entity\User;
 
 require_once(__DIR__ . '/../../../system/common.php');
 require_once(__DIR__ . '/common_function.php');
 
+// only authorized user are allowed to start this module
+if (!isUserAuthorizedForPreferences())
+{
+    throw new Exception('SYS_NO_RIGHTS');
+}
+
 // Initialize and check the parameters
 $getForm = admFuncVariableIsValid($_GET, 'form', 'string');
 
 $gMessage->showHtmlTextOnly(true);
+
+// CSRF protection: reject the request if the token is missing or invalid
+checkCsrfToken();
 
 $ret_message = 'success';
 

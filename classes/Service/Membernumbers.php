@@ -133,19 +133,25 @@ class Membernumbers
      */
     public function readUserWithoutMembernumber($roleselection = '')
     {
-        global $gProfileFields;
+ 
+     	global $gProfileFields;
 
-        $sqlRoleCond = '';
-        if (is_array($roleselection)) {
-            $sqlRoleCond = 'AND rol_id IN (' . implode(', ', $roleselection) . ')';
-        }
+     	$roleIds = array();
+     	$sqlRoleCond = '';
+     	if (is_array($roleselection) && count($roleselection) > 0)
+     	{
+     		// bind the role ids as query parameters to prevent SQL injection
+     		$roleIds = array_map('intval', $roleselection);
+     		$sqlRoleCond =  'AND rol_id IN ('.Database::getQmForValues($roleIds).')';
+     	}
 
-        // usr_id, Name, Vorname und Mitgliedsnummer einlesen von Mitgliedern,
-        // die 1. keine Mitgliedsnummer besitzen
-        // oder 2. eine Mitgliedsnummer < 1 besitzen
-        $sql = 'SELECT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, membernumber.usd_value AS membernumber
-                  FROM ' . TBL_USERS . '
-             LEFT JOIN ' . TBL_USER_DATA . ' AS last_name
+     	// usr_id, Name, Vorname und Mitgliedsnummer einlesen von Mitgliedern,
+     	// die 1. keine Mitgliedsnummer besitzen
+     	// oder 2. eine Mitgliedsnummer < 1 besitzen
+     	$sql = 'SELECT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, membernumber.usd_value AS membernumber
+                  FROM '.TBL_USERS.'
+             LEFT JOIN '.TBL_USER_DATA.' AS last_name
+
                     ON last_name.usd_usr_id = usr_id
                    AND last_name.usd_usf_id = ? -- $gProfileFields->getProperty(\'LAST_NAME\', \'usf_id\')
              LEFT JOIN ' . TBL_USER_DATA . ' AS first_name
@@ -168,13 +174,19 @@ class Membernumbers
                    AND cat_org_id = ? -- $GLOBALS[\'gCurrentOrgId\']
               ) ';
 
-        $queryParams = array(
-            $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
-            $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
-            $gProfileFields->getProperty('MEMBERNUMBER' . $GLOBALS['gCurrentOrgId'], 'usf_id'),
-            DATE_NOW,
-            DATE_NOW,
-            $GLOBALS['gCurrentOrgId']
+
+
+        $queryParams = array_merge(
+            array(
+                $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
+                $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
+                $gProfileFields->getProperty('MEMBERNUMBER'.$GLOBALS['gCurrentOrgId'], 'usf_id'),
+                DATE_NOW,
+                DATE_NOW
+            ),
+            $roleIds,                               // placeholders for the rol_id IN (...) list
+            array($GLOBALS['gCurrentOrgId'])
+
         );
 
         $statement = $this->mDb->queryPrepared($sql, $queryParams);

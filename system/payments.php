@@ -40,7 +40,10 @@ try {
     if (! isUserAuthorized()) {
         throw new Exception('SYS_NO_RIGHTS');
     }
-
+    
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+    
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 

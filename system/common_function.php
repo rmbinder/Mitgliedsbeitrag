@@ -10,6 +10,7 @@
  ***********************************************************************************************
  */
 use Admidio\Infrastructure\Database;
+use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Roles\Entity\Role;
@@ -154,6 +155,30 @@ function isUserAuthorizedForPreferences()
         }
     }
     return $userIsAuthorized;
+}
+
+/**
+ * Validates the CSRF token of a POST request and stops execution (via
+ * $gMessage->show(), which also exits) if the token is missing or invalid.
+ * Call at the top of every state-changing POST handler. Does nothing on a
+ * GET request (no POST data), so the same call is safe in scripts that also
+ * serve a GET view. The error is rendered text-only when the caller has
+ * already set $gMessage->showHtmlTextOnly()/showTextOnly() (AJAX), otherwise
+ * as a normal message page.
+ *
+ * @return void
+ */
+function checkCsrfToken()
+{
+    global $gMessage;
+
+    if (count($_POST) > 0) {
+        try {
+            SecurityUtils::validateCsrfToken($_POST['adm_csrf_token'] ?? '');
+        } catch (Exception $e) {
+            $gMessage->show($e->getMessage());
+        }
+    }
 }
 
 /**
@@ -1262,6 +1287,29 @@ function check_iban()
 }
 
 /**
+ * Calculates <numericString> mod 97 for the IBAN check-digit validation
+ * (ISO 7064 mod 97-10). Uses the bcmath extension (bcmod) when it is available,
+ * and otherwise falls back to a pure-PHP digit-by-digit reduction, so the IBAN
+ * test no longer fatals when bcmath is missing.
+ *
+ * @param string $numericString String consisting only of the digits 0-9
+ * @return int The remainder of <numericString> divided by 97
+ */
+function iban_mod97($numericString)
+{
+    if (function_exists('bcmod')) {
+        return (int) bcmod($numericString, '97');
+    }
+
+    // Fallback without bcmath: reduce digit by digit (remainder always stays < 97)
+    $remainder = 0;
+    foreach (str_split($numericString) as $digit) {
+        $remainder = ($remainder * 10 + (int) $digit) % 97;
+    }
+    return $remainder;
+}
+
+/**
  * Prueft die uebergebene IBAN
  *
  * @param string $iban
@@ -1380,7 +1428,7 @@ function test_iban($iban)
             $NewString .= $MovedCharArray[$key];
         }
 
-        if (bcmod($NewString, '97') == 1) {
+        if (iban_mod97($NewString) === 1) {
             return TRUE;
         } else {
             return FALSE;
