@@ -138,6 +138,26 @@
     <string name="PLG_MEMBERSHIPFEE_DATE_PAID">Betaling ontvangen datum</string>
     <string name="PLG_MEMBERSHIPFEE_DEBTOR">Betaler</string>
     <string name="PLG_MEMBERSHIPFEE_DEFAULT">Standaard</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER">Voorbeeldvereniging</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BANK">Voorbeeldbank</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME">factuur</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX">Contributie #VAR1#</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX">(pro rata)</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION">Gezinscontributie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX">Gezin</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION">De datum waarop het lid tot de vereniging is toegetreden</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK">De naam van de bank voor de incasso</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT">Betalingsomschrijving</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR">Houder van de bankrekening. Alleen nodig als de rekeninghouder en het lid niet dezelfde persoon zijn. Als dit veld is ingevuld, moeten ook Straat rekeninghouder, Postcode rekeninghouder en Plaats rekeninghouder ingevuld zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY">Woonplaats van de rekeninghouder. Verplicht als de rekeninghouder en het lid niet dezelfde persoon zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE">Postcode van de rekeninghouder. Verplicht als de rekeninghouder en het lid niet dezelfde persoon zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET">Adres van de rekeninghouder. Verplicht als de rekeninghouder en het lid niet dezelfde persoon zijn.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE">De berekende contributie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE">Wordt automatisch ingevuld door de module Machtigingswijziging.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID">Datum waarop de contributie is betaald; leeg als ze nog niet betaald is</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM">GEZ</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM">LID</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY">BET</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE">Wis</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL">Wis alles</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL_DESC">'Verwijder alles' verwijdert alle bijdragen (inclusief bijdragetekst en betaald-datum).</string>
@@ -447,6 +467,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">De lidmaatschaps plug-in genereert een enkel SEPA XML-bestand op basis van de geselecteerde parameters. Het is echter mogelijk dat het bestand niet wordt geaccepteerd door het bank-/thuisbankierprogramma als het meerdere vervaldata heeft. Het is daarom aan te raden om een XML-bestand aan te maken met slechts één vervaldatum.\n\n FRST=eerste incasso, RCUR=doorlopende incasso, FNAL=laatste incasso, OOFF=eenmalige incasso</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Er zijn niet genoeg gegevens om te exporteren.</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID">Contributiebetalingen</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Reeks aanduiding</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Reeks aanduiding: leeg=eerste afschrijving(FRST) R=terugkerende afschrijving(RCUR) F=laatste afschrijving(FNAL) O=eenmalige afschrijving(OOFF)</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">De waarde die hier wordt ingesteld voor het reeks aanduiding wordt ingesteld bij het instellen van een vervaldatum.</string>

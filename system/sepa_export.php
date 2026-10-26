@@ -164,7 +164,7 @@ $message_id = substr('Message-ID-'.replace_sepadaten($gCurrentOrganization->getV
 $message_datum = date($format1, $now).'T'.date($format2, $now).'.000Z';                                           //SEPA Message-Datum z.B.: 2010-11-21T09:30:47.000Z
 $message_initiator_name = substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);       //SEPA Message Initiator Name
 
-$payment_id = 'Beitragszahlungen';                                                                                //SEPA Payment_ID (max. 35)
+$payment_id = substr(replace_sepadaten($gL10n->get('PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID')), 0, 35); //SEPA Payment_ID (max. 35)
 $payment_end2end_id = 'NOTPROVIDED';                                                                              //SEPA Payment_EndToEndIdentification
 
 $zempf['name'] = substr(replace_sepadaten($pPreferences->config['Kontodaten']['inhaber']), 0, 70);                //SEPA  Zahlungsempfaenger Kontoinhaber

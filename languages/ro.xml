@@ -138,6 +138,26 @@
     <string name="PLG_MEMBERSHIPFEE_DATE_PAID">Data primirii plății</string>
     <string name="PLG_MEMBERSHIPFEE_DEBTOR">Platitorr</string>
     <string name="PLG_MEMBERSHIPFEE_DEFAULT">Standard</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_ACCOUNT_HOLDER">Asociatia Exemplu</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BANK">Banca Exemplu</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_BILL_FILE_NAME">factura</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX">Cotizatie #VAR1#</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX">(proportional)</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_DESCRIPTION">Cotizatie de familie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FAMILY_ROLE_PREFIX">Familie</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_ACCESSION">Data aderării membrului la asociație</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_BANK">Numele băncii pentru debitarea directă</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_CONTRIBUTORY_TEXT">Scopul plății</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR">Titularul contului bancar. Necesar doar dacă titularul contului și membrul nu sunt aceeași persoană. Dacă acest câmp este completat, trebuie completate și Strada titularului de cont, Codul poștal a titularului de cont și Locația titularului de cont.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_CITY">Localitatea titularului de cont. Obligatoriu dacă titularul contului și membrul nu sunt aceeași persoană.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_POSTCODE">Codul poștal al titularului de cont. Obligatoriu dacă titularul contului și membrul nu sunt aceeași persoană.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_DEBTOR_STREET">Adresa titularului de cont. Obligatoriu dacă titularul contului și membrul nu sunt aceeași persoană.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_FEE">Cotizația de membru calculată</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_MANDATE_CHANGE">Completat automat de modulul Modificarea mandatului.</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_FIELD_DESC_PAID">Data la care a fost plătită cotizația; gol dacă nu a fost încă plătită</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_FAM">FAM</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_MEM">MBR</string>
+    <string name="PLG_MEMBERSHIPFEE_DEFAULT_MANDATE_PREFIX_PAY">PLT</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE">Șterge</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL">Șterge tot</string>
     <string name="PLG_MEMBERSHIPFEE_DELETE_ALL_DESC">Opțiunea 'Șterge tot' șterge toate contribuțiile (inclusiv textul contribuțiilor și data plății).</string>
@@ -447,6 +467,7 @@
     <string name="PLG_MEMBERSHIPFEE_SEPA">SEPA</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO">Pluginul pentru cotizații generează un singur fișier XML SEPA pe baza parametrilor selectați. Cu toate acestea, este posibil ca fișierul să nu fie acceptat de bancă sau de programul de internet banking dacă conține mai multe date de scadență. Prin urmare, se recomandă crearea unui fișier XML cu o singură dată de scadență.\n\n FRST = primul debit, RCUR = debit recurent, FNAL = debit final, OOFF = debit unic</string>
     <string name="PLG_MEMBERSHIPFEE_SEPA_EXPORT_NO_DATA">Nu există suficiente date pentru export.</string>
+    <string name="PLG_MEMBERSHIPFEE_SEPA_PAYMENT_ID">Plati cotizatii</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE">Tipul secvenței</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC">Tipul tranzacției: gol = primul debit (FRST) R = debit recurent (RCUR) F = debit final (FNAL) O = debit unic (OOFF)</string>
     <string name="PLG_MEMBERSHIPFEE_SEQUENCETYPE_SELECT_DESC">Valoarea setată aici pentru tipul de secvență este stabilită odată cu stabilirea datei de scadență.</string>
