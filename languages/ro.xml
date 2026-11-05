@@ -539,7 +539,7 @@
     <string name="PLG_MEMBERSHIPFEE_VARIABLE_MANDATE_ID">Referința mandatului pentru această colecție de contribuții</string>
     <string name="PLG_MEMBERSHIPFEE_VARIABLE_MEMBERSHIP_FEE_TEXT">Scopul prevăzut</string>
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS">Vezi definițiile</string>
-    <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Aici puteți defini coloanele pentru vizualizările "Plăți contribuții", "Gestionarea mandatelor", "Termene de scadență" și "Facturi"".\n\n Notă: Una sau mai multe coloane sunt deja predefinite în vizualizările respective. Acestea nu pot fi mutate și nu pot fi șterse.</string>
+    <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Aici puteți defini coloanele pentru vizualizările "Plăți contribuții", "Gestionarea mandatelor", "Termene de scadență" și "Facturi"".</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">cu datele contului</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Cu data de scadență</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Prin e-mail</string>     

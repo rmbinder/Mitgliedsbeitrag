@@ -539,7 +539,7 @@
     <string name="PLG_MEMBERSHIPFEE_VARIABLE_MANDATE_ID">Mandatreferanse for denne innkrevingen av bidrag</string>
     <string name="PLG_MEMBERSHIPFEE_VARIABLE_MEMBERSHIP_FEE_TEXT">Formål</string>
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS">Vis definisjoner</string>
-    <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Her kan du definere kolonnene for visningene bidragsbetalinger, mandatstyring, forfallsdatoer og fakturaer.\n\n Merk: En eller flere kolonner er allerede forhåndsdefinert i de respektive visningene. Disse kan ikke flyttes i sin posisjon og kan ikke slettes.</string>
+    <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Her kan du definere kolonnene for visningene bidragsbetalinger, mandatstyring, forfallsdatoer og fakturaer.</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">Med kontodata</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Med forfallsdato</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Med e-post</string>    

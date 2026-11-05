@@ -607,7 +607,7 @@
     <string name="PLG_MEMBERSHIPFEE_VARIABLE_MANDATE_ID">Machtigingsreferentie voor deze incasso</string>
     <string name="PLG_MEMBERSHIPFEE_VARIABLE_MEMBERSHIP_FEE_TEXT">Betalingsomschrijving</string>
     <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS">Weergavedefinities</string>
-    <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Hier kunt u de kolommen definiëren voor de weergaven contributiebetalingen, machtigingsbeheer, vervaldatums en facturen.\n\n Let op: in elke weergave zijn al een of meer kolommen vooraf ingesteld. Die kunnen niet worden verplaatst of verwijderd.</string>
+    <string name="PLG_MEMBERSHIPFEE_VIEW_DEFINITIONS_HEADER">Hier kunt u de kolommen definiëren voor de weergaven contributiebetalingen, machtigingsbeheer, vervaldatums en facturen.</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_ACCOUNT_DATA">met rekeninggegevens</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_DUEDATE">Met vervaldatum</string>
     <string name="PLG_MEMBERSHIPFEE_WITH_EMAIL">Met e-mail</string>    
