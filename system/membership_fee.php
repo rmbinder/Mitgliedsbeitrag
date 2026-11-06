@@ -53,19 +53,21 @@ try {
     if ($pPreferences->config['individual_contributions']['access_to_module']) {
         $page->addPageFunctionsMenuItem('menu_item_individualcontributions', $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/individualcontributions.php'), 'bi-house-gear', 'menu_fees');
     }
-    $page->addPageFunctionsMenuItem('menu_item_payments', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS_EDIT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php'), 'bi-cash-coin', 'menu_fees');
+    $page->addPageFunctionsMenuItem('menu_item_payments', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php'), 'bi-cash-coin', 'menu_fees');
     $page->addPageFunctionsMenuItem('menu_item_analysis', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/analysis.php'), 'bi-bar-chart', 'menu_fees');
 
-    $page->addPageFunctionsMenuItem('menu_mandatemanagement', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT'), '#', 'bi-basket');
-    $page->addPageFunctionsMenuItem('menu_item_createmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php'), 'bi-list-ol', 'menu_mandatemanagement');
-    $page->addPageFunctionsMenuItem('menu_item_mandates', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandates.php'), 'bi-pen', 'menu_mandatemanagement');
+    $page->addPageFunctionsMenuItem('menu_sepa', $gL10n->get('PLG_MEMBERSHIPFEE_SEPA'), '#', 'bi-cash-stack');
+    $page->addPageFunctionsMenuItem('menu_item_duedates', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/duedates.php'), 'bi-calendar-check', 'menu_sepa');
+    $page->addPageFunctionsMenuItem('menu_item_sepaexport', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), '', 'bi-download', 'menu_sepa');
+    $page->addPageFunctionsMenuItem('menu_item_prenotification', $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php'), 'bi-send', 'menu_sepa');
 
-    $page->addPageFunctionsMenuItem('menu_export', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), '#', 'bi-download');
-    $page->addPageFunctionsMenuItem('menu_item_sepa', $gL10n->get('PLG_MEMBERSHIPFEE_SEPA'), '', 'bi-file-earmark', 'menu_export');
-    $page->addPageFunctionsMenuItem('menu_item_billexport', $gL10n->get('PLG_MEMBERSHIPFEE_BILL'), '', 'bi-file-earmark-spreadsheet', 'menu_export');
+    $page->addPageFunctionsMenuItem('menu_bill', $gL10n->get('PLG_MEMBERSHIPFEE_BILL'), '#', 'bi-cash-stack');
+    $page->addPageFunctionsMenuItem('menu_item_billexport', $gL10n->get('PLG_MEMBERSHIPFEE_BILL_EDIT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/bill.php'), 'bi-file-earmark-spreadsheet', 'menu_bill');
 
     $page->addPageFunctionsMenuItem('menu_extras', $gL10n->get('PLG_MEMBERSHIPFEE_EXTRAS'), '#', 'bi-option');
     $page->addPageFunctionsMenuItem('menu_item_producemembernumber', $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php'), 'bi-123', 'menu_extras');
+    $page->addPageFunctionsMenuItem('menu_item_createmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php'), 'bi-list-ol', 'menu_extras');
+    $page->addPageFunctionsMenuItem('menu_item_mandates', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandates.php'), 'bi-pen', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_familyrolesupdate', $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/familyroles_update.php'), 'bi-arrow-repeat', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_copy', $gL10n->get('PLG_MEMBERSHIPFEE_COPY'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/copy.php'), 'bi-copy', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_tests', $gL10n->get('PLG_MEMBERSHIPFEE_TESTS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/tests.php'), 'bi-heart-pulse', 'menu_extras');
