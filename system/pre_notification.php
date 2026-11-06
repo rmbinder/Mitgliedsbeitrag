@@ -23,62 +23,66 @@
 use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\Infrastructure\Utils\StringUtils;
+use Admidio\UI\Component\DataTables;
+use Admidio\UI\Presenter\FormPresenter;
+use Admidio\UI\Presenter\PagePresenter;
 use Admidio\Users\Entity\User;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
-require_once (__DIR__ . '/../../../system/common.php');
-require_once (__DIR__ . '/common_function.php');
+try {
+    require_once (__DIR__ . '/../../../system/common.php');
+    require_once (__DIR__ . '/common_function.php');
 
-// only authorized user are allowed to start this module
-if (! isUserAuthorized()) {
-    throw new Exception('SYS_NO_RIGHTS');
-}
-
-$pPreferences = new ConfigTable();
-$pPreferences->read();
-
-$user = new User($gDb, $gProfileFields);
-
-if (isset($_GET['mode']) && ($_GET['mode'] == 'export' || $_GET['mode'] == 'mail' || $_GET['mode'] == 'prepare')) {
-    // ajax mode then only show text if error occurs
-    $gMessage->showTextOnly(true);
-}
-
-// Initialize and check the parameters
-$getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
-    'defaultValue' => 'html',
-    'validValues' => array(
-        'html',
-        'export',
-        'mail',
-        'prepare'
-    )
-));
-$getUserId = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array(
-    'defaultValue' => 0,
-    'directOutput' => true
-));
-$getChecked = admFuncVariableIsValid($_GET, 'checked', 'string');
-$getDueDate = admFuncVariableIsValid($_GET, 'duedate', 'string', array(
-    'defaultValue' => 0
-));
-
-// add current url to navigation stack if last url was not the same page
-if (strpos($gNavigation->getUrl(), 'pre_notification.php') === false) {
-    $_SESSION['pMembershipFee']['checkedArray'] = array();
-    $_SESSION['pMembershipFee']['mailArray'] = array();
-}
-
-if ($getMode == 'mail' || $getMode == 'export') {
-    if (count($_SESSION['pMembershipFee']['checkedArray']) === 0) {
-        echo 'marker_empty';
+    // only authorized user are allowed to start this module
+    if (! isUserAuthorized()) {
+        throw new Exception('SYS_NO_RIGHTS');
     }
-} else {
-    // create sql for all relevant users
-    $memberCondition = '';
 
-    // Filter zusammensetzen
-    $memberCondition = ' EXISTS
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
+
+    $user = new User($gDb, $gProfileFields);
+
+    if (isset($_GET['mode']) && ($_GET['mode'] == 'export' || $_GET['mode'] == 'mail' || $_GET['mode'] == 'prepare')) {
+        // ajax mode then only show text if error occurs
+        $gMessage->showTextOnly(true);
+    }
+
+    // Initialize and check the parameters
+    $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
+        'defaultValue' => 'html',
+        'validValues' => array(
+            'html',
+            'export',
+            'mail',
+            'prepare'
+        )
+    ));
+    $getUserId = admFuncVariableIsValid($_GET, 'usr_id', 'numeric', array(
+        'defaultValue' => 0,
+        'directOutput' => true
+    ));
+    $getChecked = admFuncVariableIsValid($_GET, 'checked', 'string');
+    $getDueDate = admFuncVariableIsValid($_GET, 'duedate', 'string', array(
+        'defaultValue' => 0
+    ));
+
+    // add current url to navigation stack if last url was not the same page
+    if (strpos($gNavigation->getUrl(), 'pre_notification.php') === false) {
+        $_SESSION['pMembershipFee']['checkedArray'] = array();
+        $_SESSION['pMembershipFee']['mailArray'] = array();
+    }
+
+    if ($getMode == 'mail' || $getMode == 'export') {
+        if (count($_SESSION['pMembershipFee']['checkedArray']) === 0) {
+            echo 'marker_empty';
+        }
+    } else {
+        // create sql for all relevant users
+        $memberCondition = '';
+
+        // Filter zusammensetzen
+        $memberCondition = ' EXISTS
         (SELECT 1
            FROM ' . TBL_MEMBERS . ', ' . TBL_ROLES . ', ' . TBL_CATEGORIES . ',' . TBL_USER_DATA . '
           WHERE mem_usr_id = usr_id
@@ -92,14 +96,14 @@ if ($getMode == 'mail' || $getMode == 'export') {
             AND (  cat_org_id = ' . $gCurrentOrgId . '
                 OR cat_org_id IS NULL ) ';
 
-    if ($getDueDate != 0) // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
-    {
-        $memberCondition .= 'AND usd_value = \'' . $getDueDate . '\'   )';
-    } else {
-        $memberCondition .= 'AND usd_value IS NOT NULL )';
-    }
+        if ($getDueDate != 0) // nur Benutzer mit Faelligkeitsdatum anzeigen ("Mit Faelligkeitsdatum" wurde gewaehlt)
+        {
+            $memberCondition .= 'AND usd_value = \'' . $getDueDate . '\'   )';
+        } else {
+            $memberCondition .= 'AND usd_value IS NOT NULL )';
+        }
 
-    $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
+        $sql = 'SELECT DISTINCT usr_id, last_name.usd_value AS last_name, first_name.usd_value AS first_name, birthday.usd_value AS birthday,
                city.usd_value AS city, street.usd_value AS street, zip_code.usd_value AS zip_code, country.usd_value AS country,
                faelligkeitsdatum.usd_value AS faelligkeitsdatum, beitrag.usd_value AS beitrag, lastschrifttyp.usd_value AS lastschrifttyp,
                mandateid.usd_value AS mandateid, mandatedate.usd_value AS mandatedate, iban.usd_value AS iban, debtor.usd_value AS debtor, 
@@ -174,72 +178,128 @@ if ($getMode == 'mail' || $getMode == 'export') {
          AND ' . $memberCondition . '
     ORDER BY last_name, first_name ';
 
-    $queryParams = array(
-        $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
-        $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
-        $gProfileFields->getProperty('BIRTHDAY', 'usf_id'),
-        $gProfileFields->getProperty('CITY', 'usf_id'),
-        $gProfileFields->getProperty('STREET', 'usf_id'),
-        $gProfileFields->getProperty('MANDATEID' . $gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('MANDATEDATE' . $gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('IBAN', 'usf_id'),
-        $gProfileFields->getProperty('DUEDATE' . $gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('SEQUENCETYPE' . $gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('FEE' . $gCurrentOrgId, 'usf_id'),
-        $gProfileFields->getProperty('POSTCODE', 'usf_id'),
-        $gProfileFields->getProperty('DEBTOR', 'usf_id'),
-        $gProfileFields->getProperty('DEBTOR_STREET', 'usf_id'),
-        $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'),
-        $gProfileFields->getProperty('EMAIL', 'usf_id'),
-        $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'),
-        $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'),
-        $gProfileFields->getProperty('COUNTRY', 'usf_id'),
-        DATE_NOW,
-        DATE_NOW
-    );
+        $queryParams = array(
+            $gProfileFields->getProperty('LAST_NAME', 'usf_id'),
+            $gProfileFields->getProperty('FIRST_NAME', 'usf_id'),
+            $gProfileFields->getProperty('BIRTHDAY', 'usf_id'),
+            $gProfileFields->getProperty('CITY', 'usf_id'),
+            $gProfileFields->getProperty('STREET', 'usf_id'),
+            $gProfileFields->getProperty('MANDATEID' . $gCurrentOrgId, 'usf_id'),
+            $gProfileFields->getProperty('MANDATEDATE' . $gCurrentOrgId, 'usf_id'),
+            $gProfileFields->getProperty('IBAN', 'usf_id'),
+            $gProfileFields->getProperty('DUEDATE' . $gCurrentOrgId, 'usf_id'),
+            $gProfileFields->getProperty('SEQUENCETYPE' . $gCurrentOrgId, 'usf_id'),
+            $gProfileFields->getProperty('FEE' . $gCurrentOrgId, 'usf_id'),
+            $gProfileFields->getProperty('POSTCODE', 'usf_id'),
+            $gProfileFields->getProperty('DEBTOR', 'usf_id'),
+            $gProfileFields->getProperty('DEBTOR_STREET', 'usf_id'),
+            $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_id'),
+            $gProfileFields->getProperty('EMAIL', 'usf_id'),
+            $gProfileFields->getProperty('DEBTOR_POSTCODE', 'usf_id'),
+            $gProfileFields->getProperty('DEBTOR_CITY', 'usf_id'),
+            $gProfileFields->getProperty('COUNTRY', 'usf_id'),
+            DATE_NOW,
+            DATE_NOW
+        );
 
-    $statement = $gDb->queryPrepared($sql, $queryParams);
+        $statement = $gDb->queryPrepared($sql, $queryParams);
 
-    if ($getMode == 'prepare') {
-        $ret_text = 'ERROR';
-        if ($getUserId != 0) // ein einzelner User wurde selektiert
-        {
-            if ($getChecked == 'false') // der Haken wurde geloescht
+        if ($getMode == 'prepare') {
+            $ret_text = 'ERROR';
+            if ($getUserId != 0) // ein einzelner User wurde selektiert
             {
-                unset($_SESSION['pMembershipFee']['checkedArray'][$getUserId]);
-                $ret_text = 'success';
-            } elseif ($getChecked == 'true') // der Haken wurde gesetzt
-            {
-                $_SESSION['pMembershipFee']['checkedArray'][$getUserId] = isset($_SESSION['pMembershipFee']['mailArray'][$getUserId]) ? $_SESSION['pMembershipFee']['mailArray'][$getUserId] : '';
-                $ret_text = 'success';
-            }
-        } else // Alle aendern wurde gewaehlt
-        {
-            while ($usr = $statement->fetch()) {
-                if (array_key_exists($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray'])) {
-                    unset($_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']]);
-                } else {
-                    $_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']] = isset($_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']]) ? $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] : '';
+                if ($getChecked == 'false') // der Haken wurde geloescht
+                {
+                    unset($_SESSION['pMembershipFee']['checkedArray'][$getUserId]);
+                    $ret_text = 'success';
+                } elseif ($getChecked == 'true') // der Haken wurde gesetzt
+                {
+                    $_SESSION['pMembershipFee']['checkedArray'][$getUserId] = isset($_SESSION['pMembershipFee']['mailArray'][$getUserId]) ? $_SESSION['pMembershipFee']['mailArray'][$getUserId] : '';
+                    $ret_text = 'success';
                 }
+            } else // Alle aendern wurde gewaehlt
+            {
+                while ($usr = $statement->fetch()) {
+                    if (array_key_exists($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray'])) {
+                        unset($_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']]);
+                    } else {
+                        $_SESSION['pMembershipFee']['checkedArray'][$usr['usr_id']] = isset($_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']]) ? $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] : '';
+                    }
+                }
+                $ret_text = 'success';
             }
-            $ret_text = 'success';
-        }
-        echo $ret_text;
-    } else {
-        // set headline of the script
-        $headline = $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION');
+            echo $ret_text;
+        } else {
+            // set headline of the script
+            $headline = $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION');
 
-        $gNavigation->addUrl(CURRENT_URL, $headline);
+            $gNavigation->addUrl(CURRENT_URL, $headline);
 
-        $page = new HtmlPage('plg-mitgliedsbeitrag-pre-notification', $headline);
-        $page->setContentFullWidth();
+            $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-pre-notification');
 
-        $page->addJavascript('
+            $page->setContentFullWidth();
+            $page->setHeadline($headline);
+
+            $form = new FormPresenter('pre_notification_filter_form', '../templates/prenotification.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php'), $page, array(
+                'type' => 'navbar',
+                'setFocus' => false
+            ));
+
+            // alle Faelligkeitsdaten einlesen
+            $sql = 'SELECT DISTINCT usd_value
+                FROM ' . TBL_USER_DATA . ',' . TBL_MEMBERS . ', ' . TBL_ROLES . ', ' . TBL_CATEGORIES . '
+                WHERE usd_usf_id =  ? -- $gProfileFields->getProperty(\'DUEDATE\'.$gCurrentOrgId, \'usf_id\')
+                AND   mem_begin <= ? -- DATE_NOW
+                AND   mem_end >= ? -- DATE_NOW
+                AND   usd_usr_id = mem_usr_id
+                AND   mem_rol_id = rol_id
+                AND   rol_valid = true
+                AND   rol_cat_id = cat_id
+                AND (  cat_org_id = ? -- $gCurrentOrgId
+                 OR cat_org_id IS NULL ) ';
+
+            $queryParams = array(
+                $gProfileFields->getProperty('DUEDATE' . $gCurrentOrgId, 'usf_id'),
+                DATE_NOW,
+                DATE_NOW,
+                $gCurrentOrgId
+            );
+
+            $duedateStatement = $gDb->queryPrepared($sql, $queryParams);
+
+            $selectBoxEntries = array(
+                '0' => '- ' . $gL10n->get('PLG_MEMBERSHIPFEE_SHOW_ALL') . ' -'
+            );
+            while ($row = $duedateStatement->fetch()) {
+                $DueDate = \DateTime::createFromFormat('Y-m-d', $row['usd_value']);
+                $selectBoxEntries[$row['usd_value']] = $DueDate->format($gSettingsManager->getString('system_date'));
+            }
+            $form->addSelectBox('duedate', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), $selectBoxEntries, array(
+                'defaultValue' => $getDueDate,
+                'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC',
+                'showContextDependentFirstEntry' => false
+            ));
+
+            $form->addButton('btn_exportieren', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), array(
+                'icon' => 'bi-filetype-csv',
+                'link' => 'javascript:prenotexport()',
+                'class' => 'btn-primary'
+            ));
+
+            $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array(
+                'icon' => 'bi-envelope',
+                'link' => 'javascript:massmail()',
+                'class' => 'btn-primary'
+            ));
+
+            $form->addToHtmlPage();
+
+            $page->addJavascript('
             function prenotexport(){
                 //var duedate = $("#duedate").val();
                 $.post("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php', array(
-            'mode' => 'export'
-        )) . '",
+                'mode' => 'export'
+            )) . '",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
@@ -261,8 +321,8 @@ if ($getMode == 'mail' || $getMode == 'export') {
             function massmail(){
             //var duedate = $("#duedate").val();
                 $.post("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php', array(
-            'mode' => 'mail'
-        )) . '",
+                'mode' => 'mail'
+            )) . '",
                     function(data){
                         // check if error occurs
                         if(data == "marker_empty") {
@@ -279,14 +339,14 @@ if ($getMode == 'mail' || $getMode == 'export') {
             };
         '); // !!!: ohne true
 
-        $javascriptCode = '
+            $javascriptCode = '
 
         // if checkbox in header is clicked then change all data
         $("input[type=checkbox].change_checkbox").click(function(){
             var duedate = $("#duedate").val();
             $.post("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php', array(
-            'mode' => 'prepare'
-        )) . '&duedate=" + duedate,
+                'mode' => 'prepare'
+            )) . '&duedate=" + duedate,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
@@ -312,15 +372,15 @@ if ($getMode == 'mail' || $getMode == 'export') {
             e.stopPropagation();
             var checkbox = $(this);
             var row_id = $(this).parent().parent().attr("id");
-            var pos = row_id.search("_");
+            var pos = row_id.search("-");
             var userid = row_id.substring(pos+1);
             var member_checked = $("input[type=checkbox]#member_"+userid).prop("checked");
             var duedate = $("#duedate").val();
 
             // change data in checkedArray
             $.post("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php', array(
-            'mode' => 'prepare'
-        )) . '&checked=" + member_checked + "&usr_id=" + userid + "&duedate=" + duedate,
+                'mode' => 'prepare'
+            )) . '&checked=" + member_checked + "&usr_id=" + userid + "&duedate=" + duedate,
                 function(data){
                     // check if error occurs
                    if(data != "success") {
@@ -333,253 +393,225 @@ if ($getMode == 'mail' || $getMode == 'export') {
         });
         ';
 
-        $page->addJavascript($javascriptCode, true);
+            $page->addJavascript($javascriptCode, true);
 
-        $form = new HtmlForm('pre_notification_filter_form', '', $page, array(
-            'type' => 'navbar',
-            'setFocus' => false
-        ));
+            $table = new DataTables($page, 'table_pre_notification');
 
-        // alle Faelligkeitsdaten einlesen
-        $sql = 'SELECT DISTINCT usd_value
-                FROM ' . TBL_USER_DATA . ',' . TBL_MEMBERS . ', ' . TBL_ROLES . ', ' . TBL_CATEGORIES . '
-                WHERE usd_usf_id =  ? -- $gProfileFields->getProperty(\'DUEDATE\'.$gCurrentOrgId, \'usf_id\')
-                AND   mem_begin <= ? -- DATE_NOW
-                AND   mem_end >= ? -- DATE_NOW
-                AND   usd_usr_id = mem_usr_id
-                AND   mem_rol_id = rol_id
-                AND   rol_valid = true
-                AND   rol_cat_id = cat_id
-                AND (  cat_org_id = ? -- $gCurrentOrgId
-                 OR cat_org_id IS NULL ) ';
+            $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
 
-        $queryParams = array(
-            $gProfileFields->getProperty('DUEDATE' . $gCurrentOrgId, 'usf_id'),
-            DATE_NOW,
-            DATE_NOW,
-            $gCurrentOrgId
-        );
-
-        $duedateStatement = $gDb->queryPrepared($sql, $queryParams);
-
-        $selectBoxEntries = array(
-            '0' => '- ' . $gL10n->get('PLG_MEMBERSHIPFEE_SHOW_ALL') . ' -'
-        );
-        while ($row = $duedateStatement->fetch()) {
-            $DueDate = \DateTime::createFromFormat('Y-m-d', $row['usd_value']);
-            $selectBoxEntries[$row['usd_value']] = $DueDate->format($gSettingsManager->getString('system_date'));
-        }
-        $form->addSelectBox('duedate', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), $selectBoxEntries, array(
-            'defaultValue' => $getDueDate,
-            'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC',
-            'showContextDependentFirstEntry' => false
-        ));
-
-        $form->addButton('btn_exportieren', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), array(
-            'icon' => 'bi-filetype-csv',
-            'link' => 'javascript:prenotexport()',
-            'class' => 'btn-primary'
-        ));
-        $form->addDescription('&nbsp');
-        $form->addButton('btn_mailen', $gL10n->get('SYS_EMAIL'), array(
-            'icon' => 'bi-envelope',
-            'link' => 'javascript:massmail()',
-            'class' => 'btn-primary'
-        ));
-
-        $page->addHtml($form->show());
-
-        // create table object
-        $table = new HtmlTable('tbl_duedates', $page, true, true, 'table table-condensed');
-        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
-
-        // create array with all column heading values
-        $columnHeading = array(
-            '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_CHANGE_ALL') . '"/>',
-            $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'),
-            '<i class="bi bi-chat-fill admidio-info-icon" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC') . '"></i>',
-            $gL10n->get('PLG_MEMBERSHIPFEE_FEE'),
-            $gL10n->get('SYS_LASTNAME'),
-            $gL10n->get('SYS_FIRSTNAME'),
-            '<i class="bi bi-map-fill admidio-info-icon" title="' . $gL10n->get('SYS_ADDRESS') . '"></i>',
-            $gL10n->get('SYS_STREET'),
-            '<i class="bi bi-info-circle admidio-info-icon" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR') . '"></i>',
-            $gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR'),
-            '<i class="bi bi-envelope admidio-info-icon" title="' . $gL10n->get('SYS_EMAIL') . '"></i>',
-            $gL10n->get('SYS_EMAIL'),
-            $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID')
-        );
-
-        $table->setColumnAlignByArray(array(
-            'left',
-            'left',
-            'center',
-            'right',
-            'left',
-            'left',
-            'center',
-            'left',
-            'center',
-            'left',
-            'center',
-            'left',
-            'left'
-        ));
-        $table->setDatatablesRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-        $table->setDatatablesOrderColumns(array(
-            5,
-            6
-        ));
-        $table->addRowHeadingByArray($columnHeading);
-        $table->disableDatatablesColumnsSort(array(
-            1
-        ));
-        $table->setDatatablesAlternativeOrderColumns(7, 8);
-        $table->setDatatablesAlternativeOrderColumns(9, 10);
-        $table->setDatatablesAlternativeOrderColumns(11, 12);
-        $table->setDatatablesColumnsHide(array(
-            8,
-            10,
-            12
-        ));
-
-        // show rows with all organization users
-        while ($usr = $statement->fetch()) {
-            $addressText = ' ';
-            $htmlAddress = '&nbsp;';
-            $htmlBirthday = '&nbsp;';
-            $htmlBeitrag = '&nbsp;';
-            $htmlDueDate = '&nbsp;';
-            $email = '';
-            $htmlMail = '&nbsp;';
-            $debtor_text = ' ';
-            $htmlDebtorText = '&nbsp;';
-            $htmlMandateID = '&nbsp;';
-            $htmlLastschrifttyp = '&nbsp;';
-            $lastschrifttyp = '';
-
-            // 1. Spalte ($htmlDueDateStatus)
-            if (array_key_exists($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray'])) {
-                $htmlDueDateStatus = '<input type="checkbox" id="member_' . $usr['usr_id'] . '" name="member_' . $usr['usr_id'] . '" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_' . $usr['usr_id'] . '"></b>';
-            } else {
-                $htmlDueDateStatus = '<input type="checkbox" id="member_' . $usr['usr_id'] . '" name="member_' . $usr['usr_id'] . '" class="memlist_checkbox" /><b id="loadindicator_member_' . $usr['usr_id'] . '"></b>';
-            }
-
-            // 2. Spalte ($htmlDueDate)
-            if ($usr['faelligkeitsdatum'] > 0) {
-                $DueDate = \DateTime::createFromFormat('Y-m-d', $usr['faelligkeitsdatum']);
-                $htmlDueDate = $DueDate->format($gSettingsManager->getString('system_date'));
-            }
-
-            // 3. Spalte ($htmlLastschrifttyp)
-            switch ($usr['lastschrifttyp']) {
-                case 'RCUR':
-                    $lastschrifttyp = 'R';
-                    break;
-                case 'FNAL':
-                    $lastschrifttyp = 'F';
-                    break;
-                case 'OOFF':
-                    $lastschrifttyp = 'O';
-                    break;
-            }
-
-            if (strlen($lastschrifttyp) > 0) {
-                $htmlLastschrifttyp = $lastschrifttyp;
-            }
-
-            // 4. Spalte ($htmlBeitrag)
-            if ($usr['beitrag'] > 0) {
-                $htmlBeitrag = $usr['beitrag'] . ' ' . $gSettingsManager->getString('system_currency');
-            }
-
-            // 5. Spalte (Nachname)
-
-            // 6. Spalte (Vorname)
-
-            // 7. Spalte ($htmlAddress)
-            if (strlen((string) $usr['zip_code']) > 0 || strlen((string) $usr['city']) > 0) {
-                $addressText .= $usr['zip_code'] . ' ' . $usr['city'];
-            }
-            if (strlen((string) $usr['street']) > 0) {
-                $addressText .= ' - ' . $usr['street'];
-            }
-            if (strlen($addressText) > 1) {
-                $htmlAddress = '<i class="bi bi-map-fill admidio-info-icon" title="' . $addressText . '"></i>';
-            }
-
-            // 8. Spalte ($addressText)
-
-            // 10. Spalte ($htmlDebtorText)
-            if (strlen((string) $usr['debtor']) > 0) {
-                $debtor_text = $usr['debtor'];
-            }
-            if (strlen((string) $usr['debtorstreet']) > 0) {
-                $debtor_text = $debtor_text . ' - ' . $usr['debtorstreet'];
-            }
-            if (strlen((string) $usr['debtorpostcode']) > 0 || strlen((string) $usr['debtorcity']) > 0) {
-                $debtor_text = $debtor_text . ' - ' . $usr['debtorpostcode'] . ' ' . $usr['debtorcity'];
-            }
-
-            if (strlen($debtor_text) > 1) {
-                $htmlDebtorText = '<i class="bi bi-info-circle admidio-info-icon" title="' . $debtor_text . '"></i>';
-            }
-
-            $user->readDataById($usr['usr_id']);
-
-            // 11. Spalte ($htmlMail)
-            if (StringUtils::strValidCharacters((string) $usr['debtoremail'], 'email')) {
-                $email = $usr['debtoremail'];
-                $usf_uuid = $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_uuid');
-            } elseif (strlen((string) $usr['email']) > 0) {
-                $email = $usr['email'];
-                $usf_uuid = $gProfileFields->getProperty('EMAIL', 'usf_uuid');
-            }
-            if (strlen((string) $email) > 0) {
-                $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] = $usf_uuid;
-                if ($gSettingsManager->getInt('mail_module_enabled') != 1) {
-                    $mail_link = 'mailto:' . $email;
-                } else {
-                    $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/message_write.php', array(
-                        'user_uuid' => $user->getValue('usr_uuid'),
-                        'usf_uuid' => $usf_uuid
-                    ));
-                }
-                $htmlMail = '<a class="admidio-icon-link" href="' . $mail_link . '"><i class="bi bi-envelope" title="' . $gL10n->get('SYS_SEND_EMAIL_TO', array(
-                    $email
-                )) . '"></i>';
-            }
-
-            // 12. Spalte ($email)
-            if (strlen((string) $usr['mandateid']) > 0) {
-                $htmlMandateID = $usr['mandateid'];
-            }
-
-            // create array with all column values
-            $columnValues = array(
-                $htmlDueDateStatus,
-                $htmlDueDate,
-                $htmlLastschrifttyp,
-                $htmlBeitrag,
-                '<a href="' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array(
-                    'user_uuid' => $user->getValue('usr_uuid')
-                )) . '">' . $usr['last_name'] . '</a>',
-                '<a href="' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array(
-                    'user_uuid' => $user->getValue('usr_uuid')
-                )) . '">' . $usr['first_name'] . '</a>',
-                $htmlAddress,
-                $addressText,
-                $htmlDebtorText,
-                $debtor_text,
-                $htmlMail,
-                $email,
-                $htmlMandateID
+            // data array
+            $data = array(
+                'headers' => array(),
+                'rows' => array(),
+                'column_align' => array()
             );
 
-            $table->addRowByArray($columnValues, 'userid_' . $usr['usr_id']);
-        } // End While
+            // create array with all column heading values
+            $data['headers'] = array(
+                '<input type="checkbox" id="change" name="change" class="change_checkbox admidio-icon-help" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_CHANGE_ALL') . '"/>',
+                $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'),
+                '<i class="bi bi-chat-fill admidio-info-icon" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_SEQUENCETYPE_DESC') . '"></i>',
+                $gL10n->get('PLG_MEMBERSHIPFEE_FEE'),
+                $gL10n->get('SYS_LASTNAME'),
+                $gL10n->get('SYS_FIRSTNAME'),
+                '<i class="bi bi-map-fill admidio-info-icon" title="' . $gL10n->get('SYS_ADDRESS') . '"></i>',
+                $gL10n->get('SYS_STREET'),
+                '<i class="bi bi-info-circle admidio-info-icon" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR') . '"></i>',
+                $gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR'),
+                '<i class="bi bi-envelope admidio-info-icon" title="' . $gL10n->get('SYS_EMAIL') . '"></i>',
+                $gL10n->get('SYS_EMAIL'),
+                $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID')
+            );
 
-        $page->addHtml($table->show(false));
-        $page->show();
+            $data['column_align'] = array(
+                'left',
+                'left',
+                'center',
+                'right',
+                'left',
+                'left',
+                'center',
+                'left',
+                'center',
+                'left',
+                'center',
+                'left',
+                'left'
+            );
+
+            $table->setOrderColumns(array(
+                5,
+                6
+            ));
+            $table->disableColumnsSort(array(
+                1
+            ));
+            $table->setAlternativeOrderColumns(7, 8);
+            $table->setAlternativeOrderColumns(9, 10);
+            $table->setAlternativeOrderColumns(11, 12);
+            $table->setColumnsHide(array(
+                8,
+                10,
+                12
+            ));
+
+            // show rows with all organization users
+            while ($usr = $statement->fetch()) {
+                $addressText = ' ';
+                $htmlAddress = '&nbsp;';
+                $htmlBirthday = '&nbsp;';
+                $htmlBeitrag = '&nbsp;';
+                $htmlDueDate = '&nbsp;';
+                $email = '';
+                $htmlMail = '&nbsp;';
+                $debtor_text = ' ';
+                $htmlDebtorText = '&nbsp;';
+                $htmlMandateID = '&nbsp;';
+                $htmlLastschrifttyp = '&nbsp;';
+                $lastschrifttyp = '';
+
+                // 1. Spalte ($htmlDueDateStatus)
+                if (array_key_exists($usr['usr_id'], $_SESSION['pMembershipFee']['checkedArray'])) {
+                    $htmlDueDateStatus = '<input type="checkbox" id="member_' . $usr['usr_id'] . '" name="member_' . $usr['usr_id'] . '" checked="checked" class="memlist_checkbox" /><b id="loadindicator_member_' . $usr['usr_id'] . '"></b>';
+                } else {
+                    $htmlDueDateStatus = '<input type="checkbox" id="member_' . $usr['usr_id'] . '" name="member_' . $usr['usr_id'] . '" class="memlist_checkbox" /><b id="loadindicator_member_' . $usr['usr_id'] . '"></b>';
+                }
+
+                // 2. Spalte ($htmlDueDate)
+                if ($usr['faelligkeitsdatum'] > 0) {
+                    $DueDate = \DateTime::createFromFormat('Y-m-d', $usr['faelligkeitsdatum']);
+                    $htmlDueDate = $DueDate->format($gSettingsManager->getString('system_date'));
+                }
+
+                // 3. Spalte ($htmlLastschrifttyp)
+                switch ($usr['lastschrifttyp']) {
+                    case 'RCUR':
+                        $lastschrifttyp = 'R';
+                        break;
+                    case 'FNAL':
+                        $lastschrifttyp = 'F';
+                        break;
+                    case 'OOFF':
+                        $lastschrifttyp = 'O';
+                        break;
+                }
+
+                if (strlen($lastschrifttyp) > 0) {
+                    $htmlLastschrifttyp = $lastschrifttyp;
+                }
+
+                // 4. Spalte ($htmlBeitrag)
+                if ($usr['beitrag'] > 0) {
+                    $htmlBeitrag = $usr['beitrag'] . ' ' . $gSettingsManager->getString('system_currency');
+                }
+
+                // 5. Spalte (Nachname)
+
+                // 6. Spalte (Vorname)
+
+                // 7. Spalte ($htmlAddress)
+                if (strlen((string) $usr['zip_code']) > 0 || strlen((string) $usr['city']) > 0) {
+                    $addressText .= $usr['zip_code'] . ' ' . $usr['city'];
+                }
+                if (strlen((string) $usr['street']) > 0) {
+                    $addressText .= ' - ' . $usr['street'];
+                }
+                if (strlen($addressText) > 1) {
+                    $htmlAddress = '<i class="bi bi-map-fill admidio-info-icon" title="' . $addressText . '"></i>';
+                }
+
+                // 8. Spalte ($addressText)
+
+                // 10. Spalte ($htmlDebtorText)
+                if (strlen((string) $usr['debtor']) > 0) {
+                    $debtor_text = $usr['debtor'];
+                }
+                if (strlen((string) $usr['debtorstreet']) > 0) {
+                    $debtor_text = $debtor_text . ' - ' . $usr['debtorstreet'];
+                }
+                if (strlen((string) $usr['debtorpostcode']) > 0 || strlen((string) $usr['debtorcity']) > 0) {
+                    $debtor_text = $debtor_text . ' - ' . $usr['debtorpostcode'] . ' ' . $usr['debtorcity'];
+                }
+
+                if (strlen($debtor_text) > 1) {
+                    $htmlDebtorText = '<i class="bi bi-info-circle admidio-info-icon" title="' . $debtor_text . '"></i>';
+                }
+
+                $user->readDataById($usr['usr_id']);
+
+                // 11. Spalte ($htmlMail)
+                if (StringUtils::strValidCharacters((string) $usr['debtoremail'], 'email')) {
+                    $email = $usr['debtoremail'];
+                    $usf_uuid = $gProfileFields->getProperty('DEBTOR_EMAIL', 'usf_uuid');
+                } elseif (strlen((string) $usr['email']) > 0) {
+                    $email = $usr['email'];
+                    $usf_uuid = $gProfileFields->getProperty('EMAIL', 'usf_uuid');
+                }
+                if (strlen((string) $email) > 0) {
+                    $_SESSION['pMembershipFee']['mailArray'][$usr['usr_id']] = $usf_uuid;
+                    if ($gSettingsManager->getInt('mail_module_enabled') != 1) {
+                        $mail_link = 'mailto:' . $email;
+                    } else {
+                        $mail_link = SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/message_write.php', array(
+                            'user_uuid' => $user->getValue('usr_uuid'),
+                            'usf_uuid' => $usf_uuid
+                        ));
+                    }
+                    $htmlMail = '<a class="admidio-icon-link" href="' . $mail_link . '"><i class="bi bi-envelope" title="' . $gL10n->get('SYS_SEND_EMAIL_TO', array(
+                        $email
+                    )) . '"></i>';
+                }
+
+                // 12. Spalte ($email)
+                if (strlen((string) $usr['mandateid']) > 0) {
+                    $htmlMandateID = $usr['mandateid'];
+                }
+
+                // create array with all column values
+                $columnValues = array(
+                    $htmlDueDateStatus,
+                    $htmlDueDate,
+                    $htmlLastschrifttyp,
+                    $htmlBeitrag,
+                    '<a href="' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array(
+                        'user_uuid' => $user->getValue('usr_uuid')
+                    )) . '">' . $usr['last_name'] . '</a>',
+                    '<a href="' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_MODULES . '/profile/profile.php', array(
+                        'user_uuid' => $user->getValue('usr_uuid')
+                    )) . '">' . $usr['first_name'] . '</a>',
+                    $htmlAddress,
+                    $addressText,
+                    $htmlDebtorText,
+                    $debtor_text,
+                    $htmlMail,
+                    $email,
+                    $htmlMandateID
+                );
+
+                $data['rows'][] = array(
+                    'id' => 'row-' . $usr['usr_id'],
+                    'data' => $columnValues
+                );
+            } // End While
+
+            $table->createJavascript(count($data['rows']), count($data['headers']));
+            $table->setColumnAlignByArray($data['column_align']);
+
+            $smarty = $page->createSmartyObject();
+            $smarty->assign('l10n', $gL10n);
+            $smarty->assign('classTable', 'table table-condensed table-hover');
+
+            $smarty->assign('columnAlign', $data['column_align']);
+            $smarty->assign('headers', $data['headers']);
+            $smarty->assign('rows', $data['rows']);
+
+            // Fetch the HTML table from our Smarty template
+            $htmlTable = $smarty->fetch('../templates/prenotification.plugin.membershipfee.tpl');
+            $page->addHtml($htmlTable);
+
+            $page->show();
+        }
     }
+} catch (Exception $e) {
+    $gMessage->show($e->getMessage());
 }
