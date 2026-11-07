@@ -240,7 +240,7 @@ try {
             $page->setContentFullWidth();
             $page->setHeadline($headline);
 
-            $form = new FormPresenter('pre_notification_filter_form', '../templates/prenotification.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php'), $page, array(
+            $form = new FormPresenter('pre_notification_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php'), $page, array(
                 'type' => 'navbar',
                 'setFocus' => false
             ));

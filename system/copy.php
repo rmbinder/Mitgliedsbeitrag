@@ -180,7 +180,7 @@ try {
         }
         asort($members);
 
-        $form = new FormPresenter('copy_selection_form', '../templates/copy.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/copy.php'), $page, array(
+        $form = new FormPresenter('copy_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/copy.php'), $page, array(
             'type' => 'navbar',
             'setFocus' => false
         ));

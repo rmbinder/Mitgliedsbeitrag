@@ -144,7 +144,7 @@ try {
         $page->setHeadline($headline);
 
         // create filter menu
-        $form = new FormPresenter('mandates_filter_form', 'sys-template-parts/form.filter.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandates.php'), $page, array(
+        $form = new FormPresenter('mandates_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/mandates.php'), $page, array(
             'type' => 'navbar',
             'setFocus' => false
         ));

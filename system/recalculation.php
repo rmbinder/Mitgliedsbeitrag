@@ -87,7 +87,7 @@ try {
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 
-        $form = new FormPresenter('recalculation_navbar', '../templates/recalculation.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php'), $page, array(
+        $form = new FormPresenter('recalculation_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php'), $page, array(
             'type' => 'navbar',
             'setFocus' => false
         ));

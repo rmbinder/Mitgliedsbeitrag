@@ -89,7 +89,7 @@ try {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-membernumber-preview');
         $page->setHeadline($headline);
 
-        $form = new FormPresenter('membernumber_navbar', 'sys-template-parts/form.filter.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php'), $page, array(
+        $form = new FormPresenter('membernumber_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php'), $page, array(
             'type' => 'navbar',
             'setFocus' => false
         ));

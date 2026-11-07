@@ -37,7 +37,7 @@ try {
     if (! isUserAuthorized()) {
         throw new Exception('SYS_NO_RIGHTS');
     }
-    
+
     // CSRF protection: reject the request if the token is missing or invalid
     checkCsrfToken();
 
@@ -74,7 +74,7 @@ try {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-create-mandate-id-preview');
         $page->setHeadline($headline);
 
-        $form = new FormPresenter('createmandateid_navbar', '../templates/createmandateid.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php'), $page, array(
+        $form = new FormPresenter('create_mandate_id_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php'), $page, array(
             'type' => 'navbar',
             'setFocus' => false
         ));

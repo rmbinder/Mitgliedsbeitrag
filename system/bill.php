@@ -161,7 +161,7 @@ try {
             $page->setContentFullWidth();
             $page->setHeadline($headline);
 
-            $form = new FormPresenter('bill_filter_form', '../templates/bill.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php'), $page, array(
+            $form = new FormPresenter('bill_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php'), $page, array(
                 'type' => 'navbar',
                 'setFocus' => false
             ));
