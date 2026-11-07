@@ -58,7 +58,7 @@ try {
 
     $page->addPageFunctionsMenuItem('menu_sepa', $gL10n->get('PLG_MEMBERSHIPFEE_SEPA'), '#', 'bi-cash-stack');
     $page->addPageFunctionsMenuItem('menu_item_duedates', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/duedates.php'), 'bi-calendar-check', 'menu_sepa');
-    $page->addPageFunctionsMenuItem('menu_item_sepaexport', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), '', 'bi-download', 'menu_sepa');
+    $page->addPageFunctionsMenuItem('menu_item_sepaexport', $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/sepa.php'), 'bi-download', 'menu_sepa');
     $page->addPageFunctionsMenuItem('menu_item_prenotification', $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/pre_notification.php'), 'bi-send', 'menu_sepa');
 
     $page->addPageFunctionsMenuItem('menu_bill', $gL10n->get('PLG_MEMBERSHIPFEE_BILL'), '#', 'bi-cash-stack');

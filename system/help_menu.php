@@ -54,7 +54,7 @@ try {
 
     $form->addDescription('help-' . ++ $helpNumber, '<h3>' . $gL10n->get('PLG_MEMBERSHIPFEE_SEPA') . '</h3> ');
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC'));
-    $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), $gL10n->get('PLG_MEMBERSHIPFEE_SEPA_EXPORT_INFO'));
+    $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), $gL10n->get('PLG_MEMBERSHIPFEE_SEPA_DESC'));
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION'), $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION_DESC'));
 
     $form->addDescription('help-' . ++ $helpNumber, '<h3>' . $gL10n->get('PLG_MEMBERSHIPFEE_BILL') . '</h3> ');
