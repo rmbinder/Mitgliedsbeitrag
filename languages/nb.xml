@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Korreksjon</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Opprett eksportfil</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Opprett mandatreferanser</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Rollevalg\n\nSom standard genereres medlemsreferanser for medlemmer,\n  - hvis de ikke har en fra før\n  - og for hvem en IBAN er registrert.\n\n Ved å bruke dette rollevalget kan generering kun utføres for de valgte rollene. Hvis det ikke skal gjøres noen begrensning til spesifikke roller, bør dette feltet stå tomt.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Som standard genereres medlemsreferanser for medlemmer,\n  - hvis de ikke har en fra før\n  - og for hvem en IBAN er registrert.\n\n Ved å bruke dette rollevalget kan generering kun utføres for de valgte rollene. Hvis det ikke skal gjøres noen begrensning til spesifikke roller, bør dette feltet stå tomt.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">FEIL: intet fortløpende nummer funnet!</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Her genereres mandatsreferanser basert på spesifikasjonene i #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">ny mandatreferanse</string>
@@ -382,7 +382,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">'Kun betalingsdato' sletter kun betalingsdatoen.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">Referanse-ID</string> 
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Bidragsbetalinger</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Rollevalg\n\nSom standard vurderes alle bidragsroller ved redigering av bidragene. Ved hjelp av dette rollevalget kan redigering av bidragene kun utføres for de valgte rollene. Det bør ikke være noen begrensning på visse roller, så dette feltet bør stå tomt.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Som standard vurderes alle bidragsroller ved redigering av bidragene. Ved hjelp av dette rollevalget kan redigering av bidragene kun utføres for de valgte rollene. Det bør ikke være noen begrensning på visse roller, så dette feltet bør stå tomt.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">Ikke mottatt ennå</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">Status</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Plugin-informasjon</string>
@@ -417,7 +417,7 @@
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID">ikke betalt</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID_DESC">#VAR1_BOLD#:\nDOmregningen vil bli utført for alle medlemmer.\n\n#VAR2_BOLD#:\nOmregningen vil kun bli utført for medlemmer som ennå ikke har betalt (de uten betalingsdato).</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_PREVIEW">De nye bidragene er kun beregnet, men er ennå ikke lagret.</string>
-    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC">Rollevalg\n\nSom standard vurderes alle bidragsroller ved en ny beregning. Ved hjelp av dette rollevalget kan en ny beregning utføres kun for de valgte rollene. Det bør ikke være noen begrensning på visse roller, så dette feltet bør stå tomt.</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC">Som standard vurderes alle bidragsroller ved en ny beregning. Ved hjelp av dette rollevalget kan en ny beregning utføres kun for de valgte rollene. Det bør ikke være noen begrensning på visse roller, så dette feltet bør stå tomt.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_INFO">På grunn av oppføringer i rollevalget, ble bare følgende rolle(r) vurdert for bidragsberegningen:</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_SAVED">De nye bidragene er lagret.</string>
     <string name="PLG_MEMBERSHIPFEE_REMAPPING">Omfordeling</string>

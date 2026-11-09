@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Correction</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Créer un fichier d'exportation</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Créer des références de mandat</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Sélection des rôles\n\nPar défaut, les références de mandat sont créées pour les membres,\n - s\'ils n\'en ont pas encore\n  - et pour lesquelles un IBAN est stocké. \n\n Par la sélection de rôle, la création ne peut être effectuée uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter la création à certains rôles, laisse ce champ vide.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Par défaut, les références de mandat sont créées pour les membres,\n - s\'ils n\'en ont pas encore\n  - et pour lesquelles un IBAN est stocké. \n\n Par la sélection de rôle, la création ne peut être effectuée uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter la création à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">ERREUR : aucun numéro courant trouvé !</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Ici, les références de mandat sont générées selon les spécifications de #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">nouvelle référence du mandat</string>
@@ -382,7 +382,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">L\'option \'Date payée seulement\' supprime uniquement la date payée.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">ID de référence</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Paiements de cotisations</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Sélection des rôles\n\nPar défaut, tous les rôles de cotisation sont pris en compte lors du traitement des paiements de cotisation. Tu peux utiliser cette sélection de rôles pour effectuer le payement les cotisations uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Par défaut, tous les rôles de cotisation sont pris en compte lors du traitement des paiements de cotisation. Tu peux utiliser cette sélection de rôles pour effectuer le payement les cotisations uniquement pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">encore impayé</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">État</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Informations sur le plug-in</string>
@@ -402,7 +402,7 @@
     <string name="PLG_MEMBERSHIPFEE_PREFIX_FAM">Préfixe famille</string>
     <string name="PLG_MEMBERSHIPFEE_PREFIX_MEM">Préfixe membre</string>
     <string name="PLG_MEMBERSHIPFEE_PREFIX_PAY">Préfixe du payeur</string>
-    <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER">Créer le(s) numéro(s) de membre(s)</string>
+    <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER">Créer des numéros de membre</string>
     <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC">Crée des numéros de membres pour les membres actifs de l\'organisation actuelle.</string>
     <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC2">Par défaut, les numéros de membre sont générés pour tous les membres actifs de l\'organisation actuelle. Tu peux utiliser cette sélection de rôles pour générer uniquement les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse cette zone vide.</string>
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD">Champ de profil</string>
@@ -417,7 +417,7 @@
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID">impayé</string> 
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID_DESC">#VAR1_BOLD#:\nLe recalcul sera effectué pour tous les membres.\n\n#VAR2_BOLD#:\nLe recalcul ne sera effectué que pour les membres n'ayant pas encore payé (ceux sans date de paiement).</string>    
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_PREVIEW">Jusqu\'à présent, les nouvelles cotisations n\'ont été calculés, mais pas encore sauvegardés.</string>
-    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC">Sélection des rôles\n\nPar défaut, tous les rôles de cotisation sont pris en compte pour un nouveau calcul. À l\'aide de cette sélection de rôle, un recalcul ne peut être effectué que pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC">Par défaut, tous les rôles de cotisation sont pris en compte pour un nouveau calcul. À l\'aide de cette sélection de rôle, un recalcul ne peut être effectué que pour les rôles sélectionnés. Si tu ne veux pas limiter ta sélection à certains rôles, laisse ce champ vide.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_INFO">En raison des entrées dans la sélection des rôles, seuls les rôles suivants ont été pris en compte pour le calcul des cotisations :</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_SAVED">Les nouvelles cotisations ont été sauvegardés.</string>
     <string name="PLG_MEMBERSHIPFEE_REMAPPING">Réaffectation</string>

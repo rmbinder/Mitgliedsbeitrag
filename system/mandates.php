@@ -140,6 +140,7 @@ try {
         $gNavigation->addUrl(CURRENT_URL, $headline);
 
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-mandates');
+
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 
@@ -161,7 +162,7 @@ try {
             '1' => $gL10n->get('PLG_MEMBERSHIPFEE_WITH_MANDATEDATE'),
             '2' => $gL10n->get('PLG_MEMBERSHIPFEE_WITHOUT_MANDATEDATE')
         );
-        $form->addSelectBox('mem_show', '', $selectBoxEntries, array(
+        $form->addSelectBox('mem_show', $gL10n->get('PLG_MEMBERSHIPFEE_FILTER'), $selectBoxEntries, array(
             'defaultValue' => $getMembersShow,
             'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC',
             'showContextDependentFirstEntry' => false

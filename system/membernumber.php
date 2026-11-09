@@ -87,6 +87,8 @@ try {
     if ($getMode == 'preview') // Default
     {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-membernumber-preview');
+
+        $page->setContentFullWidth();
         $page->setHeadline($headline);
 
         $form = new FormPresenter('membernumber_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php'), $page, array(
@@ -106,7 +108,7 @@ try {
         $form->addSelectBoxFromSql('producemembernumber_roleselection', '', $gDb, $selectBoxEntriesAlleRollen, array(
             'defaultValue' => $getRoleselection,
             'showContextDependentFirstEntry' => false,
-            'helpTextId' => 'PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC2',
+            'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC2'),
             'multiselect' => true
         ));
         $form->addInput('producemembernumber_format', $gL10n->get('PLG_MEMBERSHIPFEE_FORMAT'), $getFormat, array(

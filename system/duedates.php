@@ -191,6 +191,7 @@ try {
         $gNavigation->addUrl(CURRENT_URL, $headline);
 
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-duedates');
+
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 
@@ -224,7 +225,7 @@ try {
             '1' => $gL10n->get('PLG_MEMBERSHIPFEE_WITH_DUEDATE'),
             '2' => $gL10n->get('PLG_MEMBERSHIPFEE_WITHOUT_DUEDATE')
         );
-        $form->addSelectBox('mem_show', '', $selectBoxEntries, array(
+        $form->addSelectBox('mem_show', $gL10n->get('PLG_MEMBERSHIPFEE_FILTER'), $selectBoxEntries, array(
             'defaultValue' => $getMembersShow,
             'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC',
             'showContextDependentFirstEntry' => false
@@ -248,7 +249,7 @@ try {
         $form->addSelectBox('duedates_roleselection', '', $selectBoxEntriesBeitragsrollen, array(
             'defaultValue' => $_SESSION['pMembershipFee']['duedates_rol_sel'],
             'showContextDependentFirstEntry' => false,
-            'helpTextId' => 'PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC',
+            'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC'),
             'multiselect' => true
         ));
 

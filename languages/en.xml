@@ -122,7 +122,7 @@
     <string name="PLG_MEMBERSHIPFEE_CORRECTION">Correction</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_EXPORT_FILE">Create export file</string>    
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID">Create mandate references</string>
-    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">Role selection\n\nBy default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
+    <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC">By default, membership references are generated for members,\n  - if they do not have one yet\n  - and for which an IBAN is deposited.\n\n Using this role selection, generation can only be carried out for the selected roles. If no restriction is to be made to specific roles, this field should be left blank.</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_ERROR">ERROR: no consecutive number found!</string>
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP">Mandate references are generated here based on the specifications in #VAR1_BOLD#-#VAR2_BOLD#.</string>   
     <string name="PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NEW">new mandate reference</string>
@@ -382,7 +382,7 @@
     <string name="PLG_MEMBERSHIPFEE_PAID_ONLY_DESC">'Paid-date only' deletes only the paid-date.</string>
     <string name="PLG_MEMBERSHIPFEE_PAYMENT_ID">Reference ID</string> 
     <string name="PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS">Contribution payments</string>
-    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">Role selection\n\nBy default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
+    <string name="PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC">By default, all contribution roles are considered while editing the contributions. About this role selection editing the contributions may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
     <string name="PLG_MEMBERSHIPFEE_PENDING">Not yet received</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_DATE">Status</string>
     <string name="PLG_MEMBERSHIPFEE_PLUGIN_INFORMATION">Plugin information</string>
@@ -402,7 +402,7 @@
     <string name="PLG_MEMBERSHIPFEE_PREFIX_FAM">Family prefix</string>
     <string name="PLG_MEMBERSHIPFEE_PREFIX_MEM">Member prefix</string>
     <string name="PLG_MEMBERSHIPFEE_PREFIX_PAY">Payer prefix</string>
-    <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER">Generate membership number(s)</string>
+    <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER">Generate membership numbers</string>
     <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC">Generates membership numbers for active members in the current organization.</string>
     <string name="PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC2">By default, membership numbers are created for all active members of the current organization. About this role selection a generation may be performed only for the selected roles. If you do not want to restrict certain roles, leave this field blank.</string>
     <string name="PLG_MEMBERSHIPFEE_PROFILE_FIELD">Profile field</string>
@@ -417,7 +417,7 @@
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID">not paid</string> 
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_NOT_PAID_DESC">#VAR1_BOLD#:\nThe recalculation is being carried out for all members..\n\n#VAR2_BOLD#:\nThe recalculation is performed only for members who have not yet paid (those for whom no payment date is recorded).</string>    
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_PREVIEW">The new contributions have only been calculated but not yet saved.</string>
-    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC">Role selection\n\nBy default, all contribution roles are considered at a recalculation. About this role selection a recalculation may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
+    <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC">By default, all contribution roles are considered at a recalculation. About this role selection a recalculation may be performed only for the selected roles. There should be no restriction on certain roles, so this field should be left blank.</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_INFO">Due to entries in the role selection, only the following role(s) was considered for the contribution calculation:</string>
     <string name="PLG_MEMBERSHIPFEE_RECALCULATION_SAVED">The new contributions have been saved.</string>
     <string name="PLG_MEMBERSHIPFEE_REMAPPING">Remapping</string>

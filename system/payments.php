@@ -255,7 +255,7 @@ try {
                 '2' => $gL10n->get('PLG_MEMBERSHIPFEE_WITHOUT_PAID')
             );
 
-            $form->addSelectBox('mem_show', '', $selectBoxEntries, array(
+            $form->addSelectBox('mem_show', $gL10n->get('PLG_MEMBERSHIPFEE_FILTER'), $selectBoxEntries, array(
                 'defaultValue' => $getMembersShow,
                 'helpTextId' => 'PLG_MEMBERSHIPFEE_FILTER_DESC',
                 'showContextDependentFirstEntry' => false
@@ -279,7 +279,7 @@ try {
             $form->addSelectBox('payments_roleselection', '', $selectBoxEntriesBeitragsrollen, array(
                 'defaultValue' => $_SESSION['pMembershipFee']['payments_rol_sel'],
                 'showContextDependentFirstEntry' => false,
-                'helpTextId' => 'PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC',
+                'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC'),
                 'multiselect' => true
             ));
 

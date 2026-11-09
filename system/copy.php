@@ -83,6 +83,7 @@ try {
         $gNavigation->addUrl(CURRENT_URL, $headline);
 
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-copy');
+
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 

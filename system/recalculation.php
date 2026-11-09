@@ -110,7 +110,7 @@ try {
         $form->addSelectBox('recalculation_roleselection', '', $selectBoxEntriesBeitragsrollen, array(
             'defaultValue' => $getRecalcRoleSelection,
             'showContextDependentFirstEntry' => false,
-            'helpTextId' => 'PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC',
+            'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC'),
             'multiselect' => true
         ));
 

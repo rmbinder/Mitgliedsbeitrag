@@ -72,6 +72,8 @@ try {
     if ($getMode == 'preview') // Default
     {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-create-mandate-id-preview');
+
+        $page->setContentFullWidth();
         $page->setHeadline($headline);
 
         $form = new FormPresenter('create_mandate_id_navbar_form', '../templates/common.navbar.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php'), $page, array(
@@ -91,7 +93,7 @@ try {
         $form->addSelectBoxFromSql('createmandateid_roleselection', '', $gDb, $selectBoxEntriesAlleRollen, array(
             'defaultValue' => $getCreateMandateIdRoleSelection,
             'showContextDependentFirstEntry' => false,
-            'helpTextId' => 'PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC',
+            'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC'),
             'multiselect' => true
         ));
 
