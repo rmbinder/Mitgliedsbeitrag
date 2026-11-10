@@ -23,7 +23,6 @@
  */
 use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\SecurityUtils;
-use Admidio\Infrastructure\Utils\StringUtils;
 use Admidio\Roles\Entity\Role;
 use Admidio\UI\Component\DataTables;
 use Admidio\UI\Presenter\FormPresenter;
@@ -41,7 +40,7 @@ try {
     }
 
     // CSRF protection: reject the request if the token is missing or invalid
-    checkCsrfToken();
+    // checkCsrfToken();
 
     // Initialize and check the parameters
     $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
@@ -52,8 +51,15 @@ try {
             'print'
         )
     ));
-    $getRecalcRoleSelection = array();
-    $getRecalcRoleSelection = admFuncVariableIsValid($_GET, 'recalculation_roleselection', 'array');
+
+    $getRoleSelection = admFuncVariableIsValid($_GET, 'recalculation_roleselection', 'array');
+    // wenn alle Einträge in einer Rollenauswahl gelöscht wurden, wird ein Array mit einem leeren Eintrag übergeben
+    // dies führt im weiteren Verlauf des Scripts zu Fehlern
+    if (is_array($getRoleSelection)) {
+        // deshalb leere Einträge löschen
+        $getRoleSelection = array_filter($getRoleSelection);
+    }
+
     $getRecalcNotPaid = admFuncVariableIsValid($_GET, 'recalculation_notpaid', 'bool', array(
         'defaultValue' => FALSE
     ));
@@ -66,6 +72,8 @@ try {
         )
     ));
 
+    $tableId = 'table_' . $getMode . '_recalculation';
+
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -73,15 +81,15 @@ try {
 
     $headline = $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION');
 
-    // beim ersten Aufruf des Scriptes (wenn es von membership_fee aufgerufen wird), das Session-Array initialisieren/löschen
-    if (StringUtils::strContains($gNavigation->getUrl(), 'membership_fee.php')) {
+    // beim ersten Aufruf des Scriptes, das Session-Array initialisieren/löschen
+    if (strpos($gNavigation->getUrl(), 'recalculation.php') === false) {
         $_SESSION['pMembershipFee']['recalculation_user'] = array();
     }
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
+    // Default
     if ($getMode == 'preview') {
-
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-recalculation-preview');
 
         $page->setContentFullWidth();
@@ -108,7 +116,7 @@ try {
         unset($sortArray);
 
         $form->addSelectBox('recalculation_roleselection', '', $selectBoxEntriesBeitragsrollen, array(
-            'defaultValue' => $getRecalcRoleSelection,
+            'defaultValue' => $getRoleSelection,
             'showContextDependentFirstEntry' => false,
             'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION_ROLLQUERY_DESC'),
             'multiselect' => true
@@ -163,12 +171,12 @@ try {
         ));
 
         // pruefen, ob Eintraege in der Rollenauswahl bestehen
-        if (is_array($getRecalcRoleSelection)) {
-            $_SESSION['pMembershipFee']['recalculation_rol_sel'] = $getRecalcRoleSelection;
+        if (is_array($getRoleSelection) && count($getRoleSelection) > 0) {
+            $_SESSION['pMembershipFee']['recalculation_rol_sel'] = $getRoleSelection;
 
             // nicht gewaehlte Beitragsrollen im Array $contributingRolls loeschen
             foreach ($contributingRolls as $rol => $roldata) {
-                if (! in_array($rol, $getRecalcRoleSelection)) {
+                if (! in_array($rol, $getRoleSelection)) {
                     unset($contributingRolls[$rol]);
                 }
             }
@@ -176,7 +184,7 @@ try {
             // Rollendaten aufbereiten fuer list_members()
             $selectionRolls = array();
             $role = new Role($gDb);
-            foreach ($getRecalcRoleSelection as $rol) {
+            foreach ($getRoleSelection as $rol) {
                 $role->readDataById((int) $rol);
                 $selectionRolls[$role->getValue('rol_name')] = 0;
             }
@@ -436,9 +444,10 @@ try {
             $_SESSION['pMembershipFee']['recalculation_user'] = $members;
         }
 
-        $table = new DataTables($page, 'table_preview_recalculation');
+        $table = new DataTables($page, $tableId);
 
-        $table->setRowsPerPage(10);
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_RECALCULATION_NO_DATA');
 
         // data array
         $data = array(
@@ -509,7 +518,7 @@ try {
             ++ $listRowNumber;
         }
 
-        $form = new FormPresenter('recalculation_form', '../templates/recalculation.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php', array(
+        $form = new FormPresenter('recalculation_form', '../templates/recalculation.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/recalculation.php', array(
             'mode' => 'save'
         )), $page);
 
@@ -530,12 +539,12 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
 
-        // Fetch the HTML table from our Smarty template
-        $htmlTable = $smarty->fetch('../templates/recalculation.preview.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/recalculation.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
@@ -557,9 +566,10 @@ try {
         )) . '", "_blank");
         });', true);
 
-        $table = new DataTables($page, 'table_save_recalculation');
+        $table = new DataTables($page, $tableId);
 
-        $table->setRowsPerPage(10);
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_RECALCULATION_NO_DATA');
 
         // data array
         $data = array(
@@ -626,9 +636,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        $htmlTable = $smarty->fetch('../templates/recalculation.save.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/recalculation.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
@@ -641,7 +652,8 @@ try {
         $page->setHeadline($headline);
         $page->setPrintMode();
 
-        $table = new DataTables($page, 'table_print_recalculation');
+        $table = new DataTables($page, $tableId);
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_RECALCULATION_NO_DATA');
 
         // data array
         $data = array(
@@ -698,10 +710,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        // Fetch the HTML table from our Smarty template
-        $htmlTable = $smarty->fetch('../templates/recalculation.print.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/recalculation.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();

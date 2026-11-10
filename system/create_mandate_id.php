@@ -51,14 +51,16 @@ try {
         )
     ));
 
-    $getCreateMandateIdRoleSelection = admFuncVariableIsValid($_GET, 'createmandateid_roleselection', 'array');
+    $tableId = 'table_' . $getMode . '_createmandateid';
 
+    $getRoleSelection = admFuncVariableIsValid($_GET, 'createmandateid_roleselection', 'array');
     // wenn alle Einträge in einer Rollenauswahl gelöscht wurden, wird ein Array mit einem leeren Eintrag übergeben
     // dies führt im weiteren Verlauf des Scripts zu Fehlern
-    if (is_array($getCreateMandateIdRoleSelection)) {
-        // zuerst mal leere Einträge löschen
-        $getCreateMandateIdRoleSelection = array_filter($getCreateMandateIdRoleSelection);
+    if (is_array($getRoleSelection)) {
+        // deshalb leere Einträge löschen
+        $getRoleSelection = array_filter($getRoleSelection);
     }
+
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -69,8 +71,8 @@ try {
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
-    if ($getMode == 'preview') // Default
-    {
+    // Default
+    if ($getMode == 'preview') {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-create-mandate-id-preview');
 
         $page->setContentFullWidth();
@@ -91,7 +93,7 @@ try {
                              ORDER BY cat_sequence, rol_name';
 
         $form->addSelectBoxFromSql('createmandateid_roleselection', '', $gDb, $selectBoxEntriesAlleRollen, array(
-            'defaultValue' => $getCreateMandateIdRoleSelection,
+            'defaultValue' => $getRoleSelection,
             'showContextDependentFirstEntry' => false,
             'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_DESC'),
             'multiselect' => true
@@ -107,14 +109,13 @@ try {
         $members = array();
 
         // pruefen, ob Eintraege in der Rollenauswahl bestehen
-        if (is_array($getCreateMandateIdRoleSelection) && count($getCreateMandateIdRoleSelection) > 0) {
-
-            $_SESSION['pMembershipFee']['createmandateid_rol_sel'] = $getCreateMandateIdRoleSelection;
+        if (is_array($getRoleSelection) && count($getRoleSelection) > 0) {
+            $_SESSION['pMembershipFee']['createmandateid_rol_sel'] = $getRoleSelection;
 
             // Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
             $rols = array();
             $role = new Role($gDb);
-            foreach ($getCreateMandateIdRoleSelection as $rol_id) {
+            foreach ($getRoleSelection as $rol_id) {
                 $role->readDataById($rol_id);
                 $rols[$role->getValue('rol_name')] = 0;
             }
@@ -193,9 +194,10 @@ try {
         // save members with new mandate id in session (for mode save and mode print)
         $_SESSION['pMembershipFee']['createmandateid_user'] = $members;
 
-        $table = new DataTables($page, 'table_new_createmandateids');
+        $table = new DataTables($page, $tableId);
 
         $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -245,7 +247,7 @@ try {
             ++ $listRowNumber;
         }
 
-        $form = new FormPresenter('createmandateid_form', '../templates/createmandateid.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php', array(
+        $form = new FormPresenter('createmandateid_form', '../templates/createmandateid.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/create_mandate_id.php', array(
             'mode' => 'save'
         )), $page);
 
@@ -260,24 +262,25 @@ try {
         $smarty = $page->createSmartyObject();
         $smarty->assign('l10n', $gL10n);
         $smarty->assign('classTable', 'table table-condensed table-hover');
-
         $smarty->assign('columnAlign', $data['column_align']);
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
         $smarty->assign('errorMarker', $errorMarker);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
 
-        // Fetch the HTML table from our Smarty template
-        $htmlTable = $smarty->fetch('../templates/createmandateid.preview.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/createmandateid.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
     } elseif ($getMode == 'save') {
 
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-create-mandate-id-save');
+
+        $page->setContentFullWidth();
         $page->setHeadline($headline);
 
         $page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
@@ -289,9 +292,10 @@ try {
         )) . '", "_blank");
         });', true);
 
-        $table = new DataTables($page, 'table_save_createmandateids');
+        $table = new DataTables($page, $tableId);
 
         $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -354,9 +358,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        $htmlTable = $smarty->fetch('../templates/createmandateid.save.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/createmandateid.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
@@ -369,8 +374,9 @@ try {
         $page->setHeadline($headline);
         $page->setPrintMode();
 
-        $table = new DataTables($page, 'table_print_createmandateid');
-        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table = new DataTables($page, $tableId);
+        // $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -424,10 +430,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        // Fetch the HTML table from our Smarty template
-        $htmlTable = $smarty->fetch('../templates/createmandateid.print.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/createmandateid.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();

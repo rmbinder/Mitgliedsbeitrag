@@ -3,7 +3,8 @@
     {/foreach}>
 
     <div class="table-responsive">
-        <table id="table_preview_createmandateid" class="{$classTable}" style="max-width: 100%;">
+        <table id="{$tableId}" class="{$classTable}" style="max-width: 100%;">
+  
             <thead>
                 <tr>
                     {foreach $headers as $key => $header}
@@ -12,12 +13,8 @@
                 </tr>
             </thead>
             
-            <tbody>          
-                {if count($rows) eq 0}
-                    <tr>
-                        <td colspan="{count($headers)}" style="text-align: center;">{$l10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN')}</td>
-                    </tr>
-                {else}
+            {if count($rows) !== 0}
+                <tbody>          
                     {foreach $rows as $row}
                         <tr id="{$row.id}"  >
                             {foreach $row.data as $key => $cell}
@@ -25,14 +22,19 @@
                             {/foreach}
                         </tr>
                     {/foreach} 
-                {/if} 
-            </tbody>
+                </tbody>
+            {/if} 
+              
         </table>
     </div>   
            
-    {if !$errorMarker && count($rows) !== 0}
-        {include 'sys-template-parts/form.button.tpl' data=$elements['btn_next_page']}
-        <p>{$l10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_PREVIEW')}</p>        
+    {if $mode == 'preview'}
+        {if  count($rows) !== 0}
+            {include 'sys-template-parts/form.button.tpl' data=$elements['btn_next_page']}
+            <p>{$l10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_PREVIEW')}</p>        
+        {/if} 
+    {elseif $mode == 'save'}
+        <p>{$l10n->get('SYS_SAVE_DATA')}</p>   
     {/if} 
     
     <div class="form-alert" style="display: none;">&nbsp;</div>

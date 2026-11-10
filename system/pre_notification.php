@@ -398,6 +398,7 @@ try {
             $table = new DataTables($page, 'table_pre_notification');
 
             $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+            $table->setMessageIfNoRowsFound('SYS_NO_DATA_FOUND');
 
             // data array
             $data = array(

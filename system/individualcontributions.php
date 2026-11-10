@@ -48,6 +48,8 @@ try {
         )
     ));
 
+    $tableId = 'table_' . $getMode . '_individualcontributions';
+
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -60,16 +62,14 @@ try {
 
     for ($i = 0; $i < count($pPreferences->config['individual_contributions']['desc']); $i ++) {
         if (($pPreferences->config['individual_contributions']['role'][$i] == 0) || ($pPreferences->config['individual_contributions']['amount'][$i] == '')) {
-            // $getMode = 'error';
-
             throw new Exception('<strong>' . $gL10n->get('PLG_MEMBERSHIPFEE_WRONG_INDIVIDUAL_CONTRIBUTION') . '</strong>');
         }
     }
 
-    if ($getMode == 'preview') // Default
-    {
-        // $page = new HtmlPage('plg-mitgliedsbeitrag-individualcontributions-preview', $headline);
+    // Default
+    if ($getMode == 'preview') {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-individualcontributions-preview');
+
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 
@@ -141,8 +141,10 @@ try {
         // save members in session (for mode write and mode print)
         $_SESSION['pMembershipFee']['individualcontributions_user'] = $members;
 
-        $table = new DataTables($page, 'table_preview_individualcontributions');
-        $table->setRowsPerPage(10);
+        $table = new DataTables($page, $tableId);
+
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_NO_DATA');
 
         // data array
         $data = array(
@@ -204,7 +206,7 @@ try {
             ++ $listRowNumber;
         }
 
-        $form = new FormPresenter('individualcontributions_form', '../templates/individualcontributions.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/individualcontributions.php', array(
+        $form = new FormPresenter('individualcontributions_form', '../templates/individualcontributions.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/individualcontributions.php', array(
             'mode' => 'save'
         )), $page);
 
@@ -223,16 +225,18 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
 
-        $htmlTable = $smarty->fetch('../templates/individualcontributions.preview.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/individualcontributions.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
     } elseif ($getMode == 'save') {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-individualcontributions-save');
+
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 
@@ -245,8 +249,10 @@ try {
         )) . '", "_blank");
         });', true);
 
-        $table = new DataTables($page, 'table_save_individualcontributions');
-        $table->setRowsPerPage(10);
+        $table = new DataTables($page, $tableId);
+
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_NO_DATA');
 
         // data array
         $data = array(
@@ -314,9 +320,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        $htmlTable = $smarty->fetch('../templates/individualcontributions.save.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/individualcontributions.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
@@ -324,11 +331,12 @@ try {
         $headline = $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_NEW');
 
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-individualcontributions-print');
+
         $page->setHeadline($headline);
         $page->setPrintMode();
 
-        $page = new HtmlPage('plg-membershipfee-individualcontributions-print', $gL10n->get('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_NEW'));
-        $page->setPrintMode();
+        $table = new DataTables($page, $tableId);
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_INDIVIDUAL_CONTRIBUTIONS_NO_DATA');
 
         // data array
         $data = array(
@@ -381,9 +389,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        $htmlTable = $smarty->fetch('../templates/individualcontributions.print.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/individualcontributions.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();

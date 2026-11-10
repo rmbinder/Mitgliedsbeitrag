@@ -50,6 +50,8 @@ try {
         )
     ));
 
+    $tableId = 'table_' . $getMode . '_remapping';
+
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -61,9 +63,10 @@ try {
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
-    if ($getMode == 'preview') // Default
-    {
+    // Default
+    if ($getMode == 'preview') {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-remapping-preview');
+
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 
@@ -180,8 +183,10 @@ try {
         // save members in session (for mode write and mode print)
         $_SESSION['pMembershipFee']['remapping_user'] = $members;
 
-        $table = new DataTables($page, 'table_preview_remapping');
-        $table->setRowsPerPage(10);
+        $table = new DataTables($page, $tableId);
+
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_REMAPPING_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -250,7 +255,7 @@ try {
             ++ $listRowNumber;
         }
 
-        $form = new FormPresenter('remapping_form', '../templates/remapping.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/remapping.php', array(
+        $form = new FormPresenter('remapping_form', '../templates/remapping.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/remapping.php', array(
             'mode' => 'save'
         )), $page);
 
@@ -269,17 +274,18 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
 
-        // Fetch the HTML table from our Smarty template
-        $htmlTable = $smarty->fetch('../templates/remapping.preview.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/remapping.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
     } elseif ($getMode == 'save') {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-remapping-save');
+
         $page->setContentFullWidth();
         $page->setHeadline($headline);
 
@@ -295,8 +301,10 @@ try {
         )) . '", "_blank");
         });', true);
 
-        $table = new DataTables($page, 'table_save_remapping');
-        $table->setRowsPerPage(10);
+        $table = new DataTables($page, $tableId);
+
+        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_REMAPPING_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -401,9 +409,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        $htmlTable = $smarty->fetch('../templates/remapping.save.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/remapping.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
@@ -417,10 +426,12 @@ try {
         ));
 
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-remapping-print');
+
         $page->setHeadline($headline);
         $page->setPrintMode();
 
-        $table = new DataTables($page, 'table_print_remapping');
+        $table = new DataTables($page, $tableId);
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_REMAPPING_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -471,7 +482,6 @@ try {
             $columnValues[] = $memberdata['icon_role_new'];
             $columnValues[] = $memberdata['icon_role_not_exist'];
             $columnValues[] = $memberdata['role'];
-            // $table->addRowByArray($columnValues);
 
             $data['rows'][] = array(
                 'id' => 'row-' . $listRowNumber,
@@ -491,10 +501,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        // Fetch the HTML table from our Smarty template
-        $htmlTable = $smarty->fetch('../templates/remapping.print.plugin.membershipfee.tpl');
-        // add table list to the page
+        $htmlTable = $smarty->fetch('../templates/remapping.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();

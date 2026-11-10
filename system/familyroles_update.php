@@ -38,6 +38,9 @@ try {
         throw new Exception('SYS_NO_RIGHTS');
     }
 
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+
     // Initialize and check the parameters
     $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
         'defaultValue' => 'preview',
@@ -47,6 +50,8 @@ try {
             'print'
         )
     ));
+
+    $tableId = 'table_' . $getMode . '_familyrolesupdate';
 
     $pPreferences = new ConfigTable();
     $pPreferences->read();
@@ -58,12 +63,12 @@ try {
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
-    if ($getMode == 'preview') // Default
-    {
+    // Default
+    if ($getMode == 'preview') {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-familyrolesupdate-preview');
-        $page->setHeadline($headline);
 
         $page->setContentFullWidth();
+        $page->setHeadline($headline);
 
         $familyRolesToUpdate = array();
 
@@ -105,10 +110,10 @@ try {
             }
         }
 
-        $table = new DataTables($page, 'table_preview_familyrolesupdate');
+        $table = new DataTables($page, $tableId);
 
         $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -182,7 +187,7 @@ try {
             }
         }
 
-        $form = new FormPresenter('familyrolesupdate_preview_form', '../templates/familyrolesupdate.preview.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/familyroles_update.php', array(
+        $form = new FormPresenter('familyrolesupdate_form', '../templates/familyrolesupdate.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/familyroles_update.php', array(
             'mode' => 'save'
         )), $page);
 
@@ -197,15 +202,16 @@ try {
         $smarty = $page->createSmartyObject();
         $smarty->assign('l10n', $gL10n);
         $smarty->assign('classTable', 'table table-condensed table-hover');
-
         $smarty->assign('columnAlign', $data['column_align']);
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
 
-        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.preview.plugin.membershipfee.tpl');
+        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
@@ -214,6 +220,7 @@ try {
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-familyrolesupdate-save');
 
         $page->setContentFullWidth();
+        $page->setHeadline($headline);
 
         $page->addPageFunctionsMenuItem('menu_item_print_view', $gL10n->get('SYS_PRINT_PREVIEW'), 'javascript:void(0);', 'bi-printer');
 
@@ -224,10 +231,10 @@ try {
         )) . '", "_blank");
         });', true);
 
-        $table = new DataTables($page, 'table_preview_familyrolesupdate');
+        $table = new DataTables($page, $tableId);
 
         $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -302,8 +309,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.save.plugin.membershipfee.tpl');
+        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();
@@ -314,10 +323,10 @@ try {
         $page->setHeadline($headline);
         $page->setPrintMode();
 
-        $table = new DataTables($page, 'table_print_familyrolesupdate');
+        $table = new DataTables($page, $tableId);
 
-        $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
-        $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
+        // $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
+        $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_NO_ASSIGN');
 
         // data array
         $data = array(
@@ -377,8 +386,10 @@ try {
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
+        $smarty->assign('mode', $getMode);
+        $smarty->assign('tableId', $tableId);
 
-        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.print.plugin.membershipfee.tpl');
+        $htmlTable = $smarty->fetch('../templates/familyrolesupdate.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
 
         $page->show();

@@ -45,13 +45,6 @@ try {
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS_EDIT'), $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_PAYMENTS_DESC'));
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS'), $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS_DESC'));
 
-    $form->addDescription('help-' . ++ $helpNumber, '<h3>' . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT') . '</h3> ');
-    $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID'), $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP', array(
-        'SYS_SETTINGS',
-        'PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT'
-    )));
-    $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT'), $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT_DESC'));
-
     $form->addDescription('help-' . ++ $helpNumber, '<h3>' . $gL10n->get('PLG_MEMBERSHIPFEE_SEPA') . '</h3> ');
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE_EDIT_DESC'));
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_EXPORT'), $gL10n->get('PLG_MEMBERSHIPFEE_SEPA_DESC'));
@@ -62,6 +55,11 @@ try {
 
     $form->addDescription('help-' . ++ $helpNumber, '<h3>' . $gL10n->get('PLG_MEMBERSHIPFEE_EXTRAS') . '</h3> ');
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER'), $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER_DESC'));
+    $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID'), $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_HELP', array(
+        'SYS_SETTINGS',
+        'PLG_MEMBERSHIPFEE_MANDATE_MANAGEMENT'
+    )));
+    $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT'), $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_EDIT_DESC'));
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE'), $gL10n->get('PLG_MEMBERSHIPFEE_FAMILY_ROLES_UPDATE_DESC'));
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_COPY'), $gL10n->get('PLG_MEMBERSHIPFEE_COPY_DESC'));
     $form->addCustomContent('help-' . ++ $helpNumber, $gL10n->get('PLG_MEMBERSHIPFEE_TESTS'), $gL10n->get('PLG_MEMBERSHIPFEE_TESTS_DESC'));

@@ -121,7 +121,6 @@ try {
         $userArray = array();
         $membersList = array();
 
-        // if (isset($_SESSION['pMembershipFee']['duedates_rol_sel'])) {
         if (count($_SESSION['pMembershipFee']['duedates_rol_sel']) > 0) {
             // Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
             $membersListRols = array();

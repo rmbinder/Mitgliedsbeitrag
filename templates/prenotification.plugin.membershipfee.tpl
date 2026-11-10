@@ -4,6 +4,7 @@
     
     <div class="table-responsive">
         <table id="table_pre_notification" class="{$classTable}" style="max-width: 100%;">
+        
             <thead>
                 <tr>
                     {foreach $headers as $key => $header}
@@ -12,12 +13,8 @@
                 </tr>
             </thead>
             
-            <tbody>          
-                {if count($rows) eq 0}
-                    <tr>
-                        <td colspan="{count($headers)}" style="text-align: center;">{$l10n->get('SYS_NO_DATA_FOUND')}</td>
-                    </tr>
-                {else}
+            {if count($rows) !== 0}
+                <tbody>          
                     {foreach $rows as $row}
                         <tr id="{$row.id}"  >
                             {foreach $row.data as $key => $cell}
@@ -25,8 +22,8 @@
                             {/foreach}
                         </tr>
                     {/foreach} 
-                {/if} 
-            </tbody>
+                </tbody>
+            {/if} 
         </table>
     </div>   
     
