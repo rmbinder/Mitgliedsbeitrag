@@ -191,23 +191,23 @@ try {
 
                 ++ $listRowNumber;
             }
-
-            $form = new FormPresenter('membernumber_form', '../templates/membernumber.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php', array(
-                'mode' => 'save'
-            )), $page);
-
-            $form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array(
-                'icon' => 'bi-check-lg',
-                'class' => 'btn-primary'
-            ));
         }
+
+        $form = new FormPresenter('membernumber_form', '../templates/membernumber.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/membernumber.php', array(
+            'mode' => 'save'
+        )), $page);
+
+        $form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array(
+            'icon' => 'bi-check-lg',
+            'class' => 'btn-primary'
+        ));
+
         $table->createJavascript(count($data['rows']), count($data['headers']));
         $table->setColumnAlignByArray($data['column_align']);
 
         $smarty = $page->createSmartyObject();
         $smarty->assign('l10n', $gL10n);
         $smarty->assign('classTable', 'table table-condensed table-hover');
-
         $smarty->assign('columnAlign', $data['column_align']);
         $smarty->assign('columnWidth', $data['column_width']);
         $smarty->assign('headers', $data['headers']);
