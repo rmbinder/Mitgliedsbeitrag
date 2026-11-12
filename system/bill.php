@@ -74,7 +74,7 @@ try {
     ));
 
     // add current url to navigation stack if last url was not the same page
-    if (strpos($gNavigation->getUrl(), 'bill.php') === false) {
+    if (strpos($gNavigation->getUrl(), 'bill.php') === false && strpos($gNavigation->getUrl(), 'message_write.php') === false) {
         $_SESSION['pMembershipFee']['checkedArray'] = array();
         $_SESSION['pMembershipFee']['mailArray'] = array();
     }
