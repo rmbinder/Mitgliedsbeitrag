@@ -24,6 +24,9 @@ try {
     require_once (__DIR__ . '/common_function.php');
     require (__DIR__ . '/../../../system/login_valid.php');
 
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+
     $getViewDefinition = admFuncVariableIsValid($_GET, 'view_definition', 'string', array(
         'defaultValue' => 'payments_fields',
         'validValues' => array(
@@ -36,12 +39,6 @@ try {
 
     $pPreferences = new ConfigTable();
     $pPreferences->read();
-
-    // check the CSRF token of the form against the session token
-    $myListForm = $gCurrentSession->getFormObject($_POST['adm_csrf_token']);
-    if ($_POST['adm_csrf_token'] !== $myListForm->getCsrfToken()) {
-        throw new Exception('Invalid or missing CSRF token!');
-    }
 
     // At least one field should be assigned (has a non-empty value)
     if (empty($_POST['column']) || ! is_array($_POST['column']) || count(array_filter($_POST['column'], static function ($v) {

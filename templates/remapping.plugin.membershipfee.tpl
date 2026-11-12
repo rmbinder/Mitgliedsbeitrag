@@ -2,6 +2,10 @@
         {$attribute@key}="{$attribute}"
     {/foreach}>
     
+    {if isset($elements['adm_csrf_token'])}
+        {include 'sys-template-parts/form.input.tpl' data=$elements['adm_csrf_token']} 
+    {/if} 
+    
     <div class="table-responsive">
         <table id="{$tableId}" class="{$classTable}" style="max-width: 100%;">
         
@@ -24,13 +28,14 @@
                     {/foreach} 
                 </tbody>
             {/if} 
+            
         </table>
     </div>   
     
     {if $mode == 'preview'}       
         {if count($rows) !== 0}
-            <p>{$l10n->get('PLG_MEMBERSHIPFEE_REMAPPING_PREVIEW')}</p>  
-            {include 'sys-template-parts/form.button.tpl' data=$elements['btn_next_page']}      
+            {include 'sys-template-parts/form.button.tpl' data=$elements['btn_next_page']} 
+            <p>{$l10n->get('PLG_MEMBERSHIPFEE_REMAPPING_PREVIEW')}</p>       
         {/if} 
     {elseif $mode == 'save'}
         <p>{$l10n->get('PLG_MEMBERSHIPFEE_REMAPPING_SAVED')}</p> 

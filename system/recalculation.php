@@ -40,7 +40,7 @@ try {
     }
 
     // CSRF protection: reject the request if the token is missing or invalid
-    // checkCsrfToken();
+    checkCsrfToken();
 
     // Initialize and check the parameters
     $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
@@ -522,6 +522,10 @@ try {
             'mode' => 'save'
         )), $page);
 
+        // $form->addInput('adm_csrf_token', 'csrf-token', $gCurrentSession->getCsrfToken(), array(
+        // 'property' => FormPresenter::FIELD_HIDDEN
+        // ));
+
         $form->addSubmitButton('btn_next_page', $gL10n->get('SYS_SAVE'), array(
             'icon' => 'bi-check-lg',
 
@@ -543,6 +547,7 @@ try {
         $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($form);
 
         $htmlTable = $smarty->fetch('../templates/recalculation.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);

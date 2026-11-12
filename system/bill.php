@@ -40,6 +40,9 @@ try {
         throw new Exception('SYS_NO_RIGHTS');
     }
 
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -410,9 +413,9 @@ try {
             $smarty->assign('headers', $data['headers']);
             $smarty->assign('rows', $data['rows']);
 
-            // Fetch the HTML table from our Smarty template
             $htmlTable = $smarty->fetch('../templates/bill.plugin.membershipfee.tpl');
             $page->addHtml($htmlTable);
+
             $page->show();
         }
     }

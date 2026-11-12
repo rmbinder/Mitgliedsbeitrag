@@ -27,6 +27,9 @@ try {
         throw new Exception('SYS_NO_RIGHTS');
     }
 
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -169,6 +172,7 @@ try {
     $smarty->assign('rows', $data['rows']);
 
     $form->addToSmarty($smarty);
+    $gCurrentSession->addFormObject($form);
 
     $htmlTable = $smarty->fetch('../templates/sepa.plugin.membershipfee.tpl');
     $page->addHtml($htmlTable);

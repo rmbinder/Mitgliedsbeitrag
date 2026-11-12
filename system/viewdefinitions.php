@@ -27,6 +27,9 @@ try {
     require_once (__DIR__ . '/common_function.php');
     require (__DIR__ . '/../../../system/login_valid.php');
 
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+
     $getViewDefinition = admFuncVariableIsValid($_GET, 'view_definition', 'string', array(
         'defaultValue' => 'payments_fields',
         'validValues' => array(

@@ -28,10 +28,12 @@ try {
     require_once (__DIR__ . '/common_function.php');
 
     // only authorized user are allowed to start this module
-    if (!isUserAuthorized())
-    {
+    if (! isUserAuthorized()) {
         throw new Exception('SYS_NO_RIGHTS');
     }
+
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
 
     // Initialize and check the parameters
     $getUserId = admFuncVariableIsValid($_GET, 'user_id', 'int');
@@ -87,6 +89,7 @@ try {
     $smarty->assign('username', '<h5>' . $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FIRST_NAME'] . ' ' . $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['LAST_NAME'] . '</h5>');
 
     $form->addToSmarty($smarty);
+    $gCurrentSession->addFormObject($form);
 
     $page->addHtml($smarty->fetch('../templates/recalculation.edit.plugin.membershipfee.tpl'));
 

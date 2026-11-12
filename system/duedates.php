@@ -445,10 +445,9 @@ try {
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
 
-        // Fetch the HTML table from our Smarty template
         $htmlTable = $smarty->fetch('../templates/duedates.plugin.membershipfee.tpl');
-
         $page->addHtml($htmlTable);
+
         $page->show();
     }
 } catch (Exception $e) {

@@ -2,6 +2,10 @@
         {$attribute@key}="{$attribute}"
     {/foreach}>
     
+    {if isset($elements['adm_csrf_token'])}
+        {include 'sys-template-parts/form.input.tpl' data=$elements['adm_csrf_token']} 
+    {/if} 
+    
     {include 'sys-template-parts/form.input.tpl' data=$elements['mandateid']}
     {include 'sys-template-parts/form.custom-content.tpl' data=$elements['mandat_schieben']}
     {include 'sys-template-parts/form.input.tpl' data=$elements['origmandateid']}

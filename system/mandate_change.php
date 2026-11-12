@@ -39,6 +39,9 @@ try {
         throw new Exception('SYS_NO_RIGHTS');
     }
 
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -294,7 +297,9 @@ try {
 
         $smarty = $page->createSmartyObject();
         $smarty->assign('headline', $headline);
+
         $form->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($form);
 
         $page->addHtml($smarty->fetch('../templates/mandate.change.plugin.membershipfee.tpl'));
 

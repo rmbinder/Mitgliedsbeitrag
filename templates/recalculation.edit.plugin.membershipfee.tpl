@@ -2,7 +2,11 @@
         {$attribute@key}="{$attribute}"
     {/foreach}>
     
-     <p><h3>{$headline}</h3></p>        
+    {if isset($elements['adm_csrf_token'])}
+        {include 'sys-template-parts/form.input.tpl' data=$elements['adm_csrf_token']} 
+    {/if} 
+    
+    <p><h3>{$headline}</h3></p>        
     <p>{$username}</p> 
            
     <hr />

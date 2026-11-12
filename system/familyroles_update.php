@@ -210,6 +210,7 @@ try {
         $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($form);
 
         $htmlTable = $smarty->fetch('../templates/familyrolesupdate.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);

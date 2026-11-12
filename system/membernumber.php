@@ -39,7 +39,7 @@ try {
     }
 
     // CSRF protection: reject the request if the token is missing or invalid
-    // checkCsrfToken();
+    checkCsrfToken();
 
     $pPreferences = new ConfigTable();
     $pPreferences->read();
@@ -216,6 +216,7 @@ try {
         $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($form);
 
         $htmlTable = $smarty->fetch('../templates/membernumber.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);

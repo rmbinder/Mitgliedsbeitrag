@@ -170,13 +170,29 @@ function isUserAuthorizedForPreferences()
  */
 function checkCsrfToken()
 {
-    global $gMessage;
+    global $gMessage, $gCurrentSession;
 
     if (count($_POST) > 0) {
-        try {
-            SecurityUtils::validateCsrfToken($_POST['adm_csrf_token'] ?? '');
-        } catch (Exception $e) {
-            $gMessage->show($e->getMessage());
+        // Original PR by JurgenG
+        // try {
+        // SecurityUtils::validateCsrfToken($_POST['adm_csrf_token'] ?? '');
+        // } catch (Exception $e) {
+        // $gMessage->show($e->getMessage());
+        // }
+
+        // validateCsrfToken validates the provided token ($_POST['adm_csrf_token'])
+        // solely against the session CSRF token ($gCurrentSession->getCsrfToken()).
+        // However, $_POST['adm_csrf_token'] generally contains the CSRF token from the form object.
+        // Take a look at the FormPresenter class.
+
+        if (isset($_POST['adm_csrf_token'])) {
+            // check the CSRF token of the form against the session token
+            $myForm = $gCurrentSession->getFormObject($_POST['adm_csrf_token']);
+            if ($_POST['adm_csrf_token'] !== $myForm->getCsrfToken()) {
+                throw new Exception('Invalid CSRF token!');
+            }
+        } else {
+            throw new Exception('Missing CSRF token!');
         }
     }
 }
@@ -1288,11 +1304,13 @@ function check_iban()
 
 /**
  * Calculates <numericString> mod 97 for the IBAN check-digit validation
- * (ISO 7064 mod 97-10). Uses the bcmath extension (bcmod) when it is available,
+ * (ISO 7064 mod 97-10).
+ * Uses the bcmath extension (bcmod) when it is available,
  * and otherwise falls back to a pure-PHP digit-by-digit reduction, so the IBAN
  * test no longer fatals when bcmath is missing.
  *
- * @param string $numericString String consisting only of the digits 0-9
+ * @param string $numericString
+ *            String consisting only of the digits 0-9
  * @return int The remainder of <numericString> divided by 97
  */
 function iban_mod97($numericString)
@@ -1546,7 +1564,7 @@ function isIbanNOT_EU_EWR($iban)
  *
  * @param string $date
  *            Datumsstring
- * @return DateTime Datum im Format Y-m-d
+ * @return DateTime im Format Y-m-d
  */
 function date_format2mysql($date)
 {

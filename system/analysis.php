@@ -31,7 +31,7 @@ try {
     $headline = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTION_ANALYSIS');
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
-    $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-remapping-preview');
+    $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-analysis');
     $page->setHeadline($headline);
 
     $beitrag = analyse_mem();
@@ -143,7 +143,6 @@ try {
     $smarty->assign('rows', $data['rows']);
 
     $htmlTable = $smarty->fetch('../templates/analysis.members.plugin.membershipfee.tpl');
-    // add table list to the page
     $page->addHtml($htmlTable);
 
     $table = new DataTables($page, 'table_roles_contribution');
@@ -225,7 +224,6 @@ try {
     $smarty->assign('rows', $data['rows']);
 
     $htmlTable = $smarty->fetch('../templates/analysis.roles.plugin.membershipfee.tpl');
-    // add table list to the page
     $page->addHtml($htmlTable);
 
     $page->show();

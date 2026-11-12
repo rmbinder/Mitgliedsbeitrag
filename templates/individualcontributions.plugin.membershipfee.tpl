@@ -1,7 +1,11 @@
 <form {foreach $attributes as $attribute}
         {$attribute@key}="{$attribute}"
     {/foreach}>
-    
+
+    {if isset($elements['adm_csrf_token'])}
+        {include 'sys-template-parts/form.input.tpl' data=$elements['adm_csrf_token']} 
+    {/if}
+        
     <div class="table-responsive">
         <table id="{$tableId}" class="{$classTable}" style="max-width: 100%;">
         

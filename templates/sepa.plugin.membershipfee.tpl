@@ -2,7 +2,11 @@
         {$attribute@key}="{$attribute}"
     {/foreach}>
 
-         <div class="table-responsive">
+    {if isset($elements['adm_csrf_token'])}
+        {include 'sys-template-parts/form.input.tpl' data=$elements['adm_csrf_token']} 
+    {/if} 
+    
+    <div class="table-responsive">
         <table id="table_sepa" class="{$classTable}" style="max-width: 100%;">
             <thead>
                 <tr>

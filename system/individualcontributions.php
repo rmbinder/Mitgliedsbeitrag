@@ -38,6 +38,9 @@ try {
         throw new Exception('SYS_NO_RIGHTS');
     }
 
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
+
     // Initialize and check the parameters
     $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
         'defaultValue' => 'preview',
@@ -229,6 +232,7 @@ try {
         $smarty->assign('tableId', $tableId);
 
         $form->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($form);
 
         $htmlTable = $smarty->fetch('../templates/individualcontributions.plugin.membershipfee.tpl');
         $page->addHtml($htmlTable);
