@@ -81,6 +81,13 @@ try {
 
     $headline = $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION');
 
+    // Marker setzen, wenn ein Beitrag oder ein Beitragstext editiert wurden
+    $recalc_edit = false;
+    if (strpos($gNavigation->getUrl(), 'recalculation_edit.php')) {
+        $gNavigation->deleteLastUrl();
+        $recalc_edit = true;
+    }
+
     // beim ersten Aufruf des Scriptes, das Session-Array initialisieren/löschen
     if (strpos($gNavigation->getUrl(), 'recalculation.php') === false) {
         $_SESSION['pMembershipFee']['recalculation_user'] = array();
@@ -197,7 +204,7 @@ try {
         // 1. beim ersten Aufruf des Scripts
         // 2. wenn der Button Neuberechnung gedrückt wurde
         // eine Neuberechnung darf nicht durchgeführt werden, wenn ein Beitrag oder ein Text editiert wurde (über recalculatiuon_edit.php)
-        if (count($_SESSION['pMembershipFee']['recalculation_user']) === 0 || isset($_GET['btn_recalculation'])) {
+        if (! $recalc_edit && (count($_SESSION['pMembershipFee']['recalculation_user']) === 0 || isset($_GET['btn_recalculation']))) {
 
             // diese Rollen durchlaufen und bei den Familienrollen eine Zahlungspflichtigen bestimmen
             foreach ($contributingRolls as $rol => $roldata) {

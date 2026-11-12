@@ -50,8 +50,7 @@ try {
     if ($getMode === 'save') {
         $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['FEE_NEW'] = $postFeeNew;
         $_SESSION['pMembershipFee']['recalculation_user'][$getUserId]['CONTRIBUTORY_TEXT_NEW'] = $postContributoryTextNew;
-        $gNavigation->deleteLastUrl();
-        admRedirect($gNavigation->getUrl());
+        admRedirect($gNavigation->getPreviousUrl());
         // => EXIT
     }
 
