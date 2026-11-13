@@ -23,50 +23,45 @@
  * 
  ***********************************************************************************************
  */
+use Admidio\Infrastructure\Plugins\Overview;
 use Admidio\Users\Entity\User;
 
-$rootPath = dirname(__DIR__, 3);
-$pluginFolder = basename(__DIR__);
+try {
+    $rootPath = dirname(__DIR__, 2);
 
-require_once($rootPath . '/system/common.php');
+    require_once (__DIR__ . '/../../../system/common.php');
+    require_once (__DIR__ . '/common_function.php');
 
-echo '<div id="plugin_'. $pluginFolder. '" class="admidio-plugin-content">';
+    $membershipfeePlugin = new Overview(PLUGIN_FOLDER);
 
-echo '<h3>'.$gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE').'</h3>';
+    if ($gValidLogin) {
+        $membershipfeePlugin->assignTemplateVariable('valid_login', $gValidLogin);
+        $user = new User($gDb, $gProfileFields, $gCurrentUserId);
 
-if ($gValidLogin) 
-{
-    $user = new User($gDb, $gProfileFields, $gCurrentUserId);
-    
-    if (empty($user->getValue('FEE'.$gCurrentOrgId)))
-    {
-        echo $gL10n->get('PLG_MEMBERSHIPFEE_OVERVIEW_NO_DATA', array($user->getValue('FIRST_NAME'), $user->getValue('LAST_NAME')));
+        if (empty($user->getValue('FEE' . $gCurrentOrgId))) {
+            $membershipfeePlugin->assignTemplateVariable('overview_no_data', $gL10n->get('PLG_MEMBERSHIPFEE_OVERVIEW_NO_DATA', array(
+                $user->getValue('FIRST_NAME'),
+                $user->getValue('LAST_NAME')
+            )));
+        } else {
+            $membershipfeePlugin->assignTemplateVariable('overview_fee', $user->getValue('FEE' . $gCurrentOrgId) . ' ' . $gSettingsManager->getString('system_currency'));
+
+            if (! empty($user->getValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId))) {
+                $membershipfeePlugin->assignTemplateVariable('overview_contributory_text', $user->getValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId));
+            }
+            if (! empty($user->getValue('PAID' . $gCurrentOrgId))) {
+                $membershipfeePlugin->assignTemplateVariable('overview_paid', $user->getValue('PAID' . $gCurrentOrgId));
+            }
+            if (! empty($user->getValue('DUEDATE' . $gCurrentOrgId))) {
+                $membershipfeePlugin->assignTemplateVariable('overview_duedate', $user->getValue('DUEDATE' . $gCurrentOrgId));
+            }
+        }
     }
-    else 
-    {
-        // create a static form
-        $form = new HtmlForm('plugin-membership_fee-static-form', '#', null, array('type' => 'vertical', 'setFocus' => false));
-        
-        $form->addStaticControl('plg_membership_fee_overview_fee', $gL10n->get('PLG_MEMBERSHIPFEE_FEE'), $user->getValue('FEE'.$gCurrentOrgId).' '.$gSettingsManager->getString('system_currency'));
-        
-        if (!empty($user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrgId)))
-        {
-            $form->addStaticControl('plg_membership_fee_overview_contributory_text', $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT'), $user->getValue('CONTRIBUTORY_TEXT'.$gCurrentOrgId));
-        }
-        if (!empty($user->getValue('PAID'.$gCurrentOrgId)))
-        {
-            $form->addStaticControl('plg_membership_fee_overview_paid', $gL10n->get('PLG_MEMBERSHIPFEE_PAID_ON'), $user->getValue('PAID'.$gCurrentOrgId));
-        }
-        if (!empty($user->getValue('DUEDATE'.$gCurrentOrgId)))
-        {
-            $form->addStaticControl('plg_membership_fee_overview_duedate', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), $user->getValue('DUEDATE'.$gCurrentOrgId));
-        }
-        echo $form->show();
+    if (isset($page)) {
+        echo $membershipfeePlugin->html($rootPath . PLUGIN_FOLDER . '/templates/overview.plugin.membershipfee.tpl');
+    } else {
+        $membershipfeePlugin->showHtmlPage($rootPath . PLUGIN_FOLDER . '/templates/overview.plugin.membershipfee.tpl');
     }
+} catch (Throwable $e) {
+    echo $e->getMessage();
 }
-else
-{
-    echo $gL10n->get('PLG_MEMBERSHIPFEE_OVERVIEW_NOVALIDLOGIN');
-}
-
-echo '</div>';
