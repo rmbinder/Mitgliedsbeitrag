@@ -258,34 +258,34 @@ try {
         ));
 
         $form->addInput('mandateid', $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID'), $user->getValue('MANDATEID' . $gCurrentOrgId), array(
-            'property' => HtmlForm::FIELD_REQUIRED
+            'property' => FormPresenter::FIELD_REQUIRED
         ));
         $html = '<a class="iconLink" id="mandatschieben" href="javascript:mandatschieben()">
             <i class="bi bi-arrow-down" title="' . $gL10n->get('PLG_MEMBERSHIPFEE_MOVE_MANDATEID') . '"></i> </a>';
         $form->addCustomContent('mandat_schieben', '', $html);
         $form->addInput('origmandateid', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_MANDATEID'), $user->getValue('ORIG_MANDATEID' . $gCurrentOrgId), array(
-            'property' => HtmlForm::FIELD_DISABLED
+            'property' => FormPresenter::FIELD_DISABLED
         ));
         $form->addInput('iban', $gL10n->get('PLG_MEMBERSHIPFEE_IBAN'), $user->getValue('IBAN'), array(
-            'property' => HtmlForm::FIELD_REQUIRED
+            'property' => FormPresenter::FIELD_REQUIRED
         ));
         $html = '<a class="iconLink" id="ibanschieben" href="javascript:ibanschieben()">
             <i class="bi bi-arrow-down"  title="' . $gL10n->get('PLG_MEMBERSHIPFEE_MOVE_IBAN') . '"></i> </a>';
         $form->addCustomContent('iban_schieben', '', $html);
         $form->addInput('origiban', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_IBAN'), $user->getValue('ORIG_IBAN'), array(
-            'property' => HtmlForm::FIELD_DISABLED
+            'property' => FormPresenter::FIELD_DISABLED
         ));
         $form->addCheckbox('bankchanged', $gL10n->get('PLG_MEMBERSHIPFEE_BANK_CHANGED'), 0, array(
             'class' => 'bank_changed_checkbox'
         ));
         $form->addInput('bic', $gL10n->get('PLG_MEMBERSHIPFEE_BIC'), $user->getValue('BIC'), array(
-            'property' => HtmlForm::FIELD_DISABLED
+            'property' => FormPresenter::FIELD_DISABLED
         ));
         $form->addInput('bank', $gL10n->get('PLG_MEMBERSHIPFEE_BANK'), $user->getValue('BANK'), array(
-            'property' => HtmlForm::FIELD_DISABLED
+            'property' => FormPresenter::FIELD_DISABLED
         ));
         $form->addInput('origdebtoragent', $gL10n->get('PLG_MEMBERSHIPFEE_ORIG_DEBTOR_AGENT'), $user->getValue('ORIG_DEBTOR_AGENT'), array(
-            'property' => HtmlForm::FIELD_DISABLED
+            'property' => FormPresenter::FIELD_DISABLED
         ));
         $html = '<div class="alert alert-warning alert-small" role="alert"><i class="bi bi-exclamation-triangle"></i>' . $gL10n->get('PLG_MEMBERSHIPFEE_MANDATE_CHANGE_DBTR_INFO') . '</div>';
         $form->addCustomContent('warning', '', $html);

@@ -194,13 +194,13 @@ try {
             'defaultValue' => $getSourceUserid,
             'helpTextId' => 'PLG_MEMBERSHIPFEE_SOURCE_DESC',
             'showContextDependentFirstEntry' => true,
-            'property' => HtmlForm::FIELD_REQUIRED
+            'property' => FormPresenter::FIELD_REQUIRED
         ));
         $form->addSelectBox('ziel', $gL10n->get('PLG_MEMBERSHIPFEE_TARGET'), $members, array(
             'defaultValue' => $getTargetUserid,
             'helpTextId' => 'PLG_MEMBERSHIPFEE_TARGET_DESC',
             'showContextDependentFirstEntry' => true,
-            'property' => HtmlForm::FIELD_REQUIRED
+            'property' => FormPresenter::FIELD_REQUIRED
         ));
 
         $form->addToHtmlPage();
