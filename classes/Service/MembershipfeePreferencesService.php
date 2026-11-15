@@ -38,6 +38,7 @@ class MembershipfeePreferencesService
         global $gL10n, $gSettingsManager, $gCurrentSession, $gDb, $gCurrentOrgId, $gProfileFields, $gLogger;
 
         require_once (__DIR__ . '/../../system/common_function.php');
+
         $pPreferences = new ConfigTable();
         $pPreferences->read();
 
@@ -174,7 +175,15 @@ class MembershipfeePreferencesService
                     if (! empty($data['CONTRIBUTORY_TEXT' . $gCurrentOrgId]) && (($formData['delete'] === 'with_paid' && ! empty($data['PAID' . $gCurrentOrgId])) || ($formData['delete'] === 'without_paid' && empty($data['PAID' . $gCurrentOrgId])) || $formData['delete'] === 'delete_all')) {
                         $user->setValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId, '');
                     }
-                    $user->save();
+
+                    if ($pPreferences->config['changelog']['suspend_history']) {
+                        $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
+                        $gSettingsManager->set('changelog_table_user_data', 0);
+                        $user->save();
+                        $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
+                    } else {
+                        $user->save();
+                    }
                 }
                 break;
 
@@ -345,6 +354,11 @@ class MembershipfeePreferencesService
                 $pPreferences->config['Mandatsreferenz']['prefix_pay'] = $formData['prefix_pay'];
                 $pPreferences->config['Mandatsreferenz']['min_length'] = $formData['min_length'];
                 $pPreferences->config['Mandatsreferenz']['data_field'] = $formData['data_field'];
+                break;
+
+            case 'changelog':
+
+                $pPreferences->config['changelog']['suspend_history'] = isset($formData['suspend_history']) ? 1 : 0;
                 break;
 
             case 'access':

@@ -201,6 +201,12 @@ class MembershipfeePreferencesPresenter extends PagePresenter
                         'subcards' => false
                     ),
                     array(
+                        'id' => 'changelog',
+                        'title' => $gL10n->get('SYS_CHANGE_HISTORY'),
+                        'icon' => 'bi-clock-history',
+                        'subcards' => false
+                    ),
+                    array(
                         'id' => 'uninstallation',
                         'title' => $gL10n->get('PLG_MEMBERSHIPFEE_UNINSTALLATION'),
                         'icon' => 'bi-trash',
@@ -1372,6 +1378,42 @@ class MembershipfeePreferencesPresenter extends PagePresenter
         )));
         $smarty = $this->getSmartyTemplate();
         return $smarty->fetch('../templates/preferences.viewdefinitions.plugin.membershipfee.tpl');
+    }
+
+    /**
+     * Generates the HTML of the form from the changelog preferences and will return the complete HTML.
+     *
+     * @return string Returns the complete HTML of the form from the changelog report preferences.
+     * @throws Exception
+     * @throws \Smarty\Exception
+     */
+    public function createChangelogForm(): string
+    {
+        global $gL10n, $gSettingsManager, $gCurrentSession;
+
+        $pPreferences = new ConfigTable();
+        $pPreferences->read();
+
+        $formChangelog = new FormPresenter('adm_preferences_form_changelog', '../templates/preferences.changelog.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/preferences.php', array(
+            'mode' => 'save',
+            'panel' => 'changelog'
+        )), null, array(
+            'class' => 'form-preferences'
+        ));
+
+        $formChangelog->addCheckbox('suspend_history', $gL10n->get('PLG_MEMBERSHIPFEE_SUSPEND_HISTORY'), $pPreferences->config['changelog']['suspend_history'], array(
+            'helpTextId' => 'PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC'
+        ));
+
+        $formChangelog->addSubmitButton('adm_button_save_changelog', $gL10n->get('SYS_SAVE'), array(
+            'icon' => 'bi-check-lg',
+            'class' => 'offset-sm-3'
+        ));
+
+        $smarty = $this->getSmartyTemplate();
+        $formChangelog->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($formChangelog);
+        return $smarty->fetch('../templates/preferences.changelog.plugin.membershipfee.tpl');
     }
 
     /**

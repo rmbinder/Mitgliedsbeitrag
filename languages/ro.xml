@@ -494,6 +494,8 @@
     <string name="PLG_MEMBERSHIPFEE_STREET">Adresa stradala a membrului</string>    
     <string name="PLG_MEMBERSHIPFEE_SUM">Suma</string>
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Adună</string>
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Suspendați jurnalul de modificări</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Jurnalul de modificări înregistrează toate modificările aduse bazei de date. Cu toate acestea, atunci când se lucrează cu pluginul (de exemplu, în timpul unei recalculări), se înregistrează un număr mare de modificări, ceea ce duce la creșterea continuă a bazei de date. Această setare dezactivează temporar înregistrarea în jurnal în anumite module ale pluginului.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">General</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Țintă</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Elementul selectat aici este destinația acțiunii de copiere.</string>

@@ -494,6 +494,8 @@
     <string name="PLG_MEMBERSHIPFEE_STREET">KtoInh-Straße</string>    
     <string name="PLG_MEMBERSHIPFEE_SUM">Summe</string>
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Aufsummieren</string>
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Änderungsprotokoll aussetzen</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Das Änderungsprotokoll protokolliert alle Änderungen in der Datenbank. Beim Arbeiten mit dem Plugin (z.B. bei einer Neuberechnung) werden aber sehr viele Änderungen protokolliert, dadurch wird die Datenbank immer größer. Mit dieser Einstellung wird die Protokollierung in einigen Modulen des Plugins temporär deaktiviert.</string>      
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Allgemein</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Ziel</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</string>
@@ -556,7 +558,7 @@
     <string name="PLG_MEMBERSHIPFEE_XML_FILE">XML-Datei</string>
     <string name="PLG_MEMBERSHIPFEE_XML_FILE_NAME">XML-Dateiname</string>
     <string name="PLG_MEMBERSHIPFEE_XML_FILE_NAME_DESC">Dateinamen sind ohne Dateiendung anzugeben.\n\nBeispiel:\n"SEPA-Datei" wird zu "SEPA-Datei-2013-04-01-RCUR.xml"</string>
-    <string name="PLG_MEMBERSHIPFEE_YEARS">Jahre</string>   
+    <string name="PLG_MEMBERSHIPFEE_YEARS">Jahre</string> 
     <!-- Phrases only in Database -->
     <string name="PMB_ACCESSION">Beitritt</string>
     <string name="PMB_ACCOUNT_DATA">Kontodaten</string>

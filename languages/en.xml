@@ -494,6 +494,8 @@
     <string name="PLG_MEMBERSHIPFEE_STREET">AccHolder&apos;s street</string>    
     <string name="PLG_MEMBERSHIPFEE_SUM">Sum</string>
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Add up</string>
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Suspend change log</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">The change log records all modifications made to the database. However, using the plugin—for instance, when performing a recalculation—can result in a large number of logged changes, causing the database to grow increasingly in size. This setting allows you to temporarily disable logging within certain modules of the plugin.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">General</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Target</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">This selected here Member is the target of the copy action.</string>

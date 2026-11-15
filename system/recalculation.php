@@ -635,7 +635,15 @@ try {
 
             $user->setValue('FEE' . $gCurrentOrgId, $memberdata['FEE_NEW']);
             $user->setValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId, $memberdata['CONTRIBUTORY_TEXT_NEW']);
-            $user->save();
+
+            if ($pPreferences->config['changelog']['suspend_history']) {
+                $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
+                $gSettingsManager->set('changelog_table_user_data', 0);
+                $user->save();
+                $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
+            } else {
+                $user->save();
+            }
         }
 
         $table->createJavascript(count($data['rows']), count($data['headers']));

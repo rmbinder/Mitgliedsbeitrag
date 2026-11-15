@@ -125,7 +125,14 @@ try {
                         if (strlen($user->getValue('DUEDATE' . $gCurrentOrgId)) !== 0) {
                             $user->setValue('DUEDATE' . $gCurrentOrgId, '');
                         }
-                        $user->save();
+                        if ($pPreferences->config['changelog']['suspend_history']) {
+                            $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
+                            $gSettingsManager->set('changelog_table_user_data', 0);
+                            $user->save();
+                            $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
+                        } else {
+                            $user->save();
+                        }
                     }
                     unset($_SESSION['pMembershipFee']['checkedArray'][$userId]);
                 }

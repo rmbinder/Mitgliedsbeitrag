@@ -501,6 +501,8 @@
     <string name="PLG_MEMBERSHIPFEE_STREET">Straat rekeninghouder</string>    
     <string name="PLG_MEMBERSHIPFEE_SUM">Som</string>
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Optellen</string>
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Wijzigingslogboek opschorten</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Het wijzigingslogboek registreert alle wijzigingen in de database. Bij gebruik van de plugin (bijvoorbeeld tijdens een herberekening) worden echter veel wijzigingen vastgelegd, waardoor de database continu groeit. Deze instelling schakelt het loggen in sommige modules van de plugin tijdelijk uit.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Algemeen</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Doel</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Het hier geselecteerde lid is het doel van het kopiëren.</string>

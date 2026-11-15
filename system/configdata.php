@@ -45,7 +45,9 @@ $config_default['Familienrollen'] = array(
 
 // Beitrag
 $config_default['Beitrag'] = array(
-    'beitrag_prefix' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX', array(date('Y'))),
+    'beitrag_prefix' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_PREFIX', array(
+        date('Y')
+    )),
     'beitrag_suffix' => $gL10n->get('PLG_MEMBERSHIPFEE_DEFAULT_CONTRIBUTION_SUFFIX'),
     'beitrag_textmitnam' => 1,
     'beitrag_textmitfam' => '',
@@ -208,6 +210,9 @@ $config_default['individual_contributions'] = array(
 
 // Multiplikatorrollen (nur Familienrollen)
 $config_default['multiplier']['roles'] = array();
+
+// (Änderungshistorie
+$config_default['changelog']['suspend_history'] = 0;
 
 /*
  * Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden,
