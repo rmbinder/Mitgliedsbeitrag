@@ -495,7 +495,7 @@
     <string name="PLG_MEMBERSHIPFEE_SUM">Sum</string>
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Legg sammen</string>
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Suspender endringsloggen</string> 
-    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Endringsloggen registrerer alle endringer i databasen. Når man arbeider med plugin-modulen (f.eks. under en ny beregning), logges imidlertid et stort antall endringer, noe som fører til at databasen vokser kontinuerlig. Denne innstillingen deaktiverer midlertidig logging i noen moduler i plugin-modulen.</string>
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Endringsloggen registrerer alle endringer i databasen. Når du arbeider med plugin-modulen (f.eks. under en ny beregning), logges imidlertid et stort antall endringer, noe som fører til at databasen vokser kontinuerlig. Denne innstillingen deaktiverer logging midlertidig (bare når du skriver data).\n\nMerk: Hvis logging ikke er aktivert i Admidio-innstillingene under #VAR1#-#VAR2#-#VAR3# (user_data), er dette alternativet ikke tilgjengelig.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Generelt</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Mål</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Denne valgte her Medlem er målet for kopieringshandlingen.</string>

@@ -271,6 +271,12 @@ try {
 
         $user = new User($gDb, $gProfileFields);
 
+        $changelogMarker = false;
+        if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+            $gSettingsManager->set('changelog_table_user_data', 0);
+            $changelogMarker = true;
+        }
+
         $listRowNumber = 1;
         foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $memberdata) {
             $columnValues = array();
@@ -288,6 +294,10 @@ try {
             $user->readDataById($memberdata['usr_id']);
             $user->setValue('MEMBERNUMBER' . $gCurrentOrgId, $memberdata['membernumber']);
             $user->save();
+        }
+
+        if ($changelogMarker) {
+            $gSettingsManager->set('changelog_table_user_data', 1);
         }
 
         // save the format string in database

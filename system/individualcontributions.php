@@ -288,6 +288,12 @@ try {
             '75%'
         );
 
+        $changelogMarker = false;
+        if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+            $gSettingsManager->set('changelog_table_user_data', 0);
+            $changelogMarker = true;
+        }
+
         $listRowNumber = 1;
         foreach ($_SESSION['pMembershipFee']['individualcontributions_user'] as $member => $memberdata) {
             $user->readDataById($member);
@@ -312,14 +318,18 @@ try {
             $user->setValue('FEE' . $gCurrentOrgId, $memberdata['FEE_NEW']);
             $user->setValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId, $memberdata['CONTRIBUTORY_TEXT_NEW']);
 
-            if ($pPreferences->config['changelog']['suspend_history']) {
-                $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
-                $gSettingsManager->set('changelog_table_user_data', 0);
-                $user->save();
-                $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
-            } else {
-                $user->save();
-            }
+            // if ($pPreferences->config['changelog']['suspend_history']) {
+            // $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
+            // $gSettingsManager->set('changelog_table_user_data', 0);
+            // $user->save();
+            // $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
+            // } else {
+            $user->save();
+            // }
+        }
+
+        if ($changelogMarker) {
+            $gSettingsManager->set('changelog_table_user_data', 1);
         }
 
         $table->createJavascript(count($data['rows']), count($data['headers']));

@@ -92,6 +92,12 @@ try {
         }
 
         try {
+            $changelogMarker = false;
+            if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                $gSettingsManager->set('changelog_table_user_data', 0);
+                $changelogMarker = true;
+            }
+
             foreach ($userArray as $dummy => $data) {
                 $user->readDataById($data);
 
@@ -110,16 +116,19 @@ try {
                     $user->setValue('DUEDATE' . $gCurrentOrgId, '');
                 }
 
-                if ($pPreferences->config['changelog']['suspend_history']) {
-                    $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
-                    $gSettingsManager->set('changelog_table_user_data', 0);
-                    $user->save();
-                    $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
-                } else {
-                    $user->save();
-                }
+                // if ($pPreferences->config['changelog']['suspend_history']) {
+                // $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
+                // $gSettingsManager->set('changelog_table_user_data', 0);
+                // $user->save();
+                // $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
+                // } else {
+                $user->save();
+                // }
 
                 $ret_text = 'success';
+            }
+            if ($changelogMarker) {
+                $gSettingsManager->set('changelog_table_user_data', 1);
             }
         } catch (AdmException $e) {
             $e->showText();

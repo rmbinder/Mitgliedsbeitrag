@@ -80,6 +80,12 @@ try {
         }
 
         try {
+            $changelogMarker = false;
+            if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                $gSettingsManager->set('changelog_table_user_data', 0);
+                $changelogMarker = true;
+            }
+
             foreach ($userArray as $dummy => $data) {
                 $user->readDataById($data);
 
@@ -94,6 +100,10 @@ try {
 
                 $user->save();
                 $ret_text = 'success';
+            }
+
+            if ($changelogMarker) {
+                $gSettingsManager->set('changelog_table_user_data', 1);
             }
         } catch (Exception $e) {
             $gMessage->show($e->getMessage());

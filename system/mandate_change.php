@@ -136,7 +136,18 @@ try {
                 $user->setValue('MANDATEID' . $gCurrentOrgId, $getMandateID);
                 $user->setValue('ORIG_MANDATEID' . $gCurrentOrgId, $getOrigMandateID);
             }
+
+            $changelogMarker = false;
+            if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                $gSettingsManager->set('changelog_table_user_data', 0);
+                $changelogMarker = true;
+            }
+
             $user->save();
+
+            if ($changelogMarker) {
+                $gSettingsManager->set('changelog_table_user_data', 1);
+            }
         }
         echo $ret_txt;
     } else {

@@ -94,6 +94,12 @@ try {
             try {
                 $workArray = $_SESSION['pMembershipFee']['checkedArray'];
 
+                $changelogMarker = false;
+                if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                    $gSettingsManager->set('changelog_table_user_data', 0);
+                    $changelogMarker = true;
+                }
+
                 foreach ($workArray as $userId => $dummy) {
                     $user->readDataById($userId);
 
@@ -125,17 +131,22 @@ try {
                         if (strlen($user->getValue('DUEDATE' . $gCurrentOrgId)) !== 0) {
                             $user->setValue('DUEDATE' . $gCurrentOrgId, '');
                         }
-                        if ($pPreferences->config['changelog']['suspend_history']) {
-                            $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
-                            $gSettingsManager->set('changelog_table_user_data', 0);
-                            $user->save();
-                            $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
-                        } else {
-                            $user->save();
-                        }
+                        // if ($pPreferences->config['changelog']['suspend_history']) {
+                        // $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
+                        // $gSettingsManager->set('changelog_table_user_data', 0);
+                        // $user->save();
+                        // $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
+                        // } else {
+                        $user->save();
+                        // }
                     }
                     unset($_SESSION['pMembershipFee']['checkedArray'][$userId]);
                 }
+
+                if ($changelogMarker) {
+                    $gSettingsManager->set('changelog_table_user_data', 1);
+                }
+
                 $_SESSION['pMembershipFee']['selectAll'] = true;
                 $ret_text = 'success';
             } catch (AdmException $e) {
@@ -152,6 +163,12 @@ try {
             try {
                 $workArray = $_SESSION['pMembershipFee']['checkedArray'];
 
+                $changelogMarker = false;
+                if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                    $gSettingsManager->set('changelog_table_user_data', 0);
+                    $changelogMarker = true;
+                }
+
                 foreach ($workArray as $userId => $dummy) {
                     $user->readDataById($userId);
 
@@ -162,6 +179,11 @@ try {
                     }
                     unset($_SESSION['pMembershipFee']['checkedArray'][$userId]);
                 }
+
+                if ($changelogMarker) {
+                    $gSettingsManager->set('changelog_table_user_data', 1);
+                }
+
                 $_SESSION['pMembershipFee']['selectAll'] = true;
                 $ret_text = 'success';
             } catch (AdmException $e) {

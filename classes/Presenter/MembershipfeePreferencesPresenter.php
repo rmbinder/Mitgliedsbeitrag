@@ -1401,8 +1401,20 @@ class MembershipfeePreferencesPresenter extends PagePresenter
             'class' => 'form-preferences'
         ));
 
+        if ($gSettingsManager->getInt('changelog_table_user_data') == 1) {
+            $fieldProperty = FormPresenter::FIELD_DEFAULT;
+        } else {
+            $fieldProperty = FormPresenter::FIELD_DISABLED;
+            $pPreferences->config['changelog']['suspend_history'] = 0;
+            $pPreferences->save();
+        }
         $formChangelog->addCheckbox('suspend_history', $gL10n->get('PLG_MEMBERSHIPFEE_SUSPEND_HISTORY'), $pPreferences->config['changelog']['suspend_history'], array(
-            'helpTextId' => 'PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC'
+            'property' => $fieldProperty,
+            'helpTextId' => $gL10n->get('PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC', array(
+                $gL10n->get('SYS_CHANGE_HISTORY'),
+                $gL10n->get('SYS_HEADER_USER_ROLE_DATA'),
+                $gL10n->get('SYS_PROFILE_FIELD')
+            ))
         ));
 
         $formChangelog->addSubmitButton('adm_button_save_changelog', $gL10n->get('SYS_SAVE'), array(

@@ -495,7 +495,7 @@
     <string name="PLG_MEMBERSHIPFEE_SUM">Total</string>
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Totaliser</string>
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Suspendre le journal des modifications</string> 
-    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Le journal des modifications enregistre toutes les opérations effectuées dans la base de données. Or, l'utilisation du plugin (par exemple lors d'un nouveau calcul) génère un très grand nombre d'enregistrements, ce qui entraîne une augmentation constante de la taille de la base de données. Ce paramètre permet de désactiver temporairement la journalisation dans certains modules du plugin.</string>
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Le journal des modifications enregistre toutes les modifications apportées à la base de données. L'utilisation du plugin (par exemple lors d'un recalcul) entraîne toutefois l'enregistrement d'un très grand nombre de modifications, ce qui fait croître la taille de la base de données. Ce paramètre permet de désactiver temporairement la journalisation (uniquement lors de l'écriture de données).\n\nRemarque : si la journalisation n'est pas activée dans les paramètres d'Admidio, sous #VAR1#-#VAR2#-#VAR3# (user_data), aucune option n'est disponible ici.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Général</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Cible</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Ce membre sélectionné est la cible de l\'action de copie.</string>

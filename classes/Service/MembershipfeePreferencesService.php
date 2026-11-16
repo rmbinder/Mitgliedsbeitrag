@@ -156,6 +156,12 @@ class MembershipfeePreferencesService
                     'DUEDATE' . $gCurrentOrgId
                 ), 0);
 
+                $changelogMarker = false;
+                if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                    $gSettingsManager->set('changelog_table_user_data', 0);
+                    $changelogMarker = true;
+                }
+
                 foreach ($members as $key => $data) {
                     $user = new User($gDb, $gProfileFields, $key);
 
@@ -176,15 +182,19 @@ class MembershipfeePreferencesService
                         $user->setValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId, '');
                     }
 
-                    if ($pPreferences->config['changelog']['suspend_history']) {
-                        $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
-                        $gSettingsManager->set('changelog_table_user_data', 0);
-                        $user->save();
-                        $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
-                    } else {
-                        $user->save();
-                    }
+                    // if ($pPreferences->config['changelog']['suspend_history']) {
+                    // $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
+                    // $gSettingsManager->set('changelog_table_user_data', 0);
+                    // $user->save();
+                    // $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
+                    // } else {
+                    $user->save();
+                    // }
                 }
+                if ($changelogMarker) {
+                    $gSettingsManager->set('changelog_table_user_data', 1);
+                }
+
                 break;
 
             case 'agestaggered_roles':
