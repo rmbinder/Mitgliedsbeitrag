@@ -353,6 +353,7 @@
     <string name="PLG_MEMBERSHIPFEE_NOT_CHANGE">nicht ändern</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SATISFIED">nicht erfüllt</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SAVED_SETTINGS_LOST">Nach jedem Hinzufügen oder Löschen einer Konfiguration ist der Speichern-Button zu betätigen.</string>
+    <string name="PLG_MEMBERSHIPFEE_SYS_NOTIFICATION">Systembenachrichtigung</string>  
     <string name="PLG_MEMBERSHIPFEE_NOTHING_SELECTED">Es ist nichts ausgewählt.</string>    
     <string name="PLG_MEMBERSHIPFEE_NUMBER">Anzahl</string>
     <string name="PLG_MEMBERSHIPFEE_NUMBER_TRANSACTIONS">Anzahl der Transaktionen</string>
@@ -496,6 +497,8 @@
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Aufsummieren</string>
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Änderungsprotokoll aussetzen</string> 
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Das Änderungsprotokoll protokolliert alle Änderungen in der Datenbank. Beim Arbeiten mit dem Plugin (z.B. bei einer Neuberechnung) werden aber sehr viele Änderungen protokolliert, dadurch wird die Datenbank immer größer. Mit dieser Einstellung wird die Protokollierung temporär (nur beim Schreiben von Daten) deaktiviert.\n\nHinweis:  Ist die Protokollierung in den Admidio-Einstellungen unter #VAR1#-#VAR2#-#VAR3# (user data) nicht aktiviert, besteht hier keine Wahlmöglichkeit.</string>      
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES">Benachrichtigung bei Profiländerungen aussetzen</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES_DESC">Bei aktivierten Systembenachrichtigungen erhalten Mitglieder einer hinterlegten Rolle eine Systembenachrichtigung, wenn die Profildaten eines Mitglieds von einem Benutzer erstellt, geändert oder gelöscht werden. Mit dieser Einstellung wird diese Systembenachrichtigung temporär (nur beim Schreiben von Daten) deaktiviert.\n\nHinweis: Ist die Systembenachrichtigung in den Admidio-Einstellungen unter #VAR1#-#VAR2# nicht aktiviert, besteht hier keine Wahlmöglichkeit.</string>      
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Allgemein</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Ziel</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Dieses hier ausgewählte Mitglied ist das Ziel der Kopieraktion.</string>

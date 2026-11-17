@@ -94,10 +94,13 @@ try {
             try {
                 $workArray = $_SESSION['pMembershipFee']['checkedArray'];
 
-                $changelogMarker = false;
-                if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                $changelogSuspend = checkCondSuspendHistory();
+                if ($changelogSuspend) {
                     $gSettingsManager->set('changelog_table_user_data', 0);
-                    $changelogMarker = true;
+                }
+                $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
+                if ($settingsSuspend) {
+                    $gSettingsManager->set('system_notifications_profile_changes', 0);
                 }
 
                 foreach ($workArray as $userId => $dummy) {
@@ -131,20 +134,17 @@ try {
                         if (strlen($user->getValue('DUEDATE' . $gCurrentOrgId)) !== 0) {
                             $user->setValue('DUEDATE' . $gCurrentOrgId, '');
                         }
-                        // if ($pPreferences->config['changelog']['suspend_history']) {
-                        // $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
-                        // $gSettingsManager->set('changelog_table_user_data', 0);
-                        // $user->save();
-                        // $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
-                        // } else {
+
                         $user->save();
-                        // }
                     }
                     unset($_SESSION['pMembershipFee']['checkedArray'][$userId]);
                 }
 
-                if ($changelogMarker) {
+                if ($changelogSuspend) {
                     $gSettingsManager->set('changelog_table_user_data', 1);
+                }
+                if ($settingsSuspend) {
+                    $gSettingsManager->set('system_notifications_profile_changes', 1);
                 }
 
                 $_SESSION['pMembershipFee']['selectAll'] = true;

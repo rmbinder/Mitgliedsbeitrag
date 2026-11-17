@@ -353,6 +353,7 @@
     <string name="PLG_MEMBERSHIPFEE_NOT_CHANGE">ikke endre</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SATISFIED">ikke tilfredsstilt</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SAVED_SETTINGS_LOST">Etter hver tillegging eller sletting av en konfigurasjon må Lagre-knappen trykkes.</string>
+    <string name="PLG_MEMBERSHIPFEE_SYS_NOTIFICATION">Systemvarsel</string>
     <string name="PLG_MEMBERSHIPFEE_NOTHING_SELECTED">Ingenting er valgt.</string>    
     <string name="PLG_MEMBERSHIPFEE_NUMBER">Nummer</string>
     <string name="PLG_MEMBERSHIPFEE_NUMBER_TRANSACTIONS">Antall transaksjoner</string>
@@ -496,6 +497,8 @@
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Legg sammen</string>
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Suspender endringsloggen</string> 
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Endringsloggen registrerer alle endringer i databasen. Når du arbeider med plugin-modulen (f.eks. under en ny beregning), logges imidlertid et stort antall endringer, noe som fører til at databasen vokser kontinuerlig. Denne innstillingen deaktiverer logging midlertidig (bare når du skriver data).\n\nMerk: Hvis logging ikke er aktivert i Admidio-innstillingene under #VAR1#-#VAR2#-#VAR3# (user_data), er dette alternativet ikke tilgjengelig.</string>
+     <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES">Deaktiver varsler for profilendringer</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES_DESC">Når systemvarsler er aktivert, mottar medlemmer av en definert rolle et systemvarsel når en bruker oppretter, endrer eller sletter et medlems profildata. Denne innstillingen deaktiverer disse systemvarslene midlertidig (bare når data skrives).\n\nMerk: Hvis systemvarsler ikke er aktivert i Admidio-innstillingene under #VAR1#-#VAR2#, er dette alternativet ikke tilgjengelig.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Generelt</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Mål</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Denne valgte her Medlem er målet for kopieringshandlingen.</string>

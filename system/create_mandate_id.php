@@ -324,10 +324,14 @@ try {
             '34%'
         );
 
-        $changelogMarker = false;
-        if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+        $changelogSuspend = checkCondSuspendHistory();
+        if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 0);
-            $changelogMarker = true;
+        }
+
+        $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
+        if ($settingsSuspend) {
+            $gSettingsManager->set('system_notifications_profile_changes', 0);
         }
 
         $listRowNumber = 1;
@@ -354,9 +358,18 @@ try {
             $user->save();
         }
 
-        if ($changelogMarker) {
+        if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 1);
         }
+
+        if ($settingsSuspend) {
+            $gSettingsManager->set('system_notifications_profile_changes', 1);
+        }
+
+        $halt1b = $gSettingsManager->getBool('changelog_table_user_data');
+        $halt2b = $gSettingsManager->getBool('system_notifications_profile_changes');
+
+        $halt22 = 1;
 
         $table->createJavascript(count($data['rows']), count($data['headers']));
         $table->setColumnAlignByArray($data['column_align']);

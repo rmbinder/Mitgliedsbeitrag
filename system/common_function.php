@@ -198,6 +198,44 @@ function checkCsrfToken()
 }
 
 /**
+ * Checks whether the conditions for the 'suspend_history' option are met.
+ * - In admidio: History must be enabled
+ * - In admidio: 'changelog_table_user_data' must not be 0
+ * - In the plugin: The 'suspend_history' option must be enabled
+ *
+ * @return bool Return true if all conditions are met
+ */
+function checkCondSuspendHistory()
+{
+    global $gSettingsManager, $pPreferences;
+
+    if ($gSettingsManager->getInt('changelog_module_enabled') > 0 && $gSettingsManager->getBool('changelog_table_user_data') && (bool) $pPreferences->config['changelog']['suspend_history']) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Checks whether the conditions for the 'suspend_notifications_profile_changes' option are met.
+ * - In admidio: System notifications must be enabled
+ * - In admidio: 'system_notifications_profile_changes' must be enabled
+ * - In the plugin: The 'suspend_notification' option must be enabled
+ *
+ * @return bool Return true if all conditions are met
+ */
+function checkCondSuspendNotificationsProfileChanges()
+{
+    global $gSettingsManager, $pPreferences;
+
+    if ($gSettingsManager->getBool('system_notifications_enabled') && $gSettingsManager->getBool('system_notifications_profile_changes') && (bool) $pPreferences->config['system_notifications_profile_changes']['suspend_notification']) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
  * Funktion um alle beitragsbezogenen Rollen einzulesen
  *
  * @param string $rollenwahl

@@ -80,10 +80,13 @@ try {
         }
 
         try {
-            $changelogMarker = false;
-            if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+            $changelogSuspend = checkCondSuspendHistory();
+            if ($changelogSuspend) {
                 $gSettingsManager->set('changelog_table_user_data', 0);
-                $changelogMarker = true;
+            }
+            $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
+            if ($settingsSuspend) {
+                $gSettingsManager->set('system_notifications_profile_changes', 0);
             }
 
             foreach ($userArray as $dummy => $data) {
@@ -102,8 +105,11 @@ try {
                 $ret_text = 'success';
             }
 
-            if ($changelogMarker) {
+            if ($changelogSuspend) {
                 $gSettingsManager->set('changelog_table_user_data', 1);
+            }
+            if ($settingsSuspend) {
+                $gSettingsManager->set('system_notifications_profile_changes', 1);
             }
         } catch (Exception $e) {
             $gMessage->show($e->getMessage());

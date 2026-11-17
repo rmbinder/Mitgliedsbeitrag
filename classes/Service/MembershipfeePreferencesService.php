@@ -343,6 +343,11 @@ class MembershipfeePreferencesService
                 $text->save();
                 break;
 
+            case 'system_notifications':
+
+                $pPreferences->config['system_notifications_profile_changes']['suspend_notification'] = isset($formData['suspend_systemnotifications']) ? 1 : 0;
+                break;
+
             case 'account_data':
                 unset($pPreferences->config['Kontodaten']);
 

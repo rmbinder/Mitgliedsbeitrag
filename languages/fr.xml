@@ -353,6 +353,7 @@
     <string name="PLG_MEMBERSHIPFEE_NOT_CHANGE">ne pas changer</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SATISFIED">non remplis</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SAVED_SETTINGS_LOST">Après chaque ajout ou suppression d\'une configuration, il faut appuyer sur le bouton Enregistrer.</string>
+    <string name="PLG_MEMBERSHIPFEE_SYS_NOTIFICATION">Notification système</string>
     <string name="PLG_MEMBERSHIPFEE_NOTHING_SELECTED">Rien n'est sélectionné.</string>    
     <string name="PLG_MEMBERSHIPFEE_NUMBER">Nombre</string>
     <string name="PLG_MEMBERSHIPFEE_NUMBER_TRANSACTIONS">Nombre de transactions</string>
@@ -496,6 +497,8 @@
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Totaliser</string>
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Suspendre le journal des modifications</string> 
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Le journal des modifications enregistre toutes les modifications apportées à la base de données. L'utilisation du plugin (par exemple lors d'un recalcul) entraîne toutefois l'enregistrement d'un très grand nombre de modifications, ce qui fait croître la taille de la base de données. Ce paramètre permet de désactiver temporairement la journalisation (uniquement lors de l'écriture de données).\n\nRemarque : si la journalisation n'est pas activée dans les paramètres d'Admidio, sous #VAR1#-#VAR2#-#VAR3# (user_data), aucune option n'est disponible ici.</string>
+     <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES">Suspendre les notifications en cas de modification du profil</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES_DESC">Lorsque les notifications système sont activées, les membres associés à un rôle défini reçoivent une notification système lorsqu'un utilisateur crée, modifie ou supprime les données de profil d'un membre. Ce paramètre permet de désactiver temporairement cette notification système (uniquement lors de l'écriture des données).\n\nRemarque : si les notifications système ne sont pas activées dans les paramètres d'Admidio (sous #VAR1#-#VAR2#), aucune option n'est disponible ici.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Général</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Cible</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Ce membre sélectionné est la cible de l\'action de copie.</string>

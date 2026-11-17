@@ -358,6 +358,7 @@
     <string name="PLG_MEMBERSHIPFEE_NOT_CHANGE">niet wijzigen</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SATISFIED">niet voldaan</string>
     <string name="PLG_MEMBERSHIPFEE_NOT_SAVED_SETTINGS_LOST">Na elke toevoeging of verwijdering van een configuratie moet de knop Opslaan worden ingedrukt.</string>
+    <string name="PLG_MEMBERSHIPFEE_SYS_NOTIFICATION">Systeemmelding</string>
     <string name="PLG_MEMBERSHIPFEE_NOTHING_SELECTED">Er is niets geselecteerd.</string>    
     <string name="PLG_MEMBERSHIPFEE_NUMBER">Aantal</string>
     <string name="PLG_MEMBERSHIPFEE_NUMBER_TRANSACTIONS">Aantal transacties</string>
@@ -503,6 +504,8 @@
     <string name="PLG_MEMBERSHIPFEE_SUMMATION">Optellen</string>
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY">Wijzigingslogboek opschorten</string> 
     <string name="PLG_MEMBERSHIPFEE_SUSPEND_HISTORY_DESC">Het wijzigingslogboek registreert alle wijzigingen in de database. Bij het werken met de plugin (bijvoorbeeld tijdens een herberekening) worden echter veel wijzigingen vastgelegd, waardoor de database continu groeit. Deze instelling schakelt het loggen tijdelijk uit (alleen bij het schrijven van gegevens).\n\nOpmerking: Als loggen niet is ingeschakeld in de Admidio-instellingen onder #VAR1#-#VAR2#-#VAR3# (user_data), is deze optie niet beschikbaar.</string>
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES">Schakel meldingen voor profielwijzigingen uit.</string> 
+    <string name="PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES_DESC">Met ingeschakelde systeemnotificaties ontvangen leden van een gedefinieerde rol een systeemnotificatie wanneer een gebruiker profielgegevens van een lid aanmaakt, wijzigt of verwijdert. Deze instelling schakelt deze systeemnotificaties tijdelijk uit (alleen bij het schrijven van gegevens).\n\nOpmerking: Als systeemnotificaties niet zijn ingeschakeld in de Admidio-instellingen onder #VAR1#-#VAR2#, is deze optie niet beschikbaar.</string>
     <string name="PLG_MEMBERSHIPFEE_TAB_COMMON">Algemeen</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET">Doel</string>
     <string name="PLG_MEMBERSHIPFEE_TARGET_DESC">Het hier geselecteerde lid is het doel van het kopiëren.</string>

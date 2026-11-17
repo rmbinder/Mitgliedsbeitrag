@@ -288,10 +288,13 @@ try {
             '75%'
         );
 
-        $changelogMarker = false;
-        if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+        $changelogSuspend = checkCondSuspendHistory();
+        if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 0);
-            $changelogMarker = true;
+        }
+        $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
+        if ($settingsSuspend) {
+            $gSettingsManager->set('system_notifications_profile_changes', 0);
         }
 
         $listRowNumber = 1;
@@ -318,18 +321,14 @@ try {
             $user->setValue('FEE' . $gCurrentOrgId, $memberdata['FEE_NEW']);
             $user->setValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId, $memberdata['CONTRIBUTORY_TEXT_NEW']);
 
-            // if ($pPreferences->config['changelog']['suspend_history']) {
-            // $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
-            // $gSettingsManager->set('changelog_table_user_data', 0);
-            // $user->save();
-            // $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
-            // } else {
             $user->save();
-            // }
         }
 
-        if ($changelogMarker) {
+        if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 1);
+        }
+        if ($settingsSuspend) {
+            $gSettingsManager->set('system_notifications_profile_changes', 1);
         }
 
         $table->createJavascript(count($data['rows']), count($data['headers']));

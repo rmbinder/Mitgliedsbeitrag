@@ -172,6 +172,12 @@ class MembershipfeePreferencesPresenter extends PagePresenter
                         'title' => $gL10n->get('PLG_MEMBERSHIPFEE_EMAIL_NOTIFICATIONS'),
                         'icon' => 'bi-envelope',
                         'subcards' => false
+                    ),
+                    array(
+                        'id' => 'system_notifications',
+                        'title' => $gL10n->get('PLG_MEMBERSHIPFEE_SYS_NOTIFICATION'),
+                        'icon' => 'bi-broadcast-pin',
+                        'subcards' => false
                     )
                 )
             ),
@@ -1201,6 +1207,53 @@ class MembershipfeePreferencesPresenter extends PagePresenter
     }
 
     /**
+     * Generates the HTML of the form from the system notifications preferences and will return the complete HTML.
+     *
+     * @return string Returns the complete HTML of the form from the system notifications preferences.
+     * @throws Exception
+     * @throws \Smarty\Exception
+     */
+    public function createSystemNotificationsForm(): string
+    {
+        global $gL10n, $gDb, $gSettingsManager, $gCurrentOrgId, $gCurrentSession;
+
+        $pPreferences = new ConfigTable();
+        $pPreferences->read();
+
+        $formChangelog = new FormPresenter('adm_preferences_form_systemnotifications', '../templates/preferences.systemnotifications.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/preferences.php', array(
+            'mode' => 'save',
+            'panel' => 'system_notifications'
+        )), null, array(
+            'class' => 'form-preferences'
+        ));
+
+        if ($gSettingsManager->getBool('system_notifications_enabled') && $gSettingsManager->getBool('system_notifications_profile_changes')) {
+            $fieldProperty = FormPresenter::FIELD_DEFAULT;
+        } else {
+            $fieldProperty = FormPresenter::FIELD_DISABLED;
+            $pPreferences->config['system_notifications_profile_changes']['suspend_notification'] = 0;
+            $pPreferences->save();
+        }
+        $formChangelog->addCheckbox('suspend_systemnotifications', $gL10n->get('PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES'), $pPreferences->config['system_notifications_profile_changes']['suspend_notification'], array(
+            'property' => $fieldProperty,
+            'helpTextId' => $gL10n->get('PLG_MEMBERSHIPFEE_SUSPEND_NOTIFICATION_PROFILE_CHANGES_DESC', array(
+                $gL10n->get('SYS_SYSTEM_MAILS'),
+                $gL10n->get('SYS_NOTIFICATION_PROFILE_CHANGES')
+            ))
+        ));
+
+        $formChangelog->addSubmitButton('adm_button_save_systemnotifications', $gL10n->get('SYS_SAVE'), array(
+            'icon' => 'bi-check-lg',
+            'class' => 'offset-sm-3'
+        ));
+
+        $smarty = $this->getSmartyTemplate();
+        $formChangelog->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($formChangelog);
+        return $smarty->fetch('../templates/preferences.systemnotifications.plugin.membershipfee.tpl');
+    }
+
+    /**
      * Generates the html of the form from the account data preferences and will return the complete html.
      *
      * @return string Returns the complete html of the form from the account data preferences.
@@ -1401,7 +1454,7 @@ class MembershipfeePreferencesPresenter extends PagePresenter
             'class' => 'form-preferences'
         ));
 
-        if ($gSettingsManager->getInt('changelog_table_user_data') == 1) {
+        if ($gSettingsManager->getInt('changelog_module_enabled') > 0 && $gSettingsManager->getBool('changelog_table_user_data')) {
             $fieldProperty = FormPresenter::FIELD_DEFAULT;
         } else {
             $fieldProperty = FormPresenter::FIELD_DISABLED;
