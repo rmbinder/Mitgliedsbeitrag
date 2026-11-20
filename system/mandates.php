@@ -84,10 +84,6 @@ try {
             if ($changelogSuspend) {
                 $gSettingsManager->set('changelog_table_user_data', 0);
             }
-            $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
-            if ($settingsSuspend) {
-                $gSettingsManager->set('system_notifications_profile_changes', 0);
-            }
 
             foreach ($userArray as $dummy => $data) {
                 $user->readDataById($data);
@@ -101,15 +97,16 @@ try {
                     $user->setValue('MANDATEDATE' . $gCurrentOrgId, '');
                 }
 
+                if (checkCondSuspendNotificationsProfileChanges()) {
+                    $gChangeNotification->clearChanges($data);
+                }
+
                 $user->save();
                 $ret_text = 'success';
             }
 
             if ($changelogSuspend) {
                 $gSettingsManager->set('changelog_table_user_data', 1);
-            }
-            if ($settingsSuspend) {
-                $gSettingsManager->set('system_notifications_profile_changes', 1);
             }
         } catch (Exception $e) {
             $gMessage->show($e->getMessage());

@@ -292,10 +292,6 @@ try {
         if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 0);
         }
-        $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
-        if ($settingsSuspend) {
-            $gSettingsManager->set('system_notifications_profile_changes', 0);
-        }
 
         $listRowNumber = 1;
         foreach ($_SESSION['pMembershipFee']['individualcontributions_user'] as $member => $memberdata) {
@@ -321,14 +317,15 @@ try {
             $user->setValue('FEE' . $gCurrentOrgId, $memberdata['FEE_NEW']);
             $user->setValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId, $memberdata['CONTRIBUTORY_TEXT_NEW']);
 
+            if (checkCondSuspendNotificationsProfileChanges()) {
+                $gChangeNotification->clearChanges($member);
+            }
+
             $user->save();
         }
 
         if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 1);
-        }
-        if ($settingsSuspend) {
-            $gSettingsManager->set('system_notifications_profile_changes', 1);
         }
 
         $table->createJavascript(count($data['rows']), count($data['headers']));

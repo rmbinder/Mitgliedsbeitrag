@@ -35,7 +35,7 @@ class MembershipfeePreferencesService
      */
     public function save(string $panel, array $formData)
     {
-        global $gL10n, $gSettingsManager, $gCurrentSession, $gDb, $gCurrentOrgId, $gProfileFields, $gLogger;
+        global $gL10n, $gSettingsManager, $gCurrentSession, $gDb, $gCurrentOrgId, $gProfileFields, $gChangeNotification, $gLogger;
 
         require_once (__DIR__ . '/../../system/common_function.php');
 
@@ -156,10 +156,9 @@ class MembershipfeePreferencesService
                     'DUEDATE' . $gCurrentOrgId
                 ), 0);
 
-                $changelogMarker = false;
-                if ($gSettingsManager->getInt('changelog_table_user_data') && $pPreferences->config['changelog']['suspend_history']) {
+                $changelogSuspend = checkCondSuspendHistory();
+                if ($changelogSuspend) {
                     $gSettingsManager->set('changelog_table_user_data', 0);
-                    $changelogMarker = true;
                 }
 
                 foreach ($members as $key => $data) {
@@ -182,16 +181,14 @@ class MembershipfeePreferencesService
                         $user->setValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId, '');
                     }
 
-                    // if ($pPreferences->config['changelog']['suspend_history']) {
-                    // $changelogTableUserDataCurrent = $gSettingsManager->getInt('changelog_table_user_data');
-                    // $gSettingsManager->set('changelog_table_user_data', 0);
-                    // $user->save();
-                    // $gSettingsManager->set('changelog_table_user_data', $changelogTableUserDataCurrent);
-                    // } else {
+                    if (checkCondSuspendNotificationsProfileChanges()) {
+                        $gChangeNotification->clearChanges($key);
+                    }
+
                     $user->save();
-                    // }
                 }
-                if ($changelogMarker) {
+
+                if ($changelogSuspend) {
                     $gSettingsManager->set('changelog_table_user_data', 1);
                 }
 

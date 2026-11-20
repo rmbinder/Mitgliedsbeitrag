@@ -98,10 +98,6 @@ try {
                 if ($changelogSuspend) {
                     $gSettingsManager->set('changelog_table_user_data', 0);
                 }
-                $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
-                if ($settingsSuspend) {
-                    $gSettingsManager->set('system_notifications_profile_changes', 0);
-                }
 
                 foreach ($workArray as $userId => $dummy) {
                     $user->readDataById($userId);
@@ -135,6 +131,10 @@ try {
                             $user->setValue('DUEDATE' . $gCurrentOrgId, '');
                         }
 
+                        if (checkCondSuspendNotificationsProfileChanges()) {
+                            $gChangeNotification->clearChanges($userId);
+                        }
+
                         $user->save();
                     }
                     unset($_SESSION['pMembershipFee']['checkedArray'][$userId]);
@@ -142,9 +142,6 @@ try {
 
                 if ($changelogSuspend) {
                     $gSettingsManager->set('changelog_table_user_data', 1);
-                }
-                if ($settingsSuspend) {
-                    $gSettingsManager->set('system_notifications_profile_changes', 1);
                 }
 
                 $_SESSION['pMembershipFee']['selectAll'] = true;

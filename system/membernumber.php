@@ -275,10 +275,6 @@ try {
         if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 0);
         }
-        $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
-        if ($settingsSuspend) {
-            $gSettingsManager->set('system_notifications_profile_changes', 0);
-        }
 
         $listRowNumber = 1;
         foreach ($_SESSION['pMembershipFee']['membernumber_user'] as $memberdata) {
@@ -296,14 +292,16 @@ try {
 
             $user->readDataById($memberdata['usr_id']);
             $user->setValue('MEMBERNUMBER' . $gCurrentOrgId, $memberdata['membernumber']);
+
+            if (checkCondSuspendNotificationsProfileChanges()) {
+                $gChangeNotification->clearChanges($memberdata['usr_id']);
+            }
+
             $user->save();
         }
 
         if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 1);
-        }
-        if ($settingsSuspend) {
-            $gSettingsManager->set('system_notifications_profile_changes', 1);
         }
 
         // save the format string in database

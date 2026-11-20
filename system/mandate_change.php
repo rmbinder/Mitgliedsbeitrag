@@ -141,18 +141,15 @@ try {
             if ($changelogSuspend) {
                 $gSettingsManager->set('changelog_table_user_data', 0);
             }
-            $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
-            if ($settingsSuspend) {
-                $gSettingsManager->set('system_notifications_profile_changes', 0);
+
+            if (checkCondSuspendNotificationsProfileChanges()) {
+                $gChangeNotification->clearChanges($user->getValue('usr_id'));
             }
 
             $user->save();
 
             if ($changelogSuspend) {
                 $gSettingsManager->set('changelog_table_user_data', 1);
-            }
-            if ($settingsSuspend) {
-                $gSettingsManager->set('system_notifications_profile_changes', 1);
             }
         }
         echo $ret_txt;

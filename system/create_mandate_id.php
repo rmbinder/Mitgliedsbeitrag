@@ -329,11 +329,6 @@ try {
             $gSettingsManager->set('changelog_table_user_data', 0);
         }
 
-        $settingsSuspend = checkCondSuspendNotificationsProfileChanges();
-        if ($settingsSuspend) {
-            $gSettingsManager->set('system_notifications_profile_changes', 0);
-        }
-
         $listRowNumber = 1;
         foreach ($_SESSION['pMembershipFee']['createmandateid_user'] as $member => $memberdata) {
             $user->readDataById($member);
@@ -355,21 +350,17 @@ try {
             ++ $listRowNumber;
 
             $user->setValue('MANDATEID' . $gCurrentOrgId, $memberdata['referenz']);
+
+            if (checkCondSuspendNotificationsProfileChanges()) {
+                $gChangeNotification->clearChanges($member);
+            }
+
             $user->save();
         }
 
         if ($changelogSuspend) {
             $gSettingsManager->set('changelog_table_user_data', 1);
         }
-
-        if ($settingsSuspend) {
-            $gSettingsManager->set('system_notifications_profile_changes', 1);
-        }
-
-        $halt1b = $gSettingsManager->getBool('changelog_table_user_data');
-        $halt2b = $gSettingsManager->getBool('system_notifications_profile_changes');
-
-        $halt22 = 1;
 
         $table->createJavascript(count($data['rows']), count($data['headers']));
         $table->setColumnAlignByArray($data['column_align']);
