@@ -18,6 +18,7 @@
  *
  * ***************************************************************************
  */
+use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\SecurityUtils;
 use Admidio\UI\Presenter\FormPresenter;
 use Admidio\UI\Presenter\PagePresenter;
@@ -93,6 +94,6 @@ try {
     $page->addHtml($smarty->fetch('../templates/recalculation.edit.plugin.membershipfee.tpl'));
 
     $page->show();
-} catch (Throwable $e) {
-    handleException($e);
+} catch (Exception $e) {
+    $gMessage->show($e->getMessage());
 }

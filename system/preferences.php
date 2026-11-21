@@ -116,14 +116,14 @@ try {
             break;
     }
 } catch (Throwable $exception) {
-    if (in_array($getMode, array(
+    if (isset($getMode) && in_array($getMode, array(
         'save'
     ))) {
         echo json_encode(array(
             'status' => 'error',
             'message' => $exception->getMessage()
         ));
-    } elseif ($getMode === 'html_form') {
+    } elseif (isset($getMode) && $getMode === 'html_form') {
         echo $exception->getMessage();
     } else {
         $gMessage->show($exception->getMessage());

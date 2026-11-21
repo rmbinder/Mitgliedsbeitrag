@@ -281,7 +281,7 @@ try {
     // zur Ausgangsseite zurueck
     $gMessage->setForwardUrl($gNavigation->getPreviousUrl(), 0);
     $gMessage->show($sendMailResultMessage);
-} catch (Throwable $e) {
-    handleException($e, true);
+} catch (Exception $e) {
+    $gMessage->show($e->getMessage());
 }
 

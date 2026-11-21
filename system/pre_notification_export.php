@@ -16,132 +16,81 @@ use Admidio\Infrastructure\Utils\FileSystemUtils;
 use Admidio\Users\Entity\User;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
-require_once (__DIR__ . '/../../../system/common.php');
-require_once (__DIR__ . '/common_function.php');
+try {
+    require_once (__DIR__ . '/../../../system/common.php');
+    require_once (__DIR__ . '/common_function.php');
 
-// only authorized user are allowed to start this module
-if (! isUserAuthorized()) {
-    throw new Exception('SYS_NO_RIGHTS');
-}
-
-// CSRF protection: reject the request if the token is missing or invalid
-checkCsrfToken();
-
-$pPreferences = new ConfigTable();
-$pPreferences->read();
-
-$user = new User($gDb, $gProfileFields);
-
-// initialize some special mode parameters
-$separator = '';
-$valueQuotes = '';
-$charset = '';
-$csvStr = '';
-$header = array(); // 'xlsx'
-$rows = array(); // 'xlsx'
-$columnValues = array();
-$filename = $pPreferences->config['SEPA']['vorabinformation_dateiname'];
-$exportMode = $pPreferences->config['SEPA']['vorabinformation_dateityp'];
-
-switch ($exportMode) {
-    case 'csv-ms':
-        $separator = ';'; // Microsoft Excel 2007 or new needs a semicolon
-        $valueQuotes = '"'; // all values should be set with quotes
-        $exportMode = 'csv';
-        $charset = 'iso-8859-1';
-        break;
-    case 'csv-oo':
-        $separator = ','; // a CSV file should have a comma
-        $valueQuotes = '"'; // all values should be set with quotes
-        $exportMode = 'csv';
-        $charset = 'utf-8';
-        break;
-    case 'xlsx':
-        include_once (__DIR__ . '/../libs/PHP_XLSXWriter/xlsxwriter.class.php');
-        $exportMode = 'xlsx';
-        break;
-    default:
-        break;
-}
-
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_SERIAL_NUMBER');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER');
-$columnValues[] = $gL10n->get('SYS_FIRSTNAME');
-$columnValues[] = $gL10n->get('SYS_LASTNAME');
-$columnValues[] = $gL10n->get('SYS_STREET');
-$columnValues[] = $gL10n->get('SYS_POSTCODE');
-$columnValues[] = $gL10n->get('SYS_CITY');
-$columnValues[] = $gL10n->get('SYS_EMAIL');
-$columnValues[] = $gL10n->get('SYS_PHONE');
-$columnValues[] = $gL10n->get('SYS_MOBILE');
-$columnValues[] = $gL10n->get('SYS_BIRTHDAY');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ACCESSION');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER') . '/' . $gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_STREET');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_POSTCODE');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_CITY');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_EMAIL');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_BANK');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_BIC');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_IBAN');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEDATE');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_FEE');
-$columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT');
-$rows[] = $columnValues;
-
-if ($exportMode === 'csv') {
-    for ($i = 0; $i < (sizeof($columnValues)); $i ++) {
-        if ($i !== 0) {
-            $csvStr .= $separator;
-        }
-        $csvStr .= $valueQuotes . $columnValues[$i] . $valueQuotes;
+    // only authorized user are allowed to start this module
+    if (! isUserAuthorized()) {
+        throw new Exception('SYS_NO_RIGHTS');
     }
-    $csvStr .= "\n";
-}
 
-$nr = 1;
+    // CSRF protection: reject the request if the token is missing or invalid
+    checkCsrfToken();
 
-foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId => $dummy) {
-    $user->readDataById($UserId);
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
 
+    $user = new User($gDb, $gProfileFields);
+
+    // initialize some special mode parameters
+    $separator = '';
+    $valueQuotes = '';
+    $charset = '';
+    $csvStr = '';
+    $header = array(); // 'xlsx'
+    $rows = array(); // 'xlsx'
     $columnValues = array();
-    $columnValues[] = $nr;
-    $columnValues[] = $user->getValue('MEMBERNUMBER' . $gCurrentOrgId);
-    $columnValues[] = $user->getValue('FIRST_NAME');
-    $columnValues[] = $user->getValue('LAST_NAME');
-    $columnValues[] = $user->getValue('STREET');
-    $columnValues[] = $user->getValue('POSTCODE');
-    $columnValues[] = $user->getValue('CITY');
-    $columnValues[] = $user->getValue('EMAIL');
-    $columnValues[] = $user->getValue('PHONE');
-    $columnValues[] = $user->getValue('MOBILE');
-    $columnValues[] = $user->getValue('BIRTHDAY');
-    $columnValues[] = $user->getValue('ACCESSION' . $gCurrentOrgId);
+    $filename = $pPreferences->config['SEPA']['vorabinformation_dateiname'];
+    $exportMode = $pPreferences->config['SEPA']['vorabinformation_dateityp'];
 
-    if (strlen($user->getValue('DEBTOR')) !== 0) {
-        $columnValues[] = $user->getValue('DEBTOR');
-        $columnValues[] = $user->getValue('DEBTOR_STREET');
-        $columnValues[] = $user->getValue('DEBTOR_POSTCODE');
-        $columnValues[] = $user->getValue('DEBTOR_CITY');
-        $columnValues[] = $user->getValue('DEBTOR_EMAIL');
-    } else {
-        $columnValues[] = $user->getValue('FIRST_NAME') . ' ' . $user->getValue('LAST_NAME');
-        $columnValues[] = $user->getValue('STREET');
-        $columnValues[] = $user->getValue('POSTCODE');
-        $columnValues[] = $user->getValue('CITY');
-        $columnValues[] = $user->getValue('EMAIL');
+    switch ($exportMode) {
+        case 'csv-ms':
+            $separator = ';'; // Microsoft Excel 2007 or new needs a semicolon
+            $valueQuotes = '"'; // all values should be set with quotes
+            $exportMode = 'csv';
+            $charset = 'iso-8859-1';
+            break;
+        case 'csv-oo':
+            $separator = ','; // a CSV file should have a comma
+            $valueQuotes = '"'; // all values should be set with quotes
+            $exportMode = 'csv';
+            $charset = 'utf-8';
+            break;
+        case 'xlsx':
+            include_once (__DIR__ . '/../libs/PHP_XLSXWriter/xlsxwriter.class.php');
+            $exportMode = 'xlsx';
+            break;
+        default:
+            break;
     }
 
-    $columnValues[] = $user->getValue('BANK');
-    $columnValues[] = $user->getValue('BIC');
-    $columnValues[] = $user->getValue('IBAN');
-    $columnValues[] = $user->getValue('MANDATEDATE' . $gCurrentOrgId);
-    $columnValues[] = $user->getValue('MANDATEID' . $gCurrentOrgId);
-    $columnValues[] = $user->getValue('DUEDATE' . $gCurrentOrgId);
-    $columnValues[] = $user->getValue('FEE' . $gCurrentOrgId);
-    $columnValues[] = $user->getValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId);
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_SERIAL_NUMBER');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERNUMBER');
+    $columnValues[] = $gL10n->get('SYS_FIRSTNAME');
+    $columnValues[] = $gL10n->get('SYS_LASTNAME');
+    $columnValues[] = $gL10n->get('SYS_STREET');
+    $columnValues[] = $gL10n->get('SYS_POSTCODE');
+    $columnValues[] = $gL10n->get('SYS_CITY');
+    $columnValues[] = $gL10n->get('SYS_EMAIL');
+    $columnValues[] = $gL10n->get('SYS_PHONE');
+    $columnValues[] = $gL10n->get('SYS_MOBILE');
+    $columnValues[] = $gL10n->get('SYS_BIRTHDAY');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ACCESSION');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ACCOUNT_HOLDER') . '/' . $gL10n->get('PLG_MEMBERSHIPFEE_DEBTOR');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_STREET');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_POSTCODE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_CITY');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_EMAIL');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_BANK');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_BIC');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_IBAN');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEDATE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_MANDATEID');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_FEE');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_CONTRIBUTORY_TEXT');
+    $rows[] = $columnValues;
 
     if ($exportMode === 'csv') {
         for ($i = 0; $i < (sizeof($columnValues)); $i ++) {
@@ -151,51 +100,104 @@ foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId => $dummy) {
             $csvStr .= $valueQuotes . $columnValues[$i] . $valueQuotes;
         }
         $csvStr .= "\n";
-    } elseif ($exportMode === 'xlsx') {
-        $rows[] = $columnValues;
     }
-    $nr += 1;
-}
 
-$filename = FileSystemUtils::getSanitizedPathEntry($filename) . '.' . $exportMode;
+    $nr = 1;
 
-header('Content-Disposition: attachment; filename="' . $filename . '"');
+    foreach ($_SESSION['pMembershipFee']['checkedArray'] as $UserId => $dummy) {
+        $user->readDataById($UserId);
 
-// neccessary for IE6 to 8, because without it the download with SSL has problems
-header('Cache-Control: private');
-header('Pragma: public');
+        $columnValues = array();
+        $columnValues[] = $nr;
+        $columnValues[] = $user->getValue('MEMBERNUMBER' . $gCurrentOrgId);
+        $columnValues[] = $user->getValue('FIRST_NAME');
+        $columnValues[] = $user->getValue('LAST_NAME');
+        $columnValues[] = $user->getValue('STREET');
+        $columnValues[] = $user->getValue('POSTCODE');
+        $columnValues[] = $user->getValue('CITY');
+        $columnValues[] = $user->getValue('EMAIL');
+        $columnValues[] = $user->getValue('PHONE');
+        $columnValues[] = $user->getValue('MOBILE');
+        $columnValues[] = $user->getValue('BIRTHDAY');
+        $columnValues[] = $user->getValue('ACCESSION' . $gCurrentOrgId);
 
-if ($exportMode === 'csv') {
-    // download CSV file
-    header('Content-Type: text/comma-separated-values; charset=' . $charset);
+        if (strlen($user->getValue('DEBTOR')) !== 0) {
+            $columnValues[] = $user->getValue('DEBTOR');
+            $columnValues[] = $user->getValue('DEBTOR_STREET');
+            $columnValues[] = $user->getValue('DEBTOR_POSTCODE');
+            $columnValues[] = $user->getValue('DEBTOR_CITY');
+            $columnValues[] = $user->getValue('DEBTOR_EMAIL');
+        } else {
+            $columnValues[] = $user->getValue('FIRST_NAME') . ' ' . $user->getValue('LAST_NAME');
+            $columnValues[] = $user->getValue('STREET');
+            $columnValues[] = $user->getValue('POSTCODE');
+            $columnValues[] = $user->getValue('CITY');
+            $columnValues[] = $user->getValue('EMAIL');
+        }
 
-    if ($charset === 'iso-8859-1') {
-        echo utf8_decode($csvStr);
-    } else {
-        echo $csvStr;
+        $columnValues[] = $user->getValue('BANK');
+        $columnValues[] = $user->getValue('BIC');
+        $columnValues[] = $user->getValue('IBAN');
+        $columnValues[] = $user->getValue('MANDATEDATE' . $gCurrentOrgId);
+        $columnValues[] = $user->getValue('MANDATEID' . $gCurrentOrgId);
+        $columnValues[] = $user->getValue('DUEDATE' . $gCurrentOrgId);
+        $columnValues[] = $user->getValue('FEE' . $gCurrentOrgId);
+        $columnValues[] = $user->getValue('CONTRIBUTORY_TEXT' . $gCurrentOrgId);
+
+        if ($exportMode === 'csv') {
+            for ($i = 0; $i < (sizeof($columnValues)); $i ++) {
+                if ($i !== 0) {
+                    $csvStr .= $separator;
+                }
+                $csvStr .= $valueQuotes . $columnValues[$i] . $valueQuotes;
+            }
+            $csvStr .= "\n";
+        } elseif ($exportMode === 'xlsx') {
+            $rows[] = $columnValues;
+        }
+        $nr += 1;
     }
-} elseif ($exportMode === 'xlsx') {
-    header('Content-disposition: attachment; filename="' . XLSXWriter::sanitize_filename($filename) . '"');
-    header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    header('Content-Transfer-Encoding: binary');
-    header('Cache-Control: must-revalidate');
+
+    $filename = FileSystemUtils::getSanitizedPathEntry($filename) . '.' . $exportMode;
+
+    header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+    // neccessary for IE6 to 8, because without it the download with SSL has problems
+    header('Cache-Control: private');
     header('Pragma: public');
 
-    $writer = new XLSXWriter();
-    $writer->setAuthor($gCurrentUser->getValue('FIRST_NAME') . ' ' . $gCurrentUser->getValue('LAST_NAME'));
-    $writer->setTitle($filename);
-    $writer->setSubject($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'));
-    $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
-    $writer->setKeywords(array(
-        $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'),
-        $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION'),
-        $gL10n->get('PLG_MEMBERSHIPFEE_SEPA')
-    ));
-    $writer->setDescription($gL10n->get('PLG_MEMBERSHIPFEE_CREATED_WITH'));
-    $writer->writeSheet($rows, '', $header);
-    $writer->writeToStdOut();
+    if ($exportMode === 'csv') {
+        // download CSV file
+        header('Content-Type: text/comma-separated-values; charset=' . $charset);
+
+        if ($charset === 'iso-8859-1') {
+            echo utf8_decode($csvStr);
+        } else {
+            echo $csvStr;
+        }
+    } elseif ($exportMode === 'xlsx') {
+        header('Content-disposition: attachment; filename="' . XLSXWriter::sanitize_filename($filename) . '"');
+        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+
+        $writer = new XLSXWriter();
+        $writer->setAuthor($gCurrentUser->getValue('FIRST_NAME') . ' ' . $gCurrentUser->getValue('LAST_NAME'));
+        $writer->setTitle($filename);
+        $writer->setSubject($gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'));
+        $writer->setCompany($gCurrentOrganization->getValue('org_longname'));
+        $writer->setKeywords(array(
+            $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_PRE_NOTIFICATION'),
+            $gL10n->get('PLG_MEMBERSHIPFEE_SEPA')
+        ));
+        $writer->setDescription($gL10n->get('PLG_MEMBERSHIPFEE_CREATED_WITH'));
+        $writer->writeSheet($rows, '', $header);
+        $writer->writeToStdOut();
+    }
+} catch (Exception $e) {
+    $gMessage->show($e->getMessage());
 }
-
-
 
 
