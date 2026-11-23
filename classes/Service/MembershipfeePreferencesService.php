@@ -373,6 +373,34 @@ class MembershipfeePreferencesService
                 $pPreferences->config['changelog']['suspend_history'] = isset($formData['suspend_history']) ? 1 : 0;
                 break;
 
+            case 'role_selection_defaults':
+                if (isset($formData['recalculation_roleselection_default'])) {
+                    $pPreferences->config['role_selection_defaults']['recalculation'] = array_filter($formData['recalculation_roleselection_default']);
+                } else {
+                    $pPreferences->config['role_selection_defaults']['recalculation'] = array();
+                }
+                if (isset($formData['payments_roleselection_default'])) {
+                    $pPreferences->config['role_selection_defaults']['payments'] = array_filter($formData['payments_roleselection_default']);
+                } else {
+                    $pPreferences->config['role_selection_defaults']['payments'] = array();
+                }
+                if (isset($formData['duedates_roleselection_default'])) {
+                    $pPreferences->config['role_selection_defaults']['duedates'] = array_filter($formData['duedates_roleselection_default']);
+                } else {
+                    $pPreferences->config['role_selection_defaults']['duedates'] = array();
+                }
+                if (isset($formData['membernumber_roleselection_default'])) {
+                    $pPreferences->config['role_selection_defaults']['membernumber'] = array_filter($formData['membernumber_roleselection_default']);
+                } else {
+                    $pPreferences->config['role_selection_defaults']['membernumber'] = array();
+                }
+                if (isset($formData['create_mandate_id_roleselection_default'])) {
+                    $pPreferences->config['role_selection_defaults']['create_mandate_id'] = array_filter($formData['create_mandate_id_roleselection_default']);
+                } else {
+                    $pPreferences->config['role_selection_defaults']['create_mandate_id'] = array();
+                }
+                break;
+
             case 'access':
                 if (isset($formData['access_preferences'])) {
                     $pPreferences->config['access']['preferences'] = array_values(array_filter($formData['access_preferences']));

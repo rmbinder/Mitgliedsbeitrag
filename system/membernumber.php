@@ -41,14 +41,6 @@ try {
     // CSRF protection: reject the request if the token is missing or invalid
     checkCsrfToken();
 
-    $pPreferences = new ConfigTable();
-    $pPreferences->read();
-
-    // beim ersten Aufruf des Scriptes, das Session-Array initialisieren/löschen
-    if (strpos($gNavigation->getUrl(), 'membernumber.php') === false) {
-        $_SESSION['pMembershipFee']['membernumber_user'] = array();
-    }
-
     // Initialize and check the parameters
     $getMode = admFuncVariableIsValid($_GET, 'mode', 'string', array(
         'defaultValue' => 'preview',
@@ -58,8 +50,6 @@ try {
             'print'
         )
     ));
-
-    $tableId = 'table_' . $getMode . '_membernumber';
 
     // wurde der OK-Button in der Filter-Bar gedrückt?
     if (isset($_GET['btn_producemembernumber'])) {
@@ -77,6 +67,17 @@ try {
         // deshalb leere Einträge löschen
         $getRoleSelection = array_filter($getRoleSelection);
     }
+
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
+
+    // toDo beim ersten Aufruf des Scriptes
+    if (strpos($gNavigation->getUrl(), 'membernumber.php') === false) {
+        $_SESSION['pMembershipFee']['membernumber_user'] = array();
+        $getRoleSelection = $pPreferences->config['role_selection_defaults']['membernumber'];
+    }
+
+    $tableId = 'table_' . $getMode . '_membernumber';
 
     // set headline of the script
     $headline = $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER');
@@ -136,7 +137,6 @@ try {
         $membernumbers->separateFormatSegment($getFormat);
         $membernumbers->getMembernumber($getFillGaps);
 
-        $_SESSION['pMembershipFee']['membernumber_rol_sel'] = $getRoleSelection;
         $_SESSION['pMembershipFee']['membernumber_format'] = $getFormat;
         $_SESSION['pMembershipFee']['membernumber_fill_gaps'] = $getFillGaps;
 

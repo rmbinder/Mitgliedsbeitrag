@@ -461,6 +461,8 @@
     <string name="PLG_MEMBERSHIPFEE_ROLE_OVERVIEW_DESC">Iată o prezentare generală a tuturor rolurilor de contribuție.</string>    
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION">Selectarea rolului</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_ACTIV">În prezent, sunt autorizate următoarele roluri.</string>
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS">Setare implicită pentru selectarea rolelor</string> 
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS_DESC">În modulele enumerate mai jos există câte o listă derulantă #VAR1_BOLD#. În aceste liste se pot precompleta roluri.</string>     
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR">Separator de roluri</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC">Caracterul prin care sunt legate între ele descrierile rolurilor de contribuție. În mod implicit, descrierea fiecărui rol este inclusă în textul referitor la cotizație. Cu ajutorul separatoarelor de roluri, orice șir de text poate fi definit ca separator în locul spațiului.</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC2">Fișierele XML SEPA pot fi create numai utilizând un set de caractere permis. Acest set de caractere cuprinde literele: a - z, A - Z, 0 - 9, caracterele speciale /?:(),,'+- și un spațiu. Caracterele nepermise sunt înlocuite.</string>

@@ -51,8 +51,6 @@ try {
         )
     ));
 
-    $tableId = 'table_' . $getMode . '_createmandateid';
-
     $getRoleSelection = admFuncVariableIsValid($_GET, 'createmandateid_roleselection', 'array');
     // wenn alle Einträge in einer Rollenauswahl gelöscht wurden, wird ein Array mit einem leeren Eintrag übergeben
     // dies führt im weiteren Verlauf des Scripts zu Fehlern
@@ -63,6 +61,13 @@ try {
 
     $pPreferences = new ConfigTable();
     $pPreferences->read();
+
+    // toDo beim ersten Aufruf des Scriptes
+    if (strpos($gNavigation->getUrl(), 'create_mandate_id.php') === false) {
+        $getRoleSelection = $pPreferences->config['role_selection_defaults']['create_mandate_id'];
+    }
+
+    $tableId = 'table_' . $getMode . '_createmandateid';
 
     $user = new User($gDb, $gProfileFields);
 
@@ -110,8 +115,6 @@ try {
 
         // pruefen, ob Eintraege in der Rollenauswahl bestehen
         if (is_array($getRoleSelection) && count($getRoleSelection) > 0) {
-            $_SESSION['pMembershipFee']['createmandateid_rol_sel'] = $getRoleSelection;
-
             // Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
             $rols = array();
             $role = new Role($gDb);
@@ -121,7 +124,6 @@ try {
             }
         } else {
             $rols = 0;
-            unset($_SESSION['pMembershipFee']['createmandateid_rol_sel']);
         }
 
         if ($pPreferences->config['Mandatsreferenz']['data_field'] != '-- User_ID --') {
@@ -389,7 +391,6 @@ try {
         $page->setPrintMode();
 
         $table = new DataTables($page, $tableId);
-        // $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));
         $table->setMessageIfNoRowsFound('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID_NO_ASSIGN');
 
         // data array

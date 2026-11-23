@@ -461,6 +461,8 @@
     <string name="PLG_MEMBERSHIPFEE_ROLE_OVERVIEW_DESC">Aquí tienes un resumen de todos los roles de cuota.</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION">Selección de roles</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_ACTIV">Actualmente están autorizados los siguientes roles.</string>
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS">Configuración predeterminada de la selección de roles</string> 
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS_DESC">En cada uno de los módulos que se enumeran a continuación hay un campo de lista desplegable #VAR1_BOLD#. En este campo se pueden preasignar roles.</string>     
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR">Separador de roles</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC">Carácter con el que se enlazan las descripciones de los roles de cuota. De forma predeterminada, el concepto de la cuota incluye la descripción de cada rol de cuota. Con el separador de roles se puede definir cualquier cadena de texto como separador en lugar de un espacio.</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC2">Los archivos XML SEPA solo se pueden crear con un juego de caracteres permitido. Este juego de caracteres está formado por: a - z, A - Z, 0 - 9, los caracteres especiales /?:().,'+- y el espacio. Los caracteres no permitidos se sustituyen.</string>

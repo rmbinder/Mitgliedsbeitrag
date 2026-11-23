@@ -217,6 +217,15 @@ $config_default['changelog']['suspend_history'] = 0;
 // Systembenachrichtigungen
 $config_default['system_notifications_profile_changes']['suspend_notification'] = 0;
 
+// Voreinstellung Rollenauswahl
+$config_default['role_selection_defaults'] = array(
+    'recalculation' => array(),
+    'payments' => array(),
+    'duedates' => array(),
+    'membernumber' => array(),
+    'create_mandate_id' => array()
+);
+
 /*
  * Mittels dieser Zeichenkombination werden Konfigurationsdaten, die zur Laufzeit als Array verwaltet werden,
  * zu einem String zusammengefasst und in der Admidiodatenbank gespeichert.

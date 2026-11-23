@@ -43,11 +43,6 @@ try {
     // CSRF protection: reject the request if the token is missing or invalid
     checkCsrfToken();
 
-    $pPreferences = new ConfigTable();
-    $pPreferences->read();
-
-    $user = new User($gDb, $gProfileFields);
-
     if (isset($_GET['mode']) && $_GET['mode'] == 'assign') {
         // ajax mode then only show text if error occurs
         $gMessage->showTextOnly(true);
@@ -71,13 +66,23 @@ try {
     ));
     $getSequenceType = admFuncVariableIsValid($_GET, 'sequencetype', 'string');
 
-    // write role selection in session
+    $getRoleSelection = admFuncVariableIsValid($_GET, 'duedates_roleselection', 'array');
+    // wenn alle Einträge in einer Rollenauswahl gelöscht wurden, wird ein Array mit einem leeren Eintrag übergeben
+    // dies führt im weiteren Verlauf des Scripts zu Fehlern
+    if (is_array($getRoleSelection)) {
+        // deshalb leere Einträge löschen
+        $getRoleSelection = array_filter($getRoleSelection);
+    }
+
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
+
+    // toDo beim ersten Aufruf des Scriptes
     if (strpos($gNavigation->getUrl(), 'duedates.php') === false) {
-        $_SESSION['pMembershipFee']['duedates_rol_sel'] = array();
+        $getRoleSelection = $pPreferences->config['role_selection_defaults']['duedates'];
     }
-    if (isset($_GET['duedates_roleselection'])) {
-        $_SESSION['pMembershipFee']['duedates_rol_sel'] = array_filter($_GET['duedates_roleselection']); // array_filter: löschen leerer Einträge
-    }
+
+    $user = new User($gDb, $gProfileFields);
 
     if ($getMode == 'assign') {
         $ret_text = 'ERROR';
@@ -134,11 +139,12 @@ try {
         $userArray = array();
         $membersList = array();
 
-        if (count($_SESSION['pMembershipFee']['duedates_rol_sel']) > 0) {
+        // pruefen, ob Eintraege in der Rollenauswahl bestehen
+        if (is_array($getRoleSelection) && count($getRoleSelection) > 0) {
             // Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
             $membersListRols = array();
             $role = new Role($gDb);
-            foreach ($_SESSION['pMembershipFee']['duedates_rol_sel'] as $rol_id) {
+            foreach ($getRoleSelection as $rol_id) {
                 $role->readDataById((int) $rol_id);
                 $membersListRols[$role->getValue('rol_name')] = 0;
             }
@@ -259,7 +265,7 @@ try {
         unset($sortArray);
 
         $form->addSelectBox('duedates_roleselection', '', $selectBoxEntriesBeitragsrollen, array(
-            'defaultValue' => $_SESSION['pMembershipFee']['duedates_rol_sel'],
+            'defaultValue' => $getRoleSelection,
             'showContextDependentFirstEntry' => false,
             'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC'),
             'multiselect' => true
@@ -351,8 +357,6 @@ try {
         $page->addJavascript($javascriptCode, true);
 
         $table = new DataTables($page, 'table_duedates');
-
-        // ??????????????????????
         $table->setMessageIfNoRowsFound('SYS_NO_ENTRIES');
 
         $table->setRowsPerPage($gSettingsManager->getInt('groups_roles_members_per_page'));

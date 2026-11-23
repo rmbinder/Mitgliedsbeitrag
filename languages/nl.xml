@@ -464,6 +464,8 @@
     <string name="PLG_MEMBERSHIPFEE_ROLE_OVERVIEW_DESC">Hier staat een overzicht van alle contributierollen.</string>    
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION">Rolselectie</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_ACTIV">Momenteel zijn de volgende rollen geautoriseerd.</string>
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS">Standaardinstelling rolselectie</string> 
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS_DESC">In de hieronder vermelde modules is telkens een dropdown-lijst #VAR1_BOLD# aanwezig. Hier kan dit veld vooraf worden ingevuld met rollen.</string>     
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR">Rolscheidingsteken</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC">Teken waarmee de omschrijvingen van de contributierollen in de contributietekst worden samengevoegd. Standaard staat de omschrijving van elke contributierol in de contributietekst, gescheiden door een spatie. Met een rolscheidingsteken kunt u een willekeurige tekst als scheidingsteken gebruiken in plaats van de spatie.</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC2">SEPA XML-bestanden mogen alleen een toegestane tekenset bevatten: a - z, A - Z, 0 - 9, de speciale tekens /?:().,'+- en de spatie. Andere tekens worden vervangen.</string>

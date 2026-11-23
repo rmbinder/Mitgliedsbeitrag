@@ -44,12 +44,6 @@ try {
     // CSRF protection: reject the request if the token is missing or invalid
     checkCsrfToken();
 
-    $pPreferences = new ConfigTable();
-    $pPreferences->read();
-
-    $user = new User($gDb, $gProfileFields);
-    $userField = new Entity($gDb, TBL_USER_FIELDS, 'usf');
-
     if (isset($_GET['mode']) && ($_GET['mode'] == 'assign_date' || $_GET['mode'] == 'delete_date' || $_GET['mode'] == 'prepare')) {
         // ajax mode then only show text if error occurs
         $gMessage->showTextOnly(true);
@@ -75,15 +69,26 @@ try {
         'defaultValue' => 0
     ));
 
-    // write role selection in session
+    $getRoleSelection = admFuncVariableIsValid($_GET, 'payments_roleselection', 'array');
+    // wenn alle Einträge in einer Rollenauswahl gelöscht wurden, wird ein Array mit einem leeren Eintrag übergeben
+    // dies führt im weiteren Verlauf des Scripts zu Fehlern
+    if (is_array($getRoleSelection)) {
+        // deshalb leere Einträge löschen
+        $getRoleSelection = array_filter($getRoleSelection);
+    }
+
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
+
+    // toDo beim ersten Aufruf des Scriptes
     if (strpos($gNavigation->getUrl(), 'payments.php') === false) {
         $_SESSION['pMembershipFee']['checkedArray'] = array();
         $_SESSION['pMembershipFee']['selectAll'] = true;
-        $_SESSION['pMembershipFee']['payments_rol_sel'] = array();
+        $getRoleSelection = $pPreferences->config['role_selection_defaults']['payments'];
     }
-    if (isset($_GET['payments_roleselection'])) {
-        $_SESSION['pMembershipFee']['payments_rol_sel'] = array_filter($_GET['payments_roleselection']); // array_filter: löschen leerer Einträge
-    }
+
+    $user = new User($gDb, $gProfileFields);
+    $userField = new Entity($gDb, TBL_USER_FIELDS, 'usf');
 
     if ($getMode == 'assign_date') {
         $ret_text = 'ERROR';
@@ -191,11 +196,13 @@ try {
     } else {
         $membersList = array();
 
-        if (count($_SESSION['pMembershipFee']['payments_rol_sel']) > 0) {
+        // if (count($_SESSION['pMembershipFee']['payments_rol_sel']) > 0) {
+        // pruefen, ob Eintraege in der Rollenauswahl bestehen
+        if (is_array($getRoleSelection) && count($getRoleSelection) > 0) {
             // Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members
             $membersListRols = array();
             $role = new Role($gDb);
-            foreach ($_SESSION['pMembershipFee']['payments_rol_sel'] as $rol_id) {
+            foreach ($getRoleSelection as $rol_id) {
                 $role->readDataById((int) $rol_id);
                 $membersListRols[$role->getValue('rol_name')] = 0;
             }
@@ -303,7 +310,7 @@ try {
             unset($sortArray);
 
             $form->addSelectBox('payments_roleselection', '', $selectBoxEntriesBeitragsrollen, array(
-                'defaultValue' => $_SESSION['pMembershipFee']['payments_rol_sel'],
+                'defaultValue' => $getRoleSelection,
                 'showContextDependentFirstEntry' => false,
                 'helpTextId' => '<b>' . $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION') . '</b><br/><br/>' . $gL10n->get('PLG_MEMBERSHIPFEE_PAYMENTS_ROLLQUERY_DESC'),
                 'multiselect' => true

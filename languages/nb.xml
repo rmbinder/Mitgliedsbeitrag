@@ -461,6 +461,8 @@
     <string name="PLG_MEMBERSHIPFEE_ROLE_OVERVIEW_DESC">Her er en oversikt over alle bidragsroller.</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION">Rollevalg</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_ACTIV">For øyeblikket er følgende roller autorisert.</string>
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS">Standardinnstilling for valg av rolle</string> 
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS_DESC">I modulene som er oppført nedenfor, finnes det et nedtrekksfelt #VAR1_BOLD# i hver av dem. Her kan dette feltet forhåndsutfylles med roller.</string>     
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR">Rolleseparator</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC">Tegn som beskrivelsene av bidragsroller er koblet sammen med. Som standard er beskrivelsen av hver rolle oppført i medlemsavgiftsteksten. Med rolleseparatorer kan en hvilken som helst tekststreng defineres som en separator i stedet for et mellomrom.</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC2">SEPA XML-filer kan bare opprettes med et tillatt tegnsett. Dette tegnsettet består av tegnene: a - z, A - Z, 0 - 9, spesialtegnene /?:().,'+- og et mellomrom. Ulovlige tegn erstattes.</string>

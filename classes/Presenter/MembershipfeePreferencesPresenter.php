@@ -213,6 +213,12 @@ class MembershipfeePreferencesPresenter extends PagePresenter
                         'subcards' => false
                     ),
                     array(
+                        'id' => 'role_selection_defaults',
+                        'title' => $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS'),
+                        'icon' => 'bi-x-diamond',
+                        'subcards' => false
+                    ),
+                    array(
                         'id' => 'uninstallation',
                         'title' => $gL10n->get('PLG_MEMBERSHIPFEE_UNINSTALLATION'),
                         'icon' => 'bi-trash',
@@ -1479,6 +1485,95 @@ class MembershipfeePreferencesPresenter extends PagePresenter
         $formChangelog->addToSmarty($smarty);
         $gCurrentSession->addFormObject($formChangelog);
         return $smarty->fetch('../templates/preferences.changelog.plugin.membershipfee.tpl');
+    }
+
+    /**
+     * Generates the HTML of the form from the changelog preferences and will return the complete HTML.
+     *
+     * @return string Returns the complete HTML of the form from the changelog report preferences.
+     * @throws Exception
+     * @throws \Smarty\Exception
+     */
+    public function createRoleSelectionDefaultsForm(): string
+    {
+        global $gL10n, $gDb, $gCurrentOrgId, $gCurrentSession;
+
+        $pPreferences = new ConfigTable();
+        $pPreferences->read();
+
+        $formRoleSelectionDefaults = new FormPresenter('adm_preferences_form_role_selection_defaults', '../templates/preferences.roleselectiondefaults.plugin.membershipfee.tpl', SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/preferences.php', array(
+            'mode' => 'save',
+            'panel' => 'role_selection_defaults'
+        )), null, array(
+            'class' => 'form-preferences'
+        ));
+
+        $formRoleSelectionDefaults->addDescription('role_selection_defaults_desc', $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS_DESC', array(
+            $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_SELECTION')
+        )));
+
+        $rols = beitragsrollen_einlesen();
+        $sortArray = array();
+        $selectBoxEntriesBeitragsrollen = array();
+
+        foreach ($rols as $key => $data) {
+            $selectBoxEntriesBeitragsrollen[$key] = array(
+                $key,
+                $data['rolle'],
+                expand_rollentyp($data['rollentyp'])
+            );
+            $sortArray[$key] = expand_rollentyp($data['rollentyp']);
+        }
+        array_multisort($sortArray, SORT_ASC, $selectBoxEntriesBeitragsrollen);
+        unset($sortArray);
+
+        $formRoleSelectionDefaults->addSelectBox('recalculation_roleselection_default', $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION'), $selectBoxEntriesBeitragsrollen, array(
+            'defaultValue' => $pPreferences->config['role_selection_defaults']['recalculation'],
+            'showContextDependentFirstEntry' => false,
+            'multiselect' => true
+        ));
+
+        $formRoleSelectionDefaults->addSelectBox('payments_roleselection_default', $gL10n->get('PLG_MEMBERSHIPFEE_PAYMENTS_FIELDS'), $selectBoxEntriesBeitragsrollen, array(
+            'defaultValue' => $pPreferences->config['role_selection_defaults']['payments'],
+            'showContextDependentFirstEntry' => false,
+            'multiselect' => true
+        ));
+
+        $formRoleSelectionDefaults->addSelectBox('duedates_roleselection_default', $gL10n->get('PLG_MEMBERSHIPFEE_DUEDATE'), $selectBoxEntriesBeitragsrollen, array(
+            'defaultValue' => $pPreferences->config['role_selection_defaults']['duedates'],
+            'showContextDependentFirstEntry' => false,
+            'multiselect' => true
+        ));
+
+        $selectBoxEntriesAlleRollen = 'SELECT rol_id, rol_name, cat_name
+          						 FROM ' . TBL_ROLES . '
+    					   INNER JOIN ' . TBL_CATEGORIES . '
+                                   ON cat_id = rol_cat_id
+                                WHERE rol_valid   = true
+                                  AND (  cat_org_id  = ' . $gCurrentOrgId . '
+                                   OR cat_org_id IS NULL )
+                             ORDER BY cat_sequence, rol_name';
+
+        $formRoleSelectionDefaults->addSelectBoxFromSql('membernumber_roleselection_default', $gL10n->get('PLG_MEMBERSHIPFEE_PRODUCE_MEMBERNUMBER'), $gDb, $selectBoxEntriesAlleRollen, array(
+            'defaultValue' => $pPreferences->config['role_selection_defaults']['membernumber'],
+            'showContextDependentFirstEntry' => false,
+            'multiselect' => true
+        ));
+
+        $formRoleSelectionDefaults->addSelectBoxFromSql('create_mandate_id_roleselection_default', $gL10n->get('PLG_MEMBERSHIPFEE_CREATE_MANDATE_ID'), $gDb, $selectBoxEntriesAlleRollen, array(
+            'defaultValue' => $pPreferences->config['role_selection_defaults']['create_mandate_id'],
+            'showContextDependentFirstEntry' => false,
+            'multiselect' => true
+        ));
+        $formRoleSelectionDefaults->addSubmitButton('adm_button_save_role_selection_defaults', $gL10n->get('SYS_SAVE'), array(
+            'icon' => 'bi-check-lg',
+            'class' => 'offset-sm-3'
+        ));
+
+        $smarty = $this->getSmartyTemplate();
+        $formRoleSelectionDefaults->addToSmarty($smarty);
+        $gCurrentSession->addFormObject($formRoleSelectionDefaults);
+        return $smarty->fetch('../templates/preferences.roleselectiondefaults.plugin.membershipfee.tpl');
     }
 
     /**

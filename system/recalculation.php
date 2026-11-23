@@ -72,15 +72,6 @@ try {
         )
     ));
 
-    $tableId = 'table_' . $getMode . '_recalculation';
-
-    $pPreferences = new ConfigTable();
-    $pPreferences->read();
-
-    $user = new User($gDb, $gProfileFields);
-
-    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION');
-
     // Marker setzen, wenn ein Beitrag oder ein Beitragstext editiert wurden
     $recalc_edit = false;
     if (strpos($gNavigation->getUrl(), 'recalculation_edit.php')) {
@@ -88,10 +79,20 @@ try {
         $recalc_edit = true;
     }
 
-    // beim ersten Aufruf des Scriptes, das Session-Array initialisieren/löschen
+    $pPreferences = new ConfigTable();
+    $pPreferences->read();
+
+    // toDo beim ersten Aufruf des Scriptes
     if (strpos($gNavigation->getUrl(), 'recalculation.php') === false) {
         $_SESSION['pMembershipFee']['recalculation_user'] = array();
+        $getRoleSelection = $pPreferences->config['role_selection_defaults']['recalculation'];
     }
+
+    $tableId = 'table_' . $getMode . '_recalculation';
+
+    $user = new User($gDb, $gProfileFields);
+
+    $headline = $gL10n->get('PLG_MEMBERSHIPFEE_RECALCULATION');
 
     $gNavigation->addUrl(CURRENT_URL, $headline);
 
@@ -179,8 +180,6 @@ try {
 
         // pruefen, ob Eintraege in der Rollenauswahl bestehen
         if (is_array($getRoleSelection) && count($getRoleSelection) > 0) {
-            $_SESSION['pMembershipFee']['recalculation_rol_sel'] = $getRoleSelection;
-
             // nicht gewaehlte Beitragsrollen im Array $contributingRolls loeschen
             foreach ($contributingRolls as $rol => $roldata) {
                 if (! in_array($rol, $getRoleSelection)) {
@@ -197,7 +196,6 @@ try {
             }
         } else {
             $selectionRolls = 0;
-            unset($_SESSION['pMembershipFee']['recalculation_rol_sel']);
         }
 
         // eine Berechnung nur durchführen,

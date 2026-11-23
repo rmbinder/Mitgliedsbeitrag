@@ -461,6 +461,8 @@
     <string name="PLG_MEMBERSHIPFEE_ROLE_OVERVIEW_DESC">Here is an overview of all contribution roles.</string>    
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION">Role selection</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_ACTIV">Currently, the following roles are authorised.</string>
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS">Default roll selection</string> 
+    <string name="PLG_MEMBERSHIPFEE_ROLE_SELECTION_DEFAULTS_DESC">Each of the modules listed below contains a drop-down list box labelled #VAR1_BOLD#. This field can be pre-populated with roles.</string>    
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR">Role separator</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC">Character with which the descriptions of contribution roles are linked together. By default, the description of each role is listed in the membership fee text. With role separators, any text string can be defined as a separator instead of a space.</string>
     <string name="PLG_MEMBERSHIPFEE_ROLE_SEPARATOR_DESC2">SEPA XML files can only be created with a permitted character set. This character set consists of the characters: a - z, A - Z, 0 - 9, the special characters /?:().,'+- and a space. Illegal characters are replaced.</string>
