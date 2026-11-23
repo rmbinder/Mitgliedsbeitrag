@@ -84,7 +84,7 @@ try {
     if (strpos($gNavigation->getUrl(), 'payments.php') === false) {
         $_SESSION['pMembershipFee']['checkedArray'] = array();
         $_SESSION['pMembershipFee']['selectAll'] = true;
-        $getRoleSelection = $pPreferences->config['role_selection_defaults']['payments'];
+        $getRoleSelection = array_filter($pPreferences->config['role_selection_defaults']['payments']);
     }
 
     $user = new User($gDb, $gProfileFields);

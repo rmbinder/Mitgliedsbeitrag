@@ -64,7 +64,7 @@ try {
 
     // toDo beim ersten Aufruf des Scriptes
     if (strpos($gNavigation->getUrl(), 'create_mandate_id.php') === false) {
-        $getRoleSelection = $pPreferences->config['role_selection_defaults']['create_mandate_id'];
+        $getRoleSelection = array_filter($pPreferences->config['role_selection_defaults']['create_mandate_id']);
     }
 
     $tableId = 'table_' . $getMode . '_createmandateid';

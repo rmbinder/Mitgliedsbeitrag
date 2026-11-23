@@ -79,7 +79,7 @@ try {
 
     // toDo beim ersten Aufruf des Scriptes
     if (strpos($gNavigation->getUrl(), 'duedates.php') === false) {
-        $getRoleSelection = $pPreferences->config['role_selection_defaults']['duedates'];
+        $getRoleSelection = array_filter($pPreferences->config['role_selection_defaults']['duedates']);
     }
 
     $user = new User($gDb, $gProfileFields);

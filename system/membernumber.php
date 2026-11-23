@@ -74,7 +74,7 @@ try {
     // toDo beim ersten Aufruf des Scriptes
     if (strpos($gNavigation->getUrl(), 'membernumber.php') === false) {
         $_SESSION['pMembershipFee']['membernumber_user'] = array();
-        $getRoleSelection = $pPreferences->config['role_selection_defaults']['membernumber'];
+        $getRoleSelection = array_filter($pPreferences->config['role_selection_defaults']['membernumber']);
     }
 
     $tableId = 'table_' . $getMode . '_membernumber';

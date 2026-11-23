@@ -85,7 +85,7 @@ try {
     // toDo beim ersten Aufruf des Scriptes
     if (strpos($gNavigation->getUrl(), 'recalculation.php') === false) {
         $_SESSION['pMembershipFee']['recalculation_user'] = array();
-        $getRoleSelection = $pPreferences->config['role_selection_defaults']['recalculation'];
+        $getRoleSelection = array_filter($pPreferences->config['role_selection_defaults']['recalculation']);
     }
 
     $tableId = 'table_' . $getMode . '_recalculation';
