@@ -11,15 +11,16 @@
  *
  * Parameters:
  *
- * mode             : html        - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beitraegen
- *                    assign_date - Setzen eines Bezahlt-Datums
- *                    delete_date - Löschen eines Bezahlt-Datums
- *                    prepare     - eine einzelne Checkbox oder "Alle" wurde angeklickt 
- * usr_id           : Id des Benutzers, fuer den das Bezahlt-Datum gesetzt wird
- * datum_neu        : das neue Bezahlt-Datum
- * mem_show_choice  : 0 - (Default) Alle Benutzer anzeigen
- *                    1 - Nur Benutzer anzeigen, bei denen ein Bezahlt-Datum vorhanden ist
- *                    2 - Nur Benutzer anzeigen, bei denen kein Bezahlt-Datum vorhanden ist
+ * mode                    : html        - Standardmodus zun Anzeigen einer html-Liste aller Benutzer mit Beitraegen
+ *                           assign_date - Setzen eines Bezahlt-Datums
+ *                           delete_date - Löschen eines Bezahlt-Datums
+ *                           prepare     - eine einzelne Checkbox oder "Alle" wurde angeklickt 
+ * usr_id                  : Id des Benutzers, fuer den das Bezahlt-Datum gesetzt wird
+ * datum_neu               : das neue Bezahlt-Datum
+ * mem_show                : 0 - (Default) Alle Benutzer anzeigen
+ *                           1 - Nur Benutzer anzeigen, bei denen ein Bezahlt-Datum vorhanden ist
+ *                           2 - Nur Benutzer anzeigen, bei denen kein Bezahlt-Datum vorhanden ist
+ * payments_roleselection  : Array mit den gewählten Rollen (der Rollenauswahl) 
  ***********************************************************************************************
  */
 use Admidio\Infrastructure\Exception;
@@ -65,7 +66,7 @@ try {
     ));
     $getDatumNeu = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
     $getChecked = admFuncVariableIsValid($_GET, 'checked', 'string');
-    $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array(
+    $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show', 'numeric', array(
         'defaultValue' => 0
     ));
 
@@ -353,8 +354,10 @@ try {
                         return false;
                     }
                     else if(data == "success") {
-                        var mem_show = $("#mem_show").val();
-                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php') . '?mem_show_choice=" + mem_show);
+                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php', array(
+                'payments_roleselection' => $getRoleSelection,
+                'mem_show' => $getMembersShow
+            )) . '");
                     }
                     else {
                         alert(data);
@@ -376,8 +379,10 @@ try {
                         return false;
                     }
                     else if(data == "success") {
-                        var mem_show = $("#mem_show").val();
-                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php') . '?mem_show_choice=" + mem_show);
+                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php', array(
+                'payments_roleselection' => $getRoleSelection,
+                'mem_show' => $getMembersShow
+            )) . '");
                     }
                     else {
                         alert(data);
@@ -392,11 +397,14 @@ try {
             var mem_show = $("#mem_show").val();
             $.post("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php', array(
                 'mode' => 'prepare'
-            )) . '&mem_show_choice=" + mem_show,
+            )) . '&mem_show=" + mem_show,
                 function(data){
                     // check if error occurs
                     if(data == "success") {
-                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php') . '?mem_show_choice=" + mem_show);
+                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php', array(
+                'payments_roleselection' => $getRoleSelection,
+                'mem_show' => $getMembersShow
+            )) . '");
                     }
                     else {
                         alert(data);
@@ -412,7 +420,9 @@ try {
         // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php') . '?mem_show_choice="+$(this).val());
+                window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/payments.php', array(
+                'payments_roleselection' => $getRoleSelection
+            )) . '&mem_show="+$(this).val());
             }
         });
                                   
@@ -540,9 +550,7 @@ try {
             $smarty->assign('headers', $data['headers']);
             $smarty->assign('rows', $data['rows']);
 
-            // Fetch the HTML table from our Smarty template
             $htmlTable = $smarty->fetch('../templates/payments.plugin.membershipfee.tpl');
-            // add table list to the page
             $page->addHtml($htmlTable);
 
             $page->show();

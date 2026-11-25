@@ -15,7 +15,7 @@
  *                         assign - Setzen eines Faelligkeitsdatum
  * usr_id                  : Id des Benutzers, fuer den das Faelligkeitsdatum gesetzt/geloescht wird
  * datum_neu               : das neue Faelligkeitsdatum
- * mem_show_choice         : 0 - (Default) Alle Benutzer anzeigen
+ * mem_show                : 0 - (Default) Alle Benutzer anzeigen
  *                         1 - Nur Benutzer anzeigen, bei denen ein Faelligkeitsdatum vorhanden ist
  *                         2 - Nur Benutzer anzeigen, bei denen kein Faelligkeitsdatum vorhanden ist
  * sequencetype            : Sequenztyp, der gleichzeitig mit dem Faelligkeitsdatum gesetzt wird (FRST, RCUR, FNAL oder OOFF)
@@ -61,7 +61,7 @@ try {
         'directOutput' => true
     ));
     $getDatumNeu = admFuncVariableIsValid($_GET, 'datum_neu', 'date');
-    $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show_choice', 'numeric', array(
+    $getMembersShow = admFuncVariableIsValid($_GET, 'mem_show', 'numeric', array(
         'defaultValue' => 0
     ));
     $getSequenceType = admFuncVariableIsValid($_GET, 'sequencetype', 'string');
@@ -279,7 +279,9 @@ try {
         // Anzeige abhaengig vom gewaehlten Filter
         $("#mem_show").change(function () {
             if($(this).val().length > 0) {
-                window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/duedates.php') . '?mem_show_choice=" + $(this).val());
+                window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/duedates.php', array(
+            'duedates_roleselection' => $getRoleSelection
+        )) . '&mem_show=" + $(this).val());
             }
         });
 
@@ -293,8 +295,10 @@ try {
                 function(data){
                     // check if error occurs
                     if(data == "success") {
-                        var mem_show = $("#mem_show").val();
-                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/duedates.php') . '?mem_show_choice=" + mem_show);
+                        window.location.replace("' . SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/duedates.php', array(
+            'duedates_roleselection' => $getRoleSelection,
+            'mem_show' => $getMembersShow
+        )) . '");
                     }
                     else {
                         alert(data);

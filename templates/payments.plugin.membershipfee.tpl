@@ -4,14 +4,19 @@
     
     <div class="table-responsive">
         <table id="table_payments" class="{$classTable}" style="max-width: 100%;">
+        
             <thead>
                 <tr>
-                    {foreach $headers as $key => $header}
-                       <th style="text-align:{$columnAlign[$key]}">{$header}</th>
-                    {/foreach}
+                    {if count($headers) eq 1}
+                        <th>&nbsp;</th>
+                    {else}
+                        {foreach $headers as $key => $header}
+                        <th style="text-align:{$columnAlign[$key]}">{$header}</th>
+                        {/foreach}
+                    {/if}   
                 </tr>
             </thead>
-            
+           
             <tbody>          
                 {if count($rows) eq 0}
                     <tr>
