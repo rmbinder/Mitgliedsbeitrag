@@ -10,6 +10,7 @@
  */
 use Admidio\Infrastructure\Exception;
 use Admidio\Infrastructure\Utils\SecurityUtils;
+use Admidio\UI\Component\DataTables;
 use Admidio\UI\Presenter\PagePresenter;
 use Plugins\MembershipFee\classes\Config\ConfigTable;
 
@@ -31,20 +32,6 @@ try {
 
     $page = PagePresenter::withHtmlIDAndHeadline('plg-membership-fee-main');
     $page->setHeadline($headline);
-
-    $beitrag = analyse_mem();
-    $page->addHtml('<table class="table table-condensed">
-        <tr>
-            <td style="text-align: left;">' . $gL10n->get('PLG_MEMBERSHIPFEE_TOTAL') . ':</td>
-            <td style="text-align: left;">' . ($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . ($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) . ')</td>
-        
-            <td style="text-align: center;">' . $gL10n->get('PLG_MEMBERSHIPFEE_ALREADY_PAID') . ':</td>
-            <td style="text-align: center;">' . ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl']) . ')</td>
-        
-            <td style="text-align: right;">' . $gL10n->get('PLG_MEMBERSHIPFEE_PENDING') . ':</td>
-            <td style="text-align: right;">' . (($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) - ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech'])) . ' ' . $gSettingsManager->getString('system_currency') . '&#160;&#160;&#160;(#' . (($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) - ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl'])) . ')</td>
-        </tr>
-    </table>');
 
     $page->addPageFunctionsMenuItem('menu_fees', $gL10n->get('PLG_MEMBERSHIPFEE_FEES'), '#', 'bi-wallet');
     $page->addPageFunctionsMenuItem('menu_item_remapping', $gL10n->get('PLG_MEMBERSHIPFEE_REMAPPING'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/remapping.php'), 'bi-shuffle', 'menu_fees');
@@ -71,6 +58,7 @@ try {
     $page->addPageFunctionsMenuItem('menu_item_copy', $gL10n->get('PLG_MEMBERSHIPFEE_COPY'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/copy.php'), 'bi-copy', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_tests', $gL10n->get('PLG_MEMBERSHIPFEE_TESTS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/tests.php'), 'bi-heart-pulse', 'menu_extras');
     $page->addPageFunctionsMenuItem('menu_item_roleoverview', $gL10n->get('PLG_MEMBERSHIPFEE_ROLE_OVERVIEW'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/roleoverview.php'), 'bi-list-columns-reverse', 'menu_extras');
+
     if (isUserAuthorizedForPreferences()) {
         $page->addPageFunctionsMenuItem('menu_item_preferences', $gL10n->get('SYS_SETTINGS'), SecurityUtils::encodeUrl(ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/preferences.php'), 'bi-gear-fill', 'menu_extras');
     }
@@ -92,6 +80,72 @@ try {
 
     $page->addJavascript($javascriptCode, true);
     $page->addPageFunctionsMenuItem('menu_item_about', $gL10n->get('PLG_MEMBERSHIPFEE_ABOUT') . ' ' . $gL10n->get('PLG_MEMBERSHIPFEE_MEMBERSHIP_FEE'), ADMIDIO_URL . FOLDER_PLUGINS . PLUGIN_FOLDER . '/system/about_membership_fee.php', 'bi-info-circle', 'menu_help');
+
+    $beitrag = analyse_mem();
+
+    $table = new DataTables($page, 'table_membership_fee');
+
+    // data array
+    $data = array(
+
+        'rows' => array(),
+        'column_align' => array()
+    );
+
+    $data['column_align'] = array(
+
+        'center',
+        'center',
+        'center'
+    );
+
+    $listRowNumber = 0;
+
+    $columnValues = array();
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_TOTAL');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_ALREADY_PAID');
+    $columnValues[] = $gL10n->get('PLG_MEMBERSHIPFEE_PENDING');
+    $data['rows'][] = array(
+        'id' => 'row-' . ++ $listRowNumber,
+        'data' => $columnValues
+    );
+
+    $columnValues = array();
+    $columnValues[] = ($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&nbsp;&nbsp;&nbsp;(#' . ($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) . ')';
+    $columnValues[] = ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech']) . ' ' . $gSettingsManager->getString('system_currency') . '&nbsp;&nbsp;&nbsp;(#' . ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl']) . ')';
+    $columnValues[] = (($beitrag['BEITRAG_kto'] + $beitrag['BEITRAG_rech']) - ($beitrag['BEZAHLT_kto'] + $beitrag['BEZAHLT_rech'])) . ' ' . $gSettingsManager->getString('system_currency') . '&nbsp;&nbsp;&nbsp;(#' . (($beitrag['BEITRAG_kto_anzahl'] + $beitrag['BEITRAG_rech_anzahl']) - ($beitrag['BEZAHLT_kto_anzahl'] + $beitrag['BEZAHLT_rech_anzahl'])) . ')';
+    $data['rows'][] = array(
+        'id' => 'row-' . ++ $listRowNumber,
+        'data' => $columnValues
+    );
+
+    // Zusätzliche Zeilen anfügen
+    // $columnValues = array();
+    // $columnValues[] = '&nbsp;';
+    // $columnValues[] = '&nbsp;';
+    // $columnValues[] = '&nbsp;';
+    // $data['rows'][] = array(
+    // 'id' => 'row-' . ++ $listRowNumber,
+    // 'data' => $columnValues
+    // );
+
+    // $columnValues = array();
+    // $columnValues[] = 'Hello';
+    // $columnValues[] = 'new';
+    // $columnValues[] = 'line';
+    // $data['rows'][] = array(
+    // 'id' => 'row-' . ++ $listRowNumber,
+    // 'data' => $columnValues
+    // );
+
+    $table->setColumnAlignByArray($data['column_align']);
+    $smarty = $page->createSmartyObject();
+    $smarty->assign('classTable', 'table table-condensed table-hover');
+    $smarty->assign('columnAlign', $data['column_align']);
+    $smarty->assign('rows', $data['rows']);
+
+    $htmlTable = $smarty->fetch('../templates/membershipfee.plugin.membershipfee.tpl');
+    $page->addHtml($htmlTable);
 
     $page->show();
 } catch (Exception $e) {
