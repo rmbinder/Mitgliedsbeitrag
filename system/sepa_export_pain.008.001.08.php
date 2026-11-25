@@ -35,7 +35,6 @@ try {
     // CSRF protection: reject the request if the token is missing or invalid
     checkCsrfToken();
 
-    // Konfiguration einlesen
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 
@@ -361,19 +360,6 @@ try {
                             $drctDbtTxInf->DrctDbtTx->MndtRltdInf->AmdmntInfDtls->OrgnlDbtrAcct->Id->addChild('Othr');
                             $drctDbtTxInf->DrctDbtTx->MndtRltdInf->AmdmntInfDtls->OrgnlDbtrAcct->Id->Othr->addChild('Id', 'SMNDA');
                         }
-
-                        /*
-                         * if(strlen($zpflgtdata['orig_dbtr_agent']) !== 0) //Kennzeichnet, ob das Mandat veraendert wurde,
-                         * {
-                         * $xmlfile .= "<OrgnlDbtrAgt>\n";
-                         * $xmlfile .= "<FinInstnId>\n";
-                         * $xmlfile .= "<Othr>\n";
-                         * $xmlfile .= '<Id>'.$zpflgtdata['orig_dbtr_agent']."</Id>\n";
-                         * $xmlfile .= "</Othr>\n";
-                         * $xmlfile .= "</FinInstnId>\n";
-                         * $xmlfile .= "</OrgnlDbtrAgt>\n";
-                         * }
-                         */
                     } else {
 
                         $drctDbtTxInf->DrctDbtTx->MndtRltdInf->addChild('AmdmntInd', 'false'); // AmendmentIndicator "false"

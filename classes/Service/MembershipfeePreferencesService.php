@@ -58,7 +58,6 @@ class MembershipfeePreferencesService
                 $pPreferences->config['Beitrag']['beitrag_textmitfam'] = isset($formData['beitrag_textmitfam']) ? 1 : 0;
                 $pPreferences->config['Beitrag']['beitrag_text_token'] = $formData['beitrag_text_token'];
                 $pPreferences->config['Beitrag']['beitrag_role_separator'] = replace_sepadaten($formData['beitrag_role_separator']);
-                // $_POST übergibt keine führenden und nachfolgenden Leerzeichen, $_REQUEST schon
                 break;
 
             case 'tests_setup':

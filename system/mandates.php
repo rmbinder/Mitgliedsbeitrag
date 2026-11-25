@@ -116,7 +116,7 @@ try {
         $userArray = array();
         $membersList = array();
 
-        $membersListFields = array_filter($pPreferences->config['columnconfig']['mandates_fields']); // array_filter: l�schen leerer Eintr�ge, falls das Setup fehlgeschlagen ist
+        $membersListFields = array_filter($pPreferences->config['columnconfig']['mandates_fields']); // array_filter: löschen leerer Einträge, falls das Setup fehlgeschlagen ist
 
         $membersListSqlCondition = 'AND mem_usr_id IN (SELECT DISTINCT usr_id
         FROM ' . TBL_USERS . '
@@ -369,10 +369,9 @@ try {
         $smarty->assign('headers', $data['headers']);
         $smarty->assign('rows', $data['rows']);
 
-        // Fetch the HTML table from our Smarty template
         $htmlTable = $smarty->fetch('../templates/mandates.plugin.membershipfee.tpl');
-
         $page->addHtml($htmlTable);
+
         $page->show();
     }
 } catch (Exception $e) {

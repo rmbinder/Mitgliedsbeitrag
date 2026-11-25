@@ -197,7 +197,6 @@ try {
     } else {
         $membersList = array();
 
-        // if (count($_SESSION['pMembershipFee']['payments_rol_sel']) > 0) {
         // pruefen, ob Eintraege in der Rollenauswahl bestehen
         if (is_array($getRoleSelection) && count($getRoleSelection) > 0) {
             // Rollenwahl ist vorhanden, deshalb Daten aufbereiten fuer list_members

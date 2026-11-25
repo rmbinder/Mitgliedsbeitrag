@@ -208,7 +208,6 @@ try {
 
     if ($getMode === 'start' || $getMode === 'anlegen') // Default: start
     {
-
         $page = PagePresenter::withHtmlIDAndHeadline('plg-membershipfee-installation');
 
         $page->setContentFullWidth();

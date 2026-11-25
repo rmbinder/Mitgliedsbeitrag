@@ -35,7 +35,6 @@ try {
     // CSRF protection: reject the request if the token is missing or invalid
     checkCsrfToken();
 
-    // Konfiguration einlesen
     $pPreferences = new ConfigTable();
     $pPreferences->read();
 

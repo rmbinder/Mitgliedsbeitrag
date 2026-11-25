@@ -105,7 +105,6 @@ try {
     $smarty->assign('rows', $data['rows']);
 
     $htmlTable = $smarty->fetch('../templates/roleoverview.plugin.membershipfee.tpl');
-    // add table list to the page
     $page->addHtml($htmlTable);
 
     $page->show();
